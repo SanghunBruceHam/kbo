@@ -287,62 +287,42 @@ const kboTeams = {
             },
             
             // 5위까지 플레이오프 진출을 위한 매직넘버 계산
-            // 최대가능 승수 기준으로 6위팀의 최대 가능 승수보다 1승 더 필요
+            // 잔여경기에서 최소 몇승을 해야 5위 팀 승률을 넘을 수 있는지 계산하는 매직넘버
             calculatePlayoffMagicNumber(team, standings) {
                 try {
-                    // 현재 순위 5위까지는 플레이오프 진출
-                    if (team.rank <= 5) {
-                        // 이미 5위 이내면 남은 경기를 모두 져도 플레이오프 진출 가능한지 확인
-                        const remainingGames = 144 - team.games; // KBO 정규시즌 총 144경기
-                        const currentWins = team.wins;
+                    // 1. 모든 팀이 잔여경기 전승했을 때의 최종 승률 계산
+                    const teamsWithFinalWinRate = standings.map(t => {
+                        const remainingGames = 144 - t.games;
+                        const finalWins = t.wins + remainingGames;
+                        const finalLosses = t.losses; // 잔여경기를 모두 이기므로 패수는 그대로
+                        const finalWinRate = finalWins / (finalWins + finalLosses);
                         
-                        // 6위팀의 최대 가능 승률 계산 (승률 기준, 무승부 제외)
-                        let sixthPlaceMaxWinRate = 0;
-                        for (let i = 5; i < standings.length; i++) { // 6위부터 확인
-                            const competitor = standings[i];
-                            const competitorRemaining = 144 - competitor.games;
-                            const competitorMaxWins = competitor.wins + competitorRemaining;
-                            const competitorMaxLosses = competitor.losses; // 전승하므로 패수는 그대로 (무승부 제외)
-                            const competitorMaxWinRate = competitorMaxWins / (competitorMaxWins + competitorMaxLosses);
-                            sixthPlaceMaxWinRate = Math.max(sixthPlaceMaxWinRate, competitorMaxWinRate);
+                        return {
+                            team: t.team,
+                            finalWinRate: finalWinRate
+                        };
+                    });
+                    
+                    // 2. 최종 승률로 정렬해서 5위 팀 승률 찾기
+                    teamsWithFinalWinRate.sort((a, b) => b.finalWinRate - a.finalWinRate);
+                    const fifthPlaceWinRate = teamsWithFinalWinRate[4].finalWinRate;
+                    
+                    // 3. 현재 팀이 잔여경기에서 최소 몇승을 해야 5위 팀 승률을 넘는지 계산
+                    const remainingGames = 144 - team.games;
+                    
+                    for (let winsFromRemaining = 0; winsFromRemaining <= remainingGames; winsFromRemaining++) {
+                        const lossesFromRemaining = remainingGames - winsFromRemaining;
+                        const finalWins = team.wins + winsFromRemaining;
+                        const finalLosses = team.losses + lossesFromRemaining;
+                        const finalWinRate = finalWins / (finalWins + finalLosses);
+                        
+                        if (finalWinRate >= fifthPlaceWinRate) {
+                            return winsFromRemaining;
                         }
-                        
-                        // 6위팀의 최대 승률을 넘기 위해 필요한 최소 승수 계산
-                        // (현재승수 + x) / (현재승수 + x + 현재패수) > 6위팀최대승률
-                        // 이진 탐색으로 최소 승수 찾기
-                        let neededWins = currentWins;
-                        const currentLosses = team.losses;
-                        
-                        for (let additionalWins = 0; additionalWins <= remainingGames; additionalWins++) {
-                            const totalWins = currentWins + additionalWins;
-                            const myWinRate = totalWins / (totalWins + currentLosses);
-                            
-                            if (myWinRate > sixthPlaceMaxWinRate) {
-                                neededWins = totalWins;
-                                break;
-                            }
-                        }
-                        
-                        const magicNumber = Math.max(0, neededWins - currentWins);
-                        
-                        return magicNumber;
-                    } else {
-                        // 6위 이하팀: 5위팀을 추월하기 위한 매직넘버
-                        const fifthPlaceTeam = standings.find(t => t.rank === 5);
-                        if (!fifthPlaceTeam) return 999; // 5위팀이 없으면 불가능
-                        
-                        const remainingGames = 144 - team.games;
-                        const maxPossibleWins = team.wins + remainingGames;
-                        
-                        // 5위팀의 현재 승수보다 많이 이겨야 함
-                        const neededWins = fifthPlaceTeam.wins + 1;
-                        
-                        if (maxPossibleWins < neededWins) {
-                            return 999; // 수학적으로 불가능
-                        }
-                        
-                        return Math.max(0, neededWins - team.wins);
                     }
+                    
+                    // 모든 경기를 이겨도 5위 팀 승률에 도달하지 못하면 자력불가
+                    return remainingGames + 1;
                 } catch (error) {
                     logger.error('플레이오프 매직넘버 계산 중 오류:', error);
                     return Math.max(0, 72 - team.wins); // 폴백으로 기존 로직 사용
@@ -1694,6 +1674,8 @@ const kboTeams = {
         }
 
         
+        // 🏟️ 플레이오프 진출 조건 테이블 렌더링 함수
+        // HTML의 #playoff-table에 데이터를 표시하는 함수
         function renderPlayoffCondition() {
             try {
                 const tbody = document.querySelector('#playoff-table tbody');
@@ -1730,49 +1712,25 @@ const kboTeams = {
                 // 최대가능승수 기준 5위 팀의 최대가능승수가 "최종 5위 예상 승수"
                 const fifthPlaceMaxWins = teamsWithMaxWins[4] ? teamsWithMaxWins[4].maxPossibleWins : 72;
                 
-                // 산술적 PO 매직넘버 계산: 10개팀 최대승률 기준 5위 팀의 승률을 넘기 위한 승수
-                let poMagicNumber = 0;
-                let maxWinsMagicDisplay = '';
+                // Utils.calculatePlayoffMagicNumber 사용하여 통일된 로직 적용
+                const poMagicNumber = Utils.calculatePlayoffMagicNumber(team, currentStandings);
                 
-                if (currentStandings.length < 5) {
+                // 탈락 여부 먼저 확인 (현재 5위 팀 승률 vs 내 최대 가능 승률)
+                const currentFifthPlace = currentStandings.find(t => t.rank === 5) || currentStandings.find(t => t.rank === 4);
+                const currentFifthWinRate = currentFifthPlace ? currentFifthPlace.wins / (currentFifthPlace.wins + currentFifthPlace.losses) : 0;
+                const myMaxWinRate = maxPossibleWins / (maxPossibleWins + team.losses);
+                
+                // 표시 형식 결정
+                let maxWinsMagicDisplay = '';
+                if (currentFifthWinRate > myMaxWinRate) {
+                    // 현재 5위 팀 승률보다 내 최대 가능 승률이 낮으면 탈락
+                    maxWinsMagicDisplay = '<span style="color: #95a5a6;">탈락</span>';
+                } else if (poMagicNumber === 0) {
                     maxWinsMagicDisplay = '0';
+                } else if (poMagicNumber > remainingGames) {
+                    maxWinsMagicDisplay = `<span style="color: #c0392b;">자력 불가</span> (${poMagicNumber})`;
                 } else {
-                    // 1. 10개팀 모두의 최대가능 승률 계산
-                    const teamsWithMaxWinRate = currentStandings.map(t => {
-                        const maxWins = t.wins + (144 - t.games);
-                        const totalGames = maxWins + t.losses + (t.draws || 0);
-                        const maxWinRate = maxWins / totalGames;
-                        return {
-                            team: t.team,
-                            maxWinRate: maxWinRate
-                        };
-                    });
-                    
-                    // 2. 최대승률 기준으로 정렬하여 5위 찾기
-                    teamsWithMaxWinRate.sort((a, b) => b.maxWinRate - a.maxWinRate);
-                    const fifthPlaceMaxWinRate = teamsWithMaxWinRate[4].maxWinRate;
-                    
-                    // 3. 현재 팀이 그 승률을 넘기 위해 필요한 승수 계산
-                    const currentLosses = team.losses;
-                    const currentDraws = team.draws || 0;
-                    const finalTotalGames = team.wins + currentLosses + currentDraws + remainingGames;
-                    
-                    // 5위 승률을 넘기 위한 최소 승수
-                    const targetWinRate = fifthPlaceMaxWinRate + 0.0001;
-                    const neededWins = Math.ceil(targetWinRate * finalTotalGames);
-                    poMagicNumber = Math.max(0, neededWins - team.wins);
-                    
-                    // 4. 표시 형식 결정 (5위 팀은 자력불가 표시 제외)
-                    const currentTeamMaxWinRate = teamsWithMaxWinRate.find(t => t.team === team.team)?.maxWinRate || 0;
-                    const isFifthPlaceTeam = Math.abs(currentTeamMaxWinRate - fifthPlaceMaxWinRate) < 0.0001;
-                    
-                    if (poMagicNumber === 0) {
-                        maxWinsMagicDisplay = '0';
-                    } else if (poMagicNumber > remainingGames && !isFifthPlaceTeam) {
-                        maxWinsMagicDisplay = `<span style="color: #c0392b;">자력 불가</span> (${poMagicNumber})`;
-                    } else {
-                        maxWinsMagicDisplay = poMagicNumber;
-                    }
+                    maxWinsMagicDisplay = poMagicNumber;
                 }
                 
                 // PO 트래직넘버 계산: 나의 최대가능승수 - 5위팀의 현재승수 (승수 차이)
