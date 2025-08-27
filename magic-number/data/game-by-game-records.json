@@ -1170,11 +1170,21 @@
         "result": "L",
         "runs_scored": 5,
         "runs_allowed": 9
+      },
+      {
+        "gameNumber": 118,
+        "date": "2025-08-27",
+        "opponent": "SSG",
+        "isHome": false,
+        "score": "4:2",
+        "result": "W",
+        "runs_scored": 4,
+        "runs_allowed": 2
       }
     ],
     "currentStreak": {
-      "type": "L",
-      "count": 6
+      "type": "W",
+      "count": 1
     },
     "longestWinStreak": 5,
     "longestLoseStreak": 7,
@@ -1402,6 +1412,10 @@
       {
         "type": "W",
         "count": 1
+      },
+      {
+        "type": "L",
+        "count": 6
       }
     ]
   },
@@ -6928,10 +6942,20 @@
         "result": "W",
         "runs_scored": 9,
         "runs_allowed": 5
+      },
+      {
+        "gameNumber": 119,
+        "date": "2025-08-27",
+        "opponent": "KIA",
+        "isHome": true,
+        "score": "2:4",
+        "result": "L",
+        "runs_scored": 2,
+        "runs_allowed": 4
       }
     ],
     "currentStreak": {
-      "type": "W",
+      "type": "L",
       "count": 1
     },
     "longestWinStreak": 4,
@@ -7180,6 +7204,10 @@
       {
         "type": "L",
         "count": 2
+      },
+      {
+        "type": "W",
+        "count": 1
       }
     ]
   },
