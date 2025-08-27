@@ -7206,14 +7206,16 @@
                 
                 // 최대 가능 순위 (가장 좋은 순위, 숫자가 작음) - 전승했을 때
                 let maxRank = 1;
+                const myMaxLosses = team.losses; // 내 전승시 패수는 그대로
+                const myMaxWinRate = maxPossibleWins / (maxPossibleWins + myMaxLosses); // 내 최고 승률 (무승부 제외)
+                
                 dashboardData.standings.forEach(otherTeam => {
                     if (otherTeam.team_name === team.team_name) return;
                     const otherMinWins = otherTeam.wins; // 상대팀 전패시
                     const otherMinLosses = otherTeam.losses + (144 - otherTeam.games_played); // 상대팀 전패시 패수
                     const otherMinWinRate = otherMinWins / (otherMinWins + otherMinLosses); // 상대팀 최저 승률 (무승부 제외)
-                    const myMaxLosses = team.losses; // 내 전승시 패수는 그대로
-                    const myMaxWinRate = maxPossibleWins / (maxPossibleWins + myMaxLosses); // 내 최고 승률 (무승부 제외)
                     
+                    // 상대팀이 확실히 나보다 위에 있을 경우에만 순위 증가
                     if (myMaxWinRate < otherMinWinRate) {
                         maxRank++;
                     }
@@ -7221,14 +7223,16 @@
                 
                 // 최소 가능 순위 (가장 나쁜 순위, 숫자가 큼) - 전패했을 때
                 let minRank = 1;
+                const myMinLosses = team.losses + (144 - team.games_played); // 내 전패시 패수
+                const myMinWinRate = minPossibleWins / (minPossibleWins + myMinLosses); // 내 최저 승률 (무승부 제외)
+                
                 dashboardData.standings.forEach(otherTeam => {
                     if (otherTeam.team_name === team.team_name) return;
                     const otherMaxWins = otherTeam.wins + (144 - otherTeam.games_played); // 상대팀 전승시
                     const otherMaxLosses = otherTeam.losses; // 상대팀 전승시 패수는 그대로
                     const otherMaxWinRate = otherMaxWins / (otherMaxWins + otherMaxLosses); // 상대팀 최고 승률 (무승부 제외)
-                    const myMinLosses = team.losses + (144 - team.games_played); // 내 전패시 패수
-                    const myMinWinRate = minPossibleWins / (minPossibleWins + myMinLosses); // 내 최저 승률 (무승부 제외)
                     
+                    // 상대팀이 확실히 나보다 위에 있을 경우에만 순위 증가 (동률일 때는 증가하지 않음)
                     if (myMinWinRate < otherMaxWinRate) {
                         minRank++;
                     }
