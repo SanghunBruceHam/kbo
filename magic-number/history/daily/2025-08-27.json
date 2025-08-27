@@ -1,6 +1,6 @@
 {
   "date": "2025-08-27",
-  "createdAt": "2025-08-27T13:44:49.408Z",
+  "createdAt": "2025-08-27T13:52:36.017Z",
   "snapshot": {
     "standings": [
       {
@@ -225,7 +225,7 @@
         "currentRank": 1
       },
       "한화": {
-        "playoff": 3,
+        "playoff": 4,
         "championship": 24,
         "elimination": 21,
         "homeAdvantage": 16,
@@ -234,7 +234,7 @@
         "currentRank": 2
       },
       "SSG": {
-        "playoff": 13,
+        "playoff": 0,
         "championship": 25,
         "elimination": 12,
         "homeAdvantage": 11,
@@ -243,7 +243,7 @@
         "currentRank": 3
       },
       "롯데": {
-        "playoff": 12,
+        "playoff": 0,
         "championship": 21,
         "elimination": 9,
         "homeAdvantage": 10,
@@ -252,7 +252,7 @@
         "currentRank": 4
       },
       "KT": {
-        "playoff": 12,
+        "playoff": 0,
         "championship": 22,
         "elimination": 10,
         "homeAdvantage": 10,
@@ -261,7 +261,7 @@
         "currentRank": 4
       },
       "삼성": {
-        "playoff": 12,
+        "playoff": 0,
         "championship": 23,
         "elimination": 11,
         "homeAdvantage": 10,
@@ -270,7 +270,7 @@
         "currentRank": 6
       },
       "NC": {
-        "playoff": 17,
+        "playoff": 0,
         "championship": 28,
         "elimination": 11,
         "homeAdvantage": 15,
@@ -279,7 +279,7 @@
         "currentRank": 7
       },
       "KIA": {
-        "playoff": 17,
+        "playoff": 0,
         "championship": 26,
         "elimination": 9,
         "homeAdvantage": 15,
@@ -288,7 +288,7 @@
         "currentRank": 8
       },
       "두산": {
-        "playoff": 20,
+        "playoff": 0,
         "championship": 23,
         "elimination": 3,
         "homeAdvantage": 18,
@@ -297,7 +297,7 @@
         "currentRank": 9
       },
       "키움": {
-        "playoff": 999,
+        "playoff": 0,
         "championship": 21,
         "elimination": 0,
         "homeAdvantage": 999,
@@ -345,13 +345,6 @@
         },
         {
           "team": "한화",
-          "type": "playoff",
-          "from": 4,
-          "to": 3,
-          "change": -1
-        },
-        {
-          "team": "한화",
           "type": "championship",
           "from": 25,
           "to": 24,
@@ -359,10 +352,24 @@
         },
         {
           "team": "SSG",
+          "type": "playoff",
+          "from": 13,
+          "to": 0,
+          "change": -13
+        },
+        {
+          "team": "SSG",
           "type": "championship",
           "from": 26,
           "to": 25,
           "change": -1
+        },
+        {
+          "team": "롯데",
+          "type": "playoff",
+          "from": 12,
+          "to": 0,
+          "change": -12
         },
         {
           "team": "롯데",
@@ -375,8 +382,8 @@
           "team": "KT",
           "type": "playoff",
           "from": 13,
-          "to": 12,
-          "change": -1
+          "to": 0,
+          "change": -13
         },
         {
           "team": "KT",
@@ -389,8 +396,8 @@
           "team": "삼성",
           "type": "playoff",
           "from": 13,
-          "to": 12,
-          "change": -1
+          "to": 0,
+          "change": -13
         },
         {
           "team": "삼성",
@@ -398,6 +405,13 @@
           "from": 24,
           "to": 23,
           "change": -1
+        },
+        {
+          "team": "NC",
+          "type": "playoff",
+          "from": 17,
+          "to": 0,
+          "change": -17
         },
         {
           "team": "NC",
@@ -410,8 +424,8 @@
           "team": "KIA",
           "type": "playoff",
           "from": 18,
-          "to": 17,
-          "change": -1
+          "to": 0,
+          "change": -18
         },
         {
           "team": "KIA",
@@ -422,10 +436,24 @@
         },
         {
           "team": "두산",
+          "type": "playoff",
+          "from": 20,
+          "to": 0,
+          "change": -20
+        },
+        {
+          "team": "두산",
           "type": "championship",
           "from": 24,
           "to": 23,
           "change": -1
+        },
+        {
+          "team": "키움",
+          "type": "playoff",
+          "from": 999,
+          "to": 0,
+          "change": -999
         },
         {
           "team": "키움",
@@ -438,7 +466,7 @@
     },
     "metadata": {
       "source": "CLEAN_TXT_AUTOMATION",
-      "lastUpdated": "2025-08-27T13:44:45.273Z",
+      "lastUpdated": "2025-08-27T13:52:31.951Z",
       "totalTeams": 10
     }
   }
