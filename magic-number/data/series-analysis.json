@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-08-27T11:35:12.742Z",
+  "lastUpdated": "2025-08-27T12:22:30.992Z",
   "updateDate": "2025. 8. 27.",
   "teamStats": {
     "LG": {
@@ -4245,20 +4245,30 @@
               "result": "W",
               "runs_scored": 3,
               "runs_allowed": 1
+            },
+            {
+              "gameNumber": 120,
+              "date": "2025-08-27",
+              "opponent": "키움",
+              "isHome": false,
+              "score": "3:1",
+              "result": "W",
+              "runs_scored": 3,
+              "runs_allowed": 1
             }
           ],
           "startDate": "2025-08-26",
-          "lastDate": "2025-08-26",
-          "wins": 1,
+          "lastDate": "2025-08-27",
+          "wins": 2,
           "losses": 0,
           "draws": 0,
           "homeGames": 0,
-          "awayGames": 1,
+          "awayGames": 2,
           "result": "WIN",
           "isSweep": false,
           "isWinningSweep": false,
           "isLosingSweep": false,
-          "totalGames": 1,
+          "totalGames": 2,
           "seriesType": "AWAY",
           "seriesNumber": 44
         }
@@ -4267,7 +4277,7 @@
         "type": "WIN",
         "count": 2,
         "startDate": "2025-08-22",
-        "endDate": "2025-08-26"
+        "endDate": "2025-08-27"
       },
       "longestWinningStreak": {
         "count": 9,
@@ -21563,20 +21573,30 @@
               "result": "L",
               "runs_scored": 1,
               "runs_allowed": 3
+            },
+            {
+              "gameNumber": 123,
+              "date": "2025-08-27",
+              "opponent": "한화",
+              "isHome": true,
+              "score": "1:3",
+              "result": "L",
+              "runs_scored": 1,
+              "runs_allowed": 3
             }
           ],
           "startDate": "2025-08-26",
-          "lastDate": "2025-08-26",
+          "lastDate": "2025-08-27",
           "wins": 0,
-          "losses": 1,
+          "losses": 2,
           "draws": 0,
-          "homeGames": 1,
+          "homeGames": 2,
           "awayGames": 0,
           "result": "LOSS",
           "isSweep": false,
           "isWinningSweep": false,
           "isLosingSweep": false,
-          "totalGames": 1,
+          "totalGames": 2,
           "seriesType": "HOME",
           "seriesNumber": 44
         }
@@ -21585,7 +21605,7 @@
         "type": "LOSS",
         "count": 2,
         "startDate": "2025-08-22",
-        "endDate": "2025-08-26"
+        "endDate": "2025-08-27"
       },
       "longestWinningStreak": {
         "count": 3,
