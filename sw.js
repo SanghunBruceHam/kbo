@@ -1,6 +1,6 @@
 // Service Worker for KBO Dashboard - Performance Optimization
-const CACHE_NAME = 'kbo-dashboard-v1.0';
-const STATIC_CACHE_NAME = 'kbo-static-v1.0';
+const CACHE_NAME = 'kbo-dashboard-v1.1';
+const STATIC_CACHE_NAME = 'kbo-static-v1.1';
 
 // 정적 리소스 캐싱 목록
 const STATIC_ASSETS = [
@@ -93,10 +93,10 @@ self.addEventListener('fetch', (event) => {
       caches.open(CACHE_NAME).then(async (cache) => {
         const cachedResponse = await cache.match(request);
         
-        // 캐시된 데이터가 있고 5분 이내면 캐시 사용
+        // 캐시된 데이터가 있고 30초 이내면 캐시 사용
         if (cachedResponse) {
           const cachedTime = cachedResponse.headers.get('sw-cached-time');
-          if (cachedTime && (Date.now() - parseInt(cachedTime)) < 300000) {
+          if (cachedTime && (Date.now() - parseInt(cachedTime)) < 30000) {
             return cachedResponse;
           }
         }
@@ -127,6 +127,24 @@ self.addEventListener('fetch', (event) => {
     return;
   }
   
+  // 기본 네트워크 요청 (HTML 파일은 항상 최신 버전 가져오기)
+  if (url.pathname.endsWith('.html') || url.pathname === '/') {
+    event.respondWith(
+      fetch(request, {
+        cache: 'no-cache',
+        headers: {
+          'Cache-Control': 'no-cache, no-store, must-revalidate',
+          'Pragma': 'no-cache',
+          'Expires': '0'
+        }
+      }).catch(() => {
+        // 오프라인시 캐시된 버전 반환
+        return caches.match(request);
+      })
+    );
+    return;
+  }
+  
   // 기본 네트워크 요청
   event.respondWith(fetch(request));
 });
@@ -138,6 +156,22 @@ self.addEventListener('sync', (event) => {
       // 최신 데이터로 캐시 업데이트
       updateDataCache()
     );
+  }
+});
+
+// 메시지 수신 처리 (페이지에서 캐시 갱신 요청)
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'FORCE_CACHE_UPDATE') {
+    // 모든 JSON 캐시 즉시 삭제
+    caches.open(CACHE_NAME).then((cache) => {
+      cache.keys().then((requests) => {
+        requests.forEach((request) => {
+          if (request.url.includes('.json')) {
+            cache.delete(request);
+          }
+        });
+      });
+    });
   }
 });
 

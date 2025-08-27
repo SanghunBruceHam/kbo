@@ -11553,6 +11553,14 @@ KT 9:1 키움(H)`;
                 navigator.serviceWorker.register('/sw.js')
                     .then((registration) => {
                         console.log('SW registered: ', registration);
+                        
+                        // 페이지 로드 시 데이터 캐시 강제 갱신
+                        if (registration.active) {
+                            registration.active.postMessage({
+                                type: 'FORCE_CACHE_UPDATE'
+                            });
+                        }
+                        
                         // 백그라운드 동기화 등록
                         if ('sync' in window.ServiceWorkerRegistration.prototype) {
                             registration.sync.register('kbo-data-sync');
