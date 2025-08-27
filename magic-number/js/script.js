@@ -296,17 +296,33 @@ const kboTeams = {
                         const remainingGames = 144 - team.games; // KBO 정규시즌 총 144경기
                         const currentWins = team.wins;
                         
-                        // 6위팀의 최대 가능 승수 계산
-                        let sixthPlaceMaxWins = 0;
+                        // 6위팀의 최대 가능 승률 계산 (승률 기준, 무승부 제외)
+                        let sixthPlaceMaxWinRate = 0;
                         for (let i = 5; i < standings.length; i++) { // 6위부터 확인
                             const competitor = standings[i];
                             const competitorRemaining = 144 - competitor.games;
                             const competitorMaxWins = competitor.wins + competitorRemaining;
-                            sixthPlaceMaxWins = Math.max(sixthPlaceMaxWins, competitorMaxWins);
+                            const competitorMaxLosses = competitor.losses; // 전승하므로 패수는 그대로 (무승부 제외)
+                            const competitorMaxWinRate = competitorMaxWins / (competitorMaxWins + competitorMaxLosses);
+                            sixthPlaceMaxWinRate = Math.max(sixthPlaceMaxWinRate, competitorMaxWinRate);
                         }
                         
-                        // 6위팀의 최대 승수보다 1승 더 필요
-                        const neededWins = sixthPlaceMaxWins + 1;
+                        // 6위팀의 최대 승률을 넘기 위해 필요한 최소 승수 계산
+                        // (현재승수 + x) / (현재승수 + x + 현재패수) > 6위팀최대승률
+                        // 이진 탐색으로 최소 승수 찾기
+                        let neededWins = currentWins;
+                        const currentLosses = team.losses;
+                        
+                        for (let additionalWins = 0; additionalWins <= remainingGames; additionalWins++) {
+                            const totalWins = currentWins + additionalWins;
+                            const myWinRate = totalWins / (totalWins + currentLosses);
+                            
+                            if (myWinRate > sixthPlaceMaxWinRate) {
+                                neededWins = totalWins;
+                                break;
+                            }
+                        }
+                        
                         const magicNumber = Math.max(0, neededWins - currentWins);
                         
                         return magicNumber;

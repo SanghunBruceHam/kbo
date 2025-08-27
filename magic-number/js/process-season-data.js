@@ -401,29 +401,77 @@ class KBODataProcessor {
     calculatePlayoffMagic(team, index) {
         /**
          * 플레이오프 매직넘버 계산 기준:
-         * 1. 산술적 매직넘버: 현재 5위팀의 최대 가능 승수 + 1 (실시간 계산)
-         * 2. 역대 기준 매직넘버: 72승 기준 (역대 5위 평균 승수)
-         * 
-         * 현재 적용: 역대 기준 매직넘버 (72승 기준)
-         * - 안정적이고 예측 가능한 기준
-         * - 시즌 후반까지 일관된 목표 제시
+         * 승률 기준으로 6위팀의 최대 가능 승률을 넘기 위한 승수 계산
+         * - 무승부는 승률 계산에서 제외
+         * - 6위 이하 팀들의 최대 가능 승률 중 가장 높은 값 + 0.001
          */
-        const PLAYOFF_THRESHOLD = 72; // 역대 5위 평균 승수 기준
         
-        // 현재 팀이 72승을 달성하기 위해 필요한 승수
-        const neededWins = Math.max(0, PLAYOFF_THRESHOLD - team.wins);
-        
-        // 남은 경기로 달성 가능한지 확인
-        if (neededWins > team.remainingGames) {
-            return 999; // 수학적으로 불가능
+        // 현재 순위가 5위 이내인 경우
+        if (index < 5) {
+            // 6위 이하 팀들의 최대 가능 승률 계산
+            let sixthPlaceMaxWinRate = 0;
+            
+            for (let i = 5; i < this.standings.length; i++) {
+                const competitor = this.standings[i];
+                const competitorMaxWins = competitor.wins + competitor.remainingGames; // 전승 시
+                const competitorMaxLosses = competitor.losses; // 패수는 그대로 (무승부 제외)
+                const competitorMaxWinRate = competitorMaxWins / (competitorMaxWins + competitorMaxLosses);
+                sixthPlaceMaxWinRate = Math.max(sixthPlaceMaxWinRate, competitorMaxWinRate);
+            }
+            
+            // 현재 팀이 6위팀 최대승률을 넘기 위해 필요한 최소 승수 계산
+            const currentLosses = team.losses;
+            let neededWins = team.wins;
+            
+            for (let additionalWins = 0; additionalWins <= team.remainingGames; additionalWins++) {
+                const totalWins = team.wins + additionalWins;
+                const myWinRate = totalWins / (totalWins + currentLosses);
+                
+                if (myWinRate > sixthPlaceMaxWinRate) {
+                    neededWins = totalWins;
+                    break;
+                }
+            }
+            
+            const magicNumber = Math.max(0, neededWins - team.wins);
+            
+            // 남은 경기로 달성 가능한지 확인
+            if (magicNumber > team.remainingGames) {
+                return 999; // 수학적으로 불가능
+            }
+            
+            return magicNumber;
+        } else {
+            // 6위 이하 팀: 5위팀을 추월하기 위한 매직넘버
+            if (this.standings.length < 5) return 999;
+            
+            const fifthPlaceTeam = this.standings[4];
+            const fifthPlaceMinWins = fifthPlaceTeam.wins; // 5위팀이 전패할 때
+            const fifthPlaceMaxLosses = fifthPlaceTeam.losses + fifthPlaceTeam.remainingGames;
+            const fifthPlaceMinWinRate = fifthPlaceMinWins / (fifthPlaceMinWins + fifthPlaceMaxLosses);
+            
+            // 현재 팀이 5위팀 최소승률을 넘기 위해 필요한 승수
+            const currentLosses = team.losses;
+            let neededWins = team.wins;
+            
+            for (let additionalWins = 0; additionalWins <= team.remainingGames; additionalWins++) {
+                const totalWins = team.wins + additionalWins;
+                const myWinRate = totalWins / (totalWins + currentLosses);
+                
+                if (myWinRate > fifthPlaceMinWinRate) {
+                    neededWins = totalWins;
+                    break;
+                }
+            }
+            
+            const magicNumber = Math.max(0, neededWins - team.wins);
+            
+            if (magicNumber > team.remainingGames) {
+                return 999;
+            }
+            
+            return magicNumber;
         }
-        
-        // 이미 72승 이상이면 확정
-        if (team.wins >= PLAYOFF_THRESHOLD) {
-            return 0;
-        }
-        
-        return neededWins;
     }
 
     calculateChampionshipMagic(team, index) {

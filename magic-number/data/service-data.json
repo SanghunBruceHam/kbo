@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-08-27T13:44:45.273Z",
+  "lastUpdated": "2025-08-27T13:48:54.940Z",
   "updateDate": "2025. 8. 27.",
   "note": "2025-season-data-clean.txt 기반 완전 자동화 처리",
   "source": "CLEAN_TXT_AUTOMATION",
@@ -228,7 +228,7 @@
       "currentRank": 1
     },
     "한화": {
-      "playoff": 3,
+      "playoff": 4,
       "championship": 24,
       "elimination": 21,
       "homeAdvantage": 16,
@@ -237,7 +237,7 @@
       "currentRank": 2
     },
     "SSG": {
-      "playoff": 13,
+      "playoff": 0,
       "championship": 25,
       "elimination": 12,
       "homeAdvantage": 11,
@@ -246,7 +246,7 @@
       "currentRank": 3
     },
     "롯데": {
-      "playoff": 12,
+      "playoff": 0,
       "championship": 21,
       "elimination": 9,
       "homeAdvantage": 10,
@@ -255,7 +255,7 @@
       "currentRank": 4
     },
     "KT": {
-      "playoff": 12,
+      "playoff": 0,
       "championship": 22,
       "elimination": 10,
       "homeAdvantage": 10,
@@ -264,7 +264,7 @@
       "currentRank": 4
     },
     "삼성": {
-      "playoff": 12,
+      "playoff": 0,
       "championship": 23,
       "elimination": 11,
       "homeAdvantage": 10,
@@ -273,7 +273,7 @@
       "currentRank": 6
     },
     "NC": {
-      "playoff": 17,
+      "playoff": 0,
       "championship": 28,
       "elimination": 11,
       "homeAdvantage": 15,
@@ -282,7 +282,7 @@
       "currentRank": 7
     },
     "KIA": {
-      "playoff": 17,
+      "playoff": 0,
       "championship": 26,
       "elimination": 9,
       "homeAdvantage": 15,
@@ -291,7 +291,7 @@
       "currentRank": 8
     },
     "두산": {
-      "playoff": 20,
+      "playoff": 0,
       "championship": 23,
       "elimination": 3,
       "homeAdvantage": 18,
@@ -300,7 +300,7 @@
       "currentRank": 9
     },
     "키움": {
-      "playoff": 999,
+      "playoff": 0,
       "championship": 21,
       "elimination": 0,
       "homeAdvantage": 999,
@@ -1571,7 +1571,7 @@
       "wins": 69,
       "remainingGames": 24,
       "maxPossibleWins": 93,
-      "playoffMagic": 3,
+      "playoffMagic": 4,
       "eliminationMagic": 21,
       "requiredWinRate": 0.125,
       "status": "매우 유력"
@@ -1582,7 +1582,7 @@
       "wins": 59,
       "remainingGames": 25,
       "maxPossibleWins": 84,
-      "playoffMagic": 13,
+      "playoffMagic": 0,
       "eliminationMagic": 12,
       "requiredWinRate": 0.52,
       "status": "경합"
@@ -1593,7 +1593,7 @@
       "wins": 60,
       "remainingGames": 21,
       "maxPossibleWins": 81,
-      "playoffMagic": 12,
+      "playoffMagic": 0,
       "eliminationMagic": 9,
       "requiredWinRate": 0.5714285714285714,
       "status": "경합"
@@ -1604,7 +1604,7 @@
       "wins": 60,
       "remainingGames": 22,
       "maxPossibleWins": 82,
-      "playoffMagic": 12,
+      "playoffMagic": 0,
       "eliminationMagic": 10,
       "requiredWinRate": 0.5454545454545454,
       "status": "경합"
@@ -1615,7 +1615,7 @@
       "wins": 60,
       "remainingGames": 23,
       "maxPossibleWins": 83,
-      "playoffMagic": 12,
+      "playoffMagic": 0,
       "eliminationMagic": 11,
       "requiredWinRate": 0.5217391304347826,
       "status": "경합"
@@ -1626,7 +1626,7 @@
       "wins": 55,
       "remainingGames": 28,
       "maxPossibleWins": 83,
-      "playoffMagic": 17,
+      "playoffMagic": 0,
       "eliminationMagic": 11,
       "requiredWinRate": 0.6071428571428571,
       "status": "경합"
@@ -1637,7 +1637,7 @@
       "wins": 55,
       "remainingGames": 26,
       "maxPossibleWins": 81,
-      "playoffMagic": 17,
+      "playoffMagic": 0,
       "eliminationMagic": 9,
       "requiredWinRate": 0.6538461538461539,
       "status": "경합"
@@ -1648,7 +1648,7 @@
       "wins": 52,
       "remainingGames": 23,
       "maxPossibleWins": 75,
-      "playoffMagic": 20,
+      "playoffMagic": 0,
       "eliminationMagic": 3,
       "requiredWinRate": 0.8695652173913043,
       "status": "매우 어려움"
@@ -1659,7 +1659,7 @@
       "wins": 38,
       "remainingGames": 21,
       "maxPossibleWins": 59,
-      "playoffMagic": "불가능",
+      "playoffMagic": 0,
       "eliminationMagic": 0,
       "requiredWinRate": 1,
       "status": "불가능"
