@@ -1,6 +1,6 @@
 {
   "date": "2025-08-27",
-  "createdAt": "2025-08-27T13:00:21.382Z",
+  "createdAt": "2025-08-27T13:05:03.733Z",
   "snapshot": {
     "standings": [
       {
@@ -110,24 +110,24 @@
       },
       {
         "team": "삼성",
-        "games": 120,
-        "wins": 59,
+        "games": 121,
+        "wins": 60,
         "losses": 59,
         "draws": 2,
-        "winRate": 0.5,
+        "winRate": 0.5042016806722689,
         "homeRecord": "33-26-0",
-        "awayRecord": "26-33-2",
+        "awayRecord": "27-33-2",
         "homeWins": 33,
         "homeLosses": 26,
         "homeDraws": 0,
-        "awayWins": 26,
+        "awayWins": 27,
         "awayLosses": 33,
         "awayDraws": 2,
         "recent10": "8승1무1패",
-        "streak": "4승",
-        "remainingGames": 24,
+        "streak": "5승",
+        "remainingGames": 23,
         "rank": 6,
-        "gamesBehind": 15
+        "gamesBehind": 14.5
       },
       {
         "team": "NC",
@@ -147,7 +147,7 @@
         "recent10": "6승0무4패",
         "streak": "1패",
         "remainingGames": 28,
-        "rank": 6,
+        "rank": 7,
         "gamesBehind": 15
       },
       {
@@ -173,24 +173,24 @@
       },
       {
         "team": "두산",
-        "games": 120,
+        "games": 121,
         "wins": 52,
-        "losses": 63,
+        "losses": 64,
         "draws": 5,
-        "winRate": 0.45217391304347826,
-        "homeRecord": "25-34-4",
+        "winRate": 0.4482758620689655,
+        "homeRecord": "25-35-4",
         "awayRecord": "27-29-1",
         "homeWins": 25,
-        "homeLosses": 34,
+        "homeLosses": 35,
         "homeDraws": 4,
         "awayWins": 27,
         "awayLosses": 29,
         "awayDraws": 1,
-        "recent10": "6승0무4패",
-        "streak": "4패",
-        "remainingGames": 24,
+        "recent10": "5승0무5패",
+        "streak": "5패",
+        "remainingGames": 23,
         "rank": 9,
-        "gamesBehind": 20.5
+        "gamesBehind": 21
       },
       {
         "team": "키움",
@@ -261,11 +261,11 @@
         "currentRank": 4
       },
       "삼성": {
-        "playoff": 13,
-        "championship": 24,
+        "playoff": 12,
+        "championship": 23,
         "elimination": 11,
-        "homeAdvantage": 11,
-        "remainingGames": 24,
+        "homeAdvantage": 10,
+        "remainingGames": 23,
         "maxPossibleWins": 83,
         "currentRank": 6
       },
@@ -276,7 +276,7 @@
         "homeAdvantage": 15,
         "remainingGames": 28,
         "maxPossibleWins": 83,
-        "currentRank": 6
+        "currentRank": 7
       },
       "KIA": {
         "playoff": 18,
@@ -289,11 +289,11 @@
       },
       "두산": {
         "playoff": 20,
-        "championship": 24,
-        "elimination": 4,
+        "championship": 23,
+        "elimination": 3,
         "homeAdvantage": 18,
-        "remainingGames": 24,
-        "maxPossibleWins": 76,
+        "remainingGames": 23,
+        "maxPossibleWins": 75,
         "currentRank": 9
       },
       "키움": {
@@ -307,9 +307,9 @@
       }
     },
     "gamesSummary": {
-      "totalGames": 600,
+      "totalGames": 601,
       "dataDate": "2025-08-27",
-      "gamesPlayedSinceYesterday": 3
+      "gamesPlayedSinceYesterday": 4
     },
     "changes": {
       "rankChanges": [
@@ -330,8 +330,8 @@
         {
           "team": "NC",
           "from": 5,
-          "to": 6,
-          "change": "-1",
+          "to": 7,
+          "change": "-2",
           "direction": "down"
         }
       ],
@@ -379,10 +379,31 @@
           "change": -1
         },
         {
+          "team": "삼성",
+          "type": "playoff",
+          "from": 13,
+          "to": 12,
+          "change": -1
+        },
+        {
+          "team": "삼성",
+          "type": "championship",
+          "from": 24,
+          "to": 23,
+          "change": -1
+        },
+        {
           "team": "NC",
           "type": "championship",
           "from": 29,
           "to": 28,
+          "change": -1
+        },
+        {
+          "team": "두산",
+          "type": "championship",
+          "from": 24,
+          "to": 23,
           "change": -1
         },
         {
@@ -396,7 +417,7 @@
     },
     "metadata": {
       "source": "CLEAN_TXT_AUTOMATION",
-      "lastUpdated": "2025-08-27T13:00:16.769Z",
+      "lastUpdated": "2025-08-27T13:04:58.162Z",
       "totalTeams": 10
     }
   }
