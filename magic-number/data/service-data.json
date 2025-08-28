@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2025-08-27T15:26:30.151Z",
-  "updateDate": "2025. 8. 27.",
+  "lastUpdated": "2025-08-28T01:39:01.920Z",
+  "updateDate": "2025. 8. 28.",
   "note": "2025-season-data-clean.txt 기반 완전 자동화 처리",
   "source": "CLEAN_TXT_AUTOMATION",
   "dataDate": "2025-08-27",
@@ -25,14 +25,7 @@
       "streak": "1승",
       "remainingGames": 23,
       "rank": 1,
-      "gamesBehind": 0,
-      "runsScored": 658,
-      "runsAllowed": 463,
-      "runDiff": 195,
-      "pythagoreanWinRate": 0.6555,
-      "expectedWins": 77,
-      "luckIndex": -0.0284,
-      "luckRating": "불운"
+      "gamesBehind": 0
     },
     {
       "team": "한화",
@@ -53,14 +46,7 @@
       "streak": "4승",
       "remainingGames": 24,
       "rank": 2,
-      "gamesBehind": 4.5,
-      "runsScored": 540,
-      "runsAllowed": 454,
-      "runDiff": 86,
-      "pythagoreanWinRate": 0.5787,
-      "expectedWins": 68,
-      "luckIndex": 0.011,
-      "luckRating": "보통"
+      "gamesBehind": 4.5
     },
     {
       "team": "SSG",
@@ -81,14 +67,7 @@
       "streak": "1패",
       "remainingGames": 25,
       "rank": 3,
-      "gamesBehind": 13.5,
-      "runsScored": 473,
-      "runsAllowed": 456,
-      "runDiff": 17,
-      "pythagoreanWinRate": 0.5167,
-      "expectedWins": 59,
-      "luckIndex": -0.0037,
-      "luckRating": "보통"
+      "gamesBehind": 13.5
     },
     {
       "team": "롯데",
@@ -109,14 +88,7 @@
       "streak": "1패",
       "remainingGames": 21,
       "rank": 4,
-      "gamesBehind": 14,
-      "runsScored": 578,
-      "runsAllowed": 607,
-      "runDiff": -29,
-      "pythagoreanWinRate": 0.4776,
-      "expectedWins": 56,
-      "luckIndex": 0.0309,
-      "luckRating": "행운"
+      "gamesBehind": 14
     },
     {
       "team": "KT",
@@ -137,14 +109,7 @@
       "streak": "1승",
       "remainingGames": 22,
       "rank": 4,
-      "gamesBehind": 14,
-      "runsScored": 531,
-      "runsAllowed": 536,
-      "runDiff": -5,
-      "pythagoreanWinRate": 0.4957,
-      "expectedWins": 58,
-      "luckIndex": 0.0128,
-      "luckRating": "보통"
+      "gamesBehind": 14
     },
     {
       "team": "삼성",
@@ -165,14 +130,7 @@
       "streak": "5승",
       "remainingGames": 23,
       "rank": 6,
-      "gamesBehind": 14.5,
-      "runsScored": 636,
-      "runsAllowed": 545,
-      "runDiff": 91,
-      "pythagoreanWinRate": 0.5702,
-      "expectedWins": 68,
-      "luckIndex": -0.066,
-      "luckRating": "매우 불운"
+      "gamesBehind": 14.5
     },
     {
       "team": "NC",
@@ -193,14 +151,7 @@
       "streak": "1패",
       "remainingGames": 28,
       "rank": 7,
-      "gamesBehind": 15,
-      "runsScored": 585,
-      "runsAllowed": 625,
-      "runDiff": -40,
-      "pythagoreanWinRate": 0.4698,
-      "expectedWins": 52,
-      "luckIndex": 0.0302,
-      "luckRating": "행운"
+      "gamesBehind": 15
     },
     {
       "team": "KIA",
@@ -221,14 +172,7 @@
       "streak": "1승",
       "remainingGames": 26,
       "rank": 8,
-      "gamesBehind": 17,
-      "runsScored": 566,
-      "runsAllowed": 582,
-      "runDiff": -16,
-      "pythagoreanWinRate": 0.4872,
-      "expectedWins": 56,
-      "luckIndex": -0.0048,
-      "luckRating": "보통"
+      "gamesBehind": 17
     },
     {
       "team": "두산",
@@ -249,14 +193,7 @@
       "streak": "5패",
       "remainingGames": 23,
       "rank": 9,
-      "gamesBehind": 21,
-      "runsScored": 543,
-      "runsAllowed": 575,
-      "runDiff": -32,
-      "pythagoreanWinRate": 0.4738,
-      "expectedWins": 55,
-      "luckIndex": -0.0256,
-      "luckRating": "불운"
+      "gamesBehind": 21
     },
     {
       "team": "키움",
@@ -277,14 +214,7 @@
       "streak": "5패",
       "remainingGames": 21,
       "rank": 10,
-      "gamesBehind": 36.5,
-      "runsScored": 484,
-      "runsAllowed": 751,
-      "runDiff": -267,
-      "pythagoreanWinRate": 0.3092,
-      "expectedWins": 37,
-      "luckIndex": 0.0101,
-      "luckRating": "보통"
+      "gamesBehind": 36.5
     }
   ],
   "magicNumbers": {
