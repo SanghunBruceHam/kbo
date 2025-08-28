@@ -4663,8 +4663,8 @@
                             <th style="width: 7%;">기대승률</th>
                             <th style="width: 7%;">운 지수</th>
                             <th style="width: 9%;">운 상태</th>
-                            <th style="width: 7%;">득점</th>
-                            <th style="width: 7%;">실점</th>
+                            <th style="width: 7%; cursor: pointer;" onclick="sortPythagoreanTable('runsScored')">득점 ↕</th>
+                            <th style="width: 7%; cursor: pointer;" onclick="sortPythagoreanTable('runsAllowed')">실점 ↕</th>
                             <th style="width: 8%;">실제 득실차</th>
                             <th style="width: 8%;">기대 득실차</th>
                         </tr>
@@ -7302,6 +7302,133 @@
                     <td>${streak ? streak.max_lose_streak : '-'}</td>
                     <td>${maxRank}</td>
                     <td>${minRank}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // 피타고리안 테이블 정렬 함수
+        let pythagoreanSortState = { column: null, direction: 'asc' };
+        
+        function sortPythagoreanTable(column) {
+            if (!dashboardData || !dashboardData.standings) {
+                alert('데이터가 로드되지 않았습니다');
+                return;
+            }
+            
+            // 정렬 방향 결정
+            if (pythagoreanSortState.column === column) {
+                pythagoreanSortState.direction = pythagoreanSortState.direction === 'asc' ? 'desc' : 'asc';
+            } else {
+                pythagoreanSortState.column = column;
+                pythagoreanSortState.direction = 'desc'; // 득점/실점은 기본적으로 내림차순
+            }
+            
+            // 정렬할 데이터 준비 (service-data.json에서 가져온 데이터 사용)
+            const teamsToSort = dashboardData.standings.map(team => {
+                const serviceTeamData = {
+                    team_name: team.team_name,
+                    runsScored: team.runsScored || 0,
+                    runsAllowed: team.runsAllowed || 0,
+                    pythagoreanWinRate: team.pythagoreanWinRate,
+                    luckIndex: team.luckIndex,
+                    luckRating: team.luckRating,
+                    // 기존 데이터도 포함
+                    wins: team.wins,
+                    losses: team.losses,
+                    draws: team.draws,
+                    winRate: team.win_rate,
+                    rank: team.rank || team.displayRank
+                };
+                return serviceTeamData;
+            });
+            
+            // 정렬 실행
+            teamsToSort.sort((a, b) => {
+                let valueA, valueB;
+                
+                if (column === 'runsScored') {
+                    valueA = a.runsScored;
+                    valueB = b.runsScored;
+                } else if (column === 'runsAllowed') {
+                    valueA = a.runsAllowed;
+                    valueB = b.runsAllowed;
+                }
+                
+                if (pythagoreanSortState.direction === 'desc') {
+                    return valueB - valueA;
+                } else {
+                    return valueA - valueB;
+                }
+            });
+            
+            // 테이블 다시 렌더링
+            renderPythagoreanTableWithSortedData(teamsToSort);
+        }
+        
+        // 정렬된 데이터로 피타고리안 테이블 렌더링
+        function renderPythagoreanTableWithSortedData(sortedTeams) {
+            const tbody = document.getElementById('pythagoreanBody');
+            tbody.innerHTML = '';
+            
+            sortedTeams.forEach((team, index) => {
+                const teamData = dashboardData.standings.find(t => t.team_name === team.team_name);
+                const rank = teamData ? teamData.displayRank : (index + 1);
+                
+                // 실제 기록
+                const actualWins = team.wins || 0;
+                const actualDraws = team.draws || 0;
+                const actualLosses = team.losses || 0;
+                const totalGames = actualWins + actualDraws + actualLosses;
+                
+                // 피타고리안 데이터
+                const expectedWinRate = team.pythagoreanWinRate || 0;
+                const actualWinRate = team.winRate || 0;
+                
+                // 기대 기록 계산
+                const winLossGames = totalGames - actualDraws;
+                const finalExpectedWins = Math.round(winLossGames * expectedWinRate);
+                const finalExpectedLosses = winLossGames - finalExpectedWins;
+                const finalExpectedDraws = actualDraws;
+                
+                // 득실차 계산
+                const actualRunsScored = team.runsScored || 0;
+                const actualRunsAllowed = team.runsAllowed || 0;
+                const actualRunDiff = actualRunsScored - actualRunsAllowed;
+                const expectedRunDiff = Math.round(actualRunDiff * (expectedWinRate / (parseFloat(actualWinRate) || 0.5)));
+
+                const row = document.createElement('tr');
+                
+                // 운지수 색상 클래스
+                function getLuckClass(luckValue) {
+                    if (luckValue >= 0.05) return 'positive-very-strong';
+                    if (luckValue >= 0.03) return 'positive-strong';
+                    if (luckValue >= 0.01) return 'positive-light';
+                    if (luckValue >= -0.01 && luckValue <= 0.01) return 'neutral-medium';
+                    if (luckValue >= -0.03) return 'negative-light';
+                    if (luckValue >= -0.05) return 'negative-strong';
+                    return 'negative-very-strong';
+                }
+                
+                const luckClass = getLuckClass(team.luckIndex || 0);
+                
+                row.innerHTML = `
+                    <td class="rank-${rank <= 3 ? rank : 'other'}" style="font-weight: var(--font-weight-bold); text-align: center;">${rank}</td>
+                    <td class="team-name">${getTeamWithLogo(team.team_name)}</td>
+                    <td><strong>${actualWins}</strong></td>
+                    <td>${actualLosses}</td>
+                    <td>${actualDraws}</td>
+                    <td style="color: #007bff;">${finalExpectedWins}</td>
+                    <td style="color: #007bff;">${finalExpectedLosses}</td>
+                    <td style="color: #007bff;">${finalExpectedDraws}</td>
+                    <td><strong>${parseFloat(actualWinRate).toFixed(3)}</strong></td>
+                    <td style="color: #007bff;">${expectedWinRate.toFixed(3)}</td>
+                    <td class="${luckClass}"><strong>${team.luckIndex ? (team.luckIndex > 0 ? '+' : '') + team.luckIndex.toFixed(3) : '-'}</strong></td>
+                    <td class="${luckClass}" style="white-space: nowrap;">${team.luckRating || '-'}</td>
+                    <td><strong>${actualRunsScored || '-'}</strong></td>
+                    <td><strong>${actualRunsAllowed || '-'}</strong></td>
+                    <td><strong>${actualRunDiff >= 0 ? '+' : ''}${actualRunDiff}</strong></td>
+                    <td style="color: #007bff;">${expectedRunDiff >= 0 ? '+' : ''}${expectedRunDiff}</td>
                 `;
                 tbody.appendChild(row);
             });
