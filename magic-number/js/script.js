@@ -981,15 +981,33 @@ const kboTeams = {
                         aValue = parseInt(a.cells[4].textContent);
                         bValue = parseInt(b.cells[4].textContent);
                         break;
+                    case 'poMagic':
+                        const aPoMagic = a.cells[5].textContent;
+                        const bPoMagic = b.cells[5].textContent;
+                        aValue = getMagicNumberSortValue(aPoMagic);
+                        bValue = getMagicNumberSortValue(bPoMagic);
+                        break;
+                    case 'poTragic':
+                        const aPoTragic = a.cells[6].textContent;
+                        const bPoTragic = b.cells[6].textContent;
+                        aValue = getMagicNumberSortValue(aPoTragic);
+                        bValue = getMagicNumberSortValue(bPoTragic);
+                        break;
                     case 'magic':
-                        const aMagic = a.cells[5].textContent;
-                        const bMagic = b.cells[5].textContent;
+                        const aMagic = a.cells[8].textContent;
+                        const bMagic = b.cells[8].textContent;
                         aValue = getMagicNumberSortValue(aMagic);
                         bValue = getMagicNumberSortValue(bMagic);
                         break;
+                    case 'tragic':
+                        const aTragic = a.cells[9].textContent;
+                        const bTragic = b.cells[9].textContent;
+                        aValue = getMagicNumberSortValue(aTragic);
+                        bValue = getMagicNumberSortValue(bTragic);
+                        break;
                     case 'requiredWinPct':
-                        const aReq = a.cells[6].textContent;
-                        const bReq = b.cells[6].textContent;
+                        const aReq = a.cells[10].textContent;
+                        const bReq = b.cells[10].textContent;
                         aValue = aReq === '-' || aReq === '달성' ? -1 : parseFloat(aReq);
                         bValue = bReq === '-' || bReq === '달성' ? -1 : parseFloat(bReq);
                         break;
@@ -1018,7 +1036,7 @@ const kboTeams = {
         // 매직넘버 정렬 값 변환
         function getMagicNumberSortValue(magic) {
             if (magic === '확정' || magic === 'PO확정') return -1;
-            if (magic === '불가능') return 9999;
+            if (magic === '불가능' || magic === '탈락') return 9999;
             return parseInt(magic) || 0;
         }
 
