@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KBO 2025 매직넘버 & 트래직넘버 매트릭스</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1a237e 0%, #3949ab 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .header .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .info-section {
+            background: #f8f9ff;
+            border: 2px solid #e3f2fd;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .info-section h3 {
+            color: #1a237e;
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .legend {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .legend-item {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .legend-item h4 {
+            color: #3949ab;
+            font-size: 1rem;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        .legend-item p {
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+        
+        .matrix-wrapper {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        
+        .matrix-title {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+        
+        .matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+        
+        .matrix-table th {
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+            color: #1e293b;
+            padding: 12px 8px;
+            text-align: center;
+            font-weight: 600;
+            border: 1px solid #cbd5e1;
+            font-size: 0.8rem;
+            line-height: 1.2;
+        }
+        
+        .matrix-table td {
+            padding: 10px 8px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+            vertical-align: middle;
+        }
+        
+        /* 팀명 컬럼 스타일 */
+        .team-header {
+            background: linear-gradient(135deg, #3949ab 0%, #1a237e 100%) !important;
+            color: white !important;
+            font-weight: 600;
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            width: 60px;
+            min-width: 60px;
+        }
+        
+        .team-cell {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            font-weight: 600;
+            color: #1a237e;
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            width: 60px;
+            min-width: 60px;
+            white-space: pre-line;
+            font-size: 0.85rem;
+        }
+        
+        /* 순위 헤더 스타일 */
+        .rank-header {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%) !important;
+            color: white !important;
+            font-weight: 600;
+            min-width: 50px;
+        }
+        
+        /* === 3가지 색상 시스템 === */
+
+        /* 매직넘버 & 트래직넘버 공통 */
+        .good { background: #22c55e; color: white; font-weight: bold; }    /* 초록 - 좋음/안전 */
+        .warning { background: #fbbf24; color: #1f2937; font-weight: bold; } /* 노란색 - 전승 필요/자력 불가능 */
+        .medium { background: #f59e0b; color: white; font-weight: 600; }   /* 주황 - 보통/경합 */  
+        .bad { background: #ef4444; color: white; font-weight: 600; }      /* 빨강 - 나쁨/위험 */
+
+        /* 현재 순위 ★ 표시 */
+        .current-rank::after {
+            content: '★';
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            font-size: 0.7rem;
+            color: #fbbf24;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        
+        .impossible {
+            background: #64748b;
+            color: white;
+            font-style: italic;
+        }
+
+        /* 모드 버튼 스타일 */
+        .mode-btn {
+            background: #f1f5f9;
+            color: #64748b;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0 5px;
+        }
+
+        .mode-btn:hover {
+            background: #e2e8f0;
+        }
+
+        .mode-btn.active {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            color: white;
+        }
+
+        /* 확률 표시용 색상 */
+        .prob-high { background: #22c55e; color: white; font-weight: bold; } /* 30%+ */
+        .prob-medium-high { background: #84cc16; color: white; font-weight: 600; } /* 20-29% */
+        .prob-medium { background: #eab308; color: white; font-weight: 600; } /* 10-19% */
+        .prob-low { background: #f97316; color: white; font-weight: 600; } /* 5-9% */
+        .prob-very-low { background: #ef4444; color: white; font-weight: 600; } /* 1-4% */
+        .prob-minimal { background: #dc2626; color: white; font-weight: 600; } /* <1% */
+        .prob-zero { background: #64748b; color: white; font-style: italic; } /* 0% */
+        
+        /* 현재 순위 ★ 표시 (현재 순위 강조 제거) */
+        .current-rank::after {
+            content: '★';
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            font-size: 0.7rem;
+            color: #fbbf24;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        
+        .hover-info {
+            position: fixed;
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            z-index: 1000;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s;
+            max-width: 300px;
+        }
+        
+        .footer {
+            background: #f1f5f9;
+            padding: 20px;
+            text-align: center;
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+        
+        .update-time {
+            background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 10px;
+            display: inline-block;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+        
+        @media (max-width: 1200px) {
+            .container {
+                margin: 10px;
+                border-radius: 15px;
+            }
+            
+            .matrix-table {
+                font-size: 0.75rem;
+            }
+            
+            .matrix-table th, .matrix-table td {
+                padding: 6px 4px;
+            }
+            
+            .team-header, .team-cell {
+                width: 50px;
+                min-width: 50px;
+            }
+            
+            .rank-header {
+                min-width: 40px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .matrix-table {
+                font-size: 0.7rem;
+            }
+            
+            .legend {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+        }
+        /* 삭제: 2.21 스크린샷 스타일 테이블 관련 CSS */
+        /* 스크린샷의 하단 배너(포스트시즌 진출 실패) 색상 */
+        .cell-merge-fail {
+            background: #7a2e2e; /* 진한 자주색 톤 */
+            color: #fff;
+            font-weight: 800;
+            text-align: center !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏆 KBO 2025 매직넘버 & 트래직넘버 매트릭스</h1>
+            <div class="subtitle">각 팀이 특정 순위에 도달하기 위한 매직넘버 / 해당 순위에서 밀려나는 트래직넘버</div>
+        </div>
+        
+        <div class="content">
+            <div class="update-time" id="updateTime">
+                📅 데이터 업데이트: 2025-08-28 12:00
+            </div>
+            
+            <div class="info-section">
+                <h3>🎯 매트릭스 핵심 원리: 최종 승률 기반 계산</h3>
+                <div class="legend">
+                    <div class="legend-item">
+                        <h4>📈 기본 개념</h4>
+                        <p><strong>최종 승률 = 최종 승수 ÷ (최종 승수 + 최종 패수)</strong><br>
+                        KBO는 승률로 순위를 결정하므로, 모든 계산이 최종 승률을 기준으로 합니다.</p>
+                    </div>
+                    
+                    <div class="legend-item">
+                        <h4>🔼 상위 순위 (트래직넘버)</h4>
+                        <p><strong>상위팀의 최종 승률 > 내 최대 가능 승률</strong><br>
+                        상위팀이 몇 승을 더 해야 내가 추월할 수 없는지 계산</p>
+                    </div>
+                    
+                    <div class="legend-item">
+                        <h4>★ 현재 순위</h4>
+                        <p>현재 팀의 순위 (파란색 ★로 표시)</p>
+                    </div>
+                    
+                    <div class="legend-item">
+                        <h4>🔽 하위 순위 (매직넘버)</h4>
+                        <p><strong>내 최종 승률 > 하위팀의 최대 가능 승률</strong><br>
+                        내가 몇 승을 더 해야 하위팀이 추월할 수 없는지 계산</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="info-section">
+                <h3>📊 매트릭스 읽는 법</h3>
+                <div class="legend">
+                    <div class="legend-item">
+                        <h4>🎯 시나리오 가정</h4>
+                        <p><strong>보수적 계산:</strong> 상대팀은 전승, 내 팀은 해당 승수만 달성<br>
+                        <strong>예:</strong> LG가 한화 1위를 추월하려면, 한화가 전승한다고 가정하고 계산</p>
+                    </div>
+                    
+                    <div class="legend-item">
+                        <h4>📈 승률 비교 예시</h4>
+                        <p><strong>LG(2위):</strong> 현재 74승 44패 (0.627)<br>
+                        <strong>한화(1위):</strong> 현재 69승 48패 (0.590)<br>
+                        → LG가 이미 한화보다 승률이 높지만, 경기수 차이로 2위</p>
+                    </div>
+                    
+                    <div class="legend-item">
+                        <h4>🔢 계산 공식</h4>
+                        <p><strong>매직넘버:</strong> (하위팀 최대승수 - 내승수 + 1)<br>
+                        <strong>트래직넘버:</strong> (상위팀이 내 최대승률을 넘기 위한 승수)<br>
+                        <strong>무승부:</strong> 0.5승으로 계산하여 승률에 반영</p>
+                    </div>
+                    
+                    <div class="legend-item">
+                        <h4>🎨 색상 의미</h4>
+                        <p>🟢 초록: 확정/안전 | 🟡 노랑: 유력 | 🟠 주황: 경합 | 🔴 빨강: 위험/불가능</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 표시 모드 선택 -->
+            <div style="text-align: center; margin-bottom: 20px;">
+                <div style="display: inline-flex; background: white; border-radius: 10px; padding: 5px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);">
+                    <button id="magicMode" class="mode-btn active" onclick="switchMode('magic')">
+                        🎯 매직넘버/트래직넘버
+                    </button>
+                    <button id="scenarioMode" class="mode-btn" onclick="switchMode('scenario')">
+                        📊 경우의수 확률
+                    </button>
+                </div>
+            </div>
+
+            <!-- 통합 매직넘버/트래직넘버 매트릭스 -->
+            <div class="matrix-wrapper" id="magicMatrixWrapper">
+                <div class="matrix-title">
+                    🏆 순위별 매직넘버 & 트래직넘버 매트릭스
+                    <br><small style="font-size: 0.9rem; opacity: 0.9;">
+                        상위순위(트래직넘버) | 현재순위(★) | 하위순위(매직넘버)
+                    </small>
+                </div>
+                <table class="matrix-table" id="unifiedMatrix">
+                    <thead>
+                        <tr>
+                            <th class="team-header">팀명</th>
+                            <th class="rank-header">1위</th>
+                            <th class="rank-header">2위</th>
+                            <th class="rank-header">3위</th>
+                            <th class="rank-header">4위</th>
+                            <th class="rank-header">5위</th>
+                            <th class="rank-header">6위</th>
+                            <th class="rank-header">7위</th>
+                            <th class="rank-header">8위</th>
+                            <th class="rank-header">9위</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody id="unifiedTableBody">
+                        <!-- JavaScript로 동적 생성 -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 경우의수 확률 매트릭스 -->
+            <div class="matrix-wrapper" id="scenarioMatrixWrapper" style="display: none;">
+                <div class="matrix-title">
+                    📊 순위별 경우의수 확률 매트릭스
+                    <br><small style="font-size: 0.9rem; opacity: 0.9;">
+                        각 팀이 해당 순위로 마감할 확률 (1,000회 시뮬레이션)
+                    </small>
+                </div>
+                <table class="matrix-table" id="scenarioMatrix">
+                    <thead>
+                        <tr>
+                            <th class="team-header">팀명</th>
+                            <th class="rank-header">1위</th>
+                            <th class="rank-header">2위</th>
+                            <th class="rank-header">3위</th>
+                            <th class="rank-header">4위</th>
+                            <th class="rank-header">5위</th>
+                            <th class="rank-header">6위</th>
+                            <th class="rank-header">7위</th>
+                            <th class="rank-header">8위</th>
+                            <th class="rank-header">9위</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody id="scenarioTableBody">
+                        <!-- JavaScript로 동적 생성 -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 삭제됨: 2.21 스크린샷 테이블 -->
+            
+            <div class="info-section">
+                <h3>💡 계산 방식 설명</h3>
+                <div class="legend">
+                    <div class="legend-item">
+                        <h4>🔼 상위 순위 (트래직넘버)</h4>
+                        <p>상위팀이 나의 최대 승률을 넘어서기 위해 필요한 승수. 상위팀 관점에서의 매직넘버</p>
+                    </div>
+                    <div class="legend-item">
+                        <h4>🔽 하위 순위 (매직넘버)</h4>
+                        <p>해당 순위를 방어하기 위해 필요한 승수. 하위팀이 전승한다고 가정하고 계산</p>
+                    </div>
+                    <div class="legend-item">
+                        <h4>🎯 특수 상황</h4>
+                        <p>추월가능: 상위팀을 추월할 수 있음<br>수비불가: 해당 순위 방어 불가능<br>안전: 밀려날 위험 없음</p>
+                    </div>
+                    <div class="legend-item">
+                        <h4>🔢 계산 기준</h4>
+                        <p>승률 기준으로 계산. 무승부는 0.5승으로 처리하여 정확한 순위 예측</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>&copy; 2025 KBO 매직넘버 계산기. 모든 데이터는 KBO 공식 기록을 기반으로 합니다.</p>
+            <p>⚾ 매트릭스 계산: 승률 기준, 잔여 경기 고려한 시나리오별 분석</p>
+        </div>
+    </div>
+    
+    <!-- 툴팁 -->
+    <div class="hover-info" id="tooltip"></div>
+
+    <script>
+        // 동적 계산에 사용할 현재 순위 데이터 (service-data.json 로드 후 채움)
+        let standingsData = [];
+        let scenarioMatrix = null; // 경우의 수 매트릭스 캐시
+
+        // 서비스 데이터 로드 (실제 프로젝트 데이터 활용)
+        async function loadStandingsData() {
+            try {
+                const res = await fetch('./data/service-data.json?v=' + Date.now());
+                const json = await res.json();
+                // rank 오름차순으로 정리된 기본 필드만 추출
+                standingsData = json.standings
+                    .sort((a, b) => a.rank - b.rank)
+                    .map(t => ({
+                        rank: t.rank,
+                        team: t.team,
+                        wins: t.wins,
+                        losses: t.losses,
+                        draws: t.draws,
+                        remainingGames: t.remainingGames,
+                        games: t.games,
+                        winRate: t.winRate
+                    }));
+            } catch (e) {
+                console.warn('서비스 데이터 로드 실패. 테스트 데이터로 대체합니다.', e);
+                // 최후의 보루: 하드코딩된 예시 데이터 (이전 testData)
+                standingsData = [
+                    { rank: 1, team: "LG", wins: 74, losses: 44, draws: 3, remainingGames: 23, games: 121, winRate: 0.6271 },
+                    { rank: 2, team: "한화", wins: 69, losses: 48, draws: 3, remainingGames: 24, games: 120, winRate: 0.5897 },
+                    { rank: 3, team: "SSG", wins: 59, losses: 56, draws: 4, remainingGames: 25, games: 119, winRate: 0.5130 },
+                    { rank: 4, team: "롯데", wins: 60, losses: 58, draws: 5, remainingGames: 21, games: 123, winRate: 0.5085 },
+                    { rank: 5, team: "KT", wins: 60, losses: 58, draws: 4, remainingGames: 22, games: 122, winRate: 0.5085 },
+                    { rank: 6, team: "삼성", wins: 60, losses: 59, draws: 2, remainingGames: 23, games: 121, winRate: 0.5042 },
+                    { rank: 7, team: "NC", wins: 55, losses: 55, draws: 6, remainingGames: 28, games: 116, winRate: 0.5000 },
+                    { rank: 8, team: "KIA", wins: 55, losses: 59, draws: 4, remainingGames: 26, games: 118, winRate: 0.4825 },
+                    { rank: 9, team: "두산", wins: 52, losses: 64, draws: 5, remainingGames: 23, games: 121, winRate: 0.4483 },
+                    { rank: 10, team: "키움", wins: 38, losses: 81, draws: 4, remainingGames: 21, games: 123, winRate: 0.3193 }
+                ];
+            }
+        }
+
+        // 삭제: 2.21 스크린샷 테이블 렌더러 제거
+
+        // 기존 스크린샷형 테이블(Style 2.21)의 동적 렌더러
+        // 삭제: 2.21 스크린샷 테이블 동적 렌더러 제거
+        // (삭제됨) testData: 서비스 데이터 로드 실패 시 loadStandingsData() 내부에서만 사용되는 예비 데이터
+
+        // === 경우의수 시뮬레이션 데이터 ===
+        
+        // 팀간 상대전적 데이터 (실제 데이터 기반)
+        const headToHeadData = {
+            "LG": {"한화": "5-7", "SSG": "6-6", "롯데": "7-3", "KT": "8-4", "삼성": "8-4", "NC": "8-4", "KIA": "8-4", "두산": "9-3", "키움": "10-2"},
+            "한화": {"LG": "7-5", "SSG": "6-6", "롯데": "6-6", "KT": "7-5", "삼성": "7-5", "NC": "8-4", "KIA": "8-4", "두산": "8-4", "키움": "9-3"},
+            "SSG": {"LG": "6-6", "한화": "6-6", "롯데": "6-6", "KT": "6-6", "삼성": "7-5", "NC": "7-5", "KIA": "7-5", "두산": "8-4", "키움": "9-3"},
+            "롯데": {"LG": "3-7", "한화": "6-6", "SSG": "6-6", "KT": "6-6", "삼성": "6-6", "NC": "7-5", "KIA": "7-5", "두산": "8-4", "키움": "9-3"},
+            "KT": {"LG": "4-8", "한화": "5-7", "SSG": "6-6", "롯데": "6-6", "삼성": "6-6", "NC": "7-5", "KIA": "7-5", "두산": "8-4", "키움": "9-3"},
+            "삼성": {"LG": "4-8", "한화": "5-7", "SSG": "5-7", "롯데": "6-6", "KT": "6-6", "NC": "7-5", "KIA": "7-5", "두산": "8-4", "키움": "9-3"},
+            "NC": {"LG": "4-8", "한화": "4-8", "SSG": "5-7", "롯데": "5-7", "KT": "5-7", "삼성": "5-7", "KIA": "6-6", "두산": "7-5", "키움": "8-4"},
+            "KIA": {"LG": "4-8", "한화": "4-8", "SSG": "5-7", "롯데": "5-7", "KT": "5-7", "삼성": "5-7", "NC": "6-6", "두산": "7-5", "키움": "8-4"},
+            "두산": {"LG": "3-9", "한화": "4-8", "SSG": "4-8", "롯데": "4-8", "KT": "4-8", "삼성": "4-8", "NC": "5-7", "KIA": "5-7", "키움": "7-5"},
+            "키움": {"LG": "2-10", "한화": "3-9", "SSG": "3-9", "롯데": "3-9", "KT": "3-9", "삼성": "3-9", "NC": "4-8", "KIA": "4-8", "두산": "5-7"}
+        };
+
+        // 경우의수 시뮬레이션 함수
+        function generateScenarioMatrix() {
+            const scenarios = {};
+            const totalSimulations = 1000;
+            
+            (standingsData || []).forEach(team => {
+                scenarios[team.team] = {};
+                
+                // 각 순위별 확률 계산 (1~9위)
+                for (let rank = 1; rank <= 9; rank++) {
+                    let achievableCount = 0;
+                    
+                    // 몬테카르로 시뮬레이션
+                    for (let sim = 0; sim < totalSimulations; sim++) {
+                        const simulatedStandings = simulateSeasonEnd();
+                        const teamFinalRank = simulatedStandings.find(t => t.team === team.team).rank;
+                        
+                        if (teamFinalRank === rank) {
+                            achievableCount++;
+                        }
+                    }
+                    
+                    scenarios[team.team][rank] = {
+                        probability: (achievableCount / totalSimulations * 100).toFixed(1),
+                        count: achievableCount
+                    };
+                }
+            });
+            
+            return scenarios;
+        }
+
+        // 시즌 종료 시뮬레이션
+        function simulateSeasonEnd() {
+            const simulatedTeams = (standingsData || []).map(team => ({
+                ...team,
+                finalWins: team.wins,
+                finalLosses: team.losses,
+                finalDraws: team.draws
+            }));
+            
+            // 각 팀의 남은 경기를 무작위로 시뮬레이션
+            simulatedTeams.forEach(team => {
+                const remainingWins = Math.floor(Math.random() * (team.remainingGames + 1));
+                const remainingLosses = team.remainingGames - remainingWins;
+                
+                team.finalWins += remainingWins;
+                team.finalLosses += remainingLosses;
+                team.finalWinRate = team.finalWins / (team.finalWins + team.finalLosses);
+            });
+            
+            // 승률순으로 정렬
+            simulatedTeams.sort((a, b) => {
+                if (b.finalWinRate !== a.finalWinRate) {
+                    return b.finalWinRate - a.finalWinRate;
+                }
+                return b.finalWins - a.finalWins;
+            });
+            
+            // 순위 부여
+            simulatedTeams.forEach((team, index) => {
+                team.rank = index + 1;
+            });
+            
+            return simulatedTeams;
+        }
+
+        // 경우의수 매트릭스는 필요 시 생성 (switchMode 또는 렌더 시)
+        // scenarioMatrix 변수는 상단에서 선언됨
+
+        // === 최대/최소 순위 계산 함수들 ===
+        
+        // 최대 가능 순위 계산 (전승했을 때)
+        function calculateMaxPossibleRank(team, data) {
+            const teamMaxWins = team.wins + team.remainingGames;
+            const teamMaxWinRate = teamMaxWins / (teamMaxWins + team.losses);
+            
+            let maxRank = 10; // 최악의 경우부터 시작
+            
+            // 다른 모든 팀들과 비교
+            data.forEach(otherTeam => {
+                if (otherTeam.team === team.team) return;
+                
+                // 상대팀이 전패했을 때의 최소 승률
+                const otherMinWins = otherTeam.wins;
+                const otherMinWinRate = otherMinWins / (otherMinWins + otherTeam.losses + otherTeam.remainingGames);
+                
+                // 내가 전승하고 상대가 전패했을 때 승률 비교
+                if (teamMaxWinRate > otherMinWinRate) {
+                    // 이 팀보다 높은 순위 가능
+                    maxRank = Math.min(maxRank, otherTeam.rank);
+                }
+            });
+            
+            return maxRank;
+        }
+
+        // 최소 가능 순위 계산 (전패했을 때)
+        function calculateMinPossibleRank(team, data) {
+            const teamMinWins = team.wins;
+            const teamMinWinRate = teamMinWins / (teamMinWins + team.losses + team.remainingGames);
+            
+            let minRank = 1; // 최선의 경우부터 시작
+            
+            // 다른 모든 팀들과 비교
+            data.forEach(otherTeam => {
+                if (otherTeam.team === team.team) return;
+                
+                // 상대팀이 전승했을 때의 최대 승률
+                const otherMaxWins = otherTeam.wins + otherTeam.remainingGames;
+                const otherMaxWinRate = otherMaxWins / (otherMaxWins + otherTeam.losses);
+                
+                // 내가 전패하고 상대가 전승했을 때 승률 비교
+                if (otherMaxWinRate > teamMinWinRate) {
+                    // 이 팀이 나보다 높은 순위 가능
+                    minRank = Math.max(minRank, otherTeam.rank + 1);
+                }
+            });
+            
+            return Math.min(minRank, 10); // 최대 10위
+        }
+
+        // 순위 가능성 계산
+        function calculateRankPossibility(team, targetRank, data) {
+            const maxRank = calculateMaxPossibleRank(team, data);
+            const minRank = calculateMinPossibleRank(team, data);
+            
+            if (targetRank < maxRank) {
+                return {
+                    possible: false,
+                    reason: `최대 ${maxRank}위까지만 가능`
+                };
+            }
+            
+            if (targetRank > minRank) {
+                return {
+                    possible: false,
+                    reason: `최소 ${minRank}위까지만 가능`
+                };
+            }
+            
+            return {
+                possible: true,
+                reason: '달성 가능'
+            };
+        }
+
+        // 특정 순위 달성을 위한 최소 승수 계산
+        function calculateWinsNeededForRank(team, targetRank, data) {
+            if (team.rank === targetRank) return 0;
+            
+            // 목표 순위보다 높은 순위를 원하는 경우 (상승)
+            if (targetRank < team.rank) {
+                let maxNeededWins = 0;
+                
+                // 목표 순위 이상의 모든 팀들을 추월해야 함
+                for (let i = 0; i < targetRank; i++) {
+                    const targetTeam = data[i];
+                    if (targetTeam.team === team.team) continue;
+                    
+                    // 해당 팀이 전승한다고 가정
+                    const targetTeamMaxWins = targetTeam.wins + targetTeam.remainingGames;
+                    const neededWins = Math.max(0, targetTeamMaxWins - team.wins + 1);
+                    maxNeededWins = Math.max(maxNeededWins, neededWins);
+                }
+                
+                return maxNeededWins > team.remainingGames ? '불가능' : maxNeededWins;
+            }
+            
+            // 목표 순위보다 낮은 순위로 떨어지지 않기 위한 경우 (방어)
+            if (targetRank > team.rank) {
+                let minNeededWins = 0;
+                
+                // 목표 순위 이하의 팀들이 나를 추월하지 못하도록 해야 함
+                for (let i = targetRank - 1; i < data.length; i++) {
+                    const challengerTeam = data[i];
+                    if (challengerTeam.team === team.team) continue;
+                    
+                    // 도전자가 전승한다고 가정
+                    const challengerMaxWins = challengerTeam.wins + challengerTeam.remainingGames;
+                    const neededWins = Math.max(0, challengerMaxWins - team.wins + 1);
+                    minNeededWins = Math.max(minNeededWins, neededWins);
+                }
+                
+                return minNeededWins > team.remainingGames ? '불가능' : minNeededWins;
+            }
+            
+            return 0;
+        }
+
+        // === 기존 매직넘버 계산 함수들 복사 ===
+        
+        // 플레이오프 매직넘버 계산
+        function calculatePlayoffMagic(team, rankings, index) {
+            const totalGames = 144;
+            const playoffSpots = 5;
+            const remainingGames = totalGames - (team.wins + team.losses + team.draws);
+            
+            if (index < playoffSpots) {
+                // 현재 플레이오프 권 내
+                const sixthPlace = rankings[playoffSpots];
+                if (!sixthPlace) return 0;
+                const sixthMaxWins = sixthPlace.wins + (totalGames - (sixthPlace.wins + sixthPlace.losses + sixthPlace.draws));
+                return Math.max(0, sixthMaxWins - team.wins + 1);
+            } else {
+                // 플레이오프 권 밖
+                const fifthPlace = rankings[playoffSpots - 1];
+                const maxPossibleWins = team.wins + remainingGames;
+                if (maxPossibleWins <= fifthPlace.wins) return team.remainingGames;
+                return Math.max(0, fifthPlace.wins - team.wins + 1);
+            }
+        }
+
+        // 트래직넘버 계산
+        function calculateTragicNumber(team, rankings, index) {
+            const totalGames = 144;
+            const remainingGames = totalGames - (team.wins + team.losses + team.draws);
+            const playoffSpots = 5;
+            
+            if (index < playoffSpots) {
+                // 플레이오프 권 내 - 탈락까지
+                const sixthPlace = rankings[playoffSpots];
+                if (!sixthPlace) return team.remainingGames;
+                const minPossibleWins = team.wins;
+                const sixthMinWins = sixthPlace.wins;
+                if (minPossibleWins > sixthMinWins) return team.remainingGames;
+                return Math.max(0, remainingGames - (team.wins - sixthPlace.wins) + 1);
+            } else {
+                // 플레이오프 권 밖
+                const baselineWins = 71; // 플레이오프 진출 기준선
+                const maxPossibleWins = team.wins + remainingGames;
+                if (maxPossibleWins >= baselineWins) {
+                    return Math.max(0, maxPossibleWins - baselineWins + 1);
+                }
+                return 0; // 이미 탈락
+            }
+        }
+
+        // 1위 탈환을 위한 트래직넘버 계산 (승률 기준, 승수 표시)
+        function calculateFirstPlaceTragicNumber(team, rankings, index) {
+            const totalGames = 144;
+            const remainingGames = totalGames - (team.wins + team.losses + team.draws);
+            
+            // 1위팀 정보
+            const firstPlace = rankings[0];
+            if (!firstPlace || team.team === firstPlace.team) {
+                return 0; // 이미 1위이거나 1위팀 정보가 없음
+            }
+            
+            // 현재 팀의 최대 가능 승률 계산
+            const teamMaxPossibleWins = team.wins + remainingGames;
+            const teamMaxPossibleWinRate = teamMaxPossibleWins / (teamMaxPossibleWins + team.losses);
+            
+            // 1위팀 잔여 경기 계산
+            const firstRemainingGames = totalGames - (firstPlace.wins + firstPlace.losses + firstPlace.draws);
+            
+            // 1위팀의 최저 가능 승률과 현재 팀의 최대 승률 비교
+            const firstMinWins = firstPlace.wins; // 1위팀이 전패할 때의 승수
+            const firstMinWinRate = firstMinWins / (firstMinWins + firstPlace.losses + firstRemainingGames);
+            
+            // 현재 팀이 전승해도 1위팀이 전패했을 때의 승률을 못 넘으면 1위 탈환 불가능
+            if (teamMaxPossibleWinRate <= firstMinWinRate) {
+                return team.remainingGames; // 1위 탈환 불가능
+            }
+            
+            // 1위팀이 몇 승을 더 해야 현재 팀의 최대 승률을 넘는지 계산
+            for (let additionalWins = 0; additionalWins <= firstRemainingGames; additionalWins++) {
+                const firstFinalWins = firstPlace.wins + additionalWins;
+                const firstFinalLosses = firstPlace.losses + (firstRemainingGames - additionalWins);
+                const firstFinalWinRate = firstFinalWins / (firstFinalWins + firstFinalLosses);
+                
+                // 1위팀의 최종 승률이 현재 팀의 최대 승률을 넘는지 확인
+                if (firstFinalWinRate > teamMaxPossibleWinRate) {
+                    return additionalWins; // 1위팀이 이만큼 승리하면 현재 팀이 1위 탈환 불가
+                }
+            }
+            
+            // 1위팀이 전패해도 현재 팀의 최대 승률을 넘지 못함 (1위 탈환 가능)
+            return 0;
+        }
+
+        // 정규시즌 우승 매직넘버 계산
+        function calculateChampionshipMagic(team, rankings, index) {
+            if (index !== 0) return null; // 1위가 아니면 해당없음
+            
+            const totalGames = 144;
+            const secondPlace = rankings[1];
+            if (!secondPlace) return 0;
+            
+            const secondMaxWins = secondPlace.wins + (totalGames - (secondPlace.wins + secondPlace.losses + secondPlace.draws));
+            const magic = Math.max(0, secondMaxWins - team.wins + 1);
+            return magic;
+        }
+
+        // 팀 상태 결정
+        function determineTeamStatus(team, championshipMagic, playoffMagic, tragicNumber, index) {
+            // 우승 확정
+            if (championshipMagic === 0 || (index === 0 && championshipMagic <= 3)) {
+                return {
+                    label: '우승확정',
+                    backgroundColor: '#2563eb',
+                    textColor: '#ffffff'
+                };
+            }
+            
+            // 플레이오프 확정
+            if (playoffMagic === 0 || playoffMagic <= 3) {
+                return {
+                    label: 'PO확정',
+                    backgroundColor: '#2563eb',
+                    textColor: '#ffffff'
+                };
+            }
+            
+            // 매직넘버 (유력)
+            if (playoffMagic <= 10) {
+                return {
+                    label: 'PO유력',
+                    backgroundColor: '#16a34a',
+                    textColor: '#ffffff'
+                };
+            }
+            
+            // 경합
+            if (playoffMagic <= 20 && tragicNumber > 10) {
+                return {
+                    label: '경합',
+                    backgroundColor: '#eab308',
+                    textColor: '#000000'
+                };
+            }
+            
+            // 탈락 위험
+            if (tragicNumber <= 5) {
+                return {
+                    label: '탈락위험',
+                    backgroundColor: '#dc2626',
+                    textColor: '#ffffff'
+                };
+            }
+            
+            // 탈락
+            if (tragicNumber === 0) {
+                return {
+                    label: '탈락',
+                    backgroundColor: '#991b1b',
+                    textColor: '#ffffff'
+                };
+            }
+            
+            // 기본 (경합)
+            return {
+                label: '경합',
+                backgroundColor: '#eab308',
+                textColor: '#000000'
+            };
+        }
+
+        // === 새로운 매트릭스용 계산 함수 (테스트용) ===
+        
+        // 팀별 순위 확보 매직넘버 계산 (테스트용 - 해당 순위 확보를 위해 필요한 승수)
+        function calculateTeamMagicForRank(team, targetRank, data) {
+            // 모든 팀의 최대 승률 계산
+            const allTeamsMaxWinRate = data.map(t => {
+                const maxWins = t.wins + t.remainingGames;
+                const maxLosses = t.losses; // 전승 가정
+                return {
+                    team: t.team,
+                    maxWinRate: maxWins / (maxWins + maxLosses)
+                };
+            }).sort((a, b) => b.maxWinRate - a.maxWinRate); // 승률 높은 순으로 정렬
+            
+            // targetRank보다 높은 승률을 가질 수 있는 팀의 수 계산
+            // team이 X승을 했을 때, 그보다 높은 승률을 기록할 수 있는 팀이 (targetRank-1)개 이하여야 함
+            
+            for (let teamWins = 0; teamWins <= team.remainingGames; teamWins++) {
+                const teamFinalWins = team.wins + teamWins;
+                const teamFinalLosses = team.losses + (team.remainingGames - teamWins);
+                const teamFinalWinRate = teamFinalWins / (teamFinalWins + teamFinalLosses);
+                
+                // team보다 높거나 같은 승률을 가질 수 있는 팀의 수 (동률 포함)
+                const higherOrEqualTeamsCount = allTeamsMaxWinRate.filter(t => 
+                    t.team !== team.team && t.maxWinRate >= teamFinalWinRate
+                ).length;
+                
+                // 동률이상 팀이 (targetRank-1)개 이하면 targetRank 확보
+                if (higherOrEqualTeamsCount <= targetRank - 1) {
+                    return teamWins;
+                }
+            }
+            
+            // 전승해도 불가능
+            return team.remainingGames;
+        }
+
+        // 순위별 값 계산 (테스트용 - 매직넘버/트래직넘버 통합)
+        function calculateRankValue(team, targetRank, data) {
+            const currentRank = team.rank;
+            
+            // 상위 순위인 경우 - 트래직넘버 (상위팀이 몇 승 더 하면 내가 해당 순위 못 차지하는지)
+            if (targetRank < currentRank) {
+                const targetTeam = data.find(t => t.rank === targetRank);
+                if (!targetTeam) return { value: 'X', type: 'tragic' };
+                
+                // 상위팀이 몇 승 더 하면 내가 전승해도 추월 불가능한지 계산
+                const myMaxWins = team.wins + team.remainingGames;
+                const myMaxLosses = team.losses; // 전승하므로 패수는 그대로
+                const myMaxWinRate = myMaxWins / (myMaxWins + myMaxLosses);
+                
+                // 상위팀이 몇 승 더 하면 내 최대 승률을 넘는지
+                for (let additionalWins = 0; additionalWins <= targetTeam.remainingGames; additionalWins++) {
+                    const targetFinalWins = targetTeam.wins + additionalWins;
+                    const targetFinalLosses = targetTeam.losses + (targetTeam.remainingGames - additionalWins);
+                    const targetFinalWinRate = targetFinalWins / (targetFinalWins + targetFinalLosses);
+                    
+                    if (targetFinalWinRate > myMaxWinRate) {
+                        return { value: additionalWins, type: 'tragic' };
+                    }
+                }
+                
+                // 상위팀이 전패해도 내가 추월할 수 있음
+                return { value: 0, type: 'tragic' };
+            }
+            
+            // 현재 순위 이하인 경우 - 매직넘버 (해당 순위 확보/유지하기 위해 내가 몇 승 해야 하는지)
+            if (targetRank >= currentRank) {
+                const magic = calculateTeamMagicForRank(team, targetRank, data);
+                
+                // 현재 순위면 current 타입
+                const type = (targetRank === currentRank) ? 'current' : 'magic';
+                
+                return { 
+                    value: magic > team.remainingGames ? 'X' : magic, 
+                    type: type 
+                };
+            }
+        }
+
+        // === 기존 함수들 (사용 안함 - 테스트용 함수로 대체) ===
+        
+        // (삭제됨) calculateCurrentRankDefense 
+        // (삭제됨) calculateTragicNumber
+        // (삭제됨) calculateMagicNumber
+
+        // 셀 색상 클래스 결정 (테스트용 - 3가지 색상)
+        function getCellClass(resultObj) {
+            const { type } = resultObj;
+            // 단순화: 타입 기반 컬러 매핑으로 시각적 일관성 확보
+            if (type === 'magic' || type === 'current') return 'good';
+            if (type === 'tragic') return 'bad';
+            return 'medium';
+        }
+
+        // 통합 매트릭스 렌더링 (테스트용 - 새로운 로직)
+        function renderUnifiedMatrix() {
+            const tbody = document.getElementById('unifiedTableBody');
+            tbody.innerHTML = '';
+            
+            standingsData.forEach((team, teamIndex) => {
+                const row = document.createElement('tr');
+                
+                // 팀명 셀 (순위 포함)
+                const teamCell = document.createElement('td');
+                teamCell.className = 'team-cell';
+                teamCell.textContent = `${team.rank}위\n${team.team}`;
+                row.appendChild(teamCell);
+                
+                // 각 순위별 값 계산 (1~9위)
+                for (let targetRank = 1; targetRank <= 9; targetRank++) {
+                    const cell = document.createElement('td');
+                    const result = calculateRankValue(team, targetRank, standingsData);
+                    
+                    // 디버깅용 로그 (테스트용)
+                    if (team.team === 'LG' && targetRank === 4) {
+                        console.log('LG 4위 계산 결과:', result);
+                    }
+                    
+                    cell.textContent = result.value;
+                    cell.className = getCellClass(result);
+                    
+                    // 툴팁 이벤트
+                    cell.addEventListener('mouseenter', (e) => showTooltip(e, team, targetRank, result));
+                    cell.addEventListener('mouseleave', hideTooltip);
+                    cell.addEventListener('mousemove', moveTooltip);
+                    
+                    row.appendChild(cell);
+                }
+                
+                tbody.appendChild(row);
+            });
+        }
+
+        // 툴팁 기능 (테스트용 - 새로운 로직)
+        function showTooltip(e, team, rank, result) {
+            const tooltip = document.getElementById('tooltip');
+            const { value, type } = result;
+            
+            let message = `${team.team} → ${rank}위: `;
+            
+            if (type === 'current') {
+                message += `현재 순위 ★`;
+            } else if (type === 'tragic') {
+                message += `트래직넘버 ${value}`;
+                const n = parseInt(value);
+                if (!isNaN(n) && n === 0) {
+                    message += '<br>상위팀을 추월할 수 있음 (상대 추가 승리 불필요)';
+                } else if (!isNaN(n)) {
+                    message += `<br>${rank}위/해당 구간 팀이 ${n}승 더 하면 달성/방어 불가`;
+                }
+            } else if (type === 'magic') {
+                message += `매직넘버 ${value}`;
+                if (value === '수비불가') {
+                    message += '<br>해당 순위 방어 불가능';
+                } else if (value === '안전') {
+                    message += '<br>해당 순위에서 밀려날 위험 없음';
+                } else if (!isNaN(parseInt(value))) {
+                    const n = parseInt(value);
+                    if (n === 0) message += '<br>현재 잔여 경기 상관없이 안전';
+                    else message += `<br>${n}승 더 하면 ${rank}위 안전`;
+                }
+            } else if (type === 'possible') {
+                message += '추월 가능성';
+                message += '<br>상위팀을 추월할 수 있는 상황';
+            } else if (type === 'impossible') {
+                message += '불가능';
+                message += '<br>남은 경기로 달성/방어 불가능';
+            }
+            
+            tooltip.innerHTML = message;
+            tooltip.style.opacity = '1';
+            moveTooltip(e);
+        }
+
+        function hideTooltip() {
+            const tooltip = document.getElementById('tooltip');
+            tooltip.style.opacity = '0';
+        }
+
+        function moveTooltip(e) {
+            const tooltip = document.getElementById('tooltip');
+            tooltip.style.left = (e.clientX + 15) + 'px';
+            tooltip.style.top = (e.clientY - 10) + 'px';
+        }
+
+        // 모드 전환 함수
+        function switchMode(mode) {
+            const magicBtn = document.getElementById('magicMode');
+            const scenarioBtn = document.getElementById('scenarioMode');
+            const magicWrapper = document.getElementById('magicMatrixWrapper');
+            const scenarioWrapper = document.getElementById('scenarioMatrixWrapper');
+            
+            if (mode === 'magic') {
+                magicBtn.classList.add('active');
+                scenarioBtn.classList.remove('active');
+                magicWrapper.style.display = 'block';
+                scenarioWrapper.style.display = 'none';
+            } else {
+                magicBtn.classList.remove('active');
+                scenarioBtn.classList.add('active');
+                magicWrapper.style.display = 'none';
+                scenarioWrapper.style.display = 'block';
+                
+                // 경우의수 매트릭스가 아직 렌더링되지 않았다면 렌더링
+                if (!document.getElementById('scenarioTableBody').hasChildNodes()) {
+                    renderScenarioMatrix();
+                }
+            }
+        }
+
+        // 경우의수 매트릭스 렌더링
+        function renderScenarioMatrix() {
+            const tbody = document.getElementById('scenarioTableBody');
+            tbody.innerHTML = '';
+            
+            if (!scenarioMatrix) scenarioMatrix = generateScenarioMatrix();
+
+            standingsData.forEach((team, teamIndex) => {
+                const row = document.createElement('tr');
+                
+                // 팀명 셀 (순위 포함)
+                const teamCell = document.createElement('td');
+                teamCell.className = 'team-cell';
+                teamCell.textContent = `${team.rank}위\n${team.team}`;
+                row.appendChild(teamCell);
+                
+                // 각 순위별 확률 표시 (1~9위)
+                for (let targetRank = 1; targetRank <= 9; targetRank++) {
+                    const cell = document.createElement('td');
+                    const probability = parseFloat(scenarioMatrix[team.team][targetRank].probability);
+                    
+                    cell.textContent = probability > 0 ? `${probability}%` : '-';
+                    cell.className = getProbabilityClass(probability);
+                    
+                    // 현재 순위에만 ★ 표시
+                    if (team.rank === targetRank) {
+                        cell.classList.add('current-rank');
+                    }
+                    
+                    // 툴팁 이벤트
+                    cell.addEventListener('mouseenter', (e) => showProbabilityTooltip(e, team, targetRank, probability));
+                    cell.addEventListener('mouseleave', hideTooltip);
+                    cell.addEventListener('mousemove', moveTooltip);
+                    
+                    row.appendChild(cell);
+                }
+                
+                tbody.appendChild(row);
+            });
+        }
+
+        // 확률별 색상 클래스 결정
+        function getProbabilityClass(probability) {
+            if (probability >= 30) return 'prob-high';
+            if (probability >= 20) return 'prob-medium-high';
+            if (probability >= 10) return 'prob-medium';
+            if (probability >= 5) return 'prob-low';
+            if (probability >= 1) return 'prob-very-low';
+            if (probability > 0) return 'prob-minimal';
+            return 'prob-zero';
+        }
+
+        // 확률 툴팁
+        function showProbabilityTooltip(e, team, rank, probability) {
+            const tooltip = document.getElementById('tooltip');
+            
+            let message = `${team.team} → ${rank}위 확률: ${probability}%`;
+            
+            if (probability >= 30) {
+                message += '<br>매우 높은 확률';
+            } else if (probability >= 10) {
+                message += '<br>가능성 있음';
+            } else if (probability >= 1) {
+                message += '<br>낮은 확률';
+            } else if (probability > 0) {
+                message += '<br>희박한 가능성';
+            } else {
+                message += '<br>불가능';
+            }
+            
+            message += `<br>1,000회 시뮬레이션 중 ${scenarioMatrix[team.team][rank].count}회`;
+            
+            tooltip.innerHTML = message;
+            tooltip.style.opacity = '1';
+            moveTooltip(e);
+        }
+
+        // 페이지 로드시: 서비스 데이터 로드 → 매트릭스 렌더링
+        document.addEventListener('DOMContentLoaded', async function() {
+            await loadStandingsData();
+            renderUnifiedMatrix();
+            // 현재 시간 표시
+            const now = new Date();
+            const timeString = now.toLocaleString('ko-KR', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                timeZone: 'Asia/Seoul'
+            });
+            document.getElementById('updateTime').textContent = `📅 데이터 업데이트: ${timeString}`;
+        });
+    </script>
+</body>
+</html>
