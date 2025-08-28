@@ -4247,14 +4247,10 @@
                             <th>승률</th>
                             <th>게임차</th>
                             <th>잔여경기</th>
-                            <th>득점</th>
-                            <th>실점</th>
-                            <th>득실차</th>
-                            <th>P승률</th>
-                            <th>운지수</th>
-                            <th>1점차승률</th>
-                            <th>3점차승률</th>
+                            <th>최근10경기</th>
+                            <th>홈</th>
                             <th>홈승률</th>
+                            <th>원정</th>
                             <th>원정승률</th>
                             <th onclick="event.stopPropagation(); sortByStreakNew();" class="no-sort" style="cursor: pointer;">연승패</th>
                             <th onclick="event.stopPropagation(); sortByMaxWinStreak();" class="no-sort" style="cursor: pointer;">최대연승</th>
@@ -4274,12 +4270,12 @@
                 <div style="font-size: var(--font-base); font-weight: var(--font-weight-medium); margin-bottom: 8px; color: #495057;">📈 주요 지표 간단 설명</div>
                 <div style="font-size: var(--font-sm); color: #4b5563; line-height: 1.5;">
                     <div style="margin-bottom: 6px;"><strong>승패마진:</strong> 승수-패수 (양수일수록 우수)</div>
-                    <div style="margin-bottom: 6px;"><strong>득실차:</strong> 득점-실점 (높을수록 좋음)</div>
-                    <div style="margin-bottom: 6px;"><strong>P승률:</strong> 피타고리안 기대승률 (득실차 기반)</div>
-                    <div style="margin-bottom: 6px;"><strong>운지수:</strong> 실제승률-기대승률</div>
-                    <div style="margin-bottom: 6px;"><strong>1점차승률:</strong> 1점 차이 경기에서의 승률</div>
                     <div style="margin-bottom: 6px;"><strong>잔여경기:</strong> 정규시즌 총 144경기 중 남은 경기수</div>
+                    <div style="margin-bottom: 6px;"><strong>최근10경기:</strong> 최근 10경기의 승-무-패 기록</div>
+                    <div style="margin-bottom: 6px;"><strong>홈/원정:</strong> 홈경기와 원정경기의 승-패-무 기록</div>
+                    <div style="margin-bottom: 6px;"><strong>홈승률/원정승률:</strong> 홈경기와 원정경기에서의 승률 (무승부 제외)</div>
                     <div style="margin-bottom: 6px;"><strong>연승패:</strong> 현재 연속 승/패 상태</div>
+                    <div style="margin-bottom: 6px;"><strong>최대연승/연패:</strong> 시즌 중 기록한 최대 연속 승부 기록</div>
                     <div style="margin-bottom: 6px;"><strong>최대순위:</strong> 전승시 도달 가능한 최고 순위 (숫자가 작을수록 좋음)</div>
                     <div style="margin-bottom: 6px;"><strong>최소순위:</strong> 전패시 도달 가능한 최저 순위 (숫자가 클수록 나쁨)</div>
                     <div><em style="color: #666; font-size: 11px;">※ 시즌 종료시 해당 팀이 도달할 수 있는 순위 범위를 나타냄</em></div>
@@ -4647,27 +4643,30 @@
                 <table class="detail-table" id="pythagoreanTable" style="table-layout: fixed; width: 100%;" role="table" aria-label="피타고리안 기대승률 및 운 지수 분석표">
                     <thead>
                         <tr>
-                            <th rowspan="2" style="width: 5%;">순위</th>
-                            <th rowspan="2" style="width: 10%;">팀</th>
+                            <th rowspan="2" style="width: 4%;">순위</th>
+                            <th rowspan="2" style="width: 8%;">팀</th>
                             <th colspan="3">실제 기록</th>
                             <th colspan="3">기대 기록</th>
                             <th colspan="2">승률 비교</th>
                             <th colspan="2">운 지수 분석</th>
-                            <th colspan="2">득실 비교</th>
+                            <th colspan="2">득실점</th>
+                            <th colspan="2">득실차</th>
                         </tr>
                         <tr>
-                            <th style="width: 6.5%;">승</th>
-                            <th style="width: 6.5%;">패</th>
-                            <th style="width: 6.5%;">무</th>
-                            <th style="width: 6.5%;">기대 승</th>
-                            <th style="width: 6.5%;">기대 패</th>
-                            <th style="width: 6.5%;">기대 무</th>
-                            <th style="width: 8%;">실제승률</th>
-                            <th style="width: 8%;">기대승률</th>
+                            <th style="width: 5%;">승</th>
+                            <th style="width: 5%;">패</th>
+                            <th style="width: 5%;">무</th>
+                            <th style="width: 5%;">기대 승</th>
+                            <th style="width: 5%;">기대 패</th>
+                            <th style="width: 5%;">기대 무</th>
+                            <th style="width: 7%;">실제승률</th>
+                            <th style="width: 7%;">기대승률</th>
                             <th style="width: 7%;">운 지수</th>
-                            <th style="width: 10%;">운 상태</th>
-                            <th style="width: 9%;">실제 득실차</th>
-                            <th style="width: 9%;">기대 득실차</th>
+                            <th style="width: 9%;">운 상태</th>
+                            <th style="width: 7%;">득점</th>
+                            <th style="width: 7%;">실점</th>
+                            <th style="width: 8%;">실제 득실차</th>
+                            <th style="width: 8%;">기대 득실차</th>
                         </tr>
                     </thead>
                     <tbody id="pythagoreanBody">
@@ -5455,6 +5454,46 @@
                 }
                 
                 dashboardData = await response.json();
+                
+                // service-data.json도 로드하여 recent10, homeRecord, awayRecord 데이터 병합
+                try {
+                    const serviceResponse = await fetch('magic-number/data/service-data.json?v=' + Date.now());
+                    if (serviceResponse.ok) {
+                        const serviceData = await serviceResponse.json();
+                        console.log('✅ service-data.json 로드 성공');
+                        
+                        // service-data의 standings 데이터를 dashboardData.standings에 병합
+                        if (serviceData.standings && dashboardData.standings) {
+                            dashboardData.standings.forEach(team => {
+                                // service-data에서 해당 팀 찾기 (team_name vs team 필드)
+                                const serviceTeam = serviceData.standings.find(s => s.team === team.team_name);
+                                if (serviceTeam) {
+                                    // recent10, homeRecord, awayRecord 데이터 추가
+                                    team.recent10 = serviceTeam.recent10;
+                                    team.homeRecord = serviceTeam.homeRecord;
+                                    team.awayRecord = serviceTeam.awayRecord;
+                                    team.runsScored = serviceTeam.runsScored;
+                                    team.runsAllowed = serviceTeam.runsAllowed;
+                                    team.runDiff = serviceTeam.runDiff;
+                                    team.pythagoreanWinRate = serviceTeam.pythagoreanWinRate;
+                                    team.luckIndex = serviceTeam.luckIndex;
+                                    team.luckRating = serviceTeam.luckRating;
+                                    
+                                    // 홈승률과 원정승률 계산
+                                    const homeWins = serviceTeam.homeWins || 0;
+                                    const homeLosses = serviceTeam.homeLosses || 0;
+                                    const awayWins = serviceTeam.awayWins || 0;
+                                    const awayLosses = serviceTeam.awayLosses || 0;
+                                    
+                                    team.homeWinRate = (homeWins + homeLosses) > 0 ? homeWins / (homeWins + homeLosses) : 0;
+                                    team.awayWinRate = (awayWins + awayLosses) > 0 ? awayWins / (awayWins + awayLosses) : 0;
+                                }
+                            });
+                        }
+                    }
+                } catch (e) {
+                    console.warn('⚠️ service-data.json 로드 실패:', e);
+                }
                 
                 // 승률과 상대전적 기준으로 순위 정렬
                 await sortStandingsByWinRateAndHeadToHead();
@@ -7253,15 +7292,11 @@
                     <td><strong>${team.win_rate}</strong></td>
                     <td>${team.games_behind}</td>
                     <td>${144 - team.games_played}</td>
-                    <td>${team.runs_scored}</td>
-                    <td>${team.runs_allowed}</td>
-                    <td><span style="color: ${getRunDiffColor(parseInt(team.run_differential))}">${team.run_differential}</span></td>
-                    <td>${pythagorean ? pythagorean.expected_win_rate : '-'}</td>
-                    <td class="${pythagorean && parseFloat(pythagorean.luck_factor) > 0.02 ? 'positive' : pythagorean && parseFloat(pythagorean.luck_factor) < -0.02 ? 'negative' : 'neutral'}">${pythagorean ? pythagorean.luck_factor : '-'}</td>
-                    <td><span style="color: ${oneRun ? getWinRateColor(parseFloat(oneRun.win_rate)) : '#666'}">${oneRun ? oneRun.win_rate : '-'}</span></td>
-                    <td><span style="color: ${clutchTeamData ? getWinRateColor(parseFloat(clutchTeamData.threeRunWinRate)/100) : '#666'}">${clutchTeamData ? (parseFloat(clutchTeamData.threeRunWinRate)/100).toFixed(3) : '-'}</span></td>
-                    <td>${homeAway ? homeAway.home_win_rate : '-'}</td>
-                    <td>${homeAway ? homeAway.away_win_rate : '-'}</td>
+                    <td>${team.recent10 || team.team_recent10 || '-'}</td>
+                    <td>${team.homeRecord || team.home_record || '-'}</td>
+                    <td>${team.homeWinRate !== undefined ? team.homeWinRate.toFixed(3) : (team.home_win_rate || '-')}</td>
+                    <td>${team.awayRecord || team.away_record || '-'}</td>
+                    <td>${team.awayWinRate !== undefined ? team.awayWinRate.toFixed(3) : (team.away_win_rate || '-')}</td>
                     <td class="${streakClass}">${streakDisplay}</td>
                     <td>${streak ? streak.max_win_streak : '-'}</td>
                     <td>${streak ? streak.max_lose_streak : '-'}</td>
@@ -7352,6 +7387,8 @@
                     <td style="color: #007bff;">${team.expected_win_rate}</td>
                     <td class="${luckClass}"><strong>${team.luck_factor}</strong></td>
                     <td class="${luckClass}" style="white-space: nowrap;">${team.luck_status}</td>
+                    <td><strong>${actualRunsScored || '-'}</strong></td>
+                    <td><strong>${actualRunsAllowed || '-'}</strong></td>
                     <td><strong>${actualRunDiff >= 0 ? '+' : ''}${actualRunDiff}</strong></td>
                     <td style="color: #007bff;">${expectedRunDiff >= 0 ? '+' : ''}${expectedRunDiff}</td>
                 `;
