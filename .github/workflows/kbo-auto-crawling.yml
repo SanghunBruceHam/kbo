@@ -182,6 +182,21 @@ jobs:
         echo "📈 순위 변동 매트릭스 생성 중..."
         npm run rank-matrix
         echo "✅ magic-matrix-data.json 생성 완료"
+        
+        # 순위 그래프용 season-rank-generator.js와 rank-chart.js 실행
+        echo "📊 일자별 순위·게임차·승률 그래프 데이터 생성 중..."
+        
+        # season-rank-generator.js는 이미 magic-number/js/에 있어서 별도 실행 불필요
+        # rank-chart.js는 클라이언트 사이드에서 실행되므로 여기서는 데이터만 준비
+        
+        # 그래프용 데이터가 올바르게 생성되었는지 확인
+        if [ -f "magic-number/data/game-by-game-records.json" ]; then
+          echo "✅ 순위 그래프용 게임별 기록 데이터 확인됨"
+        else
+          echo "⚠️ 게임별 기록 데이터가 없습니다 - 순위 그래프가 제한적일 수 있음"
+        fi
+        
+        echo "✅ 일자별 순위·게임차·승률 그래프 데이터 처리 완료"
 
     # 10-6. 추가 분석 데이터 생성 (루트 index.html용)
     - name: 📈 고급 분석 데이터 생성

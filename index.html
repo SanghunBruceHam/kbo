@@ -9152,13 +9152,62 @@
             });
         }
 
-
-
-
-
+        // 페이지 세션 리셋 함수 - 페이지 로드 시 JavaScript 상태 초기화
+        function resetPageSession() {
+            console.log('🔄 페이지 세션 리셋 시작...');
+            
+            try {
+                // 1. 전역 변수 초기화
+                window.currentKBOData = null;
+                window.weeklyAnalysisData = null;
+                window.seriesAnalysisData = null;
+                window.gameRecordsData = null;
+                window.dailyStats = null;
+                window.completeDailyStats = null;
+                
+                // 2. Chart.js 인스턴스 정리
+                if (window.winRateChartInstance) {
+                    window.winRateChartInstance.destroy();
+                    window.winRateChartInstance = null;
+                }
+                
+                // 3. 타이머 정리
+                for (let i = 1; i < 1000; i++) {
+                    clearTimeout(i);
+                    clearInterval(i);
+                }
+                
+                // 4. DOM 캐시 초기화
+                if (typeof clearDOMCache === 'function') {
+                    clearDOMCache();
+                }
+                
+                // 5. localStorage 정리 (PC/모바일 버전 설정 제외)
+                const preserveKeys = ['forcePCVersion'];
+                const keysToRemove = [];
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    if (key && !preserveKeys.includes(key)) {
+                        keysToRemove.push(key);
+                    }
+                }
+                keysToRemove.forEach(key => localStorage.removeItem(key));
+                
+                // 6. sessionStorage 완전 초기화
+                sessionStorage.clear();
+                
+                console.log('✅ 페이지 세션 리셋 완료');
+                
+            } catch (error) {
+                console.warn('⚠️ 세션 리셋 중 일부 오류 발생:', error);
+            }
+        }
 
         // 페이지 로드 시 데이터 로드 및 정렬 기능 초기화
         window.addEventListener('DOMContentLoaded', () => {
+            // 세션 리셋: 페이지 로드 시 JavaScript 상태 초기화
+            resetPageSession();
+            
             // 대시보드 데이터 로드
             loadDashboardData().then(() => {
                 // 대시보드 로드 완료 후 정렬 기능 즉시 초기화 (최적화)
