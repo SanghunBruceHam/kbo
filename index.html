@@ -5447,7 +5447,9 @@
         // 데이터 로드
         async function loadDashboardData() {
             try {
-                const response = await fetch('magic-number/data/enhanced-dashboard.json?v=' + Date.now());
+                // 강력한 캐시 버스팅으로 항상 최신 데이터 로드
+                const timestamp = window.cacheTimestamp || Date.now();
+                const response = await fetch(`magic-number/data/enhanced-dashboard.json?v=${timestamp}&_=${Math.random()}`);
                 
                 if (!response.ok) {
                     throw new Error(`HTTP ${response.status}: ${response.statusText}`);
@@ -5457,7 +5459,7 @@
                 
                 // service-data.json도 로드하여 recent10, homeRecord, awayRecord 데이터 병합
                 try {
-                    const serviceResponse = await fetch('magic-number/data/service-data.json?v=' + Date.now());
+                    const serviceResponse = await fetch(`magic-number/data/service-data.json?v=${timestamp}&_=${Math.random()}`);
                     if (serviceResponse.ok) {
                         const serviceData = await serviceResponse.json();
                         console.log('✅ service-data.json 로드 성공');
@@ -9152,54 +9154,24 @@
             });
         }
 
-        // 페이지 세션 리셋 함수 - 페이지 로드 시 JavaScript 상태 초기화
+        // 페이지 세션 리셋 함수 - 빠른 초기화로 성능 개선
         function resetPageSession() {
-            console.log('🔄 페이지 세션 리셋 시작...');
-            
             try {
-                // 1. 전역 변수 초기화
+                // 1. 핵심 전역 변수만 빠르게 초기화
                 window.currentKBOData = null;
+                window.dashboardData = null;
                 window.weeklyAnalysisData = null;
-                window.seriesAnalysisData = null;
-                window.gameRecordsData = null;
-                window.dailyStats = null;
-                window.completeDailyStats = null;
                 
-                // 2. Chart.js 인스턴스 정리
-                if (window.winRateChartInstance) {
-                    window.winRateChartInstance.destroy();
-                    window.winRateChartInstance = null;
-                }
-                
-                // 3. 타이머 정리
-                for (let i = 1; i < 1000; i++) {
-                    clearTimeout(i);
-                    clearInterval(i);
-                }
-                
-                // 4. DOM 캐시 초기화
-                if (typeof clearDOMCache === 'function') {
-                    clearDOMCache();
-                }
-                
-                // 5. localStorage 정리 (PC/모바일 버전 설정 제외)
-                const preserveKeys = ['forcePCVersion'];
-                const keysToRemove = [];
-                for (let i = 0; i < localStorage.length; i++) {
-                    const key = localStorage.key(i);
-                    if (key && !preserveKeys.includes(key)) {
-                        keysToRemove.push(key);
-                    }
-                }
-                keysToRemove.forEach(key => localStorage.removeItem(key));
-                
-                // 6. sessionStorage 완전 초기화
+                // 2. sessionStorage만 초기화 (빠른 처리)
                 sessionStorage.clear();
                 
-                console.log('✅ 페이지 세션 리셋 완료');
+                // 3. 캐시 버스팅용 타임스탬프 설정
+                window.cacheTimestamp = Date.now();
+                
+                console.log('✅ 빠른 세션 리셋 완료');
                 
             } catch (error) {
-                console.warn('⚠️ 세션 리셋 중 일부 오류 발생:', error);
+                console.warn('⚠️ 세션 리셋 오류:', error);
             }
         }
 
