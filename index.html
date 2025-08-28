@@ -4649,7 +4649,7 @@
                             <th colspan="3">기대 기록</th>
                             <th colspan="2">승률 비교</th>
                             <th colspan="2">운 지수 분석</th>
-                            <th colspan="2">득실점</th>
+                            <th colspan="2" style="display: none;">득실점</th>
                             <th colspan="2">득실차</th>
                         </tr>
                         <tr>
@@ -4663,8 +4663,8 @@
                             <th style="width: 7%;">기대승률</th>
                             <th style="width: 7%;">운 지수</th>
                             <th style="width: 9%;">운 상태</th>
-                            <th style="width: 7%; cursor: pointer;" onclick="sortPythagoreanTable('runsScored')">득점 ↕</th>
-                            <th style="width: 7%; cursor: pointer;" onclick="sortPythagoreanTable('runsAllowed')">실점 ↕</th>
+                            <th style="width: 7%; cursor: pointer; display: none;" onclick="sortPythagoreanTable('runsScored')">득점 ↕</th>
+                            <th style="width: 7%; cursor: pointer; display: none;" onclick="sortPythagoreanTable('runsAllowed')">실점 ↕</th>
                             <th style="width: 8%;">실제 득실차</th>
                             <th style="width: 8%;">기대 득실차</th>
                         </tr>
@@ -7427,8 +7427,8 @@
                     <td style="color: #007bff;">${expectedWinRate.toFixed(3)}</td>
                     <td class="${luckClass}"><strong>${team.luckIndex ? (team.luckIndex > 0 ? '+' : '') + team.luckIndex.toFixed(3) : '-'}</strong></td>
                     <td class="${luckClass}" style="white-space: nowrap;">${team.luckRating || '-'}</td>
-                    <td><strong>${actualRunsScored || '-'}</strong></td>
-                    <td><strong>${actualRunsAllowed || '-'}</strong></td>
+                    <td style="display: none;"><strong>${actualRunsScored || '-'}</strong></td>
+                    <td style="display: none;"><strong>${actualRunsAllowed || '-'}</strong></td>
                     <td><strong>${actualRunDiff >= 0 ? '+' : ''}${actualRunDiff}</strong></td>
                     <td style="color: #007bff;">${expectedRunDiff >= 0 ? '+' : ''}${expectedRunDiff}</td>
                 `;
@@ -7516,8 +7516,8 @@
                     <td style="color: #007bff;">${team.expected_win_rate}</td>
                     <td class="${luckClass}"><strong>${team.luck_factor}</strong></td>
                     <td class="${luckClass}" style="white-space: nowrap;">${team.luck_status}</td>
-                    <td><strong>${actualRunsScored || '-'}</strong></td>
-                    <td><strong>${actualRunsAllowed || '-'}</strong></td>
+                    <td style="display: none;"><strong>${actualRunsScored || '-'}</strong></td>
+                    <td style="display: none;"><strong>${actualRunsAllowed || '-'}</strong></td>
                     <td><strong>${actualRunDiff >= 0 ? '+' : ''}${actualRunDiff}</strong></td>
                     <td style="color: #007bff;">${expectedRunDiff >= 0 ? '+' : ''}${expectedRunDiff}</td>
                 `;
