@@ -4098,11 +4098,21 @@
         "result": "W",
         "runs_scored": 14,
         "runs_allowed": 1
+      },
+      {
+        "gameNumber": 122,
+        "date": "2025-08-28",
+        "opponent": "두산",
+        "isHome": false,
+        "score": "6:7",
+        "result": "L",
+        "runs_scored": 6,
+        "runs_allowed": 7
       }
     ],
     "currentStreak": {
-      "type": "W",
-      "count": 5
+      "type": "L",
+      "count": 1
     },
     "longestWinStreak": 7,
     "longestLoseStreak": 8,
@@ -4318,6 +4328,10 @@
       {
         "type": "L",
         "count": 1
+      },
+      {
+        "type": "W",
+        "count": 5
       }
     ]
   },
@@ -5532,11 +5546,21 @@
         "result": "L",
         "runs_scored": 1,
         "runs_allowed": 14
+      },
+      {
+        "gameNumber": 122,
+        "date": "2025-08-28",
+        "opponent": "삼성",
+        "isHome": true,
+        "score": "7:6",
+        "result": "W",
+        "runs_scored": 7,
+        "runs_allowed": 6
       }
     ],
     "currentStreak": {
-      "type": "L",
-      "count": 5
+      "type": "W",
+      "count": 1
     },
     "longestWinStreak": 7,
     "longestLoseStreak": 5,
@@ -5768,6 +5792,10 @@
       {
         "type": "W",
         "count": 7
+      },
+      {
+        "type": "L",
+        "count": 5
       }
     ]
   },
