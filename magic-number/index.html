@@ -456,7 +456,7 @@
     <!-- 네비게이션 -->
     <nav class="navigation">
         <div class="nav-menu">
-            <a href="../index.html" class="nav-item main-dashboard">🏠 메인 대시보드 보러 가기</a>
+            <a href="../index.html" class="nav-item main-dashboard">🏠 메인 대시보드에서 더 많은 데이터 보기</a>
             <a href="javascript:void(0)" class="nav-item active" onclick="smoothScrollTo('championship')">👑 매직넘버 & 우승</a>
             <a href="javascript:void(0)" class="nav-item" onclick="smoothScrollTo('scenarios')">🎲 경우의 수</a>
             <a href="javascript:void(0)" class="nav-item" onclick="smoothScrollTo('chase')">🎯 1위 탈환</a>
@@ -1575,6 +1575,26 @@
 
         .share-btn svg {
             flex-shrink: 0;
+        }
+
+        /* 메인 대시보드 네비게이션 플래시 애니메이션 */
+        .nav-item.main-dashboard {
+            animation: navFlash 3s infinite;
+        }
+        
+        @keyframes navFlash {
+            0%, 75%, 100% {
+                background: rgba(255, 255, 255, 0.1);
+                box-shadow: none;
+            }
+            80%, 90% {
+                background: rgba(255, 215, 0, 0.2);
+                box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+            }
+        }
+        
+        .nav-item.main-dashboard:hover {
+            animation-play-state: paused;
         }
 
         /* 모바일에서 버튼 조정 */
