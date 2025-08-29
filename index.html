@@ -8016,7 +8016,7 @@
                     Math.round((team.pythagoreanWinRate * totalGames - (1 - team.pythagoreanWinRate) * totalGames) * 5) : 0;
                 
                 const serviceTeamData = {
-                    team_name: team.team_name,
+                    team_name: team.team,
                     runsScored: runsScored,
                     runsAllowed: runsAllowed,
                     runDiff: runDiff,
@@ -8028,7 +8028,7 @@
                     wins: team.wins,
                     losses: team.losses,
                     draws: team.draws,
-                    winRate: team.win_rate,
+                    winRate: team.winRate,
                     rank: team.rank || team.displayRank
                 };
                 return serviceTeamData;
@@ -8039,20 +8039,29 @@
                 let valueA, valueB;
                 
                 if (column === 'runsScored') {
-                    valueA = a.runsScored;
-                    valueB = b.runsScored;
+                    valueA = a.runsScored || 0;
+                    valueB = b.runsScored || 0;
                 } else if (column === 'runsAllowed') {
-                    valueA = a.runsAllowed;
-                    valueB = b.runsAllowed;
+                    valueA = a.runsAllowed || 0;
+                    valueB = b.runsAllowed || 0;
                 } else if (column === 'luckIndex') {
-                    valueA = a.luckIndex;
-                    valueB = b.luckIndex;
+                    valueA = a.luckIndex || 0;
+                    valueB = b.luckIndex || 0;
                 } else if (column === 'runDiff') {
-                    valueA = a.runDiff;
-                    valueB = b.runDiff;
+                    valueA = a.runDiff || 0;
+                    valueB = b.runDiff || 0;
                 } else if (column === 'expectedRunDiff') {
-                    valueA = a.expectedRunDiff;
-                    valueB = b.expectedRunDiff;
+                    valueA = a.expectedRunDiff || 0;
+                    valueB = b.expectedRunDiff || 0;
+                } else {
+                    // 기본 정렬 (순위)
+                    valueA = a.rank || 99;
+                    valueB = b.rank || 99;
+                }
+                
+                // 값이 같으면 팀명으로 보조 정렬
+                if (valueA === valueB) {
+                    return a.team_name.localeCompare(b.team_name);
                 }
                 
                 if (pythagoreanSortState.direction === 'desc') {
@@ -8072,7 +8081,7 @@
             tbody.innerHTML = '';
             
             sortedTeams.forEach((team, index) => {
-                const teamData = dashboardData.standings.find(t => t.team_name === team.team_name);
+                const teamData = dashboardData.standings.find(t => t.team === team.team_name);
                 const rank = teamData ? teamData.displayRank : (index + 1);
                 
                 // 실제 기록
@@ -8149,7 +8158,7 @@
             });
             
             sortedTeams.forEach((team, index) => {
-                const teamData = dashboardData.standings.find(t => t.team_name === team.team_name);
+                const teamData = dashboardData.standings.find(t => t.team === team.team_name);
                 const rank = teamData ? teamData.displayRank : (index + 1);
                 
                 // 실제 기록
