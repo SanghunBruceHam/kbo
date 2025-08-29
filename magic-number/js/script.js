@@ -1675,16 +1675,20 @@ const kboTeams = {
                     // 트래직넘버가 불가능이면 탈환도 불가능
                     canCatch = '불가능';
                 } else if (firstPlaceTragic === 0) {
-                    tragicDisplay = '가능';
-                    tragicColor = textColor; // 기본 텍스트 색상 사용
-                    // 트래직넘버가 0이면 탈환 불가능
-                    canCatch = '불가능';
+                    tragicDisplay = '0';
+                    tragicColor = '#f39c12'; // 주황색 - 임계점
+                    // 트래직넘버가 0이면 아직 탈환 가능하지만 임계 상황
+                    canCatch = '가능';
                 } else {
                     tragicDisplay = firstPlaceTragic;
                     tragicColor = textColor; // 기본 텍스트 색상 사용
-                    // 트래직넘버가 존재하면 아직 탈환 가능
+                    // 트래직넘버가 양수면 아직 탈환 가능
                     if (typeof canCatch === 'boolean') {
                         canCatch = canCatch ? '가능' : '불가능';
+                    } else {
+                        // 기존 canCatch 로직을 보완: 수학적으로 불가능한 경우 체크
+                        const maxPossibleWins = team.wins + (144 - team.games);
+                        canCatch = maxPossibleWins > firstPlace.wins ? '가능' : '불가능';
                     }
                 }
                 
