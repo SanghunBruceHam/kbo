@@ -3667,7 +3667,7 @@ const kboTeams = {
                     white-space: nowrap;
                     line-height: 1.2;
                 ">
-                    <div style="font-size: 0.85rem; font-weight: 800; color: ${teamColor};">${team.rank}위 ${teamData?.logo || ''} ${teamData?.shortName || team.team}</div>
+                    <div style="font-size: 0.85rem; font-weight: 800; color: ${teamColor};">${team.displayRank || team.rank}위 ${teamData?.logo || ''} ${teamData?.shortName || team.team}</div>
                 </th>`;
             });
             
