@@ -1608,7 +1608,7 @@ const kboTeams = {
                 } else {
                     // 2위 이하팀: 기존 로직
                     requiredFirstPlaceWins = maxPossibleWins - 1;
-                    canCatch = maxPossibleWins > firstPlace.wins;
+                    // canCatch는 나중에 트래직넘버 기준으로 결정
                     
                     // 역대 1위 평균 기준으로 필요 승률 계산
                     const neededWinsForHistoricalAverage = Math.max(0, historicalFirstPlaceWins - team.wins);
@@ -1683,13 +1683,7 @@ const kboTeams = {
                     tragicDisplay = firstPlaceTragic;
                     tragicColor = textColor; // 기본 텍스트 색상 사용
                     // 트래직넘버가 양수면 아직 탈환 가능
-                    if (typeof canCatch === 'boolean') {
-                        canCatch = canCatch ? '가능' : '불가능';
-                    } else {
-                        // 기존 canCatch 로직을 보완: 수학적으로 불가능한 경우 체크
-                        const maxPossibleWins = team.wins + (144 - team.games);
-                        canCatch = maxPossibleWins > firstPlace.wins ? '가능' : '불가능';
-                    }
+                    canCatch = '가능';
                 }
                 
                 // 탈환 가능 여부에 따른 색상 결정 (canCatch 값 결정 후)
