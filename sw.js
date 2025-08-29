@@ -145,8 +145,19 @@ self.addEventListener('fetch', (event) => {
     return;
   }
   
-  // 기본 네트워크 요청
-  event.respondWith(fetch(request));
+  // 기본 네트워크 요청 - 에러 처리 추가
+  event.respondWith(
+    fetch(request).catch(error => {
+      // Google Analytics나 외부 서비스 요청 실패 시 조용히 처리
+      if (request.url.includes('google') || 
+          request.url.includes('analytics') ||
+          request.url.includes('coupang')) {
+        return new Response('', { status: 200, statusText: 'OK' });
+      }
+      // 다른 요청은 에러를 다시 던짐
+      throw error;
+    })
+  );
 });
 
 // 백그라운드 동기화 (데이터 업데이트)
