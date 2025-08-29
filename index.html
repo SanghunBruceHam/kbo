@@ -9789,9 +9789,9 @@
                 const aCell = a.cells[columnIndex];
                 const bCell = b.cells[columnIndex];
                 
-                // 텍스트 추출 (HTML 태그 제거)
-                let aValue = aCell.textContent || aCell.innerText;
-                let bValue = bCell.textContent || bCell.innerText;
+                // 텍스트 추출 (HTML 태그 제거) - null 체크 추가
+                let aValue = (aCell && (aCell.textContent || aCell.innerText)) || '';
+                let bValue = (bCell && (bCell.textContent || bCell.innerText)) || '';
                 
                 // 숫자인지 확인 (승률, 득점 등)
                 const aNum = parseFloat(aValue.replace(/[^\d.-]/g, ''));
