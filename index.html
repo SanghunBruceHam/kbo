@@ -3719,6 +3719,25 @@
         .magic-number-button:hover .arrow {
             transform: translateX(4px);
         }
+        
+        /* 매직넘버 버튼 플래시 애니메이션 */
+        .magic-number-button {
+            animation: magicFlash 2.5s infinite;
+        }
+        
+        @keyframes magicFlash {
+            0%, 70%, 100% {
+                box-shadow: 0 4px 12px rgba(26, 35, 126, 0.3);
+            }
+            75%, 85% {
+                box-shadow: 0 6px 20px rgba(255, 215, 0, 0.6);
+                transform: translateY(-1px);
+            }
+        }
+        
+        .magic-number-button:hover {
+            animation-play-state: paused;
+        }
 
         @media (max-width: 768px) {
             .magic-number-content {
@@ -4135,7 +4154,7 @@
                 </div>
                 <div class="magic-number-right">
                     <a href="magic-number/index.html" class="magic-number-button">
-                        <span>매직넘버 계산기 열기</span>
+                        <span>더 많은 데이터 보기</span>
                         <span class="arrow">↗️</span>
                     </a>
                 </div>
