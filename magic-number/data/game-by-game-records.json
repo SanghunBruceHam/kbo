@@ -7010,11 +7010,21 @@
         "result": "L",
         "runs_scored": 6,
         "runs_allowed": 10
+      },
+      {
+        "gameNumber": 121,
+        "date": "2025-08-29",
+        "opponent": "NC",
+        "isHome": true,
+        "score": "8:0",
+        "result": "W",
+        "runs_scored": 8,
+        "runs_allowed": 0
       }
     ],
     "currentStreak": {
-      "type": "L",
-      "count": 2
+      "type": "W",
+      "count": 1
     },
     "longestWinStreak": 4,
     "longestLoseStreak": 6,
@@ -7266,6 +7276,10 @@
       {
         "type": "W",
         "count": 1
+      },
+      {
+        "type": "L",
+        "count": 2
       }
     ]
   },
@@ -14292,11 +14306,21 @@
         "result": "L",
         "runs_scored": 3,
         "runs_allowed": 4
+      },
+      {
+        "gameNumber": 118,
+        "date": "2025-08-29",
+        "opponent": "SSG",
+        "isHome": false,
+        "score": "0:8",
+        "result": "L",
+        "runs_scored": 0,
+        "runs_allowed": 8
       }
     ],
     "currentStreak": {
       "type": "L",
-      "count": 2
+      "count": 3
     },
     "longestWinStreak": 5,
     "longestLoseStreak": 4,
