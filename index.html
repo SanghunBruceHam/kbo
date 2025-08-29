@@ -5989,6 +5989,9 @@
                 
                 // 더 안정적인 DOM 조작 방식으로 전체 테이블 재구성
                 console.log('월별 DOM 재구성 시작, teamRates:', teamRates);
+                console.log('월별 - 해당 월 행 찾기 결과 targetRowIndex:', targetRowIndex);
+                console.log('월별 - 월 행들 개수:', monthRows.length);
+                console.log('월별 - 평균 행들 개수:', avgRows.length);
                 
                 // 헤더 재배열
                 const thead = document.querySelector('#monthlyTable thead');
@@ -6043,6 +6046,7 @@
                 });
                 
                 tbody.innerHTML = newBodyHtml;
+                console.log('월별 - DOM 업데이트 완료! newBodyHtml 길이:', newBodyHtml.length);
                 
                 // 클릭 이벤트 재바인딩 - 월별 (더 안정적인 방식)
                 tbody.querySelectorAll('td.month-label').forEach(cell => {
@@ -6061,7 +6065,7 @@
                     }
                 });
                 
-                console.log('월별 DOM 재구성 및 이벤트 재바인딩 완료');
+                console.log('월별 DOM 재구성 및 이벤트 재바인딩 완료 - 함수 종료!');
             };
             
             // 요일별 승률 순 정렬 함수 (3단계: 내림차순 → 오름차순 → 원래순서)
@@ -8833,7 +8837,10 @@
                 return firstCell && firstCell.textContent.trim() === monthName;
             });
             
-            if (targetRowIndex === -1) return;
+            if (targetRowIndex === -1) {
+                console.log('월별 - 해당 월의 행을 찾을 수 없음! monthNum:', monthNum, 'monthName:', monthNames[monthNum - 3]);
+                return;
+            }
             
             // 원래 순서 저장 (첫 번째 호출 시에만)
             if (originalMonthlyTeamOrder.length === 0) {
