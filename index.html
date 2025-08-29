@@ -8423,13 +8423,20 @@
             
             tbody.innerHTML = newBodyHtml;
             
-            // 클릭 이벤트 재바인딩 - 월별
-            tbody.querySelectorAll('td[onclick]').forEach(cell => {
+            // 클릭 이벤트 재바인딩 - 월별 (더 안정적인 방식)
+            tbody.querySelectorAll('td.month-label').forEach(cell => {
+                // onclick 속성에서 monthNum 추출
                 const onclickAttr = cell.getAttribute('onclick');
-                if (onclickAttr && onclickAttr.includes('sortMonthlyByRate')) {
-                    const monthNum = onclickAttr.match(/sortMonthlyByRate\((\d+)\)/)[1];
-                    cell.addEventListener('click', () => sortMonthlyByRate(parseInt(monthNum)));
-                    cell.removeAttribute('onclick'); // 중복 방지
+                if (onclickAttr) {
+                    const match = onclickAttr.match(/sortMonthlyByRate\((\d+)\)/);
+                    if (match) {
+                        const monthNum = parseInt(match[1]);
+                        // 새로운 클릭 이벤트 추가
+                        cell.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            sortMonthlyByRate(monthNum);
+                        });
+                    }
                 }
             });
         };
@@ -8856,13 +8863,20 @@
             
             tbody.innerHTML = newBodyHtml;
             
-            // 클릭 이벤트 재바인딩 - 요일별
-            tbody.querySelectorAll('td[onclick]').forEach(cell => {
+            // 클릭 이벤트 재바인딩 - 요일별 (더 안정적인 방식)
+            tbody.querySelectorAll('td.day-label').forEach(cell => {
+                // onclick 속성에서 dayKey 추출
                 const onclickAttr = cell.getAttribute('onclick');
-                if (onclickAttr && onclickAttr.includes('sortWeekdayByRate')) {
-                    const dayKey = onclickAttr.match(/sortWeekdayByRate\('([^']+)'\)/)[1];
-                    cell.addEventListener('click', () => sortWeekdayByRate(dayKey));
-                    cell.removeAttribute('onclick'); // 중복 방지
+                if (onclickAttr) {
+                    const match = onclickAttr.match(/sortWeekdayByRate\('([^']+)'\)/);
+                    if (match) {
+                        const dayKey = match[1];
+                        // 새로운 클릭 이벤트 추가
+                        cell.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            sortWeekdayByRate(dayKey);
+                        });
+                    }
                 }
             });
         };
@@ -9175,13 +9189,20 @@
             
             tbody.innerHTML = newBodyHtml;
             
-            // 클릭 이벤트 재바인딩 - 경기장별
-            tbody.querySelectorAll('td[onclick]').forEach(cell => {
+            // 클릭 이벤트 재바인딩 - 경기장별 (더 안정적인 방식)
+            tbody.querySelectorAll('td[onclick*="sortStadiumByRate"]').forEach(cell => {
+                // onclick 속성에서 stadiumName 추출
                 const onclickAttr = cell.getAttribute('onclick');
-                if (onclickAttr && onclickAttr.includes('sortStadiumByRate')) {
-                    const stadiumName = onclickAttr.match(/sortStadiumByRate\('([^']+)'\)/)[1];
-                    cell.addEventListener('click', () => sortStadiumByRate(stadiumName));
-                    cell.removeAttribute('onclick'); // 중복 방지
+                if (onclickAttr) {
+                    const match = onclickAttr.match(/sortStadiumByRate\('([^']+)'\)/);
+                    if (match) {
+                        const stadiumName = match[1];
+                        // 새로운 클릭 이벤트 추가
+                        cell.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            sortStadiumByRate(stadiumName);
+                        });
+                    }
                 }
             });
         };
