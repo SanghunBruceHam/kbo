@@ -5,9 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- 캐시 제어 - 항상 최신 데이터 표시 -->
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate, max-age=0">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
+    <!-- 강제 새로고침을 위한 타임스탬프 -->
+    <meta name="last-modified" content="2025-08-30T02:30:00Z">
     
     <title>KBO 2025 실시간 순위표 | 매직넘버 계산기 일별통계 순위변동 승률추이 피타고리안 클러치 홈원정 상대전적</title>
     
@@ -5511,9 +5513,11 @@
                     const aWinRate = parseFloat(a.win_rate);
                     const bWinRate = parseFloat(b.win_rate);
                     
-                    // 1차: 표시된 승률 비교 (내림차순)
-                    if (aWinRate !== bWinRate) {
-                        return bWinRate - aWinRate;
+                    // 1차: 4자리까지 정확한 승률 비교 (내림차순)
+                    const aWinRateRounded = Math.round(aWinRate * 10000) / 10000; // 4자리까지 정확한 비교
+                    const bWinRateRounded = Math.round(bWinRate * 10000) / 10000;
+                    if (aWinRateRounded !== bWinRateRounded) {
+                        return bWinRateRounded - aWinRateRounded;
                     }
                     
                     // 2차: 승률이 같을 때 상대전적 비교
@@ -5560,18 +5564,20 @@
                     const currentTeam = dashboardData.standings[i];
                     const previousTeam = dashboardData.standings[i - 1];
                     
-                    const currentWinRate = parseFloat(currentTeam.win_rate);
-                    const previousWinRate = parseFloat(previousTeam.win_rate);
+                    const currentWinRate = Math.round(parseFloat(currentTeam.win_rate) * 10000) / 10000;
+                    const previousWinRate = Math.round(parseFloat(previousTeam.win_rate) * 10000) / 10000;
                     
                     if (currentWinRate === previousWinRate) {
                         // 표시된 승률이 동일하면 이전 팀과 같은 순위
                         currentTeam.rank = previousTeam.rank;
                         currentTeam.displayRank = previousTeam.displayRank;
+                        console.log(`🟡 ${currentTeam.team_name}: 공동순위 ${currentTeam.displayRank}위 (승률: ${currentWinRate.toFixed(4)})`);
                     } else {
                         // 승률이 다르면 현재 인덱스 기반으로 순위 할당
                         currentRank = i + 1;
                         currentTeam.rank = currentRank;
                         currentTeam.displayRank = currentRank;
+                        console.log(`🔵 ${currentTeam.team_name}: ${currentTeam.displayRank}위 (승률: ${currentWinRate.toFixed(4)})`);
                     }
                 }
             }
@@ -7867,7 +7873,7 @@
                 // 팀의 실제 현재 순위 유지 (originalStandings에서 찾기)
                 if (dashboardData.originalStandings) {
                     const originalTeam = dashboardData.originalStandings.find(t => t.team_name === team.team_name);
-                    team.displayRank = originalTeam ? (originalTeam.rank || originalTeam.displayRank || (dashboardData.originalStandings.indexOf(originalTeam) + 1)) : (index + 1);
+                    team.displayRank = originalTeam ? (originalTeam.displayRank || originalTeam.rank || (dashboardData.originalStandings.indexOf(originalTeam) + 1)) : (index + 1);
                 } else {
                     team.displayRank = team.rank || (index + 1);
                 }
@@ -7992,7 +7998,7 @@
                     <td>${team.losses}</td>
                     <td>${team.draws}</td>
                     <td class="${marginClass}" style="font-weight: 600;">${winLossMargin > 0 ? '+' : ''}${winLossMargin}</td>
-                    <td><strong>${team.win_rate}</strong></td>
+                    <td><strong>${parseFloat(team.win_rate).toFixed(3)}</strong></td>
                     <td>${team.games_behind}</td>
                     <td>${144 - team.games_played}</td>
                     <td>${team.homeRecord || team.home_record || '-'}</td>
@@ -8143,7 +8149,9 @@
             tbody.innerHTML = '';
             
             sortedTeams.forEach((team, index) => {
-                const rank = team.rank || (index + 1);
+                // dashboardData에서 실제 순위 가져오기
+                const teamData = dashboardData ? dashboardData.standings.find(t => t.team_name === team.team_name) : null;
+                const rank = teamData ? teamData.displayRank : (index + 1);
                 
                 // 실제 기록
                 const actualWins = team.wins || 0;
@@ -8222,7 +8230,9 @@
             });
             
             sortedTeams.forEach((team, index) => {
-                const rank = team.rank || (index + 1);
+                // dashboardData에서 실제 순위 가져오기
+                const teamData = dashboardData ? dashboardData.standings.find(t => t.team_name === team.team_name) : null;
+                const rank = teamData ? teamData.displayRank : (index + 1);
                 
                 // 실제 기록 (enhanced-dashboard.json 필드명 사용)
                 const actualWins = team.wins || 0;
@@ -11565,7 +11575,7 @@ KT 9:1 키움(H)`;
                     // 종합 순위 데이터를 사용하여 순위 변동 차트용 데이터 생성
                     return window.dashboardData.standings.map((team, index) => ({
                         team: team.team,
-                        rank: team.rank,
+                        rank: team.displayRank || team.rank,
                         wins: team.wins,
                         losses: team.losses,
                         draws: team.draws,
@@ -11634,16 +11644,16 @@ KT 9:1 키움(H)`;
                 let previousWinRate = null;
                 
                 standings.forEach((team, index) => {
-                    // 표시되는 승률 기준으로 동률 처리 (소수점 3자리)
-                    const displayedWinRate = parseFloat(team.winRate.toFixed(3));
+                    // 4자리까지 정확한 승률로 동률 처리하되 표시는 3자리
+                    const preciseWinRate = Math.round(team.winRate * 10000) / 10000; // 4자리까지 정확한 비교
                     
-                    // 이전 팀과 표시 승률이 다르면 실제 순위로 업데이트
-                    if (previousWinRate !== null && displayedWinRate !== previousWinRate) {
+                    // 이전 팀과 정확한 승률이 다르면 실제 순위로 업데이트
+                    if (previousWinRate !== null && preciseWinRate !== previousWinRate) {
                         currentRank = index + 1;
                     }
                     // 동률일 경우 같은 순위 유지
                     team.rank = currentRank;
-                    previousWinRate = displayedWinRate;
+                    previousWinRate = preciseWinRate;
                     
                 });
                 
@@ -14435,9 +14445,9 @@ KT 9:1 키움(H)`;
             // 전반기 순위 계산 (승률 기준 정렬)
             const firstHalfRanking = [...halfSeasonStats]
                 .sort((a, b) => {
-                    const aWinRate = a.firstHalf.winRate;
-                    const bWinRate = b.firstHalf.winRate;
-                    if (Math.abs(aWinRate - bWinRate) < 0.001) {
+                    const aWinRate = Math.round(a.firstHalf.winRate * 10000) / 10000; // 4자리 정확도
+                    const bWinRate = Math.round(b.firstHalf.winRate * 10000) / 10000;
+                    if (aWinRate === bWinRate) {
                         return (b.firstHalf.wins - b.firstHalf.losses) - (a.firstHalf.wins - a.firstHalf.losses);
                     }
                     return bWinRate - aWinRate;
@@ -14449,9 +14459,9 @@ KT 9:1 키움(H)`;
             const secondHalfRanking = [...halfSeasonStats]
                 .filter(team => team.secondHalf.games > 0)
                 .sort((a, b) => {
-                    const aWinRate = a.secondHalf.winRate;
-                    const bWinRate = b.secondHalf.winRate;
-                    if (Math.abs(aWinRate - bWinRate) < 0.001) {
+                    const aWinRate = Math.round(a.secondHalf.winRate * 10000) / 10000; // 4자리 정확도
+                    const bWinRate = Math.round(b.secondHalf.winRate * 10000) / 10000;
+                    if (aWinRate === bWinRate) {
                         return (b.secondHalf.wins - b.secondHalf.losses) - (a.secondHalf.wins - a.secondHalf.losses);
                     }
                     return bWinRate - aWinRate;
