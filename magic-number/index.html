@@ -139,6 +139,74 @@
         .scenario-matrix-container::-webkit-scrollbar-thumb:hover {
             background: #388e3c;
         }
+        
+        /* 모바일에서 경우의 수 표 최적화 */
+        @media (max-width: 768px) {
+            .scenario-section {
+                overflow: visible !important;
+            }
+            
+            #scenario-content {
+                overflow-x: auto !important;
+                -webkit-overflow-scrolling: touch !important;
+                margin: 15px 0 !important;
+                padding: 0 !important;
+            }
+            
+            .scenario-matrix-container {
+                min-width: 100% !important;
+                overflow-x: auto !important;
+                -webkit-overflow-scrolling: touch !important;
+                padding-bottom: 10px !important;
+            }
+            
+            .scenario-matrix-table {
+                min-width: 800px !important;
+                font-size: 12px !important;
+                border-collapse: collapse !important;
+                width: auto !important;
+            }
+            
+            .scenario-matrix-table th,
+            .scenario-matrix-table td {
+                padding: 6px 4px !important;
+                border: 1px solid #dee2e6 !important;
+                white-space: nowrap !important;
+                min-width: 70px !important;
+                text-align: center !important;
+            }
+            
+            .scenario-matrix-table th {
+                background: #f8f9fa !important;
+                font-weight: 600 !important;
+                position: sticky !important;
+                top: 0 !important;
+                z-index: 10 !important;
+            }
+            
+            .win-rate-cell {
+                min-width: 70px !important;
+                padding: 6px 4px !important;
+                font-size: 11px !important;
+                line-height: 1.2 !important;
+            }
+            
+            .win-rate-cell:hover {
+                transform: none !important;
+                box-shadow: 0 1px 3px rgba(76, 175, 80, 0.2) !important;
+            }
+            
+            /* 모바일에서 스크롤 힌트 */
+            .scenario-section::after {
+                content: "← 좌우로 스크롤하여 더 많은 데이터를 확인하세요 →";
+                display: block;
+                text-align: center;
+                font-size: 11px;
+                color: #666;
+                margin-top: 10px;
+                font-style: italic;
+            }
+        }
     </style>
     
     <!-- JSON-LD 구조화 데이터 -->

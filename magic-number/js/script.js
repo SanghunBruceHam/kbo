@@ -3601,7 +3601,7 @@ const kboTeams = {
             }
             let html = `
                 
-                <div style="
+                <div class="scenario-matrix-container" style="
                     overflow-x: auto; 
                     overflow-y: auto;
                     border-radius: 12px; 
@@ -3611,7 +3611,7 @@ const kboTeams = {
                     width: 100%;
                     position: relative;
                 ">
-                    <table style="
+                    <table class="scenario-matrix-table" style="
                         width: 100%; 
                         border-collapse: collapse; 
                         font-size: 0.75rem; 
