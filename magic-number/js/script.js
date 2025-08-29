@@ -407,6 +407,18 @@ const kboTeams = {
                     }).replace(/\. /g, '. ').replace(/\.$/, '');
                 }
                 
+                // 헤더 업데이트 정보 표시 (메인 인덱스와 동일한 형식)
+                const updateInfoElement = document.getElementById('updateInfo');
+                if (updateInfoElement) {
+                    updateInfoElement.textContent = `📅 ${crawlTime} 데이터 사용중`;
+                }
+                
+                // 푸터 업데이트 정보 표시 (헤더와 동일한 형식)
+                const dataInfoElement = document.querySelector('.data-info');
+                if (dataInfoElement) {
+                    dataInfoElement.textContent = `${crawlTime} 데이터 사용중`;
+                }
+                
                 // 표시 텍스트 구성 - 마지막 크롤링 시간 표시
                 const displayText = `${crawlTime} KBO 공식`;
                 

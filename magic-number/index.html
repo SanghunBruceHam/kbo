@@ -350,8 +350,11 @@
 <body>
     <div class="header">
         <div class="container">
-            <h1>🏆 KBO 매직넘버 계산기</h1>
+            <h1>🏆 KBO 우승 매직넘버 계산기</h1>
             <div class="subtitle">2025 KBO 리그 매직넘버 계산기<br>KIA·삼성·LG·두산·KT·NC·SSG·롯데·한화·키움<br>10개 구단 플레이오프 진출 조건, 우승 가능성, 팀별 순위표와 상대전적을 한눈에 확인하세요</div>
+            <div class="update-info" id="updateInfo">
+                📅 데이터 로딩 중...
+            </div>
             <!-- 모바일 전용 안내 메시지 -->
             <div class="mobile-notice" id="deviceNotice">
                 <div style="margin-bottom: 8px; padding: 8px; background: rgba(255,255,255,0.1); border-radius: 6px; border: 1px solid rgba(255,255,255,0.2);">
@@ -1293,7 +1296,7 @@
             
             <div class="footer-section">
                 <h4>데이터 정보</h4>
-                <p class="data-info">매일 오후 11시 30분 자동 업데이트</p>
+                <p class="data-info">데이터 로딩 중...</p>
                 <p class="data-source">데이터 출처: KBO 공식 기록</p>
                 
                 <!-- PC 버전 보기 기능 (모바일에서만 표시) -->
@@ -1345,6 +1348,38 @@
 
     <!-- 탑으로 가기 버튼 -->
     <button class="scroll-to-top" id="scrollToTop">↑</button>
+    
+    <!-- 헤더 데이터 업데이트 시간 스타일 -->
+    <style>
+        .update-info {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.15);
+            color: #ffffff;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-top: 10px;
+            text-align: center;
+        }
+        
+        .header .container {
+            text-align: center;
+        }
+
+        /* 모바일에서 업데이트 정보 스타일 개선 */
+        @media (max-width: 768px) {
+            .update-info {
+                font-size: 0.8rem !important;
+                padding: 8px 12px !important;
+                background: rgba(255,255,255,0.15) !important;
+                border-radius: 6px !important;
+                border: 1px solid rgba(255,255,255,0.2) !important;
+                margin-bottom: 8px !important;
+            }
+        }
+    </style>
     
 </body>
 </html><!-- Updated at Tue Aug  5 10:21:58 JST 2025 -->
