@@ -8366,58 +8366,62 @@
                 });
             }
             
-            // 전체 테이블의 컬럼 순서 재배열
-            monthRows.forEach(row => {
-                const cells = Array.from(row.querySelectorAll('td'));
-                const monthLabel = cells[0]; // 월 라벨은 그대로
-                const dataCells = cells.slice(1);
-                
-                // 새로운 순서로 셀 재배열
-                const newRow = row.cloneNode(false);
-                newRow.appendChild(monthLabel);
-                
-                teamRates.forEach(item => {
-                    newRow.appendChild(dataCells[item.originalIndex]);
-                });
-                
-                row.parentNode.replaceChild(newRow, row);
-            });
+            // 더 안정적인 DOM 조작 방식으로 전체 테이블 재구성
+            console.log('월별 DOM 재구성 시작, teamRates:', teamRates);
             
-            // 평균 행도 동일하게 재배열
-            avgRows.forEach(row => {
-                const cells = Array.from(row.querySelectorAll('td'));
-                const avgLabel = cells[0]; // 평균 라벨은 그대로
-                const dataCells = cells.slice(1);
-                
-                const newRow = row.cloneNode(false);
-                newRow.appendChild(avgLabel);
-                
-                teamRates.forEach(item => {
-                    newRow.appendChild(dataCells[item.originalIndex]);
-                });
-                
-                row.parentNode.replaceChild(newRow, row);
-            });
-            
-            // 헤더도 동일하게 재배열
+            // 헤더 재배열
             const thead = document.querySelector('#monthlyTable thead');
             if (thead) {
                 const headerRow = thead.querySelector('tr');
                 if (headerRow) {
                     const headerCells = Array.from(headerRow.querySelectorAll('th'));
-                    const monthHeader = headerCells[0]; // '월' 헤더는 그대로
+                    const monthHeader = headerCells[0].outerHTML; // 월 헤더
                     const teamHeaders = headerCells.slice(1);
                     
-                    const newHeaderRow = headerRow.cloneNode(false);
-                    newHeaderRow.appendChild(monthHeader);
-                    
+                    let newHeaderHtml = '<tr>' + monthHeader;
                     teamRates.forEach(item => {
-                        newHeaderRow.appendChild(teamHeaders[item.originalIndex]);
+                        newHeaderHtml += teamHeaders[item.originalIndex].outerHTML;
                     });
+                    newHeaderHtml += '</tr>';
                     
-                    headerRow.parentNode.replaceChild(newHeaderRow, headerRow);
+                    thead.innerHTML = newHeaderHtml;
                 }
             }
+            
+            // 바디 재배열 (월 행과 평균 행 모두)
+            let newBodyHtml = '';
+            
+            // 월 행들 먼저 처리
+            monthRows.forEach(row => {
+                const cells = Array.from(row.querySelectorAll('td'));
+                const monthLabel = cells[0].outerHTML;
+                const dataCells = cells.slice(1);
+                
+                let newRowHtml = '<tr>' + monthLabel;
+                teamRates.forEach(item => {
+                    newRowHtml += dataCells[item.originalIndex].outerHTML;
+                });
+                newRowHtml += '</tr>';
+                
+                newBodyHtml += newRowHtml;
+            });
+            
+            // 평균 행들 처리
+            avgRows.forEach(row => {
+                const cells = Array.from(row.querySelectorAll('td'));
+                const avgLabel = cells[0].outerHTML;
+                const dataCells = cells.slice(1);
+                
+                let newRowHtml = '<tr>' + avgLabel;
+                teamRates.forEach(item => {
+                    newRowHtml += dataCells[item.originalIndex].outerHTML;
+                });
+                newRowHtml += '</tr>';
+                
+                newBodyHtml += newRowHtml;
+            });
+            
+            tbody.innerHTML = newBodyHtml;
         };
 
         /**
@@ -8785,58 +8789,62 @@
                 });
             }
             
-            // 전체 테이블의 컬럼 순서 재배열
-            dayRows.forEach(row => {
-                const cells = Array.from(row.querySelectorAll('td'));
-                const dayLabel = cells[0]; // 요일 라벨은 그대로
-                const dataCells = cells.slice(1);
-                
-                // 새로운 순서로 셀 재배열
-                const newRow = row.cloneNode(false);
-                newRow.appendChild(dayLabel);
-                
-                teamRates.forEach(item => {
-                    newRow.appendChild(dataCells[item.originalIndex]);
-                });
-                
-                row.parentNode.replaceChild(newRow, row);
-            });
+            // 더 안정적인 DOM 조작 방식으로 전체 테이블 재구성
+            console.log('요일별 DOM 재구성 시작, teamRates:', teamRates);
             
-            // 평일성적/주말성적 행도 동일하게 재배열
-            summaryRows.forEach(row => {
-                const cells = Array.from(row.querySelectorAll('td'));
-                const summaryLabel = cells[0]; // 성적 라벨은 그대로
-                const dataCells = cells.slice(1);
-                
-                const newRow = row.cloneNode(false);
-                newRow.appendChild(summaryLabel);
-                
-                teamRates.forEach(item => {
-                    newRow.appendChild(dataCells[item.originalIndex]);
-                });
-                
-                row.parentNode.replaceChild(newRow, row);
-            });
-            
-            // 헤더도 동일하게 재배열
+            // 헤더 재배열
             const thead = document.querySelector('#weekdayTable thead');
             if (thead) {
                 const headerRow = thead.querySelector('tr');
                 if (headerRow) {
                     const headerCells = Array.from(headerRow.querySelectorAll('th'));
-                    const dayHeader = headerCells[0]; // '요일' 헤더는 그대로
+                    const dayHeader = headerCells[0].outerHTML; // 요일 헤더
                     const teamHeaders = headerCells.slice(1);
                     
-                    const newHeaderRow = headerRow.cloneNode(false);
-                    newHeaderRow.appendChild(dayHeader);
-                    
+                    let newHeaderHtml = '<tr>' + dayHeader;
                     teamRates.forEach(item => {
-                        newHeaderRow.appendChild(teamHeaders[item.originalIndex]);
+                        newHeaderHtml += teamHeaders[item.originalIndex].outerHTML;
                     });
+                    newHeaderHtml += '</tr>';
                     
-                    headerRow.parentNode.replaceChild(newHeaderRow, headerRow);
+                    thead.innerHTML = newHeaderHtml;
                 }
             }
+            
+            // 바디 재배열 (요일 행과 성적 요약 행 모두)
+            let newBodyHtml = '';
+            
+            // 요일 행들 먼저 처리
+            dayRows.forEach(row => {
+                const cells = Array.from(row.querySelectorAll('td'));
+                const dayLabel = cells[0].outerHTML;
+                const dataCells = cells.slice(1);
+                
+                let newRowHtml = '<tr>' + dayLabel;
+                teamRates.forEach(item => {
+                    newRowHtml += dataCells[item.originalIndex].outerHTML;
+                });
+                newRowHtml += '</tr>';
+                
+                newBodyHtml += newRowHtml;
+            });
+            
+            // 평일성적/주말성적 행들 처리
+            summaryRows.forEach(row => {
+                const cells = Array.from(row.querySelectorAll('td'));
+                const summaryLabel = cells[0].outerHTML;
+                const dataCells = cells.slice(1);
+                
+                let newRowHtml = '<tr>' + summaryLabel;
+                teamRates.forEach(item => {
+                    newRowHtml += dataCells[item.originalIndex].outerHTML;
+                });
+                newRowHtml += '</tr>';
+                
+                newBodyHtml += newRowHtml;
+            });
+            
+            tbody.innerHTML = newBodyHtml;
         };
 
         // 경기장별 성적 표 분석
@@ -9107,42 +9115,45 @@
                 });
             }
             
-            // 전체 테이블의 컬럼 순서 재배열
-            rows.forEach(row => {
-                const cells = Array.from(row.querySelectorAll('td'));
-                const stadiumLabel = cells[0]; // 경기장 라벨은 그대로
-                const dataCells = cells.slice(1);
-                
-                // 새로운 순서로 셀 재배열
-                const newRow = row.cloneNode(false);
-                newRow.appendChild(stadiumLabel);
-                
-                teamRates.forEach(item => {
-                    newRow.appendChild(dataCells[item.originalIndex]);
-                });
-                
-                row.parentNode.replaceChild(newRow, row);
-            });
+            // 더 안정적인 DOM 조작 방식으로 전체 테이블 재구성
+            console.log('DOM 재구성 시작, teamRates:', teamRates);
             
-            // 헤더도 동일하게 재배열
+            // 헤더 재배열
             const thead = document.querySelector('#stadiumTable thead');
             if (thead) {
                 const headerRow = thead.querySelector('tr');
                 if (headerRow) {
                     const headerCells = Array.from(headerRow.querySelectorAll('th'));
-                    const stadiumHeader = headerCells[0]; // '경기장' 헤더는 그대로
+                    const stadiumHeader = headerCells[0].outerHTML; // 경기장 헤더
                     const teamHeaders = headerCells.slice(1);
                     
-                    const newHeaderRow = headerRow.cloneNode(false);
-                    newHeaderRow.appendChild(stadiumHeader);
-                    
+                    let newHeaderHtml = '<tr>' + stadiumHeader;
                     teamRates.forEach(item => {
-                        newHeaderRow.appendChild(teamHeaders[item.originalIndex]);
+                        newHeaderHtml += teamHeaders[item.originalIndex].outerHTML;
                     });
+                    newHeaderHtml += '</tr>';
                     
-                    headerRow.parentNode.replaceChild(newHeaderRow, headerRow);
+                    thead.innerHTML = newHeaderHtml;
                 }
             }
+            
+            // 바디 재배열
+            let newBodyHtml = '';
+            rows.forEach(row => {
+                const cells = Array.from(row.querySelectorAll('td'));
+                const stadiumLabel = cells[0].outerHTML; // 경기장 라벨
+                const dataCells = cells.slice(1);
+                
+                let newRowHtml = '<tr>' + stadiumLabel;
+                teamRates.forEach(item => {
+                    newRowHtml += dataCells[item.originalIndex].outerHTML;
+                });
+                newRowHtml += '</tr>';
+                
+                newBodyHtml += newRowHtml;
+            });
+            
+            tbody.innerHTML = newBodyHtml;
         };
 
         // 테이블 정렬 기능
