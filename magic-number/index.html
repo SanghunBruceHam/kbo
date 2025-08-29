@@ -741,6 +741,17 @@
                 <!-- 플레이오프 진출 조건 -->
                 <div class="card" id="playoff">
                     <h2>🏟️ 플레이오프 진출 조건</h2>
+                    
+                    <!-- 플레이오프 확정 팀 배너 -->
+                    <div id="playoff-confirmed-banner" style="display: none; margin: 15px 0; padding: 15px; background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-radius: 8px; border-left: 4px solid #2ecc71;">
+                        <h3 style="margin: 0 0 10px 0; color: #2e7d32; font-size: 16px; font-weight: 600;">
+                            🎉 플레이오프 진출 확정 팀
+                        </h3>
+                        <div id="playoff-confirmed-teams" style="display: flex; flex-wrap: wrap; gap: 10px;">
+                            <!-- 동적으로 생성됨 -->
+                        </div>
+                    </div>
+                    
                     <div id="playoff-condition">
                         <div class="table-container">
                             <table id="playoff-table">

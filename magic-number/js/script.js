@@ -643,19 +643,27 @@ const kboTeams = {
             const magicNumber = calculateMagicNumber(firstPlace, secondPlace);
             document.getElementById('first-place-magic').textContent = `매직넘버: ${magicNumber > 0 ? magicNumber : '확정'}`;
 
-            // 플레이오프 확정 팀 수 (72승 이상)
-            const confirmedTeams = currentStandings.filter(team => team.wins >= 72).length;
+            // 플레이오프 확정 팀 수 (PO 매직넘버 0)
+            const confirmedTeamsList = [];
+            currentStandings.forEach(team => {
+                const poMagicNumber = Utils.calculatePlayoffMagicNumber(team, currentStandings);
+                if (poMagicNumber === 0) {
+                    confirmedTeamsList.push(team);
+                }
+            });
+            
+            const confirmedTeams = confirmedTeamsList.length;
             document.getElementById('playoff-confirmed-teams').textContent = `${confirmedTeams}개 팀`;
             
             // 플레이오프 확정 팀이 있으면 첫 번째 확정 팀 정보 표시
             if (confirmedTeams > 0) {
-                const firstConfirmedTeam = currentStandings.find(team => team.wins >= 72);
+                const firstConfirmedTeam = confirmedTeamsList[0];
                 if (firstConfirmedTeam) {
                     const teamData = kboTeams[firstConfirmedTeam.team];
                     document.getElementById('playoff-confirmed-desc').innerHTML = `<span style="color: ${teamData.color}; ">${firstConfirmedTeam.team}</span> 외 ${confirmedTeams - 1}팀`;
                 }
             } else {
-                document.getElementById('playoff-confirmed-desc').textContent = '72승 이상 달성';
+                document.getElementById('playoff-confirmed-desc').textContent = 'PO 매직넘버 0 달성';
             }
 
             // 최고 연승팀 (동점 시 2팀 표기)
@@ -1706,6 +1714,40 @@ const kboTeams = {
                 if (!currentStandings || currentStandings.length === 0) {
                     tbody.innerHTML = '<tr><td colspan="11">데이터 로딩 중...</td></tr>';
                     return;
+                }
+                
+                // 플레이오프 확정 팀 찾기 및 표시
+                const confirmedTeams = [];
+                currentStandings.forEach(team => {
+                    const poMagicNumber = Utils.calculatePlayoffMagicNumber(team, currentStandings);
+                    if (poMagicNumber === 0) {
+                        confirmedTeams.push({
+                            name: team.team,
+                            rank: team.rank || team.displayRank
+                        });
+                    }
+                });
+                
+                // 플레이오프 확정 팀 배너 업데이트
+                const banner = document.getElementById('playoff-confirmed-banner');
+                const teamsContainer = document.getElementById('playoff-confirmed-teams');
+                
+                if (confirmedTeams.length > 0) {
+                    banner.style.display = 'block';
+                    teamsContainer.innerHTML = confirmedTeams
+                        .sort((a, b) => a.rank - b.rank)
+                        .map(team => {
+                            const teamData = kboTeams[team.name];
+                            const bgColor = teamData ? teamData.bg : '#f0f0f0';
+                            const textColor = teamData ? teamData.color : '#333';
+                            return `
+                                <div style="padding: 8px 12px; background: ${bgColor}; color: ${textColor}; border-radius: 6px; font-weight: 600; font-size: 14px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                                    ${team.rank}위 ${team.name}
+                                </div>
+                            `;
+                        }).join('');
+                } else {
+                    banner.style.display = 'none';
                 }
                 
                 currentStandings.forEach((team, index) => {
