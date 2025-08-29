@@ -5901,8 +5901,6 @@
                 monthlyRateSortState[monthNum] = nextState;
                 
                 console.log('월별 - 현재 상태:', currentState, '다음 상태:', nextState);
-                console.log('월별 - tbody 찾음:', tbody);
-                console.log('월별 - 모든 행 개수:', Array.from(tbody.querySelectorAll('tr')).length);
                 
                 const rows = Array.from(tbody.querySelectorAll('tr'));
                 
@@ -5934,8 +5932,12 @@
                         const headerRow = thead.querySelector('tr');
                         if (headerRow) {
                             const teamHeaders = Array.from(headerRow.querySelectorAll('th')).slice(1);
-                            originalMonthlyTeamOrder = teamHeaders.map((th, index) => index);
-                            console.log('월별 - 원래 팀 순서 저장됨:', originalMonthlyTeamOrder);
+                            // 팀 이름으로 원래 순서 저장
+                            originalMonthlyTeamOrder = teamHeaders.map((th, index) => ({
+                                index: index,
+                                teamName: th.textContent.trim()
+                            }));
+                            console.log('월별 - 원래 팀 순서 저장됨 (팀 이름):', originalMonthlyTeamOrder);
                         }
                     }
                 }
@@ -5945,9 +5947,9 @@
                 if (nextState === 2) {
                     // 원래 순서로 복원
                     console.log('월별 - 원래 순서로 복원 중:', originalMonthlyTeamOrder);
-                    teamRates = originalMonthlyTeamOrder.map((originalIndex, currentIndex) => ({
+                    teamRates = originalMonthlyTeamOrder.map((item, index) => ({
                         rate: 0, // 원래 순서에서는 승률 불필요
-                        originalIndex: originalIndex
+                        originalIndex: item.index
                     }));
                 } else {
                     // 해당 월의 팀별 승률 데이터 수집
@@ -5989,9 +5991,6 @@
                 
                 // 더 안정적인 DOM 조작 방식으로 전체 테이블 재구성
                 console.log('월별 DOM 재구성 시작, teamRates:', teamRates);
-                console.log('월별 - 해당 월 행 찾기 결과 targetRowIndex:', targetRowIndex);
-                console.log('월별 - 월 행들 개수:', monthRows.length);
-                console.log('월별 - 평균 행들 개수:', avgRows.length);
                 
                 // 헤더 재배열
                 const thead = document.querySelector('#monthlyTable thead');
@@ -6046,7 +6045,6 @@
                 });
                 
                 tbody.innerHTML = newBodyHtml;
-                console.log('월별 - DOM 업데이트 완료! newBodyHtml 길이:', newBodyHtml.length);
                 
                 // 클릭 이벤트 재바인딩 - 월별 (더 안정적인 방식)
                 tbody.querySelectorAll('td.month-label').forEach(cell => {
@@ -6065,7 +6063,7 @@
                     }
                 });
                 
-                console.log('월별 DOM 재구성 및 이벤트 재바인딩 완료 - 함수 종료!');
+                console.log('월별 DOM 재구성 및 이벤트 재바인딩 완료!');
             };
             
             // 요일별 승률 순 정렬 함수 (3단계: 내림차순 → 오름차순 → 원래순서)
@@ -6106,7 +6104,8 @@
                 // 해당 요일의 행 찾기
                 const targetRowIndex = dayRows.findIndex(row => {
                     const firstCell = row.querySelector('td');
-                    const dayNames = { 'mon': '월요일', 'tue': '화요일', 'wed': '수요일', 'thu': '목요일', 'fri': '금요일', 'sat': '토요일', 'sun': '일요일' };
+                    // dayKey가 '월', '화' 등으로 들어옴
+                    const dayNames = { '월': '월요일', '화': '화요일', '수': '수요일', '목': '목요일', '금': '금요일', '토': '토요일', '일': '일요일' };
                     const dayName = dayNames[dayKey];
                     return firstCell && firstCell.textContent.trim() === dayName;
                 });
@@ -6131,9 +6130,9 @@
                 if (nextState === 2) {
                     // 원래 순서로 복원
                     console.log('요일별 - 원래 순서로 복원 중:', originalWeekdayTeamOrder);
-                    teamRates = originalWeekdayTeamOrder.map((originalIndex, currentIndex) => ({
+                    teamRates = originalWeekdayTeamOrder.map((item, index) => ({
                         rate: 0,
-                        originalIndex: originalIndex
+                        originalIndex: item.index
                     }));
                 } else {
                     // 해당 요일의 팀별 승률 데이터 수집
@@ -6280,7 +6279,16 @@
                 // 해당 경기장의 행 찾기
                 const targetRowIndex = stadiumRows.findIndex(row => {
                     const firstCell = row.querySelector('td');
-                    return firstCell && firstCell.textContent.trim() === stadiumName;
+                    if (!firstCell) return false;
+                    
+                    // 경기장명이 div 안에 있는 경우
+                    const stadiumNameDiv = firstCell.querySelector('div');
+                    if (stadiumNameDiv) {
+                        return stadiumNameDiv.textContent.trim() === stadiumName;
+                    }
+                    
+                    // fallback: 전체 텍스트 비교
+                    return firstCell.textContent.trim().includes(stadiumName);
                 });
                 
                 if (targetRowIndex === -1) return;
@@ -6303,9 +6311,9 @@
                 if (nextState === 2) {
                     // 원래 순서로 복원
                     console.log('경기장별 - 원래 순서로 복원 중:', originalStadiumTeamOrder);
-                    teamRates = originalStadiumTeamOrder.map((originalIndex, currentIndex) => ({
+                    teamRates = originalStadiumTeamOrder.map((item, index) => ({
                         rate: 0,
-                        originalIndex: originalIndex
+                        originalIndex: item.index
                     }));
                 } else {
                     // 해당 경기장의 팀별 승률 데이터 수집
@@ -9278,7 +9286,10 @@
                     const headerRow = thead.querySelector('tr');
                     if (headerRow) {
                         const teamHeaders = Array.from(headerRow.querySelectorAll('th')).slice(1);
-                        originalWeekdayTeamOrder = teamHeaders.map((th, index) => index);
+                        originalWeekdayTeamOrder = teamHeaders.map((th, index) => ({
+                            index: index,
+                            teamName: th.textContent.trim()
+                        }));
                     }
                 }
             }
@@ -9593,7 +9604,10 @@
                     const headerRow = thead.querySelector('tr');
                     if (headerRow) {
                         const teamHeaders = Array.from(headerRow.querySelectorAll('th')).slice(1);
-                        originalStadiumTeamOrder = teamHeaders.map((th, index) => index);
+                        originalStadiumTeamOrder = teamHeaders.map((th, index) => ({
+                            index: index,
+                            teamName: th.textContent.trim()
+                        }));
                         console.log('원래 팀 순서 저장됨:', originalStadiumTeamOrder);
                     }
                 }
