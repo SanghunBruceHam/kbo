@@ -4009,5 +4009,145 @@ const kboTeams = {
                     }
                 }, 500); // 추가 딜레이
             }, 3000); // 기존 데이터 로딩 후 실행 (3초로 늘림)
+            
+            // 플로팅 공유 버튼 초기화
+            initializeFloatingShare();
+            
+            // 탑으로 가기 버튼 초기화 (딜레이 없이 바로 실행)
+            initializeScrollToTop();
         });
+
+        // 플로팅 공유 버튼 기능
+        function initializeFloatingShare() {
+            const shareToggle = document.getElementById('shareToggle');
+            const shareOptions = document.getElementById('shareOptions');
+            const shareButtons = document.querySelectorAll('.share-btn');
+
+            if (!shareToggle || !shareOptions) return;
+
+            // 공유 옵션 토글
+            shareToggle.addEventListener('click', function() {
+                shareOptions.classList.toggle('show');
+            });
+
+            // 외부 클릭 시 공유 옵션 닫기
+            document.addEventListener('click', function(e) {
+                if (!shareToggle.contains(e.target) && !shareOptions.contains(e.target)) {
+                    shareOptions.classList.remove('show');
+                }
+            });
+
+            // 각 공유 버튼 이벤트
+            shareButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const type = this.getAttribute('data-type');
+                    const url = window.location.href;
+                    const title = 'KBO 2025 우승 매직넘버 계산기';
+                    const text = 'KBO 2025 매직넘버 계산기! 10개 구단의 플레이오프 진출 조건, 우승 가능성, 팀별 순위표와 상대전적을 실시간으로 확인하세요.';
+
+                    switch(type) {
+                        case 'copy':
+                            copyToClipboard(url);
+                            break;
+                        case 'threads':
+                            window.open(`https://threads.net/intent/post?text=${encodeURIComponent(text + ' ' + url)}`, '_blank');
+                            break;
+                        case 'twitter':
+                            window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank');
+                            break;
+                        case 'facebook':
+                            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(text)}`, '_blank');
+                            break;
+                    }
+                    
+                    // 공유 후 옵션 닫기
+                    shareOptions.classList.remove('show');
+                });
+            });
+        }
+
+        // URL 복사 기능
+        function copyToClipboard(text) {
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showCopySuccess();
+                }).catch(() => {
+                    fallbackCopyTextToClipboard(text);
+                });
+            } else {
+                fallbackCopyTextToClipboard(text);
+            }
+        }
+
+        // 구형 브라우저 대응 복사 기능
+        function fallbackCopyTextToClipboard(text) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.position = "fixed";
+            textArea.style.left = "-999999px";
+            textArea.style.top = "-999999px";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            
+            try {
+                document.execCommand('copy');
+                showCopySuccess();
+            } catch (err) {
+                logger.error('복사 실패:', err);
+            }
+            
+            document.body.removeChild(textArea);
+        }
+
+        // 복사 성공 메시지
+        function showCopySuccess() {
+            const shareButtons = document.querySelectorAll('.share-btn');
+            const copyButton = shareButtons[0];
+            if (copyButton) {
+                const originalText = copyButton.querySelector('span').textContent;
+                copyButton.querySelector('span').textContent = '복사됨!';
+                copyButton.style.color = '#4caf50';
+                
+                setTimeout(() => {
+                    copyButton.querySelector('span').textContent = originalText;
+                    copyButton.style.color = '';
+                }, 2000);
+            }
+        }
+
+        // 탑으로 가기 버튼 기능
+        function initializeScrollToTop() {
+            const scrollToTopButton = document.getElementById('scrollToTop');
+            
+            if (!scrollToTopButton) {
+                logger.warn('탑으로 가기 버튼을 찾을 수 없습니다.');
+                return;
+            }
+            
+            // 스크롤 상태 확인 및 버튼 표시/숨김 함수
+            function updateScrollButtonVisibility() {
+                if (window.pageYOffset > 300) {
+                    scrollToTopButton.classList.add('show');
+                } else {
+                    scrollToTopButton.classList.remove('show');
+                }
+            }
+            
+            // 페이지 로드 시 즉시 스크롤 상태 확인
+            updateScrollButtonVisibility();
+            
+            // 스크롤 이벤트 리스너
+            window.addEventListener('scroll', updateScrollButtonVisibility);
+            
+            // 버튼 클릭 이벤트
+            scrollToTopButton.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            logger.log('탑으로 가기 버튼 초기화 완료');
+        }
 
