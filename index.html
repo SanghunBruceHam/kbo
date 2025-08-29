@@ -5901,6 +5901,8 @@
                 monthlyRateSortState[monthNum] = nextState;
                 
                 console.log('월별 - 현재 상태:', currentState, '다음 상태:', nextState);
+                console.log('월별 - tbody 찾음:', tbody);
+                console.log('월별 - 모든 행 개수:', Array.from(tbody.querySelectorAll('tr')).length);
                 
                 const rows = Array.from(tbody.querySelectorAll('tr'));
                 
