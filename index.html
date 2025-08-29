@@ -8272,7 +8272,13 @@
             // 현재 상태 확인 및 다음 상태로 전환
             const currentState = monthlyRateSortState[monthNum] || 0;
             const nextState = (currentState + 1) % 3; // 0: 내림차순, 1: 오름차순, 2: 원래순서
-            monthlyRateSortState = {}; // 다른 월 상태 초기화
+            
+            // 다른 월 상태만 초기화 (현재 월 제외)
+            Object.keys(monthlyRateSortState).forEach(key => {
+                if (key != monthNum) {
+                    delete monthlyRateSortState[key];
+                }
+            });
             monthlyRateSortState[monthNum] = nextState;
             
             const rows = Array.from(tbody.querySelectorAll('tr'));
@@ -8682,7 +8688,13 @@
             // 현재 상태 확인 및 다음 상태로 전환
             const currentState = weekdayRateSortState[dayKey] || 0;
             const nextState = (currentState + 1) % 3; // 0: 내림차순, 1: 오름차순, 2: 원래순서
-            weekdayRateSortState = {}; // 다른 요일 상태 초기화
+            
+            // 다른 요일 상태만 초기화 (현재 요일 제외)
+            Object.keys(weekdayRateSortState).forEach(key => {
+                if (key !== dayKey) {
+                    delete weekdayRateSortState[key];
+                }
+            });
             weekdayRateSortState[dayKey] = nextState;
             
             const rows = Array.from(tbody.querySelectorAll('tr'));
@@ -8979,8 +8991,16 @@
             // 현재 상태 확인 및 다음 상태로 전환
             const currentState = stadiumRateSortState[stadiumName] || 0;
             const nextState = (currentState + 1) % 3; // 0: 내림차순, 1: 오름차순, 2: 원래순서
-            stadiumRateSortState = {}; // 다른 경기장 상태 초기화
+            
+            // 다른 경기장 상태만 초기화 (현재 경기장 제외)
+            Object.keys(stadiumRateSortState).forEach(key => {
+                if (key !== stadiumName) {
+                    delete stadiumRateSortState[key];
+                }
+            });
             stadiumRateSortState[stadiumName] = nextState;
+            
+            console.log('현재 상태:', currentState, '다음 상태:', nextState);
             
             const rows = Array.from(tbody.querySelectorAll('tr'));
             
