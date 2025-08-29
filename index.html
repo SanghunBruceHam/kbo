@@ -8455,7 +8455,7 @@
             days.forEach(day => {
                 // 평일(월~금)과 주말(토~일) 구분
                 const dayClass = ['토', '일'].includes(day.key) ? 'day-label weekend' : 'day-label weekday';
-                let dayRow = `<tr><td class="${dayClass}">${day.name}</td>`;
+                let dayRow = `<tr><td class="${dayClass}" style="cursor: pointer;" onclick="sortWeekdayByRate('${day.key}')">${day.name}</td>`;
                 
                 rankedTeams.forEach(team => {
                     const weekdayData = dashboardData.weekdayPerformance[team];
@@ -8669,6 +8669,158 @@
             tbody.innerHTML = '';
             dayRows.forEach(row => tbody.appendChild(row));
             summaryRows.forEach(row => tbody.appendChild(row));
+        };
+        
+        // 요일별 승률 순 정렬 함수 (3단계: 내림차순 → 오름차순 → 원래순서)
+        let weekdayRateSortState = {}; // 요일별 정렬 상태
+        let originalWeekdayTeamOrder = []; // 원래 팀 순서 저장
+        
+        window.sortWeekdayByRate = function(dayKey) {
+            const tbody = document.querySelector('#weekdayTable tbody');
+            if (!tbody) return;
+            
+            // 현재 상태 확인 및 다음 상태로 전환
+            const currentState = weekdayRateSortState[dayKey] || 0;
+            const nextState = (currentState + 1) % 3; // 0: 내림차순, 1: 오름차순, 2: 원래순서
+            weekdayRateSortState = {}; // 다른 요일 상태 초기화
+            weekdayRateSortState[dayKey] = nextState;
+            
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+            
+            // 평일성적, 주말성적 행 제외하고 요일 행만 정렬
+            const dayRows = rows.filter(row => {
+                const firstCell = row.querySelector('td');
+                return firstCell && !firstCell.textContent.includes('성적');
+            });
+            
+            const summaryRows = rows.filter(row => {
+                const firstCell = row.querySelector('td');
+                return firstCell && firstCell.textContent.includes('성적');
+            });
+            
+            // 원래 순서 저장 (첫 번째 호출 시에만)
+            if (originalWeekdayTeamOrder.length === 0) {
+                const thead = document.querySelector('#weekdayTable thead');
+                if (thead) {
+                    const headerRow = thead.querySelector('tr');
+                    if (headerRow) {
+                        const teamHeaders = Array.from(headerRow.querySelectorAll('th')).slice(1);
+                        originalWeekdayTeamOrder = teamHeaders.map((th, index) => index);
+                    }
+                }
+            }
+            
+            // 해당 요일의 행 찾기
+            const dayNames = ['월요일', '화요일', '수요일', '목요일', '금요일', '토요일', '일요일'];
+            const dayKeys = ['월', '화', '수', '목', '금', '토', '일'];
+            const dayIndex = dayKeys.indexOf(dayKey);
+            const dayName = dayNames[dayIndex];
+            
+            const targetRowIndex = dayRows.findIndex(row => {
+                const firstCell = row.querySelector('td');
+                return firstCell && firstCell.textContent.trim() === dayName;
+            });
+            
+            if (targetRowIndex === -1) return;
+            
+            let teamRates = [];
+            
+            if (nextState === 2) {
+                // 원래 순서로 복원
+                teamRates = originalWeekdayTeamOrder.map((originalIndex, currentIndex) => ({
+                    rate: 0, // 원래 순서에서는 승률 불필요
+                    originalIndex: originalIndex
+                }));
+            } else {
+                // 해당 요일의 팀별 승률 데이터 수집
+                const targetRow = dayRows[targetRowIndex];
+                const cells = Array.from(targetRow.querySelectorAll('td')).slice(1); // 첫 번째 요일 라벨 제외
+                
+                cells.forEach((cell, index) => {
+                    const text = cell.textContent || cell.innerText || '';
+                    const rateMatch = text.match(/\(([0-9.]+)\)/); // (승률) 추출
+                    if (rateMatch) {
+                        teamRates.push({
+                            rate: parseFloat(rateMatch[1]),
+                            index: index + 1, // +1은 첫 번째 요일 라벨 컬럼 때문
+                            originalIndex: index
+                        });
+                    } else {
+                        // 데이터가 없는 경우 -1로 처리 (맨 뒤로)
+                        teamRates.push({
+                            rate: -1,
+                            index: index + 1,
+                            originalIndex: index
+                        });
+                    }
+                });
+                
+                // 승률 순으로 정렬
+                teamRates.sort((a, b) => {
+                    if (a.rate === -1 && b.rate === -1) return 0;
+                    if (a.rate === -1) return 1;
+                    if (b.rate === -1) return -1;
+                    
+                    if (nextState === 0) {
+                        return b.rate - a.rate; // 내림차순 (높은 승률 먼저)
+                    } else {
+                        return a.rate - b.rate; // 오름차순 (낮은 승률 먼저)
+                    }
+                });
+            }
+            
+            // 전체 테이블의 컬럼 순서 재배열
+            dayRows.forEach(row => {
+                const cells = Array.from(row.querySelectorAll('td'));
+                const dayLabel = cells[0]; // 요일 라벨은 그대로
+                const dataCells = cells.slice(1);
+                
+                // 새로운 순서로 셀 재배열
+                const newRow = row.cloneNode(false);
+                newRow.appendChild(dayLabel);
+                
+                teamRates.forEach(item => {
+                    newRow.appendChild(dataCells[item.originalIndex]);
+                });
+                
+                row.parentNode.replaceChild(newRow, row);
+            });
+            
+            // 평일성적/주말성적 행도 동일하게 재배열
+            summaryRows.forEach(row => {
+                const cells = Array.from(row.querySelectorAll('td'));
+                const summaryLabel = cells[0]; // 성적 라벨은 그대로
+                const dataCells = cells.slice(1);
+                
+                const newRow = row.cloneNode(false);
+                newRow.appendChild(summaryLabel);
+                
+                teamRates.forEach(item => {
+                    newRow.appendChild(dataCells[item.originalIndex]);
+                });
+                
+                row.parentNode.replaceChild(newRow, row);
+            });
+            
+            // 헤더도 동일하게 재배열
+            const thead = document.querySelector('#weekdayTable thead');
+            if (thead) {
+                const headerRow = thead.querySelector('tr');
+                if (headerRow) {
+                    const headerCells = Array.from(headerRow.querySelectorAll('th'));
+                    const dayHeader = headerCells[0]; // '요일' 헤더는 그대로
+                    const teamHeaders = headerCells.slice(1);
+                    
+                    const newHeaderRow = headerRow.cloneNode(false);
+                    newHeaderRow.appendChild(dayHeader);
+                    
+                    teamRates.forEach(item => {
+                        newHeaderRow.appendChild(teamHeaders[item.originalIndex]);
+                    });
+                    
+                    headerRow.parentNode.replaceChild(newHeaderRow, headerRow);
+                }
+            }
         };
 
         // 경기장별 성적 표 분석
