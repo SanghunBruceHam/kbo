@@ -207,16 +207,19 @@ class SeriesAnalyzer {
             // 모든 경기 포함 (첫 경기 제외하지 않음)
             const series = this.groupGamesBySeries(games);
 
+            // 1경기 시리즈 제외한 실제 시리즈만 통계 계산
+            const validSeries = series.filter(s => s.totalGames > 1);
+            
             // 기본 통계
             const stats = {
-                totalSeries: series.length,
-                winningSeries: series.filter(s => s.result === 'WIN').length,
-                losingSeries: series.filter(s => s.result === 'LOSS').length,
-                splitSeries: series.filter(s => s.result === 'SPLIT').length,
-                sweepWins: series.filter(s => s.isWinningSweep).length,
-                sweepLosses: series.filter(s => s.isLosingSweep).length,
+                totalSeries: validSeries.length,
+                winningSeries: validSeries.filter(s => s.result === 'WIN').length,
+                losingSeries: validSeries.filter(s => s.result === 'LOSS').length,
+                splitSeries: validSeries.filter(s => s.result === 'SPLIT').length,
+                sweepWins: validSeries.filter(s => s.isWinningSweep).length,
+                sweepLosses: validSeries.filter(s => s.isLosingSweep).length,
                 seriesWinRate: 0,
-                series: series
+                series: validSeries  // 1경기 시리즈 제외한 데이터만 포함
             };
 
             // 승률 계산
@@ -224,13 +227,13 @@ class SeriesAnalyzer {
                 stats.seriesWinRate = (stats.winningSeries / stats.totalSeries * 100).toFixed(1);
             }
 
-            // 연속 시리즈 기록 계산
-            stats.currentStreak = this.calculateCurrentStreak(series);
-            stats.longestWinningStreak = this.calculateLongestStreak(series, 'WIN');
-            stats.longestLosingStreak = this.calculateLongestStreak(series, 'LOSS');
+            // 연속 시리즈 기록 계산 (1경기 시리즈 제외한 데이터로)
+            stats.currentStreak = this.calculateCurrentStreak(validSeries);
+            stats.longestWinningStreak = this.calculateLongestStreak(validSeries, 'WIN');
+            stats.longestLosingStreak = this.calculateLongestStreak(validSeries, 'LOSS');
 
-            // 상대팀별 시리즈 전적
-            stats.vsTeams = this.calculateVsTeamsStats(series);
+            // 상대팀별 시리즈 전적 (1경기 시리즈 제외한 데이터로)
+            stats.vsTeams = this.calculateVsTeamsStats(validSeries);
 
             this.seriesData[team] = stats;
         });
@@ -246,8 +249,11 @@ class SeriesAnalyzer {
         // 최신 시리즈부터 역순으로 확인
         const sortedSeries = [...series].sort((a, b) => new Date(b.lastDate) - new Date(a.lastDate));
         
-        // SPLIT과 ONGOING을 제외한 완료된 시리즈만 필터링
-        const completedSeries = sortedSeries.filter(s => s.result !== 'SPLIT' && s.result !== 'ONGOING');
+        // SPLIT과 ONGOING을 제외한 완료된 시리즈만 필터링 (1경기 시리즈는 이미 상위에서 필터링됨)
+        const completedSeries = sortedSeries.filter(s => 
+            s.result !== 'SPLIT' && 
+            s.result !== 'ONGOING'
+        );
         
         if (completedSeries.length === 0) return { type: 'NONE', count: 0 };
         
@@ -283,10 +289,13 @@ class SeriesAnalyzer {
     calculateLongestStreak(series, type) {
         if (series.length === 0) return { count: 0, startDate: null, endDate: null };
 
-        // 날짜순으로 정렬 후 SPLIT과 ONGOING 제외
+        // 날짜순으로 정렬 후 SPLIT과 ONGOING 제외 (1경기 시리즈는 이미 상위에서 필터링됨)
         const sortedSeries = [...series]
             .sort((a, b) => new Date(a.startDate) - new Date(b.startDate))
-            .filter(s => s.result !== 'SPLIT' && s.result !== 'ONGOING');
+            .filter(s => 
+                s.result !== 'SPLIT' && 
+                s.result !== 'ONGOING'
+            );
         
         let maxStreak = 0;
         let currentStreak = 0;
