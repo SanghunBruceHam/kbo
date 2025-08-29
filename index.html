@@ -8969,8 +8969,12 @@
         let originalStadiumTeamOrder = []; // 원래 팀 순서 저장
         
         window.sortStadiumByRate = function(stadiumName) {
+            console.log('sortStadiumByRate 호출됨:', stadiumName);
             const tbody = document.querySelector('#stadiumTable tbody');
-            if (!tbody) return;
+            if (!tbody) {
+                console.log('stadiumTable tbody를 찾을 수 없음');
+                return;
+            }
             
             // 현재 상태 확인 및 다음 상태로 전환
             const currentState = stadiumRateSortState[stadiumName] || 0;
@@ -8992,17 +8996,43 @@
                 }
             }
             
-            // 해당 경기장의 행 찾기
+            // 해당 경기장의 행 찾기 (더 정확한 매칭)
             const targetRowIndex = rows.findIndex(row => {
                 const firstCell = row.querySelector('td');
                 if (!firstCell) return false;
                 const stadiumNameDiv = firstCell.querySelector('div');
-                return stadiumNameDiv && stadiumNameDiv.textContent && 
-                       stadiumName.includes(stadiumNameDiv.textContent.trim().split(' ')[0]);
+                if (!stadiumNameDiv) return false;
+                
+                const displayedName = stadiumNameDiv.textContent.trim();
+                
+                // 경기장 이름 매칭 로직 개선
+                if (stadiumName.includes('광주') && displayedName.includes('광주')) return true;
+                if (stadiumName.includes('잠실') && displayedName.includes('잠실')) return true;
+                if (stadiumName.includes('대구') && displayedName.includes('대구')) return true;
+                if (stadiumName.includes('인천') && displayedName.includes('인천')) return true;
+                if (stadiumName.includes('수원') && displayedName.includes('수원')) return true;
+                if (stadiumName.includes('창원') && displayedName.includes('창원')) return true;
+                if (stadiumName.includes('부산') && displayedName.includes('부산')) return true;
+                if (stadiumName.includes('대전') && displayedName.includes('대전')) return true;
+                if (stadiumName.includes('고척') && displayedName.includes('고척')) return true;
+                
+                return false;
             });
             
-            if (targetRowIndex === -1) return;
+            if (targetRowIndex === -1) {
+                console.log('경기장을 찾을 수 없음:', stadiumName);
+                console.log('사용 가능한 경기장들:', rows.map(row => {
+                    const firstCell = row.querySelector('td');
+                    if (firstCell) {
+                        const div = firstCell.querySelector('div');
+                        return div ? div.textContent.trim() : '';
+                    }
+                    return '';
+                }));
+                return;
+            }
             
+            console.log('경기장 행 찾음:', targetRowIndex);
             let teamRates = [];
             
             if (nextState === 2) {
@@ -9019,7 +9049,9 @@
                 cells.forEach((cell, index) => {
                     const text = cell.textContent || cell.innerText || '';
                     const rateMatch = text.match(/\(([0-9.]+)\)/); // (승률) 추출
-                    if (rateMatch && !text.includes('-')) {
+                    
+                    // 데이터가 있고 "-"가 아닌 경우
+                    if (rateMatch && rateMatch[1] && !text.trim().startsWith('-') && text.trim() !== '-') {
                         teamRates.push({
                             rate: parseFloat(rateMatch[1]),
                             index: index + 1, // +1은 첫 번째 경기장 라벨 컬럼 때문
