@@ -5510,11 +5510,12 @@
 
                 // 승률과 상대전적 기준으로 정렬
                 dashboardData.standings.sort((a, b) => {
-                    const aWinRate = parseFloat(a.win_rate);
-                    const bWinRate = parseFloat(b.win_rate);
+                    // 승률을 직접 계산하여 정확한 비교 (무승부 제외)
+                    const aWinRate = a.wins / (a.wins + a.losses);
+                    const bWinRate = b.wins / (b.wins + b.losses);
                     
                     // 1차: 4자리까지 정확한 승률 비교 (내림차순)
-                    const aWinRateRounded = Math.round(aWinRate * 10000) / 10000; // 4자리까지 정확한 비교
+                    const aWinRateRounded = Math.round(aWinRate * 10000) / 10000;
                     const bWinRateRounded = Math.round(bWinRate * 10000) / 10000;
                     if (aWinRateRounded !== bWinRateRounded) {
                         return bWinRateRounded - aWinRateRounded;
@@ -5564,8 +5565,9 @@
                     const currentTeam = dashboardData.standings[i];
                     const previousTeam = dashboardData.standings[i - 1];
                     
-                    const currentWinRate = Math.round(parseFloat(currentTeam.win_rate) * 10000) / 10000;
-                    const previousWinRate = Math.round(parseFloat(previousTeam.win_rate) * 10000) / 10000;
+                    // 승률을 직접 계산하여 정확한 비교 (무승부 제외)
+                    const currentWinRate = Math.round((currentTeam.wins / (currentTeam.wins + currentTeam.losses)) * 10000) / 10000;
+                    const previousWinRate = Math.round((previousTeam.wins / (previousTeam.wins + previousTeam.losses)) * 10000) / 10000;
                     
                     if (currentWinRate === previousWinRate) {
                         // 표시된 승률이 동일하면 이전 팀과 같은 순위
@@ -11644,8 +11646,9 @@ KT 9:1 키움(H)`;
                 let previousWinRate = null;
                 
                 standings.forEach((team, index) => {
-                    // 4자리까지 정확한 승률로 동률 처리하되 표시는 3자리
-                    const preciseWinRate = Math.round(team.winRate * 10000) / 10000; // 4자리까지 정확한 비교
+                    // 4자리까지 정확한 승률로 동률 처리하되 표시는 3자리 (무승부 제외하고 직접 계산)
+                    const calculatedWinRate = team.wins / (team.wins + team.losses);
+                    const preciseWinRate = Math.round(calculatedWinRate * 10000) / 10000; // 4자리까지 정확한 비교
                     
                     // 이전 팀과 정확한 승률이 다르면 실제 순위로 업데이트
                     if (previousWinRate !== null && preciseWinRate !== previousWinRate) {
