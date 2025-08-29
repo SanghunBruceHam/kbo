@@ -3616,7 +3616,7 @@ const kboTeams = {
                         border-collapse: collapse; 
                         font-size: 0.75rem; 
                         background: white; 
-                        min-width: ${Math.max(1100, 6 * (75 + 95) + 70 + 140)}px;
+                        min-width: ${window.innerWidth <= 768 ? '800px' : Math.max(1100, 6 * (75 + 95) + 70 + 140) + 'px'};
                     ">
                         <thead style="position: sticky; top: 0; z-index: 100;">
                             <!-- 1행: 순위 -->

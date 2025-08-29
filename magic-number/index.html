@@ -142,8 +142,20 @@
         
         /* 모바일에서 경우의 수 표 최적화 */
         @media (max-width: 768px) {
+            body {
+                overflow-x: hidden !important;
+                max-width: 100vw !important;
+            }
+            
+            .container {
+                max-width: 100vw !important;
+                padding: 0 10px !important;
+                overflow-x: hidden !important;
+            }
+            
             .scenario-section {
                 overflow: visible !important;
+                max-width: 100% !important;
             }
             
             #scenario-content {
