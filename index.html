@@ -8320,6 +8320,7 @@
             
             if (nextState === 2) {
                 // 원래 순서로 복원
+                console.log('월별 - 원래 순서로 복원 중:', originalTeamOrder);
                 teamRates = originalTeamOrder.map((originalIndex, currentIndex) => ({
                     rate: 0, // 원래 순서에서는 승률 불필요
                     originalIndex: originalIndex
@@ -9012,6 +9013,7 @@
                     if (headerRow) {
                         const teamHeaders = Array.from(headerRow.querySelectorAll('th')).slice(1);
                         originalStadiumTeamOrder = teamHeaders.map((th, index) => index);
+                        console.log('원래 팀 순서 저장됨:', originalStadiumTeamOrder);
                     }
                 }
             }
@@ -9057,6 +9059,7 @@
             
             if (nextState === 2) {
                 // 원래 순서로 복원
+                console.log('원래 순서로 복원 중:', originalStadiumTeamOrder);
                 teamRates = originalStadiumTeamOrder.map((originalIndex, currentIndex) => ({
                     rate: 0, // 원래 순서에서는 승률 불필요
                     originalIndex: originalIndex
