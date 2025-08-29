@@ -2,11 +2,11 @@
 const CACHE_NAME = 'kbo-dashboard-v1.1';
 const STATIC_CACHE_NAME = 'kbo-static-v1.1';
 
-// 정적 리소스 캐싱 목록
+// 정적 리소스 캐싱 목록 (실제 존재하는 파일들만)
 const STATIC_ASSETS = [
   '/',
   '/index.html',
-  '/images/kbo-main-icon.png',
+  '/images/kbo-dashboard-preview.png',
   // 팀 로고들
   '/images/lg.png',
   '/images/kia.png',
@@ -32,10 +32,18 @@ self.addEventListener('install', (event) => {
   
   event.waitUntil(
     Promise.all([
-      // 정적 리소스 캐싱
-      caches.open(STATIC_CACHE_NAME).then((cache) => {
+      // 정적 리소스 캐싱 - 개별 파일 에러 처리
+      caches.open(STATIC_CACHE_NAME).then(async (cache) => {
         console.log('Service Worker: Caching static assets');
-        return cache.addAll(STATIC_ASSETS);
+        const cachePromises = STATIC_ASSETS.map(async (asset) => {
+          try {
+            await cache.add(asset);
+            console.log(`✅ Cached: ${asset}`);
+          } catch (error) {
+            console.warn(`⚠️ Failed to cache: ${asset}`, error);
+          }
+        });
+        return Promise.all(cachePromises);
       })
     ])
   );
