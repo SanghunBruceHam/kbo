@@ -148,10 +148,13 @@ self.addEventListener('fetch', (event) => {
   // 기본 네트워크 요청 - 에러 처리 추가
   event.respondWith(
     fetch(request).catch(error => {
-      // Google Analytics나 외부 서비스 요청 실패 시 조용히 처리
-      if (request.url.includes('google') || 
-          request.url.includes('analytics') ||
-          request.url.includes('coupang')) {
+      // Google Analytics 실패 시 알림
+      if (request.url.includes('google') || request.url.includes('analytics')) {
+        console.error('🚨 Google Analytics (G4A) 요청 실패:', request.url, error);
+        return new Response('', { status: 200, statusText: 'OK' });
+      }
+      // 쿠팡 광고는 조용히 처리
+      if (request.url.includes('coupang')) {
         return new Response('', { status: 200, statusText: 'OK' });
       }
       // 다른 요청은 에러를 다시 던짐
