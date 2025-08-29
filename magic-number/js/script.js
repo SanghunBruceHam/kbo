@@ -1663,7 +1663,6 @@ const kboTeams = {
                 // 1위팀인 경우 특별 스타일링
                 const isFirstPlace = team.displayRank === 1;
                 const textColor = isFirstPlace ? teamData.color : '#666';
-                const catchColor = typeof canCatch === 'string' ? (isFirstPlace ? teamData.color : '#3498db') : (canCatch ? '#27ae60' : '#e74c3c');
                 
                 // 1위 탈환 트래직넘버 표시 텍스트 생성
                 let tragicDisplay, tragicColor;
@@ -1673,13 +1672,26 @@ const kboTeams = {
                 } else if (firstPlaceTragic === 999) {
                     tragicDisplay = '불가능';
                     tragicColor = '#e74c3c';
+                    // 트래직넘버가 불가능이면 탈환도 불가능
+                    canCatch = '불가능';
                 } else if (firstPlaceTragic === 0) {
                     tragicDisplay = '가능';
                     tragicColor = textColor; // 기본 텍스트 색상 사용
+                    // 트래직넘버가 0이면 탈환 불가능
+                    canCatch = '불가능';
                 } else {
                     tragicDisplay = firstPlaceTragic;
                     tragicColor = textColor; // 기본 텍스트 색상 사용
+                    // 트래직넘버가 존재하면 아직 탈환 가능
+                    if (typeof canCatch === 'boolean') {
+                        canCatch = canCatch ? '가능' : '불가능';
+                    }
                 }
+                
+                // 탈환 가능 여부에 따른 색상 결정 (canCatch 값 결정 후)
+                const catchColor = isFirstPlace ? teamData.color : 
+                    (canCatch === '가능' ? '#27ae60' : 
+                     canCatch === '불가능' ? '#e74c3c' : '#3498db');
                 
                 row.innerHTML = `
                     <td style="color: ${teamData.color}; font-weight: ${isFirstPlace ? '700' : '600'};">${team.displayRank}</td>
