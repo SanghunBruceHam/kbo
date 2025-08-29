@@ -8149,35 +8149,24 @@
             tbody.innerHTML = '';
 
             // 팀 순위 기준으로 정렬
-            const sortedTeams = dashboardData.pythagoreanAnalysis.sort((a, b) => {
-                const teamA = dashboardData.standings.find(t => t.team_name === a.team_name);
-                const teamB = dashboardData.standings.find(t => t.team_name === b.team_name);
-                const rankA = teamA ? teamA.rank : 999;
-                const rankB = teamB ? teamB.rank : 999;
+            const sortedTeams = dashboardData.standings.sort((a, b) => {
+                const rankA = a.rank || 999;
+                const rankB = b.rank || 999;
                 return rankA - rankB;
             });
             
             sortedTeams.forEach((team, index) => {
-                const teamData = dashboardData.standings.find(t => t.team === team.team_name);
-                const rank = teamData ? teamData.displayRank : (index + 1);
+                const rank = team.rank || (index + 1);
                 
                 // 실제 기록
-                const actualWins = teamData ? teamData.wins : 0;
-                const actualDraws = teamData ? teamData.draws : 0;
-                const actualLosses = teamData ? teamData.losses : 0;
+                const actualWins = team.wins || 0;
+                const actualDraws = team.draws || 0;
+                const actualLosses = team.losses || 0;
                 const totalGames = actualWins + actualDraws + actualLosses;
                 
-                // 피타고리안 승률을 이용한 기대 승리수 계산 (정확한 로직)
-                // expected_win_rate가 이미 소수점 형태인지 확인
-                let expectedWinRate = parseFloat(team.expected_win_rate);
-                if (expectedWinRate > 1) {
-                    expectedWinRate = expectedWinRate / 100; // 퍼센트 형태라면 소수점으로 변환
-                }
-                
-                let actualWinRate = parseFloat(team.actual_win_rate);
-                if (actualWinRate > 1) {
-                    actualWinRate = actualWinRate / 100;
-                }
+                // 피타고리안 데이터
+                const expectedWinRate = team.pythagoreanWinRate || 0;
+                const actualWinRate = team.winRate || 0;
                 
                 // 기대 기록 계산 (올바른 방식)
                 // 무승부는 실제값 유지, 승패만 피타고리안으로 계산
@@ -8187,9 +8176,9 @@
                 const finalExpectedDraws = actualDraws;
                 
                 // 득실차 계산
-                const actualRunsScored = teamData ? teamData.runs_scored : 0;
-                const actualRunsAllowed = teamData ? teamData.runs_allowed : 0;
-                const actualRunDiff = actualRunsScored - actualRunsAllowed;
+                const actualRunsScored = team.runsScored || 0;
+                const actualRunsAllowed = team.runsAllowed || 0;
+                const actualRunDiff = team.runDiff || (actualRunsScored - actualRunsAllowed);
                 
                 // 기대 득실차 = 피타고리안 승률 기반으로 역산
                 // 피타고리안 공식: WinRate = RS² / (RS² + RA²)
@@ -8208,21 +8197,21 @@
                     return 'negative-very-strong';                         // 매우 운이 나쁨
                 }
                 
-                const luckClass = getLuckClass(parseFloat(team.luck_factor));
+                const luckClass = getLuckClass(team.luckIndex || 0);
                 
                 row.innerHTML = `
                     <td class="rank-${rank <= 3 ? rank : 'other'}" style="font-weight: var(--font-weight-bold); text-align: center;">${rank}</td>
-                    <td class="team-name">${getTeamWithLogo(team.team_name)}</td>
+                    <td class="team-name">${getTeamWithLogo(team.team)}</td>
                     <td><strong>${actualWins}</strong></td>
                     <td>${actualLosses}</td>
                     <td>${actualDraws}</td>
                     <td style="color: #007bff;">${finalExpectedWins}</td>
                     <td style="color: #007bff;">${finalExpectedLosses}</td>
                     <td style="color: #007bff;">${finalExpectedDraws}</td>
-                    <td><strong>${team.actual_win_rate}</strong></td>
-                    <td style="color: #007bff;">${team.expected_win_rate}</td>
-                    <td class="${luckClass}"><strong>${team.luck_factor}</strong></td>
-                    <td class="${luckClass}" style="white-space: nowrap;">${team.luck_status}</td>
+                    <td><strong>${actualWinRate.toFixed(3)}</strong></td>
+                    <td style="color: #007bff;">${expectedWinRate.toFixed(3)}</td>
+                    <td class="${luckClass}"><strong>${team.luckIndex ? (team.luckIndex > 0 ? '+' : '') + team.luckIndex.toFixed(3) : '-'}</strong></td>
+                    <td class="${luckClass}" style="white-space: nowrap;">${team.luckRating || '-'}</td>
                     <td><strong>${actualRunsScored || '-'}</strong></td>
                     <td><strong>${actualRunsAllowed || '-'}</strong></td>
                     <td><strong>${actualRunDiff >= 0 ? '+' : ''}${actualRunDiff}</strong></td>
