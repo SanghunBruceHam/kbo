@@ -7963,7 +7963,7 @@
                 
                 row.innerHTML = `
                     <td class="${team.displayRank <= 3 ? `rank-${team.displayRank}` : ''}"><strong>${team.displayRank}</strong></td>
-                    <td class="team-name">${getTeamWithLogo(team.team_name)}</td>
+                    <td class="team-name"><strong>${team.team_name}</strong></td>
                     <td>${team.games_played}</td>
                     <td>${team.wins}</td>
                     <td>${team.losses}</td>
@@ -8123,7 +8123,7 @@
                 
                 row.innerHTML = `
                     <td class="rank-${rank <= 3 ? rank : 'other'}" style="font-weight: var(--font-weight-bold); text-align: center;">${rank}</td>
-                    <td class="team-name">${getTeamWithLogo(team.team_name)}</td>
+                    <td class="team-name"><strong>${team.team_name}</strong></td>
                     <td><strong>${actualWins}</strong></td>
                     <td>${actualLosses}</td>
                     <td>${actualDraws}</td>
@@ -8201,7 +8201,7 @@
                 
                 row.innerHTML = `
                     <td class="rank-${rank <= 3 ? rank : 'other'}" style="font-weight: var(--font-weight-bold); text-align: center;">${rank}</td>
-                    <td class="team-name">${getTeamWithLogo(team.team)}</td>
+                    <td class="team-name"><strong>${team.team}</strong></td>
                     <td><strong>${actualWins}</strong></td>
                     <td>${actualLosses}</td>
                     <td>${actualDraws}</td>
