@@ -13,13 +13,13 @@
     "categories": ["sports", "utilities", "productivity"],
     "icons": [
         {
-            "src": "./icons/kbo-magic-number-icon.png",
+            "src": "./icons/kbo-dashboard- favicon.png",
             "sizes": "512x512",
             "type": "image/png",
             "purpose": "any maskable"
         },
         {
-            "src": "./icons/kbo-magic-number-thumbnail.png",
+            "src": "./icons/image.png",
             "sizes": "512x512",
             "type": "image/png",
             "purpose": "any maskable"
@@ -31,21 +31,21 @@
             "short_name": "순위표",
             "description": "KBO 팀 순위와 매직넘버 확인",
             "url": "/magic-number/#standings",
-            "icons": [{ "src": "./icons/kbo-magic-number-icon.png", "sizes": "512x512" }]
+            "icons": [{ "src": "./icons/kbo-dashboard- favicon.png", "sizes": "512x512" }]
         },
         {
             "name": "플레이오프 현황",
             "short_name": "플레이오프",
             "description": "플레이오프 진출 조건 확인",
             "url": "/magic-number/#playoff",
-            "icons": [{ "src": "./icons/kbo-magic-number-icon.png", "sizes": "512x512" }]
+            "icons": [{ "src": "./icons/kbo-dashboard- favicon.png", "sizes": "512x512" }]
         },
         {
             "name": "상대전적",
             "short_name": "전적",
             "description": "팀간 상대전적 확인",
             "url": "/magic-number/#head-to-head",
-            "icons": [{ "src": "./icons/kbo-magic-number-icon.png", "sizes": "512x512" }]
+            "icons": [{ "src": "./icons/kbo-dashboard- favicon.png", "sizes": "512x512" }]
         }
     ],
     "related_applications": [],
