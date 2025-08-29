@@ -314,11 +314,11 @@
     <meta name="twitter:site" content="@kbo_analytics">
     
     <!-- 파비콘 및 앱 아이콘 - 검색엔진 최적화 -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="/images/kbo-dashboard-preview.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/images/kbo-dashboard-preview.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/images/kbo-dashboard-preview.png">
-    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="images/kbo-dashboard-preview.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/kbo-dashboard-preview.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/kbo-dashboard-preview.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/kbo-dashboard-preview.png">
+    <link rel="shortcut icon" type="image/x-icon" href="images/kbo-dashboard-preview.png">
     <link rel="manifest" href="/manifest.json">
     
     <meta name="theme-color" content="#667eea">
@@ -5267,6 +5267,9 @@
         <!-- 푸터 제거됨 -->
 
     <script>
+        // 콘솔 로그 비활성화
+        console.log = function() {};
+        
         let dashboardData = null;
         let clutchData = null;
         let weeklyAnalysisData = null;
