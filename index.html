@@ -8037,7 +8037,7 @@
 
             months.forEach((monthNum, index) => {
                 const row = document.createElement('tr');
-                let html = `<td class="month-label"><strong>${monthNames[index]}</strong></td>`;
+                let html = `<td class="month-label" style="cursor: pointer;" onclick="sortMonthlyByRate(${monthNum})"><strong>${monthNames[index]}</strong></td>`;
                 
                 let monthRates = []; // 해당 월의 모든 팀 승률
                 
@@ -8259,6 +8259,120 @@
             tbody.innerHTML = '';
             monthRows.forEach(row => tbody.appendChild(row));
             avgRows.forEach(row => tbody.appendChild(row));
+        };
+        
+        // 월별 승률 순 정렬 함수
+        window.sortMonthlyByRate = function(monthNum) {
+            const tbody = document.querySelector('#monthlyTable tbody');
+            if (!tbody) return;
+            
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+            
+            // 평균 행 제외하고 월 행만 정렬
+            const monthRows = rows.filter(row => {
+                const firstCell = row.querySelector('td');
+                return firstCell && !firstCell.textContent.includes('평균');
+            });
+            
+            const avgRows = rows.filter(row => {
+                const firstCell = row.querySelector('td');
+                return firstCell && firstCell.textContent.includes('평균');
+            });
+            
+            // 해당 월의 행 찾기
+            const targetRowIndex = monthRows.findIndex(row => {
+                const firstCell = row.querySelector('td');
+                const monthNames = ['3월', '4월', '5월', '6월', '7월', '8월'];
+                const monthName = monthNames[monthNum - 3]; // monthNum은 3부터 시작
+                return firstCell && firstCell.textContent.trim() === monthName;
+            });
+            
+            if (targetRowIndex === -1) return;
+            
+            // 해당 월의 팀별 승률 데이터 수집
+            const targetRow = monthRows[targetRowIndex];
+            const cells = Array.from(targetRow.querySelectorAll('td')).slice(1); // 첫 번째 월 라벨 제외
+            
+            const teamRates = [];
+            cells.forEach((cell, index) => {
+                const text = cell.textContent || cell.innerText || '';
+                const rateMatch = text.match(/\(([0-9.]+)\)/); // (승률) 추출
+                if (rateMatch) {
+                    teamRates.push({
+                        rate: parseFloat(rateMatch[1]),
+                        index: index + 1, // +1은 첫 번째 월 라벨 컬럼 때문
+                        originalIndex: index
+                    });
+                } else {
+                    // 데이터가 없는 경우 -1로 처리 (맨 뒤로)
+                    teamRates.push({
+                        rate: -1,
+                        index: index + 1,
+                        originalIndex: index
+                    });
+                }
+            });
+            
+            // 승률 순으로 정렬 (높은 순부터, 데이터 없는 팀은 맨 뒤)
+            teamRates.sort((a, b) => {
+                if (a.rate === -1 && b.rate === -1) return 0;
+                if (a.rate === -1) return 1;
+                if (b.rate === -1) return -1;
+                return b.rate - a.rate; // 내림차순
+            });
+            
+            // 전체 테이블의 컬럼 순서 재배열
+            monthRows.forEach(row => {
+                const cells = Array.from(row.querySelectorAll('td'));
+                const monthLabel = cells[0]; // 월 라벨은 그대로
+                const dataCells = cells.slice(1);
+                
+                // 새로운 순서로 셀 재배열
+                const newRow = row.cloneNode(false);
+                newRow.appendChild(monthLabel);
+                
+                teamRates.forEach(item => {
+                    newRow.appendChild(dataCells[item.originalIndex]);
+                });
+                
+                row.parentNode.replaceChild(newRow, row);
+            });
+            
+            // 평균 행도 동일하게 재배열
+            avgRows.forEach(row => {
+                const cells = Array.from(row.querySelectorAll('td'));
+                const avgLabel = cells[0]; // 평균 라벨은 그대로
+                const dataCells = cells.slice(1);
+                
+                const newRow = row.cloneNode(false);
+                newRow.appendChild(avgLabel);
+                
+                teamRates.forEach(item => {
+                    newRow.appendChild(dataCells[item.originalIndex]);
+                });
+                
+                row.parentNode.replaceChild(newRow, row);
+            });
+            
+            // 헤더도 동일하게 재배열
+            const thead = document.querySelector('#monthlyTable thead');
+            if (thead) {
+                const headerRow = thead.querySelector('tr');
+                if (headerRow) {
+                    const headerCells = Array.from(headerRow.querySelectorAll('th'));
+                    const monthHeader = headerCells[0]; // '월' 헤더는 그대로
+                    const teamHeaders = headerCells.slice(1);
+                    
+                    const newHeaderRow = headerRow.cloneNode(false);
+                    newHeaderRow.appendChild(monthHeader);
+                    
+                    teamRates.forEach(item => {
+                        newHeaderRow.appendChild(teamHeaders[item.originalIndex]);
+                    });
+                    
+                    headerRow.parentNode.replaceChild(newHeaderRow, headerRow);
+                }
+            }
         };
 
         /**
