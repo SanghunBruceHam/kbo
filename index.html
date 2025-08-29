@@ -124,6 +124,53 @@
     }
     </script>
     
+    <!-- 구조화 데이터 (JSON-LD) - KBO 시즌 정보 (개인 분석 사이트) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SportsEvent",
+      "name": "KBO 2025 정규시즌 분석 서비스",
+      "description": "개인이 운영하는 KBO 2025 정규시즌 데이터 분석 및 통계 제공 웹사이트",
+      "url": "https://kbo-dashboard.co.kr/",
+      "image": "https://kbo-dashboard.co.kr/images/kbo-dashboard-preview.png",
+      "startDate": "2025-03-23",
+      "endDate": "2025-10-01",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "location": {
+        "@type": "Place",
+        "name": "온라인 웹사이트",
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "KR",
+          "addressRegion": "온라인",
+          "addressLocality": "웹사이트"
+        }
+      },
+      "organizer": {
+        "@type": "Person",
+        "name": "개인 개발자",
+        "alternateName": "KBO 분석 대시보드 운영자",
+        "url": "https://kbo-dashboard.co.kr/"
+      },
+      "performer": [
+        {
+          "@type": "Organization",
+          "name": "KBO 분석 대시보드",
+          "description": "KBO 데이터 분석 및 시각화 서비스 제공"
+        }
+      ],
+      "offers": {
+        "@type": "Offer",
+        "name": "무료 KBO 데이터 분석 서비스",
+        "description": "KBO 2025 시즌 실시간 순위표 및 통계 분석 무료 제공",
+        "price": "0",
+        "priceCurrency": "KRW",
+        "availability": "https://schema.org/InStock",
+        "url": "https://kbo-dashboard.co.kr/",
+        "category": "Data Analysis Service"
+      }
+    }
+    </script>
     
     <!-- 구조화 데이터 (JSON-LD) - 데이터셋 정보 -->
     <script type="application/ld+json">
