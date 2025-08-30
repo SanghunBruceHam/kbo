@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-08-30T12:19:26.965Z",
+  "lastUpdated": "2025-08-30T12:58:50.776Z",
   "updateDate": "2025. 8. 30.",
   "note": "2025-season-data-clean.txt 기반 완전 자동화 처리",
   "rankings": [
@@ -76,15 +76,15 @@
     {
       "rank": 6,
       "team": "KT",
-      "games": 124,
-      "wins": 60,
+      "games": 125,
+      "wins": 61,
       "losses": 60,
       "draws": 4,
-      "winRate": 0.5,
-      "gamesBehind": 15.5,
+      "winRate": 0.504,
+      "gamesBehind": 15,
       "recent10": "5승0무5패",
-      "streak": "2패",
-      "homeRecord": "29-30-1",
+      "streak": "1승",
+      "homeRecord": "30-30-1",
       "awayRecord": "31-30-3"
     },
     {
@@ -104,16 +104,16 @@
     {
       "rank": 8,
       "team": "KIA",
-      "games": 120,
+      "games": 121,
       "wins": 57,
-      "losses": 59,
+      "losses": 60,
       "draws": 4,
-      "winRate": 0.491,
-      "gamesBehind": 16.5,
-      "recent10": "4승0무6패",
-      "streak": "3승",
+      "winRate": 0.487,
+      "gamesBehind": 17,
+      "recent10": "3승0무7패",
+      "streak": "1패",
       "homeRecord": "30-25-2",
-      "awayRecord": "27-34-2"
+      "awayRecord": "27-35-2"
     },
     {
       "rank": 9,
@@ -192,10 +192,10 @@
     },
     "KT": {
       "playoff": 0,
-      "championship": 20,
+      "championship": 19,
       "elimination": 8,
-      "homeAdvantage": 11,
-      "remainingGames": 20,
+      "homeAdvantage": 10,
+      "remainingGames": 19,
       "maxPossibleWins": 80,
       "currentRank": 6
     },
@@ -210,11 +210,11 @@
     },
     "KIA": {
       "playoff": 0,
-      "championship": 24,
-      "elimination": 9,
+      "championship": 23,
+      "elimination": 8,
       "homeAdvantage": 14,
-      "remainingGames": 24,
-      "maxPossibleWins": 81,
+      "remainingGames": 23,
+      "maxPossibleWins": 80,
       "currentRank": 8
     },
     "두산": {
@@ -236,7 +236,7 @@
       "currentRank": 10
     }
   },
-  "lastMagicUpdate": "2025-08-30T12:19:26.965Z",
+  "lastMagicUpdate": "2025-08-30T12:58:50.776Z",
   "totalTeams": 10,
   "source": "CLEAN_TXT_AUTOMATION",
   "dataDate": "2025-08-30"

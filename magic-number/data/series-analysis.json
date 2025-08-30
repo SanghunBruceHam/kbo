@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-08-30T12:19:30.550Z",
+  "lastUpdated": "2025-08-30T12:58:54.490Z",
   "updateDate": "2025. 8. 30.",
   "teamStats": {
     "LG": {
@@ -4385,13 +4385,13 @@
       }
     },
     "KIA": {
-      "totalSeries": 42,
+      "totalSeries": 43,
       "winningSeries": 19,
       "losingSeries": 17,
       "splitSeries": 6,
       "sweepWins": 3,
       "sweepLosses": 5,
-      "seriesWinRate": "45.2",
+      "seriesWinRate": "44.2",
       "series": [
         {
           "opponent": "NC",
@@ -6402,6 +6402,46 @@
           "totalGames": 3,
           "seriesType": "AWAY",
           "seriesNumber": 44
+        },
+        {
+          "opponent": "KT",
+          "isHome": false,
+          "games": [
+            {
+              "gameNumber": 120,
+              "date": "2025-08-29",
+              "opponent": "KT",
+              "isHome": false,
+              "score": "10:1",
+              "result": "W",
+              "runs_scored": 10,
+              "runs_allowed": 1
+            },
+            {
+              "gameNumber": 121,
+              "date": "2025-08-30",
+              "opponent": "KT",
+              "isHome": false,
+              "score": "2:8",
+              "result": "L",
+              "runs_scored": 2,
+              "runs_allowed": 8
+            }
+          ],
+          "startDate": "2025-08-29",
+          "lastDate": "2025-08-30",
+          "wins": 1,
+          "losses": 1,
+          "draws": 0,
+          "homeGames": 0,
+          "awayGames": 2,
+          "result": "ONGOING",
+          "isSweep": false,
+          "isWinningSweep": false,
+          "isLosingSweep": false,
+          "totalGames": 2,
+          "seriesType": "AWAY",
+          "seriesNumber": 45
         }
       ],
       "currentStreak": {
@@ -6478,10 +6518,10 @@
           "sweepLosses": 0
         },
         "KT": {
-          "totalSeries": 4,
+          "totalSeries": 5,
           "wins": 2,
           "losses": 2,
-          "splits": 0,
+          "splits": 1,
           "sweepWins": 1,
           "sweepLosses": 0
         },
@@ -8707,13 +8747,13 @@
       }
     },
     "KT": {
-      "totalSeries": 43,
+      "totalSeries": 44,
       "winningSeries": 21,
       "losingSeries": 17,
       "splitSeries": 5,
       "sweepWins": 3,
       "sweepLosses": 4,
-      "seriesWinRate": "48.8",
+      "seriesWinRate": "47.7",
       "series": [
         {
           "opponent": "한화",
@@ -10794,6 +10834,46 @@
           "totalGames": 3,
           "seriesType": "AWAY",
           "seriesNumber": 44
+        },
+        {
+          "opponent": "KIA",
+          "isHome": true,
+          "games": [
+            {
+              "gameNumber": 124,
+              "date": "2025-08-29",
+              "opponent": "KIA",
+              "isHome": true,
+              "score": "1:10",
+              "result": "L",
+              "runs_scored": 1,
+              "runs_allowed": 10
+            },
+            {
+              "gameNumber": 125,
+              "date": "2025-08-30",
+              "opponent": "KIA",
+              "isHome": true,
+              "score": "8:2",
+              "result": "W",
+              "runs_scored": 8,
+              "runs_allowed": 2
+            }
+          ],
+          "startDate": "2025-08-29",
+          "lastDate": "2025-08-30",
+          "wins": 1,
+          "losses": 1,
+          "draws": 0,
+          "homeGames": 2,
+          "awayGames": 0,
+          "result": "ONGOING",
+          "isSweep": false,
+          "isWinningSweep": false,
+          "isLosingSweep": false,
+          "totalGames": 2,
+          "seriesType": "HOME",
+          "seriesNumber": 45
         }
       ],
       "currentStreak": {
@@ -10870,10 +10950,10 @@
           "sweepLosses": 0
         },
         "KIA": {
-          "totalSeries": 4,
+          "totalSeries": 5,
           "wins": 2,
           "losses": 2,
-          "splits": 0,
+          "splits": 1,
           "sweepWins": 0,
           "sweepLosses": 1
         },
@@ -21949,10 +22029,10 @@
         "totalSeries": 5
       },
       "KT": {
-        "record": "2-2-0",
-        "winRate": "50.0",
+        "record": "2-2-1",
+        "winRate": "40.0",
         "sweeps": "1-0",
-        "totalSeries": 4
+        "totalSeries": 5
       },
       "SSG": {
         "record": "3-1-1",
@@ -22056,10 +22136,10 @@
         "totalSeries": 5
       },
       "KIA": {
-        "record": "2-2-0",
-        "winRate": "50.0",
+        "record": "2-2-1",
+        "winRate": "40.0",
         "sweeps": "0-1",
-        "totalSeries": 4
+        "totalSeries": 5
       },
       "삼성": {
         "record": "4-1-0",
