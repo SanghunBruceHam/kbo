@@ -8012,7 +8012,7 @@
                 
                 row.innerHTML = `
                     <td class="${team.displayRank <= 3 ? `rank-${team.displayRank}` : ''}"><strong>${team.displayRank}</strong></td>
-                    <td class="team-name"><strong>${team.team_name}</strong></td>
+                    <td class="team-name"><strong>${getTeamWithLogo(team.team_name, 'team-logo-small')}</strong></td>
                     <td>${team.games_played}</td>
                     <td>${team.wins}</td>
                     <td>${team.losses}</td>
