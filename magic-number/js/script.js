@@ -3920,7 +3920,12 @@ const kboTeams = {
                             
                             // 최종성적 컬럼 (더 넓게)
                             const finalCellWidth = '95px';
-                            html += `<td style="
+                            
+                            // 현재 승률과 일치하는지 확인 (오차범위 0.001)
+                            const isCurrentWinRate = Math.abs(teamScenario.finalWinRate - teamData.winRate) < 0.001;
+                            const currentRateClass = isCurrentWinRate ? ' current-win-rate' : '';
+                            
+                            html += `<td class="final-record${currentRateClass}" style="
                                 padding: 4px 2px; 
                                 text-align: center; 
                                 border: 1px solid #dee2e6; 
@@ -4312,9 +4317,32 @@ const kboTeams = {
                                 margin-right: 5px;
                             }
                             .team-logo { width: 24px; height: 24px; object-fit: contain; }
+                            
+                            /* 현재 승률 플래싱 애니메이션 */
+                            .current-win-rate {
+                                animation: flashCurrentRate 2s ease-in-out infinite;
+                                border: 2px solid #FF6B35 !important;
+                                font-weight: bold !important;
+                            }
+                            
+                            @keyframes flashCurrentRate {
+                                0%, 100% { 
+                                    background-color: #fff3cd !important;
+                                    box-shadow: 0 0 10px rgba(255, 107, 53, 0.5);
+                                }
+                                50% { 
+                                    background-color: #ffc107 !important;
+                                    box-shadow: 0 0 20px rgba(255, 193, 7, 0.8);
+                                }
+                            }
+                            
                             @media print {
                                 body { margin: 10px; background: white; }
                                 .header, .matrix-container { box-shadow: none; }
+                                .current-win-rate { 
+                                    animation: none !important;
+                                    background-color: #fff3cd !important;
+                                }
                             }
                         </style>
                     </head>
