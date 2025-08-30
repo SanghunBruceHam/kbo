@@ -3697,7 +3697,7 @@ const kboTeams = {
                     font-weight: 700; 
                     background: linear-gradient(135deg, rgba(233, 236, 239, 0.9) 0%, rgba(248, 249, 250, 0.9) 100%); 
                     color: ${teamColor}; 
-                    ${!isLast ? 'border-right: 2px solid rgba(255,255,255,0.5);' : ''} 
+                    ${index === 4 ? 'border-right: 4px solid #FF6B35;' : (!isLast ? 'border-right: 2px solid rgba(255,255,255,0.5);' : '')} 
                     font-size: 0.8rem;
                     white-space: nowrap;
                     line-height: 1.2;
@@ -3733,7 +3733,7 @@ const kboTeams = {
                     font-weight: 600; 
                     background: rgba(255,255,255,0.9); 
                     color: #333;
-                    ${!isLast ? 'border-right: 2px solid rgba(255,255,255,0.5);' : ''} 
+                    ${index === 4 ? 'border-right: 4px solid #FF6B35;' : (!isLast ? 'border-right: 2px solid rgba(255,255,255,0.5);' : '')} 
                     font-size: 0.7rem;
                 ">${team.wins}승 ${team.losses}패 ${team.draws || 0}무 (${team.winRate?.toFixed(3) || 'N/A'})</th>`;
             });
@@ -3765,7 +3765,7 @@ const kboTeams = {
                     font-weight: 600; 
                     background: rgba(255,255,255,0.9); 
                     color: #333;
-                    ${!isLast ? 'border-right: 2px solid rgba(255,255,255,0.5);' : ''} 
+                    ${index === 4 ? 'border-right: 4px solid #FF6B35;' : (!isLast ? 'border-right: 2px solid rgba(255,255,255,0.5);' : '')} 
                     font-size: 0.7rem;
                 ">잔여: ${team.remainingGames}경기</th>`;
             });
@@ -3798,7 +3798,7 @@ const kboTeams = {
                         font-size: 0.7rem; 
                         padding: 4px 2px; 
                         background: rgba(255,255,255,0.1); 
-                        border-right: 1px solid rgba(255,255,255,0.3);
+                        ${index === 4 ? 'border-right: 2px solid #FF6B35;' : 'border-right: 1px solid rgba(255,255,255,0.3);'}
                         text-align: center;
                         font-weight: 600;
                     ">잔여 성적<br><span style="font-size: 0.6rem;">(승-패/승률)</span></th>
@@ -3808,7 +3808,7 @@ const kboTeams = {
                         font-size: 0.7rem; 
                         padding: 4px 2px; 
                         background: rgba(255,255,255,0.1); 
-                        ${!isLast ? 'border-right: 2px solid rgba(255,255,255,0.5);' : ''}
+                        ${index === 4 ? 'border-right: 4px solid #FF6B35;' : (!isLast ? 'border-right: 2px solid rgba(255,255,255,0.5);' : '')}
                         text-align: center;
                         font-weight: 600;
                     ">최종 성적<br><span style="font-size: 0.6rem;">(승-패-무/승률)</span></th>`;
@@ -3890,6 +3890,7 @@ const kboTeams = {
                                 line-height: 1.1;
                                 background: ${remainingWinRateBg};
                                 color: ${remainingWinRateTextColor};
+                                ${teamIndex === 4 ? 'border-right: 2px solid #FF6B35;' : ''}
                             ">
                                 <div style="font-size: 0.8rem; font-weight: 600;">${teamScenario.wins}승 ${teamScenario.losses}패</div>
                                 <div style="font-size: 0.7rem;">${remainingWinRate.toFixed(3)}</div>
@@ -3907,13 +3908,13 @@ const kboTeams = {
                                 white-space: nowrap;
                                 background: ${finalWinRateBg};
                                 color: ${finalWinRateTextColor};
-                                ${!isLast ? 'border-right: 2px solid #dee2e6;' : ''}
+                                ${teamIndex === 4 ? 'border-right: 4px solid #FF6B35;' : (!isLast ? 'border-right: 2px solid #dee2e6;' : '')}
                             ">
                                 <div style="font-size: 0.8rem; font-weight: 600;">${finalWins}승 ${finalLosses}패 ${finalDraws}무</div>
                                 <div style="font-size: 0.7rem;">${teamScenario.finalWinRate.toFixed(3)}</div>
                             </td>`;
                         } else {
-                            html += `<td style="background: #f8f9fa; border: 1px solid #dee2e6;"></td><td style="background: #f8f9fa; border: 1px solid #dee2e6; ${!isLast ? 'border-right: 2px solid #dee2e6;' : ''}"></td>`;
+                            html += `<td style="background: #f8f9fa; border: 1px solid #dee2e6; ${teamIndex === 4 ? 'border-right: 2px solid #FF6B35;' : ''}"></td><td style="background: #f8f9fa; border: 1px solid #dee2e6; ${teamIndex === 4 ? 'border-right: 4px solid #FF6B35;' : (!isLast ? 'border-right: 2px solid #dee2e6;' : '')}"></td>`;
                         }
                     });
                     
