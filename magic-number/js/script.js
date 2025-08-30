@@ -3798,7 +3798,7 @@ const kboTeams = {
                         font-size: 0.7rem; 
                         padding: 4px 2px; 
                         background: rgba(255,255,255,0.1); 
-                        ${index === 4 ? 'border-right: 2px solid #FF6B35;' : 'border-right: 1px solid rgba(255,255,255,0.3);'}
+                        border-right: 1px solid rgba(255,255,255,0.3);
                         text-align: center;
                         font-weight: 600;
                     ">잔여 성적<br><span style="font-size: 0.6rem;">(승-패/승률)</span></th>
@@ -3890,7 +3890,6 @@ const kboTeams = {
                                 line-height: 1.1;
                                 background: ${remainingWinRateBg};
                                 color: ${remainingWinRateTextColor};
-                                ${teamIndex === 4 ? 'border-right: 2px solid #FF6B35;' : ''}
                             ">
                                 <div style="font-size: 0.8rem; font-weight: 600;">${teamScenario.wins}승 ${teamScenario.losses}패</div>
                                 <div style="font-size: 0.7rem;">${remainingWinRate.toFixed(3)}</div>
@@ -3914,7 +3913,7 @@ const kboTeams = {
                                 <div style="font-size: 0.7rem;">${teamScenario.finalWinRate.toFixed(3)}</div>
                             </td>`;
                         } else {
-                            html += `<td style="background: #f8f9fa; border: 1px solid #dee2e6; ${teamIndex === 4 ? 'border-right: 2px solid #FF6B35;' : ''}"></td><td style="background: #f8f9fa; border: 1px solid #dee2e6; ${teamIndex === 4 ? 'border-right: 4px solid #FF6B35;' : (!isLast ? 'border-right: 2px solid #dee2e6;' : '')}"></td>`;
+                            html += `<td style="background: #f8f9fa; border: 1px solid #dee2e6;"></td><td style="background: #f8f9fa; border: 1px solid #dee2e6; ${teamIndex === 4 ? 'border-right: 4px solid #FF6B35;' : (!isLast ? 'border-right: 2px solid #dee2e6;' : '')}"></td>`;
                         }
                     });
                     
