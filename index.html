@@ -7809,13 +7809,54 @@
             } else if (maxRankSortMode === 1) {
                 // 최대 가능 순위 오름차순 정렬 (좋은 순위부터)
                 dashboardData.standings.sort((a, b) => {
-                    const aMaxWins = a.wins + (144 - a.games_played);
-                    const bMaxWins = b.wins + (144 - b.games_played);
+                    // A팀의 최대순위 계산 (전승했을 때)
+                    let aMaxRank = 1;
+                    const aMaxWins = a.wins + (144 - a.games_played); // A팀 전승시
+                    const aMaxLosses = a.losses;
+                    const aMaxWinRate = aMaxWins / (aMaxWins + aMaxLosses);
                     
-                    let aMaxRank = 1, bMaxRank = 1;
                     dashboardData.originalStandings.forEach(team => {
-                        if (team.team_name !== a.team_name && aMaxWins < team.wins) aMaxRank++;
-                        if (team.team_name !== b.team_name && bMaxWins < team.wins) bMaxRank++;
+                        if (team.team_name !== a.team_name) {
+                            const otherMinWins = team.wins; // 상대팀 전패시
+                            const otherMinLosses = team.losses + (144 - team.games_played);
+                            const otherMinWinRate = otherMinWins / (otherMinWins + otherMinLosses);
+                            
+                            // KBO 동률 처리 규칙 적용
+                            if (aMaxWinRate < otherMinWinRate) {
+                                aMaxRank++;
+                            } else if (Math.abs(aMaxWinRate - otherMinWinRate) < 0.0001) {
+                                const aMaxMargin = aMaxWins - aMaxLosses;
+                                const otherMinMargin = otherMinWins - otherMinLosses;
+                                if (aMaxMargin < otherMinMargin) {
+                                    aMaxRank++;
+                                }
+                            }
+                        }
+                    });
+                    
+                    // B팀의 최대순위 계산 (전승했을 때)
+                    let bMaxRank = 1;
+                    const bMaxWins = b.wins + (144 - b.games_played); // B팀 전승시
+                    const bMaxLosses = b.losses;
+                    const bMaxWinRate = bMaxWins / (bMaxWins + bMaxLosses);
+                    
+                    dashboardData.originalStandings.forEach(team => {
+                        if (team.team_name !== b.team_name) {
+                            const otherMinWins = team.wins; // 상대팀 전패시
+                            const otherMinLosses = team.losses + (144 - team.games_played);
+                            const otherMinWinRate = otherMinWins / (otherMinWins + otherMinLosses);
+                            
+                            // KBO 동률 처리 규칙 적용
+                            if (bMaxWinRate < otherMinWinRate) {
+                                bMaxRank++;
+                            } else if (Math.abs(bMaxWinRate - otherMinWinRate) < 0.0001) {
+                                const bMaxMargin = bMaxWins - bMaxLosses;
+                                const otherMinMargin = otherMinWins - otherMinLosses;
+                                if (bMaxMargin < otherMinMargin) {
+                                    bMaxRank++;
+                                }
+                            }
+                        }
                     });
                     
                     return aMaxRank - bMaxRank;
@@ -7823,13 +7864,54 @@
             } else {
                 // 최대 가능 순위 내림차순 정렬 (나쁜 순위부터)
                 dashboardData.standings.sort((a, b) => {
-                    const aMaxWins = a.wins + (144 - a.games_played);
-                    const bMaxWins = b.wins + (144 - b.games_played);
+                    // A팀의 최대순위 계산 (전승했을 때)
+                    let aMaxRank = 1;
+                    const aMaxWins = a.wins + (144 - a.games_played); // A팀 전승시
+                    const aMaxLosses = a.losses;
+                    const aMaxWinRate = aMaxWins / (aMaxWins + aMaxLosses);
                     
-                    let aMaxRank = 1, bMaxRank = 1;
                     dashboardData.originalStandings.forEach(team => {
-                        if (team.team_name !== a.team_name && aMaxWins < team.wins) aMaxRank++;
-                        if (team.team_name !== b.team_name && bMaxWins < team.wins) bMaxRank++;
+                        if (team.team_name !== a.team_name) {
+                            const otherMinWins = team.wins; // 상대팀 전패시
+                            const otherMinLosses = team.losses + (144 - team.games_played);
+                            const otherMinWinRate = otherMinWins / (otherMinWins + otherMinLosses);
+                            
+                            // KBO 동률 처리 규칙 적용
+                            if (aMaxWinRate < otherMinWinRate) {
+                                aMaxRank++;
+                            } else if (Math.abs(aMaxWinRate - otherMinWinRate) < 0.0001) {
+                                const aMaxMargin = aMaxWins - aMaxLosses;
+                                const otherMinMargin = otherMinWins - otherMinLosses;
+                                if (aMaxMargin < otherMinMargin) {
+                                    aMaxRank++;
+                                }
+                            }
+                        }
+                    });
+                    
+                    // B팀의 최대순위 계산 (전승했을 때)
+                    let bMaxRank = 1;
+                    const bMaxWins = b.wins + (144 - b.games_played); // B팀 전승시
+                    const bMaxLosses = b.losses;
+                    const bMaxWinRate = bMaxWins / (bMaxWins + bMaxLosses);
+                    
+                    dashboardData.originalStandings.forEach(team => {
+                        if (team.team_name !== b.team_name) {
+                            const otherMinWins = team.wins; // 상대팀 전패시
+                            const otherMinLosses = team.losses + (144 - team.games_played);
+                            const otherMinWinRate = otherMinWins / (otherMinWins + otherMinLosses);
+                            
+                            // KBO 동률 처리 규칙 적용
+                            if (bMaxWinRate < otherMinWinRate) {
+                                bMaxRank++;
+                            } else if (Math.abs(bMaxWinRate - otherMinWinRate) < 0.0001) {
+                                const bMaxMargin = bMaxWins - bMaxLosses;
+                                const otherMinMargin = otherMinWins - otherMinLosses;
+                                if (bMaxMargin < otherMinMargin) {
+                                    bMaxRank++;
+                                }
+                            }
+                        }
                     });
                     
                     return bMaxRank - aMaxRank;
@@ -7861,15 +7943,53 @@
             } else if (minRankSortMode === 1) {
                 // 최소 가능 순위 오름차순 정렬 (좋은 순위부터)
                 dashboardData.standings.sort((a, b) => {
-                    let aMinRank = 1, bMinRank = 1;
+                    // A팀의 최소순위 계산 (전패했을 때)
+                    let aMinRank = 1;
+                    const aMinWins = a.wins; // A팀 전패시
+                    const aMinLosses = a.losses + (144 - a.games_played);
+                    const aMinWinRate = aMinWins / (aMinWins + aMinLosses);
+                    
                     dashboardData.originalStandings.forEach(team => {
                         if (team.team_name !== a.team_name) {
-                            const otherMaxWins = team.wins + (144 - team.games_played);
-                            if (a.wins <= otherMaxWins) aMinRank++;
+                            const otherMaxWins = team.wins + (144 - team.games_played); // 상대팀 전승
+                            const otherMaxLosses = team.losses;
+                            const otherMaxWinRate = otherMaxWins / (otherMaxWins + otherMaxLosses);
+                            
+                            // KBO 동률 처리 규칙 적용
+                            if (aMinWinRate < otherMaxWinRate) {
+                                aMinRank++;
+                            } else if (Math.abs(aMinWinRate - otherMaxWinRate) < 0.0001) {
+                                const aMinMargin = aMinWins - aMinLosses;
+                                const otherMaxMargin = otherMaxWins - otherMaxLosses;
+                                if (aMinMargin < otherMaxMargin) {
+                                    aMinRank++;
+                                }
+                            }
                         }
+                    });
+                    
+                    // B팀의 최소순위 계산 (전패했을 때)
+                    let bMinRank = 1;
+                    const bMinWins = b.wins; // B팀 전패시
+                    const bMinLosses = b.losses + (144 - b.games_played);
+                    const bMinWinRate = bMinWins / (bMinWins + bMinLosses);
+                    
+                    dashboardData.originalStandings.forEach(team => {
                         if (team.team_name !== b.team_name) {
-                            const otherMaxWins = team.wins + (144 - team.games_played);
-                            if (b.wins <= otherMaxWins) bMinRank++;
+                            const otherMaxWins = team.wins + (144 - team.games_played); // 상대팀 전승
+                            const otherMaxLosses = team.losses;
+                            const otherMaxWinRate = otherMaxWins / (otherMaxWins + otherMaxLosses);
+                            
+                            // KBO 동률 처리 규칙 적용
+                            if (bMinWinRate < otherMaxWinRate) {
+                                bMinRank++;
+                            } else if (Math.abs(bMinWinRate - otherMaxWinRate) < 0.0001) {
+                                const bMinMargin = bMinWins - bMinLosses;
+                                const otherMaxMargin = otherMaxWins - otherMaxLosses;
+                                if (bMinMargin < otherMaxMargin) {
+                                    bMinRank++;
+                                }
+                            }
                         }
                     });
                     
@@ -7878,15 +7998,53 @@
             } else {
                 // 최소 가능 순위 내림차순 정렬 (나쁜 순위부터)
                 dashboardData.standings.sort((a, b) => {
-                    let aMinRank = 1, bMinRank = 1;
+                    // A팀의 최소순위 계산 (전패했을 때)
+                    let aMinRank = 1;
+                    const aMinWins = a.wins; // A팀 전패시
+                    const aMinLosses = a.losses + (144 - a.games_played);
+                    const aMinWinRate = aMinWins / (aMinWins + aMinLosses);
+                    
                     dashboardData.originalStandings.forEach(team => {
                         if (team.team_name !== a.team_name) {
-                            const otherMaxWins = team.wins + (144 - team.games_played);
-                            if (a.wins <= otherMaxWins) aMinRank++;
+                            const otherMaxWins = team.wins + (144 - team.games_played); // 상대팀 전승
+                            const otherMaxLosses = team.losses;
+                            const otherMaxWinRate = otherMaxWins / (otherMaxWins + otherMaxLosses);
+                            
+                            // KBO 동률 처리 규칙 적용
+                            if (aMinWinRate < otherMaxWinRate) {
+                                aMinRank++;
+                            } else if (Math.abs(aMinWinRate - otherMaxWinRate) < 0.0001) {
+                                const aMinMargin = aMinWins - aMinLosses;
+                                const otherMaxMargin = otherMaxWins - otherMaxLosses;
+                                if (aMinMargin < otherMaxMargin) {
+                                    aMinRank++;
+                                }
+                            }
                         }
+                    });
+                    
+                    // B팀의 최소순위 계산 (전패했을 때)
+                    let bMinRank = 1;
+                    const bMinWins = b.wins; // B팀 전패시
+                    const bMinLosses = b.losses + (144 - b.games_played);
+                    const bMinWinRate = bMinWins / (bMinWins + bMinLosses);
+                    
+                    dashboardData.originalStandings.forEach(team => {
                         if (team.team_name !== b.team_name) {
-                            const otherMaxWins = team.wins + (144 - team.games_played);
-                            if (b.wins <= otherMaxWins) bMinRank++;
+                            const otherMaxWins = team.wins + (144 - team.games_played); // 상대팀 전승
+                            const otherMaxLosses = team.losses;
+                            const otherMaxWinRate = otherMaxWins / (otherMaxWins + otherMaxLosses);
+                            
+                            // KBO 동률 처리 규칙 적용
+                            if (bMinWinRate < otherMaxWinRate) {
+                                bMinRank++;
+                            } else if (Math.abs(bMinWinRate - otherMaxWinRate) < 0.0001) {
+                                const bMinMargin = bMinWins - bMinLosses;
+                                const otherMaxMargin = otherMaxWins - otherMaxLosses;
+                                if (bMinMargin < otherMaxMargin) {
+                                    bMinRank++;
+                                }
+                            }
                         }
                     });
                     
