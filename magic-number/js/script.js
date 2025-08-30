@@ -1175,8 +1175,10 @@ const kboTeams = {
                         
                         if (myMinMargin < otherMaxMargin) {
                             minRank++;
+                        } else if (Math.abs(myMinMargin - otherMaxMargin) < 0.0001) {
+                            // 승률과 승패차가 모두 같을 경우, 상대전적으로 결정되므로 최악의 경우 가정
+                            minRank++; // 보수적으로 상대방이 위에 있다고 가정 (최소순위는 가장 나쁜 경우)
                         }
-                        // 승률과 승패차가 모두 같을 경우는 상대전적 고려 필요하지만 복잡하므로 보수적으로 동순위 처리
                     }
                 }
                 
