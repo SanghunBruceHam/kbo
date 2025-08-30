@@ -6,9 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     
     <!-- 캐시 제어 - 항상 최신 데이터 표시 -->
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate, max-age=0, s-maxage=0">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Last-Modified" content="">
+    <meta http-equiv="ETag" content="">
+    
+    <!-- 더 강력한 캐시 방지를 위한 스크립트 -->
+    <script>
+        // 페이지 로드 시 캐시 방지
+        if (performance.navigation.type === 1) {
+            // 새로고침인 경우 강제로 캐시 무효화
+            window.location.href = window.location.href + (window.location.href.includes('?') ? '&' : '?') + '_t=' + Date.now();
+        }
+    </script>
     
     <!-- SEO 메타 태그 -->
     <title>KBO 2025 매직넘버 경우의수 계산기 | LG 한화 SSG 우승 확률 플레이오프 진출 예측 1위 탈환 시뮬레이션</title>

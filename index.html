@@ -5,11 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- 캐시 제어 - 항상 최신 데이터 표시 -->
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate, max-age=0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate, max-age=0, s-maxage=0">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Last-Modified" content="">
+    <meta http-equiv="ETag" content="">
     <!-- 강제 새로고침을 위한 타임스탬프 -->
     <meta name="last-modified" content="2025-08-30T02:30:00Z">
+    
+    <!-- 더 강력한 캐시 방지를 위한 스크립트 -->
+    <script>
+        // 페이지 로드 시 캐시 방지
+        if (performance.navigation.type === 1) {
+            // 새로고침인 경우 강제로 캐시 무효화
+            window.location.href = window.location.href + (window.location.href.includes('?') ? '&' : '?') + '_t=' + Date.now();
+        }
+    </script>
     
     <title>KBO 2025 실시간 순위표 | 매직넘버 계산기 일별통계 순위변동 승률추이 피타고리안 클러치 홈원정 상대전적</title>
     
