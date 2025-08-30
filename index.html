@@ -11641,23 +11641,9 @@ KT 9:1 키움(H)`;
                     });
                 }
                 
-                // 공동 순위 계산 - 종합순위와 동일한 로직 적용
-                let currentRank = 1;
-                let previousWinRate = null;
-                
+                // 순위 할당 - 정렬된 순서대로 1-10위
                 standings.forEach((team, index) => {
-                    // 4자리까지 정확한 승률로 동률 처리하되 표시는 3자리 (무승부 제외하고 직접 계산)
-                    const calculatedWinRate = team.wins / (team.wins + team.losses);
-                    const preciseWinRate = Math.round(calculatedWinRate * 10000) / 10000; // 4자리까지 정확한 비교
-                    
-                    // 이전 팀과 정확한 승률이 다르면 실제 순위로 업데이트
-                    if (previousWinRate !== null && preciseWinRate !== previousWinRate) {
-                        currentRank = index + 1;
-                    }
-                    // 동률일 경우 같은 순위 유지
-                    team.rank = currentRank;
-                    previousWinRate = preciseWinRate;
-                    
+                    team.rank = index + 1;  // 정렬된 순서대로 1위부터 10위까지
                 });
                 
                 return standings;
@@ -11759,7 +11745,7 @@ KT 9:1 키움(H)`;
                     </tr></thead><tbody>`;
                 
                 standings.forEach((team, index) => {
-                    const rank = team.rank; // 계산된 공동 순위 사용
+                    const rank = index + 1; // 순서대로 1-10위
                     const rowStyle = rank === 1 ? 'background: linear-gradient(90deg, #ffd700 0%, #ffed4e 100%); font-weight: bold;' : '';
                     const winRateStr = team.winRate.toFixed(3);
                     const gbStr = team.gamesBehind === 0 ? '-' : team.gamesBehind.toFixed(1);
@@ -12036,7 +12022,7 @@ KT 9:1 키움(H)`;
                 
                 let html = '';
                 standings.forEach((team, index) => {
-                    const rank = team.rank; // 계산된 공동 순위 사용
+                    const rank = index + 1; // 순서대로 1-10위
                     const gap = team.gamesBehind;
                     const gapText = gap === 0 ? '선두' : `${gap.toFixed(1)}차`;
                     
@@ -14400,7 +14386,7 @@ KT 9:1 키움(H)`;
                     
                     const teamStats = {
                         team: teamName,
-                        rank: index + 1,
+                        rank: team.displayRank || team.rank || (index + 1),  // 실제 종합 순위 사용
                         // 현재 시즌 전체 데이터
                         currentSeason: {
                             wins: team.wins,
