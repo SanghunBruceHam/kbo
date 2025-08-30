@@ -5508,7 +5508,7 @@
                     console.warn('⚠️ 상대전적 데이터 로드 실패, 승률만으로 정렬:', error);
                 }
 
-                // 승률과 상대전적 기준으로 정렬
+                // KBO 규정에 따른 순위 정렬
                 dashboardData.standings.sort((a, b) => {
                     // 승률을 직접 계산하여 정확한 비교 (무승부 제외)
                     const aWinRate = a.wins / (a.wins + a.losses);
@@ -5537,7 +5537,19 @@
                         }
                     }
                     
-                    // 3차: 팀명 알파벳 순 (일관성을 위해)
+                    // 3차: 다승 비교 (승수가 많은 팀이 위)
+                    if (a.wins !== b.wins) {
+                        return b.wins - a.wins;
+                    }
+                    
+                    // 4차: 득실차 비교 (듍점 - 실점)
+                    const aRunDiff = (a.runs_scored || 0) - (a.runs_allowed || 0);
+                    const bRunDiff = (b.runs_scored || 0) - (b.runs_allowed || 0);
+                    if (aRunDiff !== bRunDiff) {
+                        return bRunDiff - aRunDiff;
+                    }
+                    
+                    // 5차: 팀명 알파벳 순 (모든 기준이 같을 때)
                     return a.team_name.localeCompare(b.team_name);
                 });
                 
@@ -5550,7 +5562,7 @@
             }
         }
 
-        // 승률 동률 처리하여 순위 할당
+        // KBO 규정에 따른 순위 할당 (공동 순위 가능)
         function assignRanksWithTies() {
             if (!dashboardData.standings || dashboardData.standings.length === 0) return;
             
@@ -5565,21 +5577,27 @@
                     const currentTeam = dashboardData.standings[i];
                     const previousTeam = dashboardData.standings[i - 1];
                     
-                    // 승률을 직접 계산하여 정확한 비교 (무승부 제외)
+                    // 모든 순위 결정 기준이 완전히 같은지 확인
                     const currentWinRate = Math.round((currentTeam.wins / (currentTeam.wins + currentTeam.losses)) * 10000) / 10000;
                     const previousWinRate = Math.round((previousTeam.wins / (previousTeam.wins + previousTeam.losses)) * 10000) / 10000;
                     
-                    if (currentWinRate === previousWinRate) {
-                        // 표시된 승률이 동일하면 이전 팀과 같은 순위
+                    const currentRunDiff = (currentTeam.runs_scored || 0) - (currentTeam.runs_allowed || 0);
+                    const previousRunDiff = (previousTeam.runs_scored || 0) - (previousTeam.runs_allowed || 0);
+                    
+                    // 승률, 다승, 듍실차가 모두 같으면 공동 순위 (맞대결 전적은 정렬 시 이미 처리됨)
+                    if (currentWinRate === previousWinRate && 
+                        currentTeam.wins === previousTeam.wins && 
+                        currentRunDiff === previousRunDiff) {
+                        // 공동 순위
                         currentTeam.rank = previousTeam.rank;
                         currentTeam.displayRank = previousTeam.displayRank;
-                        console.log(`🟡 ${currentTeam.team_name}: 공동순위 ${currentTeam.displayRank}위 (승률: ${currentWinRate.toFixed(4)})`);
+                        console.log(`🟡 ${currentTeam.team_name}: 공동 ${currentTeam.displayRank}위 (승률: ${currentWinRate.toFixed(4)}, 다승: ${currentTeam.wins}, 듍실차: ${currentRunDiff})`);
                     } else {
-                        // 승률이 다르면 현재 인덱스 기반으로 순위 할당
+                        // 다른 순위
                         currentRank = i + 1;
                         currentTeam.rank = currentRank;
                         currentTeam.displayRank = currentRank;
-                        console.log(`🔵 ${currentTeam.team_name}: ${currentTeam.displayRank}위 (승률: ${currentWinRate.toFixed(4)})`);
+                        console.log(`🔵 ${currentTeam.team_name}: ${currentTeam.displayRank}위 (승률: ${currentWinRate.toFixed(4)}, 다승: ${currentTeam.wins}, 듍실차: ${currentRunDiff})`);
                     }
                 }
             }
