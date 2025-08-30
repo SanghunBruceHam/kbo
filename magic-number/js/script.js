@@ -4300,10 +4300,10 @@ const kboTeams = {
             // 기존 generateScenarioMatrix와 유사하지만 전체 10팀 사용하고 간소화
             const eligibleTeams = allTeams; // 전체 팀 사용
             
-            let html = \`<div class="scenario-matrix-container" style="overflow-x: auto; border-radius: 12px; border: 1px solid #e0e0e0;">
+            let html = `<div class="scenario-matrix-container" style="overflow-x: auto; border-radius: 12px; border: 1px solid #e0e0e0;">
                 <table class="scenario-matrix-table" style="width: 100%; border-collapse: collapse; font-size: 0.75rem; background: white; min-width: 1400px;">
                     <thead><tr style="background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%); color: white;">
-                        <th style="min-width: 70px; padding: 4px 6px; text-align: center; font-weight: 600; border-right: 2px solid rgba(255,255,255,0.4); position: sticky; left: 0; background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%); z-index: 101;">승률</th>\`;
+                        <th style="min-width: 70px; padding: 4px 6px; text-align: center; font-weight: 600; border-right: 2px solid rgba(255,255,255,0.4); position: sticky; left: 0; background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%); z-index: 101;">승률</th>`;
             
             // 헤더 생성 (간소화)
             eligibleTeams.forEach((team, index) => {
@@ -4311,19 +4311,19 @@ const kboTeams = {
                 const teamColor = teamData?.color || '#333';
                 const borderStyle = index === 4 ? 'border-right: 4px solid #FF6B35;' : (index !== eligibleTeams.length - 1 ? 'border-right: 2px solid rgba(255,255,255,0.5);' : '');
                 
-                html += \`<th style="min-width: 120px; padding: 6px 4px; text-align: center; font-weight: 700; background: rgba(255,255,255,0.9); color: \${teamColor}; \${borderStyle} font-size: 0.8rem; white-space: nowrap;">
-                    \${team.displayRank || team.rank}위 \${teamData?.logo || ''} \${teamData?.shortName || team.team}<br>
-                    <span style="font-size: 0.7rem; color: #666;">\${team.wins}승 \${team.losses}패 (\${team.winRate?.toFixed(3) || 'N/A'})</span>
-                </th>\`;
+                html += `<th style="min-width: 120px; padding: 6px 4px; text-align: center; font-weight: 700; background: rgba(255,255,255,0.9); color: ${teamColor}; ${borderStyle} font-size: 0.8rem; white-space: nowrap;">
+                    ${team.displayRank || team.rank}위 ${teamData?.logo || ''} ${teamData?.shortName || team.team}<br>
+                    <span style="font-size: 0.7rem; color: #666;">${team.wins}승 ${team.losses}패 (${team.winRate?.toFixed(3) || 'N/A'})</span>
+                </th>`;
             });
             
-            html += \`</tr></thead><tbody>\`;
+            html += `</tr></thead><tbody>`;
             
             // 시나리오 데이터 생성 (간소화 - 주요 승률만)
             const sampleWinRates = [0.700, 0.650, 0.600, 0.550, 0.500, 0.450, 0.400, 0.350];
             
             sampleWinRates.forEach(targetWinRate => {
-                html += \`<tr><td style="font-size: 0.8rem; padding: 6px; font-weight: 700; background: white; color: #2E7D32; border: 1px solid #dee2e6; text-align: center; position: sticky; left: 0; z-index: 5;">\${targetWinRate.toFixed(3)}</td>\`;
+                html += `<tr><td style="font-size: 0.8rem; padding: 6px; font-weight: 700; background: white; color: #2E7D32; border: 1px solid #dee2e6; text-align: center; position: sticky; left: 0; z-index: 5;">${targetWinRate.toFixed(3)}</td>`;
                 
                 eligibleTeams.forEach((team, teamIndex) => {
                     const remainingGames = team.remainingGames || 0;
@@ -4333,7 +4333,7 @@ const kboTeams = {
                         const bgColor = Math.abs(currentWinRate - targetWinRate) < 0.01 ? '#e8f5e9' : '#f8f9fa';
                         const borderStyle = teamIndex === 4 ? 'border-right: 4px solid #FF6B35;' : (teamIndex !== eligibleTeams.length - 1 ? 'border-right: 2px solid #dee2e6;' : '');
                         
-                        html += \`<td style="padding: 8px; text-align: center; border: 1px solid #dee2e6; background: \${bgColor}; \${borderStyle} font-size: 0.7rem;">시즌 종료<br>\${currentWinRate.toFixed(3)}</td>\`;
+                        html += `<td style="padding: 8px; text-align: center; border: 1px solid #dee2e6; background: ${bgColor}; ${borderStyle} font-size: 0.7rem;">시즌 종료<br>${currentWinRate.toFixed(3)}</td>`;
                     } else {
                         // 목표 승률 달성을 위한 필요 승수 계산
                         const currentWins = team.wins;
@@ -4350,22 +4350,22 @@ const kboTeams = {
                             const textColor = getWinRateTextColor(finalWinRate);
                             const borderStyle = teamIndex === 4 ? 'border-right: 4px solid #FF6B35;' : (teamIndex !== eligibleTeams.length - 1 ? 'border-right: 2px solid #dee2e6;' : '');
                             
-                            html += \`<td style="padding: 8px; text-align: center; border: 1px solid #dee2e6; background: \${bgColor}; color: \${textColor}; \${borderStyle} line-height: 1.2; font-size: 0.7rem;">
-                                \${neededWins}승 \${neededLosses}패<br>
-                                최종: \${finalWins}승 \${finalLosses}패<br>
-                                (\${finalWinRate.toFixed(3)})
-                            </td>\`;
+                            html += `<td style="padding: 8px; text-align: center; border: 1px solid #dee2e6; background: ${bgColor}; color: ${textColor}; ${borderStyle} line-height: 1.2; font-size: 0.7rem;">
+                                ${neededWins}승 ${neededLosses}패<br>
+                                최종: ${finalWins}승 ${finalLosses}패<br>
+                                (${finalWinRate.toFixed(3)})
+                            </td>`;
                         } else {
                             const borderStyle = teamIndex === 4 ? 'border-right: 4px solid #FF6B35;' : (teamIndex !== eligibleTeams.length - 1 ? 'border-right: 2px solid #dee2e6;' : '');
-                            html += \`<td style="padding: 8px; text-align: center; border: 1px solid #dee2e6; background: #ffebee; color: #c62828; \${borderStyle} font-size: 0.7rem;">불가능</td>\`;
+                            html += `<td style="padding: 8px; text-align: center; border: 1px solid #dee2e6; background: #ffebee; color: #c62828; ${borderStyle} font-size: 0.7rem;">불가능</td>`;
                         }
                     }
                 });
                 
-                html += \`</tr>\`;
+                html += `</tr>`;
             });
             
-            html += \`</tbody></table></div>\`;
+            html += `</tbody></table></div>`;
             return html;
         }
 
