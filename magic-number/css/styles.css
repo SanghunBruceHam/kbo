@@ -736,6 +736,17 @@ table th {
     padding: 6px 4px !important; /* 패딩 축소 */
 }
 
+/* 플레이오프 테이블 팀명 셀 너비 조정 */
+#playoff-table thead th:nth-child(2),
+#playoff-table tbody tr td:nth-child(2) {
+    width: 80px !important;
+    min-width: 80px !important;
+    max-width: 80px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
 /* 상대전적 테이블만 flex 유지 */
 .vs-team {
     display: flex !important;

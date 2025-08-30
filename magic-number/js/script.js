@@ -1013,21 +1013,27 @@ const kboTeams = {
                         aValue = getMagicNumberSortValue(aPoTragic);
                         bValue = getMagicNumberSortValue(bPoTragic);
                         break;
+                    case 'poRequiredWinPct':
+                        const aPoReq = a.cells[7].textContent;
+                        const bPoReq = b.cells[7].textContent;
+                        aValue = aPoReq === '-' || aPoReq === '확정' || aPoReq === '탈락' || aPoReq === '자력불가' ? -1 : parseFloat(aPoReq);
+                        bValue = bPoReq === '-' || bPoReq === '확정' || bPoReq === '탈락' || bPoReq === '자력불가' ? -1 : parseFloat(bPoReq);
+                        break;
                     case 'magic':
-                        const aMagic = a.cells[8].textContent;
-                        const bMagic = b.cells[8].textContent;
+                        const aMagic = a.cells[9].textContent;
+                        const bMagic = b.cells[9].textContent;
                         aValue = getMagicNumberSortValue(aMagic);
                         bValue = getMagicNumberSortValue(bMagic);
                         break;
                     case 'tragic':
-                        const aTragic = a.cells[9].textContent;
-                        const bTragic = b.cells[9].textContent;
+                        const aTragic = a.cells[10].textContent;
+                        const bTragic = b.cells[10].textContent;
                         aValue = getMagicNumberSortValue(aTragic);
                         bValue = getMagicNumberSortValue(bTragic);
                         break;
                     case 'requiredWinPct':
-                        const aReq = a.cells[10].textContent;
-                        const bReq = b.cells[10].textContent;
+                        const aReq = a.cells[11].textContent;
+                        const bReq = b.cells[11].textContent;
                         aValue = aReq === '-' || aReq === '달성' ? -1 : parseFloat(aReq);
                         bValue = bReq === '-' || bReq === '달성' ? -1 : parseFloat(bReq);
                         break;
@@ -1802,15 +1808,28 @@ const kboTeams = {
                 const currentFifthWinRate = currentFifthPlace ? currentFifthPlace.wins / (currentFifthPlace.wins + currentFifthPlace.losses) : 0;
                 const myMaxWinRate = maxPossibleWins / (maxPossibleWins + team.losses);
                 
+                // PO 트래직넘버 미리 계산하여 탈락 여부 확인
+                let tragicFifthPlace = null;
+                if (currentStandings.length >= 5) {
+                    tragicFifthPlace = currentStandings[4]; // 5위 팀
+                } else if (currentStandings.length >= 4) {
+                    tragicFifthPlace = currentStandings[3]; // 4위 팀
+                }
+                
+                let poTragicNumber = 0;
+                if (tragicFifthPlace) {
+                    poTragicNumber = maxPossibleWins - (tragicFifthPlace.wins - 1);
+                }
+                
                 // 표시 형식 결정
                 let maxWinsMagicDisplay = '';
-                if (currentFifthWinRate > myMaxWinRate) {
-                    // 현재 5위 팀 승률보다 내 최대 가능 승률이 낮으면 탈락
+                if (currentFifthWinRate > myMaxWinRate || poTragicNumber <= 0) {
+                    // 현재 5위 팀 승률보다 내 최대 가능 승률이 낮거나 트래직넘버가 0 이하면 탈락
                     maxWinsMagicDisplay = '<span style="color: #c0392b;">탈락</span>';
                 } else if (poMagicNumber === 0) {
                     maxWinsMagicDisplay = '0';
                 } else if (poMagicNumber > remainingGames) {
-                    maxWinsMagicDisplay = `<span style="color: #c0392b;">자력 불가</span> (${poMagicNumber})`;
+                    maxWinsMagicDisplay = `${poMagicNumber} <span style="color: #c0392b;">(자력불가)</span>`;
                 } else {
                     maxWinsMagicDisplay = poMagicNumber;
                 }
@@ -1824,8 +1843,8 @@ const kboTeams = {
                     return teamPoMagicNumber === 0;
                 }).length;
                 
-                if (currentFifthWinRate > myMaxWinRate) {
-                    // 현재 5위 팀 승률보다 최대 가능 승률이 낮으면 탈락
+                if (currentFifthWinRate > myMaxWinRate || poTragicNumber <= 0) {
+                    // 현재 5위 팀 승률보다 최대 가능 승률이 낮거나 트래직넘버가 0 이하면 탈락
                     poStatus = '<span style="color: #c0392b;">탈락</span>';
                 } else if (poMagicNumber === 0) {
                     // 매직넘버가 0이면 진출 확정
@@ -1838,23 +1857,12 @@ const kboTeams = {
                     poStatus = '-';
                 }
                 
-                // PO 트래직넘버 계산: 나의 최대가능승수 - 5위팀의 현재승수 (승수 차이)
-                // 5위 팀 찾기 (PO 트래직용)
-                let tragicFifthPlace = null;
-                if (currentStandings.length >= 5) {
-                    tragicFifthPlace = currentStandings[4]; // 5위 팀
-                } else if (currentStandings.length >= 4) {
-                    tragicFifthPlace = currentStandings[3]; // 4위 팀
-                }
-                
+                // PO 트래직넘버 표시 (이미 위에서 계산됨)
                 let poTragicDisplay = '';
                 
                 if (!tragicFifthPlace) {
                     poTragicDisplay = '0';
                 } else {
-                    // 나의 최대가능승수 - (5위팀의 현재승수 - 1)
-                    const poTragicNumber = maxPossibleWins - (tragicFifthPlace.wins - 1);
-                    
                     if (poTragicNumber <= 0) {
                         poTragicDisplay = '<span style="color: #c0392b;">탈락</span>';
                     } else {
@@ -1974,7 +1982,24 @@ const kboTeams = {
                     }
                 }
                 
-                // 필요 승률 계산 및 표시
+                // PO 진출을 위한 필요 승률 계산
+                let poRequiredWinPct = '';
+                if (currentFifthWinRate > myMaxWinRate || poTragicNumber <= 0) {
+                    poRequiredWinPct = '<span style="color: #c0392b;">탈락</span>';
+                } else if (poMagicNumber === 0) {
+                    poRequiredWinPct = '<span style="color: #2ecc71;">확정</span>';
+                } else if (remainingGames > 0) {
+                    const poRequiredRate = poMagicNumber / remainingGames;
+                    if (poRequiredRate > 1.0) {
+                        poRequiredWinPct = '<span style="color: #c0392b;">자력불가</span>';
+                    } else {
+                        poRequiredWinPct = poRequiredRate.toFixed(3);
+                    }
+                } else {
+                    poRequiredWinPct = '-';
+                }
+                
+                // 역대 기준 필요 승률 계산 및 표시 (72승 기준)
                 let requiredWinPct = '';
                 const requiredRate = remainingGames > 0 ? historicMagic / remainingGames : 0;
                 
@@ -1994,6 +2019,7 @@ const kboTeams = {
                     <td>${maxPossibleWins}</td>
                     <td class="po-magic" style="text-align: center;">${maxWinsMagicDisplay}</td>
                     <td class="po-tragic" style="text-align: center;">${poTragicDisplay}</td>
+                    <td class="po-required-winpct" style="text-align: center;">${poRequiredWinPct}</td>
                     <td class="po-status" style="text-align: center;">${poStatus}</td>
                     <td class="historic-magic" style="text-align: center;">${magicDisplay}</td>
                     <td class="historic-tragic" style="text-align: center;">${historicTragicDisplay}</td>
