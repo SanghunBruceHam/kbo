@@ -701,6 +701,31 @@
                     <div class="scenario-bg-accent" style="position: absolute; top: 0; left: 0; right: 0; height: 6px; background: linear-gradient(90deg, #4CAF50, #66BB6A); opacity: 0.8;"></div>
                     <h2 style="color: #2E7D32; text-shadow: 0 1px 2px rgba(46, 125, 50, 0.1); margin-top: 15px;">🎲 우승 & 플레이오프 경우의 수</h2>
                     
+                    <!-- 안내 텍스트 및 전체보기 버튼 -->
+                    <div style="margin: 15px 0; padding: 10px 15px; background: #e8f5e9; border-radius: 8px; border-left: 4px solid #4CAF50;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+                            <div style="color: #2E7D32; font-size: 14px; flex: 1; min-width: 200px;">
+                                📊 <strong>현재 표시:</strong> 플레이오프 5위 경쟁이 가능한 팀들만 표시됩니다
+                            </div>
+                            <button onclick="showAllTeamsScenario()" style="
+                                background: linear-gradient(135deg, #4CAF50, #45a049);
+                                color: white;
+                                border: none;
+                                padding: 8px 16px;
+                                border-radius: 20px;
+                                font-size: 13px;
+                                font-weight: 600;
+                                cursor: pointer;
+                                transition: all 0.3s ease;
+                                box-shadow: 0 2px 4px rgba(76, 175, 80, 0.3);
+                                white-space: nowrap;
+                            " onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 4px 8px rgba(76, 175, 80, 0.4)'" 
+                            onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 4px rgba(76, 175, 80, 0.3)'">
+                                🔍 전체 경우의수 보러 가기
+                            </button>
+                        </div>
+                    </div>
+                    
                     <!-- 시나리오 분석 결과 표시 영역 -->
                     <div id="scenario-content" style="overflow-x: auto; margin: 20px 0;">
                         <!-- 여기에 동적으로 시나리오 분석 결과가 삽입됩니다 -->

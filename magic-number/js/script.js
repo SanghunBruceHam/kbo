@@ -4216,3 +4216,159 @@ const kboTeams = {
             logger.log('탑으로 가기 버튼 초기화 완료');
         }
 
+        // 전체 팀 경우의수 새창에서 보기 함수
+        function showAllTeamsScenario() {
+            if (!currentStandings || currentStandings.length === 0) {
+                alert('데이터를 불러오는 중입니다. 잠시 후 다시 시도해 주세요.');
+                return;
+            }
+            
+            // 모든 팀을 포함한 시나리오 매트릭스 생성 (전체 10팀)
+            const allTeams = currentStandings.slice(0, 10);
+            const fullMatrixHTML = generateScenarioMatrixForAllTeams(allTeams);
+            
+            // 새 창 열기
+            const newWindow = window.open('', '_blank', 'width=1200,height=800,scrollbars=yes,resizable=yes');
+            
+            if (newWindow) {
+                newWindow.document.write(`
+                    <!DOCTYPE html>
+                    <html lang="ko">
+                    <head>
+                        <meta charset="UTF-8">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <title>KBO 전체 팀 경우의수 분석</title>
+                        <style>
+                            body { 
+                                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+                                margin: 20px; 
+                                background: #f5f5f5; 
+                                line-height: 1.6;
+                            }
+                            .header { 
+                                background: white; 
+                                padding: 20px; 
+                                border-radius: 12px; 
+                                margin-bottom: 20px; 
+                                box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                            }
+                            .header h1 { 
+                                color: #2E7D32; 
+                                margin: 0 0 10px 0; 
+                                font-size: 28px;
+                            }
+                            .header p { 
+                                color: #666; 
+                                margin: 5px 0; 
+                                font-size: 14px;
+                            }
+                            .matrix-container { 
+                                background: white; 
+                                border-radius: 12px; 
+                                padding: 20px; 
+                                box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                                overflow-x: auto;
+                            }
+                            .team-logo { width: 24px; height: 24px; object-fit: contain; }
+                            @media print {
+                                body { margin: 10px; background: white; }
+                                .header, .matrix-container { box-shadow: none; }
+                            }
+                        </style>
+                    </head>
+                    <body>
+                        <div class="header">
+                            <h1>🎲 KBO 2025 전체 팀 경우의수 분석</h1>
+                            <p>📅 업데이트: ${new Date().toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' })}</p>
+                            <p>📊 KBO 리그 전체 10개 팀의 모든 승패 시나리오와 최종 순위 경우의수를 분석합니다.</p>
+                            <p>🏆 상단 5개 팀: 플레이오프 진출 가능 | 하단 5개 팀: 일반 순위</p>
+                        </div>
+                        <div class="matrix-container">
+                            ${fullMatrixHTML}
+                        </div>
+                    </body>
+                    </html>
+                `);
+                newWindow.document.close();
+            } else {
+                alert('팝업이 차단되었습니다. 브라우저 설정에서 팝업을 허용해 주세요.');
+            }
+        }
+        
+        // 전체 팀용 간소화된 시나리오 매트릭스 생성 함수
+        function generateScenarioMatrixForAllTeams(allTeams) {
+            // 기존 generateScenarioMatrix와 유사하지만 전체 10팀 사용하고 간소화
+            const eligibleTeams = allTeams; // 전체 팀 사용
+            
+            let html = \`<div class="scenario-matrix-container" style="overflow-x: auto; border-radius: 12px; border: 1px solid #e0e0e0;">
+                <table class="scenario-matrix-table" style="width: 100%; border-collapse: collapse; font-size: 0.75rem; background: white; min-width: 1400px;">
+                    <thead><tr style="background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%); color: white;">
+                        <th style="min-width: 70px; padding: 4px 6px; text-align: center; font-weight: 600; border-right: 2px solid rgba(255,255,255,0.4); position: sticky; left: 0; background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%); z-index: 101;">승률</th>\`;
+            
+            // 헤더 생성 (간소화)
+            eligibleTeams.forEach((team, index) => {
+                const teamData = kboTeams[team.team];
+                const teamColor = teamData?.color || '#333';
+                const borderStyle = index === 4 ? 'border-right: 4px solid #FF6B35;' : (index !== eligibleTeams.length - 1 ? 'border-right: 2px solid rgba(255,255,255,0.5);' : '');
+                
+                html += \`<th style="min-width: 120px; padding: 6px 4px; text-align: center; font-weight: 700; background: rgba(255,255,255,0.9); color: \${teamColor}; \${borderStyle} font-size: 0.8rem; white-space: nowrap;">
+                    \${team.displayRank || team.rank}위 \${teamData?.logo || ''} \${teamData?.shortName || team.team}<br>
+                    <span style="font-size: 0.7rem; color: #666;">\${team.wins}승 \${team.losses}패 (\${team.winRate?.toFixed(3) || 'N/A'})</span>
+                </th>\`;
+            });
+            
+            html += \`</tr></thead><tbody>\`;
+            
+            // 시나리오 데이터 생성 (간소화 - 주요 승률만)
+            const sampleWinRates = [0.700, 0.650, 0.600, 0.550, 0.500, 0.450, 0.400, 0.350];
+            
+            sampleWinRates.forEach(targetWinRate => {
+                html += \`<tr><td style="font-size: 0.8rem; padding: 6px; font-weight: 700; background: white; color: #2E7D32; border: 1px solid #dee2e6; text-align: center; position: sticky; left: 0; z-index: 5;">\${targetWinRate.toFixed(3)}</td>\`;
+                
+                eligibleTeams.forEach((team, teamIndex) => {
+                    const remainingGames = team.remainingGames || 0;
+                    if (remainingGames === 0) {
+                        // 잔여경기가 없는 경우
+                        const currentWinRate = team.winRate || 0;
+                        const bgColor = Math.abs(currentWinRate - targetWinRate) < 0.01 ? '#e8f5e9' : '#f8f9fa';
+                        const borderStyle = teamIndex === 4 ? 'border-right: 4px solid #FF6B35;' : (teamIndex !== eligibleTeams.length - 1 ? 'border-right: 2px solid #dee2e6;' : '');
+                        
+                        html += \`<td style="padding: 8px; text-align: center; border: 1px solid #dee2e6; background: \${bgColor}; \${borderStyle} font-size: 0.7rem;">시즌 종료<br>\${currentWinRate.toFixed(3)}</td>\`;
+                    } else {
+                        // 목표 승률 달성을 위한 필요 승수 계산
+                        const currentWins = team.wins;
+                        const currentLosses = team.losses;
+                        const neededWins = Math.max(0, Math.ceil((targetWinRate * (currentWins + currentLosses + remainingGames) - currentWins)));
+                        const neededLosses = remainingGames - neededWins;
+                        
+                        if (neededWins <= remainingGames && neededLosses >= 0) {
+                            const finalWins = currentWins + neededWins;
+                            const finalLosses = currentLosses + neededLosses;
+                            const finalWinRate = finalWins / (finalWins + finalLosses);
+                            
+                            const bgColor = getWinRateBackgroundColor(finalWinRate);
+                            const textColor = getWinRateTextColor(finalWinRate);
+                            const borderStyle = teamIndex === 4 ? 'border-right: 4px solid #FF6B35;' : (teamIndex !== eligibleTeams.length - 1 ? 'border-right: 2px solid #dee2e6;' : '');
+                            
+                            html += \`<td style="padding: 8px; text-align: center; border: 1px solid #dee2e6; background: \${bgColor}; color: \${textColor}; \${borderStyle} line-height: 1.2; font-size: 0.7rem;">
+                                \${neededWins}승 \${neededLosses}패<br>
+                                최종: \${finalWins}승 \${finalLosses}패<br>
+                                (\${finalWinRate.toFixed(3)})
+                            </td>\`;
+                        } else {
+                            const borderStyle = teamIndex === 4 ? 'border-right: 4px solid #FF6B35;' : (teamIndex !== eligibleTeams.length - 1 ? 'border-right: 2px solid #dee2e6;' : '');
+                            html += \`<td style="padding: 8px; text-align: center; border: 1px solid #dee2e6; background: #ffebee; color: #c62828; \${borderStyle} font-size: 0.7rem;">불가능</td>\`;
+                        }
+                    }
+                });
+                
+                html += \`</tr>\`;
+            });
+            
+            html += \`</tbody></table></div>\`;
+            return html;
+        }
+
+        // 전역 함수로 등록
+        window.showAllTeamsScenario = showAllTeamsScenario;
+
