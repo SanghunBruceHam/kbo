@@ -1,5 +1,5 @@
 {
-  "updateTime": "2025-08-30T13:09:21.476Z",
+  "updateTime": "2025-08-30T13:27:09.154Z",
   "updateDate": "2025년 8월 30일",
   "standings": [
     {
@@ -47,13 +47,13 @@
     {
       "rank": 4,
       "team_name": "롯데",
-      "games_played": 125,
+      "games_played": 126,
       "wins": 61,
       "losses": 59,
-      "draws": 5,
+      "draws": 6,
       "win_rate": "0.508",
-      "runs_scored": 582,
-      "runs_allowed": 616,
+      "runs_scored": 590,
+      "runs_allowed": 624,
       "run_differential": -34,
       "current_streak": "1L",
       "games_behind": 14.5
@@ -117,13 +117,13 @@
     {
       "rank": 9,
       "team_name": "두산",
-      "games_played": 123,
+      "games_played": 124,
       "wins": 54,
       "losses": 64,
-      "draws": 5,
+      "draws": 6,
       "win_rate": "0.458",
-      "runs_scored": 557,
-      "runs_allowed": 582,
+      "runs_scored": 565,
+      "runs_allowed": 590,
       "run_differential": -25,
       "current_streak": "2W",
       "games_behind": 20.5
@@ -169,7 +169,7 @@
       "team_name": "롯데",
       "actual_win_rate": "0.508",
       "expected_win_rate": "0.472",
-      "luck_factor": "+0.037",
+      "luck_factor": "+0.036",
       "luck_status": "평균적"
     },
     {
@@ -204,7 +204,7 @@
       "team_name": "두산",
       "actual_win_rate": "0.458",
       "expected_win_rate": "0.478",
-      "luck_factor": "-0.020",
+      "luck_factor": "-0.021",
       "luck_status": "평균적"
     },
     {
@@ -755,11 +755,11 @@
         "month": 8,
         "wins": 13,
         "losses": 11,
-        "draws": 0,
-        "games": 24,
+        "draws": 1,
+        "games": 25,
         "win_rate": "0.542",
-        "runs_scored": 118,
-        "runs_allowed": 124
+        "runs_scored": 126,
+        "runs_allowed": 132
       }
     ],
     "롯데": [
@@ -817,11 +817,11 @@
         "month": 8,
         "wins": 6,
         "losses": 16,
-        "draws": 2,
-        "games": 24,
+        "draws": 3,
+        "games": 25,
         "win_rate": "0.273",
-        "runs_scored": 87,
-        "runs_allowed": 113
+        "runs_scored": 95,
+        "runs_allowed": 121
       }
     ],
     "삼성": [
@@ -1266,7 +1266,7 @@
       "토": {
         "wins": 8,
         "losses": 14,
-        "draws": 1,
+        "draws": 2,
         "win_rate": "0.364"
       },
       "일": {
@@ -1310,7 +1310,7 @@
       "토": {
         "wins": 13,
         "losses": 8,
-        "draws": 0,
+        "draws": 1,
         "win_rate": "0.619"
       },
       "일": {
@@ -1974,20 +1974,20 @@
     },
     {
       "team_name": "두산",
-      "runs_scored": 557,
-      "runs_allowed": 582,
+      "runs_scored": 565,
+      "runs_allowed": 590,
       "run_differential": -25,
-      "avg_runs_scored": "4.53",
-      "avg_runs_allowed": "4.73",
+      "avg_runs_scored": "4.56",
+      "avg_runs_allowed": "4.76",
       "avg_run_diff": "-0.20"
     },
     {
       "team_name": "롯데",
-      "runs_scored": 582,
-      "runs_allowed": 616,
+      "runs_scored": 590,
+      "runs_allowed": 624,
       "run_differential": -34,
-      "avg_runs_scored": "4.66",
-      "avg_runs_allowed": "4.93",
+      "avg_runs_scored": "4.68",
+      "avg_runs_allowed": "4.95",
       "avg_run_diff": "-0.27"
     },
     {
@@ -2555,7 +2555,7 @@
         "stadium": "부산 사직야구장",
         "wins": 5,
         "losses": 2,
-        "draws": 0,
+        "draws": 1,
         "win_rate": "0.714"
       },
       {
@@ -2620,7 +2620,7 @@
         "stadium": "부산 사직야구장",
         "wins": 32,
         "losses": 29,
-        "draws": 3,
+        "draws": 4,
         "win_rate": "0.525"
       },
       {
@@ -2979,14 +2979,14 @@
     {
       "team_name": "롯데",
       "overall": {
-        "record": "61승 5무 59패",
+        "record": "61승 6무 59패",
         "win_rate": "0.508",
         "games_behind": 0
       },
       "pythagorean": {
         "expected": "0.472",
         "actual": "0.508",
-        "luck_factor": "0.037"
+        "luck_factor": "0.036"
       },
       "situational": {
         "one_run": "13-12",
@@ -3009,11 +3009,11 @@
         "max_lose": 12
       },
       "runs": {
-        "scored": 582,
-        "allowed": 616,
+        "scored": 590,
+        "allowed": 624,
         "differential": -34,
-        "avg_scored": "4.66",
-        "avg_allowed": "4.93"
+        "avg_scored": "4.68",
+        "avg_allowed": "4.95"
       }
     },
     {
@@ -3179,14 +3179,14 @@
     {
       "team_name": "두산",
       "overall": {
-        "record": "54승 5무 64패",
+        "record": "54승 6무 64패",
         "win_rate": "0.458",
         "games_behind": 0
       },
       "pythagorean": {
         "expected": "0.478",
         "actual": "0.458",
-        "luck_factor": "-0.020"
+        "luck_factor": "-0.021"
       },
       "situational": {
         "one_run": "16-22",
@@ -3209,11 +3209,11 @@
         "max_lose": 5
       },
       "runs": {
-        "scored": 557,
-        "allowed": 582,
+        "scored": 565,
+        "allowed": 590,
         "differential": -25,
-        "avg_scored": "4.53",
-        "avg_allowed": "4.73"
+        "avg_scored": "4.56",
+        "avg_allowed": "4.76"
       }
     },
     {
