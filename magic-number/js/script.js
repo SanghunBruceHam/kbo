@@ -3545,7 +3545,7 @@ const kboTeams = {
         }
 
         // 매트릭스 시나리오 HTML 생성
-        function generateScenarioMatrix(topTeams) {
+        function generateScenarioMatrix(topTeams, skipFiltering = false) {
             // 완전한 시나리오 기반 5위 진출 가능성 검사
             function canReachTop5(targetTeam, allTeams) {
                 // 모든 팀의 가능한 최종 성적 범위 계산
@@ -3627,8 +3627,8 @@ const kboTeams = {
                 return extremeRank <= 5 && extremeRank > 0;
             }
             
-            // 필터링: 5위 진출 가능한 팀만 선별 (메인 페이지용 - 관대한 기준)
-            const playoffContenders = topTeams.filter(team => {
+            // 필터링: 새창에서는 모든 팀, 메인에서는 경쟁 가능한 팀만
+            const playoffContenders = skipFiltering ? topTeams : topTeams.filter(team => {
                 // 상위 8팀은 무조건 포함 (더 관대하게)
                 const currentRank = topTeams.findIndex(t => t.team === team.team) + 1;
                 if (currentRank <= 8) {
@@ -3652,17 +3652,19 @@ const kboTeams = {
                 return false;
             });
             
-            // 실제 경쟁 가능한 팀만 선별 (최대 9팀)
-            const eligibleTeams = playoffContenders.slice(0, 9);
+            // 실제 경쟁 가능한 팀만 선별 (새창: 전체 10팀, 메인: 최대 9팀)
+            const eligibleTeams = skipFiltering ? playoffContenders : playoffContenders.slice(0, 9);
             
             // 두산 특별 체크
             const doosan = topTeams.find(t => t.team === '두산');
             if (doosan) {
             }
             
-            // 팀이 너무 적으면 최소 상위 8팀은 포함
-            if (eligibleTeams.length < 8) {
-                const minTeams = topTeams.slice(0, Math.min(9, topTeams.length));
+            // 팀이 너무 적으면 최소 상위 팀 보장 (새창: 10팀, 메인: 8팀)
+            const minTeamCount = skipFiltering ? 10 : 8;
+            const maxTeamCount = skipFiltering ? 10 : 9;
+            if (eligibleTeams.length < minTeamCount) {
+                const minTeams = topTeams.slice(0, Math.min(maxTeamCount, topTeams.length));
                 eligibleTeams.splice(0, eligibleTeams.length, ...minTeams);
             }
             let html = `
@@ -4225,9 +4227,9 @@ const kboTeams = {
                 return;
             }
             
-            // 전체 10팀의 승률 기준 시나리오 매트릭스 생성 (메인과 동일)
+            // 전체 10팀의 승률 기준 시나리오 매트릭스 생성 (필터링 없음)
             const allTeams = currentStandings.slice(0, 10);
-            const fullScenarioMatrix = generateScenarioMatrix(allTeams);
+            const fullScenarioMatrix = generateScenarioMatrix(allTeams, true);
             
             // 새 창 열기
             const newWindow = window.open('', '_blank', 'width=1200,height=800,scrollbars=yes,resizable=yes');
