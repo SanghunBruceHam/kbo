@@ -14747,33 +14747,26 @@ KT 9:1 키움(H)`;
                     valueA.toString().localeCompare(valueB.toString());
             });
             
-            // 정렬된 행들을 다시 tbody에 추가
+            // 정렬된 행들을 다시 tbody에 추가하면서 항상 실제 순위 유지
             rows.forEach((row, index) => {
                 tbody.appendChild(row);
                 
-                // 순위 컬럼으로 정렬할 때만 순위를 정렬 순서로 변경, 다른 컬럼 정렬 시에는 실제 순위 유지
-                if (column === 'rank') {
-                    // 순위 컬럼으로 정렬할 때는 정렬된 순서대로 1, 2, 3... 표시
-                    const rankCell = row.cells[0];
-                    if (rankCell) {
-                        rankCell.innerHTML = `<strong>${index + 1}</strong>`;
-                    }
-                } else {
-                    // 다른 컬럼으로 정렬할 때는 실제 팀 순위를 유지
-                    const rankCell = row.cells[0];
-                    const teamName = row.getAttribute('data-team');
+                // 모든 경우에 실제 팀 순위를 유지
+                const rankCell = row.cells[0];
+                const teamName = row.getAttribute('data-team');
+                
+                if (rankCell && window.kboData && window.kboData.standings) {
+                    // kboData에서 해당 팀의 실제 순위 찾기
+                    const teamData = window.kboData.standings.find(t => 
+                        (t.team_name || t.team) === teamName
+                    );
                     
-                    if (rankCell && window.kboData && window.kboData.standings) {
-                        // kboData에서 해당 팀의 실제 순위 찾기
-                        const teamData = window.kboData.standings.find(t => 
-                            (t.team_name || t.team) === teamName
-                        );
-                        
-                        if (teamData) {
-                            const actualRank = teamData.displayRank || teamData.rank || (index + 1);
-                            rankCell.innerHTML = `<strong>${actualRank}</strong>`;
-                        } else {
-                            // 팀을 찾지 못한 경우 순서대로
+                    if (teamData) {
+                        const actualRank = teamData.displayRank || teamData.rank || (index + 1);
+                        rankCell.innerHTML = `<strong>${actualRank}</strong>`;
+                    } else {
+                        // 팀을 찾지 못한 경우 기존 순위 유지
+                        if (!rankCell.innerHTML.includes('<strong>')) {
                             rankCell.innerHTML = `<strong>${index + 1}</strong>`;
                         }
                     }
