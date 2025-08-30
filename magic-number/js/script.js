@@ -1137,9 +1137,18 @@ const kboTeams = {
                     const otherMinLosses = otherTeam.losses + (144 - otherTeam.games); // 상대팀 전패시 패수
                     const otherMinWinRate = otherMinWins / (otherMinWins + otherMinLosses); // 상대팀 최저 승률 (무승부 제외)
                     
-                    // 상대팀이 확실히 나보다 위에 있을 경우에만 순위 증가
+                    // KBO 동률 처리 규칙 적용 (승률 → 승패차 → 상대전적)
                     if (myMaxWinRate < otherMinWinRate) {
                         maxRank++;
+                    } else if (Math.abs(myMaxWinRate - otherMinWinRate) < 0.0001) {
+                        // 승률이 같을 때 승패차 비교
+                        const myMaxMargin = maxPossibleWins - team.losses; // 내 전승시 승패차
+                        const otherMinMargin = otherTeam.wins - (otherTeam.losses + (144 - otherTeam.games)); // 상대 전패시 승패차
+                        
+                        if (myMaxMargin < otherMinMargin) {
+                            maxRank++;
+                        }
+                        // 승률과 승패차가 모두 같을 경우는 상대전적 고려 필요하지만 복잡하므로 보수적으로 동순위 처리
                     }
                 }
                 
@@ -1156,9 +1165,18 @@ const kboTeams = {
                     const otherMaxLosses = otherTeam.losses; // 상대팀 전승시 패수는 그대로
                     const otherMaxWinRate = otherMaxWins / (otherMaxWins + otherMaxLosses); // 상대팀 최고 승률 (무승부 제외)
                     
-                    // 상대팀이 확실히 나보다 위에 있을 경우에만 순위 증가 (동률일 때는 증가하지 않음)
+                    // KBO 동률 처리 규칙 적용 (승률 → 승패차 → 상대전적)
                     if (myMinWinRate < otherMaxWinRate) {
                         minRank++;
+                    } else if (Math.abs(myMinWinRate - otherMaxWinRate) < 0.0001) {
+                        // 승률이 같을 때 승패차 비교
+                        const myMinMargin = minPossibleWins - (team.losses + (144 - team.games)); // 내 전패시 승패차
+                        const otherMaxMargin = otherMaxWins - otherTeam.losses; // 상대 전승시 승패차
+                        
+                        if (myMinMargin < otherMaxMargin) {
+                            minRank++;
+                        }
+                        // 승률과 승패차가 모두 같을 경우는 상대전적 고려 필요하지만 복잡하므로 보수적으로 동순위 처리
                     }
                 }
                 
