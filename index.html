@@ -4379,13 +4379,13 @@
                             <th>승패마진</th>
                             <th>승률</th>
                             <th>게임차</th>
+                            <th>잔여경기</th>
+                            <th>최근10경기</th>
+                            <th onclick="event.stopPropagation(); sortByStreakNew();" class="no-sort" style="cursor: pointer;">연승패</th>
                             <th>홈성적</th>
                             <th>홈승률</th>
                             <th>원정성적</th>
                             <th>원정승률</th>
-                            <th>잔여경기</th>
-                            <th>최근10경기</th>
-                            <th onclick="event.stopPropagation(); sortByStreakNew();" class="no-sort" style="cursor: pointer;">연승패</th>
                             <th onclick="event.stopPropagation(); sortByMaxWinStreak();" class="no-sort" style="cursor: pointer;">최대연승</th>
                             <th onclick="event.stopPropagation(); sortByMaxLoseStreak();" class="no-sort" style="cursor: pointer;">최대연패</th>
                             <th onclick="event.stopPropagation(); sortByMaxRank();" class="no-sort" style="cursor: pointer;">최대순위</th>
@@ -8020,13 +8020,13 @@
                     <td class="${marginClass}" style="font-weight: 600;">${winLossMargin > 0 ? '+' : ''}${winLossMargin}</td>
                     <td><strong>${parseFloat(team.win_rate).toFixed(3)}</strong></td>
                     <td>${team.games_behind}</td>
+                    <td>${144 - team.games_played}</td>
+                    <td>${team.recent10 || team.team_recent10 || '-'}</td>
+                    <td class="${streakClass}">${streakDisplay}</td>
                     <td>${team.homeRecord || team.home_record || '-'}</td>
                     <td>${team.homeWinRate !== undefined ? team.homeWinRate.toFixed(3) : (team.home_win_rate || '-')}</td>
                     <td>${team.awayRecord || team.away_record || '-'}</td>
                     <td>${team.awayWinRate !== undefined ? team.awayWinRate.toFixed(3) : (team.away_win_rate || '-')}</td>
-                    <td>${144 - team.games_played}</td>
-                    <td>${team.recent10 || team.team_recent10 || '-'}</td>
-                    <td class="${streakClass}">${streakDisplay}</td>
                     <td>${streak ? streak.max_win_streak : '-'}</td>
                     <td>${streak ? streak.max_lose_streak : '-'}</td>
                     <td>${maxRank}</td>
