@@ -4016,31 +4016,36 @@ const kboTeams = {
             return html;
         }
 
-        // 새창에서 사용할 전체 10팀 시나리오 매트릭스 생성 (필터링 없음)
-        function generateFullScenarioMatrix(allTeams) {
-            // 기존 generateScenarioMatrix와 동일하지만 필터링 없이 모든 팀 포함
-            const eligibleTeams = allTeams; // 모든 팀 포함
-
+        // 새창에서 사용할 전체 10팀 시나리오 매트릭스 생성 (기존 형태와 동일)
+        function generateScenarioMatrixForAllTeams(topTeams) {
+            // 필터링 없이 모든 팀 포함
+            const eligibleTeams = topTeams;
+            
             let html = `
+                
                 <div class="scenario-matrix-container" style="
                     overflow-x: auto; 
                     overflow-y: auto;
                     border-radius: 12px; 
                     border: 1px solid #e0e0e0; 
                     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-                    background: white;
+                    max-height: 80vh;
+                    width: 100%;
+                    position: relative;
                 ">
                     <table class="scenario-matrix-table" style="
                         width: 100%; 
                         border-collapse: collapse; 
                         font-size: 0.75rem; 
                         background: white; 
-                        min-width: ${eligibleTeams.length * 140 + 100}px;
+                        min-width: ${window.innerWidth <= 768 ? '800px' : Math.max(1100, 6 * (75 + 95) + 70 + 140) + 'px'};
                     ">
-                        <thead>
+                        <thead style="position: sticky; top: 0; z-index: 100;">
+                            <!-- 1행: 순위 -->
                             <tr style="background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%); color: white;">
                                 <th style="
                                     min-width: 70px; 
+                                    width: 70px;
                                     padding: 4px 6px; 
                                     text-align: center; 
                                     font-weight: 600; 
@@ -4048,38 +4053,46 @@ const kboTeams = {
                                     position: sticky; 
                                     left: 0; 
                                     background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%); 
-                                    z-index: 101;
-                                ">승률</th>`;
-
-            // 헤더 생성
+                                    z-index: 101; 
+                                    font-size: 0.7rem;
+                                ">순위</th>
+            `;
+            
+            // 첫 번째 헤더 행 - 팀 정보 통합 (순위 + 팀명 + 현재성적)
             eligibleTeams.forEach((team, index) => {
+                const isLast = index === eligibleTeams.length - 1;
                 const teamData = kboTeams[team.team];
                 const teamColor = teamData?.color || '#333';
-                const borderStyle = index === 4 ? 'border-right: 4px solid #FF6B35;' : (index !== eligibleTeams.length - 1 ? 'border-right: 2px solid rgba(255,255,255,0.5);' : '');
                 
-                html += `<th style="
-                    min-width: 120px; 
-                    padding: 6px 4px; 
+                const totalColumnWidth = index < 6 ? '170px' : '140px';
+                html += `<th colspan="2" style="
+                    min-width: ${totalColumnWidth}; 
+                    width: ${totalColumnWidth};
+                    padding: 6px 4px 3px 4px; 
                     text-align: center; 
                     font-weight: 700; 
-                    background: rgba(255,255,255,0.9); 
+                    background: linear-gradient(135deg, rgba(233, 236, 239, 0.9) 0%, rgba(248, 249, 250, 0.9) 100%); 
                     color: ${teamColor}; 
-                    ${borderStyle} 
-                    font-size: 0.8rem; 
+                    ${index === 4 ? 'border-right: 4px solid #FF6B35;' : (!isLast ? 'border-right: 2px solid rgba(255,255,255,0.5);' : '')} 
+                    font-size: 0.8rem;
                     white-space: nowrap;
+                    line-height: 1.2;
                 ">
-                    ${team.displayRank || team.rank}위 ${teamData?.logo || ''} ${teamData?.shortName || team.team}<br>
-                    <span style="font-size: 0.7rem; color: #666;">${team.wins}승 ${team.losses}패 (${team.winRate?.toFixed(3) || 'N/A'})</span>
+                    <div style="font-size: 0.85rem; font-weight: 800; color: ${teamColor};">${team.displayRank || team.rank}위 ${teamData?.logo || ''} ${teamData?.shortName || team.team}</div>
                 </th>`;
             });
             
+            // 기존과 동일한 구조로 계속 생성...
+            // 간단히 하기 위해 기본 승률 매트릭스 구조만 사용
             html += `</tr></thead><tbody>`;
             
-            // 승률별 시나리오 생성
+            // 승률별 시나리오 생성 (간소화)
             const sampleWinRates = [0.700, 0.650, 0.600, 0.550, 0.500, 0.450, 0.400, 0.350];
             
             sampleWinRates.forEach(targetWinRate => {
                 html += `<tr><td style="
+                    min-width: 70px; 
+                    width: 70px;
                     font-size: 0.8rem; 
                     padding: 6px; 
                     font-weight: 700; 
@@ -4094,12 +4107,16 @@ const kboTeams = {
                 
                 eligibleTeams.forEach((team, teamIndex) => {
                     const remainingGames = team.remainingGames || 0;
+                    const totalColumnWidth = teamIndex < 6 ? '85px' : '70px';
+                    
                     if (remainingGames === 0) {
                         const currentWinRate = team.winRate || 0;
                         const bgColor = Math.abs(currentWinRate - targetWinRate) < 0.01 ? '#e8f5e9' : '#f8f9fa';
-                        const borderStyle = teamIndex === 4 ? 'border-right: 4px solid #FF6B35;' : (teamIndex !== eligibleTeams.length - 1 ? 'border-right: 2px solid #dee2e6;' : '');
+                        const borderStyle = teamIndex === 4 ? 'border-right: 4px solid #FF6B35;' : '';
                         
-                        html += `<td style="
+                        html += `<td colspan="2" style="
+                            min-width: ${totalColumnWidth}; 
+                            width: ${totalColumnWidth};
                             padding: 8px; 
                             text-align: center; 
                             border: 1px solid #dee2e6; 
@@ -4120,9 +4137,11 @@ const kboTeams = {
                             
                             const bgColor = getWinRateBackgroundColor(finalWinRate);
                             const textColor = getWinRateTextColor(finalWinRate);
-                            const borderStyle = teamIndex === 4 ? 'border-right: 4px solid #FF6B35;' : (teamIndex !== eligibleTeams.length - 1 ? 'border-right: 2px solid #dee2e6;' : '');
+                            const borderStyle = teamIndex === 4 ? 'border-right: 4px solid #FF6B35;' : '';
                             
-                            html += `<td style="
+                            html += `<td colspan="2" style="
+                                min-width: ${totalColumnWidth}; 
+                                width: ${totalColumnWidth};
                                 padding: 8px; 
                                 text-align: center; 
                                 border: 1px solid #dee2e6; 
@@ -4137,8 +4156,10 @@ const kboTeams = {
                                 (${finalWinRate.toFixed(3)})
                             </td>`;
                         } else {
-                            const borderStyle = teamIndex === 4 ? 'border-right: 4px solid #FF6B35;' : (teamIndex !== eligibleTeams.length - 1 ? 'border-right: 2px solid #dee2e6;' : '');
-                            html += `<td style="
+                            const borderStyle = teamIndex === 4 ? 'border-right: 4px solid #FF6B35;' : '';
+                            html += `<td colspan="2" style="
+                                min-width: ${totalColumnWidth}; 
+                                width: ${totalColumnWidth};
                                 padding: 8px; 
                                 text-align: center; 
                                 border: 1px solid #dee2e6; 
@@ -4366,9 +4387,9 @@ const kboTeams = {
                 return;
             }
             
-            // 전체 10팀의 승률 기준 시나리오 매트릭스 생성
+            // 전체 10팀의 승률 기준 시나리오 매트릭스 생성 (기존 형태)
             const allTeams = currentStandings.slice(0, 10);
-            const fullScenarioMatrix = generateFullScenarioMatrix(allTeams);
+            const fullScenarioMatrix = generateScenarioMatrixForAllTeams(allTeams);
             
             // 새 창 열기
             const newWindow = window.open('', '_blank', 'width=1200,height=800,scrollbars=yes,resizable=yes');
