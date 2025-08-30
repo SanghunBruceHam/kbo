@@ -1602,9 +1602,14 @@ const kboTeams = {
                     // 87승까지 필요한 승률
                     const neededWinsForHistoricalAverage = Math.max(0, historicalFirstPlaceWins - team.wins);
                     const requiredWinPctForAverage = remainingGames > 0 ? 
-                        Math.min(1, neededWinsForHistoricalAverage / remainingGames) : 0;
+                        neededWinsForHistoricalAverage / remainingGames : 0;
                     
-                    if (neededWinsForHistoricalAverage === 0) {
+                    // 역대 1위 기준 필요 승률 표시 로직 (1위팀용)
+                    if (maxPossibleWins < historicalFirstPlaceWins || requiredWinPctForAverage > 1.0) {
+                        // 최대가능 승수가 87 미만이거나 필요 승률이 1.0 초과하면 불가능
+                        winPctColor = '#c0392b';
+                        winPctDisplay = '불가능';
+                    } else if (neededWinsForHistoricalAverage === 0) {
                         winPctColor = '#27ae60';
                         winPctDisplay = '달성';
                     } else {
@@ -1619,15 +1624,19 @@ const kboTeams = {
                     // 역대 1위 평균 기준으로 필요 승률 계산
                     const neededWinsForHistoricalAverage = Math.max(0, historicalFirstPlaceWins - team.wins);
                     const requiredWinPctForAverage = remainingGames > 0 ? 
-                        Math.min(1, neededWinsForHistoricalAverage / remainingGames) : 0;
+                        neededWinsForHistoricalAverage / remainingGames : 0;
                     
                     // 144경기 체제 역대 1위 성적 달성 가능성 (87승 달성 가능한지)
                     canReachHistoricalAverage = maxPossibleWins >= historicalFirstPlaceWins;
                     
-                    // KBO 승률 분포 기준 색상 계산
-                    if (requiredWinPctForAverage > 1) {
-                        winPctColor = '#2c3e50';
+                    // 역대 1위 기준 필요 승률 표시 로직
+                    if (maxPossibleWins < historicalFirstPlaceWins || requiredWinPctForAverage > 1.0) {
+                        // 최대가능 승수가 87 미만이거나 필요 승률이 1.0 초과하면 불가능
+                        winPctColor = '#c0392b';
                         winPctDisplay = '불가능';
+                    } else if (neededWinsForHistoricalAverage === 0) {
+                        winPctColor = '#27ae60';
+                        winPctDisplay = '달성';
                     } else if (requiredWinPctForAverage > 0.700) {
                         winPctColor = '#2c3e50';
                         winPctDisplay = requiredWinPctForAverage.toFixed(3);
