@@ -5168,7 +5168,71 @@
             </div>
         </div>
 
-        <!-- 10. 팀별 상세 게임 기록 -->
+        <!-- 10. 연승/연패 기록 분석 -->
+        <div class="card" id="streak-records">
+            <div class="card-header">
+                <span class="card-icon">📊</span>
+                <h2 class="card-title">연승/연패 기록 분석</h2>
+            </div>
+            
+            <!-- 팀 선택 드롭다운 -->
+            <div style="margin-bottom: 20px; text-align: center;">
+                <label for="streak-team-select" style="font-weight: 600; margin-right: 10px;">팀 선택:</label>
+                <select id="streak-team-select" onchange="updateStreakRecords()" style="
+                    padding: 8px 12px; 
+                    border: 1px solid #ddd; 
+                    border-radius: 6px; 
+                    font-size: var(--text-base);
+                    background: white;
+                ">
+                    <option value="">팀을 선택하세요</option>
+                    <option value="KIA">KIA 타이거즈</option>
+                    <option value="삼성">삼성 라이온즈</option>
+                    <option value="LG">LG 트윈스</option>
+                    <option value="두산">두산 베어스</option>
+                    <option value="KT">KT 위즈</option>
+                    <option value="SSG">SSG 랜더스</option>
+                    <option value="롯데">롯데 자이언츠</option>
+                    <option value="한화">한화 이글스</option>
+                    <option value="NC">NC 다이노스</option>
+                    <option value="키움">키움 히어로즈</option>
+                </select>
+            </div>
+            
+            <!-- 연승/연패 기록 표시 영역 -->
+            <div id="streakRecordsContent">
+                <div style="text-align: center; padding: 40px; color: #666;">
+                    팀을 선택하면 연승/연패 기록을 볼 수 있습니다.
+                </div>
+            </div>
+            
+            <!-- 설명 -->
+            <div style="margin-top: 20px; padding: 12px; background: #f8f9fa; border-radius: 6px; border: 1px solid #e9ecef;">
+                <div style="font-size: var(--font-base); font-weight: var(--font-weight-medium); margin-bottom: 8px; color: #495057;">📊 연승/연패 기록 설명</div>
+                <div style="font-size: var(--font-sm); color: #4b5563; line-height: 1.5;">
+                    <div style="margin-bottom: 6px;"><strong>1승:</strong> 단독 승리 후 패배한 경우의 횟수</div>
+                    <div style="margin-bottom: 6px;"><strong>2연승:</strong> 정확히 2경기 연속 승리한 횟수</div>
+                    <div style="margin-bottom: 6px;"><strong>3연승 이상:</strong> 3경기 이상 연속 승리한 모든 연승의 횟수</div>
+                    <div style="margin-bottom: 6px;"><strong>연패 기록:</strong> 연승과 동일한 방식으로 계산 (무승부는 연승/연패를 끊음)</div>
+                    <div><strong>최대 기록:</strong> 시즌 중 기록한 최장 연승/연패 횟수</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 광고: 연승/연패 기록 분석 후 -->
+        <div class="ad-card">
+            <!-- 쿠팡 광고 영역 -->
+            <div class="coupang-ad-wrapper" style="text-align: center; overflow: hidden;">
+                <div style="color: #666; margin-bottom: 10px;">광고</div>
+                <!-- 쿠팡 파트너스 광고 코드 -->
+                <script src="https://ads-partners.coupang.com/g.js"></script>
+                <script>
+                    new PartnersCoupang.G({"id":867629,"trackingCode":"AF6959276","subId":null,"template":"carousel","width":"960","height":"180"});
+                </script>
+            </div>
+        </div>
+
+        <!-- 11. 팀별 상세 게임 기록 -->
         <div class="card" id="teamdetail">
             <div class="card-header">
                 <span class="card-icon">📋</span>
@@ -15272,6 +15336,265 @@ KT 9:1 키움(H)`;
             </style>
         `);
 
+    </script>
+
+    <!-- 연승/연패 기록 분석 스크립트 -->
+    <script>
+        // 연승/연패 기록 업데이트 함수
+        async function updateStreakRecords() {
+            const selectedTeam = document.getElementById('streak-team-select').value;
+            const contentDiv = document.getElementById('streakRecordsContent');
+            
+            if (!selectedTeam) {
+                contentDiv.innerHTML = `
+                    <div style="text-align: center; padding: 40px; color: #666;">
+                        팀을 선택하면 연승/연패 기록을 볼 수 있습니다.
+                    </div>
+                `;
+                return;
+            }
+            
+            contentDiv.innerHTML = `
+                <div style="text-align: center; padding: 40px; color: #666;">
+                    ${selectedTeam} 팀의 연승/연패 기록을 분석하고 있습니다...
+                </div>
+            `;
+            
+            try {
+                // 게임 기록 데이터에서 연승/연패 분석
+                const streakData = await analyzeTeamStreaks(selectedTeam);
+                renderStreakRecords(selectedTeam, streakData);
+            } catch (error) {
+                console.error('연승/연패 기록 분석 오류:', error);
+                contentDiv.innerHTML = `
+                    <div style="text-align: center; padding: 40px; color: #dc2626;">
+                        연승/연패 기록을 불러오는데 실패했습니다.
+                    </div>
+                `;
+            }
+        }
+        
+        // 팀의 연승/연패 기록 분석
+        async function analyzeTeamStreaks(teamName) {
+            try {
+                // 시즌 데이터에서 게임 기록 가져오기
+                if (!window.seasonDataCache) {
+                    const response = await fetch('magic-number/data/2025-season-data-clean.txt');
+                    if (response.ok) {
+                        window.seasonDataCache = await response.text();
+                    } else {
+                        throw new Error('시즌 데이터 로드 실패');
+                    }
+                }
+                
+                const seasonData = window.seasonDataCache;
+                const lines = seasonData.split('\n');
+                
+                const gameResults = [];
+                let currentDate = null;
+                
+                for (const line of lines) {
+                    if (line.trim() === '') continue;
+                    
+                    // 날짜 라인 체크
+                    if (line.includes('년') && line.includes('월') && line.includes('일')) {
+                        currentDate = line.trim();
+                        continue;
+                    }
+                    
+                    // 게임 결과 라인 체크
+                    if (currentDate && line.includes(teamName)) {
+                        const result = parseGameResultWithScore(line, teamName);
+                        if (result && result.result !== 'D') { // 무승부 제외
+                            gameResults.push({
+                                date: currentDate,
+                                result: result.result,
+                                opponent: result.opponent,
+                                score: result.score
+                            });
+                        }
+                    }
+                }
+                
+                // 연승/연패 패턴 분석
+                return calculateStreakPatterns(gameResults);
+                
+            } catch (error) {
+                console.error('게임 기록 분석 오류:', error);
+                return null;
+            }
+        }
+        
+        // 연승/연패 패턴 계산
+        function calculateStreakPatterns(gameResults) {
+            const winStreaks = {};  // { '1': 5, '2': 3, '3': 2, ... }
+            const loseStreaks = {}; // { '1': 4, '2': 2, '3': 1, ... }
+            
+            let currentStreak = 0;
+            let currentType = null; // 'W' 또는 'L'
+            let maxWinStreak = 0;
+            let maxLoseStreak = 0;
+            
+            for (const game of gameResults) {
+                if (game.result === currentType) {
+                    // 같은 결과 연속
+                    currentStreak++;
+                } else {
+                    // 연속이 끊어짐 - 이전 연속 기록
+                    if (currentStreak > 0) {
+                        if (currentType === 'W') {
+                            winStreaks[currentStreak] = (winStreaks[currentStreak] || 0) + 1;
+                            maxWinStreak = Math.max(maxWinStreak, currentStreak);
+                        } else if (currentType === 'L') {
+                            loseStreaks[currentStreak] = (loseStreaks[currentStreak] || 0) + 1;
+                            maxLoseStreak = Math.max(maxLoseStreak, currentStreak);
+                        }
+                    }
+                    
+                    // 새로운 연속 시작
+                    currentType = game.result;
+                    currentStreak = 1;
+                }
+            }
+            
+            // 마지막 연속 기록 처리
+            if (currentStreak > 0) {
+                if (currentType === 'W') {
+                    winStreaks[currentStreak] = (winStreaks[currentStreak] || 0) + 1;
+                    maxWinStreak = Math.max(maxWinStreak, currentStreak);
+                } else if (currentType === 'L') {
+                    loseStreaks[currentStreak] = (loseStreaks[currentStreak] || 0) + 1;
+                    maxLoseStreak = Math.max(maxLoseStreak, currentStreak);
+                }
+            }
+            
+            return {
+                winStreaks,
+                loseStreaks,
+                maxWinStreak,
+                maxLoseStreak,
+                totalGames: gameResults.length
+            };
+        }
+        
+        // 연승/연패 기록 렌더링
+        function renderStreakRecords(teamName, streakData) {
+            if (!streakData) {
+                document.getElementById('streakRecordsContent').innerHTML = `
+                    <div style="text-align: center; padding: 40px; color: #dc2626;">
+                        ${teamName} 팀의 기록을 분석할 수 없습니다.
+                    </div>
+                `;
+                return;
+            }
+            
+            const { winStreaks, loseStreaks, maxWinStreak, maxLoseStreak, totalGames } = streakData;
+            
+            // 연승 데이터 정렬 (1승, 2연승, 3연승...)
+            const sortedWinStreaks = Object.keys(winStreaks)
+                .map(Number)
+                .sort((a, b) => a - b)
+                .map(streak => ({ streak, count: winStreaks[streak] }));
+            
+            // 연패 데이터 정렬 (1패, 2연패, 3연패...)
+            const sortedLoseStreaks = Object.keys(loseStreaks)
+                .map(Number)
+                .sort((a, b) => a - b)
+                .map(streak => ({ streak, count: loseStreaks[streak] }));
+            
+            let html = `
+                <div style="margin-bottom: 20px;">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 20px;">
+                        <div style="text-align: center; padding: 15px; background: var(--positive-bg-light); border-radius: 8px; border: 1px solid #d4edda;">
+                            <div style="font-size: var(--text-lg); font-weight: var(--font-weight-bold); color: var(--positive-color);">최장 연승</div>
+                            <div style="font-size: var(--text-2xl); font-weight: var(--font-weight-bold); color: var(--positive-color);">${maxWinStreak}경기</div>
+                        </div>
+                        <div style="text-align: center; padding: 15px; background: var(--negative-bg-light); border-radius: 8px; border: 1px solid #f8d7da;">
+                            <div style="font-size: var(--text-lg); font-weight: var(--font-weight-bold); color: var(--negative-color);">최장 연패</div>
+                            <div style="font-size: var(--text-2xl); font-weight: var(--font-weight-bold); color: var(--negative-color);">${maxLoseStreak}경기</div>
+                        </div>
+                        <div style="text-align: center; padding: 15px; background: #f8f9fa; border-radius: 8px; border: 1px solid #e9ecef;">
+                            <div style="font-size: var(--text-lg); font-weight: var(--font-weight-bold); color: #495057;">분석 경기수</div>
+                            <div style="font-size: var(--text-2xl); font-weight: var(--font-weight-bold); color: #495057;">${totalGames}경기</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <!-- 연승 기록 -->
+                    <div style="background: white; border-radius: 8px; border: 1px solid #e9ecef; overflow: hidden;">
+                        <div style="background: var(--positive-bg-medium); padding: 15px; text-align: center;">
+                            <h3 style="margin: 0; color: var(--positive-color); font-size: var(--text-lg);">🔥 연승 기록</h3>
+                        </div>
+                        <div style="padding: 15px;">
+                            ${sortedWinStreaks.length > 0 ? `
+                                <table style="width: 100%; border-collapse: collapse;">
+                                    <thead>
+                                        <tr style="background: #f8f9fa;">
+                                            <th style="padding: 8px; text-align: center; border: 1px solid #dee2e6;">연승 수</th>
+                                            <th style="padding: 8px; text-align: center; border: 1px solid #dee2e6;">횟수</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${sortedWinStreaks.map(({ streak, count }) => `
+                                            <tr>
+                                                <td style="padding: 8px; text-align: center; border: 1px solid #dee2e6; font-weight: var(--font-weight-bold);">
+                                                    ${streak === 1 ? '1승' : `${streak}연승`}
+                                                </td>
+                                                <td style="padding: 8px; text-align: center; border: 1px solid #dee2e6; color: var(--positive-color); font-weight: var(--font-weight-bold);">
+                                                    ${count}회
+                                                </td>
+                                            </tr>
+                                        `).join('')}
+                                    </tbody>
+                                </table>
+                            ` : `
+                                <div style="text-align: center; padding: 20px; color: #666;">
+                                    연승 기록이 없습니다.
+                                </div>
+                            `}
+                        </div>
+                    </div>
+                    
+                    <!-- 연패 기록 -->
+                    <div style="background: white; border-radius: 8px; border: 1px solid #e9ecef; overflow: hidden;">
+                        <div style="background: var(--negative-bg-medium); padding: 15px; text-align: center;">
+                            <h3 style="margin: 0; color: var(--negative-color); font-size: var(--text-lg);">💧 연패 기록</h3>
+                        </div>
+                        <div style="padding: 15px;">
+                            ${sortedLoseStreaks.length > 0 ? `
+                                <table style="width: 100%; border-collapse: collapse;">
+                                    <thead>
+                                        <tr style="background: #f8f9fa;">
+                                            <th style="padding: 8px; text-align: center; border: 1px solid #dee2e6;">연패 수</th>
+                                            <th style="padding: 8px; text-align: center; border: 1px solid #dee2e6;">횟수</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${sortedLoseStreaks.map(({ streak, count }) => `
+                                            <tr>
+                                                <td style="padding: 8px; text-align: center; border: 1px solid #dee2e6; font-weight: var(--font-weight-bold);">
+                                                    ${streak === 1 ? '1패' : `${streak}연패`}
+                                                </td>
+                                                <td style="padding: 8px; text-align: center; border: 1px solid #dee2e6; color: var(--negative-color); font-weight: var(--font-weight-bold);">
+                                                    ${count}회
+                                                </td>
+                                            </tr>
+                                        `).join('')}
+                                    </tbody>
+                                </table>
+                            ` : `
+                                <div style="text-align: center; padding: 20px; color: #666;">
+                                    연패 기록이 없습니다.
+                                </div>
+                            `}
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('streakRecordsContent').innerHTML = html;
+        }
     </script>
 
 </body>
