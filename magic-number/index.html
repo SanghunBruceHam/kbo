@@ -161,11 +161,12 @@
                 max-width: 100% !important;
             }
             
+            /* PC와 동일한 테이블 뷰 유지 - 모바일에서도 스크롤 가능 */
             #scenario-content {
                 overflow-x: auto !important;
                 -webkit-overflow-scrolling: touch !important;
-                margin: 15px 0 !important;
-                padding: 0 !important;
+                margin: 15px -10px !important; /* 좌우 마진 확장하여 스크롤 영역 확보 */
+                padding: 0 10px !important;
             }
             
             .scenario-matrix-container {
@@ -175,19 +176,20 @@
                 padding-bottom: 10px !important;
             }
             
+            /* 모바일에서도 PC와 동일한 테이블 크기 유지 */
             .scenario-matrix-table {
-                min-width: 800px !important;
-                font-size: 12px !important;
+                min-width: 1100px !important; /* 테이블 최소 너비를 PC와 동일하게 */
+                font-size: 14px !important; /* PC와 동일한 글자 크기 */
                 border-collapse: collapse !important;
                 width: auto !important;
             }
             
             .scenario-matrix-table th,
             .scenario-matrix-table td {
-                padding: 6px 4px !important;
+                padding: 8px 8px !important; /* PC와 동일한 패딩 */
                 border: 1px solid #dee2e6 !important;
                 white-space: nowrap !important;
-                min-width: 70px !important;
+                min-width: 90px !important; /* PC와 동일한 최소 너비 */
                 text-align: center !important;
             }
             
@@ -199,11 +201,12 @@
                 z-index: 10 !important;
             }
             
+            /* PC와 동일한 셀 크기 유지 */
             .win-rate-cell {
-                min-width: 70px !important;
-                padding: 6px 4px !important;
-                font-size: 11px !important;
-                line-height: 1.2 !important;
+                min-width: 90px !important; /* PC와 동일한 최소 너비 */
+                padding: 8px 8px !important; /* PC와 동일한 패딩 */
+                font-size: 13px !important; /* PC와 동일한 글자 크기 */
+                line-height: 1.3 !important;
             }
             
             .win-rate-cell:hover {
