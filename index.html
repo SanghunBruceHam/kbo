@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- HTML 파일 캐시 방지 -->
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <!-- HTML 파일 캐시 방지 - 강화된 버전 -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate, max-age=0">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Last-Modified" content="0">
+    <meta http-equiv="If-Modified-Since" content="0">
     
     
     <title>KBO 2025 실시간 순위표 | 매직넘버 계산기 일별통계 순위변동 승률추이 피타고리안 클러치 홈원정 상대전적</title>
@@ -5749,7 +5751,16 @@
         // 데이터 로드
         async function loadDashboardData() {
             try {
-                const response = await fetch(`magic-number/data/enhanced-dashboard.json?v=${Date.now()}`);
+                // 캐시 강제 삭제를 위한 fetch 옵션 추가
+                const response = await fetch(`magic-number/data/enhanced-dashboard.json?v=${Date.now()}`, {
+                    method: 'GET',
+                    cache: 'no-store',
+                    headers: {
+                        'Cache-Control': 'no-cache, no-store, must-revalidate',
+                        'Pragma': 'no-cache',
+                        'Expires': '0'
+                    }
+                });
                 
                 if (!response.ok) {
                     throw new Error(`HTTP ${response.status}: ${response.statusText}`);
@@ -5791,7 +5802,15 @@
                 
                 // service-data.json도 로드하여 recent10, homeRecord, awayRecord 데이터 병합
                 try {
-                    const serviceResponse = await fetch(`magic-number/data/service-data.json?v=${Date.now()}`);
+                    const serviceResponse = await fetch(`magic-number/data/service-data.json?v=${Date.now()}`, {
+                        method: 'GET',
+                        cache: 'no-store',
+                        headers: {
+                            'Cache-Control': 'no-cache, no-store, must-revalidate',
+                            'Pragma': 'no-cache',
+                            'Expires': '0'
+                        }
+                    });
                     if (serviceResponse.ok) {
                         const serviceData = await serviceResponse.json();
                         console.log('✅ service-data.json 로드 성공');
@@ -11163,6 +11182,24 @@
 
         // 페이지 로드 시 데이터 로드 및 정렬 기능 초기화
         window.addEventListener('DOMContentLoaded', () => {
+            // 브라우저 캐시 강제 삭제
+            if ('caches' in window) {
+                caches.keys().then(names => {
+                    names.forEach(name => {
+                        caches.delete(name);
+                    });
+                });
+            }
+            
+            // Service Worker 캐시도 삭제
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.getRegistrations().then(registrations => {
+                    registrations.forEach(registration => {
+                        registration.update();
+                    });
+                });
+            }
+            
             // JavaScript 실행 시간 로그
             console.log(`🚀 KBO Dashboard 시작: ${new Date().toLocaleString()}`);
             
@@ -14766,7 +14803,15 @@ KT 9:1 키움(H)`;
                 
                 // service-data.json도 로드 시도 (백업용)
                 try {
-                    const serviceResponse = await fetch(`magic-number/data/service-data.json?v=${Date.now()}`);
+                    const serviceResponse = await fetch(`magic-number/data/service-data.json?v=${Date.now()}`, {
+                        method: 'GET',
+                        cache: 'no-store',
+                        headers: {
+                            'Cache-Control': 'no-cache, no-store, must-revalidate',
+                            'Pragma': 'no-cache',
+                            'Expires': '0'
+                        }
+                    });
                     if (serviceResponse.ok) {
                         serviceData = await serviceResponse.json();
                         console.log('✅ service-data.json 로드 성공');
