@@ -15316,107 +15316,38 @@ KT 9:1 키움(H)`;
 
     <!-- 연승/연패 기록 분석 스크립트 -->
     <script>
-        // 전체 팀 연승/연패 기록 업데이트 함수
-        async function updateAllTeamsStreakRecords() {
-            const contentDiv = document.getElementById('streakRecordsContent');
+        
+        // gameRecordsData에서 분석
+        function analyzeFromGameRecordsData() {
+            const teams = ['KIA', '삼성', 'LG', '두산', 'KT', 'SSG', '롯데', '한화', 'NC', '키움'];
+            const allTeamsData = {};
             
-            contentDiv.innerHTML = `
-                <div style="text-align: center; padding: 40px; color: #666;">
-                    전체 팀의 연승/연패 기록을 분석하고 있습니다...
-                </div>
-            `;
-            
-            try {
-                const teams = ['KIA', '삼성', 'LG', '두산', 'KT', 'SSG', '롯데', '한화', 'NC', '키움'];
-                const allTeamsData = {};
-                
-                // 모든 팀의 연승/연패 데이터 수집
-                for (const team of teams) {
-                    const streakData = await analyzeTeamStreaks(team);
-                    if (streakData) {
-                        allTeamsData[team] = streakData;
-                    }
+            teams.forEach(team => {
+                if (window.gameRecordsData && window.gameRecordsData[team]) {
+                    const games = window.gameRecordsData[team].games;
+                    const streakData = calculateStreakPatternsFromGames(games);
+                    allTeamsData[team] = streakData;
                 }
-                
-                renderAllTeamsStreakRecords(allTeamsData);
-            } catch (error) {
-                console.error('전체 팀 연승/연패 기록 분석 오류:', error);
-                contentDiv.innerHTML = `
-                    <div style="text-align: center; padding: 40px; color: #dc2626;">
-                        연승/연패 기록을 불러오는데 실패했습니다.
-                    </div>
-                `;
-            }
+            });
+            
+            renderAllTeamsStreakRecords(allTeamsData);
         }
         
-        // 팀의 연승/연패 기록 분석
-        async function analyzeTeamStreaks(teamName) {
-            try {
-                // 시즌 데이터에서 게임 기록 가져오기
-                if (!window.seasonDataCache) {
-                    const response = await fetch('magic-number/data/2025-season-data-clean.txt');
-                    if (response.ok) {
-                        window.seasonDataCache = await response.text();
-                    } else {
-                        throw new Error('시즌 데이터 로드 실패');
-                    }
-                }
-                
-                const seasonData = window.seasonDataCache;
-                const lines = seasonData.split('\n');
-                
-                const gameResults = [];
-                let currentDate = null;
-                
-                for (const line of lines) {
-                    if (line.trim() === '') continue;
-                    
-                    // 날짜 라인 체크 (2025-03-22 형식)
-                    if (line.match(/^\d{4}-\d{2}-\d{2}$/)) {
-                        currentDate = line.trim();
-                        continue;
-                    }
-                    
-                    // 게임 결과 라인 체크
-                    if (currentDate && line.includes(':') && line.includes(teamName)) {
-                        const result = parseGameResultWithScore(line, teamName);
-                        if (result && result.result !== 'D') { // 무승부 제외
-                            gameResults.push({
-                                date: currentDate,
-                                result: result.result,
-                                opponent: result.opponent,
-                                score: result.score
-                            });
-                        }
-                    }
-                }
-                
-                // 연승/연패 패턴 분석
-                return calculateStreakPatterns(gameResults);
-                
-            } catch (error) {
-                console.error('게임 기록 분석 오류:', error);
-                return null;
-            }
-        }
-        
-        // 연승/연패 패턴 계산
-        function calculateStreakPatterns(gameResults) {
-            const winStreaks = {};  // { '1': 5, '2': 3, '3': 2, ... }
-            const loseStreaks = {}; // { '1': 4, '2': 2, '3': 1, ... }
+        // gameRecordsData의 게임 배열에서 연승/연패 패턴 계산
+        function calculateStreakPatternsFromGames(games) {
+            const winStreaks = {};
+            const loseStreaks = {};
             
             let currentStreak = 0;
-            let currentType = null; // 'W' 또는 'L'
+            let currentType = null;
             let maxWinStreak = 0;
             let maxLoseStreak = 0;
             
-            for (const game of gameResults) {
-                if (game.result === currentType) {
-                    // 같은 결과 연속
-                    currentStreak++;
-                } else {
-                    // 연속이 끊어짐 - 이전 연속 기록
-                    if (currentStreak > 0) {
+            for (const game of games) {
+                // 무승부는 연속을 끊음
+                if (game.result === 'D' || game.result === 'T') {
+                    // 이전 연속 기록 저장
+                    if (currentStreak > 0 && currentType) {
                         if (currentType === 'W') {
                             winStreaks[currentStreak] = (winStreaks[currentStreak] || 0) + 1;
                             maxWinStreak = Math.max(maxWinStreak, currentStreak);
@@ -15425,15 +15356,31 @@ KT 9:1 키움(H)`;
                             maxLoseStreak = Math.max(maxLoseStreak, currentStreak);
                         }
                     }
-                    
-                    // 새로운 연속 시작
+                    currentStreak = 0;
+                    currentType = null;
+                    continue;
+                }
+                
+                if (game.result === currentType) {
+                    currentStreak++;
+                } else {
+                    // 이전 연속 기록 저장
+                    if (currentStreak > 0 && currentType) {
+                        if (currentType === 'W') {
+                            winStreaks[currentStreak] = (winStreaks[currentStreak] || 0) + 1;
+                            maxWinStreak = Math.max(maxWinStreak, currentStreak);
+                        } else if (currentType === 'L') {
+                            loseStreaks[currentStreak] = (loseStreaks[currentStreak] || 0) + 1;
+                            maxLoseStreak = Math.max(maxLoseStreak, currentStreak);
+                        }
+                    }
                     currentType = game.result;
                     currentStreak = 1;
                 }
             }
             
             // 마지막 연속 기록 처리
-            if (currentStreak > 0) {
+            if (currentStreak > 0 && currentType) {
                 if (currentType === 'W') {
                     winStreaks[currentStreak] = (winStreaks[currentStreak] || 0) + 1;
                     maxWinStreak = Math.max(maxWinStreak, currentStreak);
@@ -15448,7 +15395,7 @@ KT 9:1 키움(H)`;
                 loseStreaks,
                 maxWinStreak,
                 maxLoseStreak,
-                totalGames: gameResults.length
+                totalGames: games.filter(g => g.result === 'W' || g.result === 'L').length
             };
         }
         
@@ -15651,12 +15598,18 @@ KT 9:1 키움(H)`;
             document.getElementById('streakRecordsContent').innerHTML = html;
         }
         
+        // 게임별 기록 데이터 로드 완료 후 연승/연패 분석 실행
+        function initStreakRecords() {
+            if (window.gameRecordsData) {
+                analyzeFromGameRecordsData();
+            } else {
+                setTimeout(initStreakRecords, 1000);
+            }
+        }
+        
         // 페이지 로드 시 자동 실행
         window.addEventListener('load', function() {
-            // 다른 데이터 로드 후 연승/연패 기록 로드
-            setTimeout(() => {
-                updateAllTeamsStreakRecords();
-            }, 3000);
+            setTimeout(initStreakRecords, 5000);
         });
     </script>
 
