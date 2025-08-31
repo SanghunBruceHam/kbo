@@ -6736,11 +6736,11 @@
             
             document.getElementById('weeklyStatsContent').innerHTML = html;
             
-            // 최신 주차로 스크롤 (우측 끝으로)
+            // 최신 주차로 스크롤 (하단으로)
             setTimeout(() => {
                 const scrollContainer = document.querySelector('#weeklyStatsContent .table-scroll-wrapper');
                 if (scrollContainer) {
-                    scrollContainer.scrollLeft = scrollContainer.scrollWidth;
+                    scrollContainer.scrollTop = scrollContainer.scrollHeight;
                 }
             }, 100);
             
@@ -6949,11 +6949,12 @@
 
             document.getElementById('gameRecordsContent').innerHTML = html;
             
-            // 최신 경기로 스크롤 (우측 끝으로)
+            // 최신 경기로 스크롤 (우측 끝으로 + 하단으로)
             setTimeout(() => {
                 const scrollContainer = document.querySelector('#gameRecordsContent .table-scroll-wrapper');
                 if (scrollContainer) {
                     scrollContainer.scrollLeft = scrollContainer.scrollWidth;
+                    scrollContainer.scrollTop = scrollContainer.scrollHeight;
                 }
                 
                 // 최적화된 전체 게임 월별 탭 이벤트 리스너 (이벤트 위임 사용)
