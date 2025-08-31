@@ -5869,8 +5869,24 @@
                 
                 // 경기 일정과 실제 수집된 경기 데이터를 모두 로드
                 const [scheduleResponse, gameRecordsResponse] = await Promise.all([
-                    fetch(`magic-number/data/2025-season-schedule-complete.txt?v=${Date.now()}`),
-                    fetch(`data/game-by-game-records.json?v=${Date.now()}`)
+                    fetch(`magic-number/data/2025-season-schedule-complete.txt?v=${Date.now()}`, {
+                        method: 'GET',
+                        cache: 'no-store',
+                        headers: {
+                            'Cache-Control': 'no-cache, no-store, must-revalidate',
+                            'Pragma': 'no-cache',
+                            'Expires': '0'
+                        }
+                    }),
+                    fetch(`magic-number/data/game-by-game-records.json?v=${Date.now()}`, {
+                        method: 'GET',
+                        cache: 'no-store',
+                        headers: {
+                            'Cache-Control': 'no-cache, no-store, must-revalidate',
+                            'Pragma': 'no-cache',
+                            'Expires': '0'
+                        }
+                    })
                 ]);
                 
                 if (!scheduleResponse.ok) {
