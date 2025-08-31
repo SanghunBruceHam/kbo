@@ -1442,6 +1442,7 @@ const kboTeams = {
             let clinchDateText = '';
             
             if (magicNumber > 0) {
+                // 매직넘버는 지금부터 필요한 승수 - 현재 경기수 + 매직넘버 = 우승확정 경기
                 const targetGameNumber = firstPlace.games + magicNumber;
                 
                 if (targetGameNumber <= totalGames) {
