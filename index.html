@@ -5175,34 +5175,10 @@
                 <h2 class="card-title">연승/연패 기록 분석</h2>
             </div>
             
-            <!-- 팀 선택 드롭다운 -->
-            <div style="margin-bottom: 20px; text-align: center;">
-                <label for="streak-team-select" style="font-weight: 600; margin-right: 10px;">팀 선택:</label>
-                <select id="streak-team-select" onchange="updateStreakRecords()" style="
-                    padding: 8px 12px; 
-                    border: 1px solid #ddd; 
-                    border-radius: 6px; 
-                    font-size: var(--text-base);
-                    background: white;
-                ">
-                    <option value="">팀을 선택하세요</option>
-                    <option value="KIA">KIA 타이거즈</option>
-                    <option value="삼성">삼성 라이온즈</option>
-                    <option value="LG">LG 트윈스</option>
-                    <option value="두산">두산 베어스</option>
-                    <option value="KT">KT 위즈</option>
-                    <option value="SSG">SSG 랜더스</option>
-                    <option value="롯데">롯데 자이언츠</option>
-                    <option value="한화">한화 이글스</option>
-                    <option value="NC">NC 다이노스</option>
-                    <option value="키움">키움 히어로즈</option>
-                </select>
-            </div>
-            
             <!-- 연승/연패 기록 표시 영역 -->
             <div id="streakRecordsContent">
                 <div style="text-align: center; padding: 40px; color: #666;">
-                    팀을 선택하면 연승/연패 기록을 볼 수 있습니다.
+                    연승/연패 기록을 로드하고 있습니다...
                 </div>
             </div>
             
@@ -15340,32 +15316,31 @@ KT 9:1 키움(H)`;
 
     <!-- 연승/연패 기록 분석 스크립트 -->
     <script>
-        // 연승/연패 기록 업데이트 함수
-        async function updateStreakRecords() {
-            const selectedTeam = document.getElementById('streak-team-select').value;
+        // 전체 팀 연승/연패 기록 업데이트 함수
+        async function updateAllTeamsStreakRecords() {
             const contentDiv = document.getElementById('streakRecordsContent');
-            
-            if (!selectedTeam) {
-                contentDiv.innerHTML = `
-                    <div style="text-align: center; padding: 40px; color: #666;">
-                        팀을 선택하면 연승/연패 기록을 볼 수 있습니다.
-                    </div>
-                `;
-                return;
-            }
             
             contentDiv.innerHTML = `
                 <div style="text-align: center; padding: 40px; color: #666;">
-                    ${selectedTeam} 팀의 연승/연패 기록을 분석하고 있습니다...
+                    전체 팀의 연승/연패 기록을 분석하고 있습니다...
                 </div>
             `;
             
             try {
-                // 게임 기록 데이터에서 연승/연패 분석
-                const streakData = await analyzeTeamStreaks(selectedTeam);
-                renderStreakRecords(selectedTeam, streakData);
+                const teams = ['KIA', '삼성', 'LG', '두산', 'KT', 'SSG', '롯데', '한화', 'NC', '키움'];
+                const allTeamsData = {};
+                
+                // 모든 팀의 연승/연패 데이터 수집
+                for (const team of teams) {
+                    const streakData = await analyzeTeamStreaks(team);
+                    if (streakData) {
+                        allTeamsData[team] = streakData;
+                    }
+                }
+                
+                renderAllTeamsStreakRecords(allTeamsData);
             } catch (error) {
-                console.error('연승/연패 기록 분석 오류:', error);
+                console.error('전체 팀 연승/연패 기록 분석 오류:', error);
                 contentDiv.innerHTML = `
                     <div style="text-align: center; padding: 40px; color: #dc2626;">
                         연승/연패 기록을 불러오는데 실패했습니다.
@@ -15579,6 +15554,110 @@ KT 9:1 키움(H)`;
             
             document.getElementById('streakRecordsContent').innerHTML = html;
         }
+        
+        // 전체 팀 연승/연패 기록 렌더링
+        function renderAllTeamsStreakRecords(allTeamsData) {
+            const teams = ['KIA', '삼성', 'LG', '두산', 'KT', 'SSG', '롯데', '한화', 'NC', '키움'];
+            
+            let html = `
+                <div style="overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse; background: white; border: 1px solid #dee2e6;">
+                        <thead>
+                            <tr style="background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%); color: white;">
+                                <th rowspan="2" style="padding: 12px; text-align: center; border: 1px solid white; width: 100px;">팀명</th>
+                                <th colspan="10" style="padding: 8px; text-align: center; border: 1px solid white;">🔥 연승 기록 (횟수)</th>
+                                <th colspan="10" style="padding: 8px; text-align: center; border: 1px solid white;">💧 연패 기록 (횟수)</th>
+                                <th rowspan="2" style="padding: 12px; text-align: center; border: 1px solid white;">최장<br>연승</th>
+                                <th rowspan="2" style="padding: 12px; text-align: center; border: 1px solid white;">최장<br>연패</th>
+                            </tr>
+                            <tr style="background: #f8f9fa; color: #333;">
+                                ${[1,2,3,4,5,6,7,8,9,10].map(n => 
+                                    `<th style="padding: 6px; text-align: center; border: 1px solid #dee2e6; font-size: 0.8rem;">${n}${n === 1 ? '승' : '연승'}</th>`
+                                ).join('')}
+                                ${[1,2,3,4,5,6,7,8,9,10].map(n => 
+                                    `<th style="padding: 6px; text-align: center; border: 1px solid #dee2e6; font-size: 0.8rem;">${n}${n === 1 ? '패' : '연패'}</th>`
+                                ).join('')}
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
+            
+            // 각 팀별 행 생성
+            teams.forEach((team, index) => {
+                const teamData = allTeamsData[team];
+                if (!teamData) {
+                    html += `
+                        <tr>
+                            <td style="padding: 10px; text-align: center; border: 1px solid #dee2e6; font-weight: bold; background: #f8f9fa;">
+                                ${getTeamWithLogo(team)}
+                            </td>
+                            <td colspan="22" style="padding: 10px; text-align: center; border: 1px solid #dee2e6; color: #999;">
+                                데이터 없음
+                            </td>
+                        </tr>
+                    `;
+                    return;
+                }
+                
+                const { winStreaks, loseStreaks, maxWinStreak, maxLoseStreak } = teamData;
+                
+                html += `
+                    <tr style="${index % 2 === 0 ? 'background: #fafafa;' : ''}">
+                        <td style="padding: 10px; text-align: center; border: 1px solid #dee2e6; font-weight: bold;">
+                            ${getTeamWithLogo(team)}
+                        </td>
+                `;
+                
+                // 연승 데이터 (1승부터 10연승까지)
+                for (let i = 1; i <= 10; i++) {
+                    const count = winStreaks[i] || 0;
+                    html += `
+                        <td style="padding: 6px; text-align: center; border: 1px solid #dee2e6; 
+                            ${count > 0 ? 'color: var(--positive-color); font-weight: bold;' : 'color: #ccc;'}">
+                            ${count > 0 ? count : '-'}
+                        </td>
+                    `;
+                }
+                
+                // 연패 데이터 (1패부터 10연패까지)
+                for (let i = 1; i <= 10; i++) {
+                    const count = loseStreaks[i] || 0;
+                    html += `
+                        <td style="padding: 6px; text-align: center; border: 1px solid #dee2e6; 
+                            ${count > 0 ? 'color: var(--negative-color); font-weight: bold;' : 'color: #ccc;'}">
+                            ${count > 0 ? count : '-'}
+                        </td>
+                    `;
+                }
+                
+                // 최장 연승/연패
+                html += `
+                    <td style="padding: 6px; text-align: center; border: 1px solid #dee2e6; color: var(--positive-color); font-weight: bold;">
+                        ${maxWinStreak}
+                    </td>
+                    <td style="padding: 6px; text-align: center; border: 1px solid #dee2e6; color: var(--negative-color); font-weight: bold;">
+                        ${maxLoseStreak}
+                    </td>
+                </tr>
+                `;
+            });
+            
+            html += `
+                        </tbody>
+                    </table>
+                </div>
+            `;
+            
+            document.getElementById('streakRecordsContent').innerHTML = html;
+        }
+        
+        // 페이지 로드 시 자동 실행
+        document.addEventListener('DOMContentLoaded', function() {
+            // 다른 데이터 로드 후 연승/연패 기록 로드
+            setTimeout(() => {
+                updateAllTeamsStreakRecords();
+            }, 2000);
+        });
     </script>
 
 </body>
