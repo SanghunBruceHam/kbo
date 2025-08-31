@@ -15502,6 +15502,17 @@ KT 9:1 키움(H)`;
                 .sort((a, b) => a - b)
                 .map(streak => ({ streak, count: loseStreaks[streak] }));
             
+            // 최대 연승/연패 길이 구하기 (테이블 행 수 맞추기 위해)
+            const maxRows = Math.max(15, sortedWinStreaks.length, sortedLoseStreaks.length);
+            
+            // 빈 행 채우기
+            while (sortedWinStreaks.length < maxRows) {
+                sortedWinStreaks.push({ streak: sortedWinStreaks.length + 1, count: 0 });
+            }
+            while (sortedLoseStreaks.length < maxRows) {
+                sortedLoseStreaks.push({ streak: sortedLoseStreaks.length + 1, count: 0 });
+            }
+            
             let html = `
                 <div style="margin-bottom: 20px;">
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 20px;">
@@ -15520,76 +15531,49 @@ KT 9:1 키움(H)`;
                     </div>
                 </div>
                 
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                    <!-- 연승 기록 -->
-                    <div style="background: white; border-radius: 8px; border: 1px solid #e9ecef; overflow: hidden;">
-                        <div style="background: var(--positive-bg-medium); padding: 15px; text-align: center;">
-                            <h3 style="margin: 0; color: var(--positive-color); font-size: var(--text-lg);">🔥 연승 기록</h3>
-                        </div>
-                        <div style="padding: 15px;">
-                            ${sortedWinStreaks.length > 0 ? `
-                                <table style="width: 100%; border-collapse: collapse;">
-                                    <thead>
-                                        <tr style="background: #f8f9fa;">
-                                            <th style="padding: 8px; text-align: center; border: 1px solid #dee2e6;">연승 수</th>
-                                            <th style="padding: 8px; text-align: center; border: 1px solid #dee2e6;">횟수</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        ${sortedWinStreaks.map(({ streak, count }) => `
-                                            <tr>
-                                                <td style="padding: 8px; text-align: center; border: 1px solid #dee2e6; font-weight: var(--font-weight-bold);">
-                                                    ${streak === 1 ? '1승' : `${streak}연승`}
-                                                </td>
-                                                <td style="padding: 8px; text-align: center; border: 1px solid #dee2e6; color: var(--positive-color); font-weight: var(--font-weight-bold);">
-                                                    ${count}회
-                                                </td>
-                                            </tr>
-                                        `).join('')}
-                                    </tbody>
-                                </table>
-                            ` : `
-                                <div style="text-align: center; padding: 20px; color: #666;">
-                                    연승 기록이 없습니다.
-                                </div>
-                            `}
-                        </div>
-                    </div>
-                    
-                    <!-- 연패 기록 -->
-                    <div style="background: white; border-radius: 8px; border: 1px solid #e9ecef; overflow: hidden;">
-                        <div style="background: var(--negative-bg-medium); padding: 15px; text-align: center;">
-                            <h3 style="margin: 0; color: var(--negative-color); font-size: var(--text-lg);">💧 연패 기록</h3>
-                        </div>
-                        <div style="padding: 15px;">
-                            ${sortedLoseStreaks.length > 0 ? `
-                                <table style="width: 100%; border-collapse: collapse;">
-                                    <thead>
-                                        <tr style="background: #f8f9fa;">
-                                            <th style="padding: 8px; text-align: center; border: 1px solid #dee2e6;">연패 수</th>
-                                            <th style="padding: 8px; text-align: center; border: 1px solid #dee2e6;">횟수</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        ${sortedLoseStreaks.map(({ streak, count }) => `
-                                            <tr>
-                                                <td style="padding: 8px; text-align: center; border: 1px solid #dee2e6; font-weight: var(--font-weight-bold);">
-                                                    ${streak === 1 ? '1패' : `${streak}연패`}
-                                                </td>
-                                                <td style="padding: 8px; text-align: center; border: 1px solid #dee2e6; color: var(--negative-color); font-weight: var(--font-weight-bold);">
-                                                    ${count}회
-                                                </td>
-                                            </tr>
-                                        `).join('')}
-                                    </tbody>
-                                </table>
-                            ` : `
-                                <div style="text-align: center; padding: 20px; color: #666;">
-                                    연패 기록이 없습니다.
-                                </div>
-                            `}
-                        </div>
-                    </div>
+                <!-- 통합 테이블 -->
+                <div style="overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse; background: white; border: 1px solid #dee2e6; border-radius: 8px; overflow: hidden;">
+                        <thead>
+                            <tr style="background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%); color: white;">
+                                <th colspan="2" style="padding: 12px; text-align: center; border-right: 2px solid white; font-size: var(--text-lg);">
+                                    🔥 연승 기록
+                                </th>
+                                <th colspan="2" style="padding: 12px; text-align: center; font-size: var(--text-lg);">
+                                    💧 연패 기록
+                                </th>
+                            </tr>
+                            <tr style="background: #f8f9fa;">
+                                <th style="padding: 10px; text-align: center; border: 1px solid #dee2e6; width: 25%;">연승 수</th>
+                                <th style="padding: 10px; text-align: center; border: 1px solid #dee2e6; width: 25%;">횟수</th>
+                                <th style="padding: 10px; text-align: center; border: 1px solid #dee2e6; width: 25%;">연패 수</th>
+                                <th style="padding: 10px; text-align: center; border: 1px solid #dee2e6; width: 25%;">횟수</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${Array.from({ length: maxRows }, (_, i) => {
+                                const winData = sortedWinStreaks[i];
+                                const loseData = sortedLoseStreaks[i];
+                                
+                                return `
+                                    <tr>
+                                        <td style="padding: 8px; text-align: center; border: 1px solid #dee2e6; font-weight: var(--font-weight-bold); ${winData.count === 0 ? 'color: #ccc;' : ''}">
+                                            ${winData.streak === 1 ? '1승' : `${winData.streak}연승`}
+                                        </td>
+                                        <td style="padding: 8px; text-align: center; border: 1px solid #dee2e6; ${winData.count > 0 ? 'color: var(--positive-color); font-weight: var(--font-weight-bold);' : 'color: #ccc;'}">
+                                            ${winData.count > 0 ? `${winData.count}회` : '-'}
+                                        </td>
+                                        <td style="padding: 8px; text-align: center; border: 1px solid #dee2e6; font-weight: var(--font-weight-bold); ${loseData.count === 0 ? 'color: #ccc;' : ''}">
+                                            ${loseData.streak === 1 ? '1패' : `${loseData.streak}연패`}
+                                        </td>
+                                        <td style="padding: 8px; text-align: center; border: 1px solid #dee2e6; ${loseData.count > 0 ? 'color: var(--negative-color); font-weight: var(--font-weight-bold);' : 'color: #ccc;'}">
+                                            ${loseData.count > 0 ? `${loseData.count}회` : '-'}
+                                        </td>
+                                    </tr>
+                                `;
+                            }).join('')}
+                        </tbody>
+                    </table>
                 </div>
             `;
             
