@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- 캐시 제어 - 항상 최신 데이터 표시 -->
+    <!-- HTML 파일 캐시 방지 -->
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
+    
     
     <title>KBO 2025 실시간 순위표 | 매직넘버 계산기 일별통계 순위변동 승률추이 피타고리안 클러치 홈원정 상대전적</title>
     
@@ -5467,6 +5468,57 @@
             return `<span>${teamName}</span>`;
         }
 
+        // ========== 통합된 순위 시스템 (단일 함수) ==========
+        
+        
+        // 종합 순위와 정확히 동일한 방식을 사용 (renderFullStandings와 100% 동일)
+        function getRankingSystem() {
+            if (!dashboardData?.standings) {
+                return {
+                    teams: [],
+                    teamRanks: {},
+                    teamsWithRanks: []
+                };
+            }
+            
+            // KBO 규정에 따른 동률 처리가 적용된 순위대로 정렬
+            const sortedStandings = [...dashboardData.standings].sort((a, b) => {
+                // displayRank가 있으면 사용, 없으면 배열 인덱스 사용
+                const aRank = a.displayRank || a.rank || (dashboardData.standings.indexOf(a) + 1);
+                const bRank = b.displayRank || b.rank || (dashboardData.standings.indexOf(b) + 1);
+                return aRank - bRank;
+            });
+            
+            const teams = [];
+            const teamRanks = {};
+            const teamsWithRanks = [];
+            
+            sortedStandings.forEach((team, index) => {
+                let displayRank;
+                if (dashboardData.originalStandings) {
+                    const originalTeam = dashboardData.originalStandings.find(t => t.team_name === team.team_name);
+                    displayRank = originalTeam ? (originalTeam.displayRank || originalTeam.rank || (dashboardData.originalStandings.indexOf(originalTeam) + 1)) : (index + 1);
+                } else {
+                    displayRank = team.displayRank || team.rank || (index + 1);
+                }
+                
+                teams.push(team.team_name);
+                teamRanks[team.team_name] = displayRank;
+                teamsWithRanks.push({
+                    name: team.team_name,
+                    rank: displayRank
+                });
+            });
+            
+            return {
+                teams,
+                teamRanks,  
+                teamsWithRanks
+            };
+        }
+        
+        
+
         // 공식 연속 기록 클래스 반환 (종합 순위와 동일)
         function getOfficialStreakClass(teamName) {
             if (!dashboardData || !dashboardData.standings) return '';
@@ -5661,9 +5713,7 @@
         // 데이터 로드
         async function loadDashboardData() {
             try {
-                // 강력한 캐시 버스팅으로 항상 최신 데이터 로드
-                const timestamp = window.cacheTimestamp || Date.now();
-                const response = await fetch(`magic-number/data/enhanced-dashboard.json?v=${timestamp}&_=${Math.random()}`);
+                const response = await fetch(`magic-number/data/enhanced-dashboard.json?v=${Date.now()}`);
                 
                 if (!response.ok) {
                     throw new Error(`HTTP ${response.status}: ${response.statusText}`);
@@ -5671,9 +5721,41 @@
                 
                 dashboardData = await response.json();
                 
+                // enhanced-dashboard.json에서 피타고리안 운 지수 계산 (우선 실행)
+                if (dashboardData.standings) {
+                    dashboardData.standings.forEach(team => {
+                        // enhanced-dashboard.json에서 득실점 데이터를 사용해 피타고리안 계산
+                        const runsScored = team.runs_scored || 0;
+                        const runsAllowed = team.runs_allowed || 0;
+                        
+                        if (runsScored > 0 && runsAllowed > 0) {
+                            // 피타고리안 승률 계산: RS² / (RS² + RA²)
+                            const pythagoreanWinRate = (runsScored * runsScored) / (runsScored * runsScored + runsAllowed * runsAllowed);
+                            const actualWinRate = parseFloat(team.win_rate) || 0;
+                            const luckIndex = actualWinRate - pythagoreanWinRate;
+                            
+                            // 데이터 추가
+                            team.runsScored = runsScored;
+                            team.runsAllowed = runsAllowed;
+                            team.runDiff = team.run_differential || (runsScored - runsAllowed);
+                            team.pythagoreanWinRate = pythagoreanWinRate;
+                            team.luckIndex = luckIndex;
+                            
+                            // 운 상태 계산
+                            if (luckIndex >= 0.05) team.luckRating = '매우 좋음';
+                            else if (luckIndex >= 0.03) team.luckRating = '좋음';
+                            else if (luckIndex >= 0.01) team.luckRating = '약간 좋음';
+                            else if (luckIndex >= -0.01) team.luckRating = '평균적';
+                            else if (luckIndex >= -0.03) team.luckRating = '약간 나쁨';
+                            else if (luckIndex >= -0.05) team.luckRating = '나쁨';
+                            else team.luckRating = '매우 나쁨';
+                        }
+                    });
+                }
+                
                 // service-data.json도 로드하여 recent10, homeRecord, awayRecord 데이터 병합
                 try {
-                    const serviceResponse = await fetch(`magic-number/data/service-data.json?v=${timestamp}&_=${Math.random()}`);
+                    const serviceResponse = await fetch(`magic-number/data/service-data.json?v=${Date.now()}`);
                     if (serviceResponse.ok) {
                         const serviceData = await serviceResponse.json();
                         console.log('✅ service-data.json 로드 성공');
@@ -5688,33 +5770,6 @@
                                     team.recent10 = serviceTeam.recent10;
                                     team.homeRecord = serviceTeam.homeRecord;
                                     team.awayRecord = serviceTeam.awayRecord;
-                                }
-                                
-                                // enhanced-dashboard.json에서 득실점 데이터를 사용해 피타고리안 계산
-                                const runsScored = team.runs_scored || 0;
-                                const runsAllowed = team.runs_allowed || 0;
-                                
-                                if (runsScored > 0 && runsAllowed > 0) {
-                                    // 피타고리안 승률 계산: RS² / (RS² + RA²)
-                                    const pythagoreanWinRate = (runsScored * runsScored) / (runsScored * runsScored + runsAllowed * runsAllowed);
-                                    const actualWinRate = parseFloat(team.win_rate) || 0;
-                                    const luckIndex = actualWinRate - pythagoreanWinRate;
-                                    
-                                    // 데이터 추가
-                                    team.runsScored = runsScored;
-                                    team.runsAllowed = runsAllowed;
-                                    team.runDiff = team.run_differential || (runsScored - runsAllowed);
-                                    team.pythagoreanWinRate = pythagoreanWinRate;
-                                    team.luckIndex = luckIndex;
-                                    
-                                    // 운 상태 계산
-                                    if (luckIndex >= 0.05) team.luckRating = '매우 좋음';
-                                    else if (luckIndex >= 0.03) team.luckRating = '좋음';
-                                    else if (luckIndex >= 0.01) team.luckRating = '약간 좋음';
-                                    else if (luckIndex >= -0.01) team.luckRating = '평균적';
-                                    else if (luckIndex >= -0.03) team.luckRating = '약간 나쁨';
-                                    else if (luckIndex >= -0.05) team.luckRating = '나쁨';
-                                    else team.luckRating = '매우 나쁨';
                                 }
                                 
                                 // 홈/원정 승률 계산 (service-data가 있는 경우에만)
@@ -5737,6 +5792,7 @@
                 // 승률과 상대전적 기준으로 순위 정렬
                 await sortStandingsByWinRateAndHeadToHead();
                 
+                
                 await renderDashboard();
                 
                 // 데이터 정보 업데이트 (renderDashboard 호출 후)
@@ -5758,8 +5814,8 @@
                 
                 // 경기 일정과 실제 수집된 경기 데이터를 모두 로드
                 const [scheduleResponse, gameRecordsResponse] = await Promise.all([
-                    fetch('magic-number/data/2025-season-schedule-complete.txt'),
-                    fetch('data/game-by-game-records.json')
+                    fetch(`magic-number/data/2025-season-schedule-complete.txt?v=${Date.now()}`),
+                    fetch(`data/game-by-game-records.json?v=${Date.now()}`)
                 ]);
                 
                 if (!scheduleResponse.ok) {
@@ -5920,6 +5976,18 @@
                 renderWeeklyTable();
                 
                 renderGameByGameTable();
+                
+                // 연승/연패 기록 분석 초기화 (gameRecordsData 로드 직후)
+                try {
+                    if (gameRecordsData) {
+                        console.log('renderDashboard: 연승/연패 분석 실행');
+                        analyzeFromGameRecordsData();
+                    } else {
+                        console.log('renderDashboard: gameRecordsData 없음');
+                    }
+                } catch (e) {
+                    console.error('연승/연패 분석 오류:', e);
+                }
                 
                 // 미래 경기 일정 로드
                 await loadFutureScheduleData();
@@ -6538,19 +6606,17 @@
             renderTeamDetailedRecords();
         }
 
-        // 주차별 성적 테이블 렌더링
+        // 주차별 성적 테이블 렌더링 (종합 순위와 동일한 방식)
         function renderWeeklyTable() {
             if (!weeklyAnalysisData || !weeklyAnalysisData.weeklyAnalysis) {
                 console.error('주차별 데이터가 올바르지 않습니다');
                 return;
             }
+            
+            if (!dashboardData?.standings) return;
 
-            // 순위 순서대로 팀 정렬
-            const teams = dashboardData && dashboardData.standings 
-                ? dashboardData.standings
-                    .sort((a, b) => a.rank - b.rank)
-                    .map(team => team.team_name)
-                : ['LG', '한화', 'KIA', '삼성', 'KT', 'SSG', '롯데', '두산', 'NC', '키움'];
+            // 종합 순위 기준 팀 순서 사용
+            const teams = getRankingSystem().teams;
             const maxWeeks = weeklyAnalysisData.currentWeek || 21;
 
             let html = `
@@ -6633,6 +6699,14 @@
             </div>`;
             
             document.getElementById('weeklyStatsContent').innerHTML = html;
+            
+            // 최신 주차로 스크롤 (우측 끝으로)
+            setTimeout(() => {
+                const scrollContainer = document.querySelector('#weeklyStatsContent .table-scroll-wrapper');
+                if (scrollContainer) {
+                    scrollContainer.scrollLeft = scrollContainer.scrollWidth;
+                }
+            }, 100);
             
             // 팀명 헤더에 클릭 이벤트 리스너 추가
             setTimeout(() => {
@@ -6745,19 +6819,26 @@
             rows.forEach(row => tbody.appendChild(row));
         };
 
-        // 게임별 기록 테이블 렌더링 (모든 팀 동시 표시)
+        // 게임별 기록 테이블 렌더링 (종합 순위와 동일한 방식)
         function renderGameByGameTable() {
-            if (!gameRecordsData) return;
+            if (!gameRecordsData || !dashboardData?.standings) return;
 
-            // 순위 순서대로 팀 정렬
-            const teams = dashboardData && dashboardData.standings 
-                ? dashboardData.standings
-                    .sort((a, b) => a.rank - b.rank)
-                    .map(team => team.team_name)
-                : ['LG', '한화', 'KIA', '삼성', 'KT', 'SSG', '롯데', '두산', 'NC', '키움'];
+            // 종합 순위 기준 팀 순서 사용
+            const teams = getRankingSystem().teams;
             
-            // 최대 경기 수 계산
-            const maxGames = Math.max(...teams.map(team => gameRecordsData[team]?.games.length || 0));
+            // 각 팀의 게임 데이터를 날짜순으로 정렬하고 최대 경기 수 계산
+            const teamSortedGames = {};
+            teams.forEach(team => {
+                if (gameRecordsData[team]?.games) {
+                    teamSortedGames[team] = [...gameRecordsData[team].games]
+                        .filter(game => game && game.date && game.date !== 'undefined')
+                        .sort((a, b) => new Date(a.date) - new Date(b.date));
+                } else {
+                    teamSortedGames[team] = [];
+                }
+            });
+            
+            const maxGames = Math.max(...Object.values(teamSortedGames).map(games => games.length));
             
             let html = `
                 <div class="table-scroll-wrapper">
@@ -6782,12 +6863,12 @@
                     <td class="game-number-cell" style="background: ${gameNumBgColor}; font-weight: var(--font-weight-bold);">${gameNum}</td>`;
                 
                 teams.forEach(team => {
-                    const teamRecord = gameRecordsData[team];
-                    const game = teamRecord?.games[gameNum - 1];
+                    const sortedGames = teamSortedGames[team] || [];
+                    const game = sortedGames[gameNum - 1];
                     
                     if (game) {
-                        // 현재 게임에서의 연승/연패 카운트 계산
-                        const streakInfo = calculateStreakAtGame(teamRecord.games, gameNum - 1);
+                        // 현재 게임에서의 연승/연패 카운트 계산 (정렬된 데이터 사용)
+                        const streakInfo = calculateStreakAtGame(sortedGames, gameNum - 1);
                         const streakNumber = streakInfo.count > 0 ? streakInfo.count : '';
                         
                         // 결과를 한글로 변환
@@ -6807,7 +6888,7 @@
                             </div>
                         </td>`;
                     } else {
-                        html += `<td class="game-result-cell cell-empty">-</td>`;
+                        html += `<td class="game-result-cell cell-empty" style="text-align: center;">-</td>`;
                     }
                 });
                 
@@ -6832,10 +6913,13 @@
 
             document.getElementById('gameRecordsContent').innerHTML = html;
             
-            // DOM 업데이트 후 이벤트 리스너 추가
+            // 최신 경기로 스크롤 (우측 끝으로)
             setTimeout(() => {
-                // DOM 캐시 클리어 (새로운 HTML 요소들이 생성되었으므로)
-                clearDOMCache();
+                const scrollContainer = document.querySelector('#gameRecordsContent .table-scroll-wrapper');
+                if (scrollContainer) {
+                    scrollContainer.scrollLeft = scrollContainer.scrollWidth;
+                }
+                
                 // 최적화된 전체 게임 월별 탭 이벤트 리스너 (이벤트 위임 사용)
                 initAllGamesMonthTabs();
             }, 100);
@@ -6849,25 +6933,19 @@
             
             const currentGame = games[gameIndex];
             
-            // 현재 게임이 무승부면 이전 무승부가 아닌 게임까지 거슬러 올라가서 연속 기록 계산
-            if (currentGame.result === 'D') {
-                // 무승부 이전의 승/패 게임 찾기
-                for (let i = gameIndex - 1; i >= 0; i--) {
-                    if (games[i].result !== 'D') {
-                        return calculateStreakAtGame(games, i);
-                    }
-                }
+            // 현재 게임이 무승부면 연속기록을 표시하지 않음
+            if (currentGame.result === 'D' || currentGame.result === 'T') {
                 return { type: null, count: 0 };
             }
             
             let count = 1;
             let streakType = currentGame.result;
             
-            // 이전 게임들을 거슬러 올라가며 연속 기록 계산 (무승부는 건너뛰기)
+            // 이전 게임들을 거슬러 올라가며 연속 기록 계산 (무승부는 무시)
             for (let i = gameIndex - 1; i >= 0; i--) {
                 const prevGame = games[i];
-                if (prevGame.result === 'D') {
-                    // 무승부는 건너뛰고 계속
+                if (prevGame.result === 'D' || prevGame.result === 'T') {
+                    // 무승부는 무시하고 계속
                     continue;
                 } else if (prevGame.result === streakType) {
                     count++;
@@ -6917,16 +6995,12 @@
             return '';
         }
 
-        // 팀별 상세 게임 기록 렌더링
+        // 팀별 상세 게임 기록 렌더링 (종합 순위와 동일한 방식)
         function renderTeamDetailedRecords() {
-            if (!gameRecordsData) return;
+            if (!gameRecordsData || !dashboardData?.standings) return;
 
-            // 순위 순서대로 팀 정렬
-            const rankedTeams = dashboardData && dashboardData.standings 
-                ? dashboardData.standings
-                    .sort((a, b) => a.rank - b.rank)
-                    .map(team => team.team_name)
-                : ['LG', '한화', 'KIA', '삼성', 'KT', 'SSG', '롯데', '두산', 'NC', '키움'];
+            // 종합 순위 기준 팀 순서 사용
+            const rankedTeams = getRankingSystem().teams;
             const teams = ['전체', ...rankedTeams];
             
             let html = `
@@ -7145,7 +7219,7 @@
                             
                             html += `
                                 <tr class="future-game-row" style="background: #f8f9fa; opacity: 0.8;"${futureMonthId}>
-                                    <td class="game-num-cell" style="color: #4b5563;">-</td>
+                                    <td class="game-num-cell" style="color: #4b5563; text-align: center;">-</td>
                                     <td class="date-cell ${dateClass}">${displayDate}</td>
                                     <td class="opponent-cell">${getTeamWithLogo(opponent)}</td>
                                     <td class="venue-cell ${isHome ? 'home-venue' : 'away-venue'}">${isHome ? '홈' : '원정'}</td>
@@ -7153,9 +7227,9 @@
                                     <td class="result-cell">
                                         <span class="result-badge future" style="background: #6c757d; color: white;">예정</span>
                                     </td>
-                                    <td class="runs-cell" style="color: #4b5563;">-</td>
-                                    <td class="runs-cell" style="color: #4b5563;">-</td>
-                                    <td class="diff-cell" style="color: #4b5563;">-</td>
+                                    <td class="runs-cell" style="color: #4b5563; text-align: center;">-</td>
+                                    <td class="runs-cell" style="color: #4b5563; text-align: center;">-</td>
+                                    <td class="diff-cell" style="color: #4b5563; text-align: center;">-</td>
                                 </tr>`;
                         });
                     }
@@ -7217,7 +7291,6 @@
             } else {
                 // 전체 탭 선택시 전체 게임 월별 탭 이벤트 리스너 추가
                 setTimeout(() => {
-                    clearDOMCache();
                     initAllGamesMonthTabs();
                 }, 100);
             }
@@ -7239,12 +7312,9 @@
             
             // 모든 팀의 게임 데이터 수집
             const allGames = [];
-            // 순위 순서대로 팀 정렬
-            const teams = dashboardData && dashboardData.standings 
-                ? dashboardData.standings
-                    .sort((a, b) => a.rank - b.rank)
-                    .map(team => team.team_name)
-                : ['LG', '한화', 'KIA', '삼성', 'KT', 'SSG', '롯데', '두산', 'NC', '키움'];
+            // 종합 순위 기준 팀 순서 사용
+            if (!dashboardData?.standings) return '';
+            const teams = getRankingSystem().teams;
             
             teams.forEach(team => {
                 if (gameRecordsData[team] && gameRecordsData[team].games) {
@@ -7583,31 +7653,25 @@
         var fixSortToggle = true; // true: 연승순, false: 연패순
         
         window.fixedSort = function() {
-            // 모든 자동 업데이트 함수들을 완전히 차단
-            window.renderDashboard = function() { console.log('renderDashboard 차단됨'); };
-            window.loadDashboardData = function() { console.log('loadDashboardData 차단됨'); };
-            window.renderFullStandings = function() { console.log('renderFullStandings 차단됨'); };
+            // 함수 차단 제거 - 정상 동작하도록 함
             
-            // 모든 타이머도 제거
+            // 타이머 제거는 유지
             for (let i = 1; i < 99999; i++) window.clearTimeout(i);
             for (let i = 1; i < 99999; i++) window.clearInterval(i);
             
             const tbody = document.getElementById('fullStandingsBody');
             const rows = Array.from(tbody.children);
             
-            // 정렬할 팀 데이터 생성
-            const teams = [
-                {name: '한화', streak: '4W', value: 1004},
-                {name: 'KIA', streak: '3W', value: 1003},
-                {name: 'LG', streak: '1W', value: 1001},
-                {name: '두산', streak: '1W', value: 1001},
-                {name: '키움', streak: '1W', value: 1001},
-                {name: 'SSG', streak: '1L', value: -1},
-                {name: 'KT', streak: '3W', value: 3},
-                {name: 'NC', streak: '1L', value: -1},
-                {name: '삼성', streak: '3W', value: 3},
-                {name: '롯데', streak: '1W', value: 1}
-            ];
+            // 정렬할 팀 데이터 생성 - 동적으로 생성
+            const teamOrder = getRankingSystem().teams;
+            const teams = teamOrder.map(name => {
+                // 실제 데이터에서 연속 기록 가져오기
+                const streakDisplay = getOfficialStreakDisplay(name);
+                const value = streakDisplay.includes('연승') ? 
+                    parseInt(streakDisplay) : 
+                    (streakDisplay.includes('연패') ? -parseInt(streakDisplay) : 0);
+                return {name, streak: streakDisplay, value};
+            });
             
             if (fixSortToggle) {
                 teams.sort((a, b) => b.value - a.value); // 연승 우선
@@ -8102,13 +8166,9 @@
 
             // 각 팀의 실제 순위 유지 (정렬과 관계없이 원래 순위 사용)
             dashboardData.standings.forEach((team, index) => {
-                // 팀의 실제 현재 순위 유지 (originalStandings에서 찾기)
-                if (dashboardData.originalStandings) {
-                    const originalTeam = dashboardData.originalStandings.find(t => t.team_name === team.team_name);
-                    team.displayRank = originalTeam ? (originalTeam.displayRank || originalTeam.rank || (dashboardData.originalStandings.indexOf(originalTeam) + 1)) : (index + 1);
-                } else {
-                    team.displayRank = team.rank || (index + 1);
-                }
+                // KBO 규정 동률 처리가 적용된 순위 사용
+                const teamRanks = getRankingSystem().teamRanks;
+                team.displayRank = teamRanks[team.team_name] || (index + 1);
                 // 해당 팀의 상세 데이터 찾기
                 const teamSummary = dashboardData.teamSummaries?.find(t => t.team_name === team.team_name);
                 const pythagorean = dashboardData.pythagoreanAnalysis?.find(t => t.team_name === team.team_name);
@@ -8285,8 +8345,11 @@
                 pythagoreanSortState.direction = 'desc'; // 득점/실점은 기본적으로 내림차순
             }
             
-            // 정렬할 데이터 준비 (enhanced-dashboard.json 데이터 사용)
-            const teamsToSort = dashboardData.standings.map(team => {
+            // 정렬할 데이터 준비 (종합 순위 기준으로)
+            const teams = getRankingSystem().teams;
+            const teamsToSort = teams.map(teamName => {
+                const team = dashboardData.standings.find(t => t.team_name === teamName);
+                if (!team) return null;
                 const runsScored = team.runsScored || team.runs_scored || 0;
                 const runsAllowed = team.runsAllowed || team.runs_allowed || 0;
                 const runDiff = team.runDiff || team.run_differential || (runsScored - runsAllowed);
@@ -8297,7 +8360,7 @@
                     Math.round((team.pythagoreanWinRate - 0.5) * totalWinLossGames * 3) : 0; // 평균 3점차 가정
                 
                 return {
-                    team_name: team.team_name,
+                    team_name: teamName,
                     runsScored: runsScored,
                     runsAllowed: runsAllowed,
                     runDiff: runDiff,
@@ -8313,7 +8376,7 @@
                     win_rate: team.win_rate,
                     rank: team.rank
                 };
-            });
+            }).filter(Boolean); // null 값 제거
             
             // 정렬 실행
             teamsToSort.sort((a, b) => {
@@ -8400,10 +8463,11 @@
             const tbody = document.getElementById('pythagoreanBody');
             tbody.innerHTML = '';
             
+            const ranking = getRankingSystem();
+            
             sortedTeams.forEach((team, index) => {
-                // dashboardData에서 실제 순위 가져오기
-                const teamData = dashboardData ? dashboardData.standings.find(t => t.team_name === team.team_name) : null;
-                const rank = teamData ? teamData.displayRank : (index + 1);
+                // 통합된 순위 시스템에서 순위 가져오기
+                const rank = ranking.teamRanks[team.team_name] || 999;
                 
                 // 실제 기록
                 const actualWins = team.wins || 0;
@@ -8474,17 +8538,15 @@
                 return;
             }
 
-            // 팀 순위 기준으로 정렬 (rank 필드 사용)
-            const sortedTeams = [...dashboardData.standings].sort((a, b) => {
-                const rankA = a.rank || 999;
-                const rankB = b.rank || 999;
-                return rankA - rankB;
-            });
+            // 통합된 순위 시스템 사용
+            const ranking = getRankingSystem();
+            const sortedTeams = ranking.teams.map(teamName => 
+                dashboardData.standings.find(t => t.team_name === teamName)
+            ).filter(Boolean);
             
             sortedTeams.forEach((team, index) => {
-                // dashboardData에서 실제 순위 가져오기
-                const teamData = dashboardData ? dashboardData.standings.find(t => t.team_name === team.team_name) : null;
-                const rank = teamData ? teamData.displayRank : (index + 1);
+                // 통합된 순위 시스템에서 순위 가져오기
+                const rank = ranking.teamRanks[team.team_name] || 999;
                 
                 // 실제 기록 (enhanced-dashboard.json 필드명 사용)
                 const actualWins = team.wins || 0;
@@ -8558,20 +8620,16 @@
                 const tbody = document.getElementById('clutchBody');
                 tbody.innerHTML = '';
 
-                // 팀 순위 기준으로 정렬
-                const teams = Object.keys(clutchData.clutchAnalysis).sort((a, b) => {
-                    const teamA = dashboardData.standings.find(t => t.team_name === a);
-                    const teamB = dashboardData.standings.find(t => t.team_name === b);
-                    const rankA = teamA ? teamA.rank : 999;
-                    const rankB = teamB ? teamB.rank : 999;
-                    return rankA - rankB;
-                });
+                // 통합된 순위 시스템 사용
+                const ranking = getRankingSystem();
+                const teams = ranking.teams.filter(teamName => 
+                    clutchData.clutchAnalysis[teamName]
+                );
 
                 teams.forEach((teamName, index) => {
                     const team = clutchData.clutchAnalysis[teamName];
-                    // 순위는 dashboardData.standings에서 가져오거나 클러치 순서로 표시
-                    const teamData = dashboardData ? dashboardData.standings.find(t => t.team_name === teamName) : null;
-                    const rank = teamData ? teamData.displayRank : (index + 1);
+                    // 통합된 순위 시스템에서 순위 가져오기
+                    const rank = ranking.teamRanks[teamName] || 999;
                     
                     const row = document.createElement('tr');
                     
@@ -8620,14 +8678,11 @@
                 const tbody = document.getElementById('homeAwayBody');
                 tbody.innerHTML = '';
 
-                // 팀 순위 기준으로 정렬
-                const teams = Object.keys(homeAwayData.homeAwayAnalysis).sort((a, b) => {
-                    const teamA = dashboardData.standings.find(t => t.team_name === a);
-                    const teamB = dashboardData.standings.find(t => t.team_name === b);
-                    const rankA = teamA ? teamA.rank : 999;
-                    const rankB = teamB ? teamB.rank : 999;
-                    return rankA - rankB;
-                });
+                // 통합된 순위 시스템 사용
+                const ranking = getRankingSystem();
+                const teams = ranking.teams.filter(teamName => 
+                    homeAwayData.homeAwayAnalysis[teamName]
+                );
 
                 const stadiumMap = {
                     'KIA': '광주 챔피언스필드',
@@ -8646,9 +8701,8 @@
                     const team = homeAwayData.homeAwayAnalysis[teamName];
                     const row = document.createElement('tr');
                     
-                    // dashboardData에서 실제 순위 찾기
-                    const teamData = dashboardData ? dashboardData.standings.find(t => t.team_name === teamName) : null;
-                    const rank = teamData ? teamData.displayRank : (index + 1);
+                    // 통합된 순위 시스템에서 순위 가져오기
+                    const rank = ranking.teamRanks[teamName] || 999;
                     
                     const homeAdvantageValue = parseFloat(team.homeAdvantage);
                     const normalizedAdvantage = Math.abs(homeAdvantageValue) > 1 ? homeAdvantageValue / 100 : homeAdvantageValue;
@@ -8713,8 +8767,8 @@
                 console.error('❌ kbo-records.json 로드 실패:', error);
             }
             
-            // 순위 순서대로 팀 정렬
-            const rankedTeams = dashboardData.standings.map(team => team.team_name);
+            // 종합 순위 기준 팀 순서 사용 (KBO 규정 동률 처리 반영)
+            const rankedTeams = getRankingSystem().teams;
             
             let html = '<div>';
             
@@ -8753,8 +8807,8 @@
                 console.error('❌ 잔여경기수용 kbo-records.json 로드 실패:', error);
             }
             
-            // 순위 순서대로 팀 정렬
-            const rankedTeams = dashboardData.standings.map(team => team.team_name);
+            // 종합 순위 기준 팀 순서 사용 (KBO 규정 동률 처리 반영)
+            const rankedTeams = getRankingSystem().teams;
             
             let html = '<div>';
             
@@ -8881,8 +8935,8 @@
             thead.innerHTML = '';
             tbody.innerHTML = '';
             
-            // 순위 순서대로 팀 정렬
-            const rankedTeams = dashboardData.standings.map(team => team.team_name);
+            // 종합 순위 기준 팀 순서 사용 (KBO 규정 동률 처리 반영)
+            const rankedTeams = getRankingSystem().teams;
             
             // 헤더 생성: 월 + 각 팀 (로고와 함께) - 성적(승률) 통합
             const headerRow = document.createElement('tr');
@@ -9348,8 +9402,8 @@
             thead.innerHTML = '';
             tbody.innerHTML = '';
             
-            // 순위 순서대로 팀 정렬
-            const rankedTeams = dashboardData.standings.map(team => team.team_name);
+            // 종합 순위 기준 팀 순서 사용 (KBO 규정 동률 처리 반영)
+            const rankedTeams = getRankingSystem().teams;
             
             // 테이블 헤더 생성 (팀명들 - 정렬 기능 포함)
             let headerHtml = '<tr><th class="day-label sortable" style="cursor: pointer;" onclick="sortWeekdayByDay()">요일</th>';
@@ -9788,8 +9842,8 @@
                 return;
             }
             
-            // 순위 순으로 팀 정렬
-            const rankedTeams = dashboardData.standings.map(team => team.team_name);
+            // 종합 순위 기준 팀 순서 사용 (KBO 규정 동률 처리 반영)
+            const rankedTeams = getRankingSystem().teams;
             
             // 헤더 생성 (순위 순으로 팀명과 로고)
             let headerHtml = '<tr><th style="min-width: 135px; padding: 6px 2px; white-space: nowrap;">경기장</th>';
@@ -10161,6 +10215,35 @@
                 let aValue = (aCell && (aCell.textContent || aCell.innerText)) || '';
                 let bValue = (bCell && (bCell.textContent || bCell.innerText)) || '';
                 
+                // 연승/연패 관련 컬럼 특별 처리 (우선순위 높음)
+                const columnAttr = header.getAttribute('data-column');
+                const isStreakColumn = columnAttr === 'maxWins' || columnAttr === 'maxLosses' || 
+                                     columnAttr?.startsWith('wins') || columnAttr?.startsWith('losses') ||
+                                     header.classList.contains('max-header') ||
+                                     header.classList.contains('streak-count-header');
+                
+                if (isStreakColumn) {
+                    // 셀에서 데이터 속성 우선 확인
+                    let aNum, bNum;
+                    
+                    if (columnAttr === 'maxWins') {
+                        aNum = parseInt(aCell?.getAttribute('data-maxwins')) || 0;
+                        bNum = parseInt(bCell?.getAttribute('data-maxwins')) || 0;
+                    } else if (columnAttr === 'maxLosses') {
+                        aNum = parseInt(aCell?.getAttribute('data-maxlosses')) || 0;
+                        bNum = parseInt(bCell?.getAttribute('data-maxlosses')) || 0;
+                    } else {
+                        // 다른 연승/연패 컬럼들은 기존 방식 사용
+                        const cleanA = (aValue || '').toString().trim();
+                        const cleanB = (bValue || '').toString().trim();
+                        aNum = cleanA === '-' || cleanA === '' ? 0 : parseInt(cleanA);
+                        bNum = cleanB === '-' || cleanB === '' ? 0 : parseInt(cleanB);
+                    }
+                    
+                    // 강제로 숫자 정렬 적용
+                    return nextSort === 'asc' ? aNum - bNum : bNum - aNum;
+                }
+                
                 // 숫자인지 확인 (승률, 득점 등)
                 const aNum = parseFloat(aValue.replace(/[^\d.-]/g, ''));
                 const bNum = parseFloat(bValue.replace(/[^\d.-]/g, ''));
@@ -10273,7 +10356,7 @@
             }
         }
 
-        // 시리즈 분석 렌더링
+        // 시리즈 분석 렌더링 (KBO 규정에 따른 순위로 정렬)
         function renderSeriesAnalysis(seriesData) {
             const container = document.getElementById('seriesAnalysisContent');
             
@@ -10449,6 +10532,247 @@
                         left: auto !important;
                     }
                 }
+                
+                /* 연승/연패 기록 분석 테이블 스타일 */
+                .streak-records-table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin-top: 0;
+                    font-size: var(--font-base);
+                }
+                
+                .streak-records-table th,
+                .streak-records-table td {
+                    padding: 8px 6px;
+                    text-align: center;
+                    border: 1px solid #d1d5db;
+                    white-space: nowrap;
+                }
+                
+                .streak-records-table th {
+                    background: #34495e;
+                    color: white;
+                    font-weight: var(--font-weight-semibold);
+                    font-size: var(--font-base);
+                    font-family: var(--font-family-base);
+                    cursor: pointer;
+                    transition: background 0.2s ease;
+                    user-select: none;
+                    position: relative;
+                }
+                
+                .streak-records-table th:hover {
+                    background: #2c3e50;
+                }
+                
+                .streak-records-table th.sortable::after {
+                    content: '';
+                }
+                
+                .streak-records-table th.sort-asc::after {
+                    content: '';
+                }
+                
+                .streak-records-table th.sort-desc::after {
+                    content: '';
+                }
+                
+                /* 연승/연패 테이블 헤더 스타일 */
+                .streak-records-table .rank-header {
+                    width: 40px;
+                    min-width: 40px;
+                    max-width: 40px;
+                }
+                
+                .streak-records-table .team-header {
+                    width: 70px;
+                    min-width: 70px;
+                    max-width: 70px;
+                }
+                
+                .streak-records-table .section-header {
+                    font-size: var(--font-lg) !important;
+                    background: #2c3e50 !important;
+                    color: white !important;
+                    border-bottom: 2px solid #34495e !important;
+                    padding: 12px 8px !important;
+                }
+                
+                .streak-records-table .wins-section {
+                    background: #2c3e50 !important;
+                }
+                
+                .streak-records-table .losses-section {
+                    background: #2c3e50 !important;
+                }
+                
+                .streak-records-table .max-header {
+                    width: 35px;
+                    min-width: 35px;
+                    max-width: 35px;
+                    font-size: var(--font-xs) !important;
+                    line-height: 1.1;
+                }
+                
+                .streak-records-table .streak-count-header {
+                    width: 35px;
+                    min-width: 35px;
+                    max-width: 35px;
+                    font-size: 11px !important;
+                }
+                
+                /* 더 구체적인 선택자로 강제 적용 */
+                table.streak-records-table thead tr.sub-header th.streak-count-header {
+                    font-size: 11px !important;
+                }
+                
+                .streak-records-table thead th.streak-count-header.wins-count,
+                .streak-records-table thead th.streak-count-header.losses-count {
+                    font-size: 11px !important;
+                }
+                
+                /* 최고 우선순위로 강제 적용 */
+                #streakRecordsTable thead th[class*="streak-count-header"] {
+                    font-size: 11px !important;
+                    font-family: var(--font-family-base) !important;
+                }
+                
+                /* 연승/연패 테이블 셀 스타일 */
+                .streak-records-table .rank-cell {
+                    width: 40px;
+                    min-width: 40px;
+                    max-width: 40px;
+                    font-weight: var(--font-weight-bold);
+                    text-align: center;
+                    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+                    color: #495057;
+                }
+                
+                .streak-records-table .team-cell {
+                    width: 70px;
+                    min-width: 70px;
+                    max-width: 70px;
+                    font-weight: var(--font-weight-semibold);
+                    text-align: center;
+                }
+                
+                .streak-records-table .streak-count-cell {
+                    width: 35px;
+                    min-width: 35px;
+                    max-width: 35px;
+                    font-size: var(--font-sm);
+                }
+                
+                .streak-records-table .streak-count-cell.has-data {
+                    font-weight: var(--font-weight-semibold);
+                    color: #495057;
+                }
+                
+                .streak-records-table .streak-count-cell.no-data {
+                    color: #6c757d;
+                    opacity: 0.7;
+                }
+                
+                .streak-records-table .max-streak-cell {
+                    width: 35px;
+                    min-width: 35px;
+                    max-width: 35px;
+                    font-weight: var(--font-weight-bold);
+                    font-size: var(--font-sm);
+                }
+                
+                .streak-records-table .max-wins-cell {
+                    background: rgba(76, 175, 80, 0.1);
+                    color: #2e7d32;
+                }
+                
+                .streak-records-table .max-losses-cell {
+                    background: rgba(244, 67, 54, 0.1);
+                    color: #c62828;
+                }
+                
+                /* 연승/연패 테이블 행 스타일 */
+                .streak-records-table tbody tr:nth-child(even) {
+                    background-color: #f9f9f9;
+                }
+                
+                .streak-records-table tbody tr:hover {
+                    background-color: #f0f8ff;
+                }
+                
+                /* 순위별 특별 표시 */
+                .streak-records-table .rank-1 { 
+                    background: linear-gradient(135deg, #ffd700, #ffed4e) !important; 
+                    color: #8b5a00 !important; 
+                    font-weight: var(--font-weight-bold) !important;
+                }
+                .streak-records-table .rank-2 { 
+                    background: linear-gradient(135deg, #e8e8e8, #c0c0c0) !important; 
+                    color: #4a4a4a !important; 
+                    font-weight: var(--font-weight-bold) !important;
+                }
+                .streak-records-table .rank-3 { 
+                    background: linear-gradient(135deg, #cd7f32, #b8860b) !important; 
+                    color: #ffffff !important; 
+                    font-weight: var(--font-weight-bold) !important;
+                }
+                
+                @media (max-width: 768px) {
+                    .streak-records-table {
+                        font-size: var(--font-sm);
+                    }
+                    
+                    .streak-records-table th,
+                    .streak-records-table td {
+                        padding: 6px 4px;
+                    }
+                    
+                    .streak-records-table .section-header {
+                        font-size: var(--font-base) !important;
+                        padding: 10px 6px !important;
+                    }
+                    
+                    .streak-records-table .streak-count-header {
+                        font-size: 9px !important;
+                        width: 30px;
+                        min-width: 30px;
+                        max-width: 30px;
+                    }
+                    
+                    /* 모바일에서 더 구체적인 선택자로 강제 적용 */
+                    table.streak-records-table thead tr.sub-header th.streak-count-header,
+                    .streak-records-table thead th.streak-count-header.wins-count,
+                    .streak-records-table thead th.streak-count-header.losses-count {
+                        font-size: 9px !important;
+                    }
+                    
+                    /* 모바일 최고 우선순위 */
+                    #streakRecordsTable thead th[class*="streak-count-header"] {
+                        font-size: 9px !important;
+                    }
+                    
+                    .streak-records-table .streak-count-cell {
+                        width: 30px;
+                        min-width: 30px;
+                        max-width: 30px;
+                        font-size: var(--font-xs);
+                    }
+                    
+                    .streak-records-table .max-header {
+                        width: 28px;
+                        min-width: 28px;
+                        max-width: 28px;
+                        font-size: 10px !important;
+                    }
+                    
+                    .streak-records-table .max-streak-cell {
+                        width: 28px;
+                        min-width: 28px;
+                        max-width: 28px;
+                        font-size: 10px;
+                    }
+                }
+                
                 </style>
             `;
 
@@ -10536,18 +10860,47 @@
                 }
                 
                 makeTableSortable('seriesStatsTable');
+                
+                // 기본적으로 순위 컬럼으로 정렬 (오름차순)
+                const seriesTable = document.getElementById('seriesStatsTable');
+                if (seriesTable) {
+                    const rankHeader = seriesTable.querySelector('th[data-column="rank"]');
+                    if (rankHeader) {
+                        // 순위 컬럼으로 강제 정렬
+                        rankHeader.click();
+                        // 내림차순이면 다시 클릭해서 오름차순으로
+                        if (rankHeader.classList.contains('sort-desc')) {
+                            rankHeader.click();
+                        }
+                    }
+                }
             }, 100);
         }
 
-        // 시리즈 통계 테이블 렌더링
+        // 시리즈 통계 테이블 렌더링 (종합 순위와 동일한 방식)
         function renderSeriesStatsTable(teamStats) {
-            // 순위별로 정렬
-            const teams = Object.keys(teamStats).sort((a, b) => {
-                const teamA = dashboardData ? dashboardData.standings.find(t => t.team_name === a) : null;
-                const teamB = dashboardData ? dashboardData.standings.find(t => t.team_name === b) : null;
-                const rankA = teamA ? teamA.rank : 999;
-                const rankB = teamB ? teamB.rank : 999;
-                return rankA - rankB;
+            if (!dashboardData?.standings) return '';
+            
+            const teamsWithRanks = [];
+            
+            // 종합 순위 기준으로 순회
+            const teams = getRankingSystem().teams;
+            teams.forEach(teamName => {
+                // 시리즈 데이터가 있는 팀만 포함
+                if (!teamStats[teamName]) return;
+                
+                // dashboardData에서 팀 정보 찾기
+                const team = dashboardData.standings.find(t => t.team_name === teamName);
+                if (!team) return;
+                
+                // KBO 규정 동률 처리가 적용된 순위 사용
+                const teamRanks = getRankingSystem().teamRanks;
+                const displayRank = teamRanks[teamName] || 999;
+                
+                teamsWithRanks.push({
+                    name: team.team_name,
+                    rank: displayRank
+                });
             });
 
             let html = `
@@ -10571,12 +10924,10 @@
                         <tbody>
             `;
 
-            teams.forEach((team, index) => {
-                const stats = teamStats[team];
-                
-                // dashboardData에서 실제 순위 가져오기
-                const teamData = dashboardData ? dashboardData.standings.find(t => t.team_name === team) : null;
-                const rank = teamData ? (teamData.displayRank || teamData.rank || (index + 1)) : (index + 1);
+            teamsWithRanks.forEach((teamData, index) => {
+                const teamName = teamData.name;
+                const rank = teamData.rank;
+                const stats = teamStats[teamName];
                 
                 let streakText = '없음';
                 let streakClass = 'neutral';
@@ -10595,7 +10946,7 @@
 
                 html += `
                     <tr data-rank="${rank}" 
-                        data-team="${team}" 
+                        data-team="${teamName}" 
                         data-totalseries="${stats.totalSeries}"
                         data-serieswins="${stats.winningSeries}"
                         data-serieslosses="${stats.losingSeries}"
@@ -10605,7 +10956,7 @@
                         data-sweeplosses="${stats.sweepLosses}"
                         data-currentstreak="${stats.currentStreak.count}">
                         <td style="text-align: center;"><strong>${rank || (index + 1)}</strong></td>
-                        <td>${getTeamWithLogo(team)}</td>
+                        <td>${getTeamWithLogo(teamName)}</td>
                         <td style="text-align: center;"><strong>${stats.totalSeries}</strong></td>
                         <td style="color: #4CAF50; font-weight: var(--font-weight-bold); text-align: center;">${stats.winningSeries}</td>
                         <td style="color: #F44336; font-weight: var(--font-weight-bold); text-align: center;">${stats.losingSeries}</td>
@@ -10706,7 +11057,6 @@
             // 브라우저가 DOM 업데이트를 완료할 때까지 대기
             requestAnimationFrame(() => {
                 requestAnimationFrame(() => {
-                    // DOM 요소들을 미리 캐시
                     const overallBar = document.getElementById('overall-progress-bar');
                     const overallText = document.getElementById('overall-progress-text');
                     const gamesInfo = document.getElementById('games-info');
@@ -10739,8 +11089,6 @@
                 // 2. sessionStorage만 초기화 (빠른 처리)
                 sessionStorage.clear();
                 
-                // 3. 캐시 버스팅용 타임스탬프 설정
-                window.cacheTimestamp = Date.now();
                 
                 console.log('✅ 빠른 세션 리셋 완료');
                 
@@ -10749,17 +11097,57 @@
             }
         }
 
+        // 전체 사이트 순위 표시 새로고침
+        function refreshAllRankingDisplays() {
+            try {
+                // 메인 순위표 새로고침
+                if (typeof renderFullStandings === 'function') {
+                    renderFullStandings();
+                }
+                
+                // 피타고리안 테이블 새로고침
+                if (typeof renderPythagoreanTable === 'function') {
+                    renderPythagoreanTable();
+                }
+                
+                // 클러치 지수 테이블 새로고침
+                if (typeof renderClutchIndexTable === 'function') {
+                    renderClutchIndexTable();
+                }
+                
+                // 홈/원정 테이블 새로고침
+                if (typeof renderHomeAwayTable === 'function') {
+                    renderHomeAwayTable();
+                }
+            } catch (error) {
+                console.error('순위 표시 새로고침 실패:', error);
+            }
+        }
+
         // 페이지 로드 시 데이터 로드 및 정렬 기능 초기화
         window.addEventListener('DOMContentLoaded', () => {
+            // JavaScript 실행 시간 로그
+            console.log(`🚀 KBO Dashboard 시작: ${new Date().toLocaleString()}`);
+            
             // 세션 리셋: 페이지 로드 시 JavaScript 상태 초기화
             resetPageSession();
             
             // 대시보드 데이터 로드
-            loadDashboardData().then(() => {
+            loadDashboardData().then(async () => {
                 // 대시보드 로드 완료 후 정렬 기능 즉시 초기화 (최적화)
-                requestAnimationFrame(() => {
+                requestAnimationFrame(async () => {
+                    // 종합 순위 기준으로 강제 정렬
+                    if (dashboardData && dashboardData.standings) {
+                        await sortStandingsByWinRateAndHeadToHead();
+                    }
+                    
                     initializeTableSorting();
                     updateSeasonProgress(); // 시즌 진행률 업데이트 (한 번만)
+                    
+                    // 모든 테이블 다시 렌더링하여 일관된 순위 적용
+                    setTimeout(() => {
+                        refreshAllRankingDisplays();
+                    }, 500);
                 });
             }).catch(error => {
                 console.error('대시보드 데이터 로드 실패:', error);
@@ -11500,7 +11888,7 @@
         
         // 팀 로고 이미지 로드 함수
         window.loadTeamLogos = function() {
-            const teams = ['LG', 'KIA', '삼성', '두산', 'SSG', 'NC', '롯데', '한화', 'KT', '키움'];
+            const teams = getRankingSystem().teams;
             const teamFileMap = {
                 'LG': 'lg.png',
                 'KIA': 'kia.png', 
@@ -11607,7 +11995,7 @@
             }
             
             async loadTeamLogoImages() {
-                const teams = ['LG', '삼성', 'KT', '두산', 'KIA', 'SSG', '롯데', 'NC', '한화', '키움'];
+                const teams = getRankingSystem().teams;
                 const promises = teams.map(team => {
                     return new Promise((resolve) => {
                         const img = new Image();
@@ -11634,7 +12022,7 @@
             
             async loadSeasonData() {
                 try {
-                    const response = await fetch('magic-number/data/2025-season-data-clean.txt');
+                    const response = await fetch(`magic-number/data/2025-season-data-clean.txt?v=${Date.now()}`);
                     
                     if (!response.ok) {
                         throw new Error(`HTTP ${response.status}`);
@@ -11784,7 +12172,7 @@ KT 9:1 키움(H)`;
             }
             
             processAllData() {
-                const teams = ['LG', '삼성', 'KT', '두산', 'KIA', 'SSG', '롯데', 'NC', '한화', '키움'];
+                const teams = getRankingSystem().teams;
                 teams.forEach(team => {
                     this.teamStats[team] = {
                         games: 0, wins: 0, losses: 0, draws: 0,
@@ -11827,7 +12215,7 @@ KT 9:1 키움(H)`;
                     // 종합 순위 데이터를 사용하여 순위 변동 차트용 데이터 생성
                     return window.dashboardData.standings.map((team, index) => ({
                         team: team.team,
-                        rank: team.displayRank || team.rank,
+                        rank: getRankingSystem().teamRanks[team.team_name] || 999,
                         wins: team.wins,
                         losses: team.losses,
                         draws: team.draws,
@@ -11838,7 +12226,7 @@ KT 9:1 키움(H)`;
                 }
                 
                 // 종합 순위 데이터가 없거나 과거 날짜인 경우 기존 계산 로직 사용
-                const teams = ['LG', '삼성', 'KT', '두산', 'KIA', 'SSG', '롯데', 'NC', '한화', '키움'];
+                const teams = getRankingSystem().teams;
                 const tempStats = {};
                 
                 teams.forEach(team => {
@@ -12303,7 +12691,7 @@ KT 9:1 키움(H)`;
                 if (!ctx) return;
                 
                 // 팀 표시 상태 초기화 (모든 팀 표시)
-                this.winRateChartVisibleTeams = new Set(['LG', 'KIA', '삼성', '두산', 'SSG', 'NC', '롯데', '한화', 'KT', '키움']);
+                this.winRateChartVisibleTeams = new Set(getRankingSystem().teams);
                 
                 this.winRateChart = new Chart(ctx.getContext('2d'), {
                     type: 'line',
@@ -12422,7 +12810,7 @@ KT 9:1 키움(H)`;
                 if (!ctx) return;
                 
                 // 팀 표시 상태 초기화 (모든 팀 표시)
-                this.rankChartVisibleTeams = new Set(['LG', 'KIA', '삼성', '두산', 'SSG', 'NC', '롯데', '한화', 'KT', '키움']);
+                this.rankChartVisibleTeams = new Set(getRankingSystem().teams);
                 
                 this.rankChart = new Chart(ctx.getContext('2d'), {
                     type: 'line',
@@ -12563,7 +12951,7 @@ KT 9:1 키움(H)`;
                 });
                 
                 // 모든 팀 목록 가져오기
-                const allTeams = ['LG', 'KIA', '삼성', '두산', 'SSG', 'NC', '롯데', '한화', 'KT', '키움'];
+                const allTeams = getRankingSystem().teams;
                 
                 const datasets = allTeams.filter(team => this.winRateChartVisibleTeams.has(team)).map(team => {
                     const data = chartData.map(dayData => {
@@ -12623,7 +13011,7 @@ KT 9:1 키움(H)`;
                 });
                 
                 // 모든 팀 목록 가져오기
-                const allTeams = ['LG', 'KIA', '삼성', '두산', 'SSG', 'NC', '롯데', '한화', 'KT', '키움'];
+                const allTeams = getRankingSystem().teams;
                 
                 const datasets = allTeams.filter(team => this.rankChartVisibleTeams.has(team)).map(team => {
                     const data = chartData.map(dayData => {
@@ -12733,11 +13121,11 @@ KT 9:1 키움(H)`;
                     this.winRateChartVisibleTeams.add(team);
                     this.addTeamToWinRateChart(team);
                 }
-                this.updateWinRateLegend(['LG', 'KIA', '삼성', '두산', 'SSG', 'NC', '롯데', '한화', 'KT', '키움']);
+                this.updateWinRateLegend(getRankingSystem().teams);
             }
             
             toggleAllWinRateTeams() {
-                const allTeams = ['LG', 'KIA', '삼성', '두산', 'SSG', 'NC', '롯데', '한화', 'KT', '키움'];
+                const allTeams = getRankingSystem().teams;
                 const allVisible = allTeams.every(team => this.winRateChartVisibleTeams.has(team));
                 
                 if (allVisible) {
@@ -12812,11 +13200,11 @@ KT 9:1 키움(H)`;
                     this.rankChartVisibleTeams.add(team);
                     this.addTeamToRankChart(team);
                 }
-                this.updateRankLegend(['LG', 'KIA', '삼성', '두산', 'SSG', 'NC', '롯데', '한화', 'KT', '키움']);
+                this.updateRankLegend(getRankingSystem().teams);
             }
             
             toggleAllRankTeams() {
-                const allTeams = ['LG', 'KIA', '삼성', '두산', 'SSG', 'NC', '롯데', '한화', 'KT', '키움'];
+                const allTeams = getRankingSystem().teams;
                 const allVisible = allTeams.every(team => this.rankChartVisibleTeams.has(team));
                 
                 if (allVisible) {
@@ -13420,12 +13808,6 @@ KT 9:1 키움(H)`;
                     .then((registration) => {
                         console.log('SW registered: ', registration);
                         
-                        // 페이지 로드 시 데이터 캐시 강제 갱신
-                        if (registration.active) {
-                            registration.active.postMessage({
-                                type: 'FORCE_CACHE_UPDATE'
-                            });
-                        }
                         
                         // 백그라운드 동기화 등록
                         if ('sync' in window.ServiceWorkerRegistration.prototype) {
@@ -13456,12 +13838,12 @@ KT 9:1 키움(H)`;
                     window.dailyStatsManager = completeDailyStats; // 레전드 버튼용 전역 접근
                     window.dailyStats = completeDailyStats; // 승률 차트용 전역 접근
                     
-                    // 승률 차트 초기화 트리거
+                    // 메인 승률 차트 초기화 (간단화)
                     setTimeout(() => {
-                        if (typeof initWinRateChartAfterDaily === 'function') {
-                            initWinRateChartAfterDaily();
+                        if (!winRateChartInstance && typeof createWinRateChart === 'function') {
+                            createWinRateChart();
                         }
-                    }, 500);
+                    }, 2000);
                 }, 1000);
             }
         });
@@ -13507,12 +13889,12 @@ KT 9:1 키움(H)`;
             currentPeriod: 0,
             periods: []
         };
-        let winRateChartVisibleTeams = new Set(['LG', 'KIA', '삼성', '두산', 'SSG', 'NC', '롯데', '한화', 'KT', '키움']);
+        let winRateChartVisibleTeams = new Set(getRankingSystem().teams);
         let winRateChartTeamLogos = {};
         
         // ROOT INDEX 메인 승률 추이 카드 - 팀 로고 로드 함수
         async function loadWinRateChartTeamLogos() {
-            const teams = ['LG', 'KIA', '삼성', '두산', 'SSG', 'NC', '롯데', '한화', 'KT', '키움'];
+            const teams = getRankingSystem().teams;
             const logoMap = {
                 'LG': 'lg.png', 'KIA': 'kia.png', '삼성': 'samsung.png', '두산': 'doosan.png',
                 'SSG': 'ssg.png', 'NC': 'nc.png', '롯데': 'lotte.png', '한화': 'hanwha.png',
@@ -13572,13 +13954,21 @@ KT 9:1 키움(H)`;
                 // 팀 로고 먼저 로드
                 await loadWinRateChartTeamLogos();
 
-                // 기존 일자별 통계 데이터 활용
+                // 데이터 처리
                 const processedData = await processSeasonDataForWinRateFromDaily();
                 
-                // 월별 기간 설정
-                winRateChartState.periods = createMonthlyPeriods(processedData);
-                winRateChartState.currentPeriod = winRateChartState.periods.length - 1; // 최신 월부터 시작
+                if (!processedData || processedData.length === 0) {
+                    // 최소한 빈 차트라도 생성
+                    winRateChartState.periods = [{ name: '전체 시즌', data: [] }];
+                    winRateChartState.currentPeriod = 0;
+                } else {
+                    winRateChartState.periods = createMonthlyPeriods(processedData);
+                    winRateChartState.currentPeriod = winRateChartState.periods.length - 1;
+                }
 
+                // 팀 표시 상태 초기화 (모든 팀 표시)
+                winRateChartVisibleTeams = new Set(['LG', 'KIA', '삼성', '두산', 'SSG', 'NC', '롯데', '한화', 'KT', '키움']);
+                
                 // 차트 생성
                 if (winRateChartInstance) {
                     winRateChartInstance.destroy();
@@ -13688,23 +14078,32 @@ KT 9:1 키움(H)`;
 
         // 일자별 통계 데이터를 활용하여 승률 차트용 데이터 생성
         async function processSeasonDataForWinRateFromDaily() {
+            if (!window.dailyStats || !window.dailyStats.seasonData) {
+                return [];
+            }
+
             const processedData = [];
             const teams = ['LG', 'KIA', '삼성', '두산', 'SSG', 'NC', '롯데', '한화', 'KT', '키움'];
             
-            // window.dailyStats.seasonData의 모든 날짜에 대해 처리
             for (const dayData of window.dailyStats.seasonData) {
                 const date = dayData.date;
-                
-                // 해당 날짜까지의 누적 통계를 통해 순위표 계산
                 const standings = window.dailyStats.calculateStandings(date);
                 
-                // 팀별 승률 데이터 추출
+                if (!standings || standings.length === 0) continue;
+                
                 const standingsMap = {};
                 standings.forEach(team => {
-                    standingsMap[team.team] = team.winRate || 0;
+                    const teamName = team.team_name || team.team || team.name || '';
+                    const winRate = team.winRate || team.win_rate || 0;
+                    
+                    if (teamName && teams.includes(teamName)) {
+                        standingsMap[teamName] = winRate;
+                    }
                 });
                 
-                processedData.push({ date, standings: standingsMap });
+                if (Object.keys(standingsMap).length >= 5) {
+                    processedData.push({ date, standings: standingsMap });
+                }
             }
 
             return processedData;
@@ -13745,7 +14144,7 @@ KT 9:1 키움(H)`;
                 await loadWinRateChartTeamLogos();
             }
 
-            const teams = ['LG', 'KIA', '삼성', '두산', 'SSG', 'NC', '롯데', '한화', 'KT', '키움'];
+            const teams = getRankingSystem().teams;
             
             // 일자별 통계와 동일한 팀 색상 사용
             const teamColors = window.dailyStats ? window.dailyStats.teamColors : {
@@ -14039,18 +14438,8 @@ KT 9:1 키움(H)`;
                 margin-top: 2px;
             `;
 
-            // 현재 팀 순위대로 정렬 (최신 순위표 기준)
-            let teams = ['LG', 'KIA', '삼성', '두산', 'SSG', 'NC', '롯데', '한화', 'KT', '키움'];
-            
-            // 현재 순위에 따라 팀 정렬
-            if (window.dashboardData && window.dashboardData.standings) {
-                teams = window.dashboardData.standings.map(team => team.team);
-            } else if (window.dailyStats && window.dailyStats.seasonData && window.dailyStats.seasonData.length > 0) {
-                // 최신 날짜 기준으로 순위 계산
-                const latestDate = window.dailyStats.seasonData[window.dailyStats.seasonData.length - 1].date;
-                const standings = window.dailyStats.calculateStandings(latestDate);
-                teams = standings.map(team => team.team);
-            }
+            // 종합 순위 기준 팀 순서 사용 (KBO 규정 동률 처리 반영)
+            let teams = getRankingSystem().teams;
             const teamColors = window.dailyStats ? window.dailyStats.teamColors : {
                 'LG': '#C30452', 'KIA': '#EA0029', '삼성': '#074CA1',
                 '두산': '#131230', 'SSG': '#CE0E2D', 'NC': '#315288',
@@ -14206,7 +14595,7 @@ KT 9:1 키움(H)`;
         // 전체 팀 표시/숨김 토글
         function toggleAllWinRateTeams() {
             if (winRateChartInstance) {
-                const teams = ['LG', 'KIA', '삼성', '두산', 'SSG', 'NC', '롯데', '한화', 'KT', '키움'];
+                const teams = getRankingSystem().teams;
                 const allVisible = teams.every(team => winRateChartVisibleTeams.has(team));
                 
                 const datasets = winRateChartInstance.data.datasets;
@@ -14259,10 +14648,60 @@ KT 9:1 키움(H)`;
                 createWinRateChart();
             }
         }
+        
+        // 강제 승률 차트 초기화 (메인 카드용)
+        async function forceInitWinRateChart() {
+            // Chart.js 로드 확인
+            if (typeof Chart === 'undefined') {
+                await window.loadChartJs();
+            }
+            
+            // 데이터가 있으면 바로 차트 생성
+            if (window.dailyStats && window.dailyStats.seasonData && window.dailyStats.seasonData.length > 0) {
+                createWinRateChart();
+                return;
+            }
+            
+            // 데이터가 없으면 임시 차트라도 생성
+            const ctx = document.getElementById('winRateChart');
+            if (ctx && !winRateChartInstance) {
+                winRateChartInstance = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['데이터 로딩 중...'],
+                        datasets: [{
+                            label: '데이터 로딩 중',
+                            data: [0],
+                            borderColor: '#666',
+                            backgroundColor: 'rgba(102, 102, 102, 0.1)'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false }
+                        }
+                    }
+                });
+                
+                // 실제 데이터가 로드되면 업데이트
+                setTimeout(() => {
+                    if (window.dailyStats && window.dailyStats.seasonData) {
+                        createWinRateChart();
+                    }
+                }, 3000);
+            }
+        }
 
-        // 페이지 로드 시 승률 차트 초기화 (일자별 통계 로드 후)
+        // 페이지 로드 시 승률 차트 초기화 (간단화)
         document.addEventListener('DOMContentLoaded', function() {
-            initWinRateChartAfterDaily();
+            // 3초 후 한 번만 시도
+            setTimeout(() => {
+                if (!winRateChartInstance) {
+                    createWinRateChart();
+                }
+            }, 3000);
         });
     </script>
 
@@ -14279,7 +14718,7 @@ KT 9:1 키움(H)`;
                 
                 try {
                     // enhanced-dashboard.json 로드 (streakAnalysis 포함)
-                    const enhancedResponse = await fetch('magic-number/data/enhanced-dashboard.json');
+                    const enhancedResponse = await fetch(`magic-number/data/enhanced-dashboard.json?v=${Date.now()}`);
                     if (enhancedResponse.ok) {
                         kboData = await enhancedResponse.json();
                         console.log('✅ enhanced-dashboard.json 로드 성공');
@@ -14290,7 +14729,7 @@ KT 9:1 키움(H)`;
                 
                 // service-data.json도 로드 시도 (백업용)
                 try {
-                    const serviceResponse = await fetch('magic-number/data/service-data.json');
+                    const serviceResponse = await fetch(`magic-number/data/service-data.json?v=${Date.now()}`);
                     if (serviceResponse.ok) {
                         serviceData = await serviceResponse.json();
                         console.log('✅ service-data.json 로드 성공');
@@ -14341,17 +14780,12 @@ KT 9:1 키움(H)`;
         // 2025-season-data-clean.txt 파일에서 실제 7월 12일 기준 전반기/후반기 성적 계산
         async function calculateActualHalfSeasonRecord(teamName) {
             try {
-                // 캐시된 데이터가 있으면 사용
-                if (!window.seasonDataCache) {
-                    const response = await fetch('magic-number/data/2025-season-data-clean.txt');
-                    if (!response.ok) {
-                        console.warn(`⚠️ 시즌 데이터 파일을 불러올 수 없습니다: ${response.status}`);
-                        return null;
-                    }
-                    window.seasonDataCache = await response.text();
+                const response = await fetch(`magic-number/data/2025-season-data-clean.txt?v=${Date.now()}`);
+                if (!response.ok) {
+                    console.warn(`⚠️ 시즌 데이터 파일을 불러올 수 없습니다: ${response.status}`);
+                    return null;
                 }
-                
-                const seasonData = window.seasonDataCache;
+                const seasonData = await response.text();
                 const lines = seasonData.split('\n');
                 
                 // 7월 12일을 기준으로 전반기/후반기 분할
@@ -14548,8 +14982,15 @@ KT 9:1 키움(H)`;
         async function calculateHalfSeasonStats(standings) {
             const halfSeasonStats = [];
             
+            // KBO 규정에 따른 순위 순서로 정렬
+            const sortedStandings = [...standings].sort((a, b) => {
+                const aRank = getRankingSystem().teamRanks[a.team_name || a.team] || 999;
+                const bRank = getRankingSystem().teamRanks[b.team_name || b.team] || 999;
+                return aRank - bRank;
+            });
+            
             // 각 팀별로 순차적으로 실제 데이터 계산
-            for (const [index, team] of standings.entries()) {
+            for (const [index, team] of sortedStandings.entries()) {
                 try {
                     // 실제 시즌 데이터에서 전반기/후반기 성적 계산
                     // enhanced-dashboard.json은 team_name, service-data.json은 team 사용
@@ -14868,8 +15309,13 @@ KT 9:1 키움(H)`;
 
                 const row = document.createElement('tr');
                 row.setAttribute('data-team', team.team);
+                
+                // KBO 규정 동률 처리가 적용된 순위 사용
+                const teamRanks = getRankingSystem().teamRanks;
+                const actualRank = teamRanks[team.team] || team.rank;
+                
                 row.innerHTML = `
-                    <td class="half-season-data rank">${team.rank}</td>
+                    <td class="half-season-data rank">${actualRank}</td>
                     <td class="half-season-data team">
                         <span style="color: ${teamColor}; font-weight: 600;">
                             <img src="images/${team.team.toLowerCase() === 'kia' ? 'kia' : 
@@ -14986,19 +15432,6 @@ KT 9:1 키움(H)`;
             };
         }
 
-        // DOM 요소 캐시
-        const domCache = new Map();
-        
-        function getCachedElement(selector) {
-            if (!domCache.has(selector)) {
-                domCache.set(selector, document.querySelector(selector));
-            }
-            return domCache.get(selector);
-        }
-
-        function clearDOMCache() {
-            domCache.clear();
-        }
 
         // 최적화된 전체 게임 월별 탭 초기화
         function initAllGamesMonthTabs() {
@@ -15136,30 +15569,11 @@ KT 9:1 키움(H)`;
             });
         }
 
-        // DOM 변경 시 캐시 초기화
-        const observer = new MutationObserver(() => {
-            clearDOMCache();
-        });
-
-        // DOM 로드 완료 후 관찰자 시작
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', () => {
-                observer.observe(document.body, {
-                    childList: true,
-                    subtree: true
-                });
-            });
-        } else {
-            observer.observe(document.body, {
-                childList: true,
-                subtree: true
-            });
-        }
 
         // 최적화된 자동 스크롤 함수 - 기존 setTimeout 코드를 대체
         function autoScrollToRecentGames(currentSelectedTeam) {
             requestAnimationFrame(() => {
-                const teamContent = getCachedElement('#teamDetailedRecordsContent');
+                const teamContent = document.querySelector('#teamDetailedRecordsContent');
                 if (!teamContent) return;
 
                 if (currentSelectedTeam === '전체') {
@@ -15317,14 +15731,17 @@ KT 9:1 키움(H)`;
     <!-- 연승/연패 기록 분석 스크립트 -->
     <script>
         
-        // gameRecordsData에서 분석
+        // gameRecordsData에서 분석 (종합 순위와 동일한 방식)
         function analyzeFromGameRecordsData() {
-            const teams = ['KIA', '삼성', 'LG', '두산', 'KT', 'SSG', '롯데', '한화', 'NC', '키움'];
+            if (!dashboardData?.standings) return;
+            
+            // 종합 순위 기준 팀 순서 사용
+            const teams = getRankingSystem().teams;
             const allTeamsData = {};
             
             teams.forEach(team => {
-                if (window.gameRecordsData && window.gameRecordsData[team]) {
-                    const games = window.gameRecordsData[team].games;
+                if (gameRecordsData && gameRecordsData[team]) {
+                    const games = gameRecordsData[team].games;
                     const streakData = calculateStreakPatternsFromGames(games);
                     allTeamsData[team] = streakData;
                 }
@@ -15333,49 +15750,56 @@ KT 9:1 키움(H)`;
             renderAllTeamsStreakRecords(allTeamsData);
         }
         
-        // gameRecordsData의 게임 배열에서 연승/연패 패턴 계산
+        // gameRecordsData의 게임 배열에서 연승/연패 패턴 계산 (개선된 버전)
         function calculateStreakPatternsFromGames(games) {
+            if (!games || games.length === 0) {
+                return {
+                    winStreaks: {},
+                    loseStreaks: {},
+                    maxWinStreak: 0,
+                    maxLoseStreak: 0,
+                    totalGames: 0
+                };
+            }
+            
             const winStreaks = {};
             const loseStreaks = {};
-            
-            let currentStreak = 0;
-            let currentType = null;
             let maxWinStreak = 0;
             let maxLoseStreak = 0;
             
-            for (const game of games) {
-                // 무승부는 연속을 끊음
+            // 날짜순으로 정렬하고 유효한 게임만 필터링 (과거부터 현재까지)
+            const sortedGames = games
+                .filter(game => game && game.result && game.date && game.date !== 'undefined')
+                .sort((a, b) => new Date(a.date) - new Date(b.date));
+            
+            let currentStreak = 0;
+            let currentType = null;
+            
+            
+            for (const game of sortedGames) {
+                // 무승부는 무시 (연속을 끊지 않음)
                 if (game.result === 'D' || game.result === 'T') {
-                    // 이전 연속 기록 저장
-                    if (currentStreak > 0 && currentType) {
-                        if (currentType === 'W') {
-                            winStreaks[currentStreak] = (winStreaks[currentStreak] || 0) + 1;
-                            maxWinStreak = Math.max(maxWinStreak, currentStreak);
-                        } else if (currentType === 'L') {
-                            loseStreaks[currentStreak] = (loseStreaks[currentStreak] || 0) + 1;
-                            maxLoseStreak = Math.max(maxLoseStreak, currentStreak);
-                        }
-                    }
-                    currentStreak = 0;
-                    currentType = null;
                     continue;
                 }
                 
-                if (game.result === currentType) {
-                    currentStreak++;
-                } else {
-                    // 이전 연속 기록 저장
-                    if (currentStreak > 0 && currentType) {
-                        if (currentType === 'W') {
-                            winStreaks[currentStreak] = (winStreaks[currentStreak] || 0) + 1;
-                            maxWinStreak = Math.max(maxWinStreak, currentStreak);
-                        } else if (currentType === 'L') {
-                            loseStreaks[currentStreak] = (loseStreaks[currentStreak] || 0) + 1;
-                            maxLoseStreak = Math.max(maxLoseStreak, currentStreak);
+                // 승부 결과만 처리 (승 또는 패)
+                if (game.result === 'W' || game.result === 'L') {
+                    if (game.result === currentType) {
+                        currentStreak++;
+                    } else {
+                        // 이전 연속 기록 저장
+                        if (currentStreak > 0 && currentType) {
+                            if (currentType === 'W') {
+                                winStreaks[currentStreak] = (winStreaks[currentStreak] || 0) + 1;
+                                maxWinStreak = Math.max(maxWinStreak, currentStreak);
+                            } else if (currentType === 'L') {
+                                loseStreaks[currentStreak] = (loseStreaks[currentStreak] || 0) + 1;
+                                maxLoseStreak = Math.max(maxLoseStreak, currentStreak);
+                            }
                         }
+                        currentType = game.result;
+                        currentStreak = 1;
                     }
-                    currentType = game.result;
-                    currentStreak = 1;
                 }
             }
             
@@ -15390,12 +15814,13 @@ KT 9:1 키움(H)`;
                 }
             }
             
+            
             return {
                 winStreaks,
                 loseStreaks,
                 maxWinStreak,
                 maxLoseStreak,
-                totalGames: games.filter(g => g.result === 'W' || g.result === 'L').length
+                totalGames: sortedGames.filter(g => g.result === 'W' || g.result === 'L').length
             };
         }
         
@@ -15502,27 +15927,51 @@ KT 9:1 키움(H)`;
             document.getElementById('streakRecordsContent').innerHTML = html;
         }
         
-        // 전체 팀 연승/연패 기록 렌더링
+        // 전체 팀 연승/연패 기록 렌더링 (종합 순위와 동일한 방식)
         function renderAllTeamsStreakRecords(allTeamsData) {
-            const teams = ['KIA', '삼성', 'LG', '두산', 'KT', 'SSG', '롯데', '한화', 'NC', '키움'];
+            if (!dashboardData?.standings) return;
+            
+            // 종합 순위 기준 팀 순서 사용
+            const teams = getRankingSystem().teams;
+            const teamRanks = getRankingSystem().teamRanks;
+            
+            // 전체 팀의 최대 연승/연패 찾기
+            let globalMaxWinStreak = 0;
+            let globalMaxLoseStreak = 0;
+            
+            Object.values(allTeamsData).forEach(teamData => {
+                if (teamData) {
+                    globalMaxWinStreak = Math.max(globalMaxWinStreak, teamData.maxWinStreak || 0);
+                    globalMaxLoseStreak = Math.max(globalMaxLoseStreak, teamData.maxLoseStreak || 0);
+                }
+            });
+            
+            // 최소 10까지는 표시, 최대값이 더 크면 그것까지 표시
+            const maxWinCols = Math.max(10, globalMaxWinStreak);
+            const maxLoseCols = Math.max(10, globalMaxLoseStreak);
+            
+            // 연승/연패 컬럼 배열 생성
+            const winColumns = Array.from({length: maxWinCols}, (_, i) => i + 1);
+            const loseColumns = Array.from({length: maxLoseCols}, (_, i) => i + 1);
             
             let html = `
-                <div style="overflow-x: auto;">
-                    <table style="width: 100%; border-collapse: collapse; background: white; border: 1px solid #dee2e6;">
+                <div class="table-scroll-wrapper">
+                    <table id="streakRecordsTable" class="streak-records-table sortable-table">
                         <thead>
-                            <tr style="background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%); color: white;">
-                                <th rowspan="2" style="padding: 12px; text-align: center; border: 1px solid white; width: 100px;">팀명</th>
-                                <th colspan="10" style="padding: 8px; text-align: center; border: 1px solid white;">🔥 연승 기록 (횟수)</th>
-                                <th colspan="10" style="padding: 8px; text-align: center; border: 1px solid white;">💧 연패 기록 (횟수)</th>
-                                <th rowspan="2" style="padding: 12px; text-align: center; border: 1px solid white;">최장<br>연승</th>
-                                <th rowspan="2" style="padding: 12px; text-align: center; border: 1px solid white;">최장<br>연패</th>
+                            <tr class="main-header">
+                                <th rowspan="2" class="sortable rank-header" data-column="rank">순위</th>
+                                <th rowspan="2" class="team-header">팀명</th>
+                                <th colspan="${maxWinCols}" class="section-header wins-section">🔥 연승 기록 (횟수)</th>
+                                <th rowspan="2" class="sortable max-header wins-max" data-column="maxWins">최장<br>연승</th>
+                                <th colspan="${maxLoseCols}" class="section-header losses-section">💧 연패 기록 (횟수)</th>
+                                <th rowspan="2" class="sortable max-header losses-max" data-column="maxLosses">최장<br>연패</th>
                             </tr>
-                            <tr style="background: #f8f9fa; color: #333;">
-                                ${[1,2,3,4,5,6,7,8,9,10].map(n => 
-                                    `<th style="padding: 6px; text-align: center; border: 1px solid #dee2e6; font-size: 0.8rem;">${n}${n === 1 ? '승' : '연승'}</th>`
+                            <tr class="sub-header">
+                                ${winColumns.map(n => 
+                                    `<th class="sortable streak-count-header wins-count" data-column="wins${n}">${n}${n === 1 ? '승' : '연승'}</th>`
                                 ).join('')}
-                                ${[1,2,3,4,5,6,7,8,9,10].map(n => 
-                                    `<th style="padding: 6px; text-align: center; border: 1px solid #dee2e6; font-size: 0.8rem;">${n}${n === 1 ? '패' : '연패'}</th>`
+                                ${loseColumns.map(n => 
+                                    `<th class="sortable streak-count-header losses-count" data-column="losses${n}">${n}${n === 1 ? '패' : '연패'}</th>`
                                 ).join('')}
                             </tr>
                         </thead>
@@ -15532,15 +15981,18 @@ KT 9:1 키움(H)`;
             // 각 팀별 행 생성
             teams.forEach((team, index) => {
                 const teamData = allTeamsData[team];
+                
+                // KBO 규정 동률 처리가 적용된 순위 사용
+                const rank = teamRanks[team] || 999;
+                
                 if (!teamData) {
+                    // 전체 컬럼 수 계산: 연승컬럼 + 최장연승 + 연패컬럼 + 최장연패
+                    const totalCols = maxWinCols + 1 + maxLoseCols + 1;
                     html += `
-                        <tr>
-                            <td style="padding: 10px; text-align: center; border: 1px solid #dee2e6; font-weight: bold; background: #f8f9fa;">
-                                ${getTeamWithLogo(team)}
-                            </td>
-                            <td colspan="22" style="padding: 10px; text-align: center; border: 1px solid #dee2e6; color: #999;">
-                                데이터 없음
-                            </td>
+                        <tr data-rank="${rank}" data-team="${team}" class="no-data-row">
+                            <td class="rank-cell rank-${rank <= 3 ? rank : 'other'}">${rank}</td>
+                            <td class="team-cell">${getTeamWithLogo(team)}</td>
+                            <td colspan="${totalCols}" class="no-data-cell">데이터 없음</td>
                         </tr>
                     `;
                     return;
@@ -15549,42 +16001,32 @@ KT 9:1 키움(H)`;
                 const { winStreaks, loseStreaks, maxWinStreak, maxLoseStreak } = teamData;
                 
                 html += `
-                    <tr style="${index % 2 === 0 ? 'background: #fafafa;' : ''}">
-                        <td style="padding: 10px; text-align: center; border: 1px solid #dee2e6; font-weight: bold;">
-                            ${getTeamWithLogo(team)}
-                        </td>
+                    <tr class="${index % 2 === 0 ? 'even-row' : 'odd-row'}" 
+                        data-rank="${rank}" 
+                        data-team="${team}" 
+                        data-maxwins="${maxWinStreak}" 
+                        data-maxlosses="${maxLoseStreak}">
+                        <td class="rank-cell rank-${rank <= 3 ? rank : 'other'}">${rank}</td>
+                        <td class="team-cell">${getTeamWithLogo(team)}</td>
                 `;
                 
-                // 연승 데이터 (1승부터 10연승까지)
-                for (let i = 1; i <= 10; i++) {
+                // 연승 데이터 (동적 컬럼 수)
+                for (let i = 1; i <= maxWinCols; i++) {
                     const count = winStreaks[i] || 0;
-                    html += `
-                        <td style="padding: 6px; text-align: center; border: 1px solid #dee2e6; 
-                            ${count > 0 ? 'color: var(--positive-color); font-weight: bold;' : 'color: #ccc;'}">
-                            ${count > 0 ? count : '-'}
-                        </td>
-                    `;
+                    html += `<td data-wins${i}="${count}" class="streak-count-cell wins-data ${count > 0 ? 'has-data' : 'no-data'}">${count > 0 ? count : '-'}</td>`;
                 }
                 
-                // 연패 데이터 (1패부터 10연패까지)
-                for (let i = 1; i <= 10; i++) {
+                // 최장 연승 (연승 섹션 바로 다음)
+                html += `<td class="max-streak-cell max-wins-cell" data-maxwins="${maxWinStreak}">${maxWinStreak}</td>`;
+                
+                // 연패 데이터 (동적 컬럼 수)
+                for (let i = 1; i <= maxLoseCols; i++) {
                     const count = loseStreaks[i] || 0;
-                    html += `
-                        <td style="padding: 6px; text-align: center; border: 1px solid #dee2e6; 
-                            ${count > 0 ? 'color: var(--negative-color); font-weight: bold;' : 'color: #ccc;'}">
-                            ${count > 0 ? count : '-'}
-                        </td>
-                    `;
+                    html += `<td data-losses${i}="${count}" class="streak-count-cell losses-data ${count > 0 ? 'has-data' : 'no-data'}">${count > 0 ? count : '-'}</td>`;
                 }
                 
-                // 최장 연승/연패
-                html += `
-                    <td style="padding: 6px; text-align: center; border: 1px solid #dee2e6; color: var(--positive-color); font-weight: bold;">
-                        ${maxWinStreak}
-                    </td>
-                    <td style="padding: 6px; text-align: center; border: 1px solid #dee2e6; color: var(--negative-color); font-weight: bold;">
-                        ${maxLoseStreak}
-                    </td>
+                // 최장 연패
+                html += `<td class="max-streak-cell max-losses-cell" data-maxlosses="${maxLoseStreak}">${maxLoseStreak}</td>
                 </tr>
                 `;
             });
@@ -15596,14 +16038,64 @@ KT 9:1 키움(H)`;
             `;
             
             document.getElementById('streakRecordsContent').innerHTML = html;
+            
+            // 테이블 정렬 기능 추가
+            setTimeout(() => {
+                const streakTable = document.getElementById('streakRecordsTable');
+                if (!streakTable) return;
+                
+                // 모든 sortable 헤더에 클릭 이벤트 추가
+                const sortableHeaders = streakTable.querySelectorAll('th.sortable');
+                sortableHeaders.forEach((header) => {
+                    // 기존 이벤트 리스너 제거 (중복 방지)
+                    const existingHandler = header._sortHandler;
+                    if (existingHandler) {
+                        header.removeEventListener('click', existingHandler);
+                    }
+                    
+                    // 실제 컬럼 인덱스 계산
+                    const allHeaders = Array.from(streakTable.querySelectorAll('thead tr th'));
+                    const actualColumnIndex = allHeaders.indexOf(header);
+                    
+                    // 새 이벤트 리스너 추가
+                    const sortHandler = () => {
+                        sortTable(streakTable, actualColumnIndex, header);
+                    };
+                    header._sortHandler = sortHandler;
+                    header.addEventListener('click', sortHandler);
+                    
+                    // 마우스 커서 포인터로 변경
+                    header.style.cursor = 'pointer';
+                });
+                
+                // 기본적으로 순위 컬럼으로 정렬 (오름차순)
+                const rankHeader = streakTable.querySelector('th[data-column="rank"]');
+                if (rankHeader && rankHeader.click) {
+                    // 순위 컬럼으로 강제 정렬
+                    setTimeout(() => {
+                        rankHeader.click();
+                        // 내림차순이면 다시 클릭해서 오름차순으로
+                        if (rankHeader.classList.contains('sort-desc')) {
+                            rankHeader.click();
+                        }
+                    }, 50);
+                }
+            }, 100);
         }
         
         // 게임별 기록 데이터 로드 완료 후 연승/연패 분석 실행
         function initStreakRecords() {
-            if (window.gameRecordsData) {
+            if (gameRecordsData) {
+                console.log('연승/연패: gameRecordsData 발견, 분석 시작');
                 analyzeFromGameRecordsData();
             } else {
-                setTimeout(initStreakRecords, 1000);
+                console.log('연승/연패: gameRecordsData 대기 중...');
+                // 연승/연패 기록 데이터가 없으면 기본 메시지 표시
+                document.getElementById('streakRecordsContent').innerHTML = `
+                    <div style="text-align: center; padding: 40px; color: #dc2626;">
+                        게임별 기록 데이터를 불러올 수 없습니다.
+                    </div>
+                `;
             }
         }
         
