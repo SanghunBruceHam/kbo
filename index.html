@@ -3941,6 +3941,7 @@
                     <a href="#weekday" class="nav-item">📆 요일별</a>
                     <a href="#weekly" class="nav-item">📈 주차별</a>
                     <a href="#gamerecords" class="nav-item">🎮 게임기록</a>
+                    <a href="#streak-records" class="nav-item">🔥 연승/연패</a>
                     <a href="#teamdetail" class="nav-item">👥 팀상세</a>
                     <a href="#series" class="nav-item">⚔️ 시리즈</a>
                     <a href="#stadium" class="nav-item">🏟️ 경기장별</a>
@@ -5147,7 +5148,7 @@
         <div class="card" id="gamerecords">
             <div class="card-header">
                 <span class="card-icon">🏆</span>
-                <h2 class="card-title">게임별 기록 & 연승/연패 분석</h2>
+                <h2 class="card-title">게임별 연속 기록</h2>
             </div>
             <div id="gameRecordsContent">
                 <div style="text-align: center; padding: 40px; color: #666;">
@@ -5608,7 +5609,7 @@
                 // 상대전적 데이터 로드
                 let recordsData = null;
                 try {
-                    const response = await fetch('magic-number/data/kbo-records.json?v=' + Date.now());
+                    const response = await fetch(`magic-number/data/kbo-records.json?v=${Date.now()}`);
                     recordsData = await response.json();
                 } catch (error) {
                     console.warn('⚠️ 상대전적 데이터 로드 실패, 승률만으로 정렬:', error);
@@ -5956,8 +5957,8 @@
             try {
                 
                 const [weeklyResponse, recordsResponse] = await Promise.all([
-                    fetch('magic-number/data/weekly-analysis.json?v=' + Date.now()),
-                    fetch('magic-number/data/game-by-game-records.json?v=' + Date.now())
+                    fetch(`magic-number/data/weekly-analysis.json?v=${Date.now()}`),
+                    fetch(`magic-number/data/game-by-game-records.json?v=${Date.now()}`)
                 ]);
                 
                 
@@ -8614,7 +8615,7 @@
         // 클러치 상황 전체 분석
         async function renderClutchFullAnalysis() {
             try {
-                const response = await fetch('magic-number/data/clutch-analysis.json?v=' + Date.now());
+                const response = await fetch(`magic-number/data/clutch-analysis.json?v=${Date.now()}`);
                 clutchData = await response.json();
                 
                 const tbody = document.getElementById('clutchBody');
@@ -8672,7 +8673,7 @@
         // 홈/원정 전체 분석
         async function renderHomeAwayFullAnalysis() {
             try {
-                const response = await fetch('magic-number/data/home-away-analysis.json?v=' + Date.now());
+                const response = await fetch(`magic-number/data/home-away-analysis.json?v=${Date.now()}`);
                 const homeAwayData = await response.json();
                 
                 const tbody = document.getElementById('homeAwayBody');
@@ -8761,7 +8762,7 @@
             // kbo-records.json 데이터 로드
             let recordsData = null;
             try {
-                const response = await fetch('magic-number/data/kbo-records.json?v=' + Date.now());
+                const response = await fetch(`magic-number/data/kbo-records.json?v=${Date.now()}`);
                 recordsData = await response.json();
             } catch (error) {
                 console.error('❌ kbo-records.json 로드 실패:', error);
@@ -8801,7 +8802,7 @@
             // kbo-records.json 데이터 로드
             let recordsData = null;
             try {
-                const response = await fetch('magic-number/data/kbo-records.json?v=' + Date.now());
+                const response = await fetch(`magic-number/data/kbo-records.json?v=${Date.now()}`);
                 recordsData = await response.json();
             } catch (error) {
                 console.error('❌ 잔여경기수용 kbo-records.json 로드 실패:', error);
@@ -10342,7 +10343,7 @@
         // 시리즈 분석 데이터 로드
         async function loadSeriesAnalysisData() {
             try {
-                const response = await fetch('magic-number/data/series-analysis.json?v=' + Date.now());
+                const response = await fetch(`magic-number/data/series-analysis.json?v=${Date.now()}`);
                 const seriesData = await response.json();
                 renderSeriesAnalysis(seriesData);
             } catch (error) {
