@@ -15371,14 +15371,14 @@ KT 9:1 키움(H)`;
                 for (const line of lines) {
                     if (line.trim() === '') continue;
                     
-                    // 날짜 라인 체크
-                    if (line.includes('년') && line.includes('월') && line.includes('일')) {
+                    // 날짜 라인 체크 (2025-03-22 형식)
+                    if (line.match(/^\d{4}-\d{2}-\d{2}$/)) {
                         currentDate = line.trim();
                         continue;
                     }
                     
                     // 게임 결과 라인 체크
-                    if (currentDate && line.includes(teamName)) {
+                    if (currentDate && line.includes(':') && line.includes(teamName)) {
                         const result = parseGameResultWithScore(line, teamName);
                         if (result && result.result !== 'D') { // 무승부 제외
                             gameResults.push({
@@ -15652,11 +15652,11 @@ KT 9:1 키움(H)`;
         }
         
         // 페이지 로드 시 자동 실행
-        document.addEventListener('DOMContentLoaded', function() {
+        window.addEventListener('load', function() {
             // 다른 데이터 로드 후 연승/연패 기록 로드
             setTimeout(() => {
                 updateAllTeamsStreakRecords();
-            }, 2000);
+            }, 3000);
         });
     </script>
 
