@@ -314,6 +314,41 @@
     <meta name="twitter:creator" content="@kbo_analytics">
     <meta name="twitter:site" content="@kbo_analytics">
     
+    <!-- JSON-LD 구조화된 데이터 - 사이트 이름 명시 -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "KBO Dashboard",
+      "alternateName": "KBO 대시보드",
+      "url": "https://kbo-dashboard.co.kr/",
+      "description": "KBO 2025 실시간 순위표와 16개 분석지표를 제공하는 한국프로야구 통계 대시보드",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://kbo-dashboard.co.kr/"
+        }
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "KBO Dashboard",
+        "url": "https://kbo-dashboard.co.kr/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://kbo-dashboard.co.kr/images/kbo-dashboard-preview.png",
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      "about": {
+        "@type": "Thing",
+        "name": "KBO 리그",
+        "description": "한국프로야구"
+      }
+    }
+    </script>
+    
     <!-- 파비콘 및 앱 아이콘 - 검색엔진 최적화 -->
     <link rel="icon" type="image/x-icon" href="images/kbo-dashboard-preview.png">
     <link rel="icon" type="image/png" sizes="32x32" href="images/kbo-dashboard-preview.png">
