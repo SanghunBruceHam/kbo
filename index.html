@@ -361,17 +361,12 @@
     
     <meta name="theme-color" content="#667eea">
     
-    <!-- DNS 프리페치 -->
-    <link rel="dns-prefetch" href="//www.googletagmanager.com">
-    <link rel="dns-prefetch" href="//fonts.googleapis.com">
-    <link rel="dns-prefetch" href="//ads-partners.coupang.com">
     
     <!-- 추가 SEO 최적화 -->
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <meta name="googlebot" content="index, follow">
     <meta name="bingbot" content="index, follow">
     <meta name="format-detection" content="telephone=no">
-    <meta http-equiv="x-dns-prefetch-control" content="on">
     <meta name="referrer" content="no-referrer-when-downgrade">
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
@@ -517,15 +512,6 @@
     
     <!-- 리소스 힌트 (성능 최적화) -->
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-    <link rel="preconnect" href="https://ads-partners.coupang.com" crossorigin>
-    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
-    
-    <!-- 중요한 이미지 preload -->
-    <link rel="preload" href="images/kbo-dashboard-preview.png" as="image" type="image/png">
-    
-    <!-- Chart.js prefetch (사용자가 차트를 볼 가능성이 높음) -->
-    <link rel="prefetch" href="https://cdn.jsdelivr.net/npm/chart.js">
     
     <!-- Google AdSense -->
     <script src="https://ads-partners.coupang.com/g.js"></script>
@@ -13897,18 +13883,12 @@ KT 9:1 키움(H)`;
             }
         }
 
-        // Service Worker 등록 (성능 최적화)
+        // Service Worker 등록 (간소화)
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('/sw.js')
                     .then((registration) => {
                         console.log('SW registered: ', registration);
-                        
-                        
-                        // 백그라운드 동기화 등록
-                        if ('sync' in window.ServiceWorkerRegistration.prototype) {
-                            registration.sync.register('kbo-data-sync');
-                        }
                     })
                     .catch((registrationError) => {
                         console.log('SW registration failed: ', registrationError);
