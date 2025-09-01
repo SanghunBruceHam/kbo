@@ -5831,6 +5831,16 @@
                 
                 await renderDashboard();
                 
+                // KBO 규정 순위 적용 후 4개 테이블 렌더링
+                renderWeeklyTable();
+                renderGameByGameTable();
+                renderTeamDetailedRecords();
+                
+                // 위닝/루징 시리즈 분석도 순위 정렬 후 로드
+                loadSeriesAnalysisData().catch(error => {
+                    console.error('시리즈 분석 데이터 로드 실패:', error);
+                });
+                
                 // 데이터 정보 업데이트 (renderDashboard 호출 후)
                 updateDataInfo(dashboardData);
                 return Promise.resolve();
@@ -6024,11 +6034,6 @@
                 gameRecordsData = await recordsResponse.json();
                 
                 
-                // 각각 개별 렌더링
-                renderWeeklyTable();
-                
-                renderGameByGameTable();
-                
                 // 연승/연패 기록 분석 초기화 (gameRecordsData 로드 직후)
                 try {
                     if (gameRecordsData) {
@@ -6043,8 +6048,6 @@
                 
                 // 미래 경기 일정 로드
                 await loadFutureScheduleData();
-                
-                renderTeamDetailedRecords();
                 
                 
             } catch (error) {
@@ -11235,10 +11238,6 @@
                 console.error('주차별 데이터 로드 실패:', error);
             });
             
-            // 시리즈 분석 데이터 로드
-            loadSeriesAnalysisData().catch(error => {
-                console.error('시리즈 분석 데이터 로드 실패:', error);
-            });
             
             // 네비게이션 활성 상태 관리
             initializeNavigation();
