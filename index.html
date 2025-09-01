@@ -10957,7 +10957,7 @@
             
             // 종합 순위 기준으로 순회
             const teams = getRankingSystem().teams;
-            teams.forEach(teamName => {
+            teams.forEach((teamName, index) => {
                 // 시리즈 데이터가 있는 팀만 포함
                 if (!teamStats[teamName]) return;
                 
@@ -10965,15 +10965,18 @@
                 const team = dashboardData.standings.find(t => t.team_name === teamName);
                 if (!team) return;
                 
-                // KBO 규정 동률 처리가 적용된 순위 사용
+                // KBO 규정 동률 처리가 적용된 순위 사용 (배열 순서 기준)
                 const teamRanks = getRankingSystem().teamRanks;
-                const displayRank = teamRanks[teamName] || 999;
+                const displayRank = teamRanks[teamName] || (index + 1);
                 
                 teamsWithRanks.push({
                     name: team.team_name,
                     rank: displayRank
                 });
             });
+            
+            // 순위별로 정렬하여 표시 순서 확정
+            teamsWithRanks.sort((a, b) => a.rank - b.rank);
 
             let html = `
 
