@@ -6686,8 +6686,9 @@
             
             if (!dashboardData?.standings) return;
 
-            // 종합 순위 기준 팀 순서 사용
-            const teams = getRankingSystem().teams;
+            // 종합 순위 기준 팀 순서 사용 (정렬된 순서)
+            const rankingSystem = getRankingSystem();
+            const teams = rankingSystem.teams;
             const maxWeeks = weeklyAnalysisData.currentWeek || 21;
 
             let html = `
@@ -6894,8 +6895,9 @@
         function renderGameByGameTable() {
             if (!gameRecordsData || !dashboardData?.standings) return;
 
-            // 종합 순위 기준 팀 순서 사용
-            const teams = getRankingSystem().teams;
+            // 종합 순위 기준 팀 순서 사용 (정렬된 순서)
+            const rankingSystem = getRankingSystem();
+            const teams = rankingSystem.teams;
             
             // 각 팀의 게임 데이터를 날짜순으로 정렬하고 최대 경기 수 계산
             const teamSortedGames = {};
@@ -7071,8 +7073,9 @@
         function renderTeamDetailedRecords() {
             if (!gameRecordsData || !dashboardData?.standings) return;
 
-            // 종합 순위 기준 팀 순서 사용
-            const rankedTeams = getRankingSystem().teams;
+            // 종합 순위 기준 팀 순서 사용 (정렬된 순서)
+            const rankingSystem = getRankingSystem();
+            const rankedTeams = rankingSystem.teams;
             const teams = ['전체', ...rankedTeams];
             
             let html = `
