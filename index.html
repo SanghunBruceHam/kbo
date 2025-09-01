@@ -5495,7 +5495,7 @@
         // ========== 통합된 순위 시스템 (단일 함수) ==========
         
         
-        // 종합 순위와 정확히 동일한 방식을 사용 (renderFullStandings와 100% 동일)
+        // 실시간 KBO 순위 시스템 (동률 처리 포함)
         function getRankingSystem() {
             if (!dashboardData?.standings) {
                 return {
@@ -5505,11 +5505,11 @@
                 };
             }
             
-            // KBO 규정에 따른 동률 처리가 적용된 순위대로 정렬
+            // dashboardData.standings는 이미 sortStandingsByWinRateAndHeadToHead()로 정렬됨
+            // 그 정렬 순서 그대로 사용하고 displayRank 기준으로 재정렬
             const sortedStandings = [...dashboardData.standings].sort((a, b) => {
-                // displayRank가 있으면 사용, 없으면 배열 인덱스 사용
-                const aRank = a.displayRank || a.rank || (dashboardData.standings.indexOf(a) + 1);
-                const bRank = b.displayRank || b.rank || (dashboardData.standings.indexOf(b) + 1);
+                const aRank = a.displayRank || a.rank || 999;
+                const bRank = b.displayRank || b.rank || 999;
                 return aRank - bRank;
             });
             
@@ -5518,13 +5518,8 @@
             const teamsWithRanks = [];
             
             sortedStandings.forEach((team, index) => {
-                let displayRank;
-                if (dashboardData.originalStandings) {
-                    const originalTeam = dashboardData.originalStandings.find(t => t.team_name === team.team_name);
-                    displayRank = originalTeam ? (originalTeam.displayRank || originalTeam.rank || (dashboardData.originalStandings.indexOf(originalTeam) + 1)) : (index + 1);
-                } else {
-                    displayRank = team.displayRank || team.rank || (index + 1);
-                }
+                // displayRank가 KBO 동률 처리 결과이므로 그대로 사용
+                const displayRank = team.displayRank || team.rank || (index + 1);
                 
                 teams.push(team.team_name);
                 teamRanks[team.team_name] = displayRank;
