@@ -385,9 +385,15 @@ def main():
     
     crawler = KBOWorkingCrawler()
     
-    # 2025년 8월-10월 크롤링
+    # 현재 월부터 10월까지 크롤링
+    from datetime import datetime, timezone, timedelta
+    kst = timezone(timedelta(hours=9))
+    current_month = datetime.now(kst).month
+    
     all_games = []
-    for month in [8, 9, 10]:
+    months_to_crawl = [month for month in [8, 9, 10] if month >= current_month]
+    
+    for month in months_to_crawl:
         print(f"\n🗓️ {month}월 크롤링 시작...")
         games = crawler.crawl_daum_kbo(2025, month)
         
