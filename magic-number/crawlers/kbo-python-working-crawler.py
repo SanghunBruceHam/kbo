@@ -385,14 +385,23 @@ def main():
     
     crawler = KBOWorkingCrawler()
     
-    # 2025년 8월 크롤링
-    games = crawler.crawl_daum_kbo(2025, 8)
+    # 2025년 8월-10월 크롤링
+    all_games = []
+    for month in [8, 9, 10]:
+        print(f"\n🗓️ {month}월 크롤링 시작...")
+        games = crawler.crawl_daum_kbo(2025, month)
+        
+        if games:
+            crawler.save_results(games, 2025, month)
+            all_games.extend(games)
+            print(f"✅ {month}월 크롤링 완료! ({len(games)}개 경기)")
+        else:
+            print(f"⚠️ {month}월 크롤링 결과 없음")
     
-    if games:
-        crawler.save_results(games, 2025, 8)
-        print("\n✅ 크롤링 완료!")
+    if all_games:
+        print(f"\n🎯 전체 크롤링 완료! 총 {len(all_games)}개 경기")
     else:
-        print("\n❌ 크롤링 실패 - 데이터 없음")
+        print("\n❌ 전체 크롤링 실패 - 데이터 없음")
     
     print("=" * 60)
 
