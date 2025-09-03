@@ -1,6 +1,6 @@
 {
   "date": "2025-09-03",
-  "createdAt": "2025-09-03T13:18:11.282Z",
+  "createdAt": "2025-09-03T13:32:33.756Z",
   "snapshot": {
     "standings": [
       {
@@ -67,22 +67,22 @@
         "gamesBehind": 13
       },
       {
-        "team": "롯데",
+        "team": "KT",
         "games": 128,
-        "wins": 62,
-        "losses": 60,
-        "draws": 6,
-        "winRate": 0.5081967213114754,
-        "homeRecord": "33-29-4",
-        "awayRecord": "29-31-2",
-        "homeWins": 33,
-        "homeLosses": 29,
-        "homeDraws": 4,
-        "awayWins": 29,
-        "awayLosses": 31,
-        "awayDraws": 2,
-        "recent10": "4승1무5패",
-        "streak": "1패",
+        "wins": 63,
+        "losses": 61,
+        "draws": 4,
+        "winRate": 0.5080645161290323,
+        "homeRecord": "32-31-1",
+        "awayRecord": "31-30-3",
+        "homeWins": 32,
+        "homeLosses": 31,
+        "homeDraws": 1,
+        "awayWins": 31,
+        "awayLosses": 30,
+        "awayDraws": 3,
+        "recent10": "6승0무4패",
+        "streak": "1승",
         "remainingGames": 16,
         "rank": 4,
         "gamesBehind": 14.5
@@ -109,23 +109,23 @@
         "gamesBehind": 14.5
       },
       {
-        "team": "KT",
-        "games": 127,
+        "team": "롯데",
+        "games": 129,
         "wins": 62,
         "losses": 61,
-        "draws": 4,
+        "draws": 6,
         "winRate": 0.5040650406504065,
-        "homeRecord": "31-31-1",
-        "awayRecord": "31-30-3",
-        "homeWins": 31,
-        "homeLosses": 31,
-        "homeDraws": 1,
-        "awayWins": 31,
-        "awayLosses": 30,
-        "awayDraws": 3,
-        "recent10": "6승0무4패",
-        "streak": "1패",
-        "remainingGames": 17,
+        "homeRecord": "33-29-4",
+        "awayRecord": "29-32-2",
+        "homeWins": 33,
+        "homeLosses": 29,
+        "homeDraws": 4,
+        "awayWins": 29,
+        "awayLosses": 32,
+        "awayDraws": 2,
+        "recent10": "4승1무5패",
+        "streak": "2패",
+        "remainingGames": 15,
         "rank": 6,
         "gamesBehind": 15
       },
@@ -242,13 +242,13 @@
         "maxPossibleWins": 82,
         "currentRank": 3
       },
-      "롯데": {
+      "KT": {
         "playoff": 0,
         "championship": 16,
-        "elimination": 6,
-        "homeAdvantage": 10,
+        "elimination": 7,
+        "homeAdvantage": 9,
         "remainingGames": 16,
-        "maxPossibleWins": 78,
+        "maxPossibleWins": 79,
         "currentRank": 4
       },
       "삼성": {
@@ -260,13 +260,13 @@
         "maxPossibleWins": 81,
         "currentRank": 4
       },
-      "KT": {
+      "롯데": {
         "playoff": 0,
-        "championship": 17,
-        "elimination": 7,
+        "championship": 15,
+        "elimination": 5,
         "homeAdvantage": 10,
-        "remainingGames": 17,
-        "maxPossibleWins": 79,
+        "remainingGames": 15,
+        "maxPossibleWins": 77,
         "currentRank": 6
       },
       "NC": {
@@ -307,18 +307,25 @@
       }
     },
     "gamesSummary": {
-      "totalGames": 628,
+      "totalGames": 629,
       "dataDate": "2025-09-03",
-      "gamesPlayedSinceYesterday": 2
+      "gamesPlayedSinceYesterday": 3
     },
     "changes": {
       "rankChanges": [
         {
+          "team": "KT",
+          "from": 6,
+          "to": 4,
+          "change": "+2",
+          "direction": "up"
+        },
+        {
           "team": "롯데",
           "from": 5,
-          "to": 4,
-          "change": "+1",
-          "direction": "up"
+          "to": 6,
+          "change": "-1",
+          "direction": "down"
         }
       ],
       "magicNumberChanges": [
@@ -337,10 +344,24 @@
           "change": -1
         },
         {
+          "team": "KT",
+          "type": "championship",
+          "from": 17,
+          "to": 16,
+          "change": -1
+        },
+        {
           "team": "삼성",
           "type": "championship",
           "from": 19,
           "to": 18,
+          "change": -1
+        },
+        {
+          "team": "롯데",
+          "type": "championship",
+          "from": 16,
+          "to": 15,
           "change": -1
         },
         {
@@ -361,7 +382,7 @@
     },
     "metadata": {
       "source": "CLEAN_TXT_AUTOMATION",
-      "lastUpdated": "2025-09-03T13:18:06.850Z",
+      "lastUpdated": "2025-09-03T13:32:29.561Z",
       "totalTeams": 10
     }
   }

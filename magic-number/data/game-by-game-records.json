@@ -8804,11 +8804,21 @@
         "result": "L",
         "runs_scored": 2,
         "runs_allowed": 3
+      },
+      {
+        "gameNumber": 129,
+        "date": "2025-09-03",
+        "opponent": "KT",
+        "isHome": false,
+        "score": "8:9",
+        "result": "L",
+        "runs_scored": 8,
+        "runs_allowed": 9
       }
     ],
     "currentStreak": {
       "type": "L",
-      "count": 1
+      "count": 2
     },
     "longestWinStreak": 6,
     "longestLoseStreak": 8,
@@ -10346,10 +10356,20 @@
         "result": "L",
         "runs_scored": 4,
         "runs_allowed": 9
+      },
+      {
+        "gameNumber": 128,
+        "date": "2025-09-03",
+        "opponent": "롯데",
+        "isHome": true,
+        "score": "9:8",
+        "result": "W",
+        "runs_scored": 9,
+        "runs_allowed": 8
       }
     ],
     "currentStreak": {
-      "type": "L",
+      "type": "W",
       "count": 1
     },
     "longestWinStreak": 4,
@@ -10614,6 +10634,10 @@
       {
         "type": "W",
         "count": 2
+      },
+      {
+        "type": "L",
+        "count": 1
       }
     ]
   },
