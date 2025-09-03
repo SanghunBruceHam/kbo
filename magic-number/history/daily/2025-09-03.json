@@ -1,6 +1,6 @@
 {
   "date": "2025-09-03",
-  "createdAt": "2025-09-03T13:43:30.196Z",
+  "createdAt": "2025-09-03T13:57:00.060Z",
   "snapshot": {
     "standings": [
       {
@@ -26,24 +26,24 @@
       },
       {
         "team": "한화",
-        "games": 125,
-        "wins": 71,
+        "games": 126,
+        "wins": 72,
         "losses": 51,
         "draws": 3,
-        "winRate": 0.5819672131147541,
-        "homeRecord": "38-25-2",
+        "winRate": 0.5853658536585366,
+        "homeRecord": "39-25-2",
         "awayRecord": "33-26-1",
-        "homeWins": 38,
+        "homeWins": 39,
         "homeLosses": 25,
         "homeDraws": 2,
         "awayWins": 33,
         "awayLosses": 26,
         "awayDraws": 1,
-        "recent10": "6승0무4패",
-        "streak": "1승",
-        "remainingGames": 19,
+        "recent10": "7승0무3패",
+        "streak": "2승",
+        "remainingGames": 18,
         "rank": 2,
-        "gamesBehind": 5.5
+        "gamesBehind": 5
       },
       {
         "team": "SSG",
@@ -131,24 +131,24 @@
       },
       {
         "team": "NC",
-        "games": 121,
+        "games": 122,
         "wins": 57,
-        "losses": 58,
+        "losses": 59,
         "draws": 6,
-        "winRate": 0.4956521739130435,
+        "winRate": 0.49137931034482757,
         "homeRecord": "28-28-1",
-        "awayRecord": "29-30-5",
+        "awayRecord": "29-31-5",
         "homeWins": 28,
         "homeLosses": 28,
         "homeDraws": 1,
         "awayWins": 29,
-        "awayLosses": 30,
+        "awayLosses": 31,
         "awayDraws": 5,
-        "recent10": "5승0무5패",
-        "streak": "1승",
-        "remainingGames": 23,
+        "recent10": "4승0무6패",
+        "streak": "1패",
+        "remainingGames": 22,
         "rank": 7,
-        "gamesBehind": 16
+        "gamesBehind": 16.5
       },
       {
         "team": "KIA",
@@ -226,18 +226,18 @@
       },
       "한화": {
         "playoff": 0,
-        "championship": 19,
-        "elimination": 18,
-        "homeAdvantage": 12,
-        "remainingGames": 19,
+        "championship": 18,
+        "elimination": 999,
+        "homeAdvantage": 11,
+        "remainingGames": 18,
         "maxPossibleWins": 90,
         "currentRank": 2
       },
       "SSG": {
-        "playoff": 18,
+        "playoff": 15,
         "championship": 19,
         "elimination": 10,
-        "homeAdvantage": 9,
+        "homeAdvantage": 10,
         "remainingGames": 19,
         "maxPossibleWins": 82,
         "currentRank": 3
@@ -246,7 +246,7 @@
         "playoff": 0,
         "championship": 16,
         "elimination": 7,
-        "homeAdvantage": 9,
+        "homeAdvantage": 10,
         "remainingGames": 16,
         "maxPossibleWins": 79,
         "currentRank": 4
@@ -255,7 +255,7 @@
         "playoff": 0,
         "championship": 18,
         "elimination": 9,
-        "homeAdvantage": 9,
+        "homeAdvantage": 10,
         "remainingGames": 18,
         "maxPossibleWins": 81,
         "currentRank": 4
@@ -264,25 +264,25 @@
         "playoff": 0,
         "championship": 15,
         "elimination": 5,
-        "homeAdvantage": 10,
+        "homeAdvantage": 11,
         "remainingGames": 15,
         "maxPossibleWins": 77,
         "currentRank": 6
       },
       "NC": {
         "playoff": 0,
-        "championship": 23,
-        "elimination": 8,
-        "homeAdvantage": 15,
-        "remainingGames": 23,
-        "maxPossibleWins": 80,
+        "championship": 22,
+        "elimination": 7,
+        "homeAdvantage": 16,
+        "remainingGames": 22,
+        "maxPossibleWins": 79,
         "currentRank": 7
       },
       "KIA": {
         "playoff": 0,
         "championship": 20,
         "elimination": 5,
-        "homeAdvantage": 15,
+        "homeAdvantage": 16,
         "remainingGames": 20,
         "maxPossibleWins": 77,
         "currentRank": 8
@@ -291,7 +291,7 @@
         "playoff": 0,
         "championship": 19,
         "elimination": 1,
-        "homeAdvantage": 18,
+        "homeAdvantage": 19,
         "remainingGames": 19,
         "maxPossibleWins": 73,
         "currentRank": 9
@@ -307,9 +307,9 @@
       }
     },
     "gamesSummary": {
-      "totalGames": 629,
+      "totalGames": 630,
       "dataDate": "2025-09-03",
-      "gamesPlayedSinceYesterday": 3
+      "gamesPlayedSinceYesterday": 4
     },
     "changes": {
       "rankChanges": [
@@ -330,11 +330,18 @@
       ],
       "magicNumberChanges": [
         {
-          "team": "SSG",
-          "type": "playoff",
+          "team": "한화",
+          "type": "championship",
           "from": 19,
           "to": 18,
           "change": -1
+        },
+        {
+          "team": "SSG",
+          "type": "playoff",
+          "from": 19,
+          "to": 15,
+          "change": -4
         },
         {
           "team": "SSG",
@@ -365,6 +372,13 @@
           "change": -1
         },
         {
+          "team": "NC",
+          "type": "championship",
+          "from": 23,
+          "to": 22,
+          "change": -1
+        },
+        {
           "team": "KIA",
           "type": "championship",
           "from": 21,
@@ -382,7 +396,7 @@
     },
     "metadata": {
       "source": "CLEAN_TXT_AUTOMATION",
-      "lastUpdated": "2025-09-03T13:43:26.255Z",
+      "lastUpdated": "2025-09-03T13:56:55.576Z",
       "totalTeams": 10
     }
   }

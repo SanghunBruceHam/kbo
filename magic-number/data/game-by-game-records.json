@@ -11892,11 +11892,21 @@
         "result": "W",
         "runs_scored": 21,
         "runs_allowed": 3
+      },
+      {
+        "gameNumber": 126,
+        "date": "2025-09-03",
+        "opponent": "NC",
+        "isHome": true,
+        "score": "6:5",
+        "result": "W",
+        "runs_scored": 6,
+        "runs_allowed": 5
       }
     ],
     "currentStreak": {
       "type": "W",
-      "count": 1
+      "count": 2
     },
     "longestWinStreak": 12,
     "longestLoseStreak": 6,
@@ -14828,10 +14838,20 @@
         "result": "W",
         "runs_scored": 9,
         "runs_allowed": 4
+      },
+      {
+        "gameNumber": 122,
+        "date": "2025-09-03",
+        "opponent": "한화",
+        "isHome": false,
+        "score": "5:6",
+        "result": "L",
+        "runs_scored": 5,
+        "runs_allowed": 6
       }
     ],
     "currentStreak": {
-      "type": "W",
+      "type": "L",
       "count": 1
     },
     "longestWinStreak": 5,
@@ -15099,6 +15119,10 @@
       },
       {
         "type": "L",
+        "count": 1
+      },
+      {
+        "type": "W",
         "count": 1
       }
     ]
