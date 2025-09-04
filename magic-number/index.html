@@ -170,48 +170,177 @@
             }
             
             .scenario-matrix-container {
-                min-width: 100% !important;
                 overflow-x: auto !important;
                 -webkit-overflow-scrolling: touch !important;
-                padding-bottom: 10px !important;
+                margin: 0 -10px !important;
+                padding: 0 10px !important;
+                position: relative !important;
+                transform: translateZ(0) !important; /* GPU 가속 활성화 */
+                border-radius: 12px !important;
+                border: 1px solid #e0e0e0 !important;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+                max-height: 80vh !important;
+                background: white !important;
             }
             
-            /* 모바일에서도 PC와 동일한 테이블 크기 유지 */
+            /* 경우의수 테이블을 PC와 동일한 스타일로 */
             .scenario-matrix-table {
-                min-width: 1100px !important; /* 테이블 최소 너비를 PC와 동일하게 */
-                font-size: 14px !important; /* PC와 동일한 글자 크기 */
+                min-width: 800px !important;
+                font-size: 0.75rem !important;
                 border-collapse: collapse !important;
-                width: auto !important;
+                width: 100% !important;
+                background: white !important;
             }
             
             .scenario-matrix-table th,
             .scenario-matrix-table td {
-                padding: 8px 8px !important; /* PC와 동일한 패딩 */
+                padding: 4px 2px !important;
+                font-size: 0.7rem !important;
                 border: 1px solid #dee2e6 !important;
                 white-space: nowrap !important;
-                min-width: 90px !important; /* PC와 동일한 최소 너비 */
                 text-align: center !important;
+                color: #333 !important;
+                line-height: 1.2 !important;
             }
             
             .scenario-matrix-table th {
-                background: #f8f9fa !important;
+                background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%) !important;
+                color: white !important;
                 font-weight: 600 !important;
+                text-transform: none !important;
+                letter-spacing: normal !important;
+                border: 1px solid rgba(255, 255, 255, 0.2) !important;
                 position: sticky !important;
                 top: 0 !important;
                 z-index: 10 !important;
+                font-size: 0.7rem !important;
             }
             
-            /* PC와 동일한 셀 크기 유지 */
+            /* 모든 헤더 셀에 일관된 스타일 적용 */
+            .scenario-matrix-table thead th {
+                padding: 4px 2px !important;
+                font-size: 0.7rem !important;
+                text-align: center !important;
+                line-height: 1.2 !important;
+                border: 1px solid rgba(255, 255, 255, 0.2) !important;
+            }
+            
+            /* 좌측 승률 컬럼만 스티키 적용 - 헤더만 */
+            .scenario-matrix-table thead tr th:nth-child(1) {
+                position: sticky !important;
+                left: 0 !important;
+                background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%) !important;
+                color: white !important;
+                font-weight: 600 !important;
+                z-index: 21 !important;
+                min-width: 70px !important;
+                width: 70px !important;
+                box-shadow: 2px 0 4px rgba(0,0,0,0.1) !important;
+            }
+            
+            /* LG 헤더들과 다른 팀 헤더들은 명시적으로 비스티키 */
+            .scenario-matrix-table thead tr th:nth-child(n+2) {
+                position: static !important;
+                left: auto !important;
+                z-index: 10 !important;
+                box-shadow: none !important;
+            }
+            
+            /* LG 헤더 색상 강제 적용 (2번째, 3번째 컬럼) */
+            .scenario-matrix-table thead tr th:nth-child(2),
+            .scenario-matrix-table thead tr th:nth-child(3) {
+                background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%) !important;
+                color: white !important;
+            }
+            
+            /* 팀별 헤더 배경색 강제 적용 */
+            .scenario-matrix-table thead tr th[colspan="2"] {
+                background: linear-gradient(135deg, rgba(233, 236, 239, 0.9) 0%, rgba(248, 249, 250, 0.9) 100%) !important;
+            }
+            
+            .scenario-matrix-table th:last-child {
+                border-right: none !important;
+            }
+            
+            .scenario-matrix-table td {
+                border-bottom: 1px solid #e2e8f0 !important;
+            }
+            
+            /* 첫 번째 컬럼이 아닌 데이터 셀들의 기본 색상 */
+            .scenario-matrix-table tbody tr td:not(:nth-child(1)) {
+                color: #333 !important;
+            }
+            
+            /* 모든 팀 컬럼에 일관된 스타일 적용 (LG 포함) - 명시적으로 비스티키 */
+            .scenario-matrix-table tbody tr td:nth-child(2),
+            .scenario-matrix-table tbody tr td:nth-child(3),
+            .scenario-matrix-table tbody tr td:nth-child(4),
+            .scenario-matrix-table tbody tr td:nth-child(5),
+            .scenario-matrix-table tbody tr td:nth-child(6),
+            .scenario-matrix-table tbody tr td:nth-child(7),
+            .scenario-matrix-table tbody tr td:nth-child(8),
+            .scenario-matrix-table tbody tr td:nth-child(9),
+            .scenario-matrix-table tbody tr td:nth-child(10),
+            .scenario-matrix-table tbody tr td:nth-child(11) {
+                padding: 4px 2px !important;
+                font-size: 0.7rem !important;
+                border: 1px solid #dee2e6 !important;
+                line-height: 1.2 !important;
+                color: inherit !important; /* 승률별 색상 클래스 유지 */
+                position: static !important; /* 명시적으로 비스티키 */
+                left: auto !important;
+                z-index: auto !important;
+                box-shadow: none !important;
+            }
+            
+            .scenario-matrix-table tr:hover {
+                background: rgba(76, 175, 80, 0.05) !important;
+            }
+            
+            /* 데이터 셀 색상 표시를 위해 배경 제거 */
+            .scenario-matrix-table tbody tr:nth-child(even),
+            .scenario-matrix-table tbody tr:nth-child(odd) {
+                background-color: transparent !important;
+            }
+            
+            .scenario-matrix-table tbody tr:nth-child(even) td,
+            .scenario-matrix-table tbody tr:nth-child(odd) td {
+                background-color: transparent !important;
+            }
+            
+            /* 데이터 셀이 원래 색상을 유지하도록 */
             .win-rate-cell {
-                min-width: 90px !important; /* PC와 동일한 최소 너비 */
-                padding: 8px 8px !important; /* PC와 동일한 패딩 */
-                font-size: 13px !important; /* PC와 동일한 글자 크기 */
-                line-height: 1.3 !important;
+                padding: 4px 2px !important;
+                font-size: 0.7rem !important;
+                min-width: auto !important;
+                background-color: inherit !important;
+                color: inherit !important; /* 승률별 색상 클래스의 텍스트 색상 유지 */
+                line-height: 1.2 !important;
+                transition: all 0.2s ease !important;
+                border: 1px solid #dee2e6 !important;
             }
             
-            .win-rate-cell:hover {
-                transform: none !important;
-                box-shadow: 0 1px 3px rgba(76, 175, 80, 0.2) !important;
+            /* 좌측 첫 번째 컬럼만 스티키 스타일 유지 - 데이터 행만 */
+            .scenario-matrix-table tbody tr td:nth-child(1) {
+                background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%) !important;
+                color: #2E7D32 !important;
+                position: sticky !important;
+                left: 0 !important;
+                z-index: 20 !important;
+                box-shadow: 2px 0 6px rgba(0,0,0,0.15) !important;
+                font-weight: 700 !important;
+                min-width: 70px !important;
+                width: 70px !important;
+                border-right: 2px solid rgba(46, 125, 50, 0.2) !important;
+                font-size: 0.8rem !important;
+            }
+            
+            /* LG 컬럼들과 다른 팀 컬럼들은 명시적으로 비스티키 */
+            .scenario-matrix-table tbody tr td:nth-child(n+2) {
+                position: static !important;
+                left: auto !important;
+                z-index: auto !important;
+                box-shadow: none !important;
             }
             
             /* 모바일에서 스크롤 힌트 */

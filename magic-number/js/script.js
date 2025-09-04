@@ -3725,10 +3725,7 @@ const kboTeams = {
                                     text-align: center; 
                                     font-weight: 600; 
                                     border-right: 2px solid rgba(255,255,255,0.4); 
-                                    position: sticky; 
-                                    left: 0; 
                                     background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%); 
-                                    z-index: 101; 
                                     font-size: 0.7rem;
                                 ">순위</th>
             `;
@@ -3767,10 +3764,7 @@ const kboTeams = {
                     text-align: center; 
                     font-weight: 600; 
                     border-right: 2px solid rgba(255,255,255,0.4); 
-                    position: sticky; 
-                    left: 0; 
                     background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%); 
-                    z-index: 101; 
                     font-size: 0.7rem;
                 ">성적</th>`;
                 
@@ -3799,10 +3793,7 @@ const kboTeams = {
                     text-align: center; 
                     font-weight: 600; 
                     border-right: 2px solid rgba(255,255,255,0.4); 
-                    position: sticky; 
-                    left: 0; 
                     background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%); 
-                    z-index: 101; 
                     font-size: 0.7rem;
                 ">잔여경기</th>`;
                 
@@ -3831,10 +3822,7 @@ const kboTeams = {
                     text-align: center; 
                     font-weight: 600; 
                     border-right: 2px solid rgba(255,255,255,0.4); 
-                    position: sticky; 
-                    left: 0; 
                     background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%); 
-                    z-index: 101; 
                     font-size: 0.7rem;
                 ">승률</th>`;
             
