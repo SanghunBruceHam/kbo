@@ -88,6 +88,29 @@
     
     <!-- 승률별 시나리오 매트릭스 스타일 -->
     <style>
+        /* CSS 리셋 및 기본 스타일 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        
         /* 승률별 색상 클래스 - 원래 녹색 테마 */
         .rate-excellent { background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c8 100%) !important; color: #2e7d32; font-weight: 600; }
         .rate-very-good { background: linear-gradient(135deg, #f1f8e9 0%, #dcedc8 100%) !important; color: #4caf50; font-weight: 600; }  
@@ -152,7 +175,6 @@
         
         .container {
             width: 100%;
-            max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
         }
@@ -164,7 +186,6 @@
             }
             
             .container {
-                max-width: 100vw !important;
                 padding: 0 10px !important;
             }
             
