@@ -1,22 +1,22 @@
 {
-  "lastUpdated": "2025-09-04T12:22:22.238Z",
+  "lastUpdated": "2025-09-04T13:03:05.652Z",
   "updateDate": "2025. 9. 4.",
   "clutchAnalysis": {
     "LG": {
-      "totalGames": 126,
+      "totalGames": 127,
       "oneRunGames": 39,
       "oneRunWins": 22,
       "oneRunLosses": 17,
       "oneRunWinRate": "56.4",
-      "closeGames": 55,
-      "closeWins": 32,
+      "closeGames": 56,
+      "closeWins": 33,
       "closeLosses": 23,
-      "closeWinRate": "58.2",
-      "threeRunGames": 35,
-      "threeRunWins": 19,
+      "closeWinRate": "58.9",
+      "threeRunGames": 36,
+      "threeRunWins": 20,
       "threeRunLosses": 16,
-      "threeRunWinRate": "54.3",
-      "blowoutWins": 29,
+      "threeRunWinRate": "55.6",
+      "blowoutWins": 30,
       "blowoutScored": [
         {
           "date": "2025-03-22",
@@ -191,6 +191,12 @@
           "opponent": "NC",
           "score": "10:1",
           "runs": 10
+        },
+        {
+          "date": "2025-09-04",
+          "opponent": "KT",
+          "score": "10:8",
+          "runs": 10
         }
       ],
       "blowoutLosses": 4,
@@ -222,14 +228,14 @@
       ],
       "shutoutWins": 10,
       "shutoutLosses": 4,
-      "highScoringGames": 16,
-      "highScoringWins": 16,
+      "highScoringGames": 17,
+      "highScoringWins": 17,
       "scorelessGames": 4,
       "comebackPotential": {
         "trailingWins": 0,
         "leadBlownLosses": 0
       },
-      "clutchIndex": "56.5"
+      "clutchIndex": "57.0"
     },
     "한화": {
       "totalGames": 126,
@@ -967,19 +973,19 @@
       "clutchIndex": "36.3"
     },
     "KT": {
-      "totalGames": 128,
+      "totalGames": 129,
       "oneRunGames": 39,
       "oneRunWins": 18,
       "oneRunLosses": 21,
       "oneRunWinRate": "46.2",
-      "closeGames": 59,
+      "closeGames": 60,
       "closeWins": 30,
-      "closeLosses": 29,
-      "closeWinRate": "50.8",
-      "threeRunGames": 28,
+      "closeLosses": 30,
+      "closeWinRate": "50.0",
+      "threeRunGames": 29,
       "threeRunWins": 18,
-      "threeRunLosses": 10,
-      "threeRunWinRate": "64.3",
+      "threeRunLosses": 11,
+      "threeRunWinRate": "62.1",
       "blowoutWins": 28,
       "blowoutScored": [
         {
@@ -1229,7 +1235,7 @@
         "trailingWins": 0,
         "leadBlownLosses": 0
       },
-      "clutchIndex": "51.2"
+      "clutchIndex": "50.5"
     },
     "SSG": {
       "totalGames": 125,
@@ -1684,7 +1690,7 @@
       "clutchIndex": "50.2"
     },
     "두산": {
-      "totalGames": 125,
+      "totalGames": 126,
       "oneRunGames": 38,
       "oneRunWins": 16,
       "oneRunLosses": 22,
@@ -1697,7 +1703,7 @@
       "threeRunWins": 15,
       "threeRunLosses": 15,
       "threeRunWinRate": "50.0",
-      "blowoutWins": 25,
+      "blowoutWins": 26,
       "blowoutScored": [
         {
           "date": "2025-04-04",
@@ -1848,6 +1854,12 @@
           "opponent": "롯데",
           "score": "7:1",
           "runs": 7
+        },
+        {
+          "date": "2025-09-04",
+          "opponent": "NC",
+          "score": "12:3",
+          "runs": 12
         }
       ],
       "blowoutLosses": 8,
@@ -1903,8 +1915,8 @@
       ],
       "shutoutWins": 5,
       "shutoutLosses": 3,
-      "highScoringGames": 8,
-      "highScoringWins": 8,
+      "highScoringGames": 9,
+      "highScoringWins": 9,
       "scorelessGames": 3,
       "comebackPotential": {
         "trailingWins": 0,
@@ -1913,7 +1925,7 @@
       "clutchIndex": "44.5"
     },
     "NC": {
-      "totalGames": 122,
+      "totalGames": 123,
       "oneRunGames": 27,
       "oneRunWins": 12,
       "oneRunLosses": 15,
@@ -2121,7 +2133,7 @@
           "runs": 9
         }
       ],
-      "blowoutLosses": 14,
+      "blowoutLosses": 15,
       "blowoutAllowed": [
         {
           "date": "2025-03-22",
@@ -2206,6 +2218,12 @@
           "opponent": "SSG",
           "score": "0:8",
           "diff": 8
+        },
+        {
+          "date": "2025-09-04",
+          "opponent": "두산",
+          "score": "3:12",
+          "diff": 9
         }
       ],
       "shutoutWins": 7,
