@@ -5014,9 +5014,10 @@
                 <div style="font-size: var(--font-base); font-weight: var(--font-weight-medium); margin-bottom: 8px; color: #495057;">⚔️ 상대전적 매트릭스 설명</div>
                 <div style="font-size: var(--font-sm); color: #4b5563; line-height: 1.5;">
                     <div style="margin-bottom: 6px;"><strong>매트릭스 읽는 법:</strong> 세로축 팀이 가로축 팀과의 전적 (예: LG행-KIA열 = LG가 KIA와의 전적)</div>
-                    <div style="margin-bottom: 6px;"><strong>표시 형식:</strong> 승수승 패수패 (승률) - 예: "8승 8패 (0.500)"</div>
+                    <div style="margin-bottom: 6px;"><strong>표시 형식:</strong> 승-패-무 (승률) + 홈🏠/원정✈️ 성적</div>
+                    <div style="margin-bottom: 6px;"><strong>우위/열세 표시:</strong> <span style="font-weight: 600;">⭐ 9승 이상(우위 확정)</span>, <span style="font-weight: 600;">🔻 9패 이상(열세 확정)</span></div>
                     <div style="margin-bottom: 6px;"><strong>대각선 표시:</strong> 자기 자신과의 경기는 없으므로 "-"로 표시</div>
-                    <div style="margin-bottom: 6px;"><strong>홈/원정 배분:</strong> 2025시즌 기준 홈/원정 경기 배분 (총 144경기)</div>
+                    <div style="margin-bottom: 6px;"><strong>시즌 기준:</strong> KBO 정규시즌 팀당 16경기씩 맞대결 (총 144경기)</div>
                     <div><strong>색상 구분:</strong> <span style="color: #16a34a; font-weight: 600;">녹색(0.500 초과, 우위)</span>, <span style="color: #eab308; font-weight: 600;">노란색(정확히 0.500, 동등)</span>, <span style="color: #dc2626; font-weight: 600;">빨간색(0.500 미만, 열세)</span></div>
                 </div>
             </div>
@@ -8920,18 +8921,19 @@
                 const awayGames = awayWins + awayLosses;
                 const awayWinRate = awayGames > 0 ? awayWins / awayGames : 0;
                 
-                // 상대전적 우위/열세 판단 (16경기 완료된 경우만)
-                let advantageStatus = '';
-                if (totalGames === 16) {
-                    // 16경기 완료된 경우에만 우세/열세 판정
-                    if (wins >= 9) {
-                        // 9승 이상 = 상대전적 우위 확정
-                        advantageStatus = 'advantage';
-                    } else if (wins <= 7) {
-                        // 7승 이하 = 상대전적 열세 확정
-                        advantageStatus = 'disadvantage';
-                    }
-                    // 8승 8패는 무승부
+                // 상대전적 우위/열세 판단 (확정된 경우만)
+                let starIcon = '';
+                let fontSize = 'var(--font-base)';
+                
+                // 우위/열세 확정 조건 체크
+                if (wins >= 9) {
+                    // 9승 이상 = 상대전적 우위 확정 (16경기 완료 전이라도)
+                    starIcon = '⭐ ';
+                    fontSize = 'var(--font-sm)';
+                } else if (losses >= 9) {
+                    // 9패 이상 = 상대전적 열세 확정 (16경기 완료 전이라도)
+                    starIcon = '🔻 ';
+                    fontSize = 'var(--font-sm)';
                 }
                 
                 // 통합 색상 관리 함수 사용
@@ -8939,11 +8941,11 @@
                 const backgroundColor = cellStyle.backgroundColor;
                 const textColor = cellStyle.textColor;
 
-                return `<td style="background: ${backgroundColor}; color: ${textColor}; padding: 4px 6px;">
+                return `<td style="background: ${backgroundColor}; color: ${textColor}; padding: 4px 0px;">
                     <div style="font-size: var(--font-base); line-height: 1.3; text-align: center;">
-                        <div style="font-weight: var(--font-weight-bold); font-size: var(--font-base); margin-bottom: 4px; color: ${textColor};">${wins}-${losses}-${draws} (${winRate.toFixed(3)})</div>
-                        <div style="font-size: var(--font-2xs); color: ${textColor}; margin-bottom: 2px;">🏠 ${homeWins}-${homeLosses}-${homeDraws} (${homeWinRate.toFixed(3)})</div>
-                        <div style="font-size: var(--font-2xs); color: ${textColor};">✈️ ${awayWins}-${awayLosses}-${awayDraws} (${awayWinRate.toFixed(3)})</div>
+                        <div style="font-weight: var(--font-weight-bold); font-size: ${fontSize}; margin-bottom: 4px; color: ${textColor};">${starIcon}${wins}-${losses}-${draws} (${winRate.toFixed(3)})</div>
+                        <div style="font-size: var(--font-xs); color: ${textColor}; margin-bottom: 2px;">🏠 ${homeWins}-${homeLosses}-${homeDraws} (${homeWinRate.toFixed(3)})</div>
+                        <div style="font-size: var(--font-xs); color: ${textColor};">✈️ ${awayWins}-${awayLosses}-${awayDraws} (${awayWinRate.toFixed(3)})</div>
                     </div>
                 </td>`;
             } else {
