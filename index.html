@@ -14878,22 +14878,37 @@ KT 9:1 키움(H)`;
             }
         }
         
-        // 강제 승률 차트 초기화 (메인 카드용)
+        // 강제 승률 차트 초기화 (메인 카드용) - 독립적 데이터 로딩
         async function forceInitWinRateChart() {
             // Chart.js 로드 확인
             if (typeof Chart === 'undefined') {
                 await window.loadChartJs();
             }
             
-            // 데이터가 있으면 바로 차트 생성
-            if (window.dailyStats && window.dailyStats.seasonData && window.dailyStats.seasonData.length > 0) {
-                createWinRateChart();
-                return;
+            const ctx = document.getElementById('winRateChart');
+            if (!ctx || winRateChartInstance) return;
+            
+            // 독립적으로 데이터 로드
+            let chartData = null;
+            try {
+                const response = await fetch(`magic-number/data/enhanced-dashboard.json?v=${Date.now()}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.history && data.history.length > 0) {
+                        chartData = data.history;
+                    }
+                }
+            } catch (error) {
+                console.error('메인 승률 차트 데이터 로드 실패:', error);
             }
             
-            // 데이터가 없으면 임시 차트라도 생성
-            const ctx = document.getElementById('winRateChart');
-            if (ctx && !winRateChartInstance) {
+            // 데이터가 없으면 일자별 통계 데이터 사용 (백업)
+            if (!chartData && window.dailyStats && window.dailyStats.seasonData && window.dailyStats.seasonData.length > 0) {
+                chartData = window.dailyStats.seasonData;
+            }
+            
+            // 여전히 데이터가 없으면 빈 차트 생성
+            if (!chartData) {
                 winRateChartInstance = new Chart(ctx, {
                     type: 'line',
                     data: {
@@ -14913,24 +14928,19 @@ KT 9:1 키움(H)`;
                         }
                     }
                 });
-                
-                // 실제 데이터가 로드되면 업데이트
-                setTimeout(() => {
-                    if (window.dailyStats && window.dailyStats.seasonData) {
-                        createWinRateChart();
-                    }
-                }, 3000);
+                return;
             }
+            
+            // 실제 데이터로 차트 생성
+            createWinRateChart();
         }
 
-        // 페이지 로드 시 승률 차트 초기화 (간단화)
+        // 페이지 로드 시 승률 차트 초기화 (독립적 데이터 로딩)
         document.addEventListener('DOMContentLoaded', function() {
-            // 3초 후 한 번만 시도
+            // 1초 후 독립적 초기화 함수 호출
             setTimeout(() => {
-                if (!winRateChartInstance) {
-                    createWinRateChart();
-                }
-            }, 3000);
+                forceInitWinRateChart();
+            }, 1000);
         });
     </script>
 
