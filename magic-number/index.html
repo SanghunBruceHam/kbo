@@ -1706,8 +1706,57 @@
             text-align: center;
         }
         
+        .header {
+            background: linear-gradient(135deg, #1a237e 0%, #3949ab 100%);
+            color: #ffffff;
+            padding: 40px 20px 25px 20px;
+            margin: 0 0 10px 0;
+            width: 100%;
+            text-align: center;
+            box-sizing: border-box;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.12);
+        }
+        
         .header .container {
             text-align: center;
+        }
+        
+        /* 메인 컨텐츠 컨테이너 반응형 스타일 */
+        .content-container {
+            width: 100%;
+            margin: 0 auto;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* 전체 페이지 구조 반응형 보장 */
+        html, body {
+            width: 100%;
+            overflow-x: hidden;
+        }
+        
+        /* 모든 메인 섹션 반응형 설정 */
+        .scenario-section,
+        .championship-section,
+        .standings-section,
+        .vs-records-section,
+        .remaining-section {
+            width: 100%;
+            box-sizing: border-box;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+        
+        /* 카드 그리드 반응형 */
+        .cards-grid {
+            width: 100%;
+            box-sizing: border-box;
+        }
+        
+        /* 테이블 컨테이너 반응형 */
+        .table-container {
+            width: 100%;
+            box-sizing: border-box;
         }
 
         /* 모바일에서 업데이트 정보 스타일 개선 */
