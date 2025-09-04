@@ -1902,6 +1902,53 @@
             }
         }
 
+        /* 일자별 순위 그래프 모바일 최적화 */
+        @media (max-width: 768px) {
+            .daily-stats-header {
+                padding: 3px 6px !important;
+                top: 46px !important;
+                margin-bottom: 10px !important;
+            }
+            
+            .daily-stats-controls {
+                gap: 3px !important;
+                row-gap: 3px !important;
+            }
+            
+            .daily-stats-date-display {
+                font-size: 11px !important;
+                padding: 3px 8px !important;
+                min-width: 110px !important;
+            }
+            
+            .daily-stats-btn {
+                padding: 3px 8px !important;
+                font-size: 10px !important;
+            }
+            
+            .daily-stats-date-input {
+                padding: 3px 8px !important;
+                font-size: 11px !important;
+                width: 110px;
+            }
+            
+            .daily-stats-animation-controls {
+                gap: 2px !important;
+            }
+            
+            .daily-stats-nav-buttons {
+                gap: 2px !important;
+            }
+        }
+        
+        /* 모바일 가로 모드 최적화 */
+        @media (max-width: 768px) and (orientation: landscape) {
+            .daily-stats-header {
+                top: 42px !important;
+                padding: 2px 6px !important;
+            }
+        }
+
         /* 모바일에서 매트릭스 테이블 상단 헤더 셀 너비 확대 */
         @media (max-width: 768px) {
             .matrix-table th:not(:first-child) {
@@ -4307,20 +4354,20 @@
             </div>
             
             <!-- 날짜 네비게이션 -->
-            <div class="daily-stats-header" style="position: sticky; top: 60px; z-index: 100; margin-bottom: 15px; margin-top: 0; padding: 12px 16px; background: rgba(248, 249, 250, 0.95); backdrop-filter: blur(10px); border-radius: 8px; border: 1px solid #e9ecef; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-                <div class="daily-stats-controls" style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: center;">
-                    <div class="daily-stats-date-display" style="font-size: 15px; font-weight: 600; color: #2563eb; padding: 8px 16px; background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); border-radius: 8px; border: 1px solid #cbd5e1; min-width: 180px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.05);" id="daily-stats-current-date">
+            <div class="daily-stats-header" style="position: sticky; top: 58px; z-index: 100; margin-bottom: 15px; margin-top: 0; padding: 10px 12px; background: rgba(248, 249, 250, 0.95); backdrop-filter: blur(10px); border-radius: 8px; border: 1px solid #e9ecef; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                <div class="daily-stats-controls" style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: center;">
+                    <div class="daily-stats-date-display" style="font-size: 14px; font-weight: 600; color: #2563eb; padding: 7px 14px; background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); border-radius: 7px; border: 1px solid #cbd5e1; min-width: 160px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.05);" id="daily-stats-current-date">
                         2025년 3월 22일 (금)
                     </div>
-                    <div class="daily-stats-nav-buttons" style="display: flex; gap: 6px;">
-                        <button class="daily-stats-btn daily-stats-btn-secondary" style="padding: 10px 14px; border: none; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600; transition: all 0.2s ease; background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%); color: #475569; border: 1px solid #cbd5e1; box-shadow: 0 2px 4px rgba(0,0,0,0.05);" id="daily-stats-prev-btn" onclick="dailyStatsChangeDate(-1)" onmouseover="this.style.background='linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%)'" onmouseout="this.style.background='linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%)'" aria-label="이전 날짜로 이동">← 이전날</button>
-                        <button class="daily-stats-btn daily-stats-btn-primary" style="padding: 10px 16px; border: none; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600; transition: all 0.2s ease; background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white; box-shadow: 0 3px 6px rgba(59, 130, 246, 0.3);" id="daily-stats-today-btn" onclick="dailyStatsGoToday()" onmouseover="this.style.background='linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)'" onmouseout="this.style.background='linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)'" aria-label="오늘 날짜로 이동">오늘</button>
-                        <button class="daily-stats-btn daily-stats-btn-secondary" style="padding: 10px 14px; border: none; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600; transition: all 0.2s ease; background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%); color: #475569; border: 1px solid #cbd5e1; box-shadow: 0 2px 4px rgba(0,0,0,0.05);" id="daily-stats-next-btn" onclick="dailyStatsChangeDate(1)" onmouseover="this.style.background='linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%)'" onmouseout="this.style.background='linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%)'" aria-label="다음 날짜로 이동">다음날 →</button>
+                    <div class="daily-stats-nav-buttons" style="display: flex; gap: 5px;">
+                        <button class="daily-stats-btn daily-stats-btn-secondary" style="padding: 8px 12px; border: none; border-radius: 7px; cursor: pointer; font-size: 12px; font-weight: 600; transition: all 0.2s ease; background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%); color: #475569; border: 1px solid #cbd5e1; box-shadow: 0 2px 4px rgba(0,0,0,0.05);" id="daily-stats-prev-btn" onclick="dailyStatsChangeDate(-1)" onmouseover="this.style.background='linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%)'" onmouseout="this.style.background='linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%)'" aria-label="이전 날짜로 이동">← 이전날</button>
+                        <button class="daily-stats-btn daily-stats-btn-primary" style="padding: 8px 14px; border: none; border-radius: 7px; cursor: pointer; font-size: 12px; font-weight: 600; transition: all 0.2s ease; background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white; box-shadow: 0 2px 5px rgba(59, 130, 246, 0.3);" id="daily-stats-today-btn" onclick="dailyStatsGoToday()" onmouseover="this.style.background='linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)'" onmouseout="this.style.background='linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)'" aria-label="오늘 날짜로 이동">오늘</button>
+                        <button class="daily-stats-btn daily-stats-btn-secondary" style="padding: 8px 12px; border: none; border-radius: 7px; cursor: pointer; font-size: 12px; font-weight: 600; transition: all 0.2s ease; background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%); color: #475569; border: 1px solid #cbd5e1; box-shadow: 0 2px 4px rgba(0,0,0,0.05);" id="daily-stats-next-btn" onclick="dailyStatsChangeDate(1)" onmouseover="this.style.background='linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%)'" onmouseout="this.style.background='linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%)'" aria-label="다음 날짜로 이동">다음날 →</button>
                     </div>
-                    <input type="date" class="daily-stats-date-input" style="padding: 10px 12px; border: 2px solid #cbd5e1; border-radius: 8px; font-size: 14px; background: white; transition: all 0.2s ease; box-shadow: 0 2px 4px rgba(0,0,0,0.05);" id="daily-stats-date-input" min="2025-03-22" max="" value="" onchange="dailyStatsSelectDate(this.value)" onfocus="this.style.borderColor='#3b82f6'; this.style.boxShadow='0 0 0 3px rgba(59, 130, 246, 0.1)'" onblur="this.style.borderColor='#cbd5e1'; this.style.boxShadow='0 2px 4px rgba(0,0,0,0.05)'">
-                    <div class="daily-stats-animation-controls" style="display: flex; gap: 6px;">
-                        <button class="daily-stats-btn daily-stats-btn-primary" style="padding: 10px 16px; border: none; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600; transition: all 0.2s ease; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; box-shadow: 0 3px 6px rgba(16, 185, 129, 0.3);" id="daily-stats-animation-btn" onclick="dailyStatsToggleAnimation()" onmouseover="this.style.background='linear-gradient(135deg, #059669 0%, #047857 100%)'" onmouseout="this.style.background='linear-gradient(135deg, #10b981 0%, #059669 100%)'" aria-label="순위 변동 애니메이션 토글">▶️ 애니메이션</button>
-                        <button class="daily-stats-btn daily-stats-btn-secondary" style="padding: 10px 14px; border: none; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600; transition: all 0.2s ease; background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: white; box-shadow: 0 3px 6px rgba(245, 158, 11, 0.3);" id="daily-stats-reset-btn" onclick="dailyStatsResetAnimation()" onmouseover="this.style.background='linear-gradient(135deg, #d97706 0%, #b45309 100%)'" onmouseout="this.style.background='linear-gradient(135deg, #f59e0b 0%, #d97706 100%)'" aria-label="애니메이션 처음부터 재생">⏮️ 처음부터</button>
+                    <input type="date" class="daily-stats-date-input" style="padding: 8px 11px; border: 1px solid #cbd5e1; border-radius: 7px; font-size: 13px; background: white; transition: all 0.2s ease; box-shadow: 0 2px 4px rgba(0,0,0,0.05);" id="daily-stats-date-input" min="2025-03-22" max="" value="" onchange="dailyStatsSelectDate(this.value)" onfocus="this.style.borderColor='#3b82f6'; this.style.boxShadow='0 0 0 3px rgba(59, 130, 246, 0.1)'" onblur="this.style.borderColor='#cbd5e1'; this.style.boxShadow='0 2px 4px rgba(0,0,0,0.05)'">
+                    <div class="daily-stats-animation-controls" style="display: flex; gap: 5px;">
+                        <button class="daily-stats-btn daily-stats-btn-primary" style="padding: 8px 14px; border: none; border-radius: 7px; cursor: pointer; font-size: 12px; font-weight: 600; transition: all 0.2s ease; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; box-shadow: 0 2px 5px rgba(16, 185, 129, 0.3);" id="daily-stats-animation-btn" onclick="dailyStatsToggleAnimation()" onmouseover="this.style.background='linear-gradient(135deg, #059669 0%, #047857 100%)'" onmouseout="this.style.background='linear-gradient(135deg, #10b981 0%, #059669 100%)'" aria-label="순위 변동 애니메이션 토글">▶️ 애니메이션</button>
+                        <button class="daily-stats-btn daily-stats-btn-secondary" style="padding: 8px 12px; border: none; border-radius: 7px; cursor: pointer; font-size: 12px; font-weight: 600; transition: all 0.2s ease; background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: white; box-shadow: 0 2px 5px rgba(245, 158, 11, 0.3);" id="daily-stats-reset-btn" onclick="dailyStatsResetAnimation()" onmouseover="this.style.background='linear-gradient(135deg, #d97706 0%, #b45309 100%)'" onmouseout="this.style.background='linear-gradient(135deg, #f59e0b 0%, #d97706 100%)'" aria-label="애니메이션 처음부터 재생">⏮️ 처음부터</button>
                     </div>
                 </div>
             </div>
