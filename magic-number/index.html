@@ -256,7 +256,7 @@
             
             /* 경우의수 테이블을 PC와 동일한 스타일로 */
             .scenario-matrix-table {
-                min-width: 800px !important;
+                min-width: 100% !important;
                 font-size: 0.75rem !important;
                 border-collapse: collapse !important;
                 width: 100% !important;
@@ -679,7 +679,7 @@
             // PC 버전으로 보기 버튼 이벤트 (viewport 변경)
             window.switchToPCVersion = function() {
                 const viewport = document.querySelector('meta[name="viewport"]');
-                viewport.setAttribute('content', 'width=1200, initial-scale=0.5, user-scalable=yes');
+                viewport.setAttribute('content', 'width=device-width, initial-scale=0.8, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes');
                 if (deviceNotice) deviceNotice.style.display = 'none';
                 document.body.classList.add('force-desktop');
             };
@@ -687,7 +687,7 @@
             // 모바일 버전으로 돌아가기 기능
             window.switchToMobileVersion = function() {
                 const viewport = document.querySelector('meta[name="viewport"]');
-                viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, user-scalable=yes');
+                viewport.setAttribute('content', 'width=device-width, initial-scale=1.0');
                 document.body.classList.remove('force-desktop');
                 location.reload();
             };
@@ -1773,6 +1773,7 @@
         /* 전체 페이지 구조 반응형 보장 */
         html, body {
             width: 100%;
+            overflow-x: hidden;
         }
         
         /* 모든 메인 섹션 반응형 설정 */
