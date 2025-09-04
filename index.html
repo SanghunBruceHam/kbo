@@ -5646,35 +5646,8 @@
                         return bWinRateRounded - aWinRateRounded;
                     }
                     
-                    // 2차: 승률이 같을 때 상대전적 비교
-                    if (recordsData && recordsData.totalData) {
-                        const aVsB = recordsData.totalData[a.team_name]?.[b.team_name];
-                        const bVsA = recordsData.totalData[b.team_name]?.[a.team_name];
-                        
-                        if (aVsB && bVsA) {
-                            const aWins = aVsB.wins || 0;
-                            const bWins = bVsA.wins || 0;
-                            
-                            // 상대전적 승수가 다르면 많이 이긴 팀을 앞에
-                            if (aWins !== bWins) {
-                                return bWins - aWins;
-                            }
-                        }
-                    }
-                    
-                    // 3차: 다승 비교 (승수가 많은 팀이 위)
-                    if (a.wins !== b.wins) {
-                        return b.wins - a.wins;
-                    }
-                    
-                    // 4차: 득실차 비교 (듍점 - 실점)
-                    const aRunDiff = (a.runs_scored || 0) - (a.runs_allowed || 0);
-                    const bRunDiff = (b.runs_scored || 0) - (b.runs_allowed || 0);
-                    if (aRunDiff !== bRunDiff) {
-                        return bRunDiff - aRunDiff;
-                    }
-                    
-                    // 5차: 팀명 알파벳 순 (모든 기준이 같을 때)
+                    // 승률이 같을 때는 공동순위로 처리 (KBO 규정)
+                    // 상대전적, 다승, 득실차 비교 없이 팀명 순서만 유지
                     return a.team_name.localeCompare(b.team_name);
                 });
                 
@@ -5709,10 +5682,8 @@
                     const currentRunDiff = (currentTeam.runs_scored || 0) - (currentTeam.runs_allowed || 0);
                     const previousRunDiff = (previousTeam.runs_scored || 0) - (previousTeam.runs_allowed || 0);
                     
-                    // 승률, 다승, 듍실차가 모두 같으면 공동 순위 (맞대결 전적은 정렬 시 이미 처리됨)
-                    if (currentWinRate === previousWinRate && 
-                        currentTeam.wins === previousTeam.wins && 
-                        currentRunDiff === previousRunDiff) {
+                    // 승률이 같으면 공동 순위 (KBO 규정)
+                    if (currentWinRate === previousWinRate) {
                         // 공동 순위
                         currentTeam.rank = previousTeam.rank;
                         currentTeam.displayRank = previousTeam.displayRank;
@@ -12307,27 +12278,35 @@ KT 9:1 키움(H)`;
                 if (window.dashboardData && window.dashboardData.standings && targetDate === this.getCurrentMaxDate()) {
                     // 종합 순위 데이터를 사용하여 순위 변동 차트용 데이터 생성
                     return window.dashboardData.standings.map((team, index) => ({
-                        team: team.team,
-                        rank: getRankingSystem().teamRanks[team.team_name] || 999,
+                        team: team.team_name,
+                        rank: team.displayRank || team.rank || (index + 1),
                         wins: team.wins,
                         losses: team.losses,
                         draws: team.draws,
-                        games: team.games,
-                        winRate: team.winRate,
-                        gamesBehind: team.gamesBehind
+                        games: team.games_played || team.games,
+                        winRate: team.wins / (team.wins + team.losses),
+                        gamesBehind: team.gamesBehind || 0
                     }));
                 }
                 
-                // 종합 순위 데이터가 없거나 과거 날짜인 경우 기존 계산 로직 사용
+                // 과거 날짜에 대해서도 메인 시스템과 동일한 순위 로직 사용
                 const teams = getRankingSystem().teams;
                 const tempStats = {};
                 
                 teams.forEach(team => {
                     tempStats[team] = {
-                        team, games: 0, wins: 0, losses: 0, draws: 0, winRate: 0, gamesBehind: 0
+                        team_name: team,
+                        team: team,
+                        games: 0, 
+                        wins: 0, 
+                        losses: 0, 
+                        draws: 0, 
+                        winRate: 0, 
+                        gamesBehind: 0
                     };
                 });
                 
+                // 해당 날짜까지의 누적 데이터 계산
                 for (const dayData of this.seasonData) {
                     if (dayData.date > targetDate) break;
                     
@@ -12351,15 +12330,23 @@ KT 9:1 키움(H)`;
                 }
                 
                 const standings = Object.values(tempStats);
+                
+                // 승률 계산 (4자리 소수점 정밀도로 메인 시스템과 동일하게)
                 standings.forEach(team => {
                     const decidedGames = team.wins + team.losses;
-                    team.winRate = decidedGames > 0 ? team.wins / decidedGames : 0;
+                    const rawWinRate = decidedGames > 0 ? team.wins / decidedGames : 0;
+                    team.winRate = Math.round(rawWinRate * 10000) / 10000;
                 });
                 
+                // 메인 시스템과 동일한 정렬 로직 사용
                 standings.sort((a, b) => {
-                    if (b.winRate !== a.winRate) return b.winRate - a.winRate;
-                    if (b.wins !== a.wins) return b.wins - a.wins;
-                    return a.losses - b.losses;
+                    // 1차: 승률 비교 (4자리 정밀도)
+                    if (a.winRate !== b.winRate) {
+                        return b.winRate - a.winRate;
+                    }
+                    
+                    // 승률이 같을 때는 공동순위로 처리 (팀명 순서만 유지)
+                    return a.team_name.localeCompare(b.team_name);
                 });
                 
                 // 게임차 계산
@@ -12372,10 +12359,28 @@ KT 9:1 키움(H)`;
                     });
                 }
                 
-                // 순위 할당 - 정렬된 순서대로 1-10위
-                standings.forEach((team, index) => {
-                    team.rank = index + 1;  // 정렬된 순서대로 1위부터 10위까지
-                });
+                // 메인 시스템과 동일한 순위 할당 로직
+                let currentRank = 1;
+                for (let i = 0; i < standings.length; i++) {
+                    if (i === 0) {
+                        standings[i].rank = 1;
+                        standings[i].displayRank = 1;
+                    } else {
+                        const currentTeam = standings[i];
+                        const previousTeam = standings[i - 1];
+                        
+                        // 승률이 같으면 공동 순위 (KBO 규정)
+                        if (currentTeam.winRate === previousTeam.winRate) {
+                            currentTeam.rank = previousTeam.rank;
+                            currentTeam.displayRank = previousTeam.displayRank;
+                        } else {
+                            // 승률이 다르면 새로운 순위
+                            currentRank = i + 1;
+                            currentTeam.rank = currentRank;
+                            currentTeam.displayRank = currentRank;
+                        }
+                    }
+                }
                 
                 return standings;
             }
@@ -12476,7 +12481,7 @@ KT 9:1 키움(H)`;
                     </tr></thead><tbody>`;
                 
                 standings.forEach((team, index) => {
-                    const rank = index + 1; // 순서대로 1-10위
+                    const rank = team.displayRank || team.rank || (index + 1); // 동률 처리된 순위 사용
                     const rowStyle = rank === 1 ? 'background: linear-gradient(90deg, #ffd700 0%, #ffed4e 100%); font-weight: bold;' : '';
                     const winRateStr = team.winRate.toFixed(3);
                     const gbStr = team.gamesBehind === 0 ? '-' : team.gamesBehind.toFixed(1);
@@ -12753,7 +12758,7 @@ KT 9:1 키움(H)`;
                 
                 let html = '';
                 standings.forEach((team, index) => {
-                    const rank = index + 1; // 순서대로 1-10위
+                    const rank = team.displayRank || team.rank || (index + 1); // 동률 처리된 순위 사용
                     const gap = team.gamesBehind;
                     const gapText = gap === 0 ? '선두' : `${gap.toFixed(1)}차`;
                     

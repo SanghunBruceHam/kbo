@@ -162,14 +162,14 @@ async function loadRealKBOData() {
                         return a.losses - b.losses;
                     });
                     
-                    // 동순위 처리 포함 순위 부여 - 종합순위와 동일한 로직 (4자리 정확도)
+                    // 동순위 처리 포함 순위 부여 - 종합순위와 동일한 로직 (3자리 정확도)
                     let currentRank = 1;
                     let previousWinRate = null;
                     
                     for (let i = 0; i < standings.length; i++) {
                         const currentTeam = standings[i];
-                        // 4자리까지 정확한 승률로 동률 처리
-                        const preciseWinRate = Math.round(currentTeam.winPct * 10000) / 10000;
+                        // 3자리까지 정확한 승률로 동률 처리 (main standings와 동일)
+                        const preciseWinRate = parseFloat(currentTeam.winPct.toFixed(3));
                         
                         // 이전 팀과 정확한 승률이 다르면 실제 순위로 업데이트
                         if (previousWinRate !== null && preciseWinRate !== previousWinRate) {
