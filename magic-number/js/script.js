@@ -3719,6 +3719,9 @@ const kboTeams = {
                             <!-- 1행: 순위 -->
                             <tr style="background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%); color: white;">
                                 <th style="
+                                    position: sticky;
+                                    left: 0;
+                                    z-index: 110;
                                     min-width: 70px; 
                                     width: 70px;
                                     padding: 4px 6px; 
@@ -3758,6 +3761,9 @@ const kboTeams = {
             // 2행: 성적
             html += `</tr><tr style="background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%); color: white;">
                 <th style="
+                    position: sticky;
+                    left: 0;
+                    z-index: 110;
                     min-width: 70px; 
                     width: 70px;
                     padding: 4px 6px; 
@@ -3787,6 +3793,9 @@ const kboTeams = {
             // 3행: 잔여경기
             html += `</tr><tr style="background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%); color: white;">
                 <th style="
+                    position: sticky;
+                    left: 0;
+                    z-index: 110;
                     min-width: 70px; 
                     width: 70px;
                     padding: 4px 6px; 
@@ -3816,6 +3825,9 @@ const kboTeams = {
             // 4행: 승률 + 컬럼 구분
             html += `</tr><tr style="background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%); color: white;">
                 <th style="
+                    position: sticky;
+                    left: 0;
+                    z-index: 110;
                     min-width: 70px; 
                     width: 70px;
                     padding: 4px 6px; 
