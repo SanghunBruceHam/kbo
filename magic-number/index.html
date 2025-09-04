@@ -3,7 +3,7 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- 캐시 제어 - 항상 최신 데이터 표시 -->
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate, max-age=0, s-maxage=0">
@@ -141,6 +141,20 @@
         
         .scenario-matrix-container::-webkit-scrollbar-thumb:hover {
             background: #388e3c;
+        }
+        
+        /* 기본 레이아웃 */
+        body {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
         
         /* 모바일에서 경우의 수 표 최적화 */
