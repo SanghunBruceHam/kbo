@@ -1732,7 +1732,6 @@
         /* 전체 페이지 구조 반응형 보장 */
         html, body {
             width: 100%;
-            overflow-x: hidden;
         }
         
         /* 모든 메인 섹션 반응형 설정 */
@@ -1796,7 +1795,7 @@
         .scroll-to-top {
             position: fixed;
             bottom: 30px;
-            right: 30px;
+            right: 2vw;
             width: 50px;
             height: 50px;
             background: #1a237e;
@@ -1835,7 +1834,7 @@
         .floating-share {
             position: fixed;
             bottom: 90px;
-            right: 30px;
+            right: 2vw;
             z-index: 1000;
         }
 
@@ -1916,15 +1915,15 @@
         @media (max-width: 768px) {
             .scroll-to-top {
                 bottom: 20px;
-                right: 20px;
+                right: 3vw;
                 width: 45px;
                 height: 45px;
                 font-size: 18px;
             }
-
+            
             .floating-share {
                 bottom: 70px;
-                right: 20px;
+                right: 3vw;
             }
             
             .share-toggle {
