@@ -146,18 +146,15 @@
         /* 모바일에서 경우의 수 표 최적화 */
         @media (max-width: 768px) {
             body {
-                overflow-x: hidden !important;
                 max-width: 100vw !important;
             }
             
             .container {
                 max-width: 100vw !important;
                 padding: 0 10px !important;
-                overflow-x: hidden !important;
             }
             
             .scenario-section {
-                overflow: visible !important;
                 max-width: 100% !important;
             }
             
@@ -175,7 +172,6 @@
                 margin: 0 -10px !important;
                 padding: 0 10px !important;
                 position: relative !important;
-                transform: translateZ(0) !important; /* GPU 가속 활성화 */
                 border-radius: 12px !important;
                 border: 1px solid #e0e0e0 !important;
                 box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
@@ -358,7 +354,6 @@
         /* 🎲 우승 & 플레이오프 경우의 수 섹션 통합 스타일 */
         .scenario-section {
             position: relative;
-            overflow: hidden;
         }
         
         .scenario-bg-accent {
@@ -727,7 +722,7 @@
         <div class="content-container">
                 <div class="cards-grid" style="width: 100%; max-width: 1200px; margin: 0 auto;">
                 <!-- 1위팀 우승 조건 -->
-                <div class="card championship-section" id="championship" style="position: relative; overflow: hidden;">
+                <div class="card championship-section" id="championship" style="position: relative;">
                     <div class="championship-bg-accent" style="position: absolute; top: 0; left: 0; right: 0; height: 6px; background: linear-gradient(90deg, #1a237e, #3949ab); opacity: 0.8;"></div>
                     <h2 style="color: #1a237e; text-shadow: 0 1px 2px rgba(26, 35, 126, 0.1); margin-top: 15px;">👑 정규시즌 매직넘버 & 우승 조건</h2>
                     <div id="championship-condition">
@@ -846,7 +841,6 @@
                             border: 2px solid rgba(26, 35, 126, 0.2);
                             box-shadow: 0 4px 12px rgba(26, 35, 126, 0.1);
                             position: relative;
-                            overflow: hidden;
                             transition: all 0.3s ease;
                         ">
                             <div style="
@@ -1660,43 +1654,7 @@
     </script> -->
 
 
-    <!-- 플로팅 공유 버튼 -->
-    <div class="floating-share" id="floatingShare">
-        <div class="share-toggle" id="shareToggle">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/>
-            </svg>
-        </div>
-        <div class="share-options" id="shareOptions">
-            <button class="share-btn" data-type="copy">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
-                </svg>
-                <span>URL 복사</span>
-            </button>
-            <button class="share-btn" data-type="threads">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12.186 24h-.007c-3.581-.024-6.334-1.205-8.184-3.509C2.35 18.44 1.5 15.586 1.5 12.5 1.5 9.414 2.35 6.56 3.995 4.509 5.845 2.205 8.598 1.024 12.179 1h.014c3.581.024 6.334 1.205 8.184 3.509C21.65 6.56 22.5 9.414 22.5 12.5s-.85 5.94-2.495 7.991c-1.85 2.304-4.603 3.485-8.184 3.509z"/>
-                </svg>
-                <span>Threads</span>
-            </button>
-            <button class="share-btn" data-type="twitter">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.80l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                </svg>
-                <span>X (Twitter)</span>
-            </button>
-            <button class="share-btn" data-type="facebook">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                </svg>
-                <span>Facebook</span>
-            </button>
-        </div>
-    </div>
     
-    <!-- 탑으로 가기 버튼 -->
-    <button class="scroll-to-top" id="scrollToTop">↑</button>
     
     <!-- 헤더 데이터 업데이트 시간 스타일 -->
     <style>
@@ -1727,6 +1685,66 @@
                 border: 1px solid rgba(255,255,255,0.2) !important;
                 margin-bottom: 8px !important;
             }
+        }
+
+
+        /* 메인 대시보드 네비게이션 플래시 애니메이션 */
+        .nav-item.main-dashboard {
+            animation: navFlash 3s infinite;
+        }
+        
+        @keyframes navFlash {
+            0%, 75%, 100% {
+                background: linear-gradient(135deg, var(--success-color), #059669);
+                box-shadow: none;
+            }
+            80%, 90% {
+                background: linear-gradient(135deg, #fbbf24, #f59e0b);
+                box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+            }
+        }
+        
+        .nav-item.main-dashboard:hover {
+            animation-play-state: paused;
+        }
+
+        /* 탑으로 가기 버튼 스타일 - magic-number 스타일 적용 */
+        .scroll-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: #1a237e;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 9999;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transform: translateY(20px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .scroll-to-top:hover {
+            background: #3949ab;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+        }
+
+        .scroll-to-top.show:hover {
+            transform: translateY(-2px);
+        }
+
+        .scroll-to-top.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
         }
 
         /* 플로팅 공유 버튼 스타일 */
@@ -1765,7 +1783,6 @@
             transform: translateY(-2px);
             box-shadow: 0 6px 16px rgba(0,0,0,0.3);
         }
-
 
         .share-options {
             position: absolute;
@@ -1811,30 +1828,18 @@
             flex-shrink: 0;
         }
 
-        /* 메인 대시보드 네비게이션 플래시 애니메이션 */
-        .nav-item.main-dashboard {
-            animation: navFlash 3s infinite;
-        }
-        
-        @keyframes navFlash {
-            0%, 75%, 100% {
-                background: linear-gradient(135deg, var(--success-color), #059669);
-                box-shadow: none;
-            }
-            80%, 90% {
-                background: linear-gradient(135deg, #fbbf24, #f59e0b);
-                box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
-            }
-        }
-        
-        .nav-item.main-dashboard:hover {
-            animation-play-state: paused;
-        }
-
         /* 모바일에서 버튼 조정 */
         @media (max-width: 768px) {
+            .scroll-to-top {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+                font-size: 18px;
+            }
+
             .floating-share {
-                bottom: 75px;
+                bottom: 70px;
                 right: 20px;
             }
             
@@ -1845,55 +1850,49 @@
             
             .share-options {
                 min-width: 140px;
-                bottom: 55px;
+                bottom: 50px;
             }
-            
-            .scroll-to-top {
-                bottom: 20px;
-                right: 20px;
-                width: 50px;
-                height: 45px;
-                font-size: 18px;
-            }
-        }
-
-        /* 탑으로 가기 버튼 스타일 - 메인 페이지와 동일 */
-        .scroll-to-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 50px;
-            height: 50px;
-            background: #1a237e;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            font-size: 20px;
-            cursor: pointer;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            transform: translateY(20px);
-            z-index: 999;
-        }
-
-        .scroll-to-top:hover {
-            background: #3949ab;
-            box-shadow: 0 6px 16px rgba(0,0,0,0.3);
-        }
-
-        .scroll-to-top.show:hover {
-            transform: translateY(-2px);
-        }
-
-        .scroll-to-top.show {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
         }
 
     </style>
+    
+    <!-- 플로팅 공유 버튼 -->
+    <div class="floating-share" id="floatingShare">
+        <div class="share-toggle" id="shareToggle">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/>
+            </svg>
+        </div>
+        <div class="share-options" id="shareOptions">
+            <button class="share-btn" data-type="copy">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                </svg>
+                <span>URL 복사</span>
+            </button>
+            <button class="share-btn" data-type="threads">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12.186 24h-.007c-3.581-.024-6.334-1.205-8.184-3.509C2.35 18.44 1.5 15.586 1.5 12.5 1.5 9.414 2.35 6.56 3.995 4.509 5.845 2.205 8.598 1.024 12.179 1h.014c3.581.024 6.334 1.205 8.184 3.509C21.65 6.56 22.5 9.414 22.5 12.5s-.85 5.94-2.495 7.991c-1.85 2.304-4.603 3.485-8.184 3.509z"/>
+                </svg>
+                <span>Threads</span>
+            </button>
+            <button class="share-btn" data-type="twitter">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
+                <span>X (Twitter)</span>
+            </button>
+            <button class="share-btn" data-type="facebook">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                </svg>
+                <span>Facebook</span>
+            </button>
+        </div>
+    </div>
+    
+    <!-- 탑으로 가기 버튼 -->
+    <button class="scroll-to-top" id="scrollToTop">↑</button>
     
 </body>
 </html><!-- Updated at Tue Aug  5 10:21:58 JST 2025 -->
