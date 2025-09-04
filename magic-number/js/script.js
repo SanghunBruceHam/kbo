@@ -2379,7 +2379,7 @@ const kboTeams = {
                 .map(team => team.team);
 
             // Header row - 로고만 표시
-            grid.appendChild(createGridCell('vs', 'vs-header'));
+            grid.appendChild(createGridCell('', 'vs-header'));
             teamOrder.forEach(team => {
                 const teamData = kboTeams[team];
                 const cell = createGridCell('', 'vs-header');
@@ -2442,6 +2442,34 @@ const kboTeams = {
                         const winPct = totalGames > 0 ? (wins / (wins + losses)) : 0.5; // 무승부 제외한 승률
                         const winPctDisplay = totalGames > 0 ? winPct.toFixed(3) : '-';
                         
+                        // 상대전적 우위/열세 확정 판단
+                        let starIcon = '';
+                        
+                        // 전체 경기수 (보통 16경기)
+                        const totalGamesPlayed = wins + losses + draws;
+                        const remainingGames = Math.max(0, 16 - totalGamesPlayed);
+                        
+                        // 우위/열세 확정 조건 체크
+                        if (wins >= 9) {
+                            // 9승 이상 = 상대전적 우위 확정
+                            starIcon = '⭐ ';
+                        } else if (losses >= 9) {
+                            // 9패 이상 = 상대전적 열세 확정
+                            starIcon = '🔻 ';
+                        } else if (remainingGames > 0) {
+                            // 남은 경기가 있는 경우: 남은 경기를 모두 이겨도 상대를 넘을 수 없으면 열세 확정
+                            const maxPossibleWins = wins + remainingGames;
+                            const opponentMinLosses = losses; // 상대방 최소 패수 (현재 내가 진 횟수)
+                            
+                            if (maxPossibleWins < opponentMinLosses) {
+                                // 내가 남은 경기를 모두 이겨도 상대방이 나보다 많이 이김 = 열세 확정
+                                starIcon = '🔻 ';
+                            } else if (wins > losses + remainingGames) {
+                                // 상대가 남은 경기를 모두 이겨도 내가 더 많이 이김 = 우위 확정
+                                starIcon = '⭐ ';
+                            }
+                        }
+                        
                         // 승률 강도에 따른 그라데이션 색상
                         let backgroundColor;
                         let textColor = '#333'; // 모든 셀 통일된 텍스트 색상
@@ -2473,10 +2501,10 @@ const kboTeams = {
 
                         const cell = createGridCell('', 'vs-record');
                         cell.innerHTML = `
-                            <div style="line-height: 1.3; text-align: center;">
-                                <div style=" margin-bottom: 2px;">${totalRecord} (${winPctDisplay})</div>
-                                <div style="color: #555; margin-bottom: 1px; font-size: 0.7rem;">🏠 ${homeRecord} (${homeWinRate})</div>
-                                <div style="color: #555; font-size: 0.7rem;">✈️ ${awayRecord} (${awayWinRate})</div>
+                            <div style="line-height: 1.2; text-align: center; margin: 0; padding: 0;">
+                                <div style="margin: 0 0 1px 0; padding: 0; font-size: ${starIcon ? '0.8rem' : '0.9rem'};">${starIcon}${totalRecord} (${winPctDisplay})</div>
+                                <div style="color: #555; margin: 0; padding: 0; font-size: 0.7rem;">🏠 ${homeRecord} (${homeWinRate})</div>
+                                <div style="color: #555; margin: 0; padding: 0; font-size: 0.7rem;">✈️ ${awayRecord} (${awayWinRate})</div>
                             </div>
                         `;
                         cell.style.background = backgroundColor;
@@ -2522,7 +2550,7 @@ const kboTeams = {
             }
 
             // Header row
-            grid.appendChild(createGridCell('vs', 'vs-header'));
+            grid.appendChild(createGridCell('', 'vs-header'));
             teamOrder.forEach(team => {
                 const teamData = kboTeams[team];
                 const cell = createGridCell('', 'vs-header');

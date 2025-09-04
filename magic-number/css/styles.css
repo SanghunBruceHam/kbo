@@ -534,7 +534,7 @@ tr:last-child td {
 .card {
     background: var(--bg-secondary);
     border-radius: 16px;
-    padding: 32px;
+    padding: 20px;
     box-shadow: var(--shadow-sm);
     border: 1px solid var(--border-color);
     transition: all 0.3s ease;
@@ -1122,9 +1122,9 @@ td:first-child {
     
     .vs-grid {
         display: grid !important;
-        grid-template-columns: 50px repeat(10, 105px) !important;
-        width: fit-content !important;
-        max-width: calc(100% - 20px) !important;
+        grid-template-columns: 50px repeat(10, 1fr) !important;
+        width: 100% !important;
+        max-width: 100% !important;
         margin: 0 auto !important;
         justify-content: center !important;
         gap: 1px !important;
@@ -1226,12 +1226,14 @@ td:first-child {
 
 .vs-grid {
     display: grid;
-    grid-template-columns: 120px repeat(10, 120px);
-    gap: 3px;
+    grid-template-columns: 50px repeat(10, 1fr);
+    gap: 1px;
     position: relative;
     min-width: fit-content;
     justify-content: center;
     width: 100%;
+    max-width: 100%;
+    overflow: hidden;
 }
 
 .vs-grid > div {
@@ -1269,9 +1271,9 @@ td:first-child {
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
-    width: 120px;
-    min-width: 120px;
-    max-width: 120px;
+    width: 50px;
+    min-width: 50px;
+    max-width: 50px;
 }
 
 /* 좌상단 교차점 - 가장 높은 z-index */
@@ -1483,7 +1485,7 @@ td:first-child {
 
 .vs-record {
     background: white;
-    padding: 6px 4px;
+    padding: 4px 0px;
     text-align: center;
     border: 1px solid #ddd;
 }
@@ -2222,7 +2224,7 @@ input, textarea, select, button {
     .vs-grid {
         gap: 1px;
         font-size: var(--text-xs);
-        grid-template-columns: 90px repeat(10, 120px) !important;
+        grid-template-columns: 50px repeat(10, 1fr) !important;
         max-width: 100%;
         margin: 0 -10px;
         padding: 0 10px;
@@ -2601,7 +2603,7 @@ input, textarea, select, button {
     }
     /* 상대전적 테이블 최소화 */
     .vs-grid {
-        grid-template-columns: 80px repeat(10, 105px) !important;
+        grid-template-columns: 50px repeat(10, 1fr) !important;
     }
     
     .vs-grid > div {
