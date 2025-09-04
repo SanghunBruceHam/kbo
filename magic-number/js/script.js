@@ -3975,7 +3975,7 @@ const kboTeams = {
                     </p>
                 </div>
                 
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px;">
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px;">
             `;
             
             topTeams.forEach((team, index) => {
