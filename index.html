@@ -5070,7 +5070,7 @@
             <div style="margin-top: 15px; padding: 12px; background: #f8f9fa; border-radius: 6px; border: 1px solid #e9ecef;">
                 <div style="font-size: var(--font-base); font-weight: var(--font-weight-medium); margin-bottom: 8px; color: #495057;">📊 월별 성적 설명</div>
                 <div style="font-size: var(--font-sm); color: #4b5563; line-height: 1.5;">
-                    <div style="margin-bottom: 6px;"><strong>월별 성적:</strong> 3월부터 8월까지 각 월별 승패 기록과 승률 분석</div>
+                    <div style="margin-bottom: 6px;"><strong>월별 성적:</strong> 3월부터 10월까지 각 월별 승패 기록과 승률 분석</div>
                     <div style="margin-bottom: 6px;"><strong>최고월/최저월:</strong> 각 팀의 가장 좋았던 월과 나빴던 월을 배경색으로 강조</div>
                     <div style="margin-bottom: 10px;"><strong>색상 구분:</strong> <span style="background: var(--positive-bg-medium); padding: 2px 6px; border-radius: 3px;">0.500 초과 (좋음)</span> <span style="background: var(--neutral-bg-light); padding: 2px 6px; border-radius: 3px;">0.500 (보통)</span> <span style="background: var(--negative-bg-medium); padding: 2px 6px; border-radius: 3px;">0.500 미만 (나쁨)</span></div>
                 </div>
@@ -9007,9 +9007,26 @@
             
             thead.appendChild(headerRow);
             
-            // 월별 데이터 (3월~8월)
-            const months = [3, 4, 5, 6, 7, 8];
-            const monthNames = ['3월', '4월', '5월', '6월', '7월', '8월'];
+            // 실제 데이터가 있는 월만 표시
+            const allMonths = [3, 4, 5, 6, 7, 8, 9, 10];
+            const allMonthNames = ['3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월'];
+            
+            // 데이터가 있는 월만 필터링
+            const months = [];
+            const monthNames = [];
+            allMonths.forEach((monthNum, index) => {
+                // 어떤 팀이든 해당 월에 데이터가 있으면 포함
+                const hasData = rankedTeams.some(team => {
+                    const monthlyData = dashboardData.monthlyPerformance[team];
+                    const monthData = monthlyData?.find(month => month.month === monthNum);
+                    return monthData && monthData.wins + monthData.losses > 0;
+                });
+                
+                if (hasData) {
+                    months.push(monthNum);
+                    monthNames.push(allMonthNames[index]);
+                }
+            });
             
             // 먼저 팀별 데이터를 미리 계산 (최고월/최저월 판단용)
             const teamStats = {};
