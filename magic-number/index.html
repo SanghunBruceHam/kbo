@@ -225,6 +225,84 @@
                 font-style: italic;
             }
         }
+        
+        /* 🎲 우승 & 플레이오프 경우의 수 섹션 통합 스타일 */
+        .scenario-section {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .scenario-bg-accent {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, #4CAF50, #66BB6A);
+            opacity: 0.8;
+        }
+        
+        .scenario-section h2 {
+            color: #2E7D32;
+            text-shadow: 0 1px 2px rgba(46, 125, 50, 0.1);
+            margin-top: 15px;
+        }
+        
+        #scenario-content {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        
+        .scenario-legend {
+            background: #f8f9fa;
+            padding: 12px 15px;
+            border-radius: 6px;
+            margin-top: 15px;
+            border-left: 3px solid #4CAF50;
+            font-size: 13px;
+        }
+        
+        .scenario-legend h3 {
+            margin: 0 0 10px 0;
+            color: #2E7D32;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .scenario-legend .grid-layout {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 12px;
+        }
+        
+        .scenario-button-area {
+            margin-top: 15px;
+            padding: 12px;
+            background: #e8f5e9;
+            border-radius: 6px;
+            text-align: center;
+            border: 1px solid #c8e6c9;
+        }
+        
+        .scenario-button-area .button-description {
+            color: #2E7D32;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+        
+        .scenario-full-view-button {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(76, 175, 80, 0.3);
+            white-space: nowrap;
+        }
     </style>
     
     <!-- JSON-LD 구조화 데이터 -->
@@ -701,19 +779,19 @@
                 </div>
 
                 <!-- 우승 & 플레이오프 경우의 수 카드 -->
-                <div class="card scenario-section" id="scenarios" style="position: relative; overflow: hidden;">
-                    <div class="scenario-bg-accent" style="position: absolute; top: 0; left: 0; right: 0; height: 6px; background: linear-gradient(90deg, #4CAF50, #66BB6A); opacity: 0.8;"></div>
-                    <h2 style="color: #2E7D32; text-shadow: 0 1px 2px rgba(46, 125, 50, 0.1); margin-top: 15px;">🎲 우승 & 플레이오프 경우의 수</h2>
+                <div class="card scenario-section" id="scenarios">
+                    <div class="scenario-bg-accent"></div>
+                    <h2>🎲 우승 & 플레이오프 경우의 수</h2>
                     
                     
                     <!-- 시나리오 분석 결과 표시 영역 -->
-                    <div id="scenario-content" style="overflow-x: auto; margin: 20px 0;">
+                    <div id="scenario-content">
                         <!-- 여기에 동적으로 시나리오 분석 결과가 삽입됩니다 -->
                     </div>
 
-                    <div class="scenario-legend legend-text" style="background: #f8f9fa; padding: 12px 15px; border-radius: 6px; margin-top: 15px; border-left: 3px solid #4CAF50; font-size: 13px;">
-                        <h3 style="margin: 0 0 10px 0; color: #2E7D32; font-weight: 600; font-size: 14px;">🎲 경우의 수 분석 가이드</h3>
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px;">
+                    <div class="scenario-legend legend-text">
+                        <h3>🎲 경우의 수 분석 가이드</h3>
+                        <div class="grid-layout">
                             <div>
                                 <strong style="color: #2d3748; font-size: 13px;">📊 표 구성</strong>
                                 <ul style="margin: 6px 0 0 0; padding-left: 16px; line-height: 1.4; font-size: 12px;">
@@ -736,24 +814,11 @@
                         </div>
                         
                         <!-- 전체 경우의수 보기 추가 -->
-                        <div style="margin-top: 15px; padding: 12px; background: #e8f5e9; border-radius: 6px; text-align: center; border: 1px solid #c8e6c9;">
-                            <div style="color: #2E7D32; font-size: 13px; margin-bottom: 8px;">
+                        <div class="scenario-button-area">
+                            <div class="button-description">
                                 📊 <strong>현재 표시:</strong> 5위 플레이오프 경쟁이 가능한 팀들만 표시됩니다
                             </div>
-                            <button onclick="showAllTeamsScenario()" style="
-                                background: linear-gradient(135deg, #4CAF50, #45a049);
-                                color: white;
-                                border: none;
-                                padding: 8px 16px;
-                                border-radius: 20px;
-                                font-size: 13px;
-                                font-weight: 600;
-                                cursor: pointer;
-                                transition: all 0.3s ease;
-                                box-shadow: 0 2px 4px rgba(76, 175, 80, 0.3);
-                                white-space: nowrap;
-                            " onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 4px 8px rgba(76, 175, 80, 0.4)'" 
-                            onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 4px rgba(76, 175, 80, 0.3)'">
+                            <button onclick="showAllTeamsScenario()" class="scenario-full-view-button">
                                 🔍 전체 경우의수 보러 가기
                             </button>
                         </div>
