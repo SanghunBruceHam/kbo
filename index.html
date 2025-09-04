@@ -14042,7 +14042,12 @@ KT 9:1 키움(H)`;
         document.addEventListener('DOMContentLoaded', function() {
             // 팀 로고 먼저 로드
             window.loadTeamLogos().then(() => {
-                // 모든 팀 로고 로드 완료
+                // 모든 팀 로고 로드 완료 후 차트들 업데이트
+                setTimeout(() => {
+                    if (completeDailyStats && completeDailyStats.rankChart) {
+                        completeDailyStats.rankChart.update();
+                    }
+                }, 100);
             });
             
             const dailyStatsCard = document.getElementById('daily-stats');
@@ -14052,6 +14057,15 @@ KT 9:1 키움(H)`;
                     window.dailyStatsModule = completeDailyStats; // 전역 접근
                     window.dailyStatsManager = completeDailyStats; // 레전드 버튼용 전역 접근
                     window.dailyStats = completeDailyStats; // 승률 차트용 전역 접근
+                    
+                    // 로고 로딩이 완료되었다면 순위 차트 즉시 업데이트
+                    if (window.teamLogoImages && Object.keys(window.teamLogoImages).length > 0) {
+                        setTimeout(() => {
+                            if (completeDailyStats.rankChart) {
+                                completeDailyStats.rankChart.update();
+                            }
+                        }, 500);
+                    }
                     
                     // 메인 승률 차트 초기화 (간단화)
                     setTimeout(() => {

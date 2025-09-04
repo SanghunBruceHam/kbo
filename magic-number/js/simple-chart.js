@@ -59,50 +59,6 @@ async function loadRealKBOData() {
                 return Array.from(dates).sort();
             },
             
-            // 특정 날짜까지의 팀별 누적 전적 계산
-            calculateCumulativeRecord(targetDate) {
-                // 최신 날짜인 경우 종합순위 데이터 우선 사용
-                if (window.dashboardData && window.dashboardData.standings && targetDate === this.getLatestDate()) {
-                    const records = {};
-                    window.dashboardData.standings.forEach(team => {
-                        records[team.team_name] = {
-                            wins: team.wins,
-                            losses: team.losses,
-                            draws: team.draws,
-                            games: team.games
-                        };
-                    });
-                    return records;
-                }
-                
-                const records = {};
-                
-                // 모든 팀 초기화
-                for (const team of this.teams) {
-                    records[team] = { wins: 0, losses: 0, draws: 0, games: 0 };
-                }
-                
-                // 각 팀의 경기 결과를 targetDate까지 누적
-                for (const team of this.teams) {
-                    if (this.gameData[team] && this.gameData[team].games) {
-                        for (const game of this.gameData[team].games) {
-                            if (game.date <= targetDate) {
-                                records[team].games++;
-                                
-                                if (game.result === 'W') {
-                                    records[team].wins++;
-                                } else if (game.result === 'L') {
-                                    records[team].losses++;
-                                } else if (game.result === 'D') {
-                                    records[team].draws++;
-                                }
-                            }
-                        }
-                    }
-                }
-                
-                return records;
-            },
             
             // 최신 경기 날짜 반환
             getLatestDate() {
@@ -634,11 +590,7 @@ function createCustomLegend() {
     chartContainer.appendChild(mainLegendContainer);
 }
 
-// 전체 시즌 기준 고정 순위로 팀 정렬 (전역 변수로 한 번만 계산)
-let globalFixedTeamOrder = null;
-
-// getRankingSystem 기반 순위가 설정되었는지 확인하는 플래그
-let isRankingSystemBased = false;
+// 범례 순서는 getMainPageTeamOrder()로 처리
 
 // 메인 페이지의 현재 순위 순서만 가져오는 함수 (범례용)
 function getMainPageTeamOrder() {
@@ -666,102 +618,6 @@ function getMainPageTeamOrder() {
     }));
 }
 
-function getFixedRankingSortedTeams() {
-    // 이미 계산된 고정 순서가 있으면 재사용
-    if (globalFixedTeamOrder && globalFixedTeamOrder.length > 0) {
-        return globalFixedTeamOrder;
-    }
-    
-    try {
-        // window.getRankingSystem()이 있으면 우선 사용
-        if (window.getRankingSystem) {
-            const rankingSystem = window.getRankingSystem();
-            if (rankingSystem.teams.length > 0) {
-                globalFixedTeamOrder = rankingSystem.teams.map((teamName, index) => {
-                    // 차트의 데이터셋에서 해당 팀의 인덱스 찾기
-                    const datasetIndex = chartState.chart && chartState.chart.data.datasets.findIndex(
-                        dataset => dataset.label === teamName
-                    );
-                    return {
-                        teamName: teamName,
-                        rank: rankingSystem.teamRanks[teamName],
-                        datasetIndex: datasetIndex >= 0 ? datasetIndex : index
-                    };
-                });
-                isRankingSystemBased = true; // 플래그 설정
-                return globalFixedTeamOrder;
-            }
-        }
-        
-        // 전체 시즌에서 가장 최신 날짜의 순위로 고정 순서 결정
-        let latestRankings = [];
-        let latestDate = '';
-        
-        // 모든 기간의 데이터를 합쳐서 가장 최신 날짜 찾기
-        let allData = [];
-        chartState.periods.forEach(period => {
-            if (period.rawData) {
-                allData = allData.concat(period.rawData);
-            }
-        });
-        
-        if (allData.length > 0) {
-            // 날짜순으로 정렬하여 가장 최신 데이터 가져오기
-            allData.sort((a, b) => new Date(a.date) - new Date(b.date));
-            const latestData = allData[allData.length - 1];
-            latestRankings = latestData.standings;
-            latestDate = latestData.date;
-            
-        }
-        
-        if (latestRankings.length > 0) {
-            // 순위대로 정렬하고 데이터셋 인덱스 찾기
-            const sortedStandings = [...latestRankings].sort((a, b) => a.rank - b.rank);
-            const sortedTeams = [];
-            
-            sortedStandings.forEach(standing => {
-                const teamName = standing.team;
-                const datasetIndex = chartState.chart.data.datasets.findIndex(ds => ds.label === teamName);
-                if (datasetIndex !== -1) {
-                    sortedTeams.push({ teamName, datasetIndex });
-                }
-            });
-            
-            // getRankingSystem 기반이면 기존 순서 유지
-            if (isRankingSystemBased && globalFixedTeamOrder) {
-                return globalFixedTeamOrder;
-            }
-            
-            // getRankingSystem 기반이 아닐 때만 저장
-            if (!isRankingSystemBased) {
-                globalFixedTeamOrder = sortedTeams;
-            }
-            
-            return sortedTeams;
-        }
-    } catch (error) {
-        // 고정 순위 기준 정렬 실패, 기본 순서 사용
-    }
-    
-    // 기본 순서로 대체 (데이터셋 순서대로)
-    const teams = window.getRankingSystem ? window.getRankingSystem().teams : ["한화", "LG", "두산", "삼성", "KIA", "SSG", "롯데", "NC", "키움", "KT"];
-    const defaultOrder = teams.map((teamName, index) => ({
-        teamName,
-        datasetIndex: index
-    }));
-    
-    // getRankingSystem 기반이면 기존 순서 유지
-    if (isRankingSystemBased && globalFixedTeamOrder) {
-        return globalFixedTeamOrder;
-    }
-    
-    // getRankingSystem 기반이 아닐 때만 저장
-    if (!isRankingSystemBased) {
-        globalFixedTeamOrder = defaultOrder;
-    }
-    
-    return defaultOrder;
-}
 
 // 차트 생성
 function createSimpleChart(data) {
@@ -978,10 +834,7 @@ function updateSimpleChart() {
         chartState.chart = null;
     }
     
-    // getRankingSystem 기반이 아닐 때만 초기화 (getRankingSystem 우선 사용)
-    if (!isRankingSystemBased) {
-        globalFixedTeamOrder = null;
-    }
+    // 차트 재생성을 위한 정리
     
     // 잠시 대기 후 새 차트 생성 (DOM 정리 시간 확보)
     setTimeout(() => {
