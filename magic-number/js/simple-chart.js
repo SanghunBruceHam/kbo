@@ -65,7 +65,7 @@ async function loadRealKBOData() {
                 if (window.dashboardData && window.dashboardData.standings && targetDate === this.getLatestDate()) {
                     const records = {};
                     window.dashboardData.standings.forEach(team => {
-                        records[team.team] = {
+                        records[team.team_name] = {
                             wins: team.wins,
                             losses: team.losses,
                             draws: team.draws,
@@ -119,14 +119,17 @@ async function loadRealKBOData() {
                 for (const date of allDates) {
                     // 최신 날짜인 경우 종합순위 데이터 직접 사용
                     if (window.dashboardData && window.dashboardData.standings && date === this.getLatestDate()) {
+                        // getRankingSystem() 함수와 동일한 로직 사용
+                        const rankingSystem = window.getRankingSystem ? window.getRankingSystem() : null;
+                        
                         const standings = window.dashboardData.standings.map(team => ({
-                            team: team.team,
+                            team: team.team_name,
                             wins: team.wins,
                             losses: team.losses,
                             draws: team.draws,
                             winPct: team.winRate,
                             games: team.games,
-                            rank: team.displayRank || team.rank
+                            rank: rankingSystem ? rankingSystem.teamRanks[team.team_name] : (team.displayRank || team.rank)
                         }));
                         
                         seasonData.push({
@@ -622,6 +625,25 @@ function getFixedRankingSortedTeams() {
     }
     
     try {
+        // window.getRankingSystem()이 있으면 우선 사용
+        if (window.getRankingSystem) {
+            const rankingSystem = window.getRankingSystem();
+            if (rankingSystem.teams.length > 0) {
+                globalFixedTeamOrder = rankingSystem.teams.map((teamName, index) => {
+                    // 차트의 데이터셋에서 해당 팀의 인덱스 찾기
+                    const datasetIndex = chartState.chart && chartState.chart.data.datasets.findIndex(
+                        dataset => dataset.label === teamName
+                    );
+                    return {
+                        teamName: teamName,
+                        rank: rankingSystem.teamRanks[teamName],
+                        datasetIndex: datasetIndex >= 0 ? datasetIndex : index
+                    };
+                });
+                return globalFixedTeamOrder;
+            }
+        }
+        
         // 전체 시즌에서 가장 최신 날짜의 순위로 고정 순서 결정
         let latestRankings = [];
         let latestDate = '';
