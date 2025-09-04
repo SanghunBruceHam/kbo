@@ -88,6 +88,44 @@
     
     <!-- 승률별 시나리오 매트릭스 스타일 -->
     <style>
+        /* CSS 변수 정의 */
+        :root {
+            /* 레이아웃 변수 */
+            --card-width: 100%;
+            --card-max-width: 100%;
+            --card-padding: 8px;
+            --card-margin: 0 auto 8px auto;
+            --card-border-radius: 15px;
+            --card-background: rgba(255, 255, 255, 0.95);
+            --card-backdrop-filter: blur(10px);
+            --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+            
+            /* 색상 변수 */
+            --positive-color: #059669;
+            --negative-color: #dc2626;
+            --neutral-color: #f59e0b;
+            --success-color: #10b981;
+            --primary-color: #1a237e;
+            --bg-secondary: #f8fafc;
+            --border-color: rgba(0, 0, 0, 0.1);
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            
+            /* 폰트 변수 */
+            --font-xs: 0.75rem;
+            --font-sm: 0.875rem;
+            --font-base: 1rem;
+            --font-lg: 1.125rem;
+            --font-xl: 1.25rem;
+            --font-2xl: 1.5rem;
+            --font-3xl: 1.875rem;
+            --font-4xl: 2.25rem;
+            --font-weight-normal: 400;
+            --font-weight-medium: 500;
+            --font-weight-semibold: 600;
+            --font-weight-bold: 700;
+        }
+
         /* CSS 리셋 및 기본 스타일 */
         * {
             margin: 0;
@@ -174,9 +212,11 @@
         }
         
         .container {
-            width: 100%;
+            width: var(--card-width);
+            max-width: var(--card-max-width);
             margin: 0 auto;
             padding: 0 20px;
+            box-sizing: border-box;
         }
         
         /* 모바일에서 경우의 수 표 최적화 */
@@ -1723,7 +1763,8 @@
         
         /* 메인 컨텐츠 컨테이너 반응형 스타일 */
         .content-container {
-            width: 100%;
+            width: var(--card-width);
+            max-width: var(--card-max-width);
             margin: 0 auto;
             padding: 0;
             box-sizing: border-box;
@@ -1740,7 +1781,8 @@
         .standings-section,
         .vs-records-section,
         .remaining-section {
-            width: 100%;
+            width: var(--card-width);
+            max-width: var(--card-max-width);
             box-sizing: border-box;
             margin: 0 auto;
             padding: 20px 0;
@@ -1748,13 +1790,15 @@
         
         /* 카드 그리드 반응형 */
         .cards-grid {
-            width: 100%;
+            width: var(--card-width);
+            max-width: var(--card-max-width);
             box-sizing: border-box;
         }
         
         /* 테이블 컨테이너 반응형 */
         .table-container {
-            width: 100%;
+            width: var(--card-width);
+            max-width: var(--card-max-width);
             box-sizing: border-box;
         }
 
@@ -1770,6 +1814,49 @@
             }
         }
 
+
+        /* 네비게이션 기본 스타일 */
+        .navigation {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            margin-bottom: 10px;
+            padding: 8px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            border-radius: 16px;
+            overflow: hidden;
+            width: 100%;
+            max-width: 100%;
+        }
+        
+        .navigation::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: var(--card-width);
+            max-width: var(--card-max-width);
+            height: 100%;
+            background: var(--card-background);
+            backdrop-filter: var(--card-backdrop-filter);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: var(--card-border-radius);
+            z-index: -1;
+        }
+        
+        .nav-menu {
+            width: var(--card-width) !important;
+            max-width: var(--card-max-width) !important;
+            margin: 0 auto;
+            padding: 0;
+            box-sizing: border-box;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+        }
 
         /* 메인 대시보드 네비게이션 플래시 애니메이션 */
         .nav-item.main-dashboard {
