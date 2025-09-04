@@ -9,7 +9,7 @@ let chartState = {
 
 // 팀 로고 이미지 미리 로드
 async function loadTeamLogos() {
-    const teams = ["한화", "LG", "두산", "삼성", "KIA", "SSG", "롯데", "NC", "키움", "KT"];
+    const teams = window.getRankingSystem ? window.getRankingSystem().teams : ["한화", "LG", "두산", "삼성", "KIA", "SSG", "롯데", "NC", "키움", "KT"];
     const logoPromises = teams.map(team => {
         return new Promise((resolve) => {
             const img = new Image();
@@ -42,7 +42,7 @@ async function loadRealKBOData() {
         // SeasonRankGenerator 사용
         const generator = {
             gameData: gameData,
-            teams: ["한화", "LG", "두산", "삼성", "KIA", "SSG", "롯데", "NC", "키움", "KT"],
+            teams: window.getRankingSystem ? window.getRankingSystem().teams : ["한화", "LG", "두산", "삼성", "KIA", "SSG", "롯데", "NC", "키움", "KT"],
             
             // 모든 경기 날짜 수집
             getAllGameDates() {
@@ -117,19 +117,18 @@ async function loadRealKBOData() {
                 const seasonData = [];
                 
                 for (const date of allDates) {
-                    // 최신 날짜인 경우 종합순위 데이터 직접 사용
+                    // 최신 날짜인 경우 종합 순위 데이터 직접 사용 (일자별 통계와 동일한 로직)
                     if (window.dashboardData && window.dashboardData.standings && date === this.getLatestDate()) {
-                        // getRankingSystem() 함수와 동일한 로직 사용
-                        const rankingSystem = window.getRankingSystem ? window.getRankingSystem() : null;
-                        
-                        const standings = window.dashboardData.standings.map(team => ({
+                        // 일자별 통계의 calculateStandings 함수와 동일한 로직 사용
+                        const standings = window.dashboardData.standings.map((team, index) => ({
                             team: team.team_name,
+                            rank: team.displayRank || team.rank || (index + 1),
                             wins: team.wins,
                             losses: team.losses,
                             draws: team.draws,
-                            winPct: team.winRate,
-                            games: team.games,
-                            rank: rankingSystem ? rankingSystem.teamRanks[team.team_name] : (team.displayRank || team.rank)
+                            games: team.games_played || team.games,
+                            winPct: team.wins / (team.wins + team.losses),
+                            gamesBehind: team.gamesBehind || 0
                         }));
                         
                         seasonData.push({
@@ -139,49 +138,69 @@ async function loadRealKBOData() {
                         continue;
                     }
                     
-                    // 과거 날짜는 기존 로직 사용
-                    const records = this.calculateCumulativeRecord(date);
+                    // 과거 날짜는 일자별 통계와 동일한 로직 사용
+                    const teams = window.getRankingSystem ? window.getRankingSystem().teams : this.teams;
+                    const tempStats = {};
                     
-                    // 승률 계산 및 순위 결정
-                    const standings = [];
-                    for (const team of this.teams) {
-                        const record = records[team];
-                        const winPct = record.games > 0 ? record.wins / (record.wins + record.losses) : 0;
-                        
-                        standings.push({
+                    teams.forEach(team => {
+                        tempStats[team] = {
+                            team_name: team,
                             team: team,
-                            wins: record.wins,
-                            losses: record.losses,
-                            draws: record.draws,
-                            winPct: winPct,
-                            games: record.games
-                        });
-                    }
+                            games: 0, 
+                            wins: 0, 
+                            losses: 0, 
+                            draws: 0, 
+                            winRate: 0, 
+                            gamesBehind: 0
+                        };
+                    });
                     
-                    // 승률순 정렬 (종합순위와 동일한 기준)
+                    // 해당 날짜까지의 누적 데이터 계산
+                    teams.forEach(team => {
+                        if (this.gameData[team] && this.gameData[team].games) {
+                            for (const game of this.gameData[team].games) {
+                                if (game.date <= date) {
+                                    tempStats[team].games++;
+                                    if (game.result === 'W') tempStats[team].wins++;
+                                    else if (game.result === 'L') tempStats[team].losses++;
+                                    else if (game.result === 'D') tempStats[team].draws++;
+                                }
+                            }
+                        }
+                    });
+                    
+                    // 승률 계산
+                    teams.forEach(team => {
+                        const stats = tempStats[team];
+                        if (stats.games > 0) {
+                            stats.winRate = stats.wins / (stats.wins + stats.losses);
+                        }
+                    });
+                    
+                    // 순위표 생성 (일자별 통계와 동일한 방식)
+                    const standings = teams.map(team => {
+                        const stats = tempStats[team];
+                        return {
+                            team: team,
+                            wins: stats.wins,
+                            losses: stats.losses,
+                            draws: stats.draws,
+                            games: stats.games,
+                            winPct: stats.winRate,
+                            gamesBehind: 0 // 게임차는 나중에 계산
+                        };
+                    });
+                    
+                    // 승률순 정렬 및 순위 부여 (일자별 통계와 동일)
                     standings.sort((a, b) => {
                         if (b.winPct !== a.winPct) return b.winPct - a.winPct;
                         if (b.wins !== a.wins) return b.wins - a.wins;
                         return a.losses - b.losses;
                     });
                     
-                    // 동순위 처리 포함 순위 부여 - 종합순위와 동일한 로직 (3자리 정확도)
-                    let currentRank = 1;
-                    let previousWinRate = null;
-                    
-                    for (let i = 0; i < standings.length; i++) {
-                        const currentTeam = standings[i];
-                        // 3자리까지 정확한 승률로 동률 처리 (main standings와 동일)
-                        const preciseWinRate = parseFloat(currentTeam.winPct.toFixed(3));
-                        
-                        // 이전 팀과 정확한 승률이 다르면 실제 순위로 업데이트
-                        if (previousWinRate !== null && preciseWinRate !== previousWinRate) {
-                            currentRank = i + 1;
-                        }
-                        // 동률일 경우 같은 순위 유지
-                        currentTeam.rank = currentRank;
-                        previousWinRate = preciseWinRate;
-                    }
+                    standings.forEach((team, index) => {
+                        team.rank = index + 1;
+                    });
                     
                     seasonData.push({
                         date: date,
@@ -244,7 +263,7 @@ function processRealData(seasonRankings) {
 
 // 기간 데이터를 Chart.js 형식으로 변환
 function formatPeriodDataForChart(periodData) {
-    const teams = ["한화", "LG", "두산", "삼성", "KIA", "SSG", "롯데", "NC", "키움", "KT"];
+    const teams = window.getRankingSystem ? window.getRankingSystem().teams : ["한화", "LG", "두산", "삼성", "KIA", "SSG", "롯데", "NC", "키움", "KT"];
     
     const chartData = {
         labels: [],
@@ -285,7 +304,7 @@ function formatPeriodDataForChart(periodData) {
 
 // 백업용 가짜 데이터 생성 함수 (기존 함수명 변경)
 function generateMockData() {
-    const teams = ["한화", "LG", "두산", "삼성", "KIA", "SSG", "롯데", "NC", "키움", "KT"];
+    const teams = window.getRankingSystem ? window.getRankingSystem().teams : ["한화", "LG", "두산", "삼성", "KIA", "SSG", "롯데", "NC", "키움", "KT"];
     const periods = [];
     
     // 5개 기간 생성
@@ -493,8 +512,8 @@ function createCustomLegend() {
         });
     });
 
-    // 고정된 순위대로 팀 정렬 (전체 시즌 최신 날짜 기준으로 한 번 결정하여 모든 기간에서 동일)
-    const sortedTeams = getFixedRankingSortedTeams();
+    // 메인 페이지 현재 순위 순서대로 팀 정렬 (범례 순서만 통일, 실제 순위는 각 날짜별로 계산)
+    const sortedTeams = getMainPageTeamOrder();
     
     sortedTeams.forEach(({teamName, datasetIndex}, index) => {
         const dataset = chartState.chart.data.datasets[datasetIndex];
@@ -618,6 +637,35 @@ function createCustomLegend() {
 // 전체 시즌 기준 고정 순위로 팀 정렬 (전역 변수로 한 번만 계산)
 let globalFixedTeamOrder = null;
 
+// getRankingSystem 기반 순위가 설정되었는지 확인하는 플래그
+let isRankingSystemBased = false;
+
+// 메인 페이지의 현재 순위 순서만 가져오는 함수 (범례용)
+function getMainPageTeamOrder() {
+    if (window.getRankingSystem) {
+        const rankingSystem = window.getRankingSystem();
+        if (rankingSystem.teams.length > 0) {
+            return rankingSystem.teams.map((teamName, index) => {
+                const datasetIndex = chartState.chart && chartState.chart.data.datasets.findIndex(
+                    dataset => dataset.label === teamName
+                );
+                return {
+                    teamName: teamName,
+                    rank: rankingSystem.teamRanks[teamName],
+                    datasetIndex: datasetIndex >= 0 ? datasetIndex : index
+                };
+            });
+        }
+    }
+    
+    // 기본값
+    const teams = window.getRankingSystem ? window.getRankingSystem().teams : ["한화", "LG", "두산", "삼성", "KIA", "SSG", "롯데", "NC", "키움", "KT"];
+    return teams.map((teamName, index) => ({
+        teamName,
+        datasetIndex: index
+    }));
+}
+
 function getFixedRankingSortedTeams() {
     // 이미 계산된 고정 순서가 있으면 재사용
     if (globalFixedTeamOrder && globalFixedTeamOrder.length > 0) {
@@ -640,6 +688,7 @@ function getFixedRankingSortedTeams() {
                         datasetIndex: datasetIndex >= 0 ? datasetIndex : index
                     };
                 });
+                isRankingSystemBased = true; // 플래그 설정
                 return globalFixedTeamOrder;
             }
         }
@@ -678,8 +727,15 @@ function getFixedRankingSortedTeams() {
                 }
             });
             
-            // 전역 변수에 저장하여 모든 기간에서 동일한 순서 사용
-            globalFixedTeamOrder = sortedTeams;
+            // getRankingSystem 기반이면 기존 순서 유지
+            if (isRankingSystemBased && globalFixedTeamOrder) {
+                return globalFixedTeamOrder;
+            }
+            
+            // getRankingSystem 기반이 아닐 때만 저장
+            if (!isRankingSystemBased) {
+                globalFixedTeamOrder = sortedTeams;
+            }
             
             return sortedTeams;
         }
@@ -688,13 +744,22 @@ function getFixedRankingSortedTeams() {
     }
     
     // 기본 순서로 대체 (데이터셋 순서대로)
-    const teams = ["한화", "LG", "두산", "삼성", "KIA", "SSG", "롯데", "NC", "키움", "KT"];
+    const teams = window.getRankingSystem ? window.getRankingSystem().teams : ["한화", "LG", "두산", "삼성", "KIA", "SSG", "롯데", "NC", "키움", "KT"];
     const defaultOrder = teams.map((teamName, index) => ({
         teamName,
         datasetIndex: index
     }));
     
-    globalFixedTeamOrder = defaultOrder;
+    // getRankingSystem 기반이면 기존 순서 유지
+    if (isRankingSystemBased && globalFixedTeamOrder) {
+        return globalFixedTeamOrder;
+    }
+    
+    // getRankingSystem 기반이 아닐 때만 저장
+    if (!isRankingSystemBased) {
+        globalFixedTeamOrder = defaultOrder;
+    }
+    
     return defaultOrder;
 }
 
@@ -913,6 +978,11 @@ function updateSimpleChart() {
         chartState.chart = null;
     }
     
+    // getRankingSystem 기반이 아닐 때만 초기화 (getRankingSystem 우선 사용)
+    if (!isRankingSystemBased) {
+        globalFixedTeamOrder = null;
+    }
+    
     // 잠시 대기 후 새 차트 생성 (DOM 정리 시간 확보)
     setTimeout(() => {
         createSimpleChart(chartData);
@@ -924,7 +994,7 @@ function updateSimpleChart() {
 
 // 전체 시즌 차트 데이터 생성
 function generateFullSeasonChart() {
-    const teams = ["한화", "LG", "두산", "삼성", "KIA", "SSG", "롯데", "NC", "키움", "KT"];
+    const teams = window.getRankingSystem ? window.getRankingSystem().teams : ["한화", "LG", "두산", "삼성", "KIA", "SSG", "롯데", "NC", "키움", "KT"];
     
     // 모든 기간의 rawData를 하나로 합치기
     let allData = [];
