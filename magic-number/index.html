@@ -1853,9 +1853,40 @@
             padding: 0;
             box-sizing: border-box;
             display: flex;
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
             justify-content: center;
             gap: 8px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        
+        .nav-menu::-webkit-scrollbar {
+            display: none;
+        }
+        
+        /* 네비게이션 아이템 기본 스타일 */
+        .nav-item {
+            flex-shrink: 0;
+            white-space: nowrap;
+            padding: 8px 16px;
+            text-decoration: none;
+            background: var(--success-color);
+            color: white;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-item:hover {
+            background: #059669;
+            transform: translateY(-1px);
+        }
+        
+        .nav-item.active {
+            background: var(--primary-color);
         }
 
         /* 메인 대시보드 네비게이션 플래시 애니메이션 */
@@ -1998,6 +2029,19 @@
             flex-shrink: 0;
         }
 
+        /* 모바일에서 네비게이션 스크롤 설정 */
+        @media (max-width: 768px) {
+            .nav-menu {
+                justify-content: flex-start !important;
+                padding: 0 15px !important;
+            }
+            
+            .nav-item {
+                font-size: 0.8rem !important;
+                padding: 6px 12px !important;
+            }
+        }
+        
         /* 모바일에서 버튼 조정 */
         @media (max-width: 768px) {
             .scroll-to-top {
