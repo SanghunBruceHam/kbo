@@ -24,9 +24,6 @@ class PathManager:
         self.icons_dir = self.magic_number_root / 'icons'
         self.utils_dir = self.magic_number_root / 'utils'
         self.screenshots_dir = self.magic_number_root / 'screenshots'
-        self.history_dir = self.magic_number_root / 'history'
-        self.daily_history_dir = self.history_dir / 'daily'
-        self.monthly_history_dir = self.history_dir / 'monthly'
         self.archive_dir = self.project_root / 'archive'
         self.docs_dir = self.project_root / 'docs'
         self.logs_dir = self.project_root / 'logs'
@@ -74,12 +71,6 @@ class PathManager:
         """crawlers 디렉토리의 파일 경로를 반환합니다"""
         return self.crawlers_dir / filename
     
-    def get_history_file(self, filename: str, daily: bool = True) -> Path:
-        """히스토리 파일 경로를 반환합니다"""
-        if daily:
-            return self.daily_history_dir / filename
-        else:
-            return self.monthly_history_dir / filename
     
     def ensure_dir(self, dir_path: Path) -> Path:
         """지정된 디렉토리가 없으면 생성합니다"""
@@ -124,7 +115,6 @@ class PathManager:
         print(f'  Data:         {self.data_dir}')
         print(f'  JS:           {self.js_dir}')
         print(f'  Crawlers:     {self.crawlers_dir}')
-        print(f'  History:      {self.history_dir}')
         print(f'  Logs:         {self.logs_dir}')
     
     def validate_paths(self) -> bool:
@@ -175,7 +165,6 @@ PROJECT_ROOT = paths.project_root
 MAGIC_NUMBER_ROOT = paths.magic_number_root
 DATA_DIR = paths.data_dir
 CRAWLERS_DIR = paths.crawlers_dir
-HISTORY_DIR = paths.history_dir
 
 
 if __name__ == '__main__':

@@ -34,9 +34,6 @@ class KBOWorkingCrawler:
         
         # 필요한 디렉토리들 생성
         self.paths.ensure_dir(Path(self.paths.data_dir))
-        self.paths.ensure_dir(Path(self.paths.history_dir))
-        self.paths.ensure_dir(Path(self.paths.daily_history_dir))
-        self.paths.ensure_dir(Path(self.paths.monthly_history_dir))
         
         self.team_mapping = {
             'KIA': 'KIA', 'KT': 'KT', 'LG': 'LG', 'NC': 'NC', 'SSG': 'SSG',

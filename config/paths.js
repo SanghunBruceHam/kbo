@@ -18,9 +18,6 @@ class PathManager {
         this.iconsDir = path.join(this.magicNumberRoot, 'icons');
         this.utilsDir = path.join(this.magicNumberRoot, 'utils');
         this.screenshotsDir = path.join(this.magicNumberRoot, 'screenshots');
-        this.historyDir = path.join(this.magicNumberRoot, 'history');
-        this.dailyHistoryDir = path.join(this.historyDir, 'daily');
-        this.monthlyHistoryDir = path.join(this.historyDir, 'monthly');
         this.archiveDir = path.join(this.projectRoot, 'archive');
         this.docsDir = path.join(this.projectRoot, 'docs');
         this.logsDir = path.join(this.projectRoot, 'logs');

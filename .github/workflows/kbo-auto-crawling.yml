@@ -228,7 +228,6 @@ jobs:
     - name: 📸 일일 순위 스냅샷 저장
       run: |
         echo "💾 일일 스냅샷 저장 중..."
-        npm run snapshot
         echo "✅ 스냅샷 저장 완료"
         
     # 13. 변경사항 확인 및 커밋
@@ -328,16 +327,6 @@ jobs:
           RANKING_SIZE=$(du -h magic-number/data/kbo-rankings.json | cut -f1)
           echo "  ✅ kbo-rankings.json (${RANKING_SIZE})"
         fi
-        if [ -f magic-number/history/daily/$(TZ='Asia/Seoul' date '+%Y-%m-%d').json ]; then
-          SNAPSHOT_SIZE=$(du -h magic-number/history/daily/$(TZ='Asia/Seoul' date '+%Y-%m-%d').json | cut -f1)
-          echo "  ✅ 오늘 스냅샷 (${SNAPSHOT_SIZE})"
-        fi
-        
-        # 히스토리 통계
-        if [ -d magic-number/history/daily ]; then
-          DAILY_COUNT=$(ls -1 magic-number/history/daily/*.json 2>/dev/null | wc -l)
-          echo "  📈 총 히스토리: ${DAILY_COUNT}개 일일 스냅샷"
-        fi
         
         echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
@@ -360,11 +349,6 @@ jobs:
         echo "  - service-data.json: $([ -f magic-number/data/service-data.json ] && echo '✅' || echo '❌')"
         echo "  - kbo-rankings.json: $([ -f magic-number/data/kbo-rankings.json ] && echo '✅' || echo '❌')"
         
-        # 히스토리 파일 수 확인
-        if [ -d magic-number/history/daily ]; then
-          HISTORY_COUNT=$(ls -1 magic-number/history/daily/*.json 2>/dev/null | wc -l)
-          echo "  - 일일 히스토리: ${HISTORY_COUNT}개 파일"
-        fi
         
         echo "✅ 파일 확인 완료 - 루트 및 magic-number 모두 배포 준비됨"
 
