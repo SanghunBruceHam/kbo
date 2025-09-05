@@ -81,16 +81,18 @@ npm run serve  # http://localhost:8080/magic-number/
 ## 🔧 기술 스택
 
 - **Frontend**: HTML5, CSS3, JavaScript (ES6+)
-- **Backend Scripts**: Node.js (fs, path 모듈)
+- **Backend Scripts**: Node.js (fs, path 모듈)  
 - **Data Crawler**: Python (Selenium, BeautifulSoup)
-- **Data Format**: JSON, TXT
+- **Database**: SQLite3 (데이터 저장 및 관리)
+- **Data Format**: JSON, TXT, SQL
 - **PWA**: Progressive Web App 지원
+- **Dependencies**: Axios, Cheerio, Puppeteer
 
 ## 📊 데이터 흐름
 
 ```
-경기 결과 수집 → 데이터 정제 → 통계 계산 → 웹사이트 업데이트
-    (Python)     (Node.js)    (Node.js)        (JSON)
+경기 결과 수집 → 데이터 정제 → 통계 계산 → DB 저장 → 웹사이트 업데이트
+    (Python)     (Node.js)    (Node.js)   (SQLite)      (JSON)
 ```
 
 ## 🛠️ 개발자 가이드
@@ -140,6 +142,6 @@ npm run serve  # http://localhost:8080/magic-number/
 이 프로젝트는 KBO 데이터 분석 및 시각화를 위한 개인 프로젝트입니다.
 
 ---
-**최종 업데이트**: 2025년 8월 9일  
+**최종 업데이트**: 2025년 9월 5일  
 **개발자**: SanghunBruceHam  
 **웹사이트**: https://kbo-dashboard.co.kr/
