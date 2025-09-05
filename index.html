@@ -14058,21 +14058,8 @@ KT 9:1 키움(H)`;
                     window.dailyStatsManager = completeDailyStats; // 레전드 버튼용 전역 접근
                     window.dailyStats = completeDailyStats; // 승률 차트용 전역 접근
                     
-                    // 로고 로딩이 완료되었다면 순위 차트 즉시 업데이트
-                    if (window.teamLogoImages && Object.keys(window.teamLogoImages).length > 0) {
-                        setTimeout(() => {
-                            if (completeDailyStats.rankChart) {
-                                completeDailyStats.rankChart.update();
-                            }
-                        }, 500);
-                    }
-                    
-                    // 메인 승률 차트 초기화 (간단화)
-                    setTimeout(() => {
-                        if (!winRateChartInstance && typeof createWinRateChart === 'function') {
-                            createWinRateChart();
-                        }
-                    }, 2000);
+                    // 통일된 메인 카드 차트 초기화 시스템
+                    initializeMainCharts();
                 }, 1000);
             }
         });
@@ -14121,8 +14108,8 @@ KT 9:1 키움(H)`;
         let winRateChartVisibleTeams = new Set(getRankingSystem().teams);
         let winRateChartTeamLogos = {};
         
-        // ROOT INDEX 메인 승률 추이 카드 - 팀 로고 로드 함수
-        async function loadWinRateChartTeamLogos() {
+        // 공통 팀 로고 로딩 시스템 (순위 변동 추이와 승률 추이 통일)
+        async function loadCommonTeamLogos() {
             const teams = getRankingSystem().teams;
             const logoMap = {
                 'LG': 'lg.png', 'KIA': 'kia.png', '삼성': 'samsung.png', '두산': 'doosan.png',
@@ -14130,22 +14117,94 @@ KT 9:1 키움(H)`;
                 'KT': 'kt.png', '키움': 'kiwoom.png'
             };
             
+            // ROOT INDEX에서 실행되는지 확인 (경로 결정을 위해)
+            const isRootIndex = window.location.pathname === '/' || window.location.pathname.endsWith('/index.html');
+            const logoBasePath = isRootIndex ? 'magic-number/images/' : 'images/';
+            
             const logoPromises = teams.map(team => {
                 return new Promise((resolve) => {
                     const img = new Image();
                     img.onload = () => {
+                        // 두 그래프 모두에서 사용할 수 있도록 공통 저장소에 저장
+                        if (!window.commonTeamLogos) window.commonTeamLogos = {};
+                        window.commonTeamLogos[team] = img;
+                        
+                        // 기존 변수들도 호환성을 위해 유지
                         winRateChartTeamLogos[team] = img;
+                        if (window.chartState && window.chartState.teamLogoImages) {
+                            window.chartState.teamLogoImages[team] = img;
+                        }
                         resolve();
                     };
                     img.onerror = () => {
-                        console.warn(`승률 차트 로고 로드 실패: ${team}`);
+                        console.warn(`공통 팀 로고 로드 실패: ${logoBasePath}${logoMap[team]}`);
                         resolve();
                     };
-                    img.src = `magic-number/images/${logoMap[team]}`;
+                    img.src = `${logoBasePath}${logoMap[team]}`;
                 });
             });
             
             await Promise.all(logoPromises);
+        }
+        
+        // 호환성을 위한 별명
+        const loadWinRateChartTeamLogos = loadCommonTeamLogos;
+        
+        // 통일된 메인 카드 차트 초기화 시스템
+        async function initializeMainCharts() {
+            try {
+                // 1단계: 공통 팀 로고 로드
+                console.log('메인 차트 초기화 시작...');
+                await loadCommonTeamLogos();
+                console.log('공통 팀 로고 로드 완료');
+                
+                // 2단계: 순위 변동 차트 초기화 (simple-chart.js 사용)
+                if (typeof initSimpleChart === 'function') {
+                    console.log('순위 변동 차트 초기화 중...');
+                    await initSimpleChart();
+                    console.log('순위 변동 차트 초기화 완료');
+                }
+                
+                // 3단계: 승률 추이 차트 초기화 (dailyStats 데이터 대기)
+                const waitForDailyStatsAndInitWinRate = async () => {
+                    let retryCount = 0;
+                    const maxRetries = 20; // 최대 20초 대기
+                    
+                    while (retryCount < maxRetries) {
+                        if (window.dailyStats && window.dailyStats.seasonData && window.dailyStats.seasonData.length > 0) {
+                            console.log('승률 추이 차트 초기화 중...');
+                            if (!winRateChartInstance && typeof createWinRateChart === 'function') {
+                                await createWinRateChart();
+                                console.log('승률 추이 차트 초기화 완료');
+                            }
+                            break;
+                        }
+                        
+                        retryCount++;
+                        await new Promise(resolve => setTimeout(resolve, 1000));
+                    }
+                    
+                    if (retryCount >= maxRetries) {
+                        console.warn('승률 추이 차트 초기화 시간 초과');
+                    }
+                };
+                
+                // 승률 차트는 비동기로 초기화 (메인 흐름을 차단하지 않음)
+                waitForDailyStatsAndInitWinRate();
+                
+                // 4단계: 일별통계 내 차트 업데이트 (로고 로딩 완료 후)
+                setTimeout(() => {
+                    if (completeDailyStats && completeDailyStats.rankChart) {
+                        console.log('일별통계 순위 차트 업데이트');
+                        completeDailyStats.rankChart.update();
+                    }
+                }, 500);
+                
+                console.log('메인 차트 초기화 완료');
+                
+            } catch (error) {
+                console.error('메인 차트 초기화 실패:', error);
+            }
         }
 
         // 승률 차트 처리 함수들
@@ -14168,17 +14227,34 @@ KT 9:1 키움(H)`;
             updateWinRateChart();
         }
 
-        // 승률 차트 생성 및 업데이트 함수
+        // 승률 차트 생성 및 업데이트 함수 (안정성 개선)
         async function createWinRateChart() {
             try {
                 const ctx = document.getElementById('winRateChart');
                 if (!ctx) return;
 
-                // 일자별 통계 데이터가 로드될 때까지 대기
-                if (!window.dailyStats || !window.dailyStats.seasonData || window.dailyStats.seasonData.length === 0) {
-                    setTimeout(createWinRateChart, 1000);
-                    return;
-                }
+                // 일자별 통계 데이터가 로드될 때까지 대기 (최대 10초)
+                let retryCount = 0;
+                const maxRetries = 10;
+                
+                const waitForDailyStats = () => {
+                    if (!window.dailyStats || !window.dailyStats.seasonData || window.dailyStats.seasonData.length === 0) {
+                        retryCount++;
+                        if (retryCount < maxRetries) {
+                            setTimeout(createWinRateChart, 1000);
+                            return false;
+                        } else {
+                            console.warn('일자별 통계 데이터 로드 시간 초과, 기본 차트 생성');
+                            // 기본 빈 차트 생성
+                            winRateChartState.periods = [{ name: '전체 시즌', data: [] }];
+                            winRateChartState.currentPeriod = 0;
+                            return true;
+                        }
+                    }
+                    return true;
+                };
+                
+                if (!waitForDailyStats()) return;
 
                 // 팀 로고 먼저 로드
                 await loadWinRateChartTeamLogos();
@@ -14364,13 +14440,21 @@ KT 9:1 키움(H)`;
             return periods;
         }
 
-        // 승률 차트 업데이트
+        // 승률 차트 업데이트 (효율적으로 개선)
         async function updateWinRateChart() {
             if (!winRateChartInstance || !winRateChartState.periods.length) return;
             
-            // 팀 로고가 로드되지 않았으면 로드
+            // 공통 팀 로고 시스템 사용 (이미 로드되어 있어야 함)
             if (Object.keys(winRateChartTeamLogos).length === 0) {
-                await loadWinRateChartTeamLogos();
+                if (window.commonTeamLogos && Object.keys(window.commonTeamLogos).length > 0) {
+                    // 공통 저장소에서 복사
+                    Object.keys(window.commonTeamLogos).forEach(team => {
+                        winRateChartTeamLogos[team] = window.commonTeamLogos[team];
+                    });
+                } else {
+                    console.warn('공통 팀 로고가 로드되지 않았습니다. 다시 시도합니다.');
+                    await loadCommonTeamLogos();
+                }
             }
 
             const teams = getRankingSystem().teams;
@@ -14409,8 +14493,10 @@ KT 9:1 키움(H)`;
             chartData.forEach(item => {
                 teams.forEach(team => {
                     const winRate = item.standings[team];
-                    if (winRate < minWinRate) minWinRate = winRate;
-                    if (winRate > maxWinRate) maxWinRate = winRate;
+                    if (winRate != null && !isNaN(winRate)) {
+                        if (winRate < minWinRate) minWinRate = winRate;
+                        if (winRate > maxWinRate) maxWinRate = winRate;
+                    }
                 });
             });
 
@@ -14421,9 +14507,7 @@ KT 9:1 키움(H)`;
 
             // 데이터셋 구성 (표시 상태인 팀들만)
             const datasets = teams.filter(team => winRateChartVisibleTeams.has(team)).map(team => {
-                const data = chartData.map(item => item.standings[team]);
-                const logoImage = winRateChartTeamLogos[team];
-                
+                const data = chartData.map(item => item.standings[team] || 0);
                 
                 return {
                     label: team,
@@ -14439,13 +14523,40 @@ KT 9:1 키움(H)`;
                 };
             });
 
-            // 기존 차트 완전히 파괴하고 새로 생성 (강제 업데이트)
+            // 기존 차트 데이터만 업데이트 (재생성 대신 효율적 업데이트)
+            try {
+                winRateChartInstance.data.labels = labels;
+                winRateChartInstance.data.datasets = datasets;
+                
+                // Y축 범위 업데이트
+                winRateChartInstance.options.scales.y.min = yMin;
+                winRateChartInstance.options.scales.y.max = yMax;
+                winRateChartInstance.options.scales.x.ticks.maxTicksLimit = 
+                    winRateChartState.isFullView ? 16 : labels.length;
+                
+                // 차트 업데이트 (애니메이션 없이 빠르게)
+                winRateChartInstance.update('none');
+                
+            } catch (error) {
+                console.warn('승률 차트 업데이트 실패, 재생성:', error);
+                // 업데이트 실패시에만 재생성
+                recreateWinRateChart(labels, datasets, yMin, yMax);
+            }
+
+            // 커스텀 레전드 업데이트
+            updateWinRateChartLegend();
+
+            // UI 업데이트
+            updateWinRateChartUI();
+        }
+
+        // 차트 재생성이 필요한 경우에만 호출되는 함수
+        function recreateWinRateChart(labels, datasets, yMin, yMax) {
             if (winRateChartInstance) {
                 winRateChartInstance.destroy();
                 winRateChartInstance = null;
             }
             
-            // 새 차트 생성
             const ctx = document.getElementById('winRateChart');
             if (!ctx) return;
             
@@ -14532,12 +14643,6 @@ KT 9:1 키움(H)`;
                     }
                 }
             });
-
-            // 커스텀 레전드 업데이트
-            updateWinRateChartLegend();
-
-            // UI 업데이트
-            updateWinRateChartUI();
         }
 
         // 승률 차트 UI 업데이트

@@ -7,9 +7,29 @@ let chartState = {
     teamLogoImages: {}
 };
 
-// 팀 로고 이미지 미리 로드
+// 팀 로고 이미지 미리 로드 (공통 로고 시스템 사용)
 async function loadTeamLogos() {
+    // ROOT INDEX에서 실행되는 경우 공통 로고 시스템 사용
+    if (window.loadCommonTeamLogos) {
+        await window.loadCommonTeamLogos();
+        
+        // 공통 저장소에서 로컬 저장소로 복사
+        if (window.commonTeamLogos) {
+            const teams = window.getRankingSystem ? window.getRankingSystem().teams : ["한화", "LG", "두산", "삼성", "KIA", "SSG", "롯데", "NC", "키움", "KT"];
+            teams.forEach(team => {
+                if (window.commonTeamLogos[team]) {
+                    chartState.teamLogoImages[team] = window.commonTeamLogos[team];
+                }
+            });
+        }
+        return;
+    }
+    
+    // 독립 실행시 기존 방식 유지 (magic-number/index.html에서)
     const teams = window.getRankingSystem ? window.getRankingSystem().teams : ["한화", "LG", "두산", "삼성", "KIA", "SSG", "롯데", "NC", "키움", "KT"];
+    
+    const logoBasePath = 'images/'; // magic-number 폴더 내에서는 상대 경로 사용
+    
     const logoPromises = teams.map(team => {
         return new Promise((resolve) => {
             const img = new Image();
@@ -18,10 +38,10 @@ async function loadTeamLogos() {
                 resolve();
             };
             img.onerror = () => {
-                // 로고 로드 실패는 치명적 오류가 아니므로 조용히 처리
+                console.warn(`팀 로고 로드 실패: ${logoBasePath}${getTeamLogo(team)}`);
                 resolve();
             };
-            img.src = `images/${getTeamLogo(team)}`;
+            img.src = `${logoBasePath}${getTeamLogo(team)}`;
         });
     });
     
@@ -509,7 +529,12 @@ function createCustomLegend() {
         
         // 팀 로고 이미지
         const logoImg = document.createElement('img');
-        logoImg.src = `../images/${getTeamLogo(teamName)}`;
+        
+        // ROOT INDEX에서 실행되는지 확인 (경로 결정을 위해)
+        const isRootIndex = window.location.pathname === '/' || window.location.pathname.endsWith('/index.html');
+        const logoPath = isRootIndex ? `magic-number/images/${getTeamLogo(teamName)}` : `../images/${getTeamLogo(teamName)}`;
+        
+        logoImg.src = logoPath;
         logoImg.alt = teamName;
         logoImg.style.cssText = `
             width: 20px;
