@@ -14119,7 +14119,7 @@ KT 9:1 키움(H)`;
             
             // ROOT INDEX에서 실행되는지 확인 (경로 결정을 위해)
             const isRootIndex = window.location.pathname === '/' || window.location.pathname.endsWith('/index.html');
-            const logoBasePath = isRootIndex ? 'magic-number/images/' : 'images/';
+            const logoBasePath = isRootIndex ? 'magic-number/images/teams/' : 'images/teams/';
             
             const logoPromises = teams.map(team => {
                 return new Promise((resolve) => {
@@ -14781,10 +14781,10 @@ KT 9:1 키움(H)`;
             };
             
             const teamLogos = window.dailyStats ? window.dailyStats.teamLogos : {
-                'LG': 'images/lg.png', '삼성': 'images/samsung.png', 'KT': 'images/kt.png',
-                '두산': 'images/doosan.png', 'KIA': 'images/kia.png', 'SSG': 'images/ssg.png',
-                '롯데': 'images/lotte.png', 'NC': 'images/nc.png', '한화': 'images/hanwha.png',
-                '키움': 'images/kiwoom.png'
+                'LG': 'magic-number/images/teams/lg.png', '삼성': 'magic-number/images/teams/samsung.png', 'KT': 'magic-number/images/teams/kt.png',
+                '두산': 'magic-number/images/teams/doosan.png', 'KIA': 'magic-number/images/teams/kia.png', 'SSG': 'magic-number/images/teams/ssg.png',
+                '롯데': 'magic-number/images/teams/lotte.png', 'NC': 'magic-number/images/teams/nc.png', '한화': 'magic-number/images/teams/hanwha.png',
+                '키움': 'magic-number/images/teams/kiwoom.png'
             };
 
             // 전체 선택/해제 버튼을 먼저 추가 (앞쪽에 배치)
