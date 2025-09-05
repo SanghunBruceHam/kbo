@@ -378,6 +378,14 @@ class KBOWorkingCrawler:
 
 def main():
     """메인 실행"""
+    # 수동 실행 체크 - GITHUB_ACTIONS나 MANUAL_RUN 환경변수가 있을 때만 실행
+    if not (os.getenv('GITHUB_ACTIONS') or os.getenv('MANUAL_RUN')):
+        print("🔒 자동 실행 방지됨")
+        print("💡 크롤러를 실행하려면:")
+        print("   MANUAL_RUN=true python3 kbo-python-working-crawler.py")
+        print("   또는 GitHub Actions에서 자동 실행됩니다.")
+        return
+    
     print("=" * 60)
     print("🏟️ KBO 실제 작동 크롤링 시스템")
     print("📡 다음 스포츠 월별 스케줄 크롤링")
