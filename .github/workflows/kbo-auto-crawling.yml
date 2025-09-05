@@ -217,14 +217,7 @@ jobs:
         
         echo "✅ 모든 분석 데이터 생성 완료"
 
-    # 11. 자동 백업 생성
-    - name: 💾 자동 백업 생성
-      run: |
-        echo "🔄 중요 데이터 백업 생성 중..."
-        npm run backup
-        echo "✅ 백업 생성 완료"
-        
-    # 12. 변경사항 확인 및 커밋
+    # 11. 변경사항 확인 및 커밋
     - name: 📝 변경사항 확인
       id: check_changes
       run: |
@@ -302,7 +295,7 @@ jobs:
         
         echo "✅ 자동 커밋 및 푸시 완료"
 
-    # 13. 실행 결과 요약
+    # 12. 실행 결과 요약
     - name: 📊 실행 결과 요약
       if: always()
       run: |
@@ -323,7 +316,7 @@ jobs:
         
         echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
-    # 14. 파일 확인 (Pages는 main 브랜치에서 자동 배포됨)
+    # 13. 파일 확인 (Pages는 main 브랜치에서 자동 배포됨)
     - name: 📁 배포 파일 확인
       if: steps.check_changes.outputs.changes_detected == 'true'
       run: |
