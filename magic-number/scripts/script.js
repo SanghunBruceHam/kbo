@@ -15,16 +15,16 @@ const logger = {
 
 // KBO 팀 데이터 (2025 시즌 기준)
 const kboTeams = {
-    "한화": { fullName: "한화 이글스", color: "#FF6600", logo: '<img src="images/hanwha.png" class="team-logo" alt="한화">' },
-    "LG": { fullName: "LG 트윈스", color: "#C50E2E", logo: '<img src="images/lg.png" class="team-logo" alt="LG">' },
-    "두산": { fullName: "두산 베어스", color: "#131230", logo: '<img src="images/doosan.png" class="team-logo" alt="두산">' },
-    "삼성": { fullName: "삼성 라이온즈", color: "#1F4E8C", logo: '<img src="images/samsung.png" class="team-logo" alt="삼성">' },
-    "KIA": { fullName: "KIA 타이거즈", color: "#EA0029", logo: '<img src="images/kia.png" class="team-logo" alt="KIA">' },
-    "SSG": { fullName: "SSG 랜더스", color: "#CE0E2D", logo: '<img src="images/ssg.png" class="team-logo" alt="SSG">' },
-    "롯데": { fullName: "롯데 자이언츠", color: "#041E42", logo: '<img src="images/lotte.png" class="team-logo" alt="롯데">' },
-    "NC": { fullName: "NC 다이노스", color: "#315288", logo: '<img src="images/nc.png" class="team-logo" alt="NC">' },
-    "키움": { fullName: "키움 히어로즈", color: "#570514", logo: '<img src="images/kiwoom.png" class="team-logo" alt="키움">' },
-    "KT": { fullName: "KT 위즈", color: "#333333", logo: '<img src="images/kt.png" class="team-logo" alt="KT">' }
+    "한화": { fullName: "한화 이글스", color: "#FF6600", logo: '<img src="images/teams/hanwha.png" class="team-logo" alt="한화">' },
+    "LG": { fullName: "LG 트윈스", color: "#C50E2E", logo: '<img src="images/teams/lg.png" class="team-logo" alt="LG">' },
+    "두산": { fullName: "두산 베어스", color: "#131230", logo: '<img src="images/teams/doosan.png" class="team-logo" alt="두산">' },
+    "삼성": { fullName: "삼성 라이온즈", color: "#1F4E8C", logo: '<img src="images/teams/samsung.png" class="team-logo" alt="삼성">' },
+    "KIA": { fullName: "KIA 타이거즈", color: "#EA0029", logo: '<img src="images/teams/kia.png" class="team-logo" alt="KIA">' },
+    "SSG": { fullName: "SSG 랜더스", color: "#CE0E2D", logo: '<img src="images/teams/ssg.png" class="team-logo" alt="SSG">' },
+    "롯데": { fullName: "롯데 자이언츠", color: "#041E42", logo: '<img src="images/teams/lotte.png" class="team-logo" alt="롯데">' },
+    "NC": { fullName: "NC 다이노스", color: "#315288", logo: '<img src="images/teams/nc.png" class="team-logo" alt="NC">' },
+    "키움": { fullName: "키움 히어로즈", color: "#570514", logo: '<img src="images/teams/kiwoom.png" class="team-logo" alt="키움">' },
+    "KT": { fullName: "KT 위즈", color: "#333333", logo: '<img src="images/teams/kt.png" class="team-logo" alt="KT">' }
 };
 
         // KBO 순위 데이터 (동적 로딩)

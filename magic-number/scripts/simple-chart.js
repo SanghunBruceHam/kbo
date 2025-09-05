@@ -28,7 +28,7 @@ async function loadTeamLogos() {
     // 독립 실행시 기존 방식 유지 (magic-number/index.html에서)
     const teams = window.getRankingSystem ? window.getRankingSystem().teams : ["한화", "LG", "두산", "삼성", "KIA", "SSG", "롯데", "NC", "키움", "KT"];
     
-    const logoBasePath = 'images/'; // magic-number 폴더 내에서는 상대 경로 사용
+    const logoBasePath = 'images/teams/'; // magic-number 폴더 내에서는 상대 경로 사용
     
     const logoPromises = teams.map(team => {
         return new Promise((resolve) => {
@@ -532,7 +532,7 @@ function createCustomLegend() {
         
         // ROOT INDEX에서 실행되는지 확인 (경로 결정을 위해)
         const isRootIndex = window.location.pathname === '/' || window.location.pathname.endsWith('/index.html');
-        const logoPath = isRootIndex ? `magic-number/images/${getTeamLogo(teamName)}` : `../images/${getTeamLogo(teamName)}`;
+        const logoPath = isRootIndex ? `magic-number/images/teams/${getTeamLogo(teamName)}` : `images/teams/${getTeamLogo(teamName)}`;
         
         logoImg.src = logoPath;
         logoImg.alt = teamName;
