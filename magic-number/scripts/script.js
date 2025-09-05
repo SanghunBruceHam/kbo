@@ -1,10 +1,7 @@
 // KBO 매직넘버 계산기 - JavaScript
 
 // 개발/프로덕션 환경 감지 및 로깅 제어
-const DEBUG_MODE = !window.location.hostname || 
-                   window.location.hostname === 'localhost' || 
-                   window.location.hostname.includes('127.0.0.1') ||
-                   window.location.search.includes('debug=true');
+const DEBUG_MODE = false;
 
 // 프로덕션 환경에서는 logger.log 비활성화
 const logger = {

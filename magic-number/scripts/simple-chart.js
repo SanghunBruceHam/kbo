@@ -9,8 +9,6 @@ let chartState = {
 
 // 팀 로고 로딩 함수
 async function loadTeamLogos() {
-    console.log('팀 로고 로딩 시작...');
-    
     if (!window.teamLogoImages) {
         window.teamLogoImages = {};
     }
@@ -22,9 +20,6 @@ async function loadTeamLogos() {
     const isInMagicNumberFolder = window.location.pathname.includes('/magic-number/');
     const basePath = isInMagicNumberFolder ? 'images/teams/' : 'magic-number/images/teams/';
     
-    console.log('로고 로딩 경로:', basePath);
-    console.log('현재 페이지 경로:', window.location.pathname);
-    
     teams.forEach(teamName => {
         const promise = new Promise((resolve, reject) => {
             const img = new Image();
@@ -32,24 +27,20 @@ async function loadTeamLogos() {
             
             img.onload = () => {
                 window.teamLogoImages[teamName] = img;
-                console.log(`✅ ${teamName} 로고 로드 완료:`, logoPath);
                 resolve();
             };
             
             img.onerror = () => {
-                console.warn(`❌ ${teamName} 로고 로드 실패:`, logoPath);
                 // 대체 경로 시도
                 const altPath = isInMagicNumberFolder ? 'magic-number/images/teams/' + getTeamLogo(teamName) : 'images/teams/' + getTeamLogo(teamName);
                 const altImg = new Image();
                 
                 altImg.onload = () => {
                     window.teamLogoImages[teamName] = altImg;
-                    console.log(`✅ ${teamName} 로고 대체 경로 로드 완료:`, altPath);
                     resolve();
                 };
                 
                 altImg.onerror = () => {
-                    console.warn(`❌ ${teamName} 로고 대체 경로도 실패:`, altPath);
                     resolve(); // 실패해도 계속 진행
                 };
                 
@@ -64,10 +55,8 @@ async function loadTeamLogos() {
     
     try {
         await Promise.all(loadPromises);
-        console.log('모든 팀 로고 로딩 완료. 로드된 로고 수:', Object.keys(window.teamLogoImages).length);
-        console.log('로드된 팀 로고들:', Object.keys(window.teamLogoImages));
     } catch (error) {
-        console.error('팀 로고 로딩 중 오류:', error);
+        // 로고 로딩 오류 무시
     }
 }
 
@@ -78,18 +67,13 @@ async function loadRealKBOData() {
         const isInMagicNumberFolder = window.location.pathname.includes('/magic-number/');
         const dataPath = isInMagicNumberFolder ? 'data/game-by-game-records.json' : 'magic-number/data/game-by-game-records.json';
         
-        console.log('데이터 로딩 경로:', dataPath);
-        console.log('현재 페이지 경로:', window.location.pathname);
-        
         const response = await fetch(dataPath);
         
         if (!response.ok) {
-            console.error(`데이터 로드 실패: ${response.status} - ${dataPath}`);
             throw new Error(`데이터 로드 실패: ${response.status}`);
         }
         
         const gameData = await response.json();
-        console.log('✅ 게임 데이터 로드 완료. 팀 수:', Object.keys(gameData).length);
         
         // SeasonRankGenerator 사용
         const generator = {
@@ -224,7 +208,6 @@ async function loadRealKBOData() {
         return processRealData(seasonRankings);
         
     } catch (error) {
-        console.error('실제 KBO 데이터 로드 실패:', error);
         // 실제 데이터 로드 실패 시 조용히 가짜 데이터 사용
         return generateMockData();
     }
@@ -888,20 +871,17 @@ function createSimpleChart(data) {
         // 커스텀 범례 생성 (로고 로딩 완료 후)
         setTimeout(() => {
             createCustomLegend();
-            console.log('✅ 커스텀 범례 생성 완료');
         }, 200);
         
         // 팀 로고가 로드된 후 차트를 다시 그리기
         setTimeout(() => {
             if (chartState.chart && window.teamLogoImages && Object.keys(window.teamLogoImages).length > 0) {
                 chartState.chart.update();
-                console.log('✅ 팀 로고 적용을 위한 차트 업데이트 완료');
             }
         }, 1000);
         
         return chartState.chart;
     } catch (error) {
-        console.error('차트 생성 오류:', error);
         // 차트 생성 오류
         return null;
     }
@@ -1081,47 +1061,32 @@ function updateSimpleUI() {
 
 // 초기화
 async function initSimpleChart() {
-    console.log('🚀 차트 초기화 시작...');
-    
     try {
         // 1. 팀 로고 로드
-        console.log('1️⃣ 팀 로고 로딩 중...');
         await loadTeamLogos();
-        console.log('✅ 팀 로고 로딩 완료');
         
         // 2. 실제 KBO 데이터 로드
-        console.log('2️⃣ KBO 데이터 로딩 중...');
         chartState.periods = await loadRealKBOData();
         
         if (!chartState.periods || chartState.periods.length === 0) {
-            console.warn('⚠️ 실제 데이터 로드 실패, 모의 데이터 사용');
             chartState.periods = generateMockData();
         }
         
         chartState.currentPeriod = chartState.periods.length - 1; // 최근 기간
         chartState.isFullView = true; // 기본적으로 전체 시즌 보기
         
-        console.log('✅ 데이터 로딩 완료. 기간 수:', chartState.periods.length);
-        
         // 3. 차트 업데이트
-        console.log('3️⃣ 차트 생성 중...');
         updateSimpleChart();
         
-        console.log('🎉 차트 초기화 성공');
-        
     } catch (error) {
-        console.error('❌ 차트 초기화 실패:', error);
-        
         // 실패 시 최소한의 기본 차트 생성 시도
         try {
-            console.log('📊 기본 차트 생성 시도...');
             chartState.periods = generateMockData();
             chartState.currentPeriod = chartState.periods.length - 1;
             chartState.isFullView = false;
             updateSimpleChart();
-            console.log('✅ 기본 차트 생성 완료');
         } catch (fallbackError) {
-            console.error('❌ 기본 차트 생성도 실패:', fallbackError);
+            // 기본 차트 생성도 실패
         }
     }
 }
@@ -1179,16 +1144,13 @@ async function waitForChart(maxAttempts = 50, interval = 100) {
         
         const checkChart = () => {
             attempts++;
-            console.log(`Chart.js 확인 시도 ${attempts}/${maxAttempts}...`);
             
             if (typeof Chart !== 'undefined' && Chart.version) {
-                console.log('✅ Chart.js 로드 완료, 버전:', Chart.version);
                 resolve();
                 return;
             }
             
             if (attempts >= maxAttempts) {
-                console.error('❌ Chart.js 로드 실패 - 최대 시도 횟수 초과');
                 reject(new Error('Chart.js 라이브러리가 로드되지 않았습니다.'));
                 return;
             }
@@ -1202,20 +1164,14 @@ async function waitForChart(maxAttempts = 50, interval = 100) {
 
 // 페이지 완전 로드 후 초기화 (Chart.js 로딩 보장)
 window.addEventListener('load', async function() {
-    console.log('🚀 페이지 완전 로드 완료, 차트 초기화 시작...');
-    
     // 캔버스 요소 확인
     const canvas = document.getElementById('rankChart');
     if (!canvas) {
-        console.error('❌ rankChart 캔버스 요소를 찾을 수 없음');
         return;
     }
-    console.log('✅ rankChart 캔버스 요소 발견');
     
     // Chart.js 즉시 확인
     if (typeof Chart === 'undefined') {
-        console.error('❌ Chart.js 라이브러리가 로드되지 않음');
-        
         // 오류 메시지 표시
         const errorDiv = document.createElement('div');
         errorDiv.innerHTML = `
@@ -1228,17 +1184,11 @@ window.addEventListener('load', async function() {
         return;
     }
     
-    console.log('✅ Chart.js 라이브러리 확인 완료, 버전:', Chart.version);
-    
     try {
         // 차트 초기화 실행
-        console.log('🎯 차트 초기화 실행 중...');
         await initSimpleChart();
-        console.log('🎉 차트 초기화 완료!');
         
     } catch (error) {
-        console.error('❌ 차트 초기화 실패:', error);
-        
         // 사용자에게 친화적인 오류 메시지 표시
         const errorDiv = document.createElement('div');
         errorDiv.innerHTML = `
