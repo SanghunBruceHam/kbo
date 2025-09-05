@@ -18,9 +18,12 @@ async function loadTeamLogos() {
     const teams = ["한화", "LG", "두산", "삼성", "KIA", "SSG", "롯데", "NC", "키움", "KT"];
     const loadPromises = [];
     
-    // ROOT INDEX에서 실행되는지 확인 (경로 결정을 위해)
-    const isRootIndex = window.location.pathname === '/' || window.location.pathname.endsWith('/index.html');
-    const basePath = isRootIndex ? 'magic-number/images/teams/' : 'images/teams/';
+    // 현재 페이지가 magic-number 폴더 내에 있는지 확인
+    const isInMagicNumberFolder = window.location.pathname.includes('/magic-number/');
+    const basePath = isInMagicNumberFolder ? 'images/teams/' : 'magic-number/images/teams/';
+    
+    console.log('로고 로딩 경로:', basePath);
+    console.log('현재 페이지 경로:', window.location.pathname);
     
     teams.forEach(teamName => {
         const promise = new Promise((resolve, reject) => {
@@ -29,13 +32,28 @@ async function loadTeamLogos() {
             
             img.onload = () => {
                 window.teamLogoImages[teamName] = img;
-                console.log(`${teamName} 로고 로드 완료:`, logoPath);
+                console.log(`✅ ${teamName} 로고 로드 완료:`, logoPath);
                 resolve();
             };
             
             img.onerror = () => {
-                console.warn(`${teamName} 로고 로드 실패:`, logoPath);
-                resolve(); // 실패해도 계속 진행
+                console.warn(`❌ ${teamName} 로고 로드 실패:`, logoPath);
+                // 대체 경로 시도
+                const altPath = isInMagicNumberFolder ? 'magic-number/images/teams/' + getTeamLogo(teamName) : 'images/teams/' + getTeamLogo(teamName);
+                const altImg = new Image();
+                
+                altImg.onload = () => {
+                    window.teamLogoImages[teamName] = altImg;
+                    console.log(`✅ ${teamName} 로고 대체 경로 로드 완료:`, altPath);
+                    resolve();
+                };
+                
+                altImg.onerror = () => {
+                    console.warn(`❌ ${teamName} 로고 대체 경로도 실패:`, altPath);
+                    resolve(); // 실패해도 계속 진행
+                };
+                
+                altImg.src = altPath;
             };
             
             img.src = logoPath;
@@ -46,7 +64,8 @@ async function loadTeamLogos() {
     
     try {
         await Promise.all(loadPromises);
-        console.log('모든 팀 로고 로딩 완료:', Object.keys(window.teamLogoImages));
+        console.log('모든 팀 로고 로딩 완료. 로드된 로고 수:', Object.keys(window.teamLogoImages).length);
+        console.log('로드된 팀 로고들:', Object.keys(window.teamLogoImages));
     } catch (error) {
         console.error('팀 로고 로딩 중 오류:', error);
     }
@@ -55,17 +74,22 @@ async function loadTeamLogos() {
 // 실제 KBO 데이터 로드 및 처리
 async function loadRealKBOData() {
     try {
-        // ROOT INDEX에서 실행되는지 확인 (경로 결정을 위해)
-        const isRootIndex = window.location.pathname === '/' || window.location.pathname.endsWith('/index.html');
-        const dataPath = isRootIndex ? 'magic-number/data/game-by-game-records.json' : 'data/game-by-game-records.json';
+        // 현재 페이지가 magic-number 폴더 내에 있는지 확인
+        const isInMagicNumberFolder = window.location.pathname.includes('/magic-number/');
+        const dataPath = isInMagicNumberFolder ? 'data/game-by-game-records.json' : 'magic-number/data/game-by-game-records.json';
+        
+        console.log('데이터 로딩 경로:', dataPath);
+        console.log('현재 페이지 경로:', window.location.pathname);
         
         const response = await fetch(dataPath);
         
         if (!response.ok) {
+            console.error(`데이터 로드 실패: ${response.status} - ${dataPath}`);
             throw new Error(`데이터 로드 실패: ${response.status}`);
         }
         
         const gameData = await response.json();
+        console.log('✅ 게임 데이터 로드 완료. 팀 수:', Object.keys(gameData).length);
         
         // SeasonRankGenerator 사용
         const generator = {
@@ -539,9 +563,9 @@ function createCustomLegend() {
         // 팀 로고 이미지
         const logoImg = document.createElement('img');
         
-        // ROOT INDEX에서 실행되는지 확인 (경로 결정을 위해)
-        const isRootIndex = window.location.pathname === '/' || window.location.pathname.endsWith('/index.html');
-        const logoPath = isRootIndex ? `magic-number/images/teams/${getTeamLogo(teamName)}` : `images/teams/${getTeamLogo(teamName)}`;
+        // 현재 페이지가 magic-number 폴더 내에 있는지 확인
+        const isInMagicNumberFolder = window.location.pathname.includes('/magic-number/');
+        const logoPath = isInMagicNumberFolder ? `images/teams/${getTeamLogo(teamName)}` : `magic-number/images/teams/${getTeamLogo(teamName)}`;
         
         logoImg.src = logoPath;
         logoImg.alt = teamName;
@@ -861,16 +885,19 @@ function createSimpleChart(data) {
         });
         
         
-        // 커스텀 범례 생성
-        setTimeout(() => createCustomLegend(), 100);
+        // 커스텀 범례 생성 (로고 로딩 완료 후)
+        setTimeout(() => {
+            createCustomLegend();
+            console.log('✅ 커스텀 범례 생성 완료');
+        }, 200);
         
         // 팀 로고가 로드된 후 차트를 다시 그리기
         setTimeout(() => {
             if (chartState.chart && window.teamLogoImages && Object.keys(window.teamLogoImages).length > 0) {
                 chartState.chart.update();
-                console.log('팀 로고 적용을 위한 차트 업데이트 완료');
+                console.log('✅ 팀 로고 적용을 위한 차트 업데이트 완료');
             }
-        }, 500);
+        }, 1000);
         
         return chartState.chart;
     } catch (error) {
@@ -1054,21 +1081,48 @@ function updateSimpleUI() {
 
 // 초기화
 async function initSimpleChart() {
+    console.log('🚀 차트 초기화 시작...');
     
     try {
-        // 팀 로고 로드
+        // 1. 팀 로고 로드
+        console.log('1️⃣ 팀 로고 로딩 중...');
         await loadTeamLogos();
+        console.log('✅ 팀 로고 로딩 완료');
         
-        // 실제 KBO 데이터 로드
+        // 2. 실제 KBO 데이터 로드
+        console.log('2️⃣ KBO 데이터 로딩 중...');
         chartState.periods = await loadRealKBOData();
-        chartState.currentPeriod = chartState.periods.length - 1; // 최근 기간
-        chartState.isFullView = true;
         
+        if (!chartState.periods || chartState.periods.length === 0) {
+            console.warn('⚠️ 실제 데이터 로드 실패, 모의 데이터 사용');
+            chartState.periods = generateMockData();
+        }
+        
+        chartState.currentPeriod = chartState.periods.length - 1; // 최근 기간
+        chartState.isFullView = true; // 기본적으로 전체 시즌 보기
+        
+        console.log('✅ 데이터 로딩 완료. 기간 수:', chartState.periods.length);
+        
+        // 3. 차트 업데이트
+        console.log('3️⃣ 차트 생성 중...');
         updateSimpleChart();
         
+        console.log('🎉 차트 초기화 성공');
+        
     } catch (error) {
-        console.error('차트 초기화 실패:', error);
-        // 조용히 처리하지 않고 에러를 로깅
+        console.error('❌ 차트 초기화 실패:', error);
+        
+        // 실패 시 최소한의 기본 차트 생성 시도
+        try {
+            console.log('📊 기본 차트 생성 시도...');
+            chartState.periods = generateMockData();
+            chartState.currentPeriod = chartState.periods.length - 1;
+            chartState.isFullView = false;
+            updateSimpleChart();
+            console.log('✅ 기본 차트 생성 완료');
+        } catch (fallbackError) {
+            console.error('❌ 기본 차트 생성도 실패:', fallbackError);
+        }
     }
 }
 
