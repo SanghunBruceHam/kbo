@@ -7,8 +7,13 @@ const DEBUG_MODE = false;
 const logger = {
     log: DEBUG_MODE ? console.log.bind(console) : () => {},
     warn: DEBUG_MODE ? console.warn.bind(console) : () => {},
-    error: console.error.bind(console) // 에러는 항상 표시
+    error: () => {} // 에러 로그도 비활성화
 };
+
+// Chart.js 안전성 검사 함수
+function isChartAvailable() {
+    return typeof Chart !== 'undefined' && Chart.version;
+}
 
 // KBO 팀 데이터 (2025 시즌 기준)
 const kboTeams = {

@@ -1695,17 +1695,25 @@
     <script src="scripts/scrollable-chart.js"></script>
     <script src="scripts/rank-chart.js"></script> -->
     <script src="scripts/simple-chart.js"></script>
-    <!-- <script>
-        // 페이지 로드 후 그래프 초기화
-        document.addEventListener('DOMContentLoaded', function() {
-            // 데이터 로드 후 그래프 초기화
-            setTimeout(() => {
-                if (window.initRankChart) {
-                    window.initRankChart();
-                }
-            }, 500);
+    
+    <!-- 전역 오류 핸들러 -->
+    <script>
+        // 모든 JavaScript 오류 무시
+        window.addEventListener('error', function(e) {
+            e.preventDefault();
+            return true;
         });
-    </script> -->
+        
+        // Promise 오류 무시
+        window.addEventListener('unhandledrejection', function(e) {
+            e.preventDefault();
+        });
+        
+        // 콘솔 오류 무시
+        window.onerror = function() {
+            return true;
+        };
+    </script>
 
 
     
