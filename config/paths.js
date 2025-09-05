@@ -11,7 +11,7 @@ class PathManager {
         this.projectRoot = this.findProjectRoot();
         this.magicNumberRoot = path.join(this.projectRoot, 'magic-number');
         this.dataDir = this.getDataDir();
-        this.jsDir = path.join(this.magicNumberRoot, 'js');
+        this.jsDir = path.join(this.magicNumberRoot, 'scripts');
         this.crawlersDir = path.join(this.magicNumberRoot, 'crawlers');
         this.cssDir = path.join(this.magicNumberRoot, 'css');
         this.imagesDir = path.join(this.magicNumberRoot, 'images');
@@ -22,7 +22,7 @@ class PathManager {
         this.docsDir = path.join(this.projectRoot, 'docs');
         this.logsDir = path.join(this.projectRoot, 'logs');
         this.configDir = path.join(this.projectRoot, 'config');
-        this.scriptsDir = path.join(this.projectRoot, 'scripts');
+        this.scriptsDir = path.join(this.magicNumberRoot, 'scripts');
     }
 
     /**
