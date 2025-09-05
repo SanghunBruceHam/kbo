@@ -1,9 +1,9 @@
 {
-  "lastUpdated": "2025-09-05T14:02:00.000Z",
+  "lastUpdated": "2025-09-05T14:08:33.129Z",
   "updateDate": "2025. 9. 5.",
   "note": "승수 기준 정확한 플레이오프 진출 매직넘버 계산",
-  "fifthPlaceMaxWinRate": 0.5652173913043478,
-  "fifthPlaceTeam": "NC",
+  "fifthPlaceMaxWinRate": 0.5704225352112676,
+  "fifthPlaceTeam": "삼성",
   "teamMaxStatsRanking": [
     {
       "team": "LG",
@@ -44,11 +44,11 @@
     {
       "team": "NC",
       "currentWins": 57,
-      "currentLosses": 60,
-      "remainingGames": 21,
-      "maxWins": 78,
-      "maxLosses": 60,
-      "maxWinRate": 0.5652173913043478
+      "currentLosses": 61,
+      "remainingGames": 20,
+      "maxWins": 77,
+      "maxLosses": 61,
+      "maxWinRate": 0.5579710144927537
     },
     {
       "team": "KT",
@@ -79,9 +79,9 @@
     },
     {
       "team": "두산",
-      "currentWins": 55,
+      "currentWins": 56,
       "currentLosses": 65,
-      "remainingGames": 18,
+      "remainingGames": 17,
       "maxWins": 73,
       "maxLosses": 65,
       "maxWinRate": 0.5289855072463768
@@ -105,7 +105,7 @@
       "winRate": 0.6290322580645161,
       "gamesRemaining": 17,
       "maxPossibleWins": 95,
-      "magicNumber": 1,
+      "magicNumber": 4,
       "status": "🟢 플레이오프 가능"
     },
     {
@@ -116,7 +116,7 @@
       "winRate": 0.5853658536585366,
       "gamesRemaining": 18,
       "maxPossibleWins": 90,
-      "magicNumber": 7,
+      "magicNumber": 10,
       "status": "🟢 플레이오프 가능"
     },
     {
@@ -127,7 +127,7 @@
       "winRate": 0.5245901639344263,
       "gamesRemaining": 18,
       "maxPossibleWins": 82,
-      "magicNumber": 15,
+      "magicNumber": 18,
       "status": "🟢 플레이오프 가능"
     },
     {
@@ -138,7 +138,7 @@
       "winRate": 0.512,
       "gamesRemaining": 17,
       "maxPossibleWins": 81,
-      "magicNumber": 15,
+      "magicNumber": 17,
       "status": "🟢 플레이오프 가능"
     },
     {
@@ -149,7 +149,7 @@
       "winRate": 0.504,
       "gamesRemaining": 15,
       "maxPossibleWins": 78,
-      "magicNumber": 16,
+      "magicNumber": 19,
       "status": "❌ 자력불가 (승수 부족)"
     },
     {
@@ -160,19 +160,19 @@
       "winRate": 0.5,
       "gamesRemaining": 14,
       "maxPossibleWins": 76,
-      "magicNumber": 17,
+      "magicNumber": 20,
       "status": "❌ 자력불가 (승수 부족)"
     },
     {
       "rank": 7,
       "team": "NC",
       "wins": 57,
-      "losses": 60,
-      "winRate": 0.48717948717948717,
-      "gamesRemaining": 21,
-      "maxPossibleWins": 78,
-      "magicNumber": 21,
-      "status": "🟢 플레이오프 가능"
+      "losses": 61,
+      "winRate": 0.4830508474576271,
+      "gamesRemaining": 20,
+      "maxPossibleWins": 77,
+      "magicNumber": 25,
+      "status": "❌ 자력불가 (승수 부족)"
     },
     {
       "rank": 8,
@@ -182,18 +182,18 @@
       "winRate": 0.475,
       "gamesRemaining": 20,
       "maxPossibleWins": 77,
-      "magicNumber": 22,
+      "magicNumber": 25,
       "status": "❌ 자력불가 (승수 부족)"
     },
     {
       "rank": 9,
       "team": "두산",
-      "wins": 55,
+      "wins": 56,
       "losses": 65,
-      "winRate": 0.4583333333333333,
-      "gamesRemaining": 18,
+      "winRate": 0.4628099173553719,
+      "gamesRemaining": 17,
       "maxPossibleWins": 73,
-      "magicNumber": 24,
+      "magicNumber": 26,
       "status": "❌ 자력불가 (승수 부족)"
     },
     {
@@ -204,7 +204,7 @@
       "winRate": 0.3253968253968254,
       "gamesRemaining": 14,
       "maxPossibleWins": 55,
-      "magicNumber": 38,
+      "magicNumber": 41,
       "status": "❌ 자력불가 (승수 부족)"
     }
   ]

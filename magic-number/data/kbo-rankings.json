@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-09-05T13:16:18.767Z",
+  "lastUpdated": "2025-09-05T14:08:31.002Z",
   "updateDate": "2025. 9. 5.",
   "note": "2025-season-data-clean.txt 기반 완전 자동화 처리",
   "rankings": [
@@ -90,15 +90,15 @@
     {
       "rank": 7,
       "team": "NC",
-      "games": 123,
+      "games": 124,
       "wins": 57,
-      "losses": 60,
+      "losses": 61,
       "draws": 6,
-      "winRate": 0.487,
-      "gamesBehind": 17.5,
+      "winRate": 0.483,
+      "gamesBehind": 18,
       "recent10": "3승0무7패",
-      "streak": "2패",
-      "homeRecord": "28-29-1",
+      "streak": "3패",
+      "homeRecord": "28-30-1",
       "awayRecord": "29-31-5"
     },
     {
@@ -118,16 +118,16 @@
     {
       "rank": 9,
       "team": "두산",
-      "games": 126,
-      "wins": 55,
+      "games": 127,
+      "wins": 56,
       "losses": 65,
       "draws": 6,
-      "winRate": 0.458,
-      "gamesBehind": 21,
-      "recent10": "3승1무6패",
-      "streak": "1승",
+      "winRate": 0.463,
+      "gamesBehind": 20.5,
+      "recent10": "4승1무5패",
+      "streak": "2승",
       "homeRecord": "26-35-4",
-      "awayRecord": "29-30-2"
+      "awayRecord": "30-30-2"
     },
     {
       "rank": 10,
@@ -164,7 +164,7 @@
       "currentRank": 2
     },
     "SSG": {
-      "playoff": 12,
+      "playoff": 10,
       "championship": 18,
       "elimination": 10,
       "homeAdvantage": 9,
@@ -173,7 +173,7 @@
       "currentRank": 3
     },
     "삼성": {
-      "playoff": 16,
+      "playoff": 14,
       "championship": 17,
       "elimination": 9,
       "homeAdvantage": 9,
@@ -201,11 +201,11 @@
     },
     "NC": {
       "playoff": 0,
-      "championship": 21,
-      "elimination": 6,
+      "championship": 20,
+      "elimination": 5,
       "homeAdvantage": 16,
-      "remainingGames": 21,
-      "maxPossibleWins": 78,
+      "remainingGames": 20,
+      "maxPossibleWins": 77,
       "currentRank": 7
     },
     "KIA": {
@@ -219,10 +219,10 @@
     },
     "두산": {
       "playoff": 0,
-      "championship": 18,
+      "championship": 17,
       "elimination": 1,
-      "homeAdvantage": 18,
-      "remainingGames": 18,
+      "homeAdvantage": 17,
+      "remainingGames": 17,
       "maxPossibleWins": 73,
       "currentRank": 9
     },
@@ -236,7 +236,7 @@
       "currentRank": 10
     }
   },
-  "lastMagicUpdate": "2025-09-05T13:16:18.767Z",
+  "lastMagicUpdate": "2025-09-05T14:08:31.002Z",
   "totalTeams": 10,
   "source": "CLEAN_TXT_AUTOMATION",
   "dataDate": "2025-09-05"
