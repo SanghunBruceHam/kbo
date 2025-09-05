@@ -631,25 +631,27 @@ function createSimpleChart(data) {
                 id: 'teamLogos',
                 afterDraw: (chart) => {
                     const ctx = chart.ctx;
+                    if (!window.teamLogoImages || Object.keys(window.teamLogoImages).length === 0) {
+                        return;
+                    }
+                    
                     chart.data.datasets.forEach((dataset, index) => {
                         const meta = chart.getDatasetMeta(index);
                         if (meta.data && meta.data.length > 0 && !meta.hidden) {
                             const lastPoint = meta.data[meta.data.length - 1];
                             const teamName = dataset.label;
+                            const logoImg = window.teamLogoImages[teamName];
                             
-                            // 글로벌 teamLogos 사용
-                            const logoPath = window.teamLogos && window.teamLogos[teamName];
-                            if (logoPath && lastPoint) {
-                                const logoImg = new Image();
-                                logoImg.onload = () => {
-                                    ctx.save();
-                                    ctx.shadowColor = 'rgba(0,0,0,0.3)';
-                                    ctx.shadowBlur = 2;
-                                    const size = 24;
-                                    ctx.drawImage(logoImg, lastPoint.x - size/2, lastPoint.y - size/2, size, size);
-                                    ctx.restore();
-                                };
-                                logoImg.src = logoPath;
+                            if (logoImg && lastPoint && typeof lastPoint.x === 'number' && typeof lastPoint.y === 'number') {
+                                ctx.save();
+                                ctx.globalCompositeOperation = 'source-over';
+                                ctx.shadowColor = 'rgba(0,0,0,0.5)';
+                                ctx.shadowBlur = 3;
+                                ctx.shadowOffsetX = 2;
+                                ctx.shadowOffsetY = 2;
+                                const size = 24;
+                                ctx.drawImage(logoImg, lastPoint.x - size/2, lastPoint.y - size/2, size, size);
+                                ctx.restore();
                             }
                         }
                     });

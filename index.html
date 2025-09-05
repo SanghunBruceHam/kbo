@@ -14153,8 +14153,12 @@ KT 9:1 키움(H)`;
         // 통일된 메인 카드 차트 초기화 시스템
         async function initializeMainCharts() {
             try {
-                // 1단계: 차트 초기화 (글로벌 teamLogos 사용)
+                // 1단계: 팀 로고 이미지 로드 (일일 차트와 같은 방식)
                 console.log('메인 차트 초기화 시작...');
+                if (typeof window.loadTeamLogos === 'function') {
+                    await window.loadTeamLogos();
+                    console.log('팀 로고 이미지 로드 완료');
+                }
                 
                 // 2단계: 순위 변동 차트 초기화 (simple-chart.js 사용)
                 if (typeof initSimpleChart === 'function') {
@@ -14287,25 +14291,27 @@ KT 9:1 키움(H)`;
                         id: 'winRateTeamLogos',
                         afterDraw: (chart) => {
                             const ctx = chart.ctx;
+                            if (!window.teamLogoImages || Object.keys(window.teamLogoImages).length === 0) {
+                                return;
+                            }
+                            
                             chart.data.datasets.forEach((dataset, index) => {
                                 const meta = chart.getDatasetMeta(index);
                                 if (meta.data && meta.data.length > 0 && !meta.hidden) {
                                     const lastPoint = meta.data[meta.data.length - 1];
                                     const teamName = dataset.label;
+                                    const logoImg = window.teamLogoImages[teamName];
                                     
-                                    // 글로벌 teamLogos 사용
-                                    const logoPath = teamLogos[teamName];
-                                    if (logoPath && lastPoint) {
-                                        const logoImg = new Image();
-                                        logoImg.onload = () => {
-                                            ctx.save();
-                                            ctx.shadowColor = 'rgba(0,0,0,0.3)';
-                                            ctx.shadowBlur = 2;
-                                            const size = 24;
-                                            ctx.drawImage(logoImg, lastPoint.x - size/2, lastPoint.y - size/2, size, size);
-                                            ctx.restore();
-                                        };
-                                        logoImg.src = logoPath;
+                                    if (logoImg && lastPoint && typeof lastPoint.x === 'number' && typeof lastPoint.y === 'number') {
+                                        ctx.save();
+                                        ctx.globalCompositeOperation = 'source-over';
+                                        ctx.shadowColor = 'rgba(0,0,0,0.5)';
+                                        ctx.shadowBlur = 3;
+                                        ctx.shadowOffsetX = 2;
+                                        ctx.shadowOffsetY = 2;
+                                        const size = 24;
+                                        ctx.drawImage(logoImg, lastPoint.x - size/2, lastPoint.y - size/2, size, size);
+                                        ctx.restore();
                                     }
                                 }
                             });
