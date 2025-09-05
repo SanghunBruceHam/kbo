@@ -1173,24 +1173,22 @@ function updateProgressIndicator() {
 }
 
 // Chart.js 지연 로딩 및 대기 함수
-async function waitForChart(maxAttempts = 10, interval = 500) {
-    // 지연 로딩 먼저 시도
-    if (typeof window.loadChartJs === 'function') {
-        await window.loadChartJs();
-    }
-    
+async function waitForChart(maxAttempts = 50, interval = 100) {
     return new Promise((resolve, reject) => {
         let attempts = 0;
         
         const checkChart = () => {
             attempts++;
+            console.log(`Chart.js 확인 시도 ${attempts}/${maxAttempts}...`);
             
-            if (typeof Chart !== 'undefined') {
+            if (typeof Chart !== 'undefined' && Chart.version) {
+                console.log('✅ Chart.js 로드 완료, 버전:', Chart.version);
                 resolve();
                 return;
             }
             
             if (attempts >= maxAttempts) {
+                console.error('❌ Chart.js 로드 실패 - 최대 시도 횟수 초과');
                 reject(new Error('Chart.js 라이브러리가 로드되지 않았습니다.'));
                 return;
             }
@@ -1202,30 +1200,50 @@ async function waitForChart(maxAttempts = 10, interval = 500) {
     });
 }
 
-// DOM 로드 후 초기화
-document.addEventListener('DOMContentLoaded', async function() {
+// 페이지 완전 로드 후 초기화 (Chart.js 로딩 보장)
+window.addEventListener('load', async function() {
+    console.log('🚀 페이지 완전 로드 완료, 차트 초기화 시작...');
     
     // 캔버스 요소 확인
     const canvas = document.getElementById('rankChart');
     if (!canvas) {
-        // rankChart 캔버스 요소를 찾을 수 없음
+        console.error('❌ rankChart 캔버스 요소를 찾을 수 없음');
+        return;
+    }
+    console.log('✅ rankChart 캔버스 요소 발견');
+    
+    // Chart.js 즉시 확인
+    if (typeof Chart === 'undefined') {
+        console.error('❌ Chart.js 라이브러리가 로드되지 않음');
+        
+        // 오류 메시지 표시
+        const errorDiv = document.createElement('div');
+        errorDiv.innerHTML = `
+            <div style="background: #fff3cd; border: 1px solid #ffeaa7; color: #856404; padding: 15px; margin: 10px; border-radius: 5px; text-align: center;">
+                <strong>📈 Chart.js 라이브러리 로딩 실패</strong><br>
+                네트워크 연결을 확인하고 페이지를 새로고침해 주세요.
+            </div>
+        `;
+        canvas.parentElement.appendChild(errorDiv);
         return;
     }
     
+    console.log('✅ Chart.js 라이브러리 확인 완료, 버전:', Chart.version);
+    
     try {
-        // Chart.js 로딩 대기
-        await waitForChart();
-        
         // 차트 초기화 실행
+        console.log('🎯 차트 초기화 실행 중...');
         await initSimpleChart();
+        console.log('🎉 차트 초기화 완료!');
         
     } catch (error) {
-        // 초기화 실패 시 조용히 처리
+        console.error('❌ 차트 초기화 실패:', error);
+        
         // 사용자에게 친화적인 오류 메시지 표시
         const errorDiv = document.createElement('div');
         errorDiv.innerHTML = `
             <div style="background: #fff3cd; border: 1px solid #ffeaa7; color: #856404; padding: 15px; margin: 10px; border-radius: 5px; text-align: center;">
-                <strong>차트 로딩 실패</strong><br>
+                <strong>📈 순위 변동 그래프 로딩 실패</strong><br>
                 네트워크 연결을 확인하고 페이지를 새로고침해 주세요.
                 <br><small>오류: ${error.message}</small>
             </div>

@@ -1819,11 +1819,11 @@ const kboTeams = {
                     }
                 });
                 
-                // 플레이오프 확정 팀 배너 업데이트
+                // 플레이오프 확정 팀 배너 업데이트 (배너가 존재하는 경우에만)
                 const banner = document.getElementById('playoff-confirmed-banner');
                 const teamsContainer = document.getElementById('playoff-confirmed-teams');
                 
-                if (confirmedTeams.length > 0) {
+                if (banner && teamsContainer && confirmedTeams.length > 0) {
                     banner.style.display = 'block';
                     teamsContainer.innerHTML = confirmedTeams
                         .sort((a, b) => a.rank - b.rank)
@@ -1837,7 +1837,7 @@ const kboTeams = {
                                 </div>
                             `;
                         }).join('');
-                } else {
+                } else if (banner) {
                     banner.style.display = 'none';
                 }
                 

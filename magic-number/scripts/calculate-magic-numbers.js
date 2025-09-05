@@ -30,42 +30,43 @@ function calculateMagicNumbers(serviceData) {
         const gamesRemaining = totalGames - gamesPlayed;
         const currentWinRate = wins / gamesPlayed;
         
-        // 플레이오프 진출 매직넘버 (5위까지)
+        // 플레이오프 진출 매직넘버 (모든 팀)
         let magicNumber = null;
         let status = '';
         
-        if (rank <= 5) {
-            // 현재 5위 팀이 남은 경기를 모두 이겨도 달성할 수 없는 승률을 목표로 설정
-            const fifthPlace = standings[4];
-            if (fifthPlace) {
-                const fifthMaxWins = fifthPlace.wins + fifthPlace.remainingGames;
-                const fifthMaxGames = fifthPlace.games + fifthPlace.remainingGames;
-                const fifthMaxWinRate = fifthMaxWins / fifthMaxGames;
+        // 현재 5위 팀이 남은 경기를 모두 이겨도 달성할 수 없는 승률을 목표로 설정
+        const fifthPlace = standings[4];
+        if (fifthPlace) {
+            const fifthMaxWins = fifthPlace.wins + fifthPlace.remainingGames;
+            const fifthMaxGames = fifthPlace.games + fifthPlace.remainingGames;
+            const fifthMaxWinRate = fifthMaxWins / fifthMaxGames;
+            
+            // 현재 팀이 달성해야 할 최소 승률 (5위 최대 승률보다 높아야 함)
+            let winsNeeded = 0;
+            for (let additionalWins = 0; additionalWins <= gamesRemaining; additionalWins++) {
+                const projectedWins = wins + additionalWins;
+                const projectedGames = gamesPlayed + gamesRemaining;
+                const projectedWinRate = projectedWins / projectedGames;
                 
-                // 현재 팀이 달성해야 할 최소 승률 (5위 최대 승률보다 높아야 함)
-                let winsNeeded = 0;
-                for (let additionalWins = 0; additionalWins <= gamesRemaining; additionalWins++) {
-                    const projectedWins = wins + additionalWins;
-                    const projectedGames = gamesPlayed + gamesRemaining;
-                    const projectedWinRate = projectedWins / projectedGames;
-                    
-                    if (projectedWinRate > fifthMaxWinRate) {
-                        winsNeeded = additionalWins;
-                        break;
-                    }
-                }
-                
-                if (winsNeeded === 0 && currentWinRate > fifthMaxWinRate) {
-                    status = '✅ 플레이오프 확정';
-                    magicNumber = 0;
-                } else {
-                    magicNumber = winsNeeded;
+                if (projectedWinRate > fifthMaxWinRate) {
+                    winsNeeded = additionalWins;
+                    break;
                 }
             }
-        } else {
-            // 6위 이하는 플레이오프 탈락 가능성 계산
-            const fifthPlace = standings[4];
-            if (fifthPlace) {
+            
+            if (winsNeeded === 0 && currentWinRate > fifthMaxWinRate) {
+                status = '✅ 플레이오프 확정';
+                magicNumber = 0;
+            } else if (winsNeeded > gamesRemaining) {
+                // 잔여 경기로 달성 불가능
+                magicNumber = winsNeeded;
+                status = '❌ 자력불가';
+            } else {
+                magicNumber = winsNeeded;
+            }
+            
+            // 6위 이하 추가 탈락 확정 체크
+            if (rank > 5) {
                 const maxPossibleWins = wins + gamesRemaining;
                 const maxPossibleGames = gamesPlayed + gamesRemaining;
                 const maxPossibleWinRate = maxPossibleWins / maxPossibleGames;
