@@ -7,45 +7,10 @@ let chartState = {
     teamLogoImages: {}
 };
 
-// 팀 로고 이미지 미리 로드 (공통 로고 시스템 사용)
+// 단순화된 팀 로고 시스템: 글로벌 teamLogos 사용
 async function loadTeamLogos() {
-    // ROOT INDEX에서 실행되는 경우 공통 로고 시스템 사용
-    if (window.loadCommonTeamLogos) {
-        await window.loadCommonTeamLogos();
-        
-        // 공통 저장소에서 로컬 저장소로 복사
-        if (window.commonTeamLogos) {
-            const teams = window.getRankingSystem ? window.getRankingSystem().teams : ["한화", "LG", "두산", "삼성", "KIA", "SSG", "롯데", "NC", "키움", "KT"];
-            teams.forEach(team => {
-                if (window.commonTeamLogos[team]) {
-                    chartState.teamLogoImages[team] = window.commonTeamLogos[team];
-                }
-            });
-        }
-        return;
-    }
-    
-    // 독립 실행시 기존 방식 유지 (magic-number/index.html에서)
-    const teams = window.getRankingSystem ? window.getRankingSystem().teams : ["한화", "LG", "두산", "삼성", "KIA", "SSG", "롯데", "NC", "키움", "KT"];
-    
-    const logoBasePath = 'images/teams/'; // magic-number 폴더 내에서는 상대 경로 사용
-    
-    const logoPromises = teams.map(team => {
-        return new Promise((resolve) => {
-            const img = new Image();
-            img.onload = () => {
-                chartState.teamLogoImages[team] = img;
-                resolve();
-            };
-            img.onerror = () => {
-                console.warn(`팀 로고 로드 실패: ${logoBasePath}${getTeamLogo(team)}`);
-                resolve();
-            };
-            img.src = `${logoBasePath}${getTeamLogo(team)}`;
-        });
-    });
-    
-    await Promise.all(logoPromises);
+    // 글로벌 teamLogos를 직접 사용 (로딩 불필요)
+    console.log('Simple chart: 글로벌 teamLogos 사용');
 }
 
 // 실제 KBO 데이터 로드 및 처리
@@ -671,15 +636,20 @@ function createSimpleChart(data) {
                         if (meta.data && meta.data.length > 0 && !meta.hidden) {
                             const lastPoint = meta.data[meta.data.length - 1];
                             const teamName = dataset.label;
-                            const logoImg = chartState.teamLogoImages[teamName];
                             
-                            if (logoImg && lastPoint) {
-                                ctx.save();
-                                ctx.shadowColor = 'rgba(0,0,0,0.3)';
-                                ctx.shadowBlur = 2;
-                                const size = 24;
-                                ctx.drawImage(logoImg, lastPoint.x - size/2, lastPoint.y - size/2, size, size);
-                                ctx.restore();
+                            // 글로벌 teamLogos 사용
+                            const logoPath = window.teamLogos && window.teamLogos[teamName];
+                            if (logoPath && lastPoint) {
+                                const logoImg = new Image();
+                                logoImg.onload = () => {
+                                    ctx.save();
+                                    ctx.shadowColor = 'rgba(0,0,0,0.3)';
+                                    ctx.shadowBlur = 2;
+                                    const size = 24;
+                                    ctx.drawImage(logoImg, lastPoint.x - size/2, lastPoint.y - size/2, size, size);
+                                    ctx.restore();
+                                };
+                                logoImg.src = logoPath;
                             }
                         }
                     });

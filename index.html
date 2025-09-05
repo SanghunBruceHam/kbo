@@ -14106,7 +14106,7 @@ KT 9:1 키움(H)`;
             periods: []
         };
         let winRateChartVisibleTeams = new Set(getRankingSystem().teams);
-        let winRateChartTeamLogos = {};
+        // winRateChartTeamLogos 제거: 글로벌 teamLogos 사용
         
         // 공통 팀 로고 로딩 시스템 (순위 변동 추이와 승률 추이 통일)
         async function loadCommonTeamLogos() {
@@ -14153,10 +14153,8 @@ KT 9:1 키움(H)`;
         // 통일된 메인 카드 차트 초기화 시스템
         async function initializeMainCharts() {
             try {
-                // 1단계: 공통 팀 로고 로드
+                // 1단계: 차트 초기화 (글로벌 teamLogos 사용)
                 console.log('메인 차트 초기화 시작...');
-                await loadCommonTeamLogos();
-                console.log('공통 팀 로고 로드 완료');
                 
                 // 2단계: 순위 변동 차트 초기화 (simple-chart.js 사용)
                 if (typeof initSimpleChart === 'function') {
@@ -14294,15 +14292,20 @@ KT 9:1 키움(H)`;
                                 if (meta.data && meta.data.length > 0 && !meta.hidden) {
                                     const lastPoint = meta.data[meta.data.length - 1];
                                     const teamName = dataset.label;
-                                    const logoImg = winRateChartTeamLogos[teamName];
                                     
-                                    if (logoImg && lastPoint) {
-                                        ctx.save();
-                                        ctx.shadowColor = 'rgba(0,0,0,0.3)';
-                                        ctx.shadowBlur = 2;
-                                        const size = 24;
-                                        ctx.drawImage(logoImg, lastPoint.x - size/2, lastPoint.y - size/2, size, size);
-                                        ctx.restore();
+                                    // 글로벌 teamLogos 사용
+                                    const logoPath = teamLogos[teamName];
+                                    if (logoPath && lastPoint) {
+                                        const logoImg = new Image();
+                                        logoImg.onload = () => {
+                                            ctx.save();
+                                            ctx.shadowColor = 'rgba(0,0,0,0.3)';
+                                            ctx.shadowBlur = 2;
+                                            const size = 24;
+                                            ctx.drawImage(logoImg, lastPoint.x - size/2, lastPoint.y - size/2, size, size);
+                                            ctx.restore();
+                                        };
+                                        logoImg.src = logoPath;
                                     }
                                 }
                             });
@@ -14452,8 +14455,7 @@ KT 9:1 키움(H)`;
                         winRateChartTeamLogos[team] = window.commonTeamLogos[team];
                     });
                 } else {
-                    console.warn('공통 팀 로고가 로드되지 않았습니다. 다시 시도합니다.');
-                    await loadCommonTeamLogos();
+                    console.log('글로벌 teamLogos 사용');
                 }
             }
 
@@ -14780,12 +14782,7 @@ KT 9:1 키움(H)`;
                 '롯데': '#002955', '한화': '#FF6600', 'KT': '#000000', '키움': '#820024'
             };
             
-            const teamLogos = window.dailyStats ? window.dailyStats.teamLogos : {
-                'LG': 'magic-number/images/teams/lg.png', '삼성': 'magic-number/images/teams/samsung.png', 'KT': 'magic-number/images/teams/kt.png',
-                '두산': 'magic-number/images/teams/doosan.png', 'KIA': 'magic-number/images/teams/kia.png', 'SSG': 'magic-number/images/teams/ssg.png',
-                '롯데': 'magic-number/images/teams/lotte.png', 'NC': 'magic-number/images/teams/nc.png', '한화': 'magic-number/images/teams/hanwha.png',
-                '키움': 'magic-number/images/teams/kiwoom.png'
-            };
+            // 글로벌 teamLogos 사용 (이미 올바른 경로로 정의됨)
 
             // 전체 선택/해제 버튼을 먼저 추가 (앞쪽에 배치)
             const allSelectedCount = teams.filter(team => winRateChartVisibleTeams.has(team)).length;
