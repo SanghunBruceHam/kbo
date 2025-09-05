@@ -261,8 +261,8 @@ const kboTeams = {
                     const firstPlaceMagic = magicNumbers[team.team];
                     magicNumber = firstPlaceMagic ? firstPlaceMagic.championship : 0;
                 } else {
-                    // 나머지 팀: 5위까지 PO 진출 매직넘버 (최대가능 승수 기준)
-                    magicNumber = this.calculatePlayoffMagicNumber(team, currentStandings);
+                    // 나머지 팀: 승수 기준 PO 진출 매직넘버 사용
+                    magicNumber = this.getWinsBasedMagicNumber(team);
                 }
                 
                 if (magicNumber === 0) {
@@ -286,7 +286,25 @@ const kboTeams = {
                 return `<span style="color: ${color}; ">${magicNumber}</span>`;
             },
             
-            // 5위까지 플레이오프 진출을 위한 매직넘버 계산
+            // 승수 기준 매직넘버 가져오기 (magic-matrix-data.json에서)
+            getWinsBasedMagicNumber(team) {
+                try {
+                    // magic-matrix-data.json에서 해당 팀의 매직넘버 찾기
+                    if (window.magicMatrixData && window.magicMatrixData.results) {
+                        const teamResult = window.magicMatrixData.results.find(t => t.team === team.team);
+                        if (teamResult) {
+                            return teamResult.magicNumber || 0;
+                        }
+                    }
+                    // 폴백으로 기존 계산 방식 사용
+                    return this.calculatePlayoffMagicNumber(team, currentStandings);
+                } catch (error) {
+                    logger.error('승수 기준 매직넘버 가져오기 실패:', error);
+                    return this.calculatePlayoffMagicNumber(team, currentStandings);
+                }
+            },
+            
+            // 5위까지 플레이오프 진출을 위한 매직넘버 계산 (기존 승률 기준)
             // 잔여경기에서 최소 몇승을 해야 5위 팀 승률을 넘을 수 있는지 계산하는 매직넘버
             calculatePlayoffMagicNumber(team, standings) {
                 try {
@@ -658,7 +676,7 @@ const kboTeams = {
             // 플레이오프 확정 팀 수 (PO 매직넘버 0)
             const confirmedTeamsList = [];
             currentStandings.forEach(team => {
-                const poMagicNumber = Utils.calculatePlayoffMagicNumber(team, currentStandings);
+                const poMagicNumber = Utils.getWinsBasedMagicNumber(team);
                 if (poMagicNumber === 0) {
                     confirmedTeamsList.push(team);
                 }
@@ -1777,7 +1795,7 @@ const kboTeams = {
                 // 플레이오프 확정 팀 찾기 및 표시
                 const confirmedTeams = [];
                 currentStandings.forEach(team => {
-                    const poMagicNumber = Utils.calculatePlayoffMagicNumber(team, currentStandings);
+                    const poMagicNumber = Utils.getWinsBasedMagicNumber(team);
                     if (poMagicNumber === 0) {
                         confirmedTeams.push({
                             name: team.team,
@@ -1831,7 +1849,7 @@ const kboTeams = {
                 const fifthPlaceMaxWins = teamsWithMaxWins[4] ? teamsWithMaxWins[4].maxPossibleWins : 72;
                 
                 // Utils.calculatePlayoffMagicNumber 사용하여 통일된 로직 적용
-                const poMagicNumber = Utils.calculatePlayoffMagicNumber(team, currentStandings);
+                const poMagicNumber = Utils.getWinsBasedMagicNumber(team);
                 
                 // 탈락 여부 먼저 확인 (현재 5위 팀 승률 vs 내 최대 가능 승률)
                 const currentFifthPlace = currentStandings.find(t => t.rank === 5) || currentStandings.find(t => t.rank === 4);
@@ -1869,7 +1887,7 @@ const kboTeams = {
                 
                 // 5개 팀이 진출 확정되었는지 확인 (매직넘버 0인 팀 수)
                 const confirmedTeams = currentStandings.filter(t => {
-                    const teamPoMagicNumber = Utils.calculatePlayoffMagicNumber(t, currentStandings);
+                    const teamPoMagicNumber = Utils.getWinsBasedMagicNumber(t);
                     return teamPoMagicNumber === 0;
                 }).length;
                 
@@ -2779,12 +2797,31 @@ const kboTeams = {
             await initializeApp();
         }
         
+        // magic-matrix-data.json 로드
+        async function loadMagicMatrixData() {
+            try {
+                const response = await fetch(`data/magic-matrix-data.json?v=${Date.now()}`);
+                if (response.ok) {
+                    window.magicMatrixData = await response.json();
+                    logger.log('✅ 승수 기준 매직넘버 데이터 로드 완료');
+                }
+            } catch (error) {
+                logger.warn('⚠️ 승수 기준 매직넘버 데이터 로드 실패:', error);
+            }
+        }
+
         // DOMContentLoaded 이벤트
         if (document.readyState === 'loading') {
-            eventManager.add(document, 'DOMContentLoaded', runInitialization);
+            eventManager.add(document, 'DOMContentLoaded', async () => {
+                await loadMagicMatrixData();
+                await runInitialization();
+            });
         } else {
             // 이미 DOM이 로드된 경우
-            runInitialization();
+            (async () => {
+                await loadMagicMatrixData();
+                await runInitialization();
+            })();
         }
 
         // 탑으로 가기 버튼 별도 초기화 (더 안전한 방법)
