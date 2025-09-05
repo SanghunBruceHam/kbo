@@ -224,13 +224,7 @@ jobs:
         npm run backup
         echo "✅ 백업 생성 완료"
         
-    # 12. 일일 스냅샷 저장
-    - name: 📸 일일 순위 스냅샷 저장
-      run: |
-        echo "💾 일일 스냅샷 저장 중..."
-        echo "✅ 스냅샷 저장 완료"
-        
-    # 13. 변경사항 확인 및 커밋
+    # 12. 변경사항 확인 및 커밋
     - name: 📝 변경사항 확인
       id: check_changes
       run: |
@@ -280,7 +274,6 @@ jobs:
         ${TIME_EMOJI} ${TIME_MSG}
         🎯 PathManager 기반 안정적 데이터 처리 완료
         📊 순위표, 매직넘버, 상대전적 업데이트
-        📸 일일 스냅샷 히스토리 저장
         
         🤖 Generated with GitHub Actions
         Co-Authored-By: KBO-Auto-Crawler <action@github.com>"
@@ -309,7 +302,7 @@ jobs:
         
         echo "✅ 자동 커밋 및 푸시 완료"
 
-    # 14. 실행 결과 요약
+    # 13. 실행 결과 요약
     - name: 📊 실행 결과 요약
       if: always()
       run: |
@@ -330,7 +323,7 @@ jobs:
         
         echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
-    # 15. 파일 확인 (Pages는 main 브랜치에서 자동 배포됨)
+    # 14. 파일 확인 (Pages는 main 브랜치에서 자동 배포됨)
     - name: 📁 배포 파일 확인
       if: steps.check_changes.outputs.changes_detected == 'true'
       run: |
