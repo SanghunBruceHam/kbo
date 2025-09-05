@@ -12717,13 +12717,9 @@ KT 9:1 키움(H)`;
             }
             
             updateGameGapChart(date) {
+                if (typeof Chart === 'undefined') return;
                 const ctx = document.getElementById('daily-stats-game-gap-chart');
                 if (!ctx) return;
-                
-                // Chart.js 사용 가능 여부 확인
-                if (typeof Chart === 'undefined') {
-                    return;
-                }
                 
                 const standings = this.calculateStandings(date);
                 
@@ -12917,13 +12913,9 @@ KT 9:1 키움(H)`;
             }
             
             initWinRateChart() {
+                if (typeof Chart === 'undefined') return;
                 const ctx = document.getElementById('daily-stats-win-rate-chart');
                 if (!ctx) return;
-                
-                // Chart.js 사용 가능 여부 확인
-                if (typeof Chart === 'undefined') {
-                    return;
-                }
                 
                 // 팀 표시 상태 초기화 (모든 팀 표시)
                 this.winRateChartVisibleTeams = new Set(getRankingSystem().teams);
@@ -13049,13 +13041,9 @@ KT 9:1 키움(H)`;
             }
             
             initRankChart() {
+                if (typeof Chart === 'undefined') return;
                 const ctx = document.getElementById('daily-stats-rank-chart');
                 if (!ctx) return;
-                
-                // Chart.js 사용 가능 여부 확인
-                if (typeof Chart === 'undefined') {
-                    return;
-                }
                 
                 // 팀 표시 상태 초기화 (모든 팀 표시)
                 this.rankChartVisibleTeams = new Set(getRankingSystem().teams);
@@ -14259,18 +14247,9 @@ KT 9:1 키움(H)`;
         // 승률 차트 생성 및 업데이트 함수 (안정성 개선)
         async function createWinRateChart() {
             try {
+                if (typeof Chart === 'undefined') return;
                 const ctx = document.getElementById('winRateChart');
-                if (!ctx) {
-                    return;
-                }
-                
-                // Chart.js 사용 가능 여부 확인
-                if (typeof Chart === 'undefined') {
-                    await window.loadChartJs();
-                    if (typeof Chart === 'undefined') {
-                        return;
-                    }
-                }
+                if (!ctx) return;
 
                 // 일자별 통계 데이터가 로드될 때까지 대기 (최대 10초)
                 let retryCount = 0;
@@ -14589,6 +14568,7 @@ KT 9:1 키움(H)`;
 
         // 차트 재생성이 필요한 경우에만 호출되는 함수
         function recreateWinRateChart(labels, datasets, yMin, yMax) {
+            if (typeof Chart === 'undefined') return;
             if (winRateChartInstance) {
                 winRateChartInstance.destroy();
                 winRateChartInstance = null;
@@ -14596,11 +14576,6 @@ KT 9:1 키움(H)`;
             
             const ctx = document.getElementById('winRateChart');
             if (!ctx) return;
-            
-            // Chart.js 사용 가능 여부 확인
-            if (typeof Chart === 'undefined') {
-                return;
-            }
             
             winRateChartInstance = new Chart(ctx, {
                 type: 'line',
@@ -15029,14 +15004,7 @@ KT 9:1 키움(H)`;
         
         // 강제 승률 차트 초기화 (메인 카드용) - 독립적 데이터 로딩
         async function forceInitWinRateChart() {
-            // Chart.js 로드 확인
-            if (typeof Chart === 'undefined') {
-                await window.loadChartJs();
-                if (typeof Chart === 'undefined') {
-                    return;
-                }
-            }
-            
+            if (typeof Chart === 'undefined') return;
             const ctx = document.getElementById('winRateChart');
             if (!ctx || winRateChartInstance) return;
             
