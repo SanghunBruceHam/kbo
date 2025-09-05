@@ -7,16 +7,59 @@ let chartState = {
     teamLogoImages: {}
 };
 
-// 단순화된 팀 로고 시스템: 글로벌 teamLogos 사용
+// 팀 로고 로딩 함수
 async function loadTeamLogos() {
-    // 글로벌 teamLogos를 직접 사용 (로딩 불필요)
-    console.log('Simple chart: 글로벌 teamLogos 사용');
+    console.log('팀 로고 로딩 시작...');
+    
+    if (!window.teamLogoImages) {
+        window.teamLogoImages = {};
+    }
+    
+    const teams = ["한화", "LG", "두산", "삼성", "KIA", "SSG", "롯데", "NC", "키움", "KT"];
+    const loadPromises = [];
+    
+    // ROOT INDEX에서 실행되는지 확인 (경로 결정을 위해)
+    const isRootIndex = window.location.pathname === '/' || window.location.pathname.endsWith('/index.html');
+    const basePath = isRootIndex ? 'magic-number/images/teams/' : 'images/teams/';
+    
+    teams.forEach(teamName => {
+        const promise = new Promise((resolve, reject) => {
+            const img = new Image();
+            const logoPath = basePath + getTeamLogo(teamName);
+            
+            img.onload = () => {
+                window.teamLogoImages[teamName] = img;
+                console.log(`${teamName} 로고 로드 완료:`, logoPath);
+                resolve();
+            };
+            
+            img.onerror = () => {
+                console.warn(`${teamName} 로고 로드 실패:`, logoPath);
+                resolve(); // 실패해도 계속 진행
+            };
+            
+            img.src = logoPath;
+        });
+        
+        loadPromises.push(promise);
+    });
+    
+    try {
+        await Promise.all(loadPromises);
+        console.log('모든 팀 로고 로딩 완료:', Object.keys(window.teamLogoImages));
+    } catch (error) {
+        console.error('팀 로고 로딩 중 오류:', error);
+    }
 }
 
 // 실제 KBO 데이터 로드 및 처리
 async function loadRealKBOData() {
     try {
-        const response = await fetch('data/game-by-game-records.json');
+        // ROOT INDEX에서 실행되는지 확인 (경로 결정을 위해)
+        const isRootIndex = window.location.pathname === '/' || window.location.pathname.endsWith('/index.html');
+        const dataPath = isRootIndex ? 'magic-number/data/game-by-game-records.json' : 'data/game-by-game-records.json';
+        
+        const response = await fetch(dataPath);
         
         if (!response.ok) {
             throw new Error(`데이터 로드 실패: ${response.status}`);
@@ -157,6 +200,7 @@ async function loadRealKBOData() {
         return processRealData(seasonRankings);
         
     } catch (error) {
+        console.error('실제 KBO 데이터 로드 실패:', error);
         // 실제 데이터 로드 실패 시 조용히 가짜 데이터 사용
         return generateMockData();
     }
@@ -644,13 +688,16 @@ function createSimpleChart(data) {
                             
                             if (logoImg && lastPoint && typeof lastPoint.x === 'number' && typeof lastPoint.y === 'number') {
                                 ctx.save();
+                                
+                                // 로고 그리기 (동그라미 없이)
                                 ctx.globalCompositeOperation = 'source-over';
-                                ctx.shadowColor = 'rgba(0,0,0,0.5)';
-                                ctx.shadowBlur = 3;
-                                ctx.shadowOffsetX = 2;
-                                ctx.shadowOffsetY = 2;
-                                const size = 24;
+                                ctx.shadowColor = 'rgba(0,0,0,0.3)';
+                                ctx.shadowBlur = 2;
+                                ctx.shadowOffsetX = 1;
+                                ctx.shadowOffsetY = 1;
+                                const size = 28;
                                 ctx.drawImage(logoImg, lastPoint.x - size/2, lastPoint.y - size/2, size, size);
+                                
                                 ctx.restore();
                             }
                         }
@@ -662,10 +709,32 @@ function createSimpleChart(data) {
                 maintainAspectRatio: false,
                 layout: {
                     padding: {
-                        left: 35, // 텍스트만 표시하므로 패딩 줄임
-                        right: 35, // 좌우 균형 맞춤
+                        left: 10,
+                        right: 10,
                         top: 10,
                         bottom: 10
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            includeBounds: true,  // 첫번째와 마지막 값 포함
+                            maxTicksLimit: 20     // 최대 틱 수
+                        }
+                    },
+                    y: {
+                        reverse: true,
+                        min: 0.5,
+                        max: 10.5,
+                        ticks: {
+                            stepSize: 1,
+                            callback: function(value) {
+                                if (Number.isInteger(value) && value >= 1 && value <= 10) {
+                                    return value + '위';
+                                }
+                                return '';
+                            }
+                        }
                     }
                 },
                 plugins: {
@@ -795,8 +864,17 @@ function createSimpleChart(data) {
         // 커스텀 범례 생성
         setTimeout(() => createCustomLegend(), 100);
         
+        // 팀 로고가 로드된 후 차트를 다시 그리기
+        setTimeout(() => {
+            if (chartState.chart && window.teamLogoImages && Object.keys(window.teamLogoImages).length > 0) {
+                chartState.chart.update();
+                console.log('팀 로고 적용을 위한 차트 업데이트 완료');
+            }
+        }, 500);
+        
         return chartState.chart;
     } catch (error) {
+        console.error('차트 생성 오류:', error);
         // 차트 생성 오류
         return null;
     }
@@ -831,15 +909,18 @@ function updateSimpleChart() {
         chartState.chart = null;
     }
     
-    // 차트 재생성을 위한 정리
-    
-    // 잠시 대기 후 새 차트 생성 (DOM 정리 시간 확보)
-    setTimeout(() => {
+    // 차트 생성 (중복 생성 방지)
+    if (!chartState.chart) {
         createSimpleChart(chartData);
-        // UI 업데이트
-        updateSimpleUI();
-        updateProgressIndicator();
-    }, 50);
+    } else {
+        // 기존 차트 데이터 업데이트
+        chartState.chart.data = chartData;
+        chartState.chart.update('none');
+    }
+    
+    // UI 업데이트
+    updateSimpleUI();
+    updateProgressIndicator();
 }
 
 // 전체 시즌 차트 데이터 생성
@@ -863,14 +944,10 @@ function generateFullSeasonChart() {
         datasets: []
     };
     
-    // 날짜 라벨 생성 (일부만 표시)
-    const showEveryN = Math.max(1, Math.floor(allData.length / 20)); // 최대 20개 라벨
-    chartData.labels = allData.map((day, index) => {
-        if (index % showEveryN === 0) {
-            const date = new Date(day.date);
-            return `${date.getMonth() + 1}/${date.getDate()}`;
-        }
-        return '';
+    // 날짜 라벨 생성 (모든 날짜 생성, Chart.js가 자동 간격 조정)
+    chartData.labels = allData.map(day => {
+        const date = new Date(day.date);
+        return `${date.getMonth() + 1}/${date.getDate()}`;
     });
     
     // 각 팀별 순위 데이터 생성 (동순위 정확히 표시)
@@ -990,7 +1067,8 @@ async function initSimpleChart() {
         updateSimpleChart();
         
     } catch (error) {
-        // 차트 초기화 실패 시 조용히 처리
+        console.error('차트 초기화 실패:', error);
+        // 조용히 처리하지 않고 에러를 로깅
     }
 }
 

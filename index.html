@@ -4618,8 +4618,10 @@
                 gap: 4px;
             " id="progressDots"></div>
             
-            <div style="position: relative; height: 400px; padding: 10px 10px; min-height: 400px; max-height: 400px;">
-                <canvas id="rankChart"></canvas>
+            <div class="daily-stats-sub-card" style="background: #f8f9fa; border-radius: 8px; padding: 16px; border: 1px solid #e9ecef; margin-bottom: 20px; height: 535px; display: flex; flex-direction: column;">
+                <div style="position: relative; flex: 1; min-height: 0; overflow: hidden;">
+                    <canvas id="rankChart"></canvas>
+                </div>
             </div>
             
             <!-- 팀 레전드 (고정 위치) -->
@@ -4730,9 +4732,11 @@
                 gap: 4px;
             " id="progressDotsWinRate"></div>
             
-            <div style="position: relative; height: 400px; padding: 10px 10px; min-height: 400px; max-height: 400px;">
-                <!-- 메인 승률추이 카드 캔버스 -->
-                <canvas id="winRateChart"></canvas>
+            <div class="daily-stats-sub-card" style="background: #f8f9fa; border-radius: 8px; padding: 16px; border: 1px solid #e9ecef; margin-bottom: 20px; height: 535px; display: flex; flex-direction: column;">
+                <div style="position: relative; flex: 1; min-height: 0; overflow: hidden;">
+                    <!-- 메인 승률추이 카드 캔버스 -->
+                    <canvas id="winRateChart"></canvas>
+                </div>
             </div>
             
             <!-- 팀 레전드 (순위 변동 추이와 동일한 형식) -->
@@ -14044,8 +14048,17 @@ KT 9:1 키움(H)`;
             window.loadTeamLogos().then(() => {
                 // 모든 팀 로고 로드 완료 후 차트들 업데이트
                 setTimeout(() => {
+                    // 일자별 차트 업데이트
                     if (completeDailyStats && completeDailyStats.rankChart) {
                         completeDailyStats.rankChart.update();
+                    }
+                    
+                    // 메인 차트들 업데이트
+                    if (winRateChartInstance) {
+                        winRateChartInstance.update();
+                    }
+                    if (chartState && chartState.chart) {
+                        chartState.chart.update();
                     }
                 }, 100);
             });
@@ -14108,47 +14121,7 @@ KT 9:1 키움(H)`;
         let winRateChartVisibleTeams = new Set(getRankingSystem().teams);
         // winRateChartTeamLogos 제거: 글로벌 teamLogos 사용
         
-        // 공통 팀 로고 로딩 시스템 (순위 변동 추이와 승률 추이 통일)
-        async function loadCommonTeamLogos() {
-            const teams = getRankingSystem().teams;
-            const logoMap = {
-                'LG': 'lg.png', 'KIA': 'kia.png', '삼성': 'samsung.png', '두산': 'doosan.png',
-                'SSG': 'ssg.png', 'NC': 'nc.png', '롯데': 'lotte.png', '한화': 'hanwha.png',
-                'KT': 'kt.png', '키움': 'kiwoom.png'
-            };
-            
-            // ROOT INDEX에서 실행되는지 확인 (경로 결정을 위해)
-            const isRootIndex = window.location.pathname === '/' || window.location.pathname.endsWith('/index.html');
-            const logoBasePath = isRootIndex ? 'magic-number/images/teams/' : 'images/teams/';
-            
-            const logoPromises = teams.map(team => {
-                return new Promise((resolve) => {
-                    const img = new Image();
-                    img.onload = () => {
-                        // 두 그래프 모두에서 사용할 수 있도록 공통 저장소에 저장
-                        if (!window.commonTeamLogos) window.commonTeamLogos = {};
-                        window.commonTeamLogos[team] = img;
-                        
-                        // 기존 변수들도 호환성을 위해 유지
-                        winRateChartTeamLogos[team] = img;
-                        if (window.chartState && window.chartState.teamLogoImages) {
-                            window.chartState.teamLogoImages[team] = img;
-                        }
-                        resolve();
-                    };
-                    img.onerror = () => {
-                        console.warn(`공통 팀 로고 로드 실패: ${logoBasePath}${logoMap[team]}`);
-                        resolve();
-                    };
-                    img.src = `${logoBasePath}${logoMap[team]}`;
-                });
-            });
-            
-            await Promise.all(logoPromises);
-        }
-        
-        // 호환성을 위한 별명
-        const loadWinRateChartTeamLogos = loadCommonTeamLogos;
+        // 단순화된 로고 시스템: window.loadTeamLogos만 사용
         
         // 통일된 메인 카드 차트 초기화 시스템
         async function initializeMainCharts() {
@@ -14169,6 +14142,13 @@ KT 9:1 키움(H)`;
                     const rankCanvas = document.getElementById('rankChart');
                     console.log('rankChart 캔버스 존재:', !!rankCanvas);
                     await initSimpleChart();
+                    // 순위 변동 차트 설정
+                    if (chartState && chartState.chart) {
+                        chartState.chart.options.layout.padding = {
+                            left: 20, right: 40, top: 20, bottom: 20
+                        };
+                        chartState.chart.update('none');
+                    }
                     console.log('순위 변동 차트 초기화 완료');
                 } else {
                     console.warn('initSimpleChart 함수를 찾을 수 없습니다');
@@ -14289,7 +14269,7 @@ KT 9:1 키움(H)`;
                 if (!waitForDailyStats()) return;
 
                 // 팀 로고 먼저 로드
-                await loadWinRateChartTeamLogos();
+                await window.loadTeamLogos();
 
                 // 데이터 처리
                 const processedData = await processSeasonDataForWinRateFromDaily();
@@ -14318,7 +14298,7 @@ KT 9:1 키움(H)`;
                         datasets: []
                     },
                     plugins: [{
-                        id: 'winRateTeamLogos',
+                        id: 'teamLogos',
                         afterDraw: (chart) => {
                             const ctx = chart.ctx;
                             if (!window.teamLogoImages || Object.keys(window.teamLogoImages).length === 0) {
@@ -14339,7 +14319,7 @@ KT 9:1 키움(H)`;
                                         ctx.shadowBlur = 3;
                                         ctx.shadowOffsetX = 2;
                                         ctx.shadowOffsetY = 2;
-                                        const size = 24;
+                                        const size = 32;
                                         ctx.drawImage(logoImg, lastPoint.x - size/2, lastPoint.y - size/2, size, size);
                                         ctx.restore();
                                     }
@@ -14352,8 +14332,10 @@ KT 9:1 키움(H)`;
                         maintainAspectRatio: false,
                         layout: {
                             padding: {
-                                right: 25,  // 우측 패딩 추가로 로고 짤림 방지
-                                left: 5
+                                left: 20,
+                                right: 40,
+                                top: 20,
+                                bottom: 20
                             }
                         },
                         interaction: {
@@ -14363,7 +14345,7 @@ KT 9:1 키움(H)`;
                         elements: {
                             point: {
                                 borderWidth: 0,  // 테두리 제거하여 채워진 점으로 표시
-                                radius: 3        // 점 크기 3px (비어있는 원형 대신 채워진 점)
+                                radius: 2        // 점 크기 2px로 줄임
                             }
                         },
                         plugins: {
@@ -14381,8 +14363,7 @@ KT 9:1 키움(H)`;
                         scales: {
                             x: {
                                 title: {
-                                    display: true,
-                                    text: '날짜'
+                                    display: false
                                 },
                                 ticks: {
                                     maxTicksLimit: 16, // 적절한 틱 수로 조정
@@ -14599,18 +14580,25 @@ KT 9:1 키움(H)`;
                     id: 'teamLogos',
                     afterDraw: (chart) => {
                         const ctx = chart.ctx;
+                        if (!window.teamLogoImages || Object.keys(window.teamLogoImages).length === 0) {
+                            return;
+                        }
+                        
                         chart.data.datasets.forEach((dataset, index) => {
                             const meta = chart.getDatasetMeta(index);
-                            if (meta.data.length > 0 && !meta.hidden) {
+                            if (meta.data && meta.data.length > 0 && !meta.hidden) {
                                 const lastPoint = meta.data[meta.data.length - 1];
                                 const teamName = dataset.label;
                                 const logoImg = window.teamLogoImages[teamName];
                                 
-                                if (logoImg && lastPoint) {
+                                if (logoImg && lastPoint && typeof lastPoint.x === 'number' && typeof lastPoint.y === 'number') {
                                     ctx.save();
-                                    ctx.shadowColor = 'rgba(0,0,0,0.3)';
-                                    ctx.shadowBlur = 2;
-                                    const size = 24;
+                                    ctx.globalCompositeOperation = 'source-over';
+                                    ctx.shadowColor = 'rgba(0,0,0,0.5)';
+                                    ctx.shadowBlur = 3;
+                                    ctx.shadowOffsetX = 2;
+                                    ctx.shadowOffsetY = 2;
+                                    const size = 32;
                                     ctx.drawImage(logoImg, lastPoint.x - size/2, lastPoint.y - size/2, size, size);
                                     ctx.restore();
                                 }
@@ -15049,6 +15037,36 @@ KT 9:1 키움(H)`;
                             backgroundColor: 'rgba(102, 102, 102, 0.1)'
                         }]
                     },
+                    plugins: [{
+                        id: 'teamLogos',
+                        afterDraw: (chart) => {
+                            const ctx = chart.ctx;
+                            if (!window.teamLogoImages || Object.keys(window.teamLogoImages).length === 0) {
+                                return;
+                            }
+                            
+                            chart.data.datasets.forEach((dataset, index) => {
+                                const meta = chart.getDatasetMeta(index);
+                                if (meta.data && meta.data.length > 0 && !meta.hidden) {
+                                    const lastPoint = meta.data[meta.data.length - 1];
+                                    const teamName = dataset.label;
+                                    const logoImg = window.teamLogoImages[teamName];
+                                    
+                                    if (logoImg && lastPoint && typeof lastPoint.x === 'number' && typeof lastPoint.y === 'number') {
+                                        ctx.save();
+                                        ctx.globalCompositeOperation = 'source-over';
+                                        ctx.shadowColor = 'rgba(0,0,0,0.5)';
+                                        ctx.shadowBlur = 3;
+                                        ctx.shadowOffsetX = 2;
+                                        ctx.shadowOffsetY = 2;
+                                        const size = 32;
+                                        ctx.drawImage(logoImg, lastPoint.x - size/2, lastPoint.y - size/2, size, size);
+                                        ctx.restore();
+                                    }
+                                }
+                            });
+                        }
+                    }],
                     options: {
                         responsive: true,
                         maintainAspectRatio: false,
@@ -15064,13 +15082,7 @@ KT 9:1 키움(H)`;
             createWinRateChart();
         }
 
-        // 페이지 로드 시 승률 차트 초기화 (독립적 데이터 로딩)
-        document.addEventListener('DOMContentLoaded', function() {
-            // 1초 후 독립적 초기화 함수 호출
-            setTimeout(() => {
-                forceInitWinRateChart();
-            }, 1000);
-        });
+        // 중복 제거: initializeMainCharts에서 이미 처리됨
     </script>
 
     <!-- 전반기/후반기 성적 비교 스크립트 -->
