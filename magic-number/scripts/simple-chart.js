@@ -710,7 +710,7 @@ function createSimpleChart(data) {
                 layout: {
                     padding: {
                         left: 10,
-                        right: 10,
+                        right: 30,
                         top: 10,
                         bottom: 10
                     }

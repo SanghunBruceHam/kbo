@@ -12957,6 +12957,14 @@ KT 9:1 키움(H)`;
                     options: {
                         responsive: true,
                         maintainAspectRatio: false,
+                        layout: {
+                            padding: {
+                                left: 10,
+                                right: 30,
+                                top: 10,
+                                bottom: 10
+                            }
+                        },
                         plugins: { 
                             legend: { display: false },
                             tooltip: {
@@ -13076,6 +13084,14 @@ KT 9:1 키움(H)`;
                     options: {
                         responsive: true,
                         maintainAspectRatio: false,
+                        layout: {
+                            padding: {
+                                left: 10,
+                                right: 30,
+                                top: 10,
+                                bottom: 10
+                            }
+                        },
                         plugins: { 
                             legend: { display: false },
                             tooltip: {
@@ -14145,7 +14161,7 @@ KT 9:1 키움(H)`;
                     // 순위 변동 차트 설정
                     if (chartState && chartState.chart) {
                         chartState.chart.options.layout.padding = {
-                            left: 20, right: 40, top: 20, bottom: 20
+                            left: 10, right: 30, top: 10, bottom: 10
                         };
                         chartState.chart.update('none');
                     }
@@ -14332,10 +14348,10 @@ KT 9:1 키움(H)`;
                         maintainAspectRatio: false,
                         layout: {
                             padding: {
-                                left: 20,
-                                right: 40,
-                                top: 20,
-                                bottom: 20
+                                left: 10,
+                                right: 30,
+                                top: 10,
+                                bottom: 10
                             }
                         },
                         interaction: {
