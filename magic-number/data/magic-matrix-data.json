@@ -1,9 +1,9 @@
 {
-  "lastUpdated": "2025-09-05T14:44:46.427Z",
+  "lastUpdated": "2025-09-05T14:46:42.444Z",
   "updateDate": "2025. 9. 5.",
   "note": "승수 기준 정확한 플레이오프 진출 매직넘버 계산",
-  "fifthPlaceMaxWinRate": 0.5704225352112676,
-  "fifthPlaceTeam": "삼성",
+  "fifthPlaceMaxWinRate": 0.5579710144927537,
+  "fifthPlaceTeam": "NC",
   "teamMaxStatsRanking": [
     {
       "team": "LG",
@@ -105,8 +105,8 @@
       "winRate": 0.6290322580645161,
       "gamesRemaining": 17,
       "maxPossibleWins": 95,
-      "magicNumber": 4,
-      "status": "🟢 플레이오프 가능"
+      "magicNumber": 0,
+      "status": "✅ 플레이오프 확정"
     },
     {
       "rank": 2,
@@ -116,7 +116,7 @@
       "winRate": 0.5853658536585366,
       "gamesRemaining": 18,
       "maxPossibleWins": 90,
-      "magicNumber": 10,
+      "magicNumber": 6,
       "status": "🟢 플레이오프 가능"
     },
     {
@@ -127,7 +127,7 @@
       "winRate": 0.5245901639344263,
       "gamesRemaining": 18,
       "maxPossibleWins": 82,
-      "magicNumber": 18,
+      "magicNumber": 14,
       "status": "🟢 플레이오프 가능"
     },
     {
@@ -138,7 +138,7 @@
       "winRate": 0.512,
       "gamesRemaining": 17,
       "maxPossibleWins": 81,
-      "magicNumber": 17,
+      "magicNumber": 14,
       "status": "🟢 플레이오프 가능"
     },
     {
@@ -149,8 +149,8 @@
       "winRate": 0.504,
       "gamesRemaining": 15,
       "maxPossibleWins": 78,
-      "magicNumber": 19,
-      "status": "❌ 자력불가 (승수 부족)"
+      "magicNumber": 15,
+      "status": "🟢 플레이오프 가능"
     },
     {
       "rank": 6,
@@ -160,7 +160,7 @@
       "winRate": 0.5,
       "gamesRemaining": 14,
       "maxPossibleWins": 76,
-      "magicNumber": 20,
+      "magicNumber": 16,
       "status": "❌ 자력불가 (승수 부족)"
     },
     {
@@ -171,8 +171,8 @@
       "winRate": 0.4830508474576271,
       "gamesRemaining": 20,
       "maxPossibleWins": 77,
-      "magicNumber": 25,
-      "status": "❌ 자력불가 (승수 부족)"
+      "magicNumber": 20,
+      "status": "🟢 플레이오프 가능"
     },
     {
       "rank": 8,
@@ -182,7 +182,7 @@
       "winRate": 0.475,
       "gamesRemaining": 20,
       "maxPossibleWins": 77,
-      "magicNumber": 25,
+      "magicNumber": 21,
       "status": "❌ 자력불가 (승수 부족)"
     },
     {
@@ -193,7 +193,7 @@
       "winRate": 0.4628099173553719,
       "gamesRemaining": 17,
       "maxPossibleWins": 73,
-      "magicNumber": 26,
+      "magicNumber": 22,
       "status": "❌ 자력불가 (승수 부족)"
     },
     {
@@ -204,7 +204,7 @@
       "winRate": 0.3253968253968254,
       "gamesRemaining": 14,
       "maxPossibleWins": 55,
-      "magicNumber": 41,
+      "magicNumber": 37,
       "status": "❌ 자력불가 (승수 부족)"
     }
   ]
