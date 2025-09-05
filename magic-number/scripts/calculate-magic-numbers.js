@@ -53,30 +53,10 @@ function calculateMagicNumbers(serviceData) {
         return b.remainingGames - a.remainingGames;
     });
     
-    // 3. 플레이오프 진출 기준선 결정 (5위가 동률이면 4위 기준)
-    let playoffThresholdIndex = 4; // 기본 5위
+    // 3. 플레이오프 진출 기준선 결정 (항상 5위 기준)
+    let playoffThresholdIndex = 4; // 5위
     let playoffThresholdTeam = teamMaxStats[4];
     let playoffThresholdWinRate = teamMaxStats[4].maxWinRate;
-    
-    // 5위와 6위가 동률인지 확인
-    if (teamMaxStats.length > 5) {
-        const fifthWinRate = teamMaxStats[4].maxWinRate;
-        const sixthWinRate = teamMaxStats[5].maxWinRate;
-        
-        // 승률이 같거나 승패차까지 같으면 4위를 기준으로
-        if (Math.abs(fifthWinRate - sixthWinRate) < 0.001) {
-            const fifthWinLossMargin = teamMaxStats[4].maxWins - teamMaxStats[4].maxLosses;
-            const sixthWinLossMargin = teamMaxStats[5].maxWins - teamMaxStats[5].maxLosses;
-            
-            if (fifthWinLossMargin === sixthWinLossMargin) {
-                // 4위를 기준으로 변경
-                playoffThresholdIndex = 3;
-                playoffThresholdTeam = teamMaxStats[3];
-                playoffThresholdWinRate = teamMaxStats[3].maxWinRate;
-                console.log(`⚠️ 5위와 6위가 동률이므로 4위 ${playoffThresholdTeam.team}를 기준으로 설정`);
-            }
-        }
-    }
     
     const fifthPlaceMaxWinRate = playoffThresholdWinRate;
     const fifthPlaceTeam = playoffThresholdTeam;
