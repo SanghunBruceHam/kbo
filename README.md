@@ -13,7 +13,7 @@ kbo/
 │
 ├── magic-number/             # 🎯 메인 웹사이트 (완전 독립형)
 │   ├── index.html           # 매직넘버 계산기 웹사이트
-│   ├── js/                  # 모든 JavaScript (백엔드 + 프론트엔드)
+│   ├── scripts/             # 모든 JavaScript (백엔드 + 프론트엔드)
 │   │   ├── process-season-data.js    # 메인 데이터 처리
 │   │   ├── fix-encoding.js          # 인코딩 수정
 │   │   ├── script.js               # 웹 UI 스크립트
@@ -63,7 +63,7 @@ echo "한화 5:3 삼성" >> magic-number/data/2025-season-data-clean.txt
 
 ### 2. 통계 처리 (Node.js)
 ```bash
-cd magic-number/js/
+cd magic-number/scripts/
 node process-season-data.js      # 메인 데이터 처리
 ```
 
@@ -98,20 +98,20 @@ npm run serve  # http://localhost:8080/magic-number/
 ## 🛠️ 개발자 가이드
 
 ### 폴더별 역할
-- **magic-number/js/** - 모든 JavaScript (백엔드 데이터 처리 + 프론트엔드 UI)
+- **magic-number/scripts/** - 모든 JavaScript (백엔드 데이터 처리 + 프론트엔드 UI)
 - **magic-number/css/** - 웹사이트 스타일시트
 - **magic-number/data/** - 모든 데이터 파일 (원본 + 가공된 JSON)
 - **magic-number/images/** - 팀 로고 이미지
 - **magic-number/crawlers/** - Python 크롤러
 
 ### 주요 스크립트
-- `js/process-season-data.js` - 핵심 데이터 처리 엔진
-- `js/script.js` - 웹페이지 UI 로직 (2,200+ 줄)
+- `scripts/process-season-data.js` - 핵심 데이터 처리 엔진
+- `scripts/script.js` - 웹페이지 UI 로직 (2,200+ 줄)
 
 ## 📚 상세 문서
 
 - **[Magic Number 사용법](magic-number/README.md)** - 웹사이트 상세 가이드
-- **[JavaScript 가이드](magic-number/js/README.md)** - 스크립트 사용법
+- **[JavaScript 가이드](magic-number/scripts/README.md)** - 스크립트 사용법
 - **[프로젝트 문서](docs/README.md)** - 전체 시스템 설명
 
 ## 🏗️ 아키텍처 특징
@@ -122,7 +122,7 @@ npm run serve  # http://localhost:8080/magic-number/
 - 단순한 폴더 구조로 유지보수 용이
 
 ### 통합된 JavaScript 관리
-- 백엔드 데이터 처리 스크립트와 프론트엔드 UI 스크립트를 `js/` 폴더에 통합
+- 백엔드 데이터 처리 스크립트와 프론트엔드 UI 스크립트를 `scripts/` 폴더에 통합
 - 일관된 경로 구조 (`../data/`, `../css/`)
 
 ## 📊 프로젝트 통계

@@ -29,7 +29,7 @@ KBO(한국프로야구) 2025시즌 데이터 분석 및 매직넘버 계산 시�
 magic-number/
 ├── index.html               # 매직넘버 계산기 메인 페이지
 ├── css/                     # 스타일시트
-├── js/                      # JavaScript 모듈
+├── scripts/                 # JavaScript 모듈
 ├── data/                    # 데이터 파일
 ├── history/                 # 과거 데이터 기록
 ├── icons/                   # PWA 아이콘
