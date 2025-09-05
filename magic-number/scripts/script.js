@@ -304,43 +304,58 @@ const kboTeams = {
                 }
             },
             
-            // 5위까지 플레이오프 진출을 위한 매직넘버 계산 (기존 승률 기준)
-            // 잔여경기에서 최소 몇승을 해야 5위 팀 승률을 넘을 수 있는지 계산하는 매직넘버
+            // 5위까지 플레이오프 진출을 위한 매직넘버 계산 (승수 기준)
+            // calculate-magic-numbers.js와 동일한 로직 사용
             calculatePlayoffMagicNumber(team, standings) {
                 try {
-                    // 1. 모든 팀이 잔여경기 전승했을 때의 최종 승률 계산
-                    const teamsWithFinalWinRate = standings.map(t => {
+                    // 1. 모든 팀의 최대가능 승수 계산
+                    const teamMaxStats = standings.map(t => {
                         const remainingGames = 144 - t.games;
-                        const finalWins = t.wins + remainingGames;
-                        const finalLosses = t.losses; // 잔여경기를 모두 이기므로 패수는 그대로
-                        const finalWinRate = finalWins / (finalWins + finalLosses);
+                        const maxWins = t.wins + remainingGames;
+                        const maxLosses = t.losses;
+                        const maxWinRate = maxWins / (maxWins + maxLosses);
                         
                         return {
                             team: t.team,
-                            finalWinRate: finalWinRate
+                            currentWins: t.wins,
+                            currentLosses: t.losses,
+                            remainingGames: remainingGames,
+                            maxWins: maxWins,
+                            maxLosses: maxLosses,
+                            maxWinRate: maxWinRate
                         };
                     });
                     
-                    // 2. 최종 승률로 정렬해서 5위 팀 승률 찾기
-                    teamsWithFinalWinRate.sort((a, b) => b.finalWinRate - a.finalWinRate);
-                    const fifthPlaceWinRate = teamsWithFinalWinRate[4].finalWinRate;
-                    
-                    // 3. 현재 팀이 잔여경기에서 최소 몇승을 해야 5위 팀 승률을 넘는지 계산
-                    const remainingGames = 144 - team.games;
-                    
-                    for (let winsFromRemaining = 0; winsFromRemaining <= remainingGames; winsFromRemaining++) {
-                        const lossesFromRemaining = remainingGames - winsFromRemaining;
-                        const finalWins = team.wins + winsFromRemaining;
-                        const finalLosses = team.losses + lossesFromRemaining;
-                        const finalWinRate = finalWins / (finalWins + finalLosses);
-                        
-                        if (finalWinRate >= fifthPlaceWinRate) {
-                            return winsFromRemaining;
+                    // 2. 최대가능 승률 순으로 정렬
+                    teamMaxStats.sort((a, b) => {
+                        if (Math.abs(a.maxWinRate - b.maxWinRate) > 0.001) {
+                            return b.maxWinRate - a.maxWinRate;
                         }
+                        const aWinLossMargin = a.maxWins - a.maxLosses;
+                        const bWinLossMargin = b.maxWins - b.maxLosses;
+                        if (aWinLossMargin !== bWinLossMargin) {
+                            return bWinLossMargin - aWinLossMargin;
+                        }
+                        return b.remainingGames - a.remainingGames;
+                    });
+                    
+                    // 3. 플레이오프 진출 기준선 결정 (5위 기준)
+                    let playoffThresholdTeam = teamMaxStats[4];
+                    
+                    // 4. PO 매직넘버 계산: 5위 팀의 최대가능 승수를 넘는데 필요한 승수
+                    let requiredWins;
+                    if (team.team === playoffThresholdTeam.team) {
+                        // 자신이 5위 기준팀이면 자신의 최대가능 승수 달성하면 됨
+                        requiredWins = playoffThresholdTeam.maxWins;
+                    } else {
+                        // 다른 팀은 5위 기준팀을 넘어야 하므로 +1
+                        requiredWins = playoffThresholdTeam.maxWins + 1;
                     }
                     
-                    // 모든 경기를 이겨도 5위 팀 승률에 도달하지 못하면 자력불가
-                    return remainingGames + 1;
+                    // 현재 승수와의 차이가 매직넘버
+                    const winsNeeded = Math.max(0, requiredWins - team.wins);
+                    
+                    return winsNeeded;
                 } catch (error) {
                     logger.error('플레이오프 매직넘버 계산 중 오류:', error);
                     return Math.max(0, 72 - team.wins); // 폴백으로 기존 로직 사용
