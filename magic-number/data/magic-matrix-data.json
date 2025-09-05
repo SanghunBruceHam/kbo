@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-09-05T12:21:31.530Z",
+  "lastUpdated": "2025-09-05T13:03:11.565Z",
   "updateDate": "2025. 9. 5.",
   "note": "승률 기준 정확한 매직넘버 계산",
   "results": [
@@ -10,8 +10,8 @@
       "losses": 46,
       "winRate": 0.6290322580645161,
       "gamesRemaining": 20,
-      "magicNumber": 0,
-      "status": "✅ 플레이오프 확정"
+      "magicNumber": 1,
+      "status": ""
     },
     {
       "rank": 2,
@@ -20,46 +20,46 @@
       "losses": 51,
       "winRate": 0.5853658536585366,
       "gamesRemaining": 21,
-      "magicNumber": 6,
+      "magicNumber": 7,
       "status": ""
     },
     {
       "rank": 3,
       "team": "SSG",
-      "wins": 63,
+      "wins": 64,
       "losses": 58,
-      "winRate": 0.5206611570247934,
-      "gamesRemaining": 23,
+      "winRate": 0.5245901639344263,
+      "gamesRemaining": 22,
       "magicNumber": 15,
       "status": ""
     },
     {
       "rank": 4,
       "team": "삼성",
-      "wins": 63,
+      "wins": 64,
       "losses": 61,
-      "winRate": 0.5080645161290323,
-      "gamesRemaining": 20,
+      "winRate": 0.512,
+      "gamesRemaining": 19,
       "magicNumber": 15,
       "status": ""
     },
     {
       "rank": 5,
-      "team": "롯데",
-      "wins": 62,
-      "losses": 61,
-      "winRate": 0.5040650406504065,
-      "gamesRemaining": 21,
-      "magicNumber": 16,
-      "status": ""
-    },
-    {
-      "rank": 6,
       "team": "KT",
       "wins": 63,
       "losses": 62,
       "winRate": 0.504,
       "gamesRemaining": 19,
+      "magicNumber": 16,
+      "status": ""
+    },
+    {
+      "rank": 6,
+      "team": "롯데",
+      "wins": 62,
+      "losses": 62,
+      "winRate": 0.5,
+      "gamesRemaining": 20,
       "magicNumber": null,
       "status": ""
     },
@@ -97,9 +97,9 @@
       "rank": 10,
       "team": "키움",
       "wins": 41,
-      "losses": 84,
-      "winRate": 0.328,
-      "gamesRemaining": 19,
+      "losses": 85,
+      "winRate": 0.3253968253968254,
+      "gamesRemaining": 18,
       "magicNumber": null,
       "status": "❌ 플레이오프 탈락 확정"
     }
