@@ -18,7 +18,9 @@ function calculateMagicNumbers(serviceData) {
     const standings = serviceData.standings;
     const totalGames = 144;
     
-    console.log('📊 KBO 매직넘버 계산 시작...');
+    console.log('📊 KBO 매직넘버 계산 시작 (승률 기준)...');
+    
+    const results = [];
     
     standings.forEach((team, index) => {
         const rank = index + 1;
@@ -26,18 +28,88 @@ function calculateMagicNumbers(serviceData) {
         const losses = team.losses;
         const gamesPlayed = wins + losses;
         const gamesRemaining = totalGames - gamesPlayed;
+        const currentWinRate = wins / gamesPlayed;
         
         // 플레이오프 진출 매직넘버 (5위까지)
         let magicNumber = null;
+        let status = '';
+        
         if (rank <= 5) {
-            const playoffThreshold = standings[4] ? standings[4].wins : 0;
-            magicNumber = Math.max(0, playoffThreshold + 1 - wins);
+            // 현재 5위 팀이 남은 경기를 모두 이겨도 달성할 수 없는 승률을 목표로 설정
+            const fifthPlace = standings[4];
+            if (fifthPlace) {
+                const fifthMaxWins = fifthPlace.wins + fifthPlace.remainingGames;
+                const fifthMaxGames = fifthPlace.games + fifthPlace.remainingGames;
+                const fifthMaxWinRate = fifthMaxWins / fifthMaxGames;
+                
+                // 현재 팀이 달성해야 할 최소 승률 (5위 최대 승률보다 높아야 함)
+                let winsNeeded = 0;
+                for (let additionalWins = 0; additionalWins <= gamesRemaining; additionalWins++) {
+                    const projectedWins = wins + additionalWins;
+                    const projectedGames = gamesPlayed + gamesRemaining;
+                    const projectedWinRate = projectedWins / projectedGames;
+                    
+                    if (projectedWinRate > fifthMaxWinRate) {
+                        winsNeeded = additionalWins;
+                        break;
+                    }
+                }
+                
+                if (winsNeeded === 0 && currentWinRate > fifthMaxWinRate) {
+                    status = '✅ 플레이오프 확정';
+                    magicNumber = 0;
+                } else {
+                    magicNumber = winsNeeded;
+                }
+            }
+        } else {
+            // 6위 이하는 플레이오프 탈락 가능성 계산
+            const fifthPlace = standings[4];
+            if (fifthPlace) {
+                const maxPossibleWins = wins + gamesRemaining;
+                const maxPossibleGames = gamesPlayed + gamesRemaining;
+                const maxPossibleWinRate = maxPossibleWins / maxPossibleGames;
+                
+                const fifthCurrentWinRate = fifthPlace.wins / fifthPlace.games;
+                
+                if (maxPossibleWinRate < fifthCurrentWinRate) {
+                    status = '❌ 플레이오프 탈락 확정';
+                }
+            }
         }
         
-        console.log(`${rank}위 ${team.team}: ${wins}승 ${losses}패 (${gamesRemaining}경기 남음) - 매직넘버: ${magicNumber || 'N/A'}`);
+        const teamResult = {
+            rank,
+            team: team.team,
+            wins,
+            losses,
+            winRate: currentWinRate,
+            gamesRemaining,
+            magicNumber,
+            status
+        };
+        
+        results.push(teamResult);
+        
+        const magicDisplay = magicNumber === 0 ? '확정' : (magicNumber || 'N/A');
+        const statusDisplay = status ? ` ${status}` : '';
+        console.log(`${rank}위 ${team.team}: ${wins}승 ${losses}패 (승률 ${currentWinRate.toFixed(3)}, ${gamesRemaining}경기 남음) - 매직넘버: ${magicDisplay}${statusDisplay}`);
     });
     
+    // 매직넘버 매트릭스 데이터 파일 생성
+    const matrixData = {
+        lastUpdated: new Date().toISOString(),
+        updateDate: new Date().toLocaleDateString('ko-KR'),
+        note: "승률 기준 정확한 매직넘버 계산",
+        results: results
+    };
+    
+    const outputPath = path.join(DATA_DIR, 'magic-matrix-data.json');
+    fs.writeFileSync(outputPath, JSON.stringify(matrixData, null, 2), 'utf8');
+    console.log(`✅ 매직넘버 매트릭스 데이터 저장: ${outputPath}`);
+    
     console.log('✅ 매직넘버 계산 완료!');
+    return matrixData;
 }
 
 function main() {
