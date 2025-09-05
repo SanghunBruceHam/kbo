@@ -5,7 +5,7 @@
  * 개선된 경로 관리 시스템이 올바르게 작동하는지 검증
  */
 
-const pathManager = require('../config/paths');
+const pathManager = require('../../config/paths');
 const fs = require('fs');
 const path = require('path');
 
