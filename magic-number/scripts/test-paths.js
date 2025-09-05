@@ -95,10 +95,9 @@ class PathValidator {
         const requiredStructure = [
             'package.json',
             'config',
-            'scripts',
             'magic-number',
             'magic-number/data',
-            'magic-number/js',
+            'magic-number/scripts',
             'magic-number/crawlers',
             'magic-number/index.html'
         ];
@@ -119,7 +118,7 @@ class PathValidator {
 
         const essentialFiles = [
             { desc: 'PathManager', path: path.join(pathManager.projectRoot, 'config/paths.js') },
-            { desc: 'CrossPlatform Runner', path: path.join(pathManager.projectRoot, 'scripts/runner.js') },
+            { desc: 'CrossPlatform Runner', path: pathManager.getJsFile('runner.js') },
             { desc: 'Process Season Data', path: pathManager.getJsFile('process-season-data.js') },
             { desc: 'Python Crawler', path: pathManager.getCrawlerFile('kbo-python-working-crawler.py') }
         ];
@@ -170,8 +169,8 @@ class PathValidator {
         console.log('\n🔐 실행 권한 확인...');
 
         const executableFiles = [
-            path.join(pathManager.projectRoot, 'scripts/runner.js'),
-            path.join(pathManager.projectRoot, 'scripts/test-paths.js')
+            pathManager.getJsFile('runner.js'),
+            pathManager.getJsFile('test-paths.js')
         ];
 
         executableFiles.forEach(file => {
