@@ -15670,17 +15670,7 @@ KT 9:1 키움(H)`;
                     <td class="half-season-data rank">${actualRank}</td>
                     <td class="half-season-data team">
                         <span style="color: ${teamColor}; font-weight: 600;">
-                            <img src="images/${team.team.toLowerCase() === 'kia' ? 'kia' : 
-                                              team.team === '삼성' ? 'samsung' : 
-                                              team.team === 'LG' ? 'lg' : 
-                                              team.team === '두산' ? 'doosan' : 
-                                              team.team === 'KT' ? 'kt' : 
-                                              team.team === 'SSG' ? 'ssg' : 
-                                              team.team === 'NC' ? 'nc' : 
-                                              team.team === '롯데' ? 'lotte' : 
-                                              team.team === '한화' ? 'hanwha' : 'kiwoom'}.png" 
-                                 alt="${team.team}" 
-                                 style="width: 16px; height: 16px; vertical-align: middle; margin-right: 4px;">
+                            ${teamLogo ? teamLogo.replace('20px', '16px') : ''}
                             ${team.team}
                         </span>
                     </td>
