@@ -955,13 +955,15 @@
                 </div>
 
                 <!-- 쿠팡 광고 영역 -->
-                <div class="coupang-ad-wrapper card" style="text-align: center; overflow: hidden;">
+                <div class="ad-card">
+                    <div class="coupang-ad-wrapper" style="text-align: center; overflow: hidden;">
                     <div style="color: #666; margin-bottom: 10px;">광고</div>
                     <!-- 쿠팡 파트너스 광고 코드 -->
                     <script src="https://ads-partners.coupang.com/g.js"></script>
                     <script>
                         new PartnersCoupang.G({"id":867629,"trackingCode":"AF6959276","subId":null,"template":"carousel","width":"1200","height":"180"});
                     </script>
+                    </div>
                 </div>
 
                 <!-- 우승 & 플레이오프 경우의 수 카드 -->
@@ -1019,6 +1021,7 @@
                     <script>
                         new PartnersCoupang.G({"id":867629,"trackingCode":"AF6959276","subId":null,"template":"carousel","width":"1200","height":"180"});
                     </script>
+                    </div>
                 </div>
 
 
@@ -1099,6 +1102,7 @@
                     <script>
                         new PartnersCoupang.G({"id":867629,"trackingCode":"AF6959276","subId":null,"template":"carousel","width":"1200","height":"180"});
                     </script>
+                    </div>
                 </div>
 
 
@@ -1204,6 +1208,7 @@
                     <script>
                         new PartnersCoupang.G({"id":867629,"trackingCode":"AF6959276","subId":null,"template":"carousel","width":"1200","height":"180"});
                     </script>
+                    </div>
                 </div>
 
                 <!-- 팀 순위 테이블 -->
@@ -1460,6 +1465,7 @@
                     <script>
                         new PartnersCoupang.G({"id":867629,"trackingCode":"AF6959276","subId":null,"template":"carousel","width":"1200","height":"180"});
                     </script>
+                    </div>
                 </div>
 
                 <!-- 팀간 승패표 -->
@@ -1507,6 +1513,7 @@
                     <script>
                         new PartnersCoupang.G({"id":867629,"trackingCode":"AF6959276","subId":null,"template":"carousel","width":"1200","height":"180"});
                     </script>
+                    </div>
                 </div>
 
                 <!-- 팀간 잔여 경기수 -->
@@ -1552,6 +1559,7 @@
                     <script>
                         new PartnersCoupang.G({"id":867629,"trackingCode":"AF6959276","subId":null,"template":"carousel","width":"1200","height":"180"});
                     </script>
+                    </div>
                 </div>
 
                 <!-- 개선 제안 카드 -->
@@ -1588,6 +1596,7 @@
                     <script>
                         new PartnersCoupang.G({"id":867629,"trackingCode":"AF6959276","subId":null,"template":"carousel","width":"1200","height":"180"});
                     </script>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1923,6 +1932,28 @@
         
         .coupang-ad-wrapper * {
             max-width: 100% !important;
+        }
+        
+        /* 광고 카드 전용 클래스 - card 스타일 상속 */
+        .ad-card {
+            background: var(--card-background);
+            border-radius: var(--card-border-radius);
+            padding: var(--card-padding);
+            box-shadow: var(--card-shadow);
+            backdrop-filter: var(--card-backdrop-filter);
+            margin: var(--card-margin);
+            width: var(--card-width) !important;
+            max-width: var(--card-max-width) !important;
+            min-width: 0 !important;
+            box-sizing: border-box;
+            text-align: center;
+            overflow: hidden;
+        }
+        .ad-card iframe {
+            display: block !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            height: auto !important;
         }
 
         @keyframes navFlash {
