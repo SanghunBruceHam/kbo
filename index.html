@@ -371,7 +371,7 @@
     <meta name="bingbot" content="index, follow">
     <meta name="format-detection" content="telephone=no">
     <meta name="referrer" content="no-referrer-when-downgrade">
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://unpkg.com https://ads-partners.coupang.com https://t1.daumcdn.net https://pagead2.googlesyndication.com https://www.googletagmanager.com https://connect.facebook.net; connect-src 'self' https:; img-src 'self' data: https:">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     
     
@@ -11348,12 +11348,6 @@
                 console.error('주차별 데이터 로드 실패:', error);
             });
             
-            // Chart.js를 미리 백그라운드에서 로딩 시작 (차트가 필요할 때 이미 준비됨)
-            loadChartJs().then(() => {
-                console.log('🎯 Chart.js 사전 로딩 완료');
-            }).catch(error => {
-                console.warn('⚠️ Chart.js 사전 로딩 실패:', error);
-            });
             
             // 네비게이션 활성 상태 관리
             initializeNavigation();
@@ -12002,77 +11996,17 @@
             if (chartJsLoadPromise) return chartJsLoadPromise;
             
             chartJsLoadPromise = new Promise((resolve, reject) => {
-                // Chart 객체가 이미 존재하는지 확인
-                if (typeof Chart !== 'undefined') {
+                const script = document.createElement('script');
+                script.src = 'https://cdn.jsdelivr.net/npm/chart.js';
+                script.onload = () => {
                     chartJsLoaded = true;
+                    console.log('Chart.js loaded lazily');
                     resolve();
-                    return;
-                }
-                
-                const cdnUrls = [
-                    'https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.min.js',
-                    'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.min.js',
-                    'https://unpkg.com/chart.js@4.4.0/dist/chart.min.js'
-                ];
-                
-                let currentIndex = 0;
-                let timeoutId;
-                
-                function tryLoadScript() {
-                    if (currentIndex >= cdnUrls.length) {
-                        reject(new Error('Chart.js loading failed from all CDNs'));
-                        return;
-                    }
-                    
-                    // 기존 실패한 스크립트 제거
-                    const existingScripts = document.querySelectorAll('script[src*="chart"]');
-                    existingScripts.forEach(script => {
-                        if (script.src.includes('chart') && !script.onload) {
-                            script.remove();
-                        }
-                    });
-                    
-                    const script = document.createElement('script');
-                    script.src = cdnUrls[currentIndex];
-                    
-                    // 타임아웃 설정 (15초)
-                    timeoutId = setTimeout(() => {
-                        script.onerror = null;
-                        script.onload = null;
-                        script.remove();
-                        console.warn(`Chart.js 로딩 타임아웃: ${cdnUrls[currentIndex]}`);
-                        currentIndex++;
-                        tryLoadScript();
-                    }, 15000);
-                    
-                    script.onload = () => {
-                        clearTimeout(timeoutId);
-                        // Chart 객체 존재 확인
-                        if (typeof Chart !== 'undefined') {
-                            chartJsLoaded = true;
-                            console.log(`✅ Chart.js 로딩 성공 (CDN ${currentIndex + 1}): ${cdnUrls[currentIndex]}`);
-                            resolve();
-                        } else {
-                            console.warn(`Chart.js 스크립트는 로드되었지만 Chart 객체가 없음: ${cdnUrls[currentIndex]}`);
-                            currentIndex++;
-                            tryLoadScript();
-                        }
-                    };
-                    
-                    script.onerror = () => {
-                        clearTimeout(timeoutId);
-                        console.warn(`❌ Chart.js 로딩 실패 (CDN ${currentIndex + 1}): ${cdnUrls[currentIndex]}`);
-                        script.remove();
-                        currentIndex++;
-                        tryLoadScript();
-                    };
-                    
-                    script.async = true;
-                    script.defer = true;
-                    document.head.appendChild(script);
-                }
-                
-                tryLoadScript();
+                };
+                script.onerror = () => reject(new Error('Chart.js loading failed'));
+                // 성능 최적화: async 속성 추가
+                script.async = true;
+                document.head.appendChild(script);
             });
             
             return chartJsLoadPromise;
@@ -15052,17 +14986,10 @@ KT 9:1 키움(H)`;
 
         // 승률 차트 초기화 (Chart.js 지연 로딩)
         async function initWinRateChart() {
-            try {
-                await window.loadChartJs();
-                
-                if (typeof Chart !== 'undefined') {
-                    createWinRateChart();
-                } else {
-                    showChartLoadError('승률 차트');
-                }
-            } catch (error) {
-                console.error('승률 차트 초기화 실패:', error);
-                showChartLoadError('승률 차트');
+            await window.loadChartJs();
+            
+            if (typeof Chart !== 'undefined') {
+                createWinRateChart();
             }
         }
 
