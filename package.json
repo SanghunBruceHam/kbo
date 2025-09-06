@@ -6,7 +6,7 @@
   "homepage": "https://kbo-dashboard.co.kr/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/SanghunBruceHam/kbo.git"
+    "url": "git+https://github.com/SanghunBruceHam/kbo.git"
   },
   "scripts": {
     "process": "node magic-number/scripts/runner.js magic-number/scripts/process-season-data.js",
@@ -52,6 +52,14 @@
     "sqlite3": "^5.1.7"
   },
   "devDependencies": {
+    "eslint": "^9.35.0",
     "nodemon": "^3.0.0"
+  },
+  "directories": {
+    "doc": "docs"
+  },
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/SanghunBruceHam/kbo/issues"
   }
 }
