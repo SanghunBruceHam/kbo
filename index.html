@@ -11361,6 +11361,13 @@
 
         // 네비게이션 초기화 및 스크롤 감지
         function initializeNavigation() {
+            // 페이지 로드 시 URL 해시 제거 (3초 후)
+            if (window.location.hash) {
+                setTimeout(() => {
+                    history.replaceState(null, null, window.location.pathname + window.location.search);
+                }, 3000);
+            }
+            
             const navItems = document.querySelectorAll('.nav-item');
             const sections = document.querySelectorAll('.card[id]');
             
@@ -11395,6 +11402,11 @@
                             top: targetPosition,
                             behavior: 'smooth'
                         });
+                        
+                        // 스크롤 완료 후 URL에서 해시 제거 (2초 후)
+                        setTimeout(() => {
+                            history.replaceState(null, null, window.location.pathname + window.location.search);
+                        }, 2000);
                     }
                 });
             });
