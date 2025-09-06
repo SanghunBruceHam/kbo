@@ -619,10 +619,7 @@ class KBODataProcessor {
             remainingGames: this.remainingGames,
             
             // 1위 탈환 가능성 데이터
-            chaseData: this.generateChaseData(),
-            
-            // 플레이오프 진출 데이터
-            playoffData: this.generatePlayoffData()
+            chaseData: this.generateChaseData()
         };
         
         return serviceData;
@@ -654,50 +651,6 @@ class KBODataProcessor {
         });
     }
 
-    // 플레이오프 진출 데이터 생성
-    generatePlayoffData() {
-        return this.standings.map(team => {
-            const magic = this.magicNumbers[team.team];
-            const PLAYOFF_THRESHOLD = 72;
-            
-            // 잔여경기 필요 승률: 72승 달성을 위한 승률
-            const requiredWinRate = team.remainingGames > 0 ? 
-                Math.min(1, Math.max(0, PLAYOFF_THRESHOLD - team.wins) / team.remainingGames) : 0;
-            
-            // 진출 상황 판정 (그라데이션 기반)
-            let status;
-            if (team.wins >= PLAYOFF_THRESHOLD) {
-                status = '확정'; // 이미 72승 달성
-            } else if (team.wins + team.remainingGames < PLAYOFF_THRESHOLD) {
-                status = '불가능'; // 전승해도 72승 불가
-            } else {
-                // 필요 승률에 따른 그라데이션 구분
-                if (requiredWinRate <= 0.3) {
-                    status = '매우 유력';
-                } else if (requiredWinRate <= 0.5) {
-                    status = '유력';
-                } else if (requiredWinRate <= 0.7) {
-                    status = '경합';
-                } else if (requiredWinRate <= 0.85) {
-                    status = '어려움';
-                } else {
-                    status = '매우 어려움';
-                }
-            }
-            
-            return {
-                team: team.team,
-                rank: team.rank,
-                wins: team.wins,
-                remainingGames: team.remainingGames,
-                maxPossibleWins: magic.maxPossibleWins,
-                playoffMagic: magic.playoff === 999 ? '불가능' : magic.playoff,
-                eliminationMagic: magic.elimination === 999 ? '-' : magic.elimination,
-                requiredWinRate: requiredWinRate,
-                status: status
-            };
-        });
-    }
 
     // 8. 파일 저장
     async saveAllData(serviceData) {

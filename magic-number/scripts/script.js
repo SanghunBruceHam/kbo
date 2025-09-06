@@ -267,7 +267,7 @@ const kboTeams = {
                     magicNumber = this.getWinsBasedMagicNumber(team);
                 }
                 
-                if (magicNumber === 0) {
+                if (magicNumber === 0 && !this.isTeamEliminated(team)) {
                     return team.rank === 1 ? 
                         '<span style="color: #FFD700; ">우승확정</span>' :
                         '<span style="color: #4CAF50; ">PO확정</span>';
@@ -286,6 +286,22 @@ const kboTeams = {
                 else color = '#9E9E9E';                        // 회색
                 
                 return `<span style="color: ${color}; ">${magicNumber}</span>`;
+            },
+            
+            // 탈락 확정 팀 체크 (magic-matrix-data.json의 status 필드 확인)
+            isTeamEliminated(team) {
+                try {
+                    if (window.magicMatrixData && window.magicMatrixData.results) {
+                        const teamResult = window.magicMatrixData.results.find(t => t.team === team.team);
+                        if (teamResult && teamResult.status && teamResult.status.includes('탈락')) {
+                            return true;
+                        }
+                    }
+                    return false;
+                } catch (error) {
+                    logger.error('탈락 확정 팀 체크 실패:', error);
+                    return false;
+                }
             },
             
             // 승수 기준 매직넘버 가져오기 (magic-matrix-data.json에서)
@@ -567,7 +583,7 @@ const kboTeams = {
                         };
                     });
                     
-                    // currentKBOData에 전체 데이터 저장 (playoffData 포함)
+                    // currentKBOData에 전체 데이터 저장
                     currentKBOData = data;
                     
                     // 수집된 데이터를 기반으로 잔여경기 일정 업데이트
@@ -690,11 +706,12 @@ const kboTeams = {
             const magicNumber = calculateMagicNumber(firstPlace, secondPlace);
             document.getElementById('first-place-magic').textContent = `매직넘버: ${magicNumber > 0 ? magicNumber : '확정'}`;
 
-            // 플레이오프 확정 팀 수 (PO 매직넘버 0)
+            // 플레이오프 확정 팀 수 (PO 매직넘버 0이지만 탈락 확정이 아닌 팀들)
             const confirmedTeamsList = [];
             currentStandings.forEach(team => {
                 const poMagicNumber = Utils.getWinsBasedMagicNumber(team);
-                if (poMagicNumber === 0) {
+                // 매직넘버가 0이면서 탈락 확정이 아닌 팀만 플레이오프 확정으로 간주
+                if (poMagicNumber === 0 && !Utils.isTeamEliminated(team)) {
                     confirmedTeamsList.push(team);
                 }
             });
@@ -1813,7 +1830,7 @@ const kboTeams = {
                 const confirmedTeams = [];
                 currentStandings.forEach(team => {
                     const poMagicNumber = Utils.getWinsBasedMagicNumber(team);
-                    if (poMagicNumber === 0) {
+                    if (poMagicNumber === 0 && !Utils.isTeamEliminated(team)) {
                         confirmedTeams.push({
                             name: team.team,
                             rank: team.rank || team.displayRank
@@ -1891,7 +1908,7 @@ const kboTeams = {
                 if (currentFifthWinRate > myMaxWinRate || poTragicNumber <= 0) {
                     // 현재 5위 팀 승률보다 내 최대 가능 승률이 낮거나 트래직넘버가 0 이하면 탈락
                     maxWinsMagicDisplay = '<span style="color: #c0392b;">탈락</span>';
-                } else if (poMagicNumber === 0) {
+                } else if (poMagicNumber === 0 && !Utils.isTeamEliminated(team)) {
                     maxWinsMagicDisplay = '0';
                 } else if (poMagicNumber > remainingGames) {
                     maxWinsMagicDisplay = `${poMagicNumber} <span style="color: #c0392b;">(자력불가)</span>`;
@@ -1911,8 +1928,8 @@ const kboTeams = {
                 if (currentFifthWinRate > myMaxWinRate || poTragicNumber <= 0) {
                     // 현재 5위 팀 승률보다 최대 가능 승률이 낮거나 트래직넘버가 0 이하면 탈락
                     poStatus = '<span style="color: #c0392b;">탈락</span>';
-                } else if (poMagicNumber === 0) {
-                    // 매직넘버가 0이면 진출 확정
+                } else if (poMagicNumber === 0 && !Utils.isTeamEliminated(team)) {
+                    // 매직넘버가 0이고 탈락이 아니면 진출 확정
                     poStatus = '<span style="color: #2ecc71;">진출</span>';
                 } else if (confirmedTeams >= 5 && poMagicNumber > 0) {
                     // 5개팀이 이미 확정되고 본인은 확정이 아니면 탈락
@@ -2051,7 +2068,7 @@ const kboTeams = {
                 let poRequiredWinPct = '';
                 if (currentFifthWinRate > myMaxWinRate || poTragicNumber <= 0) {
                     poRequiredWinPct = '<span style="color: #c0392b;">탈락</span>';
-                } else if (poMagicNumber === 0) {
+                } else if (poMagicNumber === 0 && !Utils.isTeamEliminated(team)) {
                     poRequiredWinPct = '<span style="color: #2ecc71;">확정</span>';
                 } else if (remainingGames > 0) {
                     const poRequiredRate = poMagicNumber / remainingGames;

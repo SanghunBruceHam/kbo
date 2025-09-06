@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-09-06T02:23:14.571Z",
+  "lastUpdated": "2025-09-06T03:04:33.182Z",
   "updateDate": "2025. 9. 6.",
   "note": "2025-season-data-clean.txt 기반 완전 자동화 처리",
   "source": "CLEAN_TXT_AUTOMATION",
@@ -1551,118 +1551,6 @@
       "canChase": false,
       "requiredWinRate": 1,
       "canReachChampionshipWins": false
-    }
-  ],
-  "playoffData": [
-    {
-      "team": "LG",
-      "rank": 1,
-      "wins": 78,
-      "remainingGames": 17,
-      "maxPossibleWins": 95,
-      "playoffMagic": 0,
-      "eliminationMagic": "-",
-      "requiredWinRate": 0,
-      "status": "확정"
-    },
-    {
-      "team": "한화",
-      "rank": 2,
-      "wins": 72,
-      "remainingGames": 18,
-      "maxPossibleWins": 90,
-      "playoffMagic": 0,
-      "eliminationMagic": "-",
-      "requiredWinRate": 0,
-      "status": "확정"
-    },
-    {
-      "team": "SSG",
-      "rank": 3,
-      "wins": 64,
-      "remainingGames": 18,
-      "maxPossibleWins": 82,
-      "playoffMagic": 10,
-      "eliminationMagic": 10,
-      "requiredWinRate": 0.4444444444444444,
-      "status": "유력"
-    },
-    {
-      "team": "삼성",
-      "rank": 4,
-      "wins": 64,
-      "remainingGames": 17,
-      "maxPossibleWins": 81,
-      "playoffMagic": 14,
-      "eliminationMagic": 9,
-      "requiredWinRate": 0.47058823529411764,
-      "status": "유력"
-    },
-    {
-      "team": "KT",
-      "rank": 5,
-      "wins": 63,
-      "remainingGames": 15,
-      "maxPossibleWins": 78,
-      "playoffMagic": 0,
-      "eliminationMagic": 6,
-      "requiredWinRate": 0.6,
-      "status": "경합"
-    },
-    {
-      "team": "롯데",
-      "rank": 6,
-      "wins": 62,
-      "remainingGames": 14,
-      "maxPossibleWins": 76,
-      "playoffMagic": 0,
-      "eliminationMagic": 4,
-      "requiredWinRate": 0.7142857142857143,
-      "status": "어려움"
-    },
-    {
-      "team": "NC",
-      "rank": 7,
-      "wins": 57,
-      "remainingGames": 20,
-      "maxPossibleWins": 77,
-      "playoffMagic": 0,
-      "eliminationMagic": 5,
-      "requiredWinRate": 0.75,
-      "status": "어려움"
-    },
-    {
-      "team": "KIA",
-      "rank": 8,
-      "wins": 57,
-      "remainingGames": 20,
-      "maxPossibleWins": 77,
-      "playoffMagic": 0,
-      "eliminationMagic": 5,
-      "requiredWinRate": 0.75,
-      "status": "어려움"
-    },
-    {
-      "team": "두산",
-      "rank": 9,
-      "wins": 56,
-      "remainingGames": 17,
-      "maxPossibleWins": 73,
-      "playoffMagic": 0,
-      "eliminationMagic": 1,
-      "requiredWinRate": 0.9411764705882353,
-      "status": "매우 어려움"
-    },
-    {
-      "team": "키움",
-      "rank": 10,
-      "wins": 41,
-      "remainingGames": 14,
-      "maxPossibleWins": 55,
-      "playoffMagic": 0,
-      "eliminationMagic": 0,
-      "requiredWinRate": 1,
-      "status": "불가능"
     }
   ]
 }
