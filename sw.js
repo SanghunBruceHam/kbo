@@ -1,6 +1,6 @@
 // Service Worker for KBO Dashboard - Performance Optimization
-const CACHE_NAME = 'kbo-dashboard-v1.1';
-const STATIC_CACHE_NAME = 'kbo-static-v1.1';
+const CACHE_NAME = 'kbo-dashboard-v1.2';
+const STATIC_CACHE_NAME = 'kbo-static-v1.2';
 
 // 정적 리소스 캐싱 목록 (실제 존재하는 파일들만)
 const STATIC_ASSETS = [
@@ -89,6 +89,10 @@ self.addEventListener('fetch', (event) => {
             cache.put(request, responseClone);
           });
           return fetchResponse;
+        }).catch(error => {
+          console.warn('정적 리소스 로드 실패:', url.pathname, error);
+          // 캐시된 응답이 있으면 반환, 없으면 빈 응답
+          return response || new Response('', { status: 404, statusText: 'Not Found' });
         });
       })
     );
@@ -156,16 +160,20 @@ self.addEventListener('fetch', (event) => {
   // 기본 네트워크 요청 - 에러 처리 추가
   event.respondWith(
     fetch(request).catch(error => {
-      // Google Analytics 실패 시 알림
+      // Google Analytics는 조용히 실패 처리 (에러 로그 제거)
       if (request.url.includes('google') || request.url.includes('analytics')) {
-        console.error('🚨 Google Analytics (G4A) 요청 실패:', request.url, error);
         return new Response('', { status: 200, statusText: 'OK' });
       }
       // 쿠팡 광고는 조용히 처리
       if (request.url.includes('coupang')) {
         return new Response('', { status: 200, statusText: 'OK' });
       }
+      // 외부 CDN도 조용히 처리
+      if (request.url.includes('googletagmanager.com') || request.url.includes('googleapis.com')) {
+        return new Response('', { status: 200, statusText: 'OK' });
+      }
       // 다른 요청은 에러를 다시 던짐
+      console.warn('네트워크 요청 실패:', request.url, error);
       throw error;
     })
   );
