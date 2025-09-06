@@ -1170,18 +1170,51 @@ window.addEventListener('load', async function() {
         return;
     }
     
-    // Chart.js 즉시 확인
-    if (typeof Chart === 'undefined') {
-        // 오류 메시지 표시
-        const errorDiv = document.createElement('div');
-        errorDiv.innerHTML = `
-            <div style="background: #fff3cd; border: 1px solid #ffeaa7; color: #856404; padding: 15px; margin: 10px; border-radius: 5px; text-align: center;">
-                <strong>📈 Chart.js 라이브러리 로딩 실패</strong><br>
-                네트워크 연결을 확인하고 페이지를 새로고침해 주세요.
-            </div>
-        `;
-        canvas.parentElement.appendChild(errorDiv);
-        return;
+    // Chart.js 로딩 재시도 함수
+    async function waitForChartJs(retries = 10, delay = 500) {
+        for (let i = 0; i < retries; i++) {
+            if (typeof Chart !== 'undefined') {
+                return true;
+            }
+            await new Promise(resolve => setTimeout(resolve, delay));
+        }
+        return false;
+    }
+    
+    // Chart.js 로딩 대기 (최대 5초)
+    const chartJsLoaded = await waitForChartJs();
+    
+    if (!chartJsLoaded) {
+        // Chart.js를 동적으로 로드 시도
+        try {
+            const script = document.createElement('script');
+            script.src = 'https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js';
+            script.async = true;
+            
+            await new Promise((resolve, reject) => {
+                script.onload = resolve;
+                script.onerror = reject;
+                document.head.appendChild(script);
+            });
+            
+            // 로드 후 다시 대기
+            const retryLoaded = await waitForChartJs(5, 200);
+            if (!retryLoaded) {
+                throw new Error('Chart.js failed to load');
+            }
+        } catch (error) {
+            // 최종 실패 시 오류 메시지 표시
+            const errorDiv = document.createElement('div');
+            errorDiv.innerHTML = `
+                <div style="background: #fff3cd; border: 1px solid #ffeaa7; color: #856404; padding: 15px; margin: 10px; border-radius: 5px; text-align: center;">
+                    <strong>📈 차트 기능을 사용할 수 없습니다</strong><br>
+                    페이지를 새로고침하거나 잠시 후 다시 시도해 주세요.
+                </div>
+            `;
+            canvas.parentElement.appendChild(errorDiv);
+            canvas.style.display = 'none';
+            return;
+        }
     }
     
     try {
