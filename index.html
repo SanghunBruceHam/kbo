@@ -750,6 +750,30 @@
             overflow: visible; /* 모든 콘텐츠 표시 */
         }
 
+        /* 쿠팡 광고 통합 스타일 */
+        .coupang-ad-wrapper {
+            width: 1200px !important;
+            max-width: 1200px !important;
+            min-width: 1200px !important;
+            margin: 5px auto !important;
+            overflow: visible !important;
+            box-sizing: border-box !important;
+            text-align: center !important;
+        }
+        
+        .coupang-ad-wrapper > div:first-child {
+            font-size: 0.8rem;
+            opacity: 0.7;
+            margin-bottom: 3px;
+        }
+        
+        .coupang-ad-wrapper iframe {
+            width: 1200px !important;
+            height: auto !important;
+            display: block !important;
+            border: none !important;
+        }
+
         /* 광고 카드 전용 클래스 - card 스타일 상속 */
         .ad-card {
             background: var(--card-background);
@@ -758,18 +782,11 @@
             box-shadow: var(--card-shadow);
             backdrop-filter: var(--card-backdrop-filter);
             margin: var(--card-margin);
-            width: var(--card-width) !important;
-            max-width: var(--card-max-width) !important;
-            min-width: 0 !important;
+            width: 1200px !important;
+            max-width: 1200px !important;
             box-sizing: border-box;
             text-align: center;
-            overflow: hidden; /* 광고가 카드 밖으로 넘치지 않도록 */
-        }
-        .ad-card iframe {
-            display: block !important;
-            width: 100% !important;
-            max-width: 100% !important;
-            box-sizing: border-box !important;
+            overflow: hidden;
         }
 
         /* 개선 제안 카드 전용 스타일 */
@@ -4357,11 +4374,13 @@
 
         <!-- 쿠팡 광고: 일자별 순위·게임차·승률 그래프 전 -->
         <div class="ad-card">
-            <div style="font-size: 0.8rem; color: #666; margin-bottom: 10px;">광고</div>
-            <script src="https://ads-partners.coupang.com/g.js"></script>
-            <script>
-                new PartnersCoupang.G({"id":918101,"template":"carousel","trackingCode":"AF6959276","width":"700","height":"180","tsource":""});
-            </script>
+            <div class="coupang-ad-wrapper">
+                <div>광고</div>
+                <script src="https://ads-partners.coupang.com/g.js"></script>
+                <script>
+                    new PartnersCoupang.G({"id":867629,"trackingCode":"AF6959276","subId":null,"template":"carousel","width":"1200","height":"180"});
+                </script>
+            </div>
         </div>
 
         <!-- 일별 종합지표 분석 카드 -->
@@ -4460,13 +4479,11 @@
 
         <!-- 쿠팡 파트너스 광고 1 -->
         <div class="ad-card">
-            <!-- 쿠팡 광고 영역 -->
-            <div class="coupang-ad-wrapper" style="text-align: center; overflow: hidden;">
-                <div style="color: #666; margin-bottom: 10px;">광고</div>
-                <!-- 쿠팡 파트너스 광고 코드 -->
+            <div class="coupang-ad-wrapper">
+                <div>광고</div>
                 <script src="https://ads-partners.coupang.com/g.js"></script>
                 <script>
-                    new PartnersCoupang.G({"id":867629,"trackingCode":"AF6959276","subId":null,"template":"carousel","width":"960","height":"180"});
+                    new PartnersCoupang.G({"id":867629,"trackingCode":"AF6959276","subId":null,"template":"carousel","width":"1200","height":"180"});
                 </script>
             </div>
         </div>
@@ -4529,13 +4546,11 @@
 
         <!-- 광고 1: 종합순위표 후 -->
         <div class="ad-card">
-            <!-- 쿠팡 광고 영역 -->
-            <div class="coupang-ad-wrapper" style="text-align: center; overflow: hidden;">
-                <div style="color: #666; margin-bottom: 10px;">광고</div>
-                <!-- 쿠팡 파트너스 광고 코드 -->
+            <div class="coupang-ad-wrapper">
+                <div>광고</div>
                 <script src="https://ads-partners.coupang.com/g.js"></script>
                 <script>
-                    new PartnersCoupang.G({"id":918101,"template":"carousel","trackingCode":"AF6959276","width":"700","height":"180","tsource":""});
+                    new PartnersCoupang.G({"id":867629,"trackingCode":"AF6959276","subId":null,"template":"carousel","width":"1200","height":"180"});
                 </script>
             </div>
         </div>
@@ -4644,13 +4659,11 @@
 
         <!-- 광고: 승률 추이 카드 위 -->
         <div class="ad-card">
-            <!-- 쿠팡 광고 영역 -->
-            <div class="coupang-ad-wrapper" style="text-align: center; overflow: hidden;">
-                <div style="color: #666; margin-bottom: 10px;">광고</div>
-                <!-- 쿠팡 파트너스 광고 코드 -->
+            <div class="coupang-ad-wrapper">
+                <div>광고</div>
                 <script src="https://ads-partners.coupang.com/g.js"></script>
                 <script>
-                    new PartnersCoupang.G({"id":867629,"trackingCode":"AF6959276","subId":null,"template":"carousel","width":"960","height":"180"});
+                    new PartnersCoupang.G({"id":867629,"trackingCode":"AF6959276","subId":null,"template":"carousel","width":"1200","height":"180"});
                 </script>
             </div>
         </div>
@@ -4759,13 +4772,11 @@
 
         <!-- 광고: 전반기/후반기 성적 비교 위 -->
         <div class="ad-card">
-            <!-- 쿠팡 광고 영역 -->
-            <div class="coupang-ad-wrapper" style="text-align: center; overflow: hidden;">
-                <div style="color: #666; margin-bottom: 10px;">광고</div>
-                <!-- 쿠팡 파트너스 광고 코드 -->
+            <div class="coupang-ad-wrapper">
+                <div>광고</div>
                 <script src="https://ads-partners.coupang.com/g.js"></script>
                 <script>
-                    new PartnersCoupang.G({"id":918101,"template":"carousel","trackingCode":"AF6959276","width":"700","height":"180","tsource":""});
+                    new PartnersCoupang.G({"id":867629,"trackingCode":"AF6959276","subId":null,"template":"carousel","width":"1200","height":"180"});
                 </script>
             </div>
         </div>
@@ -4873,11 +4884,13 @@
 
         <!-- 쿠팡 광고: 피타고리안 기대승률 & 운 지수 분석 전 -->
         <div class="ad-card">
-            <div style="font-size: 0.8rem; color: #666; margin-bottom: 10px;">광고</div>
-            <script src="https://ads-partners.coupang.com/g.js"></script>
-            <script>
-                new PartnersCoupang.G({"id":867629,"trackingCode":"AF6959276","subId":null,"template":"carousel","width":"960","height":"180"});
-            </script>
+            <div class="coupang-ad-wrapper">
+                <div>광고</div>
+                <script src="https://ads-partners.coupang.com/g.js"></script>
+                <script>
+                    new PartnersCoupang.G({"id":867629,"trackingCode":"AF6959276","subId":null,"template":"carousel","width":"1200","height":"180"});
+                </script>
+            </div>
         </div>
 
         <!-- 3. 피타고리안 & 운 분석 -->
@@ -4939,13 +4952,11 @@
 
         <!-- 광고 8: 피타고리안 분석 후 -->
         <div class="ad-card">
-            <!-- 쿠팡 광고 영역 -->
-            <div class="coupang-ad-wrapper" style="text-align: center; overflow: hidden;">
-                <div style="color: #666; margin-bottom: 10px;">광고</div>
-                <!-- 쿠팡 파트너스 광고 코드 -->
+            <div class="coupang-ad-wrapper">
+                <div>광고</div>
                 <script src="https://ads-partners.coupang.com/g.js"></script>
                 <script>
-                    new PartnersCoupang.G({"id":918101,"template":"carousel","trackingCode":"AF6959276","width":"700","height":"180","tsource":""});
+                    new PartnersCoupang.G({"id":867629,"trackingCode":"AF6959276","subId":null,"template":"carousel","width":"1200","height":"180"});
                 </script>
             </div>
         </div>
@@ -4998,13 +5009,11 @@
 
         <!-- 광고 2: 클러치 분석 후 -->
         <div class="ad-card">
-            <!-- 쿠팡 광고 영역 -->
-            <div class="coupang-ad-wrapper" style="text-align: center; overflow: hidden;">
-                <div style="color: #666; margin-bottom: 10px;">광고</div>
-                <!-- 쿠팡 파트너스 광고 코드 -->
+            <div class="coupang-ad-wrapper">
+                <div>광고</div>
                 <script src="https://ads-partners.coupang.com/g.js"></script>
                 <script>
-                    new PartnersCoupang.G({"id":867629,"trackingCode":"AF6959276","subId":null,"template":"carousel","width":"960","height":"180"});
+                    new PartnersCoupang.G({"id":867629,"trackingCode":"AF6959276","subId":null,"template":"carousel","width":"1200","height":"180"});
                 </script>
             </div>
         </div>
@@ -5057,11 +5066,13 @@
 
         <!-- 쿠팡 광고 1: 홈/원정 분석 후 -->
         <div class="ad-card">
-            <div style="font-size: 0.8rem; color: #666; margin-bottom: 10px;">광고</div>
-            <script src="https://ads-partners.coupang.com/g.js"></script>
-            <script>
-                new PartnersCoupang.G({"id":918101,"template":"carousel","trackingCode":"AF6959276","width":"700","height":"180","tsource":""});
-            </script>
+            <div class="coupang-ad-wrapper">
+                <div>광고</div>
+                <script src="https://ads-partners.coupang.com/g.js"></script>
+                <script>
+                    new PartnersCoupang.G({"id":867629,"trackingCode":"AF6959276","subId":null,"template":"carousel","width":"1200","height":"180"});
+                </script>
+            </div>
         </div>
 
 
@@ -5094,13 +5105,11 @@
 
         <!-- 광고 5: 상대전적 매트릭스 후 -->
         <div class="ad-card">
-            <!-- 쿠팡 광고 영역 -->
-            <div class="coupang-ad-wrapper" style="text-align: center; overflow: hidden;">
-                <div style="color: #666; margin-bottom: 10px;">광고</div>
-                <!-- 쿠팡 파트너스 광고 코드 -->
+            <div class="coupang-ad-wrapper">
+                <div>광고</div>
                 <script src="https://ads-partners.coupang.com/g.js"></script>
                 <script>
-                    new PartnersCoupang.G({"id":867629,"trackingCode":"AF6959276","subId":null,"template":"carousel","width":"960","height":"180"});
+                    new PartnersCoupang.G({"id":867629,"trackingCode":"AF6959276","subId":null,"template":"carousel","width":"1200","height":"180"});
                 </script>
             </div>
         </div>
@@ -5132,13 +5141,11 @@
 
         <!-- 광고 11: 팀간 잔여경기수 후 -->
         <div class="ad-card">
-            <!-- 쿠팡 광고 영역 -->
-            <div class="coupang-ad-wrapper" style="text-align: center; overflow: hidden;">
-                <div style="color: #666; margin-bottom: 10px;">광고</div>
-                <!-- 쿠팡 파트너스 광고 코드 -->
+            <div class="coupang-ad-wrapper">
+                <div>광고</div>
                 <script src="https://ads-partners.coupang.com/g.js"></script>
                 <script>
-                    new PartnersCoupang.G({"id":918101,"template":"carousel","trackingCode":"AF6959276","width":"700","height":"180","tsource":""});
+                    new PartnersCoupang.G({"id":867629,"trackingCode":"AF6959276","subId":null,"template":"carousel","width":"1200","height":"180"});
                 </script>
             </div>
         </div>
@@ -5185,13 +5192,11 @@
 
         <!-- 광고 3: 월별 성적 분석 후 -->
         <div class="ad-card">
-            <!-- 쿠팡 광고 영역 -->
-            <div class="coupang-ad-wrapper" style="text-align: center; overflow: hidden;">
-                <div style="color: #666; margin-bottom: 10px;">광고</div>
-                <!-- 쿠팡 파트너스 광고 코드 -->
+            <div class="coupang-ad-wrapper">
+                <div>광고</div>
                 <script src="https://ads-partners.coupang.com/g.js"></script>
                 <script>
-                    new PartnersCoupang.G({"id":867629,"trackingCode":"AF6959276","subId":null,"template":"carousel","width":"960","height":"180"});
+                    new PartnersCoupang.G({"id":867629,"trackingCode":"AF6959276","subId":null,"template":"carousel","width":"1200","height":"180"});
                 </script>
             </div>
         </div>
@@ -5228,13 +5233,11 @@
 
         <!-- 광고 6: 요일별 성적 분석 후 -->
         <div class="ad-card">
-            <!-- 쿠팡 광고 영역 -->
-            <div class="coupang-ad-wrapper" style="text-align: center; overflow: hidden;">
-                <div style="color: #666; margin-bottom: 10px;">광고</div>
-                <!-- 쿠팡 파트너스 광고 코드 -->
+            <div class="coupang-ad-wrapper">
+                <div>광고</div>
                 <script src="https://ads-partners.coupang.com/g.js"></script>
                 <script>
-                    new PartnersCoupang.G({"id":918101,"template":"carousel","trackingCode":"AF6959276","width":"700","height":"180","tsource":""});
+                    new PartnersCoupang.G({"id":867629,"trackingCode":"AF6959276","subId":null,"template":"carousel","width":"1200","height":"180"});
                 </script>
             </div>
         </div>
@@ -5254,11 +5257,13 @@
 
         <!-- 쿠팡 광고 2: 주차별 성적 분석 후 -->
         <div class="ad-card">
-            <div style="font-size: 0.8rem; color: #666; margin-bottom: 10px;">광고</div>
-            <script src="https://ads-partners.coupang.com/g.js"></script>
-            <script>
-                new PartnersCoupang.G({"id":867629,"trackingCode":"AF6959276","subId":null,"template":"carousel","width":"960","height":"180"});
-            </script>
+            <div class="coupang-ad-wrapper">
+                <div>광고</div>
+                <script src="https://ads-partners.coupang.com/g.js"></script>
+                <script>
+                    new PartnersCoupang.G({"id":867629,"trackingCode":"AF6959276","subId":null,"template":"carousel","width":"1200","height":"180"});
+                </script>
+            </div>
         </div>
 
         <!-- 9. 게임별 기록 분석 -->
@@ -5276,13 +5281,11 @@
 
         <!-- 광고 9: 게임별 기록 분석 후 -->
         <div class="ad-card">
-            <!-- 쿠팡 광고 영역 -->
-            <div class="coupang-ad-wrapper" style="text-align: center; overflow: hidden;">
-                <div style="color: #666; margin-bottom: 10px;">광고</div>
-                <!-- 쿠팡 파트너스 광고 코드 -->
+            <div class="coupang-ad-wrapper">
+                <div>광고</div>
                 <script src="https://ads-partners.coupang.com/g.js"></script>
                 <script>
-                    new PartnersCoupang.G({"id":918101,"template":"carousel","trackingCode":"AF6959276","width":"700","height":"180","tsource":""});
+                    new PartnersCoupang.G({"id":867629,"trackingCode":"AF6959276","subId":null,"template":"carousel","width":"1200","height":"180"});
                 </script>
             </div>
         </div>
@@ -5316,13 +5319,11 @@
 
         <!-- 광고: 연승/연패 기록 분석 후 -->
         <div class="ad-card">
-            <!-- 쿠팡 광고 영역 -->
-            <div class="coupang-ad-wrapper" style="text-align: center; overflow: hidden;">
-                <div style="color: #666; margin-bottom: 10px;">광고</div>
-                <!-- 쿠팡 파트너스 광고 코드 -->
+            <div class="coupang-ad-wrapper">
+                <div>광고</div>
                 <script src="https://ads-partners.coupang.com/g.js"></script>
                 <script>
-                    new PartnersCoupang.G({"id":867629,"trackingCode":"AF6959276","subId":null,"template":"carousel","width":"960","height":"180"});
+                    new PartnersCoupang.G({"id":867629,"trackingCode":"AF6959276","subId":null,"template":"carousel","width":"1200","height":"180"});
                 </script>
             </div>
         </div>
@@ -5342,13 +5343,11 @@
 
         <!-- 광고 4: 팀별 상세 게임 기록 후 -->
         <div class="ad-card">
-            <!-- 쿠팡 광고 영역 -->
-            <div class="coupang-ad-wrapper" style="text-align: center; overflow: hidden;">
-                <div style="color: #666; margin-bottom: 10px;">광고</div>
-                <!-- 쿠팡 파트너스 광고 코드 -->
+            <div class="coupang-ad-wrapper">
+                <div>광고</div>
                 <script src="https://ads-partners.coupang.com/g.js"></script>
                 <script>
-                    new PartnersCoupang.G({"id":918101,"template":"carousel","trackingCode":"AF6959276","width":"700","height":"180","tsource":""});
+                    new PartnersCoupang.G({"id":867629,"trackingCode":"AF6959276","subId":null,"template":"carousel","width":"1200","height":"180"});
                 </script>
             </div>
         </div>
@@ -5368,13 +5367,11 @@
 
         <!-- 광고 7: 위닝/루징 시리즈 분석 후 -->
         <div class="ad-card">
-            <!-- 쿠팡 광고 영역 -->
-            <div class="coupang-ad-wrapper" style="text-align: center; overflow: hidden;">
-                <div style="color: #666; margin-bottom: 10px;">광고</div>
-                <!-- 쿠팡 파트너스 광고 코드 -->
+            <div class="coupang-ad-wrapper">
+                <div>광고</div>
                 <script src="https://ads-partners.coupang.com/g.js"></script>
                 <script>
-                    new PartnersCoupang.G({"id":867629,"trackingCode":"AF6959276","subId":null,"template":"carousel","width":"960","height":"180"});
+                    new PartnersCoupang.G({"id":867629,"trackingCode":"AF6959276","subId":null,"template":"carousel","width":"1200","height":"180"});
                 </script>
             </div>
         </div>
@@ -5408,13 +5405,11 @@
 
         <!-- 광고 10: 경기장별 성적 분석 후 -->
         <div class="ad-card">
-            <!-- 쿠팡 광고 영역 -->
-            <div class="coupang-ad-wrapper" style="text-align: center; overflow: hidden;">
-                <div style="color: #666; margin-bottom: 10px;">광고</div>
-                <!-- 쿠팡 파트너스 광고 코드 -->
+            <div class="coupang-ad-wrapper">
+                <div>광고</div>
                 <script src="https://ads-partners.coupang.com/g.js"></script>
                 <script>
-                    new PartnersCoupang.G({"id":918101,"template":"carousel","trackingCode":"AF6959276","width":"700","height":"180","tsource":""});
+                    new PartnersCoupang.G({"id":867629,"trackingCode":"AF6959276","subId":null,"template":"carousel","width":"1200","height":"180"});
                 </script>
             </div>
         </div>
