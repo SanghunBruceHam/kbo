@@ -722,7 +722,7 @@
                         모바일에서는 <strong>가로 모드</strong> 사용을 권장합니다.
                     </div>
                     <div style="margin-top: 6px;">
-                        <a href="javascript:void(0);" onclick="switchToPCVersion()" style="color: #ffd700; text-decoration: underline; font-size: 0.75rem; font-weight: 500;">PC 버전으로 보기</a>
+                        <a href="#" data-action="switch-to-pc" style="color: #ffd700; text-decoration: underline; font-size: 0.75rem; font-weight: 500;">PC 버전으로 보기</a>
                     </div>
                 </div>
             </div>
@@ -733,16 +733,16 @@
     <nav class="navigation">
         <div class="nav-menu">
             <a href="../index.html" class="nav-item main-dashboard">🏠 더 많은 데이터 보러 가기</a>
-            <a href="javascript:void(0)" class="nav-item active" onclick="smoothScrollTo('championship')">👑 매직넘버 & 우승</a>
-            <a href="javascript:void(0)" class="nav-item" onclick="smoothScrollTo('scenarios')">🎲 경우의 수</a>
-            <a href="javascript:void(0)" class="nav-item" onclick="smoothScrollTo('chase')">🎯 1위 탈환</a>
-            <a href="javascript:void(0)" class="nav-item" onclick="smoothScrollTo('playoff')">🏟️ 플레이오프</a>
-            <a href="javascript:void(0)" class="nav-item" onclick="smoothScrollTo('standings')">📊 팀 순위표</a>
-            <a href="javascript:void(0)" class="nav-item" onclick="smoothScrollTo('rank-chart-section')">📈 순위 변동</a>
-            <a href="javascript:void(0)" class="nav-item" onclick="smoothScrollTo('vs-records')">⚔️ 상대전적</a>
-            <a href="javascript:void(0)" class="nav-item" onclick="smoothScrollTo('remaining')">📅 잔여경기</a>
+            <a href="#championship" class="nav-item active" data-target="championship">👑 매직넘버 & 우승</a>
+            <a href="#scenarios" class="nav-item" data-target="scenarios">🎲 경우의 수</a>
+            <a href="#chase" class="nav-item" data-target="chase">🎯 1위 탈환</a>
+            <a href="#playoff" class="nav-item" data-target="playoff">🏟️ 플레이오프</a>
+            <a href="#standings" class="nav-item" data-target="standings">📊 팀 순위표</a>
+            <a href="#rank-chart-section" class="nav-item" data-target="rank-chart-section">📈 순위 변동</a>
+            <a href="#vs-records" class="nav-item" data-target="vs-records">⚔️ 상대전적</a>
+            <a href="#remaining" class="nav-item" data-target="remaining">📅 잔여경기</a>
         </div>
-        <button class="nav-toggle" onclick="toggleMobileMenu()">☰</button>
+        <button class="nav-toggle" data-action="toggle-mobile-menu">☰</button>
     </nav>
     
     <div class="container">
@@ -1002,7 +1002,7 @@
                             <div class="button-description">
                                 📊 <strong>현재 표시:</strong> 5위 플레이오프 경쟁이 가능한 팀들만 표시됩니다
                             </div>
-                            <button onclick="showAllTeamsScenario()" class="scenario-full-view-button">
+                            <button data-action="show-all-teams-scenario" class="scenario-full-view-button">
                                 🔍 전체 경우의수 보러 가기
                             </button>
                         </div>
@@ -1110,36 +1110,36 @@
                             <table id="playoff-table">
                             <thead>
                                 <tr>
-                                    <th class="sortable-header" data-sort="rank" onclick="sortTable('playoff', 'rank')">
+                                    <th class="sortable-header" data-sort="rank" data-sort="rank" data-table="playoff">
                                         순위 <span class="sort-arrow">↕</span>
                                     </th>
                                     <th>팀명</th>
-                                    <th class="sortable-header" data-sort="wins" onclick="sortTable('playoff', 'wins')">
+                                    <th class="sortable-header" data-sort="wins" data-sort="wins" data-table="playoff">
                                         현재승수 <span class="sort-arrow">↕</span>
                                     </th>
-                                    <th class="sortable-header" data-sort="remaining" onclick="sortTable('playoff', 'remaining')">
+                                    <th class="sortable-header" data-sort="remaining" data-sort="remaining" data-table="playoff">
                                         잔여경기 <span class="sort-arrow">↕</span>
                                     </th>
-                                    <th class="sortable-header" data-sort="maxWins" onclick="sortTable('playoff', 'maxWins')">
+                                    <th class="sortable-header" data-sort="maxWins" data-sort="maxWins" data-table="playoff">
                                         최대가능 승수 <span class="sort-arrow">↕</span>
                                     </th>
-                                    <th class="sortable-header" data-sort="poMagic" onclick="sortTable('playoff', 'poMagic')">
+                                    <th class="sortable-header" data-sort="poMagic" data-sort="poMagic" data-table="playoff">
                                         PO<br>매직넘버 <span class="sort-arrow">↕</span>
                                     </th>
-                                    <th class="sortable-header" data-sort="poTragic" onclick="sortTable('playoff', 'poTragic')">
+                                    <th class="sortable-header" data-sort="poTragic" data-sort="poTragic" data-table="playoff">
                                         PO<br>트래직넘버 <span class="sort-arrow">↕</span>
                                     </th>
-                                    <th class="sortable-header" data-sort="poRequiredWinPct" onclick="sortTable('playoff', 'poRequiredWinPct')">
+                                    <th class="sortable-header" data-sort="poRequiredWinPct" data-sort="poRequiredWinPct" data-table="playoff">
                                         잔여경기<br>필요승률 <span class="sort-arrow">↕</span>
                                     </th>
                                     <th>PO<br>진출상황</th>
-                                    <th class="sortable-header" data-sort="magic" onclick="sortTable('playoff', 'magic')">
+                                    <th class="sortable-header" data-sort="magic" data-sort="magic" data-table="playoff">
                                         역대 기준<br>매직넘버 <span class="sort-arrow">↕</span>
                                     </th>
-                                    <th class="sortable-header" data-sort="tragic" onclick="sortTable('playoff', 'tragic')">
+                                    <th class="sortable-header" data-sort="tragic" data-sort="tragic" data-table="playoff">
                                         역대 기준<br>트래직넘버 <span class="sort-arrow">↕</span>
                                     </th>
-                                    <th class="sortable-header" data-sort="requiredWinPct" onclick="sortTable('playoff', 'requiredWinPct')">
+                                    <th class="sortable-header" data-sort="requiredWinPct" data-sort="requiredWinPct" data-table="playoff">
                                         역대 기준<br>필요 승률 <span class="sort-arrow">↕</span>
                                     </th>
                                     <th>역대 기준<br>진출상황</th>
@@ -1211,48 +1211,48 @@
                         <table id="standings-table">
                             <thead>
                                 <tr>
-                                    <th class="sortable-header" data-sort="rank" onclick="sortTable('standings', 'rank')">
+                                    <th class="sortable-header" data-sort="rank" data-sort="rank" data-table="standings">
                                         순위 <span class="sort-arrow">↕</span>
                                     </th>
                                     <th>팀명</th>
-                                    <th class="sortable-header" data-sort="games" onclick="sortTable('standings', 'games')">
+                                    <th class="sortable-header" data-sort="games" data-sort="games" data-table="standings">
                                         경기 <span class="sort-arrow">↕</span>
                                     </th>
-                                    <th class="sortable-header" data-sort="wins" onclick="sortTable('standings', 'wins')">
+                                    <th class="sortable-header" data-sort="wins" data-sort="wins" data-table="standings">
                                         승 <span class="sort-arrow">↕</span>
                                     </th>
-                                    <th class="sortable-header" data-sort="losses" onclick="sortTable('standings', 'losses')">
+                                    <th class="sortable-header" data-sort="losses" data-sort="losses" data-table="standings">
                                         패 <span class="sort-arrow">↕</span>
                                     </th>
-                                    <th class="sortable-header" data-sort="draws" onclick="sortTable('standings', 'draws')">
+                                    <th class="sortable-header" data-sort="draws" data-sort="draws" data-table="standings">
                                         무 <span class="sort-arrow">↕</span>
                                     </th>
-                                    <th class="sortable-header" data-sort="winLossMargin" onclick="sortTable('standings', 'winLossMargin')">
+                                    <th class="sortable-header" data-sort="winLossMargin" data-sort="winLossMargin" data-table="standings">
                                         승패마진 <span class="sort-arrow">↕</span>
                                     </th>
-                                    <th class="sortable-header" data-sort="winPct" onclick="sortTable('standings', 'winPct')">
+                                    <th class="sortable-header" data-sort="winPct" data-sort="winPct" data-table="standings">
                                         승률 <span class="sort-arrow">↕</span>
                                     </th>
-                                    <th class="sortable-header" data-sort="gamesBehind" onclick="sortTable('standings', 'gamesBehind')">
+                                    <th class="sortable-header" data-sort="gamesBehind" data-sort="gamesBehind" data-table="standings">
                                         게임차 <span class="sort-arrow">↕</span>
                                     </th>
                                     <th>잔여경기</th>
-                                    <th class="sortable-header" data-sort="recent10" onclick="sortTable('standings', 'recent10')">
+                                    <th class="sortable-header" data-sort="recent10" data-sort="recent10" data-table="standings">
                                         최근10경기 <span class="sort-arrow">↕</span>
                                     </th>
-                                    <th class="sortable-header" data-sort="streak" onclick="sortTable('standings', 'streak')">
+                                    <th class="sortable-header" data-sort="streak" data-sort="streak" data-table="standings">
                                         연속 <span class="sort-arrow">↕</span>
                                     </th>
-                                    <th class="sortable-header" data-sort="home" onclick="sortTable('standings', 'home')">
+                                    <th class="sortable-header" data-sort="home" data-sort="home" data-table="standings">
                                         홈 <span class="sort-arrow">↕</span>
                                     </th>
-                                    <th class="sortable-header" data-sort="away" onclick="sortTable('standings', 'away')">
+                                    <th class="sortable-header" data-sort="away" data-sort="away" data-table="standings">
                                         방문 <span class="sort-arrow">↕</span>
                                     </th>
-                                    <th class="sortable-header" data-sort="maxRank" onclick="sortTable('standings', 'maxRank')">
+                                    <th class="sortable-header" data-sort="maxRank" data-sort="maxRank" data-table="standings">
                                         최대 가능 순위 <span class="sort-arrow">↕</span>
                                     </th>
-                                    <th class="sortable-header" data-sort="minRank" onclick="sortTable('standings', 'minRank')">
+                                    <th class="sortable-header" data-sort="minRank" data-sort="minRank" data-table="standings">
                                         최소 가능 순위 <span class="sort-arrow">↕</span>
                                     </th>
                                 </tr>
@@ -1301,7 +1301,7 @@
                     <div class="chart-nav" id="rank-chart-nav" style="display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 10px; margin-bottom: 15px; padding: 10px;">
                         <!-- 왼쪽 버튼 영역 -->
                         <div style="display: flex; justify-content: flex-end;">
-                            <button id="prevPeriod" class="nav-btn" onclick="handlePrevPeriod()" style="
+                            <button id="prevPeriod" class="nav-btn" data-period-action="prev" style="
                                 background: #4CAF50; 
                                 color: white; 
                                 border: none; 
@@ -1314,7 +1314,7 @@
                         </div>
                         
                         <!-- 중앙 토글 버튼 (항상 가운데 고정) -->
-                        <button id="periodToggle" onclick="handlePeriodToggle()" style="
+                        <button id="periodToggle" data-period-action="toggle" style="
                             background: linear-gradient(135deg, #28a745, #34ce57);
                             color: white;
                             border: none;
@@ -1334,7 +1334,7 @@
                         
                         <!-- 오른쪽 버튼 영역 -->
                         <div style="display: flex; justify-content: flex-start;">
-                            <button id="nextPeriod" class="nav-btn" onclick="handleNextPeriod()" style="
+                            <button id="nextPeriod" class="nav-btn" data-period-action="next" style="
                                 background: #4CAF50; 
                                 color: white; 
                                 border: none; 

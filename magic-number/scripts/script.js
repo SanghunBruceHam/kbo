@@ -4441,4 +4441,86 @@ const kboTeams = {
 
         // 전역 함수로 등록
         window.showAllTeamsScenario = showAllTeamsScenario;
+        
+        // CSP 호환을 위한 이벤트 리스너 초기화
+        function initializeEventListeners() {
+            // 네비게이션 항목들
+            document.querySelectorAll('.nav-item[data-target]').forEach(item => {
+                eventManager.add(item, 'click', (e) => {
+                    e.preventDefault();
+                    const target = item.getAttribute('data-target');
+                    if (target && typeof smoothScrollTo === 'function') {
+                        smoothScrollTo(target);
+                    }
+                });
+            });
+            
+            // 모바일 메뉴 토글
+            const navToggle = document.querySelector('.nav-toggle[data-action="toggle-mobile-menu"]');
+            if (navToggle && typeof toggleMobileMenu === 'function') {
+                eventManager.add(navToggle, 'click', (e) => {
+                    e.preventDefault();
+                    toggleMobileMenu();
+                });
+            }
+            
+            // 시나리오 버튼
+            const scenarioButton = document.querySelector('[data-action="show-all-teams-scenario"]');
+            if (scenarioButton && typeof showAllTeamsScenario === 'function') {
+                eventManager.add(scenarioButton, 'click', (e) => {
+                    e.preventDefault();
+                    showAllTeamsScenario();
+                });
+            }
+            
+            // PC 버전 전환 버튼
+            const pcSwitchButton = document.querySelector('[data-action="switch-to-pc"]');
+            if (pcSwitchButton && typeof switchToPCVersion === 'function') {
+                eventManager.add(pcSwitchButton, 'click', (e) => {
+                    e.preventDefault();
+                    switchToPCVersion();
+                });
+            }
+            
+            // 테이블 정렬 헤더들
+            document.querySelectorAll('.sortable-header[data-sort][data-table]').forEach(header => {
+                eventManager.add(header, 'click', (e) => {
+                    e.preventDefault();
+                    const sortKey = header.getAttribute('data-sort');
+                    const tableType = header.getAttribute('data-table');
+                    if (sortKey && tableType && typeof sortTable === 'function') {
+                        sortTable(tableType, sortKey);
+                    }
+                });
+            });
+            
+            // 기간 네비게이션 버튼들
+            const periodButtons = document.querySelectorAll('[data-period-action]');
+            periodButtons.forEach(button => {
+                eventManager.add(button, 'click', (e) => {
+                    e.preventDefault();
+                    const action = button.getAttribute('data-period-action');
+                    switch(action) {
+                        case 'prev':
+                            if (typeof handlePrevPeriod === 'function') handlePrevPeriod();
+                            break;
+                        case 'toggle':
+                            if (typeof handlePeriodToggle === 'function') handlePeriodToggle();
+                            break;
+                        case 'next':
+                            if (typeof handleNextPeriod === 'function') handleNextPeriod();
+                            break;
+                    }
+                });
+            });
+            
+            logger.log('이벤트 리스너 초기화 완료');
+        }
+        
+        // DOM 로드 완료 후 이벤트 리스너 초기화
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeEventListeners);
+        } else {
+            initializeEventListeners();
+        }
 
