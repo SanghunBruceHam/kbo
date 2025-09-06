@@ -1931,6 +1931,8 @@
             border: none !important;
         }
         
+        /* 쿠팡 광고 동적 크기 조정 스크립트 */
+        
         /* 광고 카드 전용 클래스 - card 스타일 상속 */
         .ad-card {
             background: var(--card-background);
@@ -2155,6 +2157,61 @@
     
     <!-- 탑으로 가기 버튼 -->
     <button class="scroll-to-top" id="scrollToTop">↑</button>
+    
+    <!-- 쿠팡 광고 크기 강제 조정 스크립트 -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // 쿠팡 광고 iframe 크기 강제 조정 함수
+        function forceCoupangAdSize() {
+            const coupangWrappers = document.querySelectorAll('.coupang-ad-wrapper');
+            coupangWrappers.forEach(wrapper => {
+                // wrapper 크기 강제 설정
+                wrapper.style.width = '1300px';
+                wrapper.style.maxWidth = '1300px';
+                wrapper.style.margin = '5px auto';
+                
+                // iframe 찾아서 크기 조정
+                const iframe = wrapper.querySelector('iframe');
+                if (iframe) {
+                    iframe.style.width = '1300px';
+                    iframe.style.height = '180px';
+                    iframe.style.maxWidth = '1300px';
+                    iframe.style.display = 'block';
+                    iframe.style.margin = '0 auto';
+                }
+            });
+        }
+        
+        // 즉시 실행
+        forceCoupangAdSize();
+        
+        // 쿠팡 스크립트 로드 후에도 실행 (지연 실행)
+        setTimeout(forceCoupangAdSize, 500);
+        setTimeout(forceCoupangAdSize, 1000);
+        setTimeout(forceCoupangAdSize, 2000);
+        
+        // 윈도우 리사이즈 시에도 실행
+        window.addEventListener('resize', forceCoupangAdSize);
+        
+        // MutationObserver로 DOM 변경 감지
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.type === 'childList') {
+                    mutation.addedNodes.forEach(function(node) {
+                        if (node.nodeType === 1 && (node.tagName === 'IFRAME' || node.querySelector('iframe'))) {
+                            setTimeout(forceCoupangAdSize, 100);
+                        }
+                    });
+                }
+            });
+        });
+        
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
+    });
+    </script>
     
 </body>
 </html><!-- Updated at Tue Aug  5 10:21:58 JST 2025 -->
