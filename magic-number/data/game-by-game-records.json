@@ -1240,11 +1240,21 @@
         "result": "L",
         "runs_scored": 1,
         "runs_allowed": 2
+      },
+      {
+        "gameNumber": 125,
+        "date": "2025-09-06",
+        "opponent": "NC",
+        "isHome": false,
+        "score": "8:4",
+        "result": "W",
+        "runs_scored": 8,
+        "runs_allowed": 4
       }
     ],
     "currentStreak": {
-      "type": "L",
-      "count": 4
+      "type": "W",
+      "count": 1
     },
     "longestWinStreak": 5,
     "longestLoseStreak": 7,
@@ -1480,6 +1490,10 @@
       {
         "type": "W",
         "count": 3
+      },
+      {
+        "type": "L",
+        "count": 4
       }
     ]
   },
@@ -14988,11 +15002,21 @@
         "result": "L",
         "runs_scored": 3,
         "runs_allowed": 9
+      },
+      {
+        "gameNumber": 125,
+        "date": "2025-09-06",
+        "opponent": "KIA",
+        "isHome": true,
+        "score": "4:8",
+        "result": "L",
+        "runs_scored": 4,
+        "runs_allowed": 8
       }
     ],
     "currentStreak": {
       "type": "L",
-      "count": 3
+      "count": 4
     },
     "longestWinStreak": 5,
     "longestLoseStreak": 4,
