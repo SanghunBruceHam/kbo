@@ -2158,58 +2158,109 @@
     <!-- 탑으로 가기 버튼 -->
     <button class="scroll-to-top" id="scrollToTop">↑</button>
     
-    <!-- 쿠팡 광고 크기 강제 조정 스크립트 -->
+    <!-- 쿠팡 광고 크기 초강력 강제 조정 스크립트 -->
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // 쿠팡 광고 iframe 크기 강제 조정 함수
-        function forceCoupangAdSize() {
+        // 초강력 쿠팡 광고 크기 강제 조정
+        function forceAllCoupangElements() {
+            // 1. 모든 쿠팡 관련 요소 찾기
             const coupangWrappers = document.querySelectorAll('.coupang-ad-wrapper');
-            coupangWrappers.forEach(wrapper => {
-                // wrapper 크기 강제 설정
-                wrapper.style.width = '1300px';
-                wrapper.style.maxWidth = '1300px';
-                wrapper.style.margin = '5px auto';
+            const allIframes = document.querySelectorAll('iframe');
+            const allDivs = document.querySelectorAll('div[id*="coupang"], div[class*="coupang"], div[style*="width"]');
+            
+            console.log('Found coupang wrappers:', coupangWrappers.length);
+            console.log('Found iframes:', allIframes.length);
+            
+            coupangWrappers.forEach((wrapper, index) => {
+                console.log(`Processing wrapper ${index}:`, wrapper);
                 
-                // iframe 찾아서 크기 조정
-                const iframe = wrapper.querySelector('iframe');
-                if (iframe) {
-                    iframe.style.width = '1300px';
-                    iframe.style.height = '180px';
-                    iframe.style.maxWidth = '1300px';
-                    iframe.style.display = 'block';
-                    iframe.style.margin = '0 auto';
+                // wrapper 자체 강제 설정
+                wrapper.style.setProperty('width', '1300px', 'important');
+                wrapper.style.setProperty('max-width', '1300px', 'important');
+                wrapper.style.setProperty('min-width', '1300px', 'important');
+                wrapper.style.setProperty('margin', '5px auto', 'important');
+                wrapper.style.setProperty('display', 'block', 'important');
+                
+                // wrapper 내부 모든 요소 강제 설정
+                const allChildren = wrapper.querySelectorAll('*');
+                allChildren.forEach(child => {
+                    if (child.tagName === 'IFRAME') {
+                        child.style.setProperty('width', '1300px', 'important');
+                        child.style.setProperty('height', '180px', 'important');
+                        child.style.setProperty('max-width', '1300px', 'important');
+                        child.style.setProperty('min-width', '1300px', 'important');
+                        child.style.setProperty('display', 'block', 'important');
+                        child.style.setProperty('margin', '0 auto', 'important');
+                        console.log('Forced iframe size:', child);
+                    }
+                });
+            });
+            
+            // 2. 모든 iframe에 대해서도 강제 적용
+            allIframes.forEach((iframe, index) => {
+                const src = iframe.src || '';
+                if (src.includes('coupang') || iframe.closest('.coupang-ad-wrapper')) {
+                    console.log(`Forcing iframe ${index}:`, iframe);
+                    iframe.style.setProperty('width', '1300px', 'important');
+                    iframe.style.setProperty('height', '180px', 'important');
+                    iframe.style.setProperty('max-width', '1300px', 'important');
+                    iframe.style.setProperty('min-width', '1300px', 'important');
+                    iframe.style.setProperty('display', 'block', 'important');
+                    iframe.style.setProperty('margin', '0 auto', 'important');
                 }
             });
         }
         
         // 즉시 실행
-        forceCoupangAdSize();
+        forceAllCoupangElements();
         
-        // 쿠팡 스크립트 로드 후에도 실행 (지연 실행)
-        setTimeout(forceCoupangAdSize, 500);
-        setTimeout(forceCoupangAdSize, 1000);
-        setTimeout(forceCoupangAdSize, 2000);
+        // 지연 실행 (여러 시점에서)
+        setTimeout(forceAllCoupangElements, 100);
+        setTimeout(forceAllCoupangElements, 500);
+        setTimeout(forceAllCoupangElements, 1000);
+        setTimeout(forceAllCoupangElements, 2000);
+        setTimeout(forceAllCoupangElements, 3000);
+        setTimeout(forceAllCoupangElements, 5000);
         
-        // 윈도우 리사이즈 시에도 실행
-        window.addEventListener('resize', forceCoupangAdSize);
-        
-        // MutationObserver로 DOM 변경 감지
+        // MutationObserver로 실시간 감시
         const observer = new MutationObserver(function(mutations) {
+            let hasNewElements = false;
             mutations.forEach(function(mutation) {
-                if (mutation.type === 'childList') {
+                if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
                     mutation.addedNodes.forEach(function(node) {
-                        if (node.nodeType === 1 && (node.tagName === 'IFRAME' || node.querySelector('iframe'))) {
-                            setTimeout(forceCoupangAdSize, 100);
+                        if (node.nodeType === 1) {
+                            if (node.tagName === 'IFRAME' || 
+                                node.querySelector && node.querySelector('iframe') ||
+                                node.classList && (node.classList.contains('coupang-ad-wrapper') || 
+                                node.className && node.className.includes('coupang'))) {
+                                hasNewElements = true;
+                            }
                         }
                     });
                 }
             });
+            
+            if (hasNewElements) {
+                console.log('New coupang elements detected, forcing size...');
+                setTimeout(forceAllCoupangElements, 50);
+                setTimeout(forceAllCoupangElements, 200);
+                setTimeout(forceAllCoupangElements, 500);
+            }
         });
         
         observer.observe(document.body, {
             childList: true,
-            subtree: true
+            subtree: true,
+            attributes: true,
+            attributeFilter: ['style', 'width', 'height']
         });
+        
+        // 윈도우 이벤트들
+        window.addEventListener('resize', forceAllCoupangElements);
+        window.addEventListener('load', forceAllCoupangElements);
+        
+        // 주기적 체크 (10초마다)
+        setInterval(forceAllCoupangElements, 10000);
     });
     </script>
     
