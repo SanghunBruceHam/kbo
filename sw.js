@@ -1,23 +1,23 @@
 // Service Worker for KBO Dashboard - Performance Optimization
-const CACHE_NAME = 'kbo-dashboard-v1.2';
-const STATIC_CACHE_NAME = 'kbo-static-v1.2';
+const CACHE_NAME = 'kbo-dashboard-v1.3';
+const STATIC_CACHE_NAME = 'kbo-static-v1.3';
 
 // 정적 리소스 캐싱 목록 (실제 존재하는 파일들만)
 const STATIC_ASSETS = [
   '/',
   '/index.html',
-  '/images/kbo-dashboard-preview.png',
+  '/magic-number/images/teams/kbo-dashboard-preview.png',
   // 팀 로고들
-  '/images/lg.png',
-  '/images/kia.png',
-  '/images/samsung.png',
-  '/images/doosan.png',
-  '/images/ssg.png',
-  '/images/nc.png',
-  '/images/lotte.png',
-  '/images/hanwha.png',
-  '/images/kt.png',
-  '/images/kiwoom.png'
+  '/magic-number/images/teams/lg.png',
+  '/magic-number/images/teams/kia.png',
+  '/magic-number/images/teams/samsung.png',
+  '/magic-number/images/teams/doosan.png',
+  '/magic-number/images/teams/ssg.png',
+  '/magic-number/images/teams/nc.png',
+  '/magic-number/images/teams/lotte.png',
+  '/magic-number/images/teams/hanwha.png',
+  '/magic-number/images/teams/kt.png',
+  '/magic-number/images/teams/kiwoom.png'
 ];
 
 // 동적 데이터 캐싱 패턴
@@ -80,7 +80,7 @@ self.addEventListener('fetch', (event) => {
   const url = new URL(request.url);
   
   // 정적 리소스 처리
-  if (STATIC_ASSETS.includes(url.pathname) || url.pathname.startsWith('/images/')) {
+  if (STATIC_ASSETS.includes(url.pathname) || url.pathname.startsWith('/magic-number/images/')) {
     event.respondWith(
       caches.match(request).then((response) => {
         return response || fetch(request).then((fetchResponse) => {
