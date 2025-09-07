@@ -469,7 +469,7 @@ class SeriesAnalyzer {
         };
 
         // 결과 저장
-        const outputPath = path.join(__dirname, '../data/series-analysis.json');
+        const outputPath = path.join(__dirname, '../data/analysis-series.json');
         fs.writeFileSync(outputPath, JSON.stringify(analysisResult, null, 2), 'utf8');
 
         console.log('✅ 시리즈 분석 완료!');

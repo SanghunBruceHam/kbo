@@ -237,7 +237,7 @@ class HomeAwayAnalyzer {
             homeAwayAnalysis: this.homeAwayData
         };
 
-        const outputPath = path.join(__dirname, '../data/home-away-analysis.json');
+        const outputPath = path.join(__dirname, '../data/analysis-home-away.json');
         fs.writeFileSync(outputPath, JSON.stringify(result, null, 2), 'utf8');
         console.log('✅ 홈/원정 분석 결과 저장 완료:', outputPath);
     }

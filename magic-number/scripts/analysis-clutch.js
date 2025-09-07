@@ -197,7 +197,7 @@ class ClutchAnalyzer {
             clutchAnalysis: this.clutchData
         };
 
-        const outputPath = path.join(__dirname, '../data/clutch-analysis.json');
+        const outputPath = path.join(__dirname, '../data/analysis-clutch.json');
         fs.writeFileSync(outputPath, JSON.stringify(result, null, 2), 'utf8');
         console.log('✅ 클러치 분석 결과 저장 완료:', outputPath);
     }

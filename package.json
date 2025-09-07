@@ -24,6 +24,7 @@
     "monthly-analysis": "node magic-number/scripts/util-runner.js magic-number/scripts/analysis-monthly.js",
     "weekday-analysis": "node magic-number/scripts/util-runner.js magic-number/scripts/analysis-weekday.js",
     "stadium-analysis": "node magic-number/scripts/util-runner.js magic-number/scripts/analysis-stadium.js",
+    "generate-raw-records": "node magic-number/scripts/util-runner.js magic-number/scripts/generate-raw-game-records.js",
     "full-update": "npm run process && npm run analysis && echo '🎉 전체 업데이트 완료!'",
     "serve": "npx http-server magic-number -p 8080",
     "test": "node magic-number/scripts/test-paths.js",

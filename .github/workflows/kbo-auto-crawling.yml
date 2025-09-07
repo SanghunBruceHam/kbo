@@ -155,14 +155,25 @@ jobs:
         ls -la magic-number/data/
         echo "✅ 데이터 디렉토리 권한 설정 완료"
 
-    # 10-2. 시즌 데이터 파싱 (데이터베이스용)
+    # 10-2. API 데이터 및 기본 통계 처리
+    - name: 🔄 API 데이터 처리
+      run: |
+        echo "🔄 API 데이터 및 기본 통계 처리 중..."
+        npm run process
+        echo "✅ api-data.json, calc-standings.json, calc-head-to-head.json 생성 완료"
+
+    # 10-3. 시즌 데이터 파싱 (데이터베이스용)
     - name: 📊 시즌 데이터 파싱
       run: |
         echo "📊 시즌 데이터 파싱 중..."
         npm run parse-season-data
-        echo "✅ 2025-season-games.json 생성 완료"
+        echo "✅ 2025-season-games.json, 2025-team-stats.json 생성 완료"
+        
+        echo "🎯 raw-game-records.json 생성 중..."
+        npm run generate-raw-records
+        echo "✅ raw-game-records.json 생성 완료"
 
-    # 10-3. 새로운 JS 기반 데이터 업데이트 (순수 JavaScript - DB 비의존)
+    # 10-4. 새로운 JS 기반 데이터 업데이트 (순수 JavaScript - DB 비의존)
     - name: 📋 월별/요일별/경기장별 기록 생성
       run: |
         echo "📋 순수 JS로 월별/요일별/경기장별 데이터 생성 중..."
@@ -171,14 +182,14 @@ jobs:
         npm run stadium-analysis
         echo "✅ SQLite DB 비의존 데이터 업데이트 완료"
 
-    # 10-4. 게임별 기록 분석 (의존성 파일 생성)
+    # 10-5. 게임별 기록 분석 (의존성 파일 생성)
     - name: 🏆 게임별 기록 분석
       run: |
         echo "🏆 게임별 기록 분석 중..."
         npm run weekly-game-analysis
-        echo "✅ game-by-game-records.json 생성 완료"
+        echo "✅ analysis-weekly.json 생성 완료"
 
-    # 10-5. 순위 변동 매트릭스 생성 (순위 변동 그래프용)
+    # 10-6. 순위 변동 매트릭스 생성 (순위 변동 그래프용)
     - name: 📈 순위 변동 매트릭스 생성
       run: |
         echo "📈 순위 변동 매트릭스 생성 중..."
@@ -200,7 +211,7 @@ jobs:
         
         echo "✅ 일자별 순위·게임차·승률 그래프 데이터 처리 완료"
 
-    # 10-6. 추가 분석 데이터 생성 (루트 index.html용 + 새로운 JS 분석 포함)
+    # 10-7. 추가 분석 데이터 생성 (루트 index.html용 + 새로운 JS 분석 포함)
     - name: 📈 전체 분석 데이터 생성 (순수 JS)
       run: |
         echo "🔍 전체 분석 데이터 생성 중 (SQLite DB 비의존)..."
@@ -208,7 +219,7 @@ jobs:
         
         # 생성된 JSON 파일들 확인
         echo "📋 생성된 분석 데이터 파일 확인:"
-        for file in stats-comprehensive.json analysis-weekly.json analysis-clutch.json analysis-home-away.json analysis-series.json raw-game-records.json calc-magic-numbers.json; do
+        for file in api-data.json calc-standings.json calc-head-to-head.json 2025-season-games.json 2025-team-stats.json raw-game-records.json analysis-monthly.json analysis-weekday.json analysis-stadium.json stats-comprehensive.json analysis-weekly.json analysis-clutch.json analysis-home-away.json analysis-series.json calc-magic-numbers.json; do
           if [ -f "magic-number/data/$file" ]; then
             SIZE=$(du -h "magic-number/data/$file" | cut -f1)
             echo "  ✅ $file (${SIZE})"
