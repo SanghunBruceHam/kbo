@@ -118,8 +118,8 @@ class PathValidator {
 
         const essentialFiles = [
             { desc: 'PathManager', path: path.join(pathManager.projectRoot, 'config/paths.js') },
-            { desc: 'CrossPlatform Runner', path: pathManager.getJsFile('runner.js') },
-            { desc: 'Process Season Data', path: pathManager.getJsFile('process-season-data.js') },
+            { desc: 'CrossPlatform Runner', path: pathManager.getJsFile('util-runner.js') },
+            { desc: 'Process Season Data', path: pathManager.getJsFile('02_season-data-processor.js') },
             { desc: 'Python Crawler', path: pathManager.getCrawlerFile('kbo-python-working-crawler.py') }
         ];
 
@@ -137,9 +137,9 @@ class PathValidator {
         console.log('\n💾 데이터 파일 검증...');
 
         const dataFiles = [
-            'service-data.json',
-            'kbo-rankings.json', 
-            'kbo-records.json',
+            'api-data.json',
+            'calc-standings.json', 
+            'calc-head-to-head.json',
             '2025-season-data-clean.txt'
         ];
 
@@ -169,7 +169,7 @@ class PathValidator {
         console.log('\n🔐 실행 권한 확인...');
 
         const executableFiles = [
-            pathManager.getJsFile('runner.js'),
+            pathManager.getJsFile('util-runner.js'),
             pathManager.getJsFile('test-paths.js')
         ];
 

@@ -15,7 +15,7 @@ class CrossPlatformRunner {
         if (args.length < 3) {
             console.log('사용법: node magic-number/scripts/runner.js <스크립트경로> [인자...]');
             console.log('예시:');
-            console.log('  node magic-number/scripts/runner.js magic-number/scripts/process-season-data.js');
+            console.log('  node magic-number/scripts/util-runner.js magic-number/scripts/02_season-data-processor.js');
             console.log('  node magic-number/scripts/runner.js magic-number/crawlers/kbo-python-working-crawler.py');
             process.exit(1);
         }
@@ -100,7 +100,7 @@ class CrossPlatformRunner {
         console.log('');
         console.log('사용 가능한 스크립트:');
         console.log('  📊 데이터 처리:');
-        console.log('    magic-number/scripts/process-season-data.js    - 시즌 데이터 처리');
+        console.log('    magic-number/scripts/02_season-data-processor.js    - 시즌 데이터 처리');
         console.log('');
         console.log('  🕷️ 크롤링:');
         console.log('    magic-number/crawlers/kbo-python-working-crawler.py - KBO 데이터 크롤링');
@@ -110,7 +110,7 @@ class CrossPlatformRunner {
         console.log('    archive/automation-scripts/daily-update.sh - 일일 업데이트');
         console.log('');
         console.log('예시:');
-        console.log('  node magic-number/scripts/runner.js magic-number/scripts/process-season-data.js');
+        console.log('  node magic-number/scripts/util-runner.js magic-number/scripts/02_season-data-processor.js');
         console.log('  npm run process  (package.json 스크립트 사용)');
     }
 }

@@ -32,7 +32,7 @@ class HomeAwayAnalyzer {
      */
     loadGameRecords() {
         try {
-            const dataPath = path.join(__dirname, '../data/game-by-game-records.json');
+            const dataPath = path.join(__dirname, '../data/raw-game-records.json');
             this.gameRecords = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
             console.log('✅ 게임 기록 데이터 로드 완료');
         } catch (error) {

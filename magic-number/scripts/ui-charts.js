@@ -65,7 +65,7 @@ async function loadRealKBOData() {
     try {
         // 현재 페이지가 magic-number 폴더 내에 있는지 확인
         const isInMagicNumberFolder = window.location.pathname.includes('/magic-number/');
-        const dataPath = isInMagicNumberFolder ? 'data/game-by-game-records.json' : 'magic-number/data/game-by-game-records.json';
+        const dataPath = isInMagicNumberFolder ? 'data/raw-game-records.json' : 'magic-number/data/raw-game-records.json';
         
         const response = await fetch(dataPath);
         
@@ -234,8 +234,12 @@ function processRealData(seasonRankings) {
         monthlyData[monthKey].push(dayData);
     });
     
-    // 월별 기간 생성
-    Object.keys(monthlyData).sort().forEach(monthKey => {
+    // 월별 기간 생성 (연도-월 순으로 정렬)
+    Object.keys(monthlyData).sort((a, b) => {
+        const [yearA, monthA] = a.split('-').map(Number);
+        const [yearB, monthB] = b.split('-').map(Number);
+        return yearA !== yearB ? yearA - yearB : monthA - monthB;
+    }).forEach(monthKey => {
         const [year, month] = monthKey.split('-');
         const monthData = monthlyData[monthKey];
         

@@ -24,7 +24,7 @@ class WeeklyAnalyzer {
      */
     loadGameRecords() {
         try {
-            const dataPath = path.join(__dirname, '../data/game-by-game-records.json');
+            const dataPath = path.join(__dirname, '../data/raw-game-records.json');
             this.gameRecords = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
             
             // 모든 경기 날짜 수집
@@ -361,7 +361,7 @@ class WeeklyAnalyzer {
             weeklyAnalysis: this.weeklyData
         };
 
-        const outputPath = path.join(__dirname, '../data/weekly-analysis.json');
+        const outputPath = path.join(__dirname, '../data/analysis-weekly.json');
         fs.writeFileSync(outputPath, JSON.stringify(result, null, 2), 'utf8');
         console.log('✅ 주차별 분석 결과 저장 완료:', outputPath);
     }

@@ -1,0 +1,1019 @@
+{
+  "lastUpdated": "2025-09-07T05:37:37.863Z",
+  "updateDate": "2025. 9. 7.",
+  "note": "2025-season-data-clean.txt 기반 완전 자동화 처리",
+  "totalData": {
+    "한화": {
+      "LG": {
+        "wins": 5,
+        "losses": 7,
+        "draws": 1,
+        "homeWins": 3,
+        "homeLosses": 0,
+        "homeDraws": 1,
+        "awayWins": 2,
+        "awayLosses": 7,
+        "awayDraws": 0
+      },
+      "롯데": {
+        "wins": 7,
+        "losses": 6,
+        "draws": 0,
+        "homeWins": 5,
+        "homeLosses": 3,
+        "homeDraws": 0,
+        "awayWins": 2,
+        "awayLosses": 3,
+        "awayDraws": 0
+      },
+      "SSG": {
+        "wins": 8,
+        "losses": 7,
+        "draws": 0,
+        "homeWins": 4,
+        "homeLosses": 5,
+        "homeDraws": 0,
+        "awayWins": 4,
+        "awayLosses": 2,
+        "awayDraws": 0
+      },
+      "KT": {
+        "wins": 9,
+        "losses": 5,
+        "draws": 0,
+        "homeWins": 5,
+        "homeLosses": 4,
+        "homeDraws": 0,
+        "awayWins": 4,
+        "awayLosses": 1,
+        "awayDraws": 0
+      },
+      "KIA": {
+        "wins": 9,
+        "losses": 4,
+        "draws": 0,
+        "homeWins": 6,
+        "homeLosses": 1,
+        "homeDraws": 0,
+        "awayWins": 3,
+        "awayLosses": 3,
+        "awayDraws": 0
+      },
+      "삼성": {
+        "wins": 8,
+        "losses": 7,
+        "draws": 0,
+        "homeWins": 5,
+        "homeLosses": 4,
+        "homeDraws": 0,
+        "awayWins": 3,
+        "awayLosses": 3,
+        "awayDraws": 0
+      },
+      "NC": {
+        "wins": 9,
+        "losses": 6,
+        "draws": 1,
+        "homeWins": 5,
+        "homeLosses": 1,
+        "homeDraws": 1,
+        "awayWins": 4,
+        "awayLosses": 5,
+        "awayDraws": 0
+      },
+      "두산": {
+        "wins": 6,
+        "losses": 8,
+        "draws": 1,
+        "homeWins": 3,
+        "homeLosses": 6,
+        "homeDraws": 0,
+        "awayWins": 3,
+        "awayLosses": 2,
+        "awayDraws": 1
+      },
+      "키움": {
+        "wins": 12,
+        "losses": 1,
+        "draws": 0,
+        "homeWins": 3,
+        "homeLosses": 1,
+        "homeDraws": 0,
+        "awayWins": 9,
+        "awayLosses": 0,
+        "awayDraws": 0
+      }
+    },
+    "LG": {
+      "한화": {
+        "wins": 7,
+        "losses": 5,
+        "draws": 1,
+        "homeWins": 7,
+        "homeLosses": 2,
+        "homeDraws": 0,
+        "awayWins": 0,
+        "awayLosses": 3,
+        "awayDraws": 1
+      },
+      "롯데": {
+        "wins": 9,
+        "losses": 4,
+        "draws": 2,
+        "homeWins": 7,
+        "homeLosses": 1,
+        "homeDraws": 1,
+        "awayWins": 2,
+        "awayLosses": 3,
+        "awayDraws": 1
+      },
+      "SSG": {
+        "wins": 10,
+        "losses": 5,
+        "draws": 0,
+        "homeWins": 4,
+        "homeLosses": 2,
+        "homeDraws": 0,
+        "awayWins": 6,
+        "awayLosses": 3,
+        "awayDraws": 0
+      },
+      "KT": {
+        "wins": 8,
+        "losses": 4,
+        "draws": 0,
+        "homeWins": 4,
+        "homeLosses": 2,
+        "homeDraws": 0,
+        "awayWins": 4,
+        "awayLosses": 2,
+        "awayDraws": 0
+      },
+      "KIA": {
+        "wins": 10,
+        "losses": 4,
+        "draws": 0,
+        "homeWins": 3,
+        "homeLosses": 2,
+        "homeDraws": 0,
+        "awayWins": 7,
+        "awayLosses": 2,
+        "awayDraws": 0
+      },
+      "삼성": {
+        "wins": 9,
+        "losses": 6,
+        "draws": 0,
+        "homeWins": 2,
+        "homeLosses": 4,
+        "homeDraws": 0,
+        "awayWins": 7,
+        "awayLosses": 2,
+        "awayDraws": 0
+      },
+      "NC": {
+        "wins": 8,
+        "losses": 6,
+        "draws": 0,
+        "homeWins": 2,
+        "homeLosses": 4,
+        "homeDraws": 0,
+        "awayWins": 6,
+        "awayLosses": 2,
+        "awayDraws": 0
+      },
+      "두산": {
+        "wins": 8,
+        "losses": 6,
+        "draws": 0,
+        "homeWins": 5,
+        "homeLosses": 3,
+        "homeDraws": 0,
+        "awayWins": 3,
+        "awayLosses": 3,
+        "awayDraws": 0
+      },
+      "키움": {
+        "wins": 9,
+        "losses": 6,
+        "draws": 0,
+        "homeWins": 6,
+        "homeLosses": 3,
+        "homeDraws": 0,
+        "awayWins": 3,
+        "awayLosses": 3,
+        "awayDraws": 0
+      }
+    },
+    "롯데": {
+      "한화": {
+        "wins": 6,
+        "losses": 7,
+        "draws": 0,
+        "homeWins": 3,
+        "homeLosses": 2,
+        "homeDraws": 0,
+        "awayWins": 3,
+        "awayLosses": 5,
+        "awayDraws": 0
+      },
+      "LG": {
+        "wins": 4,
+        "losses": 9,
+        "draws": 2,
+        "homeWins": 3,
+        "homeLosses": 2,
+        "homeDraws": 1,
+        "awayWins": 1,
+        "awayLosses": 7,
+        "awayDraws": 1
+      },
+      "SSG": {
+        "wins": 5,
+        "losses": 9,
+        "draws": 0,
+        "homeWins": 3,
+        "homeLosses": 5,
+        "homeDraws": 0,
+        "awayWins": 2,
+        "awayLosses": 4,
+        "awayDraws": 0
+      },
+      "KT": {
+        "wins": 8,
+        "losses": 6,
+        "draws": 2,
+        "homeWins": 4,
+        "homeLosses": 4,
+        "homeDraws": 1,
+        "awayWins": 4,
+        "awayLosses": 2,
+        "awayDraws": 1
+      },
+      "KIA": {
+        "wins": 7,
+        "losses": 8,
+        "draws": 0,
+        "homeWins": 5,
+        "homeLosses": 4,
+        "homeDraws": 0,
+        "awayWins": 2,
+        "awayLosses": 4,
+        "awayDraws": 0
+      },
+      "삼성": {
+        "wins": 7,
+        "losses": 5,
+        "draws": 1,
+        "homeWins": 5,
+        "homeLosses": 2,
+        "homeDraws": 1,
+        "awayWins": 2,
+        "awayLosses": 3,
+        "awayDraws": 0
+      },
+      "NC": {
+        "wins": 7,
+        "losses": 7,
+        "draws": 0,
+        "homeWins": 3,
+        "homeLosses": 3,
+        "homeDraws": 0,
+        "awayWins": 4,
+        "awayLosses": 4,
+        "awayDraws": 0
+      },
+      "두산": {
+        "wins": 7,
+        "losses": 7,
+        "draws": 1,
+        "homeWins": 3,
+        "homeLosses": 5,
+        "homeDraws": 1,
+        "awayWins": 4,
+        "awayLosses": 2,
+        "awayDraws": 0
+      },
+      "키움": {
+        "wins": 11,
+        "losses": 4,
+        "draws": 0,
+        "homeWins": 4,
+        "homeLosses": 2,
+        "homeDraws": 0,
+        "awayWins": 7,
+        "awayLosses": 2,
+        "awayDraws": 0
+      }
+    },
+    "SSG": {
+      "한화": {
+        "wins": 7,
+        "losses": 8,
+        "draws": 0,
+        "homeWins": 2,
+        "homeLosses": 4,
+        "homeDraws": 0,
+        "awayWins": 5,
+        "awayLosses": 4,
+        "awayDraws": 0
+      },
+      "LG": {
+        "wins": 5,
+        "losses": 10,
+        "draws": 0,
+        "homeWins": 3,
+        "homeLosses": 6,
+        "homeDraws": 0,
+        "awayWins": 2,
+        "awayLosses": 4,
+        "awayDraws": 0
+      },
+      "롯데": {
+        "wins": 9,
+        "losses": 5,
+        "draws": 0,
+        "homeWins": 4,
+        "homeLosses": 2,
+        "homeDraws": 0,
+        "awayWins": 5,
+        "awayLosses": 3,
+        "awayDraws": 0
+      },
+      "KT": {
+        "wins": 8,
+        "losses": 6,
+        "draws": 0,
+        "homeWins": 3,
+        "homeLosses": 2,
+        "homeDraws": 0,
+        "awayWins": 5,
+        "awayLosses": 4,
+        "awayDraws": 0
+      },
+      "KIA": {
+        "wins": 6,
+        "losses": 7,
+        "draws": 1,
+        "homeWins": 3,
+        "homeLosses": 4,
+        "homeDraws": 1,
+        "awayWins": 3,
+        "awayLosses": 3,
+        "awayDraws": 0
+      },
+      "삼성": {
+        "wins": 6,
+        "losses": 8,
+        "draws": 1,
+        "homeWins": 4,
+        "homeLosses": 4,
+        "homeDraws": 1,
+        "awayWins": 2,
+        "awayLosses": 4,
+        "awayDraws": 0
+      },
+      "NC": {
+        "wins": 8,
+        "losses": 3,
+        "draws": 1,
+        "homeWins": 6,
+        "homeLosses": 2,
+        "homeDraws": 1,
+        "awayWins": 2,
+        "awayLosses": 1,
+        "awayDraws": 0
+      },
+      "두산": {
+        "wins": 7,
+        "losses": 5,
+        "draws": 0,
+        "homeWins": 2,
+        "homeLosses": 2,
+        "homeDraws": 0,
+        "awayWins": 5,
+        "awayLosses": 3,
+        "awayDraws": 0
+      },
+      "키움": {
+        "wins": 8,
+        "losses": 6,
+        "draws": 1,
+        "homeWins": 5,
+        "homeLosses": 3,
+        "homeDraws": 1,
+        "awayWins": 3,
+        "awayLosses": 3,
+        "awayDraws": 0
+      }
+    },
+    "KT": {
+      "한화": {
+        "wins": 5,
+        "losses": 9,
+        "draws": 0,
+        "homeWins": 1,
+        "homeLosses": 4,
+        "homeDraws": 0,
+        "awayWins": 4,
+        "awayLosses": 5,
+        "awayDraws": 0
+      },
+      "LG": {
+        "wins": 4,
+        "losses": 8,
+        "draws": 0,
+        "homeWins": 2,
+        "homeLosses": 4,
+        "homeDraws": 0,
+        "awayWins": 2,
+        "awayLosses": 4,
+        "awayDraws": 0
+      },
+      "롯데": {
+        "wins": 6,
+        "losses": 8,
+        "draws": 2,
+        "homeWins": 2,
+        "homeLosses": 4,
+        "homeDraws": 1,
+        "awayWins": 4,
+        "awayLosses": 4,
+        "awayDraws": 1
+      },
+      "SSG": {
+        "wins": 6,
+        "losses": 8,
+        "draws": 0,
+        "homeWins": 4,
+        "homeLosses": 5,
+        "homeDraws": 0,
+        "awayWins": 2,
+        "awayLosses": 3,
+        "awayDraws": 0
+      },
+      "KIA": {
+        "wins": 7,
+        "losses": 8,
+        "draws": 0,
+        "homeWins": 6,
+        "homeLosses": 3,
+        "homeDraws": 0,
+        "awayWins": 1,
+        "awayLosses": 5,
+        "awayDraws": 0
+      },
+      "삼성": {
+        "wins": 9,
+        "losses": 4,
+        "draws": 0,
+        "homeWins": 6,
+        "homeLosses": 2,
+        "homeDraws": 0,
+        "awayWins": 3,
+        "awayLosses": 2,
+        "awayDraws": 0
+      },
+      "NC": {
+        "wins": 6,
+        "losses": 8,
+        "draws": 1,
+        "homeWins": 3,
+        "homeLosses": 6,
+        "homeDraws": 0,
+        "awayWins": 3,
+        "awayLosses": 2,
+        "awayDraws": 1
+      },
+      "두산": {
+        "wins": 10,
+        "losses": 4,
+        "draws": 1,
+        "homeWins": 4,
+        "homeLosses": 2,
+        "homeDraws": 0,
+        "awayWins": 6,
+        "awayLosses": 2,
+        "awayDraws": 1
+      },
+      "키움": {
+        "wins": 10,
+        "losses": 5,
+        "draws": 0,
+        "homeWins": 4,
+        "homeLosses": 2,
+        "homeDraws": 0,
+        "awayWins": 6,
+        "awayLosses": 3,
+        "awayDraws": 0
+      }
+    },
+    "KIA": {
+      "한화": {
+        "wins": 4,
+        "losses": 9,
+        "draws": 0,
+        "homeWins": 3,
+        "homeLosses": 3,
+        "homeDraws": 0,
+        "awayWins": 1,
+        "awayLosses": 6,
+        "awayDraws": 0
+      },
+      "LG": {
+        "wins": 4,
+        "losses": 10,
+        "draws": 0,
+        "homeWins": 2,
+        "homeLosses": 7,
+        "homeDraws": 0,
+        "awayWins": 2,
+        "awayLosses": 3,
+        "awayDraws": 0
+      },
+      "롯데": {
+        "wins": 8,
+        "losses": 7,
+        "draws": 0,
+        "homeWins": 4,
+        "homeLosses": 2,
+        "homeDraws": 0,
+        "awayWins": 4,
+        "awayLosses": 5,
+        "awayDraws": 0
+      },
+      "SSG": {
+        "wins": 7,
+        "losses": 6,
+        "draws": 1,
+        "homeWins": 3,
+        "homeLosses": 3,
+        "homeDraws": 0,
+        "awayWins": 4,
+        "awayLosses": 3,
+        "awayDraws": 1
+      },
+      "KT": {
+        "wins": 8,
+        "losses": 7,
+        "draws": 0,
+        "homeWins": 5,
+        "homeLosses": 1,
+        "homeDraws": 0,
+        "awayWins": 3,
+        "awayLosses": 6,
+        "awayDraws": 0
+      },
+      "삼성": {
+        "wins": 6,
+        "losses": 7,
+        "draws": 0,
+        "homeWins": 2,
+        "homeLosses": 3,
+        "homeDraws": 0,
+        "awayWins": 4,
+        "awayLosses": 4,
+        "awayDraws": 0
+      },
+      "NC": {
+        "wins": 6,
+        "losses": 5,
+        "draws": 0,
+        "homeWins": 3,
+        "homeLosses": 2,
+        "homeDraws": 0,
+        "awayWins": 3,
+        "awayLosses": 3,
+        "awayDraws": 0
+      },
+      "두산": {
+        "wins": 8,
+        "losses": 6,
+        "draws": 1,
+        "homeWins": 4,
+        "homeLosses": 1,
+        "homeDraws": 1,
+        "awayWins": 4,
+        "awayLosses": 5,
+        "awayDraws": 0
+      },
+      "키움": {
+        "wins": 7,
+        "losses": 6,
+        "draws": 2,
+        "homeWins": 4,
+        "homeLosses": 4,
+        "homeDraws": 1,
+        "awayWins": 3,
+        "awayLosses": 2,
+        "awayDraws": 1
+      }
+    },
+    "삼성": {
+      "한화": {
+        "wins": 7,
+        "losses": 8,
+        "draws": 0,
+        "homeWins": 3,
+        "homeLosses": 3,
+        "homeDraws": 0,
+        "awayWins": 4,
+        "awayLosses": 5,
+        "awayDraws": 0
+      },
+      "LG": {
+        "wins": 6,
+        "losses": 9,
+        "draws": 0,
+        "homeWins": 2,
+        "homeLosses": 7,
+        "homeDraws": 0,
+        "awayWins": 4,
+        "awayLosses": 2,
+        "awayDraws": 0
+      },
+      "롯데": {
+        "wins": 5,
+        "losses": 7,
+        "draws": 1,
+        "homeWins": 3,
+        "homeLosses": 2,
+        "homeDraws": 0,
+        "awayWins": 2,
+        "awayLosses": 5,
+        "awayDraws": 1
+      },
+      "SSG": {
+        "wins": 8,
+        "losses": 6,
+        "draws": 1,
+        "homeWins": 4,
+        "homeLosses": 2,
+        "homeDraws": 0,
+        "awayWins": 4,
+        "awayLosses": 4,
+        "awayDraws": 1
+      },
+      "KT": {
+        "wins": 4,
+        "losses": 9,
+        "draws": 0,
+        "homeWins": 2,
+        "homeLosses": 3,
+        "homeDraws": 0,
+        "awayWins": 2,
+        "awayLosses": 6,
+        "awayDraws": 0
+      },
+      "KIA": {
+        "wins": 7,
+        "losses": 6,
+        "draws": 0,
+        "homeWins": 4,
+        "homeLosses": 4,
+        "homeDraws": 0,
+        "awayWins": 3,
+        "awayLosses": 2,
+        "awayDraws": 0
+      },
+      "NC": {
+        "wins": 8,
+        "losses": 7,
+        "draws": 0,
+        "homeWins": 6,
+        "homeLosses": 3,
+        "homeDraws": 0,
+        "awayWins": 2,
+        "awayLosses": 4,
+        "awayDraws": 0
+      },
+      "두산": {
+        "wins": 9,
+        "losses": 6,
+        "draws": 0,
+        "homeWins": 3,
+        "homeLosses": 3,
+        "homeDraws": 0,
+        "awayWins": 6,
+        "awayLosses": 3,
+        "awayDraws": 0
+      },
+      "키움": {
+        "wins": 10,
+        "losses": 4,
+        "draws": 0,
+        "homeWins": 7,
+        "homeLosses": 1,
+        "homeDraws": 0,
+        "awayWins": 3,
+        "awayLosses": 3,
+        "awayDraws": 0
+      }
+    },
+    "NC": {
+      "한화": {
+        "wins": 6,
+        "losses": 9,
+        "draws": 1,
+        "homeWins": 5,
+        "homeLosses": 4,
+        "homeDraws": 0,
+        "awayWins": 1,
+        "awayLosses": 5,
+        "awayDraws": 1
+      },
+      "LG": {
+        "wins": 6,
+        "losses": 8,
+        "draws": 0,
+        "homeWins": 2,
+        "homeLosses": 6,
+        "homeDraws": 0,
+        "awayWins": 4,
+        "awayLosses": 2,
+        "awayDraws": 0
+      },
+      "롯데": {
+        "wins": 7,
+        "losses": 7,
+        "draws": 0,
+        "homeWins": 4,
+        "homeLosses": 4,
+        "homeDraws": 0,
+        "awayWins": 3,
+        "awayLosses": 3,
+        "awayDraws": 0
+      },
+      "SSG": {
+        "wins": 3,
+        "losses": 8,
+        "draws": 1,
+        "homeWins": 1,
+        "homeLosses": 2,
+        "homeDraws": 0,
+        "awayWins": 2,
+        "awayLosses": 6,
+        "awayDraws": 1
+      },
+      "KT": {
+        "wins": 8,
+        "losses": 6,
+        "draws": 1,
+        "homeWins": 2,
+        "homeLosses": 3,
+        "homeDraws": 1,
+        "awayWins": 6,
+        "awayLosses": 3,
+        "awayDraws": 0
+      },
+      "KIA": {
+        "wins": 5,
+        "losses": 6,
+        "draws": 0,
+        "homeWins": 3,
+        "homeLosses": 3,
+        "homeDraws": 0,
+        "awayWins": 2,
+        "awayLosses": 3,
+        "awayDraws": 0
+      },
+      "삼성": {
+        "wins": 7,
+        "losses": 8,
+        "draws": 0,
+        "homeWins": 4,
+        "homeLosses": 2,
+        "homeDraws": 0,
+        "awayWins": 3,
+        "awayLosses": 6,
+        "awayDraws": 0
+      },
+      "두산": {
+        "wins": 6,
+        "losses": 5,
+        "draws": 2,
+        "homeWins": 2,
+        "homeLosses": 3,
+        "homeDraws": 0,
+        "awayWins": 4,
+        "awayLosses": 2,
+        "awayDraws": 2
+      },
+      "키움": {
+        "wins": 9,
+        "losses": 5,
+        "draws": 1,
+        "homeWins": 5,
+        "homeLosses": 4,
+        "homeDraws": 0,
+        "awayWins": 4,
+        "awayLosses": 1,
+        "awayDraws": 1
+      }
+    },
+    "두산": {
+      "한화": {
+        "wins": 8,
+        "losses": 6,
+        "draws": 1,
+        "homeWins": 2,
+        "homeLosses": 3,
+        "homeDraws": 1,
+        "awayWins": 6,
+        "awayLosses": 3,
+        "awayDraws": 0
+      },
+      "LG": {
+        "wins": 6,
+        "losses": 8,
+        "draws": 0,
+        "homeWins": 3,
+        "homeLosses": 3,
+        "homeDraws": 0,
+        "awayWins": 3,
+        "awayLosses": 5,
+        "awayDraws": 0
+      },
+      "롯데": {
+        "wins": 7,
+        "losses": 7,
+        "draws": 1,
+        "homeWins": 2,
+        "homeLosses": 4,
+        "homeDraws": 0,
+        "awayWins": 5,
+        "awayLosses": 3,
+        "awayDraws": 1
+      },
+      "SSG": {
+        "wins": 5,
+        "losses": 7,
+        "draws": 0,
+        "homeWins": 3,
+        "homeLosses": 5,
+        "homeDraws": 0,
+        "awayWins": 2,
+        "awayLosses": 2,
+        "awayDraws": 0
+      },
+      "KT": {
+        "wins": 4,
+        "losses": 10,
+        "draws": 1,
+        "homeWins": 2,
+        "homeLosses": 6,
+        "homeDraws": 1,
+        "awayWins": 2,
+        "awayLosses": 4,
+        "awayDraws": 0
+      },
+      "KIA": {
+        "wins": 6,
+        "losses": 8,
+        "draws": 1,
+        "homeWins": 5,
+        "homeLosses": 4,
+        "homeDraws": 0,
+        "awayWins": 1,
+        "awayLosses": 4,
+        "awayDraws": 1
+      },
+      "삼성": {
+        "wins": 6,
+        "losses": 9,
+        "draws": 0,
+        "homeWins": 3,
+        "homeLosses": 6,
+        "homeDraws": 0,
+        "awayWins": 3,
+        "awayLosses": 3,
+        "awayDraws": 0
+      },
+      "NC": {
+        "wins": 5,
+        "losses": 6,
+        "draws": 2,
+        "homeWins": 2,
+        "homeLosses": 4,
+        "homeDraws": 2,
+        "awayWins": 3,
+        "awayLosses": 2,
+        "awayDraws": 0
+      },
+      "키움": {
+        "wins": 9,
+        "losses": 4,
+        "draws": 0,
+        "homeWins": 4,
+        "homeLosses": 0,
+        "homeDraws": 0,
+        "awayWins": 5,
+        "awayLosses": 4,
+        "awayDraws": 0
+      }
+    },
+    "키움": {
+      "한화": {
+        "wins": 1,
+        "losses": 12,
+        "draws": 0,
+        "homeWins": 0,
+        "homeLosses": 9,
+        "homeDraws": 0,
+        "awayWins": 1,
+        "awayLosses": 3,
+        "awayDraws": 0
+      },
+      "LG": {
+        "wins": 6,
+        "losses": 9,
+        "draws": 0,
+        "homeWins": 3,
+        "homeLosses": 3,
+        "homeDraws": 0,
+        "awayWins": 3,
+        "awayLosses": 6,
+        "awayDraws": 0
+      },
+      "롯데": {
+        "wins": 4,
+        "losses": 11,
+        "draws": 0,
+        "homeWins": 2,
+        "homeLosses": 7,
+        "homeDraws": 0,
+        "awayWins": 2,
+        "awayLosses": 4,
+        "awayDraws": 0
+      },
+      "SSG": {
+        "wins": 6,
+        "losses": 8,
+        "draws": 1,
+        "homeWins": 3,
+        "homeLosses": 3,
+        "homeDraws": 0,
+        "awayWins": 3,
+        "awayLosses": 5,
+        "awayDraws": 1
+      },
+      "KT": {
+        "wins": 5,
+        "losses": 10,
+        "draws": 0,
+        "homeWins": 3,
+        "homeLosses": 6,
+        "homeDraws": 0,
+        "awayWins": 2,
+        "awayLosses": 4,
+        "awayDraws": 0
+      },
+      "KIA": {
+        "wins": 6,
+        "losses": 7,
+        "draws": 2,
+        "homeWins": 2,
+        "homeLosses": 3,
+        "homeDraws": 1,
+        "awayWins": 4,
+        "awayLosses": 4,
+        "awayDraws": 1
+      },
+      "삼성": {
+        "wins": 4,
+        "losses": 10,
+        "draws": 0,
+        "homeWins": 3,
+        "homeLosses": 3,
+        "homeDraws": 0,
+        "awayWins": 1,
+        "awayLosses": 7,
+        "awayDraws": 0
+      },
+      "NC": {
+        "wins": 5,
+        "losses": 9,
+        "draws": 1,
+        "homeWins": 1,
+        "homeLosses": 4,
+        "homeDraws": 1,
+        "awayWins": 4,
+        "awayLosses": 5,
+        "awayDraws": 0
+      },
+      "두산": {
+        "wins": 4,
+        "losses": 9,
+        "draws": 0,
+        "homeWins": 4,
+        "homeLosses": 5,
+        "homeDraws": 0,
+        "awayWins": 0,
+        "awayLosses": 4,
+        "awayDraws": 0
+      }
+    }
+  },
+  "source": "CLEAN_TXT_AUTOMATION",
+  "dataDate": "2025-09-06"
+}

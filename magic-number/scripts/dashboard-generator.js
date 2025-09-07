@@ -66,7 +66,7 @@ class EnhancedDashboardGenerator {
         };
         
         // JSON 파일로 저장
-        const outputPath = path.join(__dirname, '../data/enhanced-dashboard.json');
+        const outputPath = path.join(__dirname, '../data/dashboard-data.json');
         fs.writeFileSync(outputPath, JSON.stringify(dashboard, null, 2));
         console.log(`📊 Enhanced 대시보드 데이터 생성: ${outputPath}`);
         

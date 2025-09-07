@@ -16,8 +16,8 @@ class WeeklyAnalysisDisplay {
     async loadData() {
         try {
             const [weeklyResponse, recordsResponse] = await Promise.all([
-                fetch('data/weekly-analysis.json'),
-                fetch('data/game-by-game-records.json')
+                fetch('data/analysis-weekly.json'),
+                fetch('data/raw-game-records.json')
             ]);
             
             if (!weeklyResponse.ok) {

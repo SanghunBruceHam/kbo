@@ -541,7 +541,7 @@ class KBODataProcessor {
         try {
             // 1. PathManager를 사용한 안전한 경로로 통합 데이터 저장
             pathManager.ensureDir(pathManager.dataDir);
-            const serviceDataPath = pathManager.getDataFile('service-data.json');
+            const serviceDataPath = pathManager.getDataFile('api-data.json');
             fs.writeFileSync(serviceDataPath, JSON.stringify(serviceData, null, 2));
             console.log(`  ✅ ${serviceDataPath} 저장 완료`);
             
@@ -572,7 +572,7 @@ class KBODataProcessor {
             };
             
             // 3. PathManager를 사용한 안전한 경로로 웹서비스 파일들 생성
-            const rankingsPath = pathManager.getDataFile('kbo-rankings.json');
+            const rankingsPath = pathManager.getDataFile('calc-standings.json');
             fs.writeFileSync(rankingsPath, JSON.stringify(rankingsData, null, 2));
             
             // 상대전적 데이터도 업데이트
@@ -585,10 +585,10 @@ class KBODataProcessor {
                 dataDate: serviceData.dataDate
             };
             
-            const recordsPath = pathManager.getDataFile('kbo-records.json');
+            const recordsPath = pathManager.getDataFile('calc-head-to-head.json');
             fs.writeFileSync(recordsPath, JSON.stringify(recordsData, null, 2));
             
-            // service-data.json은 이미 위에서 저장됨
+            // api-data.json은 이미 위에서 저장됨
             
             console.log(`  ✅ ${rankingsPath} 저장 완료`);
             console.log(`  ✅ ${recordsPath} 저장 완료`);
@@ -679,9 +679,9 @@ class KBODataProcessor {
             console.log(`📊 총 ${parseResult.gameCount}경기 처리`);
             console.log(`📅 최신 데이터: ${parseResult.lastDate}`);
             console.log('📁 생성된 파일:');
-            console.log(`   - ${pathManager.getDataFile('service-data.json')} (통합 웹서비스 데이터)`);
-            console.log(`   - ${pathManager.getDataFile('kbo-rankings.json')} (웹서비스용 순위)`);
-            console.log(`   - ${pathManager.getDataFile('kbo-records.json')} (웹서비스용 상대전적)`);
+            console.log(`   - ${pathManager.getDataFile('api-data.json')} (통합 웹서비스 데이터)`);
+            console.log(`   - ${pathManager.getDataFile('calc-standings.json')} (웹서비스용 순위)`);
+            console.log(`   - ${pathManager.getDataFile('calc-head-to-head.json')} (웹서비스용 상대전적)`);
             
         } catch (error) {
             console.error('\n❌ 처리 중 오류 발생:', error.message);

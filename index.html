@@ -247,13 +247,13 @@
         {
           "@type": "DataDownload",
           "encodingFormat": "application/json",
-          "contentUrl": "https://kbo-dashboard.co.kr/magic-number/data/service-data.json",
+          "contentUrl": "https://kbo-dashboard.co.kr/magic-number/data/api-data.json",
           "description": "메인 순위 및 통계 데이터"
         },
         {
           "@type": "DataDownload", 
           "encodingFormat": "application/json",
-          "contentUrl": "https://kbo-dashboard.co.kr/magic-number/data/enhanced-dashboard.json",
+          "contentUrl": "https://kbo-dashboard.co.kr/magic-number/data/dashboard-data.json",
           "description": "매직넘버 및 확장 대시보드 데이터"
         }
       ],
@@ -5679,7 +5679,7 @@
         // 데이터 정보 업데이트 함수 (header + footer)
         function updateDataInfo(data) {
             try {
-                // enhanced-dashboard.json에서는 updateTime 필드 사용
+                // dashboard-data.json에서는 updateTime 필드 사용
                 const updateTimeField = data?.lastUpdated || data?.updateTime;
                 if (updateTimeField) {
                     const lastUpdated = new Date(updateTimeField);
@@ -5716,7 +5716,7 @@
                 // 상대전적 데이터 로드
                 let recordsData = null;
                 try {
-                    const response = await fetch(`magic-number/data/kbo-records.json?v=${Date.now()}`);
+                    const response = await fetch(`magic-number/data/calc-head-to-head.json?v=${Date.now()}`);
                     recordsData = await response.json();
                 } catch (error) {
                     console.warn('⚠️ 상대전적 데이터 로드 실패, 승률만으로 정렬:', error);
@@ -5793,7 +5793,7 @@
         async function loadDashboardData() {
             try {
                 // 캐시 강제 삭제를 위한 fetch 옵션 추가
-                const response = await fetch(`magic-number/data/enhanced-dashboard.json?v=${Date.now()}`, {
+                const response = await fetch(`magic-number/data/dashboard-data.json?v=${Date.now()}`, {
                     method: 'GET',
                     cache: 'no-store',
                     headers: {
@@ -5809,10 +5809,10 @@
                 
                 dashboardData = await response.json();
                 
-                // enhanced-dashboard.json에서 피타고리안 운 지수 계산 (우선 실행)
+                // dashboard-data.json에서 피타고리안 운 지수 계산 (우선 실행)
                 if (dashboardData.standings) {
                     dashboardData.standings.forEach(team => {
-                        // enhanced-dashboard.json에서 득실점 데이터를 사용해 피타고리안 계산
+                        // dashboard-data.json에서 득실점 데이터를 사용해 피타고리안 계산
                         const runsScored = team.runs_scored || 0;
                         const runsAllowed = team.runs_allowed || 0;
                         
@@ -5841,9 +5841,9 @@
                     });
                 }
                 
-                // service-data.json도 로드하여 recent10, homeRecord, awayRecord 데이터 병합
+                // api-data.json도 로드하여 recent10, homeRecord, awayRecord 데이터 병합
                 try {
-                    const serviceResponse = await fetch(`magic-number/data/service-data.json?v=${Date.now()}`, {
+                    const serviceResponse = await fetch(`magic-number/data/api-data.json?v=${Date.now()}`, {
                         method: 'GET',
                         cache: 'no-store',
                         headers: {
@@ -5854,7 +5854,7 @@
                     });
                     if (serviceResponse.ok) {
                         const serviceData = await serviceResponse.json();
-                        console.log('✅ service-data.json 로드 성공');
+                        console.log('✅ api-data.json 로드 성공');
                         
                         // service-data의 standings 데이터를 dashboardData.standings에 병합
                         if (serviceData.standings && dashboardData.standings) {
@@ -5882,7 +5882,7 @@
                         }
                     }
                 } catch (e) {
-                    console.warn('⚠️ service-data.json 로드 실패:', e);
+                    console.warn('⚠️ api-data.json 로드 실패:', e);
                 }
                 
                 // 승률과 상대전적 기준으로 순위 정렬
@@ -5929,7 +5929,7 @@
                             'Expires': '0'
                         }
                     }),
-                    fetch(`magic-number/data/game-by-game-records.json?v=${Date.now()}`, {
+                    fetch(`magic-number/data/raw-game-records.json?v=${Date.now()}`, {
                         method: 'GET',
                         cache: 'no-store',
                         headers: {
@@ -6078,8 +6078,8 @@
             try {
                 
                 const [weeklyResponse, recordsResponse] = await Promise.all([
-                    fetch(`magic-number/data/weekly-analysis.json?v=${Date.now()}`),
-                    fetch(`magic-number/data/game-by-game-records.json?v=${Date.now()}`)
+                    fetch(`magic-number/data/analysis-weekly.json?v=${Date.now()}`),
+                    fetch(`magic-number/data/raw-game-records.json?v=${Date.now()}`)
                 ]);
                 
                 
@@ -8667,7 +8667,7 @@
                 // 통합된 순위 시스템에서 순위 가져오기
                 const rank = ranking.teamRanks[team.team_name] || 999;
                 
-                // 실제 기록 (enhanced-dashboard.json 필드명 사용)
+                // 실제 기록 (dashboard-data.json 필드명 사용)
                 const actualWins = team.wins || 0;
                 const actualDraws = team.draws || 0;
                 const actualLosses = team.losses || 0;
@@ -8733,7 +8733,7 @@
         // 클러치 상황 전체 분석
         async function renderClutchFullAnalysis() {
             try {
-                const response = await fetch(`magic-number/data/clutch-analysis.json?v=${Date.now()}`);
+                const response = await fetch(`magic-number/data/analysis-clutch.json?v=${Date.now()}`);
                 clutchData = await response.json();
                 
                 const tbody = document.getElementById('clutchBody');
@@ -8791,7 +8791,7 @@
         // 홈/원정 전체 분석
         async function renderHomeAwayFullAnalysis() {
             try {
-                const response = await fetch(`magic-number/data/home-away-analysis.json?v=${Date.now()}`);
+                const response = await fetch(`magic-number/data/analysis-home-away.json?v=${Date.now()}`);
                 const homeAwayData = await response.json();
                 
                 const tbody = document.getElementById('homeAwayBody');
@@ -8877,13 +8877,13 @@
         async function renderHeadToHeadMatrix() {
             const container = document.getElementById('matrixContent');
             
-            // kbo-records.json 데이터 로드
+            // calc-head-to-head.json 데이터 로드
             let recordsData = null;
             try {
-                const response = await fetch(`magic-number/data/kbo-records.json?v=${Date.now()}`);
+                const response = await fetch(`magic-number/data/calc-head-to-head.json?v=${Date.now()}`);
                 recordsData = await response.json();
             } catch (error) {
-                console.error('❌ kbo-records.json 로드 실패:', error);
+                console.error('❌ calc-head-to-head.json 로드 실패:', error);
             }
             
             // 종합 순위 기준 팀 순서 사용 (KBO 규정 동률 처리 반영)
@@ -8917,13 +8917,13 @@
         async function renderRemainingGamesMatrix() {
             const container = document.getElementById('remainingGamesContent');
             
-            // kbo-records.json 데이터 로드
+            // calc-head-to-head.json 데이터 로드
             let recordsData = null;
             try {
-                const response = await fetch(`magic-number/data/kbo-records.json?v=${Date.now()}`);
+                const response = await fetch(`magic-number/data/calc-head-to-head.json?v=${Date.now()}`);
                 recordsData = await response.json();
             } catch (error) {
-                console.error('❌ 잔여경기수용 kbo-records.json 로드 실패:', error);
+                console.error('❌ 잔여경기수용 calc-head-to-head.json 로드 실패:', error);
             }
             
             // 종합 순위 기준 팀 순서 사용 (KBO 규정 동률 처리 반영)
@@ -8953,13 +8953,13 @@
             container.innerHTML = html;
         }
         
-        // 매트릭스 셀 렌더링 함수 (kbo-records.json 데이터 사용)
+        // 매트릭스 셀 렌더링 함수 (calc-head-to-head.json 데이터 사용)
         function renderMatrixCell(team1, team2, recordsData) {
             if (team1 === team2) {
                 return '<td style="background: #ecf0f1; color: #999; font-weight: var(--font-weight-semibold); font-size: var(--font-xl);">-</td>';
             }
             
-            // kbo-records.json에서 데이터 찾기
+            // calc-head-to-head.json에서 데이터 찾기
             if (recordsData && recordsData.totalData && recordsData.totalData[team1] && recordsData.totalData[team1][team2]) {
                 const record = recordsData.totalData[team1][team2];
                 
@@ -10511,7 +10511,7 @@
         // 시리즈 분석 데이터 로드
         async function loadSeriesAnalysisData() {
             try {
-                const response = await fetch(`magic-number/data/series-analysis.json?v=${Date.now()}`);
+                const response = await fetch(`magic-number/data/analysis-series.json?v=${Date.now()}`);
                 const seriesData = await response.json();
                 renderSeriesAnalysis(seriesData);
             } catch (error) {
@@ -14126,14 +14126,14 @@ KT 9:1 키움(H)`;
         // root index용 데이터 경로 수정
         const originalFetch = window.fetch;
         window.fetch = function(url, ...args) {
-            if (url === 'data/game-by-game-records.json') {
+            if (url === 'data/raw-game-records.json') {
                 // magic-number 폴더 경로로 변경
-                url = 'magic-number/data/game-by-game-records.json';
+                url = 'magic-number/data/raw-game-records.json';
             }
             return originalFetch(url, ...args);
         };
     </script>
-    <script src="magic-number/scripts/simple-chart.js"></script>
+    <script src="magic-number/scripts/ui-charts.js"></script>
 
     <!-- ROOT INDEX 메인 승률 추이 카드 관련 스크립트 (일별통계 섹션과는 별개) -->
     <script>
@@ -15018,7 +15018,7 @@ KT 9:1 키움(H)`;
             // 독립적으로 데이터 로드
             let chartData = null;
             try {
-                const response = await fetch(`magic-number/data/enhanced-dashboard.json?v=${Date.now()}`);
+                const response = await fetch(`magic-number/data/dashboard-data.json?v=${Date.now()}`);
                 if (response.ok) {
                     const data = await response.json();
                     if (data.history && data.history.length > 0) {
@@ -15102,24 +15102,24 @@ KT 9:1 키움(H)`;
             try {
                 console.log('📊 전반기/후반기 성적 업데이트 시작...');
                 
-                // enhanced-dashboard.json을 메인으로 사용 (streakAnalysis 포함)
+                // dashboard-data.json을 메인으로 사용 (streakAnalysis 포함)
                 let kboData = null;
                 let serviceData = null;
                 
                 try {
-                    // enhanced-dashboard.json 로드 (streakAnalysis 포함)
-                    const enhancedResponse = await fetch(`magic-number/data/enhanced-dashboard.json?v=${Date.now()}`);
+                    // dashboard-data.json 로드 (streakAnalysis 포함)
+                    const enhancedResponse = await fetch(`magic-number/data/dashboard-data.json?v=${Date.now()}`);
                     if (enhancedResponse.ok) {
                         kboData = await enhancedResponse.json();
-                        console.log('✅ enhanced-dashboard.json 로드 성공');
+                        console.log('✅ dashboard-data.json 로드 성공');
                     }
                 } catch (e) {
-                    console.error('❌ enhanced-dashboard.json 로드 실패:', e);
+                    console.error('❌ dashboard-data.json 로드 실패:', e);
                 }
                 
-                // service-data.json도 로드 시도 (백업용)
+                // api-data.json도 로드 시도 (백업용)
                 try {
-                    const serviceResponse = await fetch(`magic-number/data/service-data.json?v=${Date.now()}`, {
+                    const serviceResponse = await fetch(`magic-number/data/api-data.json?v=${Date.now()}`, {
                         method: 'GET',
                         cache: 'no-store',
                         headers: {
@@ -15130,7 +15130,7 @@ KT 9:1 키움(H)`;
                     });
                     if (serviceResponse.ok) {
                         serviceData = await serviceResponse.json();
-                        console.log('✅ service-data.json 로드 성공');
+                        console.log('✅ api-data.json 로드 성공');
                         
                         // kboData가 없으면 service-data 사용
                         if (!kboData) {
@@ -15138,7 +15138,7 @@ KT 9:1 키움(H)`;
                         }
                     }
                 } catch (e) {
-                    console.warn('⚠️ service-data.json 로드 실패');
+                    console.warn('⚠️ api-data.json 로드 실패');
                 }
                 
                 if (!kboData || !kboData.standings) {
@@ -15391,7 +15391,7 @@ KT 9:1 키움(H)`;
             for (const [index, team] of sortedStandings.entries()) {
                 try {
                     // 실제 시즌 데이터에서 전반기/후반기 성적 계산
-                    // enhanced-dashboard.json은 team_name, service-data.json은 team 사용
+                    // dashboard-data.json은 team_name, api-data.json은 team 사용
                     const teamName = team.team_name || team.team;
                     let actualRecord = await calculateActualHalfSeasonRecord(teamName);
                     
@@ -15443,7 +15443,7 @@ KT 9:1 키움(H)`;
                         secondHalfWins / (secondHalfWins + secondHalfLosses) : 0;
                     
                 
-                    // enhanced-dashboard.json 또는 service-data.json에서 실제 연속 기록 데이터 가져오기
+                    // dashboard-data.json 또는 api-data.json에서 실제 연속 기록 데이터 가져오기
                     const streakData = window.kboData?.streakAnalysis?.find(s => s.team_name === teamName);
                     const actualMaxWinStreak = streakData?.max_win_streak || 5; // 기본값 5
                     const actualMaxLoseStreak = streakData?.max_lose_streak || 5; // 기본값 5

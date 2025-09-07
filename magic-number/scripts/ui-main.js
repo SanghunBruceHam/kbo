@@ -285,10 +285,10 @@ const kboTeams = {
             },
             
             
-            // 승수 기준 매직넘버 가져오기 (magic-matrix-data.json에서)
+            // 승수 기준 매직넘버 가져오기 (calc-magic-numbers.json에서)
             getWinsBasedMagicNumber(team) {
                 try {
-                    // magic-matrix-data.json에서 해당 팀의 매직넘버 찾기
+                    // calc-magic-numbers.json에서 해당 팀의 매직넘버 찾기
                     if (window.magicMatrixData && window.magicMatrixData.results) {
                         const teamResult = window.magicMatrixData.results.find(t => t.team === team.team);
                         if (teamResult) {
@@ -402,7 +402,7 @@ const kboTeams = {
                 // 상대전적 데이터 로드
                 let recordsData = null;
                 try {
-                    const response = await fetch(`data/kbo-records.json?v=${Date.now()}`);
+                    const response = await fetch(`data/calc-head-to-head.json?v=${Date.now()}`);
                     recordsData = await response.json();
                 } catch (error) {
                     logger.warn('⚠️ 상대전적 데이터 로드 실패, 승률만으로 정렬:', error);
@@ -447,8 +447,8 @@ const kboTeams = {
         // 데이터 로딩 함수
         async function loadKBOData() {
             try {
-                const dataUrl = `data/service-data.json?v=${Date.now()}`;
-                // service-data.json 하나만 사용 (중복 제거)
+                const dataUrl = `data/api-data.json?v=${Date.now()}`;
+                // api-data.json 하나만 사용 (중복 제거)
                 const response = await fetch(dataUrl, {
                     cache: 'no-cache',
                     headers: {
@@ -542,13 +542,13 @@ const kboTeams = {
         // 상대전적 데이터 로딩 함수
         async function loadHeadToHeadData() {
             try {
-                const response = await fetch(`data/kbo-records.json?v=${Date.now()}`);
+                const response = await fetch(`data/calc-head-to-head.json?v=${Date.now()}`);
                 
                 if (response.ok) {
                     const data = await response.json();
                     
                     if (data && data.totalData) {
-                        // kbo-records.json 형식을 headToHeadData 형식으로 변환
+                        // calc-head-to-head.json 형식을 headToHeadData 형식으로 변환
                         headToHeadData = {};
                         
                         for (const [team1, opponents] of Object.entries(data.totalData)) {
@@ -616,7 +616,7 @@ const kboTeams = {
             const magicNumber = calculateMagicNumber(firstPlace, secondPlace);
             document.getElementById('first-place-magic').textContent = `매직넘버: ${magicNumber > 0 ? magicNumber : '확정'}`;
 
-            // 플레이오프 확정 팀 수 (magic-matrix-data.json에서 계산됨)
+            // 플레이오프 확정 팀 수 (calc-magic-numbers.json에서 계산됨)
             let playoffConfirmedCount = 0;
             if (window.magicMatrixData && window.magicMatrixData.playoffResults) {
                 playoffConfirmedCount = window.magicMatrixData.playoffResults.filter(p => p.playoffMagicStrict === 0 && p.playoffTragicStrict > 0).length;
@@ -1249,7 +1249,7 @@ const kboTeams = {
         }
 
         function calculateMagicNumber(firstPlace, secondPlace) {
-            // service-data.json의 매직넘버 사용
+            // api-data.json의 매직넘버 사용
             const magicNumbers = currentKBOData?.magicNumbers || {};
             const teamMagicData = magicNumbers[firstPlace.team];
             return teamMagicData ? teamMagicData.championship : 0;
@@ -1366,7 +1366,7 @@ const kboTeams = {
             const maxPossibleWins = firstPlace.wins + remainingGames;
             const magicNumber = calculateMagicNumber(firstPlace, secondPlace);
             
-            // 우승 가능 최소 승수 계산 (service-data.json의 정확한 계산 사용)
+            // 우승 가능 최소 승수 계산 (api-data.json의 정확한 계산 사용)
             const magicNumbers = currentKBOData?.magicNumbers || {};
             const teamMagicData = magicNumbers[firstPlace.team];
             const minWinsNeeded = firstPlace.wins + (teamMagicData ? teamMagicData.championship : 0);
@@ -1533,7 +1533,7 @@ const kboTeams = {
                 }
                 tbody.innerHTML = '';
 
-                // magic-matrix-data.json에서 데이터 가져오기
+                // calc-magic-numbers.json에서 데이터 가져오기
                 if (!window.magicMatrixData || !window.magicMatrixData.playoffResults) {
                     console.warn('매직넘버 데이터가 없습니다');
                     tbody.innerHTML = '<tr><td colspan="12" style="text-align: center; color: #999; padding: 20px;">데이터 로딩 중...</td></tr>';
@@ -1691,7 +1691,7 @@ const kboTeams = {
                 const maxPossibleWins = team.wins + remainingGames;
                 
                 
-                // magic-matrix-data.json에서 생성된 플레이오프 데이터 가져오기
+                // calc-magic-numbers.json에서 생성된 플레이오프 데이터 가져오기
                 let poMagicNumber = '-';
                 let poTragicNumber = '-';
                 let maxWinsMagicDisplay = '-';
@@ -2429,10 +2429,10 @@ const kboTeams = {
             await initializeApp();
         }
         
-        // magic-matrix-data.json 로드
+        // calc-magic-numbers.json 로드
         async function loadMagicMatrixData() {
             try {
-                const response = await fetch(`./data/magic-matrix-data.json?v=${Date.now()}`);
+                const response = await fetch(`./data/calc-magic-numbers.json?v=${Date.now()}`);
                 if (response.ok) {
                     window.magicMatrixData = await response.json();
                     logger.log('✅ 승수 기준 매직넘버 데이터 로드 완료');

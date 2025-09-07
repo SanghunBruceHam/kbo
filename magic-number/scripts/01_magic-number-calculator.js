@@ -3,13 +3,13 @@ const path = require('path');
 
 const MAGIC_NUMBER_DIR = path.resolve(__dirname, '..');
 const DATA_DIR = path.join(MAGIC_NUMBER_DIR, 'data');
-const SERVICE_DATA_PATH = path.join(DATA_DIR, 'service-data.json');
+const SERVICE_DATA_PATH = path.join(DATA_DIR, 'api-data.json');
 
 function loadServiceData() {
     try {
         return JSON.parse(fs.readFileSync(SERVICE_DATA_PATH, 'utf8'));
     } catch (error) {
-        console.error('❌ service-data.json 파일을 읽을 수 없습니다:', error.message);
+        console.error('❌ api-data.json 파일을 읽을 수 없습니다:', error.message);
         process.exit(1);
     }
 }
@@ -329,7 +329,7 @@ function calculateMagicNumbers(serviceData) {
         rankingMagicData: rankingMagicData
     };
     
-    const outputPath = path.join(DATA_DIR, 'magic-matrix-data.json');
+    const outputPath = path.join(DATA_DIR, 'calc-magic-numbers.json');
     fs.writeFileSync(outputPath, JSON.stringify(matrixData, null, 2), 'utf8');
     console.log(`✅ 매직넘버 매트릭스 데이터 저장: ${outputPath}`);
     
