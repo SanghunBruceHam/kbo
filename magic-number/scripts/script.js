@@ -1536,7 +1536,7 @@ const kboTeams = {
                 // magic-matrix-data.json에서 데이터 가져오기
                 if (!window.magicMatrixData || !window.magicMatrixData.playoffResults) {
                     console.warn('매직넘버 데이터가 없습니다');
-                    tbody.innerHTML = '<tr><td colspan="11" style="text-align: center; color: #999; padding: 20px;">데이터 로딩 중...</td></tr>';
+                    tbody.innerHTML = '<tr><td colspan="12" style="text-align: center; color: #999; padding: 20px;">데이터 로딩 중...</td></tr>';
                     return;
                 }
 
@@ -1555,6 +1555,7 @@ const kboTeams = {
                     const firstPlaceTeam = chaseData[0];
                     const gameDifference = firstPlaceTeam.wins - team.wins;
                     const maxPossibleWins = team.wins + team.remainingGames;
+                    const maxPossibleWinRate = (maxPossibleWins / (maxPossibleWins + team.losses)).toFixed(3);
                     
                     // 역대 1위 기준 (87승) 계산
                     const targetWins = 87;
@@ -1633,7 +1634,8 @@ const kboTeams = {
                         <td>${displayGameDiff}</td>
                         <td>${team.remainingGames}</td>
                         <td>${maxPossibleWins}</td>
-                        <td><span class="${getColorClass(magicText)}">${magicText}</span></td>
+                        <td>${maxPossibleWinRate}</td>
+                        <td><span class="${getColorClass(magicText, true)}">${magicText}</span></td>
                         <td><span class="${getColorClass(tragicText)}">${tragicText}</span></td>
                         <td><span class="${getColorClass(status)}">${status}</span></td>
                         <td><span class="${getColorClass(winRateText)}">${winRateText}</span></td>
@@ -1648,7 +1650,7 @@ const kboTeams = {
                 handleError(error, '1위 탈환 가능성 렌더링 실패');
                 const tbody = document.querySelector('#chase-table tbody');
                 if (tbody) {
-                    tbody.innerHTML = '<tr><td colspan="11" style="text-align: center; color: #999; padding: 20px;">테이블 구조만 표시</td></tr>';
+                    tbody.innerHTML = '<tr><td colspan="12" style="text-align: center; color: #999; padding: 20px;">테이블 구조만 표시</td></tr>';
                 }
             }
         }
@@ -1707,7 +1709,7 @@ const kboTeams = {
                         } else if (poTragicNumber === 0) {
                             maxWinsMagicDisplay = '<span style="color: #e74c3c;">탈락</span>';
                         } else if (remainingGames < poMagicNumber) {
-                            maxWinsMagicDisplay = `${poMagicNumber} (자력진출 불가)`;
+                            maxWinsMagicDisplay = `${poMagicNumber} (자력 불가)`;
                         } else {
                             maxWinsMagicDisplay = poMagicNumber;
                         }
@@ -1809,7 +1811,7 @@ const kboTeams = {
                 } else if (poTragicNumber === 0) {
                     poRequiredWinPct = '<span style="color: #e74c3c;">탈락</span>';
                 } else if (remainingGames < poMagicNumber) {
-                    poRequiredWinPct = '자력 진출 불가';
+                    poRequiredWinPct = '자력 불가';
                 } else if (poMagicNumber !== '-' && poMagicNumber > 0 && remainingGames > 0) {
                     const requiredRate = poMagicNumber / remainingGames;
                     poRequiredWinPct = requiredRate.toFixed(3);
@@ -1827,8 +1829,14 @@ const kboTeams = {
                     historicPlayoffRequiredWinPct = historicPlayoffRequiredRate.toFixed(3);
                 }
                 
+                // PO 매직넘버가 0인 팀 (플레이오프 확정팀)에게 팀 컬러 클래스 적용
+                if (poMagicNumber === 0) {
+                    const teamNameLower = team.team.toLowerCase();
+                    row.className = `playoff-confirmed-${teamNameLower}`;
+                }
+                
                 row.innerHTML = `
-                    <td>${team.displayRank}위</td>
+                    <td>${team.displayRank}</td>
                     <td class="team-name">${teamNameWithLogo}</td>
                     <td>${team.wins}</td>
                     <td>${remainingGames}</td>

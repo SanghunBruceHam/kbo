@@ -882,6 +882,67 @@ table th {
     font-weight: 600;
 }
 
+/* 1위 탈환 테이블의 우승 매직넘버 컬럼 (8번째 컬럼) - 1위팀 제외하고 일반 굵기 */
+#chase-table tbody tr:not(.first-place-row) td:nth-child(8) {
+    font-weight: normal !important;
+}
+
+/* 플레이오프 진출 조건 테이블 기본 텍스트 색상 검은색 */
+#playoff-table td {
+    color: #000 !important;
+}
+
+/* 플레이오프 확정 팀 (PO 매직넘버 0) - 팀 컬러로 표시 (모든 하위 요소 포함) */
+#playoff-table .playoff-confirmed-hanwha td,
+#playoff-table .playoff-confirmed-hanwha td span { color: #FF6600 !important; font-weight: 600 !important; }
+#playoff-table .playoff-confirmed-lg td,
+#playoff-table .playoff-confirmed-lg td span { color: #C50E2E !important; font-weight: 600 !important; }
+#playoff-table .playoff-confirmed-doosan td,
+#playoff-table .playoff-confirmed-doosan td span { color: #131230 !important; font-weight: 600 !important; }
+#playoff-table .playoff-confirmed-samsung td,
+#playoff-table .playoff-confirmed-samsung td span { color: #1F4E8C !important; font-weight: 600 !important; }
+#playoff-table .playoff-confirmed-kia td,
+#playoff-table .playoff-confirmed-kia td span { color: #EA0029 !important; font-weight: 600 !important; }
+#playoff-table .playoff-confirmed-ssg td,
+#playoff-table .playoff-confirmed-ssg td span { color: #CE0E2D !important; font-weight: 600 !important; }
+#playoff-table .playoff-confirmed-lotte td,
+#playoff-table .playoff-confirmed-lotte td span { color: #041E42 !important; font-weight: 600 !important; }
+#playoff-table .playoff-confirmed-nc td,
+#playoff-table .playoff-confirmed-nc td span { color: #315288 !important; font-weight: 600 !important; }
+#playoff-table .playoff-confirmed-kiwoom td,
+#playoff-table .playoff-confirmed-kiwoom td span { color: #570514 !important; font-weight: 600 !important; }
+#playoff-table .playoff-confirmed-kt td,
+#playoff-table .playoff-confirmed-kt td span { color: #333333 !important; font-weight: 600 !important; }
+
+/* 플레이오프 진출 조건 테이블 1~5위 팀 전체 박스 */
+#playoff-table tbody tr:nth-child(-n+5) {
+    background-color: rgba(79, 70, 229, 0.02);
+}
+
+#playoff-table tbody tr:nth-child(1) {
+    border-top: 2px solid #4F46E5;
+    border-left: 2px solid #4F46E5;
+    border-right: 2px solid #4F46E5;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+}
+
+#playoff-table tbody tr:nth-child(2),
+#playoff-table tbody tr:nth-child(3),
+#playoff-table tbody tr:nth-child(4) {
+    border-left: 2px solid #4F46E5;
+    border-right: 2px solid #4F46E5;
+}
+
+#playoff-table tbody tr:nth-child(5) {
+    border-bottom: 2px solid #4F46E5;
+    border-left: 2px solid #4F46E5;
+    border-right: 2px solid #4F46E5;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    box-shadow: 0 2px 8px rgba(79, 70, 229, 0.15);
+}
+
 /* 팀 색상 클래스들 */
 .team-hanwha { color: #FF6600 !important; font-weight: 600; }
 .team-lg { color: #C50E2E !important; font-weight: 600; }
@@ -2002,7 +2063,7 @@ input, textarea, select, button {
 🎯 관리 대상 테이블:
    ✅ #standings-table (팀 순위표) - 15개 컬럼
    ✅ #playoff-table (플레이오프 진출 조건) - 9개 컬럼  
-   ✅ #chase-table (1위 탈환 가능성) - 11개 컬럼
+   ✅ #chase-table (1위 탈환 가능성) - 12개 컬럼
 
 📐 통합 컬럼 크기 시스템:
    📱 768px 이하: 순위 20px, 팀명 35px (총 55px)
