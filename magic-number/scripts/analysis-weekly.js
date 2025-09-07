@@ -356,7 +356,9 @@ class WeeklyAnalyzer {
         const result = {
             lastUpdated: new Date().toISOString(),
             updateDate: new Date().toLocaleDateString('ko-KR'),
-            seasonStart: this.seasonStart.toISOString(),
+            seasonStart: this.seasonStart && this.seasonStart instanceof Date && !isNaN(this.seasonStart) 
+                ? this.seasonStart.toISOString() 
+                : new Date('2025-03-22').toISOString(),
             currentWeek: this.currentWeek,
             weeklyAnalysis: this.weeklyData
         };

@@ -41,7 +41,7 @@ class RawGameRecordsGenerator {
                 const homeGameNumber = teamGameRecords[homeTeam].games.length + 1;
                 teamGameRecords[homeTeam].games.push({
                     gameNumber: homeGameNumber,
-                    date: game.game_date,
+                    date: game.date,
                     opponent: awayTeam,
                     isHome: true,
                     score: `${homeScore}:${awayScore}`,
@@ -54,7 +54,7 @@ class RawGameRecordsGenerator {
                 const awayGameNumber = teamGameRecords[awayTeam].games.length + 1;
                 teamGameRecords[awayTeam].games.push({
                     gameNumber: awayGameNumber,
-                    date: game.game_date,
+                    date: game.date,
                     opponent: homeTeam,
                     isHome: false,
                     score: `${awayScore}:${homeScore}`,
