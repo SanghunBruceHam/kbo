@@ -5426,6 +5426,8 @@
         let gameRecordsData = null;
         let futureScheduleData = null;
         let currentSelectedTeam = '전체';
+        let currentOpponentFilter = 'all';
+        let currentVenueFilter = 'all';
         
         // 승률에 따른 0.5 기준 그라데이션 함수
         function getWinRateClass(winRate) {
@@ -7205,6 +7207,24 @@
                     <div class="detailed-games-section" style="margin-top: 5px;">
                         <h3 style="text-align: center; margin: 5px 0 5px 0; color: #2d3748; font-size: var(--font-xl); font-weight: var(--font-weight-semibold);">📋 팀별 게임 기록 및 일정</h3>
                         
+                        <!-- 팀별 필터 옵션 -->
+                        <div class="team-filters" style="display: flex; justify-content: center; gap: 15px; margin-bottom: 10px; flex-wrap: wrap;">
+                            <div class="filter-group">
+                                <label style="font-size: var(--font-sm); color: #495057; font-weight: var(--font-weight-medium);">상대팀:</label>
+                                <select id="opponentFilter" onchange="applyTeamFilters()" style="margin-left: 5px; padding: 4px 8px; border: 1px solid #ddd; border-radius: 4px; font-size: var(--font-sm);">
+                                    <option value="all">전체 상대팀</option>
+                                </select>
+                            </div>
+                            <div class="filter-group">
+                                <label style="font-size: var(--font-sm); color: #495057; font-weight: var(--font-weight-medium);">홈/원정:</label>
+                                <div style="margin-left: 5px; display: inline-flex; background: #f8f9fa; border-radius: 5px; border: 1px solid #ddd; overflow: hidden;">
+                                    <button id="venueAll" onclick="setVenueFilter('all')" style="padding: 4px 10px; border: none; background: #495057; color: white; font-size: var(--font-sm); cursor: pointer;">전체</button>
+                                    <button id="venueHome" onclick="setVenueFilter('home')" style="padding: 4px 10px; border: none; background: transparent; color: #666; font-size: var(--font-sm); cursor: pointer;">홈</button>
+                                    <button id="venueAway" onclick="setVenueFilter('away')" style="padding: 4px 10px; border: none; background: transparent; color: #666; font-size: var(--font-sm); cursor: pointer;">원정</button>
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- 팀별 월별 탭 (동적으로 생성됨) -->
                         <div class="team-month-tabs" id="team-month-tabs-container" style="text-align: center; margin-bottom: 8px; display: none;"></div>
                         
@@ -7415,6 +7435,8 @@
             // 정렬 기능 초기화
             if (currentSelectedTeam !== '전체' && gameRecordsData[currentSelectedTeam]) {
                 initializeDetailedTableSorting();
+                // 필터 초기화
+                initializeTeamFilters();
             }
             
             // 최적화된 테이블 렌더링 후 자동 스크롤
@@ -16024,6 +16046,159 @@ KT 9:1 키움(H)`;
                     });
                 });
             }
+        }
+
+        // 팀별 필터 초기화 함수
+        function initializeTeamFilters() {
+            if (currentSelectedTeam === '전체') return;
+            
+            // 상대팀 필터 옵션 생성
+            const opponentSelect = document.getElementById('opponentFilter');
+            if (!opponentSelect) return;
+            
+            opponentSelect.innerHTML = '<option value="all">전체 상대팀</option>';
+            
+            // dashboardData에서 headToHead 정보 확인
+            console.log('dashboardData:', dashboardData);
+            console.log('currentSelectedTeam:', currentSelectedTeam);
+            
+            if (dashboardData?.headToHead && dashboardData.headToHead[currentSelectedTeam]) {
+                // 현재 팀의 상대전적 데이터에서 상대팀 목록 추출
+                const opponents = Object.keys(dashboardData.headToHead[currentSelectedTeam]);
+                
+                // 순위별로 정렬
+                const rankingSystem = getRankingSystem();
+                const rankedTeams = rankingSystem.teams;
+                const sortedOpponents = opponents.sort((a, b) => {
+                    const rankA = rankedTeams.indexOf(a);
+                    const rankB = rankedTeams.indexOf(b);
+                    return rankA - rankB;
+                });
+                
+                console.log('opponents found (ranked):', sortedOpponents);
+                
+                sortedOpponents.forEach((opponent, index) => {
+                    const rank = rankedTeams.indexOf(opponent) + 1;
+                    opponentSelect.innerHTML += `<option value="${opponent}">${rank}위 ${opponent}</option>`;
+                });
+            } else {
+                // 백업: gameRecordsData에서 상대팀 추출
+                if (gameRecordsData && gameRecordsData[currentSelectedTeam]) {
+                    const gameOpponents = new Set();
+                    gameRecordsData[currentSelectedTeam].games.forEach(game => {
+                        if (game.opponent) gameOpponents.add(game.opponent);
+                    });
+                    const opponents = Array.from(gameOpponents);
+                    
+                    // 순위별로 정렬
+                    const rankingSystem = getRankingSystem();
+                    const rankedTeams = rankingSystem.teams;
+                    const sortedOpponents = opponents.sort((a, b) => {
+                        const rankA = rankedTeams.indexOf(a);
+                        const rankB = rankedTeams.indexOf(b);
+                        return rankA - rankB;
+                    });
+                    
+                    console.log('opponents from gameRecords (ranked):', sortedOpponents);
+                    
+                    sortedOpponents.forEach((opponent, index) => {
+                        const rank = rankedTeams.indexOf(opponent) + 1;
+                        opponentSelect.innerHTML += `<option value="${opponent}">${rank}위 ${opponent}</option>`;
+                    });
+                }
+            }
+            
+            // 필터 상태 초기화
+            currentOpponentFilter = 'all';
+            currentVenueFilter = 'all';
+            updateVenueFilterButtons();
+        }
+
+        // 상대팀 필터 및 홈/원정 필터 적용 함수
+        function applyTeamFilters() {
+            if (currentSelectedTeam === '전체') return;
+            
+            const opponentFilter = document.getElementById('opponentFilter')?.value || 'all';
+            currentOpponentFilter = opponentFilter;
+            
+            const tbody = document.getElementById('detailedGameTableBody');
+            if (!tbody) return;
+            
+            const rows = tbody.querySelectorAll('tr');
+            let visibleCount = 0;
+            
+            rows.forEach(row => {
+                if (row.style.backgroundColor && row.style.backgroundColor.includes('233, 236, 239')) {
+                    // 구분선 행은 항상 표시
+                    row.style.display = '';
+                    return;
+                }
+                
+                let shouldShow = true;
+                
+                // 상대팀 필터
+                if (currentOpponentFilter !== 'all') {
+                    const opponentCell = row.querySelector('.opponent-cell');
+                    if (opponentCell) {
+                        // innerHTML에서 팀명 추출 (로고 제거)
+                        const tempDiv = document.createElement('div');
+                        tempDiv.innerHTML = opponentCell.innerHTML;
+                        const teamName = tempDiv.textContent.trim();
+                        
+                        console.log('Filtering opponent:', teamName, 'vs filter:', currentOpponentFilter);
+                        if (teamName !== currentOpponentFilter) {
+                            shouldShow = false;
+                        }
+                    }
+                }
+                
+                // 홈/원정 필터
+                if (currentVenueFilter !== 'all') {
+                    const venueCell = row.querySelector('.venue-cell');
+                    if (venueCell) {
+                        const venueText = venueCell.textContent.trim();
+                        if (currentVenueFilter === 'home' && venueText !== '홈') {
+                            shouldShow = false;
+                        } else if (currentVenueFilter === 'away' && venueText !== '원정') {
+                            shouldShow = false;
+                        }
+                    }
+                }
+                
+                row.style.display = shouldShow ? '' : 'none';
+                if (shouldShow) visibleCount++;
+            });
+            
+            // 통계 업데이트
+            updateFilteredStats(visibleCount);
+        }
+
+        // 홈/원정 필터 설정 함수
+        function setVenueFilter(filter) {
+            currentVenueFilter = filter;
+            updateVenueFilterButtons();
+            applyTeamFilters();
+        }
+
+        // 홈/원정 필터 버튼 상태 업데이트
+        function updateVenueFilterButtons() {
+            const buttons = ['venueAll', 'venueHome', 'venueAway'];
+            const filters = ['all', 'home', 'away'];
+            
+            buttons.forEach((buttonId, index) => {
+                const button = document.getElementById(buttonId);
+                if (button) {
+                    const isActive = currentVenueFilter === filters[index];
+                    button.style.background = isActive ? '#495057' : 'transparent';
+                    button.style.color = isActive ? 'white' : '#666';
+                }
+            });
+        }
+
+        // 필터링된 통계 업데이트 (선택사항)
+        function updateFilteredStats(visibleCount) {
+            // 필요시 필터링된 경기 수에 따른 통계 업데이트
+            // 현재는 기본 구현만 제공
         }
 
         function scrollAllGamesToRecentDate(teamContent, isTeamTab = false) {
