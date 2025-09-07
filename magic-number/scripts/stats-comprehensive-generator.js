@@ -553,23 +553,98 @@ class EnhancedDashboardGenerator {
 
     getStreakAnalysis() {
         try {
-            const statsPath = path.join(__dirname, '../data/2025-team-stats.json');
-            if (fs.existsSync(statsPath)) {
-                const stats = JSON.parse(fs.readFileSync(statsPath, 'utf8'));
-                return Object.values(stats).map(team => ({
-                    team_name: team.team_name,
-                    current_streak: team.current_streak || '-',
-                    max_win_streak: team.max_win_streak || 0,
-                    max_lose_streak: team.max_lose_streak || 0,
-                    streak_status: team.current_streak ? 
-                        (team.current_streak.includes('W') ? '연승 중' : 
-                         team.current_streak.includes('L') ? '연패 중' : '무승부') : '-'
-                }));
+            // raw-game-records.json에서 직접 연승/연패 계산
+            const rawPath = path.join(__dirname, '../data/raw-game-records.json');
+            if (fs.existsSync(rawPath)) {
+                const rawData = JSON.parse(fs.readFileSync(rawPath, 'utf8'));
+                
+                return this.teams.map(teamName => {
+                    const teamGames = rawData[teamName]?.games || [];
+                    
+                    // 날짜순으로 정렬
+                    const sortedGames = teamGames
+                        .filter(g => g.date && (g.result === 'W' || g.result === 'L'))
+                        .sort((a, b) => new Date(a.date) - new Date(b.date));
+                    
+                    let maxWinStreak = 0;
+                    let maxLoseStreak = 0;
+                    let currentStreak = 0;
+                    let currentType = null;
+                    let lastResult = null;
+                    
+                    // 최대 연승/연패 계산
+                    sortedGames.forEach(game => {
+                        if (game.result === lastResult) {
+                            currentStreak++;
+                        } else {
+                            // 연속 기록 종료, 최대값 업데이트
+                            if (lastResult === 'W') {
+                                maxWinStreak = Math.max(maxWinStreak, currentStreak);
+                            } else if (lastResult === 'L') {
+                                maxLoseStreak = Math.max(maxLoseStreak, currentStreak);
+                            }
+                            
+                            // 새로운 연속 시작
+                            currentStreak = 1;
+                            lastResult = game.result;
+                        }
+                    });
+                    
+                    // 마지막 연속 기록 처리
+                    if (lastResult === 'W') {
+                        maxWinStreak = Math.max(maxWinStreak, currentStreak);
+                    } else if (lastResult === 'L') {
+                        maxLoseStreak = Math.max(maxLoseStreak, currentStreak);
+                    }
+                    
+                    // 현재 연속 상태 계산
+                    let currentStreakDisplay = '-';
+                    if (sortedGames.length > 0) {
+                        const recentGames = sortedGames.slice(-10); // 최근 10경기
+                        let recentStreak = 0;
+                        let recentType = null;
+                        
+                        // 뒤에서부터 같은 결과 카운트
+                        for (let i = recentGames.length - 1; i >= 0; i--) {
+                            if (recentType === null) {
+                                recentType = recentGames[i].result;
+                                recentStreak = 1;
+                            } else if (recentGames[i].result === recentType) {
+                                recentStreak++;
+                            } else {
+                                break;
+                            }
+                        }
+                        
+                        if (recentType) {
+                            currentStreakDisplay = `${recentStreak}${recentType}`;
+                        }
+                    }
+                    
+                    console.log(`✅ ${teamName} 연속기록 계산: 최대연승 ${maxWinStreak}, 최대연패 ${maxLoseStreak}, 현재 ${currentStreakDisplay}`);
+                    
+                    return {
+                        team_name: teamName,
+                        current_streak: currentStreakDisplay,
+                        max_win_streak: maxWinStreak,
+                        max_lose_streak: maxLoseStreak,
+                        streak_status: currentStreakDisplay.includes('W') ? '연승 중' : 
+                                     currentStreakDisplay.includes('L') ? '연패 중' : '-'
+                    };
+                });
             }
         } catch (e) {
-            console.log('연승/연패 데이터 없음');
+            console.error('연승/연패 데이터 계산 오류:', e.message);
         }
-        return [];
+        
+        // fallback: 빈 데이터 반환
+        return this.teams.map(teamName => ({
+            team_name: teamName,
+            current_streak: '-',
+            max_win_streak: 0,
+            max_lose_streak: 0,
+            streak_status: '-'
+        }));
     }
 
     getRunAnalysis() {

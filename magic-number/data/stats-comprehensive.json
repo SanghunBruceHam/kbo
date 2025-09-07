@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
   "updateTime": "2025-09-07T12:27:07.302Z",
+=======
+  "updateTime": "2025-09-07T12:32:51.334Z",
+>>>>>>> 2e8fe9ae (🔧 최대연승/연패 지표 표시 문제 해결)
   "updateDate": "2025년 9월 7일",
   "standings": [
     {
@@ -22649,64 +22653,74 @@
   },
   "streakAnalysis": [
     {
-      "current_streak": "-",
-      "max_win_streak": 0,
-      "max_lose_streak": 0,
-      "streak_status": "-"
+      "team_name": "KIA",
+      "current_streak": "1W",
+      "max_win_streak": 6,
+      "max_lose_streak": 7,
+      "streak_status": "연승 중"
     },
     {
-      "current_streak": "-",
-      "max_win_streak": 0,
-      "max_lose_streak": 0,
-      "streak_status": "-"
+      "team_name": "LG",
+      "current_streak": "1L",
+      "max_win_streak": 7,
+      "max_lose_streak": 5,
+      "streak_status": "연패 중"
     },
     {
-      "current_streak": "-",
-      "max_win_streak": 0,
-      "max_lose_streak": 0,
-      "streak_status": "-"
+      "team_name": "삼성",
+      "current_streak": "1W",
+      "max_win_streak": 7,
+      "max_lose_streak": 8,
+      "streak_status": "연승 중"
     },
     {
-      "current_streak": "-",
-      "max_win_streak": 0,
-      "max_lose_streak": 0,
-      "streak_status": "-"
+      "team_name": "두산",
+      "current_streak": "2W",
+      "max_win_streak": 7,
+      "max_lose_streak": 5,
+      "streak_status": "연승 중"
     },
     {
-      "current_streak": "-",
-      "max_win_streak": 0,
-      "max_lose_streak": 0,
-      "streak_status": "-"
+      "team_name": "KT",
+      "current_streak": "1L",
+      "max_win_streak": 4,
+      "max_lose_streak": 6,
+      "streak_status": "연패 중"
     },
     {
-      "current_streak": "-",
-      "max_win_streak": 0,
-      "max_lose_streak": 0,
-      "streak_status": "-"
+      "team_name": "SSG",
+      "current_streak": "5W",
+      "max_win_streak": 5,
+      "max_lose_streak": 6,
+      "streak_status": "연승 중"
     },
     {
-      "current_streak": "-",
-      "max_win_streak": 0,
-      "max_lose_streak": 0,
-      "streak_status": "-"
+      "team_name": "롯데",
+      "current_streak": "3L",
+      "max_win_streak": 6,
+      "max_lose_streak": 12,
+      "streak_status": "연패 중"
     },
     {
-      "current_streak": "-",
-      "max_win_streak": 0,
-      "max_lose_streak": 0,
-      "streak_status": "-"
+      "team_name": "한화",
+      "current_streak": "1L",
+      "max_win_streak": 12,
+      "max_lose_streak": 6,
+      "streak_status": "연패 중"
     },
     {
-      "current_streak": "-",
-      "max_win_streak": 0,
-      "max_lose_streak": 0,
-      "streak_status": "-"
+      "team_name": "NC",
+      "current_streak": "4L",
+      "max_win_streak": 7,
+      "max_lose_streak": 5,
+      "streak_status": "연패 중"
     },
     {
-      "current_streak": "-",
-      "max_win_streak": 0,
-      "max_lose_streak": 0,
-      "streak_status": "-"
+      "team_name": "키움",
+      "current_streak": "1L",
+      "max_win_streak": 4,
+      "max_lose_streak": 10,
+      "streak_status": "연패 중"
     }
   ],
   "runAnalysis": [
