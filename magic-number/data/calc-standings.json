@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-09-07T12:03:52.896Z",
+  "lastUpdated": "2025-09-07T12:27:05.359Z",
   "updateDate": "2025. 9. 7.",
   "note": "2025-season-data-clean.txt 기반 완전 자동화 처리",
   "rankings": [
@@ -89,31 +89,31 @@
     },
     {
       "rank": 7,
-      "team": "KIA",
-      "games": 125,
-      "wins": 58,
-      "losses": 63,
-      "draws": 4,
-      "winRate": 0.479,
-      "gamesBehind": 18,
-      "recent10": "4승0무6패",
-      "streak": "1승",
-      "homeRecord": "30-26-2",
-      "awayRecord": "28-37-2"
-    },
-    {
-      "rank": 7,
       "team": "NC",
-      "games": 125,
-      "wins": 57,
+      "games": 126,
+      "wins": 58,
       "losses": 62,
       "draws": 6,
-      "winRate": 0.479,
-      "gamesBehind": 18,
-      "recent10": "2승0무8패",
-      "streak": "4패",
-      "homeRecord": "28-31-1",
+      "winRate": 0.483,
+      "gamesBehind": 17.5,
+      "recent10": "3승0무7패",
+      "streak": "1승",
+      "homeRecord": "29-31-1",
       "awayRecord": "29-31-5"
+    },
+    {
+      "rank": 8,
+      "team": "KIA",
+      "games": 126,
+      "wins": 58,
+      "losses": 64,
+      "draws": 4,
+      "winRate": 0.475,
+      "gamesBehind": 18.5,
+      "recent10": "4승0무6패",
+      "streak": "1패",
+      "homeRecord": "30-26-2",
+      "awayRecord": "28-38-2"
     },
     {
       "rank": 9,
@@ -199,23 +199,23 @@
       "maxPossibleWins": 76,
       "currentRank": 6
     },
-    "KIA": {
-      "playoff": "-",
-      "championship": 0,
-      "elimination": 6,
-      "homeAdvantage": 16,
-      "remainingGames": 19,
-      "maxPossibleWins": 77,
-      "currentRank": 7
-    },
     "NC": {
       "playoff": "-",
       "championship": 0,
       "elimination": 5,
-      "homeAdvantage": 17,
-      "remainingGames": 19,
+      "homeAdvantage": 16,
+      "remainingGames": 18,
       "maxPossibleWins": 76,
       "currentRank": 7
+    },
+    "KIA": {
+      "playoff": "-",
+      "championship": 0,
+      "elimination": 5,
+      "homeAdvantage": 16,
+      "remainingGames": 18,
+      "maxPossibleWins": 76,
+      "currentRank": 8
     },
     "두산": {
       "playoff": "-",
@@ -236,7 +236,7 @@
       "currentRank": 10
     }
   },
-  "lastMagicUpdate": "2025-09-07T12:03:52.896Z",
+  "lastMagicUpdate": "2025-09-07T12:27:05.359Z",
   "totalTeams": 10,
   "source": "CLEAN_TXT_AUTOMATION",
   "dataDate": "2025-09-07"
