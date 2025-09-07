@@ -1919,6 +1919,89 @@
             }
         }
 
+        /* 팀별 진행률 카드 스타일 */
+        .team-progress-card {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 12px 16px;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .team-progress-card:hover {
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+        
+        .team-progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .team-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .team-logo-progress {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+        }
+        
+        .team-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #374151;
+        }
+        
+        .progress-percentage {
+            font-weight: 700;
+            font-size: 1rem;
+        }
+        
+        .team-progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #f3f4f6;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+        
+        .team-progress-fill {
+            height: 100%;
+            transition: width 1s ease-in-out;
+            border-radius: 4px;
+        }
+        
+        .progress-stats {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            display: block;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #374151;
+        }
+        
+        .stat-label {
+            font-size: 0.75rem;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
         /* 일자별 순위 그래프 모바일 최적화 */
         @media (max-width: 768px) {
             .daily-stats-header {
@@ -2245,6 +2328,33 @@
             
             .full-grid {
                 grid-template-columns: 1fr;
+            }
+            
+            .team-progress-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 8px !important;
+            }
+            
+            .team-progress-card {
+                font-size: 0.8rem !important;
+                padding: 8px 12px !important;
+            }
+            
+            .team-progress-header {
+                margin-bottom: 6px !important;
+            }
+            
+            .team-logo-progress {
+                width: 16px !important;
+                height: 16px !important;
+            }
+            
+            .team-name {
+                font-size: 0.75rem !important;
+            }
+            
+            .progress-percentage {
+                font-size: 0.85rem !important;
             }
             
             .metrics-grid {
@@ -4299,7 +4409,7 @@
                 <!-- 팀별 경기 소화율 -->
                 <div>
                     <h3 style="font-weight: 600; font-size: 1.1rem; color: #374151; margin-bottom: 15px; border-bottom: 2px solid #e5e7eb; padding-bottom: 8px;">팀별 경기 소화율</h3>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px;" id="team-progress-container">
+                    <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; max-width: 100%;" id="team-progress-container" class="team-progress-grid">
                         <!-- 팀별 진행률이 여기에 동적으로 생성됩니다 -->
                     </div>
                 </div>
@@ -11219,24 +11329,30 @@
                 const data = teamData[team.team_name] || { name: team.team_name, color: '#6366f1', logo: team.team_name.toLowerCase() };
                 
                 return `
-                    <div class="team-progress-item">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                            <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="team-progress-card">
+                        <div class="team-progress-header">
+                            <div class="team-info">
                                 <img src="magic-number/images/teams/${data.logo}.png" alt="${data.name}" 
-                                     style="width: 20px; height: 20px; object-fit: contain;" 
+                                     class="team-logo-progress" 
                                      onerror="this.style.display='none';">
-                                <span style="font-weight: 600; font-size: 0.95rem;">${data.name}</span>
+                                <span class="team-name">${team.team_name}</span>
                             </div>
-                            <span style="font-weight: 700; color: ${data.color};">${progress.toFixed(2)}%</span>
+                            <span class="progress-percentage" style="color: ${data.color};">${progress.toFixed(1)}%</span>
                         </div>
                         <div class="team-progress-bar">
                             <div class="team-progress-fill" 
-                                 style="background: linear-gradient(90deg, ${data.color}, ${data.color}aa); width: 0%;">
+                                 style="background: linear-gradient(90deg, ${data.color}, ${data.color}bb); width: 0%;">
                             </div>
                         </div>
-                        <div style="display: flex; justify-content: space-between; font-size: 0.9rem; color: #6b7280;">
-                            <span>${played}경기 완료</span>
-                            <span>${144 - played}경기 남음</span>
+                        <div class="progress-stats">
+                            <div class="stat-item">
+                                <span class="stat-number">${played}</span>
+                                <span class="stat-label">완료</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">${144 - played}</span>
+                                <span class="stat-label">남음</span>
+                            </div>
                         </div>
                     </div>
                 `;
