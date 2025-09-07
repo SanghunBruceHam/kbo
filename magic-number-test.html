@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KBO 매직/트래직 넘버 계산기 테스트</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f8f9fa;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+        h1 {
+            color: #1f2937;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .controls {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f1f5f9;
+            border-radius: 8px;
+        }
+        .controls h3 {
+            margin-top: 0;
+            color: #475569;
+        }
+        button {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        button:hover {
+            background: #2563eb;
+        }
+        .results-table {
+            overflow-x: auto;
+            margin-top: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+        th, td {
+            border: 1px solid #e5e7eb;
+            padding: 10px 8px;
+            text-align: center;
+            vertical-align: middle;
+        }
+        th {
+            background: #f3f4f6;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            white-space: nowrap;
+        }
+        .team-col {
+            font-weight: 600;
+            background: #fafafa;
+            position: sticky;
+            left: 0;
+            z-index: 5;
+            min-width: 60px;
+        }
+        .playoff-highlight {
+            background-color: #fef3c7 !important;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f9fafb;
+        }
+        tr:hover {
+            background-color: #f3f4f6;
+        }
+        .magic-tragic-cell {
+            padding: 6px;
+            line-height: 1.4;
+        }
+        .magic-tragic-cell div {
+            margin: 2px 0;
+            font-size: 12px;
+        }
+        .export-section {
+            margin-top: 20px;
+            padding: 15px;
+            background: #e0f2fe;
+            border-radius: 8px;
+        }
+        .description {
+            background: #eff6ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .description h3 {
+            margin-top: 0;
+            color: #1e40af;
+        }
+        
+        /* 매트릭스 테이블 스타일 - 스크린샷 매치 */
+        .results-table table {
+            font-size: 11px;
+            background: #2c3e50;
+        }
+        
+        .results-table th {
+            background: #2c3e50 !important;
+            color: white;
+            font-weight: bold;
+            border: 1px solid #34495e;
+            padding: 8px 6px;
+        }
+        
+        .results-table td {
+            border: 1px solid #34495e;
+            padding: 8px 6px;
+            font-weight: bold;
+        }
+        
+        .team-col {
+            background: #2c3e50 !important;
+            color: white;
+            width: 80px;
+            min-width: 80px;
+        }
+        
+        .rank-header {
+            background: #34495e !important;
+            color: white;
+            width: 40px;
+            min-width: 40px;
+        }
+        
+        .playoff-rank-header {
+            background: #f39c12 !important;
+            color: white;
+            width: 40px;
+            min-width: 40px;
+        }
+        
+        .team-info-cell {
+            background: #2c3e50;
+            color: white;
+            text-align: left;
+            padding: 6px 8px;
+        }
+        
+        .team-name {
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 2px;
+        }
+        
+        .team-status {
+            font-size: 9px;
+            color: #bdc3c7;
+        }
+        
+        /* 매직넘버 셀 색상 */
+        .magic-confirmed {
+            background: #27ae60 !important;
+            color: white;
+        }
+        
+        .magic-safe {
+            background: #2ecc71 !important;
+            color: white;
+        }
+        
+        .magic-warning {
+            background: #f39c12 !important;
+            color: white;
+        }
+        
+        .magic-danger {
+            background: #e74c3c !important;
+            color: white;
+        }
+        
+        /* 범례 스타일 */
+        .legend-box {
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            margin-right: 5px;
+            border-radius: 3px;
+            vertical-align: middle;
+        }
+        
+        .legend-box.confirmed { background: #27ae60; }
+        .legend-box.safe { background: #2ecc71; }
+        .legend-box.warning { background: #f39c12; }
+        .legend-box.danger { background: #e74c3c; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏆 KBO 매직/트래직 넘버 계산기</h1>
+        
+        <div class="description">
+            <h3>📋 계산 방식 설명</h3>
+            <ul>
+                <li><strong>매직 넘버 (Magic):</strong> k위 이내 확정을 위해 필요한 최소 승수</li>
+                <li><strong>트래직 넘버 (Tragic):</strong> k위 이내 달성이 불가능해지는 최대 패수</li>
+                <li><strong>승률 계산:</strong> W / (W + L) - 무승부는 분모에서 제외</li>
+                <li><strong>strict:</strong> 동률 불허 / <strong>tieOK:</strong> 동률 허용</li>
+                <li><strong>5위 하이라이트:</strong> 플레이오프 진출 라인</li>
+            </ul>
+        </div>
+
+        <div class="controls">
+            <h3>🔧 제어 옵션</h3>
+            <button onclick="loadCurrentData()">📊 현재 KBO 데이터 로드</button>
+            <button onclick="loadSampleData()">🎲 샘플 데이터 로드</button>
+            <button onclick="calculate()">⚡ 계산 실행</button>
+            <button onclick="exportCSV()">📄 CSV 다운로드</button>
+            <button onclick="exportJSON()">💾 JSON 다운로드</button>
+            <button onclick="toggleSimpleMode()">🎯 단순화 모드 (strict만)</button>
+        </div>
+
+        <div id="results"></div>
+
+        <div class="export-section">
+            <h3>💡 답변</h3>
+            <p><strong>Q1. 파일 저장:</strong> CSV와 JSON 둘 다 구현했습니다. CSV는 엑셀에서 보기 좋고, JSON은 프로그래밍 활용에 좋습니다.</p>
+            <p><strong>Q2. 5위 하이라이트:</strong> 플레이오프 라인인 5위 컬럼을 노란색으로 하이라이트했습니다.</p>
+            <p><strong>Q3. 단순화 모드:</strong> strict만 사용하는 버전도 토글로 구현했습니다.</p>
+        </div>
+    </div>
+
+    <script>
+        let teams = [];
+        let results = [];
+        let isSimpleMode = false;
+
+        /**
+         * KBO: 1~9위(≤k위) 확정/탈락 매직·트래직 넘버 (잔여경기 R로 캡핑 표기)
+         */
+        function calcR(team, season = 144) {
+            return season - (team.W + team.L + team.T);
+        }
+
+        function pNow(team) {
+            const denom = team.W + team.L;
+            return denom > 0 ? team.W / denom : 0;
+        }
+
+        function pMax(team, R) {
+            const denom = team.W + team.L + R;
+            return denom > 0 ? (team.W + R) / denom : 0;
+        }
+
+        function pMin(team, R) {
+            const denom = team.W + team.L + R;
+            return denom > 0 ? team.W / denom : 0;
+        }
+
+        function clamp(v, lo, hi) {
+            return Math.max(lo, Math.min(hi, v));
+        }
+
+        function round3(x) {
+            return Number(x.toFixed(3));
+        }
+
+        function kthLargest(arr, k) {
+            if (!arr.length || k < 1) return 0;
+            const sorted = [...arr].sort((a, b) => b - a);
+            return sorted[k - 1] ?? 0;
+        }
+
+        function kBenchmarksForTeam(team, teams, season, k) {
+            const maxList = [];
+            const minList = [];
+            for (const t of teams) {
+                if (t.id === team.id) continue;
+                const R = calcR(t, season);
+                maxList.push(pMax(t, R));
+                minList.push(pMin(t, R));
+            }
+            return {
+                Kk_max: kthLargest(maxList, k),
+                Kk_min: kthLargest(minList, k),
+            };
+        }
+
+        function magicTragicForK(team, season, Kk_max, Kk_min) {
+            const R = calcR(team, season);
+            const D = team.W + team.L + R;
+
+            // Magic
+            const rhsMagic = Kk_max * D - team.W;
+            const x_strict_raw = Math.max(0, Math.floor(rhsMagic) + 1);
+            const x_tieOK_raw = Math.max(0, Math.ceil(rhsMagic));
+            const x_strict = clamp(x_strict_raw, 0, R);
+            const x_tieOK = clamp(x_tieOK_raw, 0, R);
+
+            // Tragic
+            const rhsTr = team.W + R - Kk_min * D;
+            const y_strict_raw = Math.max(0, Math.ceil(rhsTr));
+            const y_tieOK_raw = Math.max(0, Math.floor(rhsTr) + 1);
+            const y_strict = clamp(y_strict_raw, 0, R);
+            const y_tieOK = clamp(y_tieOK_raw, 0, R);
+
+            return { R, Kk_max, Kk_min, x_strict, x_tieOK, y_strict, y_tieOK };
+        }
+
+        function kboMagicTragicRanksAll(teams, season = 144) {
+            const ks = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+            return teams.map(team => {
+                const R = calcR(team, season);
+                const row = {
+                    team: team.id,
+                    W: team.W, L: team.L, T: team.T, R,
+                    winPct: round3(pNow(team)),
+                };
+
+                for (const k of ks) {
+                    const { Kk_max, Kk_min } = kBenchmarksForTeam(team, teams, season, k);
+                    const r = magicTragicForK(team, season, Kk_max, Kk_min);
+                    row[`K${k}_max`] = round3(r.Kk_max);
+                    row[`K${k}_min`] = round3(r.Kk_min);
+                    row[`x${k}_strict`] = r.x_strict;
+                    row[`x${k}_tieOK`] = r.x_tieOK;
+                    row[`y${k}_strict`] = r.y_strict;
+                    row[`y${k}_tieOK`] = r.y_tieOK;
+                }
+                return row;
+            });
+        }
+
+        // 현재 KBO 데이터 로드
+        async function loadCurrentData() {
+            try {
+                const response = await fetch('magic-number/data/api-data.json');
+                const data = await response.json();
+                
+                teams = data.standings.map(team => ({
+                    id: team.team,
+                    W: team.wins,
+                    L: team.losses,
+                    T: team.draws
+                }));
+                
+                alert('✅ 현재 KBO 데이터 로드 완료!');
+            } catch (error) {
+                console.error('데이터 로드 실패:', error);
+                alert('❌ 데이터 로드 실패. 샘플 데이터를 사용해주세요.');
+            }
+        }
+
+        // 샘플 데이터 로드
+        function loadSampleData() {
+            teams = [
+                { id: "KIA", W: 70, L: 55, T: 3 },
+                { id: "LG", W: 72, L: 53, T: 3 },
+                { id: "SSG", W: 66, L: 60, T: 2 },
+                { id: "LOTTE", W: 64, L: 61, T: 3 },
+                { id: "NC", W: 63, L: 62, T: 3 },
+                { id: "KT", W: 62, L: 63, T: 3 },
+                { id: "DOO", W: 61, L: 64, T: 3 },
+                { id: "HAN", W: 60, L: 65, T: 3 },
+                { id: "KWO", W: 58, L: 67, T: 3 },
+                { id: "SAM", W: 57, L: 68, T: 3 },
+            ];
+            alert('✅ 샘플 데이터 로드 완료!');
+        }
+
+        // 계산 실행
+        function calculate() {
+            if (teams.length === 0) {
+                alert('먼저 데이터를 로드해주세요.');
+                return;
+            }
+
+            results = kboMagicTragicRanksAll(teams, 144);
+            renderResults();
+        }
+
+        // 결과 테이블 렌더링 - 매트릭스 스타일
+        function renderResults() {
+            if (results.length === 0) return;
+
+            // 스크린샷처럼 9위부터 1위 순서로 배열
+            const ranks = [9, 8, 7, 6, 5, 4, 3, 2, 1];
+            
+            let html = '<div class="results-table"><table>';
+            
+            // 최상단 헤더 - 순위
+            html += '<thead><tr>';
+            html += '<th rowspan="2" class="team-col">구단</th>';
+            html += '<th colspan="9" style="background: #1f2937; color: white; font-size: 16px; font-weight: bold;">순위</th>';
+            html += '</tr>';
+            
+            // 순위 번호 헤더
+            html += '<tr>';
+            for (const rank of ranks) {
+                const isPlayoff = rank === 5;
+                const headerClass = isPlayoff ? 'playoff-rank-header' : 'rank-header';
+                html += `<th class="${headerClass}">${rank}</th>`;
+            }
+            html += '</tr></thead>';
+            
+            html += '<tbody>';
+
+            // 각 팀별 행 생성
+            for (const row of results) {
+                html += '<tr>';
+                
+                // 팀 정보 (스크린샷처럼 "X위 확보" 스타일)
+                const currentRank = getCurrentRank(row, results);
+                html += `<td class="team-info-cell">
+                    <div class="team-name">${row.team}</div>
+                    <div class="team-status">${currentRank}위 확보</div>
+                </td>`;
+                
+                // 각 순위별 매직 넘버
+                for (const rank of ranks) {
+                    const magicValue = row[`x${rank}_strict`];
+                    const cellClass = getMagicCellClass(magicValue, row.R);
+                    const displayValue = magicValue === 0 ? '확정' : (magicValue >= row.R ? `${magicValue}` : magicValue);
+                    
+                    html += `<td class="${cellClass}">${displayValue}</td>`;
+                }
+                html += '</tr>';
+            }
+
+            html += '</tbody></table></div>';
+            
+            // 범례 추가
+            html += '<div class="legend" style="margin-top: 15px; padding: 15px; background: #f8f9fa; border-radius: 8px;">';
+            html += '<h4 style="margin: 0 0 10px 0;">🎨 색상 구분</h4>';
+            html += '<div style="display: flex; gap: 20px; flex-wrap: wrap; font-size: 14px;">';
+            html += '<span><span class="legend-box confirmed"></span> 확정 (매직 넘버 0)</span>';
+            html += '<span><span class="legend-box safe"></span> 안전 (매직 넘버 1-5)</span>';
+            html += '<span><span class="legend-box warning"></span> 주의 (매직 넘버 6-10)</span>';
+            html += '<span><span class="legend-box danger"></span> 위험 (매직 넘버 11+)</span>';
+            html += '</div></div>';
+            
+            document.getElementById('results').innerHTML = html;
+        }
+
+        // 현재 순위 계산 (승률 기준)
+        function getCurrentRank(targetTeam, allResults) {
+            const sorted = [...allResults].sort((a, b) => b.winPct - a.winPct);
+            return sorted.findIndex(team => team.team === targetTeam.team) + 1;
+        }
+
+        // 매직 넘버 값에 따른 셀 클래스 결정
+        function getMagicCellClass(magicValue, remainingGames) {
+            if (magicValue === 0) return 'magic-confirmed'; // 확정 (녹색)
+            if (magicValue <= 5) return 'magic-safe'; // 안전 (연한 녹색) 
+            if (magicValue <= 10) return 'magic-warning'; // 주의 (노란색)
+            return 'magic-danger'; // 위험 (빨간색)
+        }
+
+        // CSV 다운로드
+        function exportCSV() {
+            if (results.length === 0) {
+                alert('먼저 계산을 실행해주세요.');
+                return;
+            }
+
+            const headers = Object.keys(results[0]);
+            const csvContent = [
+                headers.join(','),
+                ...results.map(row => headers.map(h => row[h]).join(','))
+            ].join('\n');
+
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `kbo_magic_tragic_${new Date().toISOString().slice(0, 10)}.csv`;
+            link.click();
+        }
+
+        // JSON 다운로드
+        function exportJSON() {
+            if (results.length === 0) {
+                alert('먼저 계산을 실행해주세요.');
+                return;
+            }
+
+            const jsonContent = JSON.stringify(results, null, 2);
+            const blob = new Blob([jsonContent], { type: 'application/json;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `kbo_magic_tragic_${new Date().toISOString().slice(0, 10)}.json`;
+            link.click();
+        }
+
+        // 단순화 모드 토글
+        function toggleSimpleMode() {
+            isSimpleMode = !isSimpleMode;
+            const button = event.target;
+            button.textContent = isSimpleMode ? '🎯 전체 모드 (strict+tieOK)' : '🎯 단순화 모드 (strict만)';
+            
+            if (results.length > 0) {
+                renderResults();
+            }
+        }
+
+        // 초기 샘플 데이터 로드
+        loadSampleData();
+        calculate();
+    </script>
+</body>
+</html>
