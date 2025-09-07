@@ -13,7 +13,7 @@
     "update-data": "node magic-number/scripts/util-runner.js magic-number/scripts/02_season-data-processor.js && echo '✅ KBO 데이터 업데이트 완료!'",
     "crawl": "node magic-number/scripts/util-runner.js magic-number/crawlers/kbo-python-working-crawler.py",
     "analysis": "npm run enhanced-dashboard && npm run weekly-analysis && npm run clutch-analysis && npm run home-away-analysis && npm run series-analysis",
-    "enhanced-dashboard": "node magic-number/scripts/util-runner.js magic-number/scripts/dashboard-generator.js",
+    "enhanced-dashboard": "node magic-number/scripts/util-runner.js magic-number/scripts/stats-comprehensive-generator.js",
     "weekly-analysis": "node magic-number/scripts/util-runner.js magic-number/scripts/analysis-weekly.js",
     "clutch-analysis": "node magic-number/scripts/util-runner.js magic-number/scripts/analysis-clutch.js",
     "home-away-analysis": "node magic-number/scripts/util-runner.js magic-number/scripts/analysis-home-away.js",

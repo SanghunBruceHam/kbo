@@ -181,7 +181,7 @@ jobs:
       run: |
         echo "📈 순위 변동 매트릭스 생성 중..."
         npm run rank-matrix
-        echo "✅ magic-matrix-data.json 생성 완료"
+        echo "✅ calc-magic-numbers.json 생성 완료"
         
         # 순위 그래프용 season-rank-generator.js와 rank-chart.js 실행
         echo "📊 일자별 순위·게임차·승률 그래프 데이터 생성 중..."
@@ -206,7 +206,7 @@ jobs:
         
         # 생성된 JSON 파일들 확인
         echo "📋 생성된 분석 데이터 파일 확인:"
-        for file in enhanced-dashboard.json weekly-analysis.json clutch-analysis.json home-away-analysis.json series-analysis.json game-by-game-records.json magic-matrix-data.json; do
+        for file in stats-comprehensive.json analysis-weekly.json analysis-clutch.json analysis-home-away.json analysis-series.json raw-game-records.json calc-magic-numbers.json; do
           if [ -f "magic-number/data/$file" ]; then
             SIZE=$(du -h "magic-number/data/$file" | cut -f1)
             echo "  ✅ $file (${SIZE})"
@@ -305,13 +305,13 @@ jobs:
         
         # 데이터 파일 확인
         echo "📁 데이터 파일 현황:"
-        if [ -f magic-number/data/service-data.json ]; then
-          SERVICE_SIZE=$(du -h magic-number/data/service-data.json | cut -f1)
-          echo "  ✅ service-data.json (${SERVICE_SIZE})"
+        if [ -f magic-number/data/api-data.json ]; then
+          SERVICE_SIZE=$(du -h magic-number/data/api-data.json | cut -f1)
+          echo "  ✅ api-data.json (${SERVICE_SIZE})"
         fi
-        if [ -f magic-number/data/kbo-rankings.json ]; then
-          RANKING_SIZE=$(du -h magic-number/data/kbo-rankings.json | cut -f1)
-          echo "  ✅ kbo-rankings.json (${RANKING_SIZE})"
+        if [ -f magic-number/data/calc-standings.json ]; then
+          RANKING_SIZE=$(du -h magic-number/data/calc-standings.json | cut -f1)
+          echo "  ✅ calc-standings.json (${RANKING_SIZE})"
         fi
         
         echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
@@ -332,8 +332,8 @@ jobs:
         echo "📁 업데이트된 파일들:"
         echo "  - index.html: $([ -f index.html ] && echo '✅' || echo '❌')"
         echo "  - magic-number/index.html: $([ -f magic-number/index.html ] && echo '✅' || echo '❌')"
-        echo "  - service-data.json: $([ -f magic-number/data/service-data.json ] && echo '✅' || echo '❌')"
-        echo "  - kbo-rankings.json: $([ -f magic-number/data/kbo-rankings.json ] && echo '✅' || echo '❌')"
+        echo "  - api-data.json: $([ -f magic-number/data/api-data.json ] && echo '✅' || echo '❌')"
+        echo "  - calc-standings.json: $([ -f magic-number/data/calc-standings.json ] && echo '✅' || echo '❌')"
         
         
         echo "✅ 파일 확인 완료 - 루트 및 magic-number 모두 배포 준비됨"
