@@ -1,4 +1,4 @@
-const { EnhancedKBODatabase } = require('./enhanced-kbo-database');
+const { EnhancedKBODatabase } = require('./db-kbo-manager');
 const fs = require('fs');
 const path = require('path');
 
