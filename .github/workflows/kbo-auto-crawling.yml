@@ -162,12 +162,14 @@ jobs:
         npm run parse-season-data
         echo "✅ 2025-season-games.json 생성 완료"
 
-    # 10-3. 데이터베이스 업데이트
-    - name: 🗄️ 데이터베이스 업데이트
+    # 10-3. 새로운 JS 기반 데이터 업데이트 (순수 JavaScript - DB 비의존)
+    - name: 📋 월별/요일별/경기장별 기록 생성
       run: |
-        echo "🗄️ SQLite 데이터베이스 업데이트 중..."
-        npm run database-update
-        echo "✅ 데이터베이스 업데이트 완료"
+        echo "📋 순수 JS로 월별/요일별/경기장별 데이터 생성 중..."
+        npm run monthly-analysis
+        npm run weekday-analysis
+        npm run stadium-analysis
+        echo "✅ SQLite DB 비의존 데이터 업데이트 완료"
 
     # 10-4. 게임별 기록 분석 (의존성 파일 생성)
     - name: 🏆 게임별 기록 분석
@@ -198,10 +200,10 @@ jobs:
         
         echo "✅ 일자별 순위·게임차·승률 그래프 데이터 처리 완료"
 
-    # 10-6. 추가 분석 데이터 생성 (루트 index.html용)
-    - name: 📈 고급 분석 데이터 생성
+    # 10-6. 추가 분석 데이터 생성 (루트 index.html용 + 새로운 JS 분석 포함)
+    - name: 📈 전체 분석 데이터 생성 (순수 JS)
       run: |
-        echo "🔍 고급 분석 데이터 생성 중..."
+        echo "🔍 전체 분석 데이터 생성 중 (SQLite DB 비의존)..."
         npm run analysis
         
         # 생성된 JSON 파일들 확인

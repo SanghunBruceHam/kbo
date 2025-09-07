@@ -1,21 +1,56 @@
-const { EnhancedKBODatabase } = require('./db-kbo-manager');
 const fs = require('fs');
 const path = require('path');
 
 class EnhancedDashboardGenerator {
     constructor() {
-        this.db = new EnhancedKBODatabase();
+        this.games = [];
+        this.teams = ['KIA', 'LG', '삼성', '두산', 'KT', 'SSG', '롯데', '한화', 'NC', '키움'];
+        this.stadiums = {
+            'KIA': '광주 챔피언스필드',
+            'LG': '서울 잠실야구장',
+            '두산': '서울 잠실야구장',
+            '삼성': '대구 삼성라이온즈파크',
+            'SSG': '인천 SSG랜더스필드',
+            'KT': '수원 KT위즈파크',
+            'NC': '창원 NC파크',
+            '롯데': '부산 사직야구장',
+            '한화': '대전 한화생명이글스파크',
+            '키움': '서울 고척스카이돔'
+        };
     }
 
-    async connect() {
-        await this.db.connect();
+    async loadGames() {
+        try {
+            // 2025-season-games.json 파일 로드
+            const gamesPath = path.join(__dirname, '../data/2025-season-games.json');
+            if (!fs.existsSync(gamesPath)) {
+                // 파일이 없으면 season-data-parser로 생성
+                const { parseSeasonData } = require('./03_season-data-parser');
+                parseSeasonData();
+            }
+            const gamesData = fs.readFileSync(gamesPath, 'utf-8');
+            this.games = JSON.parse(gamesData);
+            console.log(`✅ ${this.games.length}개 경기 데이터 로드 완료`);
+        } catch (error) {
+            console.error('❌ 경기 데이터 로드 실패:', error);
+            throw error;
+        }
     }
 
-    async close() {
-        await this.db.close();
+    getDayOfWeek(date) {
+        const days = ['일', '월', '화', '수', '목', '금', '토'];
+        const d = new Date(date);
+        return days[d.getDay()];
+    }
+
+    getStadium(homeTeam) {
+        return this.stadiums[homeTeam] || '미상';
     }
 
     async generateComprehensiveDashboard() {
+        // 게임 데이터 로드
+        await this.loadGames();
+        
         const dashboard = {
             updateTime: new Date().toISOString(),
             updateDate: new Date().toLocaleDateString('ko-KR', { 
@@ -26,43 +61,46 @@ class EnhancedDashboardGenerator {
             }),
             
             // 1. 종합 순위
-            standings: await this.getStandings(),
+            standings: this.getStandings(),
             
             // 2. 피타고리안 기대승률 & 운 지수
-            pythagoreanAnalysis: await this.getPythagoreanAnalysis(),
+            pythagoreanAnalysis: this.getPythagoreanAnalysis(),
             
             // 3. 1점차 경기 승률
-            oneRunGames: await this.getOneRunGames(),
+            oneRunGames: this.getOneRunGames(),
             
             // 4. 홈/원정 성적
-            homeAwayStats: await this.getHomeAwayStats(),
+            homeAwayStats: this.getHomeAwayStats(),
             
-            // 5. 월별 승률
-            monthlyPerformance: await this.getMonthlyPerformance(),
+            // 5. 월별 승률 (NEW)
+            monthlyPerformance: this.getMonthlyPerformance(),
             
-            // 6. 요일별 승률
-            weekdayPerformance: await this.getWeekdayPerformance(),
+            // 6. 요일별 승률 (NEW)
+            weekdayPerformance: this.getWeekdayPerformance(),
             
-            // 7. 상대전적 매트릭스
-            headToHeadMatrix: await this.getHeadToHeadMatrix(),
+            // 7. 경기장별 성적 (NEW)
+            stadiumRecords: this.getStadiumRecords(),
             
-            // 8. 연승/연패 현황
-            streakAnalysis: await this.getStreakAnalysis(),
+            // 8. 시리즈 기록 (NEW)
+            seriesRecords: this.getSeriesRecords(),
             
-            // 9. 득실점 분석
-            runAnalysis: await this.getRunAnalysis(),
+            // 9. 상대전적 매트릭스
+            headToHeadMatrix: this.getHeadToHeadMatrix(),
             
-            // 10. 상위권/하위권 상대 승률
-            vsLevelAnalysis: await this.getVsLevelAnalysis(),
+            // 10. 연승/연패 현황
+            streakAnalysis: this.getStreakAnalysis(),
             
-            // 11. 특수 상황 통계
-            specialSituations: await this.getSpecialSituations(),
+            // 11. 득실점 분석
+            runAnalysis: this.getRunAnalysis(),
             
-            // 12. 경기장별 성적
-            stadiumRecords: await this.getStadiumRecords(),
+            // 12. 상위권/하위권 상대 승률
+            vsLevelAnalysis: this.getVsLevelAnalysis(),
             
-            // 13. 팀별 주요 지표 요약
-            teamSummaries: await this.getTeamSummaries()
+            // 13. 특수 상황 통계
+            specialSituations: this.getSpecialSituations(),
+            
+            // 14. 팀별 주요 지표 요약
+            teamSummaries: this.getTeamSummaries()
         };
         
         // JSON 파일로 저장
@@ -73,22 +111,96 @@ class EnhancedDashboardGenerator {
         return dashboard;
     }
 
-    async getStandings() {
-        const standings = await this.db.all(`
-            SELECT 
-                team_name,
-                games_played,
-                wins,
-                losses,
-                draws,
-                printf('%.3f', win_rate) as win_rate,
-                runs_scored,
-                runs_allowed,
-                run_differential,
-                current_streak
-            FROM team_stats
-            ORDER BY win_rate DESC, wins DESC
-        `);
+    calculateCurrentStreak(teamName) {
+        // 최근 경기들 가져오기 (날짜 역순)
+        const recentGames = this.games
+            .filter(g => g.home_team === teamName || g.away_team === teamName)
+            .sort((a, b) => new Date(b.date) - new Date(a.date));
+        
+        let streak = 0;
+        let streakType = null;
+        
+        for (const game of recentGames) {
+            if (game.winner === 'draw') continue; // 무승부는 건너뛰기
+            
+            const isWin = game.winner === teamName;
+            
+            if (streakType === null) {
+                streakType = isWin ? 'W' : 'L';
+                streak = 1;
+            } else if ((streakType === 'W' && isWin) || (streakType === 'L' && !isWin)) {
+                streak++;
+            } else {
+                break; // 연승/연패 종료
+            }
+        }
+        
+        return streak > 0 ? `${streak}${streakType}` : '0';
+    }
+
+    getStandings() {
+        const teamStats = {};
+        
+        // 팀 초기화
+        this.teams.forEach(team => {
+            teamStats[team] = {
+                team_name: team,
+                games_played: 0,
+                wins: 0,
+                losses: 0,
+                draws: 0,
+                runs_scored: 0,
+                runs_allowed: 0
+            };
+        });
+        
+        // 게임 데이터로 통계 계산
+        this.games.forEach(game => {
+            const { home_team, away_team, home_score, away_score, winner } = game;
+            
+            // 홈팀 처리
+            if (teamStats[home_team]) {
+                teamStats[home_team].games_played++;
+                teamStats[home_team].runs_scored += home_score;
+                teamStats[home_team].runs_allowed += away_score;
+                
+                if (winner === home_team) teamStats[home_team].wins++;
+                else if (winner === away_team) teamStats[home_team].losses++;
+                else teamStats[home_team].draws++;
+            }
+            
+            // 원정팀 처리
+            if (teamStats[away_team]) {
+                teamStats[away_team].games_played++;
+                teamStats[away_team].runs_scored += away_score;
+                teamStats[away_team].runs_allowed += home_score;
+                
+                if (winner === away_team) teamStats[away_team].wins++;
+                else if (winner === home_team) teamStats[away_team].losses++;
+                else teamStats[away_team].draws++;
+            }
+        });
+        
+        // 승률 및 런 디퍼런셜 계산
+        const standings = Object.values(teamStats).map(team => {
+            const winRate = team.wins + team.losses > 0 ? team.wins / (team.wins + team.losses) : 0;
+            const currentStreak = this.calculateCurrentStreak(team.team_name);
+            
+            return {
+                ...team,
+                win_rate: winRate.toFixed(3),
+                run_differential: team.runs_scored - team.runs_allowed,
+                current_streak: currentStreak
+            };
+        });
+        
+        // 승률 순 정렬
+        standings.sort((a, b) => {
+            const aRate = parseFloat(a.win_rate);
+            const bRate = parseFloat(b.win_rate);
+            if (aRate !== bRate) return bRate - aRate;
+            return b.wins - a.wins;
+        });
         
         // 게임차 계산
         const leader = standings[0];
@@ -100,276 +212,455 @@ class EnhancedDashboardGenerator {
         }));
     }
 
-    async getPythagoreanAnalysis() {
-        return await this.db.all(`
-            SELECT 
-                team_name,
-                printf('%.3f', win_rate) as actual_win_rate,
-                printf('%.3f', pythagorean_expectation) as expected_win_rate,
-                printf('%+.3f', luck_factor) as luck_factor,
-                CASE 
-                    WHEN luck_factor > 0.05 THEN '운이 좋음'
-                    WHEN luck_factor < -0.05 THEN '운이 나쁨'
-                    ELSE '평균적'
-                END as luck_status
-            FROM team_stats
-            ORDER BY win_rate DESC
-        `);
+    calculatePythagorean(runsScored, runsAllowed) {
+        if (runsAllowed === 0) return 1;
+        return Math.pow(runsScored, 2) / (Math.pow(runsScored, 2) + Math.pow(runsAllowed, 2));
     }
-
-    async getOneRunGames() {
-        return await this.db.all(`
-            SELECT 
-                team_name,
-                one_run_games_won as wins,
-                one_run_games_lost as losses,
-                one_run_games_won + one_run_games_lost as total_games,
-                printf('%.3f', one_run_win_rate) as win_rate
-            FROM team_stats
-            WHERE one_run_games_won + one_run_games_lost > 0
-            ORDER BY one_run_win_rate DESC
-        `);
-    }
-
-    async getHomeAwayStats() {
-        return await this.db.all(`
-            SELECT 
-                team_name,
-                home_wins,
-                home_losses,
-                printf('%.3f', home_win_rate) as home_win_rate,
-                away_wins,
-                away_losses,
-                printf('%.3f', away_win_rate) as away_win_rate,
-                printf('%+.3f', home_advantage_index) as home_advantage
-            FROM team_stats
-            ORDER BY win_rate DESC
-        `);
-    }
-
-    async getMonthlyPerformance() {
-        const monthlyData = await this.db.all(`
-            SELECT 
-                team_name,
-                month,
-                wins,
-                losses,
-                draws,
-                (wins + losses + draws) as games,
-                printf('%.3f', win_rate) as win_rate,
-                runs_scored,
-                runs_allowed
-            FROM monthly_records
-            WHERE year = 2025
-            ORDER BY team_name, month
-        `);
+    
+    getPythagoreanAnalysis() {
+        const standings = this.getStandings();
         
-        // 팀별로 그룹화
-        const grouped = {};
-        monthlyData.forEach(record => {
-            if (!grouped[record.team_name]) {
-                grouped[record.team_name] = [];
-            }
-            grouped[record.team_name].push({
-                month: record.month,
-                wins: record.wins,
-                losses: record.losses,
-                draws: record.draws,
-                games: record.games,
-                win_rate: record.win_rate,
-                runs_scored: record.runs_scored,
-                runs_allowed: record.runs_allowed
-            });
+        return standings.map(team => {
+            const expectedWinRate = this.calculatePythagorean(team.runs_scored, team.runs_allowed);
+            const actualWinRate = parseFloat(team.win_rate);
+            const luckFactor = actualWinRate - expectedWinRate;
+            
+            let luckStatus;
+            if (luckFactor > 0.05) luckStatus = '운이 좋음';
+            else if (luckFactor < -0.05) luckStatus = '운이 나쁨';
+            else luckStatus = '평균적';
+            
+            return {
+                team_name: team.team_name,
+                actual_win_rate: team.win_rate,
+                expected_win_rate: expectedWinRate.toFixed(3),
+                luck_factor: (luckFactor >= 0 ? '+' : '') + luckFactor.toFixed(3),
+                luck_status: luckStatus
+            };
+        });
+    }
+
+    getOneRunGames() {
+        const oneRunStats = {};
+        
+        // 팀 초기화
+        this.teams.forEach(team => {
+            oneRunStats[team] = { wins: 0, losses: 0 };
         });
         
-        return grouped;
+        // 1점차 경기 찾기
+        this.games.forEach(game => {
+            const scoreDiff = Math.abs(game.home_score - game.away_score);
+            if (scoreDiff === 1 && game.winner !== 'draw') {
+                if (game.winner === game.home_team) {
+                    oneRunStats[game.home_team].wins++;
+                    oneRunStats[game.away_team].losses++;
+                } else {
+                    oneRunStats[game.away_team].wins++;
+                    oneRunStats[game.home_team].losses++;
+                }
+            }
+        });
+        
+        // 결과 정리
+        const results = [];
+        for (const [team, stats] of Object.entries(oneRunStats)) {
+            const totalGames = stats.wins + stats.losses;
+            if (totalGames > 0) {
+                results.push({
+                    team_name: team,
+                    wins: stats.wins,
+                    losses: stats.losses,
+                    total_games: totalGames,
+                    win_rate: (stats.wins / totalGames).toFixed(3)
+                });
+            }
+        }
+        
+        return results.sort((a, b) => parseFloat(b.win_rate) - parseFloat(a.win_rate));
     }
 
-    async getWeekdayPerformance() {
-        const weekdayData = await this.db.all(`
-            SELECT 
-                team_name,
-                day_of_week,
-                wins,
-                losses,
-                draws,
-                printf('%.3f', win_rate) as win_rate
-            FROM weekday_records
-            ORDER BY team_name, 
-                CASE day_of_week
-                    WHEN '월' THEN 1
-                    WHEN '화' THEN 2
-                    WHEN '수' THEN 3
-                    WHEN '목' THEN 4
-                    WHEN '금' THEN 5
-                    WHEN '토' THEN 6
-                    WHEN '일' THEN 7
-                END
-        `);
+    getHomeAwayStats() {
+        const homeAwayStats = {};
         
-        // 팀별로 그룹화
-        const grouped = {};
-        weekdayData.forEach(record => {
-            if (!grouped[record.team_name]) {
-                grouped[record.team_name] = {};
-            }
-            grouped[record.team_name][record.day_of_week] = {
-                wins: record.wins,
-                losses: record.losses,
-                draws: record.draws,
-                win_rate: record.win_rate
+        // 팀 초기화
+        this.teams.forEach(team => {
+            homeAwayStats[team] = {
+                home_wins: 0, home_losses: 0,
+                away_wins: 0, away_losses: 0
             };
         });
         
-        return grouped;
+        // 홈/원정 통계 계산
+        this.games.forEach(game => {
+            if (game.winner === 'draw') return;
+            
+            if (game.winner === game.home_team) {
+                homeAwayStats[game.home_team].home_wins++;
+                homeAwayStats[game.away_team].away_losses++;
+            } else {
+                homeAwayStats[game.away_team].away_wins++;
+                homeAwayStats[game.home_team].home_losses++;
+            }
+        });
+        
+        // 결과 정리
+        const standings = this.getStandings();
+        return standings.map(team => {
+            const stats = homeAwayStats[team.team_name];
+            const homeWinRate = stats.home_wins + stats.home_losses > 0 ? 
+                stats.home_wins / (stats.home_wins + stats.home_losses) : 0;
+            const awayWinRate = stats.away_wins + stats.away_losses > 0 ? 
+                stats.away_wins / (stats.away_wins + stats.away_losses) : 0;
+            const homeAdvantage = homeWinRate - awayWinRate;
+            
+            return {
+                team_name: team.team_name,
+                home_wins: stats.home_wins,
+                home_losses: stats.home_losses,
+                home_win_rate: homeWinRate.toFixed(3),
+                away_wins: stats.away_wins,
+                away_losses: stats.away_losses,
+                away_win_rate: awayWinRate.toFixed(3),
+                home_advantage: (homeAdvantage >= 0 ? '+' : '') + homeAdvantage.toFixed(3)
+            };
+        });
     }
 
-    async getHeadToHeadMatrix() {
+    getMonthlyPerformance() {
+        const monthlyStats = {};
+        
+        // 팀/월 단위로 초기화
+        this.teams.forEach(team => {
+            monthlyStats[team] = {};
+        });
+        
+        // 각 경기 월별 처리
+        this.games.forEach(game => {
+            const date = new Date(game.date);
+            const month = date.getMonth() + 1; // 1-12월
+            
+            // 홈팀 처리
+            if (!monthlyStats[game.home_team][month]) {
+                monthlyStats[game.home_team][month] = {
+                    wins: 0, losses: 0, draws: 0,
+                    runs_scored: 0, runs_allowed: 0
+                };
+            }
+            const homeStats = monthlyStats[game.home_team][month];
+            homeStats.runs_scored += game.home_score;
+            homeStats.runs_allowed += game.away_score;
+            
+            if (game.winner === game.home_team) homeStats.wins++;
+            else if (game.winner === game.away_team) homeStats.losses++;
+            else homeStats.draws++;
+            
+            // 원정팀 처리
+            if (!monthlyStats[game.away_team][month]) {
+                monthlyStats[game.away_team][month] = {
+                    wins: 0, losses: 0, draws: 0,
+                    runs_scored: 0, runs_allowed: 0
+                };
+            }
+            const awayStats = monthlyStats[game.away_team][month];
+            awayStats.runs_scored += game.away_score;
+            awayStats.runs_allowed += game.home_score;
+            
+            if (game.winner === game.away_team) awayStats.wins++;
+            else if (game.winner === game.home_team) awayStats.losses++;
+            else awayStats.draws++;
+        });
+        
+        // 결과 정리 - JSON 구조에 맞춘
+        const result = {};
+        this.teams.forEach(team => {
+            result[team] = [];
+            
+            for (let month = 1; month <= 12; month++) {
+                if (monthlyStats[team][month]) {
+                    const stats = monthlyStats[team][month];
+                    const games = stats.wins + stats.losses + stats.draws;
+                    const winRate = stats.wins + stats.losses > 0 ? 
+                        (stats.wins / (stats.wins + stats.losses)).toFixed(3) : '0.000';
+                    
+                    result[team].push({
+                        month,
+                        wins: stats.wins,
+                        losses: stats.losses,
+                        draws: stats.draws,
+                        games,
+                        win_rate: winRate,
+                        runs_scored: stats.runs_scored,
+                        runs_allowed: stats.runs_allowed
+                    });
+                }
+            }
+        });
+        
+        return result;
+    }
+
+    getWeekdayPerformance() {
+        const weekdayStats = {};
+        
+        // 팀/요일 단위로 초기화
+        this.teams.forEach(team => {
+            weekdayStats[team] = {};
+            ['월', '화', '수', '목', '금', '토', '일'].forEach(day => {
+                weekdayStats[team][day] = { wins: 0, losses: 0, draws: 0 };
+            });
+        });
+        
+        // 각 경기 요일별 처리
+        this.games.forEach(game => {
+            const dayOfWeek = this.getDayOfWeek(game.date);
+            
+            // 홈팀 처리
+            if (game.winner === game.home_team) {
+                weekdayStats[game.home_team][dayOfWeek].wins++;
+            } else if (game.winner === game.away_team) {
+                weekdayStats[game.home_team][dayOfWeek].losses++;
+            } else {
+                weekdayStats[game.home_team][dayOfWeek].draws++;
+            }
+            
+            // 원정팀 처리
+            if (game.winner === game.away_team) {
+                weekdayStats[game.away_team][dayOfWeek].wins++;
+            } else if (game.winner === game.home_team) {
+                weekdayStats[game.away_team][dayOfWeek].losses++;
+            } else {
+                weekdayStats[game.away_team][dayOfWeek].draws++;
+            }
+        });
+        
+        // 승률 계산 - JSON 구조에 맞춘
+        const result = {};
+        this.teams.forEach(team => {
+            result[team] = {};
+            ['월', '화', '수', '목', '금', '토', '일'].forEach(day => {
+                const stats = weekdayStats[team][day];
+                if (stats.wins + stats.losses + stats.draws > 0) {
+                    const winRate = stats.wins + stats.losses > 0 ?
+                        (stats.wins / (stats.wins + stats.losses)).toFixed(3) : '0.000';
+                    
+                    result[team][day] = {
+                        wins: stats.wins,
+                        losses: stats.losses,
+                        draws: stats.draws,
+                        win_rate: winRate
+                    };
+                }
+            });
+        });
+        
+        return result;
+    }
+    
+    getStadiumRecords() {
+        const stadiumStats = {};
+        
+        // 팀/경기장 단위로 초기화
+        this.teams.forEach(team => {
+            stadiumStats[team] = {};
+        });
+        
+        // 각 경기 경기장별 처리
+        this.games.forEach(game => {
+            const stadium = this.getStadium(game.home_team);
+            
+            // 홈팀 처리
+            if (!stadiumStats[game.home_team][stadium]) {
+                stadiumStats[game.home_team][stadium] = { wins: 0, losses: 0, draws: 0 };
+            }
+            
+            if (game.winner === game.home_team) {
+                stadiumStats[game.home_team][stadium].wins++;
+            } else if (game.winner === game.away_team) {
+                stadiumStats[game.home_team][stadium].losses++;
+            } else {
+                stadiumStats[game.home_team][stadium].draws++;
+            }
+            
+            // 원정팀 처리
+            if (!stadiumStats[game.away_team][stadium]) {
+                stadiumStats[game.away_team][stadium] = { wins: 0, losses: 0, draws: 0 };
+            }
+            
+            if (game.winner === game.away_team) {
+                stadiumStats[game.away_team][stadium].wins++;
+            } else if (game.winner === game.home_team) {
+                stadiumStats[game.away_team][stadium].losses++;
+            } else {
+                stadiumStats[game.away_team][stadium].draws++;
+            }
+        });
+        
+        // 결과 정리 - JSON 구조에 맞쵸
+        const result = {};
+        this.teams.forEach(team => {
+            result[team] = [];
+            
+            Object.entries(stadiumStats[team]).forEach(([stadium, stats]) => {
+                if (stats.wins + stats.losses + stats.draws > 0) {
+                    const winRate = stats.wins + stats.losses > 0 ?
+                        (stats.wins / (stats.wins + stats.losses)).toFixed(3) : '0.000';
+                    
+                    result[team].push({
+                        stadium,
+                        wins: stats.wins,
+                        losses: stats.losses,
+                        draws: stats.draws,
+                        win_rate: winRate
+                    });
+                }
+            });
+        });
+        
+        return result;
+    }
+
+    getHeadToHeadMatrix() {
         const teams = ['KIA', 'LG', '삼성', '두산', 'KT', 'SSG', '롯데', '한화', 'NC', '키움'];
         const matrix = {};
         
-        for (const team of teams) {
+        teams.forEach(team => {
             matrix[team] = {};
-            for (const opponent of teams) {
+            teams.forEach(opponent => {
                 if (team === opponent) {
                     matrix[team][opponent] = '-';
-                    continue;
+                    return;
                 }
                 
-                const games = await this.db.all(`
-                    SELECT winner, COUNT(*) as count
-                    FROM games
-                    WHERE (home_team = ? AND away_team = ?) 
-                       OR (home_team = ? AND away_team = ?)
-                    GROUP BY winner
-                `, [team, opponent, opponent, team]);
-                
                 let wins = 0, losses = 0;
-                games.forEach(g => {
-                    if (g.winner === team) wins = g.count;
-                    else if (g.winner === opponent) losses = g.count;
+                this.games.forEach(game => {
+                    if ((game.home_team === team && game.away_team === opponent) ||
+                        (game.away_team === team && game.home_team === opponent)) {
+                        if (game.winner === team) wins++;
+                        else if (game.winner === opponent) losses++;
+                    }
                 });
                 
                 matrix[team][opponent] = {
                     record: `${wins}-${losses}`,
                     win_rate: wins + losses > 0 ? (wins / (wins + losses)).toFixed(3) : '0.000'
                 };
-            }
-        }
+            });
+        });
         
         return matrix;
     }
 
-    async getStreakAnalysis() {
-        return await this.db.all(`
-            SELECT 
-                team_name,
-                current_streak,
-                max_win_streak,
-                max_lose_streak,
-                CASE 
-                    WHEN current_streak LIKE '%W' THEN '연승 중'
-                    WHEN current_streak LIKE '%L' THEN '연패 중'
-                    ELSE '무승부'
-                END as streak_status
-            FROM team_stats
-            ORDER BY win_rate DESC
-        `);
-    }
-
-    async getRunAnalysis() {
-        return await this.db.all(`
-            SELECT 
-                team_name,
-                runs_scored,
-                runs_allowed,
-                run_differential,
-                printf('%.2f', CAST(runs_scored AS FLOAT) / games_played) as avg_runs_scored,
-                printf('%.2f', CAST(runs_allowed AS FLOAT) / games_played) as avg_runs_allowed,
-                printf('%.2f', CAST(run_differential AS FLOAT) / games_played) as avg_run_diff
-            FROM team_stats
-            ORDER BY run_differential DESC
-        `);
-    }
-
-    async getVsLevelAnalysis() {
-        return await this.db.all(`
-            SELECT 
-                team_name,
-                vs_above_500_wins as vs_above_wins,
-                vs_above_500_losses as vs_above_losses,
-                CASE 
-                    WHEN vs_above_500_wins + vs_above_500_losses > 0 
-                    THEN printf('%.3f', CAST(vs_above_500_wins AS FLOAT) / 
-                                (vs_above_500_wins + vs_above_500_losses))
-                    ELSE '0.000'
-                END as vs_above_win_rate,
-                vs_below_500_wins as vs_below_wins,
-                vs_below_500_losses as vs_below_losses,
-                CASE 
-                    WHEN vs_below_500_wins + vs_below_500_losses > 0 
-                    THEN printf('%.3f', CAST(vs_below_500_wins AS FLOAT) / 
-                                (vs_below_500_wins + vs_below_500_losses))
-                    ELSE '0.000'
-                END as vs_below_win_rate
-            FROM team_stats
-            ORDER BY win_rate DESC
-        `);
-    }
-
-    async getSpecialSituations() {
-        return await this.db.all(`
-            SELECT 
-                team_name,
-                blowout_wins,
-                blowout_losses,
-                shutout_wins,
-                shutout_losses,
-                one_run_games_won + one_run_games_lost as close_games,
-                blowout_wins + blowout_losses as blowout_games,
-                shutout_wins + shutout_losses as shutout_games
-            FROM team_stats
-            ORDER BY win_rate DESC
-        `);
-    }
-
-    async getStadiumRecords() {
-        const stadiumData = await this.db.all(`
-            SELECT 
-                team_name,
-                stadium,
-                wins,
-                losses,
-                draws,
-                printf('%.3f', win_rate) as win_rate
-            FROM stadium_records
-            ORDER BY team_name, stadium
-        `);
-        
-        // 팀별로 그룹화
-        const grouped = {};
-        stadiumData.forEach(record => {
-            if (!grouped[record.team_name]) {
-                grouped[record.team_name] = [];
+    getStreakAnalysis() {
+        try {
+            const statsPath = path.join(__dirname, '../data/2025-team-stats.json');
+            if (fs.existsSync(statsPath)) {
+                const stats = JSON.parse(fs.readFileSync(statsPath, 'utf8'));
+                return Object.values(stats).map(team => ({
+                    team_name: team.team_name,
+                    current_streak: team.current_streak || '-',
+                    max_win_streak: team.max_win_streak || 0,
+                    max_lose_streak: team.max_lose_streak || 0,
+                    streak_status: team.current_streak ? 
+                        (team.current_streak.includes('W') ? '연승 중' : 
+                         team.current_streak.includes('L') ? '연패 중' : '무승부') : '-'
+                }));
             }
-            grouped[record.team_name].push({
-                stadium: record.stadium,
-                wins: record.wins,
-                losses: record.losses,
-                draws: record.draws,
-                win_rate: record.win_rate
-            });
-        });
-        
-        return grouped;
+        } catch (e) {
+            console.log('연승/연패 데이터 없음');
+        }
+        return [];
     }
 
-    async getTeamSummaries() {
-        const teams = await this.db.all(`
-            SELECT * FROM team_stats ORDER BY win_rate DESC
-        `);
-        
-        return teams.map(team => ({
+    getRunAnalysis() {
+        try {
+            const statsPath = path.join(__dirname, '../data/2025-team-stats.json');
+            if (fs.existsSync(statsPath)) {
+                const stats = JSON.parse(fs.readFileSync(statsPath, 'utf8'));
+                return Object.values(stats)
+                    .map(team => ({
+                        team_name: team.team_name,
+                        runs_scored: team.runs_scored || 0,
+                        runs_allowed: team.runs_allowed || 0,
+                        run_differential: team.run_differential || 0,
+                        avg_runs_scored: team.games_played ? (team.runs_scored / team.games_played).toFixed(2) : '0.00',
+                        avg_runs_allowed: team.games_played ? (team.runs_allowed / team.games_played).toFixed(2) : '0.00',
+                        avg_run_diff: team.games_played ? (team.run_differential / team.games_played).toFixed(2) : '0.00'
+                    }))
+                    .sort((a, b) => b.run_differential - a.run_differential);
+            }
+        } catch (e) {
+            console.log('득실점 분석 데이터 없음');
+        }
+        return [];
+    }
+
+    getVsLevelAnalysis() {
+        // 2025-team-stats.json에서 가져오기
+        try {
+            const statsPath = path.join(__dirname, '../data/2025-team-stats.json');
+            if (fs.existsSync(statsPath)) {
+                const stats = JSON.parse(fs.readFileSync(statsPath, 'utf8'));
+                return Object.values(stats).map(team => ({
+                    team_name: team.team_name,
+                    vs_above_wins: team.vs_above_500_wins || 0,
+                    vs_above_losses: team.vs_above_500_losses || 0,
+                    vs_above_win_rate: team.vs_above_500_win_rate || '0.000',
+                    vs_below_wins: team.vs_below_500_wins || 0,
+                    vs_below_losses: team.vs_below_500_losses || 0,
+                    vs_below_win_rate: team.vs_below_500_win_rate || '0.000'
+                }));
+            }
+        } catch (e) {
+            console.log('팀 통계 데이터 없음');
+        }
+        return [];
+    }
+
+    getSpecialSituations() {
+        try {
+            const statsPath = path.join(__dirname, '../data/2025-team-stats.json');
+            if (fs.existsSync(statsPath)) {
+                const stats = JSON.parse(fs.readFileSync(statsPath, 'utf8'));
+                return Object.values(stats).map(team => ({
+                    team_name: team.team_name,
+                    blowout_wins: team.blowout_wins || 0,
+                    blowout_losses: team.blowout_losses || 0,
+                    shutout_wins: team.shutout_wins || 0,
+                    shutout_losses: team.shutout_losses || 0,
+                    close_games: (team.one_run_games_won || 0) + (team.one_run_games_lost || 0),
+                    blowout_games: (team.blowout_wins || 0) + (team.blowout_losses || 0),
+                    shutout_games: (team.shutout_wins || 0) + (team.shutout_losses || 0)
+                }));
+            }
+        } catch (e) {
+            console.log('특수 상황 데이터 없음');
+        }
+        return [];
+    }
+
+    getSeriesRecords() {
+        // series_records는 analysis-series.json에서 가져오기
+        try {
+            const seriesPath = path.join(__dirname, '../data/analysis-series.json');
+            if (fs.existsSync(seriesPath)) {
+                const seriesData = JSON.parse(fs.readFileSync(seriesPath, 'utf8'));
+                return seriesData.teamStats || {};
+            }
+        } catch (e) {
+            console.log('시리즈 데이터 없음, 빈 객체 반환');
+        }
+        return {};
+    }
+
+    getTeamSummaries() {
+        try {
+            const statsPath = path.join(__dirname, '../data/2025-team-stats.json');
+            if (fs.existsSync(statsPath)) {
+                const teams = JSON.parse(fs.readFileSync(statsPath, 'utf8'));
+                const sortedTeams = Object.values(teams).sort((a, b) => parseFloat(b.win_rate) - parseFloat(a.win_rate));
+                
+                return sortedTeams.map(team => ({
             team_name: team.team_name,
             overall: {
                 record: `${team.wins}승 ${team.draws}무 ${team.losses}패`,
@@ -409,6 +700,11 @@ class EnhancedDashboardGenerator {
                 avg_allowed: (team.runs_allowed / team.games_played).toFixed(2)
             }
         }));
+            }
+        } catch (e) {
+            console.log('팀 통계 데이터 없음');
+        }
+        return [];
     }
 }
 
@@ -417,7 +713,6 @@ async function main() {
     const generator = new EnhancedDashboardGenerator();
     
     try {
-        await generator.connect();
         const dashboard = await generator.generateComprehensiveDashboard();
         
         console.log('\n✅ Enhanced 대시보드 생성 완료!');
@@ -437,11 +732,8 @@ async function main() {
             .sort((a, b) => parseFloat(b.home_advantage) - parseFloat(a.home_advantage))
             .slice(0, 3)
             .forEach(t => console.log(`   ${t.team_name}: ${t.home_advantage}`));
-        
-        await generator.close();
     } catch (error) {
         console.error('❌ 오류 발생:', error);
-        await generator.close();
     }
 }
 
