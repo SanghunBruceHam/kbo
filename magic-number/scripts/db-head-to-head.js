@@ -87,7 +87,7 @@ class EnhancedHeadToHeadAnalyzer {
         }
 
         // 기존 대시보드 데이터 로드
-        const dashboardPath = '../data/dashboard-data.json';
+        const dashboardPath = '../data/stats-comprehensive.json';
         const dashboardData = JSON.parse(fs.readFileSync(dashboardPath, 'utf8'));
         
         // 상대전적 매트릭스 업데이트

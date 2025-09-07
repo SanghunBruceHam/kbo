@@ -253,7 +253,7 @@
         {
           "@type": "DataDownload", 
           "encodingFormat": "application/json",
-          "contentUrl": "https://kbo-dashboard.co.kr/magic-number/data/dashboard-data.json",
+          "contentUrl": "https://kbo-dashboard.co.kr/magic-number/data/stats-comprehensive.json",
           "description": "매직넘버 및 확장 대시보드 데이터"
         }
       ],
@@ -5679,7 +5679,7 @@
         // 데이터 정보 업데이트 함수 (header + footer)
         function updateDataInfo(data) {
             try {
-                // dashboard-data.json에서는 updateTime 필드 사용
+                // stats-comprehensive.json에서는 updateTime 필드 사용
                 const updateTimeField = data?.lastUpdated || data?.updateTime;
                 if (updateTimeField) {
                     const lastUpdated = new Date(updateTimeField);
@@ -5793,7 +5793,7 @@
         async function loadDashboardData() {
             try {
                 // 캐시 강제 삭제를 위한 fetch 옵션 추가
-                const response = await fetch(`magic-number/data/dashboard-data.json?v=${Date.now()}`, {
+                const response = await fetch(`magic-number/data/stats-comprehensive.json?v=${Date.now()}`, {
                     method: 'GET',
                     cache: 'no-store',
                     headers: {
@@ -5809,10 +5809,10 @@
                 
                 dashboardData = await response.json();
                 
-                // dashboard-data.json에서 피타고리안 운 지수 계산 (우선 실행)
+                // stats-comprehensive.json에서 피타고리안 운 지수 계산 (우선 실행)
                 if (dashboardData.standings) {
                     dashboardData.standings.forEach(team => {
-                        // dashboard-data.json에서 득실점 데이터를 사용해 피타고리안 계산
+                        // stats-comprehensive.json에서 득실점 데이터를 사용해 피타고리안 계산
                         const runsScored = team.runs_scored || 0;
                         const runsAllowed = team.runs_allowed || 0;
                         
@@ -8667,7 +8667,7 @@
                 // 통합된 순위 시스템에서 순위 가져오기
                 const rank = ranking.teamRanks[team.team_name] || 999;
                 
-                // 실제 기록 (dashboard-data.json 필드명 사용)
+                // 실제 기록 (stats-comprehensive.json 필드명 사용)
                 const actualWins = team.wins || 0;
                 const actualDraws = team.draws || 0;
                 const actualLosses = team.losses || 0;
@@ -15018,7 +15018,7 @@ KT 9:1 키움(H)`;
             // 독립적으로 데이터 로드
             let chartData = null;
             try {
-                const response = await fetch(`magic-number/data/dashboard-data.json?v=${Date.now()}`);
+                const response = await fetch(`magic-number/data/stats-comprehensive.json?v=${Date.now()}`);
                 if (response.ok) {
                     const data = await response.json();
                     if (data.history && data.history.length > 0) {
@@ -15102,19 +15102,19 @@ KT 9:1 키움(H)`;
             try {
                 console.log('📊 전반기/후반기 성적 업데이트 시작...');
                 
-                // dashboard-data.json을 메인으로 사용 (streakAnalysis 포함)
+                // stats-comprehensive.json을 메인으로 사용 (streakAnalysis 포함)
                 let kboData = null;
                 let serviceData = null;
                 
                 try {
-                    // dashboard-data.json 로드 (streakAnalysis 포함)
-                    const enhancedResponse = await fetch(`magic-number/data/dashboard-data.json?v=${Date.now()}`);
+                    // stats-comprehensive.json 로드 (streakAnalysis 포함)
+                    const enhancedResponse = await fetch(`magic-number/data/stats-comprehensive.json?v=${Date.now()}`);
                     if (enhancedResponse.ok) {
                         kboData = await enhancedResponse.json();
-                        console.log('✅ dashboard-data.json 로드 성공');
+                        console.log('✅ stats-comprehensive.json 로드 성공');
                     }
                 } catch (e) {
-                    console.error('❌ dashboard-data.json 로드 실패:', e);
+                    console.error('❌ stats-comprehensive.json 로드 실패:', e);
                 }
                 
                 // api-data.json도 로드 시도 (백업용)
@@ -15391,7 +15391,7 @@ KT 9:1 키움(H)`;
             for (const [index, team] of sortedStandings.entries()) {
                 try {
                     // 실제 시즌 데이터에서 전반기/후반기 성적 계산
-                    // dashboard-data.json은 team_name, api-data.json은 team 사용
+                    // stats-comprehensive.json은 team_name, api-data.json은 team 사용
                     const teamName = team.team_name || team.team;
                     let actualRecord = await calculateActualHalfSeasonRecord(teamName);
                     
@@ -15443,7 +15443,7 @@ KT 9:1 키움(H)`;
                         secondHalfWins / (secondHalfWins + secondHalfLosses) : 0;
                     
                 
-                    // dashboard-data.json 또는 api-data.json에서 실제 연속 기록 데이터 가져오기
+                    // stats-comprehensive.json 또는 api-data.json에서 실제 연속 기록 데이터 가져오기
                     const streakData = window.kboData?.streakAnalysis?.find(s => s.team_name === teamName);
                     const actualMaxWinStreak = streakData?.max_win_streak || 5; // 기본값 5
                     const actualMaxLoseStreak = streakData?.max_lose_streak || 5; // 기본값 5
