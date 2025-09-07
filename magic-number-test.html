@@ -194,6 +194,10 @@
             background: #e74c3c !important;
             color: white;
         }
+        .magic-impossible {
+            background: #6b7280 !important;
+            color: white;
+        }
         
         /* 범례 스타일 */
         .legend-box {
@@ -209,20 +213,21 @@
         .legend-box.safe { background: #2ecc71; }
         .legend-box.warning { background: #f39c12; }
         .legend-box.danger { background: #e74c3c; }
+        .legend-box.impossible { background: #6b7280; }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🏆 KBO 매직/트래직 넘버 계산기</h1>
+        <h1>🏆 2025 KBO 매직/트래직 넘버 실시간 계산</h1>
         
         <div class="description">
-            <h3>📋 계산 방식 설명</h3>
+            <h3>📋 현재 순위 기준 매직/트래직 넘버</h3>
             <ul>
-                <li><strong>매직 넘버 (Magic):</strong> k위 이내 확정을 위해 필요한 최소 승수</li>
-                <li><strong>트래직 넘버 (Tragic):</strong> k위 이내 달성이 불가능해지는 최대 패수</li>
+                <li><strong>매직 넘버 (MN):</strong> k위 이내 확정을 위해 필요한 최소 승수</li>
+                <li><strong>트래직 넘버 (TN):</strong> k위 이내 달성이 불가능해지는 최대 패수</li>
                 <li><strong>승률 계산:</strong> W / (W + L) - 무승부는 분모에서 제외</li>
-                <li><strong>strict:</strong> 동률 불허 / <strong>tieOK:</strong> 동률 허용</li>
-                <li><strong>5위 하이라이트:</strong> 플레이오프 진출 라인</li>
+                <li><strong>색상 구분:</strong> 확보(녹색), 매직1-5(연녹색), 6-10(노랑), 11+(빨강), 불가(회색)</li>
+                <li><strong>5위 하이라이트:</strong> 플레이오프 진출 라인 (노란 헤더)</li>
             </ul>
         </div>
 
@@ -350,8 +355,24 @@
         // 현재 KBO 데이터 로드
         async function loadCurrentData() {
             try {
-                const response = await fetch('magic-number/data/api-data.json');
-                const data = await response.json();
+                // 먼저 calc-standings.json 시도
+                let response = await fetch('magic-number/data/calc-standings.json');
+                let data = await response.json();
+                
+                if (data.rankings) {
+                    teams = data.rankings.map(team => ({
+                        id: team.team,
+                        W: team.wins,
+                        L: team.losses,
+                        T: team.draws
+                    }));
+                    alert('✅ 현재 KBO 데이터 로드 완료! (2025-09-07 기준)');
+                    return;
+                }
+                
+                // fallback: api-data.json 시도
+                response = await fetch('magic-number/data/api-data.json');
+                data = await response.json();
                 
                 teams = data.standings.map(team => ({
                     id: team.team,
@@ -395,66 +416,63 @@
             renderResults();
         }
 
-        // 결과 테이블 렌더링 - 매트릭스 스타일
+        // 결과 테이블 렌더링 - 매트릭스 스타일 (magic, tragic, impossible 포함)
         function renderResults() {
             if (results.length === 0) return;
 
-            // 스크린샷처럼 9위부터 1위 순서로 배열
             const ranks = [9, 8, 7, 6, 5, 4, 3, 2, 1];
-            
             let html = '<div class="results-table"><table>';
-            
-            // 최상단 헤더 - 순위
+
+            // Header rows
             html += '<thead><tr>';
             html += '<th rowspan="2" class="team-col">구단</th>';
             html += '<th colspan="9" style="background: #1f2937; color: white; font-size: 16px; font-weight: bold;">순위</th>';
             html += '</tr>';
-            
-            // 순위 번호 헤더
             html += '<tr>';
             for (const rank of ranks) {
-                const isPlayoff = rank === 5;
-                const headerClass = isPlayoff ? 'playoff-rank-header' : 'rank-header';
+                const headerClass = (rank === 5) ? 'playoff-rank-header' : 'rank-header';
                 html += `<th class="${headerClass}">${rank}</th>`;
             }
-            html += '</tr></thead>';
-            
-            html += '<tbody>';
+            html += '</tr></thead><tbody>';
 
-            // 각 팀별 행 생성
             for (const row of results) {
                 html += '<tr>';
-                
-                // 팀 정보 (스크린샷처럼 "X위 확보" 스타일)
                 const currentRank = getCurrentRank(row, results);
                 html += `<td class="team-info-cell">
                     <div class="team-name">${row.team}</div>
-                    <div class="team-status">${currentRank}위 확보</div>
+                    <div class="team-status">현재 ${currentRank}위 · R=${row.R}</div>
                 </td>`;
-                
-                // 각 순위별 매직 넘버
+
                 for (const rank of ranks) {
-                    const magicValue = row[`x${rank}_strict`];
-                    const cellClass = getMagicCellClass(magicValue, row.R);
-                    const displayValue = magicValue === 0 ? '확정' : (magicValue >= row.R ? `${magicValue}` : magicValue);
-                    
-                    html += `<td class="${cellClass}">${displayValue}</td>`;
+                    const x = isSimpleMode ? row[`x${rank}_strict`] : row[`x${rank}_strict`];
+                    const y = isSimpleMode ? row[`y${rank}_strict`] : row[`y${rank}_strict`];
+
+                    const label = displayLabel(x, y, rank);
+                    const cls = chooseCellClass(x, y);
+
+                    html += `<td class="magic-tragic-cell ${cls}">
+                        ${label}
+                        <div style="font-size:10px; opacity:.9; margin-top:2px;">
+                          <span>MN ${x}</span> · <span>TN ${y}</span>
+                        </div>
+                    </td>`;
                 }
                 html += '</tr>';
             }
 
             html += '</tbody></table></div>';
-            
-            // 범례 추가
-            html += '<div class="legend" style="margin-top: 15px; padding: 15px; background: #f8f9fa; border-radius: 8px;">';
+
+            // Legend
+            html += '<div class="legend" style="margin-top: 15px; padding: 15px; background: #f8f9fa; border-radius: 8px; color:#111;">';
             html += '<h4 style="margin: 0 0 10px 0;">🎨 색상 구분</h4>';
-            html += '<div style="display: flex; gap: 20px; flex-wrap: wrap; font-size: 14px;">';
-            html += '<span><span class="legend-box confirmed"></span> 확정 (매직 넘버 0)</span>';
-            html += '<span><span class="legend-box safe"></span> 안전 (매직 넘버 1-5)</span>';
-            html += '<span><span class="legend-box warning"></span> 주의 (매직 넘버 6-10)</span>';
-            html += '<span><span class="legend-box danger"></span> 위험 (매직 넘버 11+)</span>';
+            html += '<div style="display: flex; gap: 18px; flex-wrap: wrap; font-size: 14px;">';
+            html += '<span><span class="legend-box confirmed"></span> 확보 (매직 0)</span>';
+            html += '<span><span class="legend-box safe"></span> 매직 1–5</span>';
+            html += '<span><span class="legend-box warning"></span> 매직 6–10</span>';
+            html += '<span><span class="legend-box danger"></span> 매직 11+</span>';
+            html += '<span><span class="legend-box impossible"></span> 불가/탈락 (트래직 0)</span>';
             html += '</div></div>';
-            
+
             document.getElementById('results').innerHTML = html;
         }
 
@@ -464,12 +482,20 @@
             return sorted.findIndex(team => team.team === targetTeam.team) + 1;
         }
 
-        // 매직 넘버 값에 따른 셀 클래스 결정
-        function getMagicCellClass(magicValue, remainingGames) {
-            if (magicValue === 0) return 'magic-confirmed'; // 확정 (녹색)
-            if (magicValue <= 5) return 'magic-safe'; // 안전 (연한 녹색) 
-            if (magicValue <= 10) return 'magic-warning'; // 주의 (노란색)
-            return 'magic-danger'; // 위험 (빨간색)
+        // 셀에 표시할 텍스트 결정 (magic, tragic, impossible)
+        function displayLabel(x, y, rank){
+            if (y === 0) return (rank === 1 ? '1위 불가' : '불가');
+            if (x === 0) return '확보';
+            return String(x); // 기본은 매직넘버 표기
+        }
+
+        // magic/tragic 값에 따른 셀 클래스 결정
+        function chooseCellClass(x, y){
+            if (y === 0) return 'magic-impossible';
+            if (x === 0) return 'magic-confirmed';
+            if (x <= 5) return 'magic-safe';
+            if (x <= 10) return 'magic-warning';
+            return 'magic-danger';
         }
 
         // CSV 다운로드
@@ -518,9 +544,15 @@
             }
         }
 
-        // 초기 샘플 데이터 로드
-        loadSampleData();
-        calculate();
+        // 초기 현재 KBO 데이터 로드
+        async function init() {
+            await loadCurrentData();
+            if (teams.length > 0) {
+                calculate();
+            }
+        }
+        
+        init();
     </script>
 </body>
 </html>
