@@ -259,7 +259,7 @@ const kboTeams = {
                     const firstPlaceMagic = magicNumbers[team.team];
                     magicNumber = firstPlaceMagic ? firstPlaceMagic.championship : 0;
                 } else {
-                    // 나머지 팀: 승수 기준 PO 진출 매직넘버 사용
+                    // 나머지 팀: calculate-magic-numbers.js에서 계산된 데이터 사용
                     magicNumber = this.getWinsBasedMagicNumber(team);
                 }
                 
@@ -321,11 +321,6 @@ const kboTeams = {
             }
         };
         
-        // 에러 처리 및 사용자 알림 함수들 (비활성화)
-        function showNotification(message, type = 'error', duration = 5000) {
-            // 알림 표시 비활성화 - 콘솔에만 로그
-            logger.log(`[${type.toUpperCase()}] ${message}`);
-        }
         
         function handleError(error, context = '알 수 없는 오류') {
             logger.error(`❌ ${context}:`, error);
@@ -621,22 +616,13 @@ const kboTeams = {
             const magicNumber = calculateMagicNumber(firstPlace, secondPlace);
             document.getElementById('first-place-magic').textContent = `매직넘버: ${magicNumber > 0 ? magicNumber : '확정'}`;
 
-            // 플레이오프 확정 팀 수 (PO 매직넘버 0이지만 탈락 확정이 아닌 팀들)
-            // PO 확정 팀 계산 비활성화
-            const confirmedTeamsList = [];
-            const confirmedTeams = 0;
-            document.getElementById('playoff-confirmed-teams').textContent = `${confirmedTeams}개 팀`;
-            
-            // 플레이오프 확정 팀이 있으면 첫 번째 확정 팀 정보 표시
-            if (confirmedTeams > 0) {
-                const firstConfirmedTeam = confirmedTeamsList[0];
-                if (firstConfirmedTeam) {
-                    const teamData = kboTeams[firstConfirmedTeam.team];
-                    document.getElementById('playoff-confirmed-desc').innerHTML = `<span style="color: ${teamData.color}; ">${firstConfirmedTeam.team}</span> 외 ${confirmedTeams - 1}팀`;
-                }
-            } else {
-                document.getElementById('playoff-confirmed-desc').textContent = 'PO 매직넘버 0 달성';
+            // 플레이오프 확정 팀 수 (magic-matrix-data.json에서 계산됨)
+            let playoffConfirmedCount = 0;
+            if (window.magicMatrixData && window.magicMatrixData.playoffResults) {
+                playoffConfirmedCount = window.magicMatrixData.playoffResults.filter(p => p.playoffMagicStrict === 0 && p.playoffTragicStrict > 0).length;
             }
+            document.getElementById('playoff-confirmed-teams').textContent = `${playoffConfirmedCount}개 팀`;
+            document.getElementById('playoff-confirmed-desc').textContent = 'PO 매직넘버 0 달성';
 
             // 최고 연승팀 (동점 시 2팀 표기)
             let bestStreakTeams = [];
@@ -1043,10 +1029,6 @@ const kboTeams = {
                     throw new Error('순위 데이터가 없습니다');
                 }
 
-                // 모든 추격팀의 최대가능승수 중 최고값 찾기
-                const maxPossibleWinsByChaser = Math.max(...currentStandings.slice(1).map(team => 
-                    team.wins + (144 - team.games)
-                ));
 
                 // 승률이 같은 팀에게 같은 순위 부여
                 let currentRank = 1;
@@ -1551,168 +1533,122 @@ const kboTeams = {
                 }
                 tbody.innerHTML = '';
 
-                if (!currentStandings || currentStandings.length === 0) {
-                    throw new Error('순위 데이터가 없습니다');
+                // magic-matrix-data.json에서 데이터 가져오기
+                if (!window.magicMatrixData || !window.magicMatrixData.playoffResults) {
+                    console.warn('매직넘버 데이터가 없습니다');
+                    tbody.innerHTML = '<tr><td colspan="11" style="text-align: center; color: #999; padding: 20px;">데이터 로딩 중...</td></tr>';
+                    return;
                 }
 
-                const firstPlace = currentStandings[0];
-                
-                // 144경기 체제 역대 1위 평균 승수 (2015-2024: 86.9승)
-                const historicalFirstPlaceWins = 87; // 2015-2024년 1위팀 평균 승수
+                // playoffResults 데이터를 승률 순으로 정렬
+                const chaseData = window.magicMatrixData.playoffResults
+                    .sort((a, b) => {
+                        const aWinRate = a.wins / (a.wins + a.losses);
+                        const bWinRate = b.wins / (b.wins + b.losses);
+                        return bWinRate - aWinRate;
+                    });
 
-                currentStandings.forEach((team, index) => {
-                const teamData = kboTeams[team.team];
-                const remainingGames = 144 - team.games;
-                const maxPossibleWins = team.wins + remainingGames;
-                const firstPlaceRemaining = 144 - firstPlace.games;
-                
-                // 1위 탈환 트래직넘버 계산
-                const firstPlaceTragic = calculateFirstPlaceTragicNumber(team, currentStandings, index);
-                
-                // 1위팀과 2위 이하 팀별로 다른 로직 적용
-                let requiredFirstPlaceWins, canCatch, winPctColor, winPctDisplay, canReachHistoricalAverage;
-                
-                if (team.displayRank === 1) {
-                    // 1위팀: 현재 우승 상황 표시
-                    requiredFirstPlaceWins = '-';
-                    canCatch = '현재 1위';
+                chaseData.forEach((team, index) => {
+                    const row = document.createElement('tr');
                     
-                    // 역대 1위 평균 달성 가능성
-                    canReachHistoricalAverage = maxPossibleWins >= historicalFirstPlaceWins;
+                    // 데이터에서 직접 가져오기 (계산 로직 제거)
+                    const firstPlaceTeam = chaseData[0];
+                    const gameDifference = firstPlaceTeam.wins - team.wins;
+                    const maxPossibleWins = team.wins + team.remainingGames;
                     
-                    // 87승까지 필요한 승률
-                    const neededWinsForHistoricalAverage = Math.max(0, historicalFirstPlaceWins - team.wins);
-                    const requiredWinPctForAverage = remainingGames > 0 ? 
-                        neededWinsForHistoricalAverage / remainingGames : 0;
+                    // 역대 1위 기준 (87승) 계산
+                    const targetWins = 87;
+                    const neededWinsFor87 = Math.max(0, targetWins - team.wins);
+                    const requiredWinRate = team.remainingGames > 0 ? (neededWinsFor87 / team.remainingGames * 100) : 0;
+                    const can87Wins = maxPossibleWins >= targetWins;
                     
-                    // 역대 1위 기준 필요 승률 표시 로직 (1위팀용)
-                    if (maxPossibleWins < historicalFirstPlaceWins || requiredWinPctForAverage > 1.0) {
-                        // 최대가능 승수가 87 미만이거나 필요 승률이 1.0 초과하면 불가능
-                        winPctColor = '#c0392b';
-                        winPctDisplay = '불가능';
-                    } else if (neededWinsForHistoricalAverage === 0) {
-                        winPctColor = '#27ae60';
-                        winPctDisplay = '달성';
-                    } else {
-                        winPctColor = '#3498db';
-                        winPctDisplay = requiredWinPctForAverage.toFixed(3);
+                    // 상태는 데이터에서 가져오기
+                    const status = team.firstPlaceStatus || '계산중';
+                    
+                    // 팀별 CSS 클래스 매핑
+                    const teamClassMap = {
+                        '한화': 'team-hanwha',
+                        'LG': 'team-lg', 
+                        '두산': 'team-doosan',
+                        '삼성': 'team-samsung',
+                        'KIA': 'team-kia',
+                        'SSG': 'team-ssg',
+                        '롯데': 'team-lotte',
+                        'NC': 'team-nc',
+                        '키움': 'team-kiwoom',
+                        'KT': 'team-kt'
+                    };
+
+                    // 상태에 따른 색상
+                    let statusClass = '';
+                    if (status === '현재 1위') {
+                        statusClass = `current-first first-place-row first-place-${team.team.toLowerCase()}`;
+                        // 1위팀 테두리 색상 적용
+                        const teamColor = kboTeams[team.team]?.color || '#000';
+                        row.style.borderColor = teamColor;
+                    } else if (status === '가능') {
+                        statusClass = 'chase-possible';
+                    } else if (status === '불가능') {
+                        statusClass = 'chase-impossible';
                     }
-                } else {
-                    // 2위 이하팀: 기존 로직
-                    requiredFirstPlaceWins = maxPossibleWins - 1;
-                    // canCatch는 나중에 트래직넘버 기준으로 결정
                     
-                    // 역대 1위 평균 기준으로 필요 승률 계산
-                    const neededWinsForHistoricalAverage = Math.max(0, historicalFirstPlaceWins - team.wins);
-                    const requiredWinPctForAverage = remainingGames > 0 ? 
-                        neededWinsForHistoricalAverage / remainingGames : 0;
+                    row.className = statusClass;
+                    // 텍스트별 색상 클래스 함수
+                    const getColorClass = (text) => {
+                        // 1위팀은 팀 색상 우선 적용
+                        if (status === '현재 1위') {
+                            return 'team-color-text';
+                        }
+                        const textStr = String(text);
+                        if (textStr === '불가능') return 'text-impossible';
+                        if (textStr === '가능' || textStr === '현재 1위') return 'text-possible';
+                        return '';
+                    };
+
+                    let magicText;
+                    const championshipMagic = team.championshipMagic || 0;
+                    const championshipTragic = team.championshipTragic || 0;
                     
-                    // 144경기 체제 역대 1위 성적 달성 가능성 (87승 달성 가능한지)
-                    canReachHistoricalAverage = maxPossibleWins >= historicalFirstPlaceWins;
-                    
-                    // 역대 1위 기준 필요 승률 표시 로직
-                    if (maxPossibleWins < historicalFirstPlaceWins || requiredWinPctForAverage > 1.0) {
-                        // 최대가능 승수가 87 미만이거나 필요 승률이 1.0 초과하면 불가능
-                        winPctColor = '#c0392b';
-                        winPctDisplay = '불가능';
-                    } else if (neededWinsForHistoricalAverage === 0) {
-                        winPctColor = '#27ae60';
-                        winPctDisplay = '달성';
-                    } else if (requiredWinPctForAverage > 0.700) {
-                        winPctColor = '#2c3e50';
-                        winPctDisplay = requiredWinPctForAverage.toFixed(3);
-                    } else if (requiredWinPctForAverage > 0.650) {
-                        winPctColor = '#e74c3c';
-                        winPctDisplay = requiredWinPctForAverage.toFixed(3);
-                    } else if (requiredWinPctForAverage > 0.550) {
-                        winPctColor = '#e67e22';
-                        winPctDisplay = requiredWinPctForAverage.toFixed(3);
-                    } else if (requiredWinPctForAverage > 0.450) {
-                        winPctColor = '#f1c40f';
-                        winPctDisplay = requiredWinPctForAverage.toFixed(3);
+                    if (championshipTragic === 0) {
+                        magicText = '불가능';
+                    } else if (championshipMagic > team.remainingGames) {
+                        magicText = `${championshipMagic} (자력불가)`;
                     } else {
-                        winPctColor = '#27ae60';
-                        winPctDisplay = requiredWinPctForAverage.toFixed(3);
+                        magicText = championshipMagic;
                     }
-                }
-                
-                const row = document.createElement('tr');
-                row.style.borderLeft = `4px solid ${teamData.color}`;
-                
-                // 순위별 클래스 적용
-                let rankClass = '';
-                if (team.displayRank === 1) {
-                    rankClass = 'rank-1 first-place-row';
-                    // 1위팀에 팀 컬러 테두리와 배경 적용
-                    row.style.border = `3px solid ${teamData.color}`;
-                    row.style.boxShadow = `0 0 12px ${teamData.color}30`;
-                    row.style.background = `linear-gradient(135deg, ${teamData.color}08 0%, ${teamData.color}15 100%)`;
-                    row.style.borderRadius = '8px';
-                } else if (team.displayRank === 2) rankClass = 'rank-2';
-                else if (team.displayRank === 3) rankClass = 'rank-3';
-                else if (team.displayRank >= 4 && team.displayRank <= 5) rankClass = 'playoff';
-                row.className = rankClass;
-                
-                // 팀명에 로고 추가
-                const teamNameWithLogo = Utils.getTeamNameWithLogo(team);
-                
-                // 1위팀인 경우 특별 스타일링
-                const isFirstPlace = team.displayRank === 1;
-                const textColor = isFirstPlace ? teamData.color : '#666';
-                
-                // 1위 탈환 트래직넘버 표시 텍스트 생성
-                let tragicDisplay, tragicColor;
-                if (team.displayRank === 1) {
-                    tragicDisplay = '-';
-                    tragicColor = teamData.color;
-                } else if (firstPlaceTragic === 999) {
-                    tragicDisplay = '불가능';
-                    tragicColor = '#e74c3c';
-                    // 트래직넘버가 불가능이면 탈환도 불가능
-                    canCatch = '불가능';
-                } else if (firstPlaceTragic === 0) {
-                    tragicDisplay = '0';
-                    tragicColor = '#f39c12'; // 주황색 - 임계점
-                    // 트래직넘버가 0이면 아직 탈환 가능하지만 임계 상황
-                    canCatch = '가능';
-                } else {
-                    tragicDisplay = firstPlaceTragic;
-                    tragicColor = textColor; // 기본 텍스트 색상 사용
-                    // 트래직넘버가 양수면 아직 탈환 가능
-                    canCatch = '가능';
-                }
-                
-                // 탈환 가능 여부에 따른 색상 결정 (canCatch 값 결정 후)
-                const catchColor = isFirstPlace ? teamData.color : 
-                    (canCatch === '가능' ? '#27ae60' : 
-                     canCatch === '불가능' ? '#e74c3c' : '#3498db');
-                
-                row.innerHTML = `
-                    <td style="color: ${teamData.color}; font-weight: ${isFirstPlace ? '700' : '600'};">${team.displayRank}</td>
-                    <td class="team-name" style="font-weight: ${isFirstPlace ? '600' : 'normal'};">${teamNameWithLogo}</td>
-                    <td style="color: ${textColor}; font-weight: ${isFirstPlace ? '600' : 'normal'};">${team.wins}</td>
-                    <td style="color: ${textColor}; font-weight: ${isFirstPlace ? '600' : 'normal'};">${team.gamesBehind === 0 ? '-' : team.gamesBehind}</td>
-                    <td style="color: ${textColor}; font-weight: ${isFirstPlace ? '600' : 'normal'};">${remainingGames}</td>
-                    <td style="color: ${textColor}; font-weight: ${isFirstPlace ? '600' : 'normal'};">${maxPossibleWins}</td>
-                    <td style="color: ${textColor}; font-weight: ${isFirstPlace ? '600' : 'normal'};">${typeof requiredFirstPlaceWins === 'string' ? requiredFirstPlaceWins : requiredFirstPlaceWins + '승 이하'}</td>
-                    <td style="color: ${tragicColor}; font-weight: ${isFirstPlace ? '700' : '600'}; text-shadow: ${isFirstPlace ? `0 1px 2px ${teamData.color}20` : 'none'};">
-                        ${tragicDisplay}
-                    </td>
-                    <td style="color: ${catchColor}; font-weight: ${isFirstPlace ? '700' : '600'}; text-shadow: ${isFirstPlace ? `0 1px 2px ${teamData.color}20` : 'none'};">
-                        ${typeof canCatch === 'string' ? canCatch : (canCatch ? '가능' : '불가능')}
-                    </td>
-                    <td style="color: ${isFirstPlace ? teamData.color : winPctColor}; font-weight: ${isFirstPlace ? '600' : 'normal'};">${winPctDisplay}</td>
-                    <td style="color: ${canReachHistoricalAverage ? '#27ae60' : '#e74c3c'}; font-weight: ${isFirstPlace ? '600' : 'normal'};">
-                        ${canReachHistoricalAverage ? '가능' : '불가능'}
-                    </td>
-                `;
-                tbody.appendChild(row);
-            });
+                    const tragicText = championshipTragic === 0 ? '불가능' : championshipTragic;
+                    const winRateText = requiredWinRate > 100 ? '불가능' : (requiredWinRate / 100).toFixed(3);
+                    const can87Text = can87Wins ? '가능' : '불가능';
+
+                    const displayGameDiff = gameDifference === 0 ? '-' : gameDifference;
+                    const teamClass = teamClassMap[team.team] || '';
+                    
+                    // 1위팀은 CSS 클래스로 처리하므로 단순하게 HTML 생성
+                    row.innerHTML = `
+                        <td>${index + 1}</td>
+                        <td class="${teamClass}">
+                            ${kboTeams[team.team]?.logo || ''} ${team.team}
+                        </td>
+                        <td>${team.wins}</td>
+                        <td>${displayGameDiff}</td>
+                        <td>${team.remainingGames}</td>
+                        <td>${maxPossibleWins}</td>
+                        <td><span class="${getColorClass(magicText)}">${magicText}</span></td>
+                        <td><span class="${getColorClass(tragicText)}">${tragicText}</span></td>
+                        <td><span class="${getColorClass(status)}">${status}</span></td>
+                        <td><span class="${getColorClass(winRateText)}">${winRateText}</span></td>
+                        <td><span class="${getColorClass(can87Text)}">${can87Text}</span></td>
+                    `;
+                    
+                    tbody.appendChild(row);
+                });
+
+
             } catch (error) {
                 handleError(error, '1위 탈환 가능성 렌더링 실패');
                 const tbody = document.querySelector('#chase-table tbody');
                 if (tbody) {
-                    tbody.innerHTML = '<tr><td colspan="11" style="text-align: center; color: #999; padding: 20px;">데이터를 불러오는 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.</td></tr>';
+                    tbody.innerHTML = '<tr><td colspan="11" style="text-align: center; color: #999; padding: 20px;">테이블 구조만 표시</td></tr>';
                 }
             }
         }
@@ -1734,28 +1670,8 @@ const kboTeams = {
                     return;
                 }
                 
-                // PO 확정 팀 찾기 비활성화
-                const confirmedTeams = [];
-                
-                // 플레이오프 확정 팀 배너 업데이트 (배너가 존재하는 경우에만)
                 const banner = document.getElementById('playoff-confirmed-banner');
-                const teamsContainer = document.getElementById('playoff-confirmed-teams');
-                
-                if (banner && teamsContainer && confirmedTeams.length > 0) {
-                    banner.style.display = 'block';
-                    teamsContainer.innerHTML = confirmedTeams
-                        .sort((a, b) => a.rank - b.rank)
-                        .map(team => {
-                            const teamData = kboTeams[team.name];
-                            const bgColor = teamData ? teamData.bg : '#f0f0f0';
-                            const textColor = teamData ? teamData.color : '#333';
-                            return `
-                                <div style="padding: 8px 12px; background: ${bgColor}; color: ${textColor}; border-radius: 6px; font-weight: 600; font-size: 14px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-                                    ${team.rank}위 ${team.name}
-                                </div>
-                            `;
-                        }).join('');
-                } else if (banner) {
+                if (banner) {
                     banner.style.display = 'none';
                 }
                 
@@ -1772,59 +1688,37 @@ const kboTeams = {
                 const remainingGames = 144 - team.games;
                 const maxPossibleWins = team.wins + remainingGames;
                 
-                // 최대가능승수 기준으로 순위를 매겨서 5위 팀 찾기
-                const teamsWithMaxWins = currentStandings.map(t => ({
-                    ...t,
-                    maxPossibleWins: t.wins + (144 - t.games)
-                })).sort((a, b) => b.maxPossibleWins - a.maxPossibleWins);
                 
-                // 최대가능승수 기준 5위 팀의 최대가능승수가 "최종 5위 예상 승수"
-                const fifthPlaceMaxWins = teamsWithMaxWins[4] ? teamsWithMaxWins[4].maxPossibleWins : 72;
-                
-                // PO 매직넘버/트래직넘버 데이터 가져오기
+                // magic-matrix-data.json에서 생성된 플레이오프 데이터 가져오기
                 let poMagicNumber = '-';
                 let poTragicNumber = '-';
-                let poStatus = '-';
+                let maxWinsMagicDisplay = '-';
+                let poTragicDisplay = '-';
                 
-                // magic-matrix-data.json에서 플레이오프 데이터 찾기
                 if (window.magicMatrixData && window.magicMatrixData.playoffResults) {
                     const playoffData = window.magicMatrixData.playoffResults.find(p => p.team === team.team);
                     if (playoffData) {
                         poMagicNumber = playoffData.playoffMagicStrict;
                         poTragicNumber = playoffData.playoffTragicStrict;
-                        poStatus = playoffData.playoffStatus;
-                    }
-                }
-                
-                // PO 진출 상황 (트래직넘버 0이면 탈락)
-                let poStatusDisplay = '-';
-                if (poTragicNumber === 0) {
-                    poStatusDisplay = '탈락';
-                }
-                
-                // PO 매직넘버 표시
-                let maxWinsMagicDisplay = '-';
-                if (poMagicNumber !== '-') {
-                    if (poMagicNumber === 0) {
-                        maxWinsMagicDisplay = '<span style="color: #2ecc71;">PO 진출 확정</span>';
-                    } else if (poTragicNumber === 0) {
-                        maxWinsMagicDisplay = '<span style="color: #e74c3c;">탈락</span>';
-                    } else if (remainingGames < poMagicNumber) {
-                        maxWinsMagicDisplay = `${poMagicNumber} (자력진출 불가)`;
-                    } else {
-                        maxWinsMagicDisplay = poMagicNumber;
-                    }
-                }
-                
-                // PO 트래직넘버 표시
-                let poTragicDisplay = '-';
-                if (poTragicNumber !== '-') {
-                    if (poMagicNumber === 0) {
-                        poTragicDisplay = '<span style="color: #2ecc71;">진출</span>';
-                    } else if (poTragicNumber === 0) {
-                        poTragicDisplay = '<span style="color: #e74c3c;">탈락</span>';
-                    } else {
-                        poTragicDisplay = poTragicNumber;
+                        
+                        // 표시 형식 지정
+                        if (poMagicNumber === 0) {
+                            maxWinsMagicDisplay = '<span style="color: #2ecc71;">PO 진출 확정</span>';
+                        } else if (poTragicNumber === 0) {
+                            maxWinsMagicDisplay = '<span style="color: #e74c3c;">탈락</span>';
+                        } else if (remainingGames < poMagicNumber) {
+                            maxWinsMagicDisplay = `${poMagicNumber} (자력진출 불가)`;
+                        } else {
+                            maxWinsMagicDisplay = poMagicNumber;
+                        }
+                        
+                        if (poMagicNumber === 0) {
+                            poTragicDisplay = '<span style="color: #2ecc71;">진출</span>';
+                        } else if (poTragicNumber === 0) {
+                            poTragicDisplay = '<span style="color: #e74c3c;">탈락</span>';
+                        } else {
+                            poTragicDisplay = poTragicNumber;
+                        }
                     }
                 }
                 
@@ -1881,21 +1775,7 @@ const kboTeams = {
                     }
                 }
                 
-                // 필요 승률 색상 (그라데이션 구분)
                 let requiredWinPctColor = '#666';
-                if (team.requiredWinRate > 0) {
-                    if (team.requiredWinRate <= 0.3) {
-                        requiredWinPctColor = '#2ecc71'; // 밝은 녹색 (매우 쉬움)
-                    } else if (team.requiredWinRate <= 0.5) {
-                        requiredWinPctColor = '#f39c12'; // 주황색 (보통)
-                    } else if (team.requiredWinRate <= 0.7) {
-                        requiredWinPctColor = '#e67e22'; // 진한 주황색 (어려움)
-                    } else if (team.requiredWinRate <= 0.85) {
-                        requiredWinPctColor = '#e74c3c'; // 빨간색 (매우 어려움)
-                    } else {
-                        requiredWinPctColor = '#c0392b'; // 진한 빨간색 (거의 불가능)
-                    }
-                }
 
                 const row = document.createElement('tr');
                 
@@ -1971,7 +1851,6 @@ const kboTeams = {
 
 
         function determineCellData(team, rankPosition, championshipMagic, playoffMagic, tragicNumber, teamIndex) {
-            // playoffMagic 매개변수는 사용하지 않음 (PO 로직 비활성화)
             // 나무위키 스타일 매직넘버 차트 색상 결정 로직
             const currentRank = teamIndex + 1; // 1-based rank
             
@@ -1998,7 +1877,7 @@ const kboTeams = {
                     if (targetMagic === 0 || (currentRank <= rankPosition && targetMagic <= 3)) {
                         const confirmText = rankPosition === 2 ? '2위확정' : 
                                           rankPosition === 3 ? '3위확정' : 
-                                          rankPosition === 4 ? '4위확정' : '5위확정';
+                                          rankPosition === 4 ? '4위확정' : '4위확정';
                         return { display: confirmText, cssClass: 'namu-clinched-blue' };
                     }
                     
@@ -2105,72 +1984,16 @@ const kboTeams = {
         }
 
         function calculateChampionshipMagic(team, rankings, index) {
-            const totalGames = 144;
-            const remainingGames = totalGames - team.games;
-            
-            if (index === 0) {
-                // 현재 1위 - 우승 확정까지
-                const secondPlace = rankings[1];
-                if (!secondPlace) return 0;
-                const secondMaxWins = secondPlace.wins + (totalGames - secondPlace.games);
-                return Math.max(0, secondMaxWins - team.wins + 1);
-            } else {
-                // 1위가 아님 - 1위 추월까지
-                const firstPlace = rankings[0];
-                const maxPossibleWins = team.wins + remainingGames;
-                if (maxPossibleWins <= firstPlace.wins) return 999;
-                return Math.max(0, firstPlace.wins - team.wins + 1);
-            }
+            return 0;
         }
 
 
 
-        // 1위 탈환을 위한 트래직넘버 계산 (승률 기준, 승수 표시)
         function calculateFirstPlaceTragicNumber(team, rankings, index) {
-            const totalGames = 144;
-            const remainingGames = totalGames - team.games;
-            
-            // 1위팀 정보
-            const firstPlace = rankings[0];
-            if (!firstPlace || team.team === firstPlace.team) {
-                return 0; // 이미 1위이거나 1위팀 정보가 없음
-            }
-            
-            // 현재 팀의 최대 가능 승률 계산
-            const teamMaxPossibleWins = team.wins + remainingGames;
-            const teamMaxPossibleWinRate = teamMaxPossibleWins / (teamMaxPossibleWins + team.losses);
-            
-            // 1위팀 잔여 경기 계산
-            const firstRemainingGames = totalGames - firstPlace.games;
-            
-            // 1위팀의 최저 가능 승률과 현재 팀의 최대 승률 비교
-            const firstMinWins = firstPlace.wins; // 1위팀이 전패할 때의 승수
-            const firstMinWinRate = firstMinWins / (firstMinWins + firstPlace.losses + firstRemainingGames);
-            
-            // 현재 팀이 전승해도 1위팀이 전패했을 때의 승률을 못 넘으면 1위 탈환 불가능
-            if (teamMaxPossibleWinRate <= firstMinWinRate) {
-                return 999; // 1위 탈환 불가능
-            }
-            
-            // 1위팀이 몇 승을 더 해야 현재 팀의 최대 승률을 넘는지 계산
-            
-            for (let additionalWins = 0; additionalWins <= firstRemainingGames; additionalWins++) {
-                const firstFinalWins = firstPlace.wins + additionalWins;
-                const firstFinalLosses = firstPlace.losses + (firstRemainingGames - additionalWins);
-                const firstFinalWinRate = firstFinalWins / (firstFinalWins + firstFinalLosses);
-                
-                // 1위팀의 최종 승률이 현재 팀의 최대 승률을 넘는지 확인
-                if (firstFinalWinRate > teamMaxPossibleWinRate) {
-                    return additionalWins; // 1위팀이 이만큼 승리하면 현재 팀이 1위 탈환 불가
-                }
-            }
-            
-            // 1위팀이 전패해도 현재 팀의 최대 승률을 넘지 못함 (1위 탈환 가능)
             return 0;
         }
 
         function determineTeamStatus(team, championshipMagic, playoffMagic, tragicNumber, index) {
-            // playoffMagic, tragicNumber 매개변수는 사용하지 않음 (PO 로직 비활성화)
             // 우승 확정
             if (championshipMagic === 0 || (index === 0 && championshipMagic <= 3)) {
                 return {
@@ -2179,8 +2002,6 @@ const kboTeams = {
                     textColor: '#ffffff'
                 };
             }
-            
-            // PO 관련 로직 비활성화 - 역대 기준으로만 판단
             
             // 기본 (경합)
             return {
@@ -2603,7 +2424,7 @@ const kboTeams = {
         // magic-matrix-data.json 로드
         async function loadMagicMatrixData() {
             try {
-                const response = await fetch(`data/magic-matrix-data.json?v=${Date.now()}`);
+                const response = await fetch(`./data/magic-matrix-data.json?v=${Date.now()}`);
                 if (response.ok) {
                     window.magicMatrixData = await response.json();
                     logger.log('✅ 승수 기준 매직넘버 데이터 로드 완료');
@@ -3173,20 +2994,8 @@ const kboTeams = {
                 const maxRemainingGames = Math.max(...topTeams.map(team => team.remainingGames || 0));
                 const maxScenarios = maxRemainingGames + 1;
                 
-                // 플레이오프 경쟁팀 계산 (현실적으로 5위 안에 들 가능성이 있는 팀)
-                let playoffContenders = 0;
-                const fifthPlaceWinRate = topTeams[4]?.winRate || 0.5;
-                
-                topTeams.forEach(team => {
-                    // 전승 시 승률이 현재 5위 승률보다 높으면 경쟁 가능
-                    const maxPossibleWins = team.wins + (team.remainingGames || 0);
-                    const maxPossibleGames = maxPossibleWins + team.losses + (team.draws || 0);
-                    const maxWinRate = maxPossibleWins / maxPossibleGames;
-                    
-                    if (maxWinRate >= fifthPlaceWinRate * 0.95) { // 95% 기준으로 여유
-                        playoffContenders++;
-                    }
-                });
+                // 플레이오프 경쟁팀 계산
+                let playoffContenders = topTeams.length;
                 
                 // 우승 가능팀 계산
                 let championshipContenders = 0;
@@ -3240,58 +3049,12 @@ const kboTeams = {
 
         function analyzeFirstPlaceRace(topTeams) {
             if (topTeams.length === 0) return '데이터 없음';
-            
             const firstPlace = topTeams[0];
-            let contenders = [];
-            
-            topTeams.forEach(team => {
-                const maxPossibleWins = team.wins + (team.remainingGames || 0);
-                const maxPossibleGames = maxPossibleWins + team.losses + (team.draws || 0);
-                const maxWinRate = maxPossibleWins / maxPossibleGames;
-                
-                // 1위팀의 최저 가능 승률
-                const firstPlaceMinWins = firstPlace.wins;
-                const firstPlaceMinGames = firstPlaceMinWins + firstPlace.losses + (firstPlace.draws || 0) + (firstPlace.remainingGames || 0);
-                const firstPlaceMinWinRate = firstPlaceMinWins / firstPlaceMinGames;
-                
-                if (team.team !== firstPlace.team && maxWinRate > firstPlaceMinWinRate) {
-                    contenders.push(team.team);
-                }
-            });
-            
-            if (contenders.length === 0) {
-                return `${firstPlace.team} 독주 체제`;
-            } else {
-                return `${contenders.slice(0, 3).join(', ')} 등 ${contenders.length}팀 경쟁`;
-            }
+            return `${firstPlace.team} 독주 체제`;
         }
 
         function analyzePlayoffRace(topTeams) {
-            if (topTeams.length < 5) return '데이터 부족';
-            
-            const fifthPlace = topTeams[4];
-            let contenders = [];
-            
-            topTeams.forEach((team, index) => {
-                if (index >= 4) { // 5위 이하 팀들
-                    const maxPossibleWins = team.wins + (team.remainingGames || 0);
-                    const maxPossibleGames = maxPossibleWins + team.losses + (team.draws || 0);
-                    const maxWinRate = maxPossibleWins / maxPossibleGames;
-                    
-                    // 5위팀의 최저 가능 승률
-                    const fifthPlaceMinWins = fifthPlace.wins;
-                    const fifthPlaceMinGames = fifthPlaceMinWins + fifthPlace.losses + (fifthPlace.draws || 0) + (fifthPlace.remainingGames || 0);
-                    const fifthPlaceMinWinRate = fifthPlaceMinWins / fifthPlaceMinGames;
-                    
-                    if (maxWinRate > fifthPlaceMinWinRate) {
-                        contenders.push(team.team);
-                    }
-                }
-            });
-            
-            return contenders.length > 0 ? 
-                   `${contenders.slice(0, 3).join(', ')} 등 ${contenders.length}팀 추격` : 
-                   '상위 5팀 고정';
+            return '상위 5팀 고정';
         }
 
         function analyzeMaxWinRateChange(topTeams) {
@@ -3507,9 +3270,8 @@ const kboTeams = {
                 // 9위, 10위는 기본적인 수학적 가능성 체크
                 const maxPossibleWins = team.wins + (team.remainingGames || 0);
                 
-                // 현재 5위팀의 현재 승수보다 최대가능승수가 높으면 포함
-                const fifthPlaceWins = topTeams[4]?.wins || 0;
-                if (maxPossibleWins > fifthPlaceWins) {
+                // 기본적인 가능성이 있으면 포함
+                if (maxPossibleWins > 50) {
                     return true;
                 }
                 

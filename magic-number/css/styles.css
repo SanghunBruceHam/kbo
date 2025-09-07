@@ -866,6 +866,58 @@ table th {
     position: relative;
 }
 
+/* 1위 탈환 테이블 기본 스타일 */
+#chase-table td {
+    color: #000;
+}
+
+/* 1위 탈환 테이블 색상 스타일 */
+.text-impossible {
+    color: #dc2626 !important; /* 빨간색 - 불가능 */
+    font-weight: 600;
+}
+
+.text-possible {
+    color: #16a34a !important; /* 녹색 - 가능 */
+    font-weight: 600;
+}
+
+/* 팀 색상 클래스들 */
+.team-hanwha { color: #FF6600 !important; font-weight: 600; }
+.team-lg { color: #C50E2E !important; font-weight: 600; }
+.team-doosan { color: #131230 !important; font-weight: 600; }
+.team-samsung { color: #1F4E8C !important; font-weight: 600; }
+.team-kia { color: #EA0029 !important; font-weight: 600; }
+.team-ssg { color: #CE0E2D !important; font-weight: 600; }
+.team-lotte { color: #041E42 !important; font-weight: 600; }
+.team-nc { color: #315288 !important; font-weight: 600; }
+.team-kiwoom { color: #570514 !important; font-weight: 600; }
+.team-kt { color: #333333 !important; font-weight: 600; }
+
+/* 1위팀 특별 스타일 */
+#chase-table .first-place-row {
+    border: 3px solid;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+#chase-table .first-place-row td {
+    font-weight: 700 !important;
+    padding: 14px 10px;
+}
+
+/* 1위팀 전체 텍스트 색상 */
+.first-place-lg td { color: #C50E2E !important; }
+.first-place-hanwha td { color: #FF6600 !important; }
+.first-place-ssg td { color: #CE0E2D !important; }
+.first-place-samsung td { color: #1F4E8C !important; }
+.first-place-kia td { color: #EA0029 !important; }
+.first-place-kt td { color: #333333 !important; }
+.first-place-lotte td { color: #041E42 !important; }
+.first-place-nc td { color: #315288 !important; }
+.first-place-doosan td { color: #131230 !important; }
+.first-place-kiwoom td { color: #570514 !important; }
+
 
 th, td {
     padding: 12px 10px;

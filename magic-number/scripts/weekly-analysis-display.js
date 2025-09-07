@@ -385,10 +385,6 @@ const weeklyAnalysisDisplay = new WeeklyAnalysisDisplay();
 const analysisStyles = `
 <link rel="stylesheet" href="css/unified-styles.css">
 <style>
-/* 주차별 분석 전용 확장 스타일 */
-/* 모든 스타일이 통합 CSS에 정의되어 있음 - 확장 스타일만 필요시 추가 */
-
-/* 게임별 기록 전용 추가 스타일 (통합 CSS로 대부분 커버됨) */
 .team-tabs {
     display: flex;
     flex-wrap: wrap;

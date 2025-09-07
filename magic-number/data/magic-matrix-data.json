@@ -1,7 +1,7 @@
 {
-  "lastUpdated": "2025-09-07T02:51:10.778Z",
+  "lastUpdated": "2025-09-07T05:19:39.549Z",
   "updateDate": "2025. 9. 7.",
-  "note": "승률 기준 정확한 매직넘버 계산 + 플레이오프 진출 조건 포함",
+  "note": "승률 기준 정확한 매직넘버 계산 + 플레이오프 진출 조건 + 1위 매직/트래직넘버 포함",
   "results": [
     {
       "rank": 1,
@@ -112,12 +112,15 @@
       "draws": 3,
       "remainingGames": 17,
       "K5_max": 0.551,
-      "K5_min": 0.449,
+      "K5_min": 0.45,
       "playoffMagicStrict": 0,
       "playoffMagicTieOK": 0,
-      "playoffTragicStrict": 17,
-      "playoffTragicTieOK": 17,
-      "playoffStatus": ""
+      "playoffTragicStrict": 32,
+      "playoffTragicTieOK": 32,
+      "playoffStatus": "",
+      "championshipMagic": 13,
+      "championshipTragic": 22,
+      "firstPlaceStatus": "현재 1위"
     },
     {
       "team": "한화",
@@ -126,12 +129,15 @@
       "draws": 3,
       "remainingGames": 17,
       "K5_max": 0.551,
-      "K5_min": 0.449,
+      "K5_min": 0.45,
       "playoffMagicStrict": 5,
       "playoffMagicTieOK": 5,
-      "playoffTragicStrict": 17,
-      "playoffTragicTieOK": 17,
-      "playoffStatus": ""
+      "playoffTragicStrict": 27,
+      "playoffTragicTieOK": 27,
+      "playoffStatus": "",
+      "championshipMagic": 23,
+      "championshipTragic": 12,
+      "firstPlaceStatus": "가능"
     },
     {
       "team": "SSG",
@@ -140,12 +146,15 @@
       "draws": 4,
       "remainingGames": 18,
       "K5_max": 0.551,
-      "K5_min": 0.449,
+      "K5_min": 0.45,
       "playoffMagicStrict": 14,
       "playoffMagicTieOK": 14,
-      "playoffTragicStrict": 18,
-      "playoffTragicTieOK": 18,
-      "playoffStatus": ""
+      "playoffTragicStrict": 19,
+      "playoffTragicTieOK": 20,
+      "playoffStatus": "",
+      "championshipMagic": 31,
+      "championshipTragic": 5,
+      "firstPlaceStatus": "가능"
     },
     {
       "team": "삼성",
@@ -154,12 +163,15 @@
       "draws": 2,
       "remainingGames": 16,
       "K5_max": 0.551,
-      "K5_min": 0.449,
+      "K5_min": 0.45,
       "playoffMagicStrict": 15,
       "playoffMagicTieOK": 15,
-      "playoffTragicStrict": 16,
-      "playoffTragicTieOK": 16,
-      "playoffStatus": ""
+      "playoffTragicStrict": 17,
+      "playoffTragicTieOK": 17,
+      "playoffStatus": "",
+      "championshipMagic": 32,
+      "championshipTragic": 2,
+      "firstPlaceStatus": "가능"
     },
     {
       "team": "KT",
@@ -168,12 +180,15 @@
       "draws": 4,
       "remainingGames": 15,
       "K5_max": 0.551,
-      "K5_min": 0.449,
+      "K5_min": 0.451,
       "playoffMagicStrict": 15,
       "playoffMagicTieOK": 15,
       "playoffTragicStrict": 15,
       "playoffTragicTieOK": 15,
-      "playoffStatus": ""
+      "playoffStatus": "",
+      "championshipMagic": 32,
+      "championshipTragic": 1,
+      "firstPlaceStatus": "불가능"
     },
     {
       "team": "롯데",
@@ -182,12 +197,15 @@
       "draws": 6,
       "remainingGames": 14,
       "K5_max": 0.557,
-      "K5_min": 0.45,
+      "K5_min": 0.451,
       "playoffMagicStrict": 15,
       "playoffMagicTieOK": 15,
       "playoffTragicStrict": 14,
       "playoffTragicTieOK": 14,
-      "playoffStatus": ""
+      "playoffStatus": "",
+      "championshipMagic": 31,
+      "championshipTragic": 0,
+      "firstPlaceStatus": "불가능"
     },
     {
       "team": "KIA",
@@ -196,12 +214,15 @@
       "draws": 4,
       "remainingGames": 19,
       "K5_max": 0.557,
-      "K5_min": 0.45,
+      "K5_min": 0.451,
       "playoffMagicStrict": 21,
       "playoffMagicTieOK": 20,
       "playoffTragicStrict": 14,
-      "playoffTragicTieOK": 15,
-      "playoffStatus": ""
+      "playoffTragicTieOK": 14,
+      "playoffStatus": "",
+      "championshipMagic": 37,
+      "championshipTragic": 0,
+      "firstPlaceStatus": "불가능"
     },
     {
       "team": "NC",
@@ -210,12 +231,15 @@
       "draws": 6,
       "remainingGames": 19,
       "K5_max": 0.557,
-      "K5_min": 0.45,
+      "K5_min": 0.451,
       "playoffMagicStrict": 20,
       "playoffMagicTieOK": 20,
       "playoffTragicStrict": 14,
       "playoffTragicTieOK": 14,
-      "playoffStatus": ""
+      "playoffStatus": "",
+      "championshipMagic": 36,
+      "championshipTragic": 0,
+      "firstPlaceStatus": "불가능"
     },
     {
       "team": "두산",
@@ -224,12 +248,15 @@
       "draws": 6,
       "remainingGames": 17,
       "K5_max": 0.557,
-      "K5_min": 0.45,
+      "K5_min": 0.451,
       "playoffMagicStrict": 21,
       "playoffMagicTieOK": 21,
       "playoffTragicStrict": 11,
       "playoffTragicTieOK": 11,
-      "playoffStatus": ""
+      "playoffStatus": "",
+      "championshipMagic": 37,
+      "championshipTragic": 0,
+      "firstPlaceStatus": "불가능"
     },
     {
       "team": "키움",
@@ -238,12 +265,147 @@
       "draws": 4,
       "remainingGames": 14,
       "K5_max": 0.557,
-      "K5_min": 0.45,
+      "K5_min": 0.451,
       "playoffMagicStrict": 38,
       "playoffMagicTieOK": 37,
       "playoffTragicStrict": 0,
       "playoffTragicTieOK": 0,
-      "playoffStatus": ""
+      "playoffStatus": "",
+      "championshipMagic": 54,
+      "championshipTragic": 0,
+      "firstPlaceStatus": "불가능"
+    }
+  ],
+  "rankingMagicData": [
+    {
+      "team": "LG",
+      "currentRank": 1,
+      "championshipMagic": 13,
+      "rank2Magic": 13,
+      "rank3Magic": 5,
+      "rank4Magic": 3,
+      "rank5Magic": 1,
+      "dropRank6Tragic": 0,
+      "dropRank7Tragic": 0,
+      "dropRank8Tragic": 0,
+      "dropRank9Tragic": 0
+    },
+    {
+      "team": "한화",
+      "currentRank": 2,
+      "championshipMagic": 999,
+      "rank2Magic": 17,
+      "rank3Magic": 10,
+      "rank4Magic": 8,
+      "rank5Magic": 6,
+      "dropRank6Tragic": 4,
+      "dropRank7Tragic": 5,
+      "dropRank8Tragic": 4,
+      "dropRank9Tragic": 1
+    },
+    {
+      "team": "SSG",
+      "currentRank": 3,
+      "championshipMagic": 999,
+      "rank2Magic": 18,
+      "rank3Magic": 18,
+      "rank4Magic": 17,
+      "rank5Magic": 15,
+      "dropRank6Tragic": 13,
+      "dropRank7Tragic": 14,
+      "dropRank8Tragic": 13,
+      "dropRank9Tragic": 10
+    },
+    {
+      "team": "삼성",
+      "currentRank": 4,
+      "championshipMagic": 999,
+      "rank2Magic": 16,
+      "rank3Magic": 16,
+      "rank4Magic": 16,
+      "rank5Magic": 15,
+      "dropRank6Tragic": 13,
+      "dropRank7Tragic": 14,
+      "dropRank8Tragic": 13,
+      "dropRank9Tragic": 10
+    },
+    {
+      "team": "KT",
+      "currentRank": 5,
+      "championshipMagic": 999,
+      "rank2Magic": 15,
+      "rank3Magic": 15,
+      "rank4Magic": 15,
+      "rank5Magic": 15,
+      "dropRank6Tragic": 14,
+      "dropRank7Tragic": 15,
+      "dropRank8Tragic": 14,
+      "dropRank9Tragic": 11
+    },
+    {
+      "team": "롯데",
+      "currentRank": 6,
+      "championshipMagic": 999,
+      "rank2Magic": 14,
+      "rank3Magic": 14,
+      "rank4Magic": 14,
+      "rank5Magic": 14,
+      "dropRank6Tragic": 15,
+      "dropRank7Tragic": 16,
+      "dropRank8Tragic": 15,
+      "dropRank9Tragic": 12
+    },
+    {
+      "team": "KIA",
+      "currentRank": 7,
+      "championshipMagic": 999,
+      "rank2Magic": 19,
+      "rank3Magic": 19,
+      "rank4Magic": 19,
+      "rank5Magic": 19,
+      "dropRank6Tragic": 19,
+      "dropRank7Tragic": 20,
+      "dropRank8Tragic": 19,
+      "dropRank9Tragic": 16
+    },
+    {
+      "team": "NC",
+      "currentRank": 8,
+      "championshipMagic": 999,
+      "rank2Magic": 19,
+      "rank3Magic": 19,
+      "rank4Magic": 19,
+      "rank5Magic": 19,
+      "dropRank6Tragic": 20,
+      "dropRank7Tragic": 21,
+      "dropRank8Tragic": 20,
+      "dropRank9Tragic": 17
+    },
+    {
+      "team": "두산",
+      "currentRank": 9,
+      "championshipMagic": 999,
+      "rank2Magic": 17,
+      "rank3Magic": 17,
+      "rank4Magic": 17,
+      "rank5Magic": 17,
+      "dropRank6Tragic": 21,
+      "dropRank7Tragic": 22,
+      "dropRank8Tragic": 21,
+      "dropRank9Tragic": 18
+    },
+    {
+      "team": "키움",
+      "currentRank": 10,
+      "championshipMagic": 999,
+      "rank2Magic": 999,
+      "rank3Magic": 999,
+      "rank4Magic": 999,
+      "rank5Magic": 999,
+      "dropRank6Tragic": 36,
+      "dropRank7Tragic": 37,
+      "dropRank8Tragic": 36,
+      "dropRank9Tragic": 33
     }
   ]
 }

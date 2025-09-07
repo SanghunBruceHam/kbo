@@ -425,27 +425,7 @@ class KBODataProcessor {
             return team.remainingGames;
             
         } else {
-            // 1위가 아님 - 승률 기반 1위 추월 매직넘버
-            const firstPlace = this.standings[0];
-            
-            // 1위 팀의 최대 가능 승률 계산
-            const firstMaxWins = firstPlace.wins + firstPlace.remainingGames;
-            const firstMaxLosses = firstPlace.losses; // 모든 경기 승리 가정
-            const firstMaxWinRate = firstMaxWins / (firstMaxWins + firstMaxLosses);
-            
-            // 현재 팀이 1위 최대 승률을 넘기 위한 매직넘버 계산
-            for (let additionalWins = 0; additionalWins <= team.remainingGames; additionalWins++) {
-                const finalWins = team.wins + additionalWins;
-                const finalLosses = team.losses + (team.remainingGames - additionalWins);
-                const finalWinRate = finalWins / (finalWins + finalLosses);
-                
-                if (finalWinRate > firstMaxWinRate) {
-                    return additionalWins;
-                }
-            }
-            
-            // 모든 경기를 이겨도 1위를 넘을 수 없는 경우 - 잔여경기수 표시
-            return team.remainingGames;
+            return 0;
         }
     }
 
@@ -543,37 +523,14 @@ class KBODataProcessor {
             // 잔여경기
             remainingGames: this.remainingGames,
             
-            // 1위 탈환 가능성 데이터
-            chaseData: this.generateChaseData()
+            chaseData: []
         };
         
         return serviceData;
     }
 
-    // 1위 탈환 가능성 데이터 생성
     generateChaseData() {
-        const firstPlace = this.standings[0];
-        
-        return this.standings.slice(1).map(team => {
-            const maxPossibleWins = team.wins + team.remainingGames;
-            const canChase = maxPossibleWins > firstPlace.wins;
-            const firstTeamNeedToLose = Math.max(0, maxPossibleWins - firstPlace.wins);
-            const requiredWinRate = team.remainingGames > 0 ? 
-                Math.min(1, (this.typicalChampionshipWins - team.wins) / team.remainingGames) : 0;
-            
-            return {
-                team: team.team,
-                rank: team.rank,
-                wins: team.wins,
-                gamesBehind: team.gamesBehind,
-                remainingGames: team.remainingGames,
-                maxPossibleWins: maxPossibleWins,
-                firstTeamNeedToLose: firstTeamNeedToLose,
-                canChase: canChase,
-                requiredWinRate: requiredWinRate,
-                canReachChampionshipWins: maxPossibleWins >= this.typicalChampionshipWins
-            };
-        });
+        return [];
     }
 
 
