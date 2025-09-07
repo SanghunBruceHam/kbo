@@ -5106,12 +5106,13 @@
             <!-- 설명 섹션 -->
             <div style="margin-top: 15px; padding: 12px; background: #f8f9fa; border-radius: 6px; border: 1px solid #e9ecef;">
                 <div style="font-size: var(--font-base); font-weight: var(--font-weight-medium); margin-bottom: 8px; color: #495057;">🎯 클러치 지표 설명</div>
-                <div style="font-size: var(--font-sm); color: #4b5563; line-height: 1.5;">
+                <div style="font-size: var(--font-sm); color: #4b5563; line-Height: 1.5;">
                     <div style="margin-bottom: 6px;"><strong>클러치:</strong> 중요한 순간, 특히 승부가 갈리는 상황에서의 경기력</div>
-                    <div style="margin-bottom: 6px;"><strong>1점차 경기:</strong> 1점 차이로 승부가 난 경기 (가장 치열한 접전)</div>
-                    <div style="margin-bottom: 6px;"><strong>3점차 이내:</strong> 2-3점 차이로 승부가 난 경기 (중간 강도 접전)</div>
-                    <div style="margin-bottom: 6px;"><strong>클러치 지수:</strong> 1점차(50%), 2점차이하(30%), 3점차이내(20%) 승률의 가중평균</div>
-                    <div style="margin-bottom: 6px;"><strong>색상 구분:</strong> 녹색(0.5 초과), 노란색(0.5 기준), 빨간색(0.5 미만)</div>
+                    <div style="margin-bottom: 6px;"><strong>1점차 승률:</strong> 1점 차이로 승부가 난 경기에서의 승률 (가장 치열한 접전)</div>
+                    <div style="margin-bottom: 6px;"><strong>2점차 승률:</strong> 2점 차이로 승부가 난 경기에서의 승률</div>
+                    <div style="margin-bottom: 6px;"><strong>3점차 승률:</strong> 3점 차이로 승부가 난 경기에서의 승률</div>
+                    <div style="margin-bottom: 6px;"><strong>클러치 지수:</strong> 1점차, 2점차, 3점차 승률을 종합한 접전 상황 경기력 지표</div>
+                    <div style="margin-bottom: 6px;"><strong>색상 구분:</strong> 녹색(0.500 초과), 노란색(0.500 기준), 빨간색(0.500 미만)</div>
                     <div><strong>대량득점/실점:</strong> 7점 이상 득점하거나 7점차 이상 패배 경기 수</div>
                 </div>
             </div>
@@ -7493,6 +7494,7 @@
                             <div style="font-size: var(--font-sm); color: #4b5563; line-height: 1.5;">
                                 <div style="margin-bottom: 6px;"><strong>경기 기록:</strong> 시즌 전체 경기 결과 (승부, 점수, 홈/원정 정보)</div>
                                 <div style="margin-bottom: 6px;"><strong>예정 경기:</strong> 선택한 팀의 남은 경기 일정 (날짜, 시간, 상대팀)</div>
+                                <div style="margin-bottom: 6px;"><strong>필터 기능:</strong> 특정 팀 선택 시 상대팀별/홈원정별 필터링 가능 (순위순 정렬)</div>
                                 <div style="margin-bottom: 6px;"><strong>홈/원정:</strong> <span style="color: #2563eb; font-weight: var(--font-weight-semibold);">홈</span> (파란색), <span style="color: #dc2626; font-weight: var(--font-weight-semibold);">원정</span> (빨간색)</div>
                                 <div style="margin-bottom: 6px;"><strong>날짜:</strong> <span style="color: #1f2937;">평일</span> (검은색), <span style="color: #dc2626; font-weight: var(--font-weight-semibold);">주말</span> (빨간색)</div>
                                 <div><strong>구분:</strong> 과거 경기는 승부 결과별 색상, 예정 경기는 회색 배경으로 표시</div>
