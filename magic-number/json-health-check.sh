@@ -18,6 +18,7 @@ get_file_category() {
         "raw-game-records.json"|"2025-season-games.json"|"2025-team-stats.json") echo "🟡 중간 데이터" ;;
         "calc-standings.json"|"calc-magic-numbers.json"|"calc-head-to-head.json") echo "🟢 매직넘버용" ;;
         "analysis-"*".json") echo "📊 분석 데이터" ;;
+        "raw-kbo-games.json"|"raw-team-stats.json") echo "🗑️ 레거시(삭제됨)" ;;
         *) echo "❓ 기타" ;;
     esac
 }
