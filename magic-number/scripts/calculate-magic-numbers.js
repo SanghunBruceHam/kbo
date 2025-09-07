@@ -14,6 +14,94 @@ function loadServiceData() {
     }
 }
 
+// 플레이오프 진출 조건 매직/트래직 넘버 계산 함수들
+function calcRemainingGames(team, totalGames) {
+    return totalGames - (team.wins + team.losses + (team.draws || 0));
+}
+
+function maxPossibleWinRate(team, remainingGames) {
+    const finalDenominator = team.wins + team.losses + remainingGames;
+    return finalDenominator > 0 ? (team.wins + remainingGames) / finalDenominator : 0;
+}
+
+function minPossibleWinRate(team, remainingGames) {
+    const finalDenominator = team.wins + team.losses + remainingGames;
+    return finalDenominator > 0 ? team.wins / finalDenominator : 0;
+}
+
+function calculateK5Max(teams, targetTeam, totalGames) {
+    const otherTeamsMaxRates = teams
+        .filter(t => t.team !== targetTeam)
+        .map(t => {
+            const remaining = calcRemainingGames(t, totalGames);
+            return maxPossibleWinRate(t, remaining);
+        })
+        .sort((a, b) => b - a);
+    
+    return otherTeamsMaxRates[4] || 0; // 5번째 값 (0-based index)
+}
+
+function calculateK5Min(teams, targetTeam, totalGames) {
+    const otherTeamsMinRates = teams
+        .filter(t => t.team !== targetTeam)
+        .map(t => {
+            const remaining = calcRemainingGames(t, totalGames);
+            return minPossibleWinRate(t, remaining);
+        })
+        .sort((a, b) => b - a);
+    
+    return otherTeamsMinRates[4] || 0; // 5번째 값 (0-based index)
+}
+
+function calculatePlayoffMagicTragic(teams, totalGames = 144) {
+    return teams.map(team => {
+        const remainingGames = calcRemainingGames(team, totalGames);
+        const finalDenominator = team.wins + team.losses + remainingGames;
+        
+        // 매직넘버 계산 (다른 팀들이 최대한 올라올 때)
+        const K5_max = calculateK5Max(teams, team.team, totalGames);
+        const magicRhs = K5_max * finalDenominator - team.wins;
+        const magicStrict = Math.max(0, Math.floor(magicRhs) + 1);
+        const magicTieOK = Math.max(0, Math.ceil(magicRhs));
+        
+        // 트래직넘버 계산 (다른 팀들이 최소로만 올라올 때도 내가 5위를 못 넘는 패수)
+        const K5_min = calculateK5Min(teams, team.team, totalGames);
+        const tragicBase = team.wins + remainingGames - K5_min * finalDenominator;
+        
+        // 트래직넘버: 몇 패 더 하면 5위 진출이 불가능해지는가
+        let tragicStrict, tragicTieOK;
+        if (tragicBase <= 0) {
+            // 이미 탈락 확정 상태
+            tragicStrict = 0;
+            tragicTieOK = 0;
+        } else {
+            tragicStrict = Math.max(0, Math.min(remainingGames, Math.ceil(tragicBase)));
+            tragicTieOK = Math.max(0, Math.min(remainingGames, Math.floor(tragicBase) + 1));
+        }
+        
+        // 현재 최대 가능 승률 계산
+        const maxPossibleWinRate = finalDenominator > 0 ? (team.wins + remainingGames) / finalDenominator : 0;
+        
+        // 상태 결정 삭제 - 숫자만 표시
+        let playoffStatus = '';
+        
+        return {
+            team: team.team,
+            wins: team.wins,
+            losses: team.losses,
+            draws: team.draws || 0,
+            remainingGames,
+            K5_max: Number(K5_max.toFixed(3)),
+            K5_min: Number(K5_min.toFixed(3)),
+            playoffMagicStrict: magicStrict,
+            playoffMagicTieOK: magicTieOK,
+            playoffTragicStrict: tragicStrict,
+            playoffTragicTieOK: tragicTieOK,
+            playoffStatus
+        };
+    });
+}
+
 function calculateMagicNumbers(serviceData) {
     const standings = serviceData.standings;
     const totalGames = 144;
@@ -30,54 +118,9 @@ function calculateMagicNumbers(serviceData) {
         const gamesRemaining = totalGames - gamesPlayed;
         const currentWinRate = wins / gamesPlayed;
         
-        // 플레이오프 진출 매직넘버 (모든 팀)
-        let magicNumber = null;
+        // 플레이오프 진출 매직넘버 비활성화
+        let magicNumber = '-';
         let status = '';
-        
-        // 현재 5위 팀이 남은 경기를 모두 이겨도 달성할 수 없는 승률을 목표로 설정
-        const fifthPlace = standings[4];
-        if (fifthPlace) {
-            const fifthMaxWins = fifthPlace.wins + fifthPlace.remainingGames;
-            const fifthMaxGames = fifthPlace.games + fifthPlace.remainingGames;
-            const fifthMaxWinRate = fifthMaxWins / fifthMaxGames;
-            
-            // 현재 팀이 달성해야 할 최소 승률 (5위 최대 승률보다 높아야 함)
-            let winsNeeded = 0;
-            for (let additionalWins = 0; additionalWins <= gamesRemaining; additionalWins++) {
-                const projectedWins = wins + additionalWins;
-                const projectedGames = gamesPlayed + gamesRemaining;
-                const projectedWinRate = projectedWins / projectedGames;
-                
-                if (projectedWinRate > fifthMaxWinRate) {
-                    winsNeeded = additionalWins;
-                    break;
-                }
-            }
-            
-            if (winsNeeded === 0 && currentWinRate > fifthMaxWinRate) {
-                status = '✅ 플레이오프 확정';
-                magicNumber = 0;
-            } else if (winsNeeded > gamesRemaining) {
-                // 잔여 경기로 달성 불가능
-                magicNumber = winsNeeded;
-                status = '❌ 자력불가';
-            } else {
-                magicNumber = winsNeeded;
-            }
-            
-            // 6위 이하 추가 탈락 확정 체크
-            if (rank > 5) {
-                const maxPossibleWins = wins + gamesRemaining;
-                const maxPossibleGames = gamesPlayed + gamesRemaining;
-                const maxPossibleWinRate = maxPossibleWins / maxPossibleGames;
-                
-                const fifthCurrentWinRate = fifthPlace.wins / fifthPlace.games;
-                
-                if (maxPossibleWinRate < fifthCurrentWinRate) {
-                    status = '❌ 플레이오프 탈락 확정';
-                }
-            }
-        }
         
         const teamResult = {
             rank,
@@ -97,12 +140,21 @@ function calculateMagicNumbers(serviceData) {
         console.log(`${rank}위 ${team.team}: ${wins}승 ${losses}패 (승률 ${currentWinRate.toFixed(3)}, ${gamesRemaining}경기 남음) - 매직넘버: ${magicDisplay}${statusDisplay}`);
     });
     
+    // 플레이오프 진출 매직/트래직 넘버 계산
+    console.log('\n🏆 플레이오프 진출 매직/트래직 넘버 계산 중...');
+    const playoffResults = calculatePlayoffMagicTragic(standings, totalGames);
+    
+    playoffResults.forEach(team => {
+        console.log(`${team.team}: PO 매직넘버 ${team.playoffMagicStrict} / PO 트래직넘버 ${team.playoffTragicStrict} - ${team.playoffStatus}`);
+    });
+    
     // 매직넘버 매트릭스 데이터 파일 생성
     const matrixData = {
         lastUpdated: new Date().toISOString(),
         updateDate: new Date().toLocaleDateString('ko-KR'),
-        note: "승률 기준 정확한 매직넘버 계산",
-        results: results
+        note: "승률 기준 정확한 매직넘버 계산 + 플레이오프 진출 조건 포함",
+        results: results,
+        playoffResults: playoffResults
     };
     
     const outputPath = path.join(DATA_DIR, 'magic-matrix-data.json');

@@ -263,7 +263,7 @@ const kboTeams = {
                     magicNumber = this.getWinsBasedMagicNumber(team);
                 }
                 
-                if (magicNumber === 0 && !this.isTeamEliminated(team)) {
+                if (magicNumber === 0) {
                     return team.rank === 1 ? 
                         '<span style="color: #FFD700; ">우승확정</span>' :
                         '<span style="color: #4CAF50; ">PO확정</span>';
@@ -284,21 +284,6 @@ const kboTeams = {
                 return `<span style="color: ${color}; ">${magicNumber}</span>`;
             },
             
-            // 탈락 확정 팀 체크 (magic-matrix-data.json의 status 필드 확인)
-            isTeamEliminated(team) {
-                try {
-                    if (window.magicMatrixData && window.magicMatrixData.results) {
-                        const teamResult = window.magicMatrixData.results.find(t => t.team === team.team);
-                        if (teamResult && teamResult.status && teamResult.status.includes('탈락')) {
-                            return true;
-                        }
-                    }
-                    return false;
-                } catch (error) {
-                    logger.error('탈락 확정 팀 체크 실패:', error);
-                    return false;
-                }
-            },
             
             // 승수 기준 매직넘버 가져오기 (magic-matrix-data.json에서)
             getWinsBasedMagicNumber(team) {
@@ -310,82 +295,16 @@ const kboTeams = {
                             return teamResult.magicNumber || 0;
                         }
                     }
-                    // 폴백으로 기존 계산 방식 사용
-                    return this.calculatePlayoffMagicNumber(team, currentStandings);
+                    // 폴백으로 간단한 계산 방식 사용
+                    return 0; // 간단한 폴백
                 } catch (error) {
                     logger.error('승수 기준 매직넘버 가져오기 실패:', error);
-                    return this.calculatePlayoffMagicNumber(team, currentStandings);
+                    return 0; // 간단한 폴백
                 }
             },
             
-            // 5위까지 플레이오프 진출을 위한 매직넘버 계산 (승수 기준)
-            // calculate-magic-numbers.js와 동일한 로직 사용
-            calculatePlayoffMagicNumber(team, standings) {
-                try {
-                    // 1. 모든 팀의 최대가능 승수 계산
-                    const teamMaxStats = standings.map(t => {
-                        const remainingGames = 144 - t.games;
-                        const maxWins = t.wins + remainingGames;
-                        const maxLosses = t.losses;
-                        const maxWinRate = maxWins / (maxWins + maxLosses);
-                        
-                        return {
-                            team: t.team,
-                            currentWins: t.wins,
-                            currentLosses: t.losses,
-                            remainingGames: remainingGames,
-                            maxWins: maxWins,
-                            maxLosses: maxLosses,
-                            maxWinRate: maxWinRate
-                        };
-                    });
-                    
-                    // 2. 최대가능 승률 순으로 정렬
-                    teamMaxStats.sort((a, b) => {
-                        if (Math.abs(a.maxWinRate - b.maxWinRate) > 0.001) {
-                            return b.maxWinRate - a.maxWinRate;
-                        }
-                        const aWinLossMargin = a.maxWins - a.maxLosses;
-                        const bWinLossMargin = b.maxWins - b.maxLosses;
-                        if (aWinLossMargin !== bWinLossMargin) {
-                            return bWinLossMargin - aWinLossMargin;
-                        }
-                        return b.remainingGames - a.remainingGames;
-                    });
-                    
-                    // 3. 플레이오프 진출 기준선 결정 (5위 기준)
-                    let playoffThresholdTeam = teamMaxStats[4];
-                    
-                    // 4. PO 매직넘버 계산: 5위 팀의 최대가능 승수를 넘는데 필요한 승수
-                    let requiredWins;
-                    if (team.team === playoffThresholdTeam.team) {
-                        // 자신이 5위 기준팀이면 자신의 최대가능 승수 달성하면 됨
-                        requiredWins = playoffThresholdTeam.maxWins;
-                    } else {
-                        // 다른 팀은 5위 기준팀을 넘어야 하므로 +1
-                        requiredWins = playoffThresholdTeam.maxWins + 1;
-                    }
-                    
-                    // 현재 승수와의 차이가 매직넘버
-                    const winsNeeded = Math.max(0, requiredWins - team.wins);
-                    
-                    return winsNeeded;
-                } catch (error) {
-                    logger.error('플레이오프 매직넘버 계산 중 오류:', error);
-                    return Math.max(0, 72 - team.wins); // 폴백으로 기존 로직 사용
-                }
-            },
+
             
-            // 최대가능 승수 기준 매직넘버 계산 (개선된 플레이오프 매직넘버)
-            calculateMaxWinsMagicNumber(team, standings) {
-                try {
-                    // 개선된 플레이오프 매직넘버 로직 사용
-                    return this.calculatePlayoffMagicNumber(team, standings);
-                } catch (error) {
-                    logger.error('최대승수 기준 매직넘버 계산 중 오류:', error);
-                    return Math.max(0, 72 - team.wins); // 폴백으로 기존 로직 사용
-                }
-            },
             
             // 테이블 행 HTML 생성 (공통 스타일 적용)
             createTableRow(cells, teamColor = null, additionalClasses = '') {
@@ -703,16 +622,9 @@ const kboTeams = {
             document.getElementById('first-place-magic').textContent = `매직넘버: ${magicNumber > 0 ? magicNumber : '확정'}`;
 
             // 플레이오프 확정 팀 수 (PO 매직넘버 0이지만 탈락 확정이 아닌 팀들)
+            // PO 확정 팀 계산 비활성화
             const confirmedTeamsList = [];
-            currentStandings.forEach(team => {
-                const poMagicNumber = Utils.getWinsBasedMagicNumber(team);
-                // 매직넘버가 0이면서 탈락 확정이 아닌 팀만 플레이오프 확정으로 간주
-                if (poMagicNumber === 0 && !Utils.isTeamEliminated(team)) {
-                    confirmedTeamsList.push(team);
-                }
-            });
-            
-            const confirmedTeams = confirmedTeamsList.length;
+            const confirmedTeams = 0;
             document.getElementById('playoff-confirmed-teams').textContent = `${confirmedTeams}개 팀`;
             
             // 플레이오프 확정 팀이 있으면 첫 번째 확정 팀 정보 표시
@@ -1067,23 +979,23 @@ const kboTeams = {
                         aValue = aPoReq === '-' || aPoReq === '확정' || aPoReq === '탈락' || aPoReq === '자력불가' ? -1 : parseFloat(aPoReq);
                         bValue = bPoReq === '-' || bPoReq === '확정' || bPoReq === '탈락' || bPoReq === '자력불가' ? -1 : parseFloat(bPoReq);
                         break;
-                    case 'magic':
-                        const aMagic = a.cells[9].textContent;
-                        const bMagic = b.cells[9].textContent;
-                        aValue = getMagicNumberSortValue(aMagic);
-                        bValue = getMagicNumberSortValue(bMagic);
+                    case 'historicPlayoffMagic':
+                        const aHistoricMagic = a.cells[9].textContent;
+                        const bHistoricMagic = b.cells[9].textContent;
+                        aValue = getMagicNumberSortValue(aHistoricMagic);
+                        bValue = getMagicNumberSortValue(bHistoricMagic);
                         break;
-                    case 'tragic':
-                        const aTragic = a.cells[10].textContent;
-                        const bTragic = b.cells[10].textContent;
-                        aValue = getMagicNumberSortValue(aTragic);
-                        bValue = getMagicNumberSortValue(bTragic);
+                    case 'historicPlayoffTragic':
+                        const aHistoricTragic = a.cells[10].textContent;
+                        const bHistoricTragic = b.cells[10].textContent;
+                        aValue = getMagicNumberSortValue(aHistoricTragic);
+                        bValue = getMagicNumberSortValue(bHistoricTragic);
                         break;
-                    case 'requiredWinPct':
-                        const aReq = a.cells[11].textContent;
-                        const bReq = b.cells[11].textContent;
-                        aValue = aReq === '-' || aReq === '달성' ? -1 : parseFloat(aReq);
-                        bValue = bReq === '-' || bReq === '달성' ? -1 : parseFloat(bReq);
+                    case 'historicPlayoffRequiredWinPct':
+                        const aHistoricReq = a.cells[11].textContent;
+                        const bHistoricReq = b.cells[11].textContent;
+                        aValue = aHistoricReq === '-' || aHistoricReq === '달성' ? -1 : parseFloat(aHistoricReq);
+                        bValue = bHistoricReq === '-' || bHistoricReq === '달성' ? -1 : parseFloat(bHistoricReq);
                         break;
                     default:
                         return 0;
@@ -1822,17 +1734,8 @@ const kboTeams = {
                     return;
                 }
                 
-                // 플레이오프 확정 팀 찾기 및 표시
+                // PO 확정 팀 찾기 비활성화
                 const confirmedTeams = [];
-                currentStandings.forEach(team => {
-                    const poMagicNumber = Utils.getWinsBasedMagicNumber(team);
-                    if (poMagicNumber === 0 && !Utils.isTeamEliminated(team)) {
-                        confirmedTeams.push({
-                            name: team.team,
-                            rank: team.rank || team.displayRank
-                        });
-                    }
-                });
                 
                 // 플레이오프 확정 팀 배너 업데이트 (배너가 존재하는 경우에만)
                 const banner = document.getElementById('playoff-confirmed-banner');
@@ -1878,98 +1781,65 @@ const kboTeams = {
                 // 최대가능승수 기준 5위 팀의 최대가능승수가 "최종 5위 예상 승수"
                 const fifthPlaceMaxWins = teamsWithMaxWins[4] ? teamsWithMaxWins[4].maxPossibleWins : 72;
                 
-                // Utils.calculatePlayoffMagicNumber 사용하여 통일된 로직 적용
-                const poMagicNumber = Utils.getWinsBasedMagicNumber(team);
+                // PO 매직넘버/트래직넘버 데이터 가져오기
+                let poMagicNumber = '-';
+                let poTragicNumber = '-';
+                let poStatus = '-';
                 
-                // 탈락 여부 먼저 확인 (현재 5위 팀 승률 vs 내 최대 가능 승률)
-                const currentFifthPlace = currentStandings.find(t => t.rank === 5) || currentStandings.find(t => t.rank === 4);
-                const currentFifthWinRate = currentFifthPlace ? currentFifthPlace.wins / (currentFifthPlace.wins + currentFifthPlace.losses) : 0;
-                const myMaxWinRate = maxPossibleWins / (maxPossibleWins + team.losses);
-                
-                // PO 트래직넘버 미리 계산하여 탈락 여부 확인
-                let tragicFifthPlace = null;
-                if (currentStandings.length >= 5) {
-                    tragicFifthPlace = currentStandings[4]; // 5위 팀
-                } else if (currentStandings.length >= 4) {
-                    tragicFifthPlace = currentStandings[3]; // 4위 팀
+                // magic-matrix-data.json에서 플레이오프 데이터 찾기
+                if (window.magicMatrixData && window.magicMatrixData.playoffResults) {
+                    const playoffData = window.magicMatrixData.playoffResults.find(p => p.team === team.team);
+                    if (playoffData) {
+                        poMagicNumber = playoffData.playoffMagicStrict;
+                        poTragicNumber = playoffData.playoffTragicStrict;
+                        poStatus = playoffData.playoffStatus;
+                    }
                 }
                 
-                let poTragicNumber = 0;
-                if (tragicFifthPlace) {
-                    poTragicNumber = maxPossibleWins - (tragicFifthPlace.wins - 1);
+                // PO 진출 상황 (트래직넘버 0이면 탈락)
+                let poStatusDisplay = '-';
+                if (poTragicNumber === 0) {
+                    poStatusDisplay = '탈락';
                 }
                 
-                // 표시 형식 결정
-                let maxWinsMagicDisplay = '';
-                if (currentFifthWinRate > myMaxWinRate || poTragicNumber <= 0) {
-                    // 현재 5위 팀 승률보다 내 최대 가능 승률이 낮거나 트래직넘버가 0 이하면 탈락
-                    maxWinsMagicDisplay = '<span style="color: #c0392b;">탈락</span>';
-                } else if (poMagicNumber === 0 && !Utils.isTeamEliminated(team)) {
-                    maxWinsMagicDisplay = '0';
-                } else if (poMagicNumber > remainingGames) {
-                    maxWinsMagicDisplay = `${poMagicNumber} <span style="color: #c0392b;">(자력불가)</span>`;
-                } else {
-                    maxWinsMagicDisplay = poMagicNumber;
+                // PO 매직넘버 표시
+                let maxWinsMagicDisplay = '-';
+                if (poMagicNumber !== '-') {
+                    if (poMagicNumber === 0) {
+                        maxWinsMagicDisplay = '<span style="color: #2ecc71;">PO 진출 확정</span>';
+                    } else if (poTragicNumber === 0) {
+                        maxWinsMagicDisplay = '<span style="color: #e74c3c;">탈락</span>';
+                    } else if (remainingGames < poMagicNumber) {
+                        maxWinsMagicDisplay = `${poMagicNumber} (자력진출 불가)`;
+                    } else {
+                        maxWinsMagicDisplay = poMagicNumber;
+                    }
                 }
                 
-                // PO 진출 상황 결정
-                let poStatus = '';
-                
-                // 5개 팀이 진출 확정되었는지 확인 (매직넘버 0인 팀 수)
-                const confirmedTeams = currentStandings.filter(t => {
-                    const teamPoMagicNumber = Utils.getWinsBasedMagicNumber(t);
-                    return teamPoMagicNumber === 0;
-                }).length;
-                
-                if (currentFifthWinRate > myMaxWinRate || poTragicNumber <= 0) {
-                    // 현재 5위 팀 승률보다 최대 가능 승률이 낮거나 트래직넘버가 0 이하면 탈락
-                    poStatus = '<span style="color: #c0392b;">탈락</span>';
-                } else if (poMagicNumber === 0 && !Utils.isTeamEliminated(team)) {
-                    // 매직넘버가 0이고 탈락이 아니면 진출 확정
-                    poStatus = '<span style="color: #2ecc71;">진출</span>';
-                } else if (confirmedTeams >= 5 && poMagicNumber > 0) {
-                    // 5개팀이 이미 확정되고 본인은 확정이 아니면 탈락
-                    poStatus = '<span style="color: #c0392b;">탈락</span>';
-                } else {
-                    // 그 외의 경우는 -
-                    poStatus = '-';
-                }
-                
-                // PO 트래직넘버 표시 (이미 위에서 계산됨)
-                let poTragicDisplay = '';
-                
-                if (!tragicFifthPlace) {
-                    poTragicDisplay = '0';
-                } else {
-                    if (poTragicNumber <= 0) {
-                        poTragicDisplay = '<span style="color: #c0392b;">탈락</span>';
+                // PO 트래직넘버 표시
+                let poTragicDisplay = '-';
+                if (poTragicNumber !== '-') {
+                    if (poMagicNumber === 0) {
+                        poTragicDisplay = '<span style="color: #2ecc71;">진출</span>';
+                    } else if (poTragicNumber === 0) {
+                        poTragicDisplay = '<span style="color: #e74c3c;">탈락</span>';
                     } else {
                         poTragicDisplay = poTragicNumber;
                     }
                 }
                 
-                // 역대 기준 매직넘버 계산 (72승 기준)
-                const playoffThreshold = 72;
-                const historicMagic = Math.max(0, playoffThreshold - team.wins);
-                let magicDisplay = '';
+                // 역대 기준 매직넘버 계산 (71승 기준 - 별도 컬럼용)
+                const historicPlayoffThreshold = 71;
+                const historicPlayoffMagic = Math.max(0, historicPlayoffThreshold - team.wins);
+                let historicMagicDisplay = '';
                 
-                if (historicMagic === 0) {
-                    magicDisplay = '<span style="color: #2ecc71; font-weight: bold;">달성</span>';
-                } else if (historicMagic > remainingGames) {
-                    // 잔여경기를 모두 이겨도 72승 불가능
-                    magicDisplay = '<span style="color: #c0392b; font-weight: bold;">탈락</span>';
-                } else if (historicMagic <= 3) {
-                    magicDisplay = `<span style="color: #2ecc71; font-weight: bold;">${historicMagic}</span>`;
-                } else if (historicMagic <= 6) {
-                    magicDisplay = `<span style="color: #27ae60;">${historicMagic}</span>`;
-                } else if (historicMagic <= 10) {
-                    magicDisplay = `<span style="color: #f39c12;">${historicMagic}</span>`;
-                } else if (historicMagic <= 15) {
-                    magicDisplay = `<span style="color: #e67e22;">${historicMagic}</span>`;
-                } else if (historicMagic <= 25) {
-                    magicDisplay = `<span style="color: #e74c3c;">${historicMagic}</span>`;
+                if (historicPlayoffMagic === 0) {
+                    historicMagicDisplay = '<span style="color: #2ecc71;">달성</span>';
+                } else if (historicPlayoffMagic > remainingGames) {
+                    // 잔여경기를 모두 이겨도 71승 불가능
+                    historicMagicDisplay = '<span style="color: #e74c3c;">탈락</span>';
                 } else {
-                    magicDisplay = `<span style="color: #c0392b;">${historicMagic}</span>`;
+                    historicMagicDisplay = historicPlayoffMagic;
                 }
                 
                 // 진출상황을 72승 기준으로 명확하게 정의
@@ -2032,61 +1902,49 @@ const kboTeams = {
                 // 팀명에 로고 추가
                 const teamNameWithLogo = Utils.getTeamNameWithLogo(team);
                 
-                // 역대 기준 트래직넘버 계산 (71승 기준)
-                const tragicThreshold = 71;
-                const historicTragicNumber = maxPossibleWins < tragicThreshold ? 0 : tragicThreshold - maxPossibleWins;
-                let historicTragicDisplay = '';
+                // 역대 기준 트래직넘버 계산 (70승 기준 - 올바른 로직)
+                const historicPlayoffTragicThreshold = 70;
+                let historicPlayoffTragicDisplay = '';
                 
-                if (historicTragicNumber === 0) {
-                    if (maxPossibleWins < tragicThreshold) {
-                        historicTragicDisplay = '<span style="color: #c0392b; font-weight: bold;">탈락</span>';
-                    } else {
-                        historicTragicDisplay = '<span style="color: #2ecc71; font-weight: bold;">안전</span>';
-                    }
+                if (maxPossibleWins < historicPlayoffTragicThreshold) {
+                    // 이미 탈락 확정
+                    historicPlayoffTragicDisplay = '<span style="color: #e74c3c;">탈락</span>';
+                } else if (team.wins >= historicPlayoffTragicThreshold) {
+                    // 이미 기준 달성
+                    historicPlayoffTragicDisplay = '<span style="color: #2ecc71;">안전</span>';
                 } else {
-                    const absNumber = Math.abs(historicTragicNumber);
-                    if (absNumber <= 3) {
-                        historicTragicDisplay = `<span style="color: #c0392b; font-weight: bold;">-${absNumber}</span>`;
-                    } else if (absNumber <= 6) {
-                        historicTragicDisplay = `<span style="color: #e74c3c;">-${absNumber}</span>`;
-                    } else if (absNumber <= 10) {
-                        historicTragicDisplay = `<span style="color: #e67e22;">-${absNumber}</span>`;
-                    } else if (absNumber <= 15) {
-                        historicTragicDisplay = `<span style="color: #f39c12;">-${absNumber}</span>`;
-                    } else if (absNumber <= 25) {
-                        historicTragicDisplay = `<span style="color: #27ae60;">-${absNumber}</span>`;
+                    // 트래직넘버 = 현재 승수에서 몇 패 더 하면 70승 불가능해지는가
+                    const canLose = maxPossibleWins - historicPlayoffTragicThreshold;
+                    if (canLose <= 0) {
+                        historicPlayoffTragicDisplay = '<span style="color: #e74c3c;">탈락</span>';
                     } else {
-                        historicTragicDisplay = `<span style="color: #2ecc71;">-${absNumber}</span>`;
+                        historicPlayoffTragicDisplay = canLose;
                     }
                 }
                 
-                // PO 진출을 위한 필요 승률 계산
-                let poRequiredWinPct = '';
-                if (currentFifthWinRate > myMaxWinRate || poTragicNumber <= 0) {
-                    poRequiredWinPct = '<span style="color: #c0392b;">탈락</span>';
-                } else if (poMagicNumber === 0 && !Utils.isTeamEliminated(team)) {
-                    poRequiredWinPct = '<span style="color: #2ecc71;">확정</span>';
-                } else if (remainingGames > 0) {
-                    const poRequiredRate = poMagicNumber / remainingGames;
-                    if (poRequiredRate > 1.0) {
-                        poRequiredWinPct = '<span style="color: #c0392b;">자력불가</span>';
-                    } else {
-                        poRequiredWinPct = poRequiredRate.toFixed(3);
-                    }
-                } else {
-                    poRequiredWinPct = '-';
+                // PO 필요 승률
+                let poRequiredWinPct = '-';
+                if (poMagicNumber === 0) {
+                    poRequiredWinPct = '<span style="color: #2ecc71;">진출</span>';
+                } else if (poTragicNumber === 0) {
+                    poRequiredWinPct = '<span style="color: #e74c3c;">탈락</span>';
+                } else if (remainingGames < poMagicNumber) {
+                    poRequiredWinPct = '자력 진출 불가';
+                } else if (poMagicNumber !== '-' && poMagicNumber > 0 && remainingGames > 0) {
+                    const requiredRate = poMagicNumber / remainingGames;
+                    poRequiredWinPct = requiredRate.toFixed(3);
                 }
                 
-                // 역대 기준 필요 승률 계산 및 표시 (72승 기준)
-                let requiredWinPct = '';
-                const requiredRate = remainingGames > 0 ? historicMagic / remainingGames : 0;
+                // 역대 기준 필요 승률 계산 및 표시 (71승 기준)
+                let historicPlayoffRequiredWinPct = '';
+                const historicPlayoffRequiredRate = remainingGames > 0 ? historicPlayoffMagic / remainingGames : 0;
                 
-                if (requiredRate === 0) {
-                    requiredWinPct = '<span style="color: #2ecc71;">달성</span>';
-                } else if (requiredRate > 1.0) {
-                    requiredWinPct = '<span style="color: #c0392b;">탈락</span>';
+                if (historicPlayoffRequiredRate === 0) {
+                    historicPlayoffRequiredWinPct = '<span style="color: #2ecc71;">달성</span>';
+                } else if (historicPlayoffRequiredRate > 1.0) {
+                    historicPlayoffRequiredWinPct = '<span style="color: #e74c3c;">탈락</span>';
                 } else {
-                    requiredWinPct = requiredRate.toFixed(3);
+                    historicPlayoffRequiredWinPct = historicPlayoffRequiredRate.toFixed(3);
                 }
                 
                 row.innerHTML = `
@@ -2097,12 +1955,10 @@ const kboTeams = {
                     <td>${maxPossibleWins}</td>
                     <td class="po-magic" style="text-align: center;">${maxWinsMagicDisplay}</td>
                     <td class="po-tragic" style="text-align: center;">${poTragicDisplay}</td>
-                    <td class="po-required-winpct" style="text-align: center;">${poRequiredWinPct}</td>
-                    <td class="po-status" style="text-align: center;">${poStatus}</td>
-                    <td class="historic-magic" style="text-align: center;">${magicDisplay}</td>
-                    <td class="historic-tragic" style="text-align: center;">${historicTragicDisplay}</td>
-                    <td class="required-rate">${requiredWinPct}</td>
-                    <td class="status-text">${displayStatus}</td>
+                    <td class="po-required-winpct" style="text-align: center; font-weight: normal;">${poRequiredWinPct}</td>
+                    <td class="historic-playoff-magic" style="text-align: center;">${historicMagicDisplay}</td>
+                    <td class="historic-playoff-tragic" style="text-align: center;">${historicPlayoffTragicDisplay}</td>
+                    <td class="historic-playoff-required-rate">${historicPlayoffRequiredWinPct}</td>
                 `;
                 tbody.appendChild(row);
             });
@@ -2115,6 +1971,7 @@ const kboTeams = {
 
 
         function determineCellData(team, rankPosition, championshipMagic, playoffMagic, tragicNumber, teamIndex) {
+            // playoffMagic 매개변수는 사용하지 않음 (PO 로직 비활성화)
             // 나무위키 스타일 매직넘버 차트 색상 결정 로직
             const currentRank = teamIndex + 1; // 1-based rank
             
@@ -2266,49 +2123,7 @@ const kboTeams = {
             }
         }
 
-        function calculatePlayoffMagic(team, rankings, index) {
-            const totalGames = 144;
-            const playoffSpots = 5;
-            const remainingGames = totalGames - team.games;
-            
-            if (index < playoffSpots) {
-                // 현재 플레이오프 권 내
-                const sixthPlace = rankings[playoffSpots];
-                if (!sixthPlace) return 0;
-                const sixthMaxWins = sixthPlace.wins + (totalGames - sixthPlace.games);
-                return Math.max(0, sixthMaxWins - team.wins + 1);
-            } else {
-                // 플레이오프 권 밖
-                const fifthPlace = rankings[playoffSpots - 1];
-                const maxPossibleWins = team.wins + remainingGames;
-                if (maxPossibleWins <= fifthPlace.wins) return 999;
-                return Math.max(0, fifthPlace.wins - team.wins + 1);
-            }
-        }
 
-        function calculateTragicNumber(team, rankings, index) {
-            const totalGames = 144;
-            const remainingGames = totalGames - team.games;
-            const playoffSpots = 5;
-            
-            if (index < playoffSpots) {
-                // 플레이오프 권 내 - 탈락까지
-                const sixthPlace = rankings[playoffSpots];
-                if (!sixthPlace) return 999;
-                const minPossibleWins = team.wins;
-                const sixthMinWins = sixthPlace.wins;
-                if (minPossibleWins > sixthMinWins) return 999;
-                return Math.max(0, remainingGames - (team.wins - sixthPlace.wins) + 1);
-            } else {
-                // 플레이오프 권 밖
-                const baselineWins = 71; // 플레이오프 진출 기준선
-                const maxPossibleWins = team.wins + remainingGames;
-                if (maxPossibleWins >= baselineWins) {
-                    return Math.max(0, maxPossibleWins - baselineWins + 1);
-                }
-                return 0; // 이미 탈락
-            }
-        }
 
         // 1위 탈환을 위한 트래직넘버 계산 (승률 기준, 승수 표시)
         function calculateFirstPlaceTragicNumber(team, rankings, index) {
@@ -2355,6 +2170,7 @@ const kboTeams = {
         }
 
         function determineTeamStatus(team, championshipMagic, playoffMagic, tragicNumber, index) {
+            // playoffMagic, tragicNumber 매개변수는 사용하지 않음 (PO 로직 비활성화)
             // 우승 확정
             if (championshipMagic === 0 || (index === 0 && championshipMagic <= 3)) {
                 return {
@@ -2364,50 +2180,7 @@ const kboTeams = {
                 };
             }
             
-            // 플레이오프 확정
-            if (playoffMagic === 0 || playoffMagic <= 3) {
-                return {
-                    label: 'PO확정',
-                    backgroundColor: '#2563eb',
-                    textColor: '#ffffff'
-                };
-            }
-            
-            // 매직넘버 (유력)
-            if (playoffMagic <= 10) {
-                return {
-                    label: 'PO유력',
-                    backgroundColor: '#16a34a',
-                    textColor: '#ffffff'
-                };
-            }
-            
-            // 경합
-            if (playoffMagic <= 20 && tragicNumber > 10) {
-                return {
-                    label: '경합',
-                    backgroundColor: '#eab308',
-                    textColor: '#000000'
-                };
-            }
-            
-            // 탈락 위험
-            if (tragicNumber <= 5) {
-                return {
-                    label: '탈락위험',
-                    backgroundColor: '#dc2626',
-                    textColor: '#ffffff'
-                };
-            }
-            
-            // 탈락
-            if (tragicNumber === 0) {
-                return {
-                    label: '탈락',
-                    backgroundColor: '#991b1b',
-                    textColor: '#ffffff'
-                };
-            }
+            // PO 관련 로직 비활성화 - 역대 기준으로만 판단
             
             // 기본 (경합)
             return {
