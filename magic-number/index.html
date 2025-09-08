@@ -267,7 +267,7 @@
             
             .scenario-matrix-table th,
             .scenario-matrix-table td {
-                padding: 4px 2px !important;
+                padding: 2px 1px !important;
                 font-size: 0.7rem !important;
                 border: 1px solid #dee2e6 !important;
                 white-space: nowrap !important;
@@ -288,7 +288,7 @@
             
             /* 모든 헤더 셀 기본 스타일 */
             .scenario-matrix-table thead th {
-                padding: 4px 2px !important;
+                padding: 2px 1px !important;
                 font-size: 0.7rem !important;
                 text-align: center !important;
                 line-height: 1.2 !important;
@@ -331,7 +331,7 @@
             .scenario-matrix-table tbody tr td:nth-child(9),
             .scenario-matrix-table tbody tr td:nth-child(10),
             .scenario-matrix-table tbody tr td:nth-child(11) {
-                padding: 4px 2px !important;
+                padding: 2px 1px !important;
                 font-size: 0.7rem !important;
                 border: 1px solid #dee2e6 !important;
                 line-height: 1.2 !important;
@@ -359,7 +359,7 @@
             
             /* 데이터 셀이 원래 색상을 유지하도록 */
             .win-rate-cell {
-                padding: 4px 2px !important;
+                padding: 2px 1px !important;
                 font-size: 0.7rem !important;
                 min-width: auto !important;
                 background-color: inherit !important;
@@ -735,6 +735,7 @@
             <a href="../index.html" class="nav-item main-dashboard">🏠 더 많은 데이터 보러 가기</a>
             <a href="#championship" class="nav-item active" data-target="championship">👑 매직넘버 & 우승</a>
             <a href="#scenarios" class="nav-item" data-target="scenarios">🎲 경우의 수</a>
+            <a href="#magicMatrix" class="nav-item" data-target="magicMatrix">📊 매트릭스</a>
             <a href="#chase" class="nav-item" data-target="chase">🎯 1위 탈환</a>
             <a href="#playoff" class="nav-item" data-target="playoff">🏟️ 플레이오프</a>
             <a href="#standings" class="nav-item" data-target="standings">📊 팀 순위표</a>
@@ -1005,6 +1006,52 @@
                             <button data-action="show-all-teams-scenario" class="scenario-full-view-button">
                                 🔍 전체 경우의수 보러 가기
                             </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 쿠팡 파트너스 광고 -->
+                <div class="ad-card">
+                    <div class="coupang-ad-wrapper">
+                        <div>광고</div>
+                        <script src="https://ads-partners.coupang.com/g.js"></script>
+                        <script>
+                            new PartnersCoupang.G({"id":918101,"trackingCode":"AF6959276","template":"banner","width":"1100","height":"180","tsource":""});
+                        </script>
+                    </div>
+                </div>
+
+                <!-- 매직/트래직 넘버 매트릭스 카드 -->
+                <div class="card" id="magicMatrix">
+                    <h2>📊 매직/트래직 넘버 매트릭스</h2>
+                    <div id="magicMatrixContent">
+                        <!-- 매트릭스 테이블이 여기에 렌더링됩니다 -->
+                    </div>
+                    <div class="matrix-legend legend-text" style="background: #f8f9fa; padding: 12px 15px; border-radius: 6px; margin-top: 15px; border-left: 3px solid #3498db; font-size: 13px;">
+                        <h3 style="margin: 0 0 10px 0; color: #3498db; font-weight: 600; font-size: 14px;">📊 매트릭스 해석 가이드</h3>
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
+                            <div>
+                                <strong style="color: #2d3748;">🎨 셀 색상 가이드</strong>
+                                <ul style="margin: 5px 0; padding-left: 20px;">
+                                    <li><span style="background: linear-gradient(135deg, rgba(34, 197, 94, 0.8) 0%, rgba(22, 163, 74, 0.9) 100%); color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px;">✓ 초록</span>: 확보 (해당 순위 확보)</li>
+                                    <li><span style="background: linear-gradient(135deg, rgba(34, 197, 94, 0.08) 0%, rgba(22, 163, 74, 0.12) 100%); color: #059669; padding: 2px 6px; border-radius: 3px; font-size: 11px;">연초록</span>: 매직넘버</li>
+                                    <li><span style="background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(220, 38, 38, 0.15) 100%); color: #dc2626; padding: 2px 6px; border-radius: 3px; font-size: 11px;">연빨강</span>: 트래직넘버</li>
+                                    <li><span style="background: linear-gradient(135deg, rgba(239, 68, 68, 0.8) 0%, rgba(220, 38, 38, 0.9) 100%); color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px;">✗ 빨강</span>: 불가능 (해당 순위 달성 불가)</li>
+                                    <li><span style="background: linear-gradient(135deg, rgba(255, 193, 7, 0.2) 0%, rgba(245, 158, 11, 0.25) 100%); color: #92400e; padding: 2px 6px; border-radius: 3px; font-size: 11px;">노랑</span>: 자력 확정 불가</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <strong style="color: #2d3748;">✅ 표시 방식</strong>
+                                <ul style="margin: 5px 0; padding-left: 20px;">
+                                    <li>숫자: 매직넘버 (해당 순위 확보 필요 승수)</li>
+                                    <li>✓ "확보": 해당 순위 이미 확보</li>
+                                    <li>✗ "X위 불가": 해당 순위 달성 불가능</li>
+                                    <li><span style="border-left: 3px solid #f39c12; padding-left: 6px; margin-left: 3px;">5위 옆 주황 구분선</span>: 플레이오프 진출 기준선</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div style="margin-top: 10px; padding-top: 8px; border-top: 1px solid #e2e8f0; font-size: 11px; color: #666; text-align: center;">
+                            <span style="font-style: italic;">* 이 매트릭스는 <a href="https://namu.wiki/w/2025%20%EC%8B%A0%ED%95%9C%20SOL%20Bank%20KBO%20%EB%A6%AC%EA%B7%B8/%EC%9D%BC%EC%9E%90%EB%B3%84%20%EB%A7%A4%EC%A7%81%EB%84%98%EB%B2%84#s-2.24" target="_blank" style="color: #666; text-decoration: underline;">나무위키</a>를 참고하여 만들었습니다</span>
                         </div>
                     </div>
                 </div>
@@ -2111,6 +2158,256 @@
                 bottom: 50px;
             }
         }
+        
+        /* 매직/트래직 넘버 매트릭스 스타일 */
+        .matrix-table-container {
+            overflow-x: auto;
+            margin-top: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .magic-matrix-table {
+            width: 100%;
+            font-size: 12px;
+            border-collapse: separate;
+            border-spacing: 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            table-layout: fixed;
+        }
+        
+        .magic-matrix-table th,
+        .magic-matrix-table td {
+            border: 1px solid #e5e7eb;
+            padding: 2px 1px;
+            text-align: center;
+            white-space: nowrap;
+        }
+        
+        .magic-matrix-table th {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            font-weight: 600;
+            font-size: 11px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 6px 1px;
+        }
+        
+        .magic-matrix-table td {
+            font-weight: 600;
+            font-size: 13px;
+            transition: all 0.2s ease;
+        }
+        
+        /* 순위 셀 균등 배분 */
+        .magic-matrix-table .rank-cell {
+            width: calc((100% - 120px) / 10);
+        }
+        
+        .magic-matrix-table td:not(.matrix-team-info) {
+            width: calc((100% - 120px) / 10);
+        }
+        
+        .magic-matrix-table tbody tr:hover td:not(.matrix-team-info) {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .matrix-team-col {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            width: 120px !important;
+            min-width: 120px !important;
+            max-width: 120px !important;
+            font-size: 13px;
+            font-weight: 600;
+            position: sticky;
+            left: 0;
+            z-index: 11;
+        }
+        
+        .matrix-header-main {
+            background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
+            color: white;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        
+        .matrix-team-info {
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            color: #2c3e50;
+            text-align: center;
+            padding: 6px 10px;
+            position: sticky;
+            left: 0;
+            z-index: 9;
+            border-right: 2px solid #e5e7eb;
+            width: 120px !important;
+            min-width: 120px !important;
+            max-width: 120px !important;
+        }
+        
+        .matrix-team-name {
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .matrix-team-name .team-logo-small {
+            width: 18px;
+            height: 18px;
+            margin-right: 6px;
+            filter: drop-shadow(0 1px 2px rgba(0,0,0,0.1));
+        }
+        
+        .matrix-team-status {
+            font-size: 10px;
+            color: #000000;
+            font-weight: 500;
+        }
+        
+        .rank-header,
+        .playoff-rank-header {
+            font-size: 12px;
+            font-weight: 700;
+        }
+        
+        .playoff-rank-header {
+            background: linear-gradient(135deg, #f59e0b 0%, #f39c12 100%) !important;
+            border-left: 3px solid #d97706 !important;
+            border-right: 3px solid #d97706 !important;
+        }
+        
+        .playoff-divider-left {
+            border-left: 3px solid #f39c12 !important;
+        }
+        
+        /* 매직넘버 셀 색상 - 사이트 스타일 매치 */
+        .magic-confirmed {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.8) 0%, rgba(22, 163, 74, 0.9) 100%);
+            color: white;
+            font-weight: 800;
+            font-size: 11px;
+            line-height: 1.2;
+            padding: 6px 4px;
+            vertical-align: middle;
+            border: 2px solid #16a34a;
+            box-shadow: 0 2px 4px rgba(34, 197, 94, 0.3);
+            position: relative;
+        }
+        
+        .magic-confirmed::before {
+            content: "✓ ";
+            font-size: 12px;
+            font-weight: 900;
+        }
+        
+        .magic-safe {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.08) 0%, rgba(22, 163, 74, 0.12) 100%);
+            color: #059669;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .magic-warning {
+            background: linear-gradient(135deg, rgba(255, 193, 7, 0.15) 0%, rgba(245, 158, 11, 0.2) 100%);
+            color: #d97706;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .magic-danger {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(220, 38, 38, 0.15) 100%);
+            color: #dc2626;
+            font-weight: 600;
+            font-size: 13px;
+        }
+        
+        .magic-impossible {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.8) 0%, rgba(220, 38, 38, 0.9) 100%);
+            color: white;
+            font-weight: 800;
+            font-size: 13px;
+            border: 2px solid #dc2626;
+            position: relative;
+        }
+        
+        .magic-impossible::before {
+            content: "✗ ";
+            font-size: 12px;
+            font-weight: 900;
+        }
+        
+        .merged-cell {
+            text-align: center;
+            font-size: 14px;
+            line-height: 1.4;
+            padding: 12px 8px;
+        }
+        
+        .merged-cell small {
+            font-size: 11px;
+            opacity: 0.8;
+            font-weight: 600;
+        }
+        
+        /* 상위권/하위권 배너 */
+        .banner-top   { background:#1f3a8a; color:#fff; font-weight:800; text-align:center; }
+        .banner-mid   { background:#274690; color:#fff; font-weight:800; text-align:center; }
+        .banner-low   { background:#7c2d12; color:#fff; font-weight:800; text-align:center; }
+        .banner-note  { display:block; font-size:12px; opacity:.9; margin-top:4px; }
+        
+        .magic-selflimit {
+            background: linear-gradient(135deg, rgba(255, 193, 7, 0.2) 0%, rgba(245, 158, 11, 0.25) 100%);
+            color: #92400e;
+            font-weight: 700;
+            font-size: 13px;
+        }
+        
+        /* 모바일 최적화 */
+        @media (max-width: 768px) {
+            .magic-matrix-table {
+                font-size: 11px;
+            }
+            
+            .magic-matrix-table th,
+            .magic-matrix-table td {
+                padding: 1px 1px;
+            }
+            
+            .magic-matrix-table th {
+                padding: 4px 1px;
+            }
+            
+            .matrix-team-col,
+            .matrix-team-info {
+                width: 100px !important;
+                min-width: 100px !important;
+                max-width: 100px !important;
+            }
+            
+            .matrix-team-name {
+                font-size: 12px;
+            }
+            
+            .matrix-team-status {
+                font-size: 9px;
+            }
+            
+            .rank-header {
+                min-width: 38px;
+                font-size: 11px;
+            }
+        }
 
     </style>
     
@@ -2152,6 +2449,8 @@
     <!-- 탑으로 가기 버튼 -->
     <button class="scroll-to-top" id="scrollToTop">↑</button>
     
+    <!-- 매직/트래직 매트릭스 계산기 스크립트 -->
+    <script src="scripts/ui-magic-matrix.js"></script>
     
 </body>
 </html><!-- Updated at Tue Aug  5 10:21:58 JST 2025 -->

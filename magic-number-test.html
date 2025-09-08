@@ -115,88 +115,86 @@
             color: #1e40af;
         }
         
-        /* 매트릭스 테이블 스타일 - 스크린샷 매치 */
+        /* 매트릭스 테이블 스타일 */
         .results-table table {
-            font-size: 11px;
-            background: #2c3e50;
+            font-size: 14px;
+        }
+        
+        .results-table th,
+        .results-table td {
+            border: 1px solid #34495e;
+            padding: 10px 8px;
+            text-align: center;
         }
         
         .results-table th {
-            background: #2c3e50 !important;
+            background: #34495e;
             color: white;
             font-weight: bold;
-            border: 1px solid #34495e;
-            padding: 8px 6px;
         }
         
         .results-table td {
-            border: 1px solid #34495e;
-            padding: 8px 6px;
             font-weight: bold;
-        }
-        
-        .team-col {
-            background: #2c3e50 !important;
-            color: white;
-            width: 80px;
-            min-width: 80px;
-        }
-        
-        .rank-header {
-            background: #34495e !important;
-            color: white;
-            width: 40px;
-            min-width: 40px;
-        }
-        
-        .playoff-rank-header {
-            background: #f39c12 !important;
-            color: white;
-            width: 40px;
-            min-width: 40px;
+            font-size: 14px;
         }
         
         .team-info-cell {
-            background: #2c3e50;
+            background: #34495e;
             color: white;
             text-align: left;
-            padding: 6px 8px;
+        }
+        
+        .playoff-rank-header {
+            background: #f39c12;
         }
         
         .team-name {
-            font-size: 12px;
+            font-size: 14px;
             font-weight: bold;
             margin-bottom: 2px;
         }
         
         .team-status {
-            font-size: 9px;
+            font-size: 11px;
             color: #bdc3c7;
         }
         
-        /* 매직넘버 셀 색상 */
+        /* 매직넘버 셀 색상 - root index 스타일 */
         .magic-confirmed {
-            background: #27ae60 !important;
-            color: white;
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.25) 0%, rgba(22, 163, 74, 0.35) 100%);
+            color: #059669;
+            font-weight: bold;
         }
         
         .magic-safe {
-            background: #2ecc71 !important;
-            color: white;
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(22, 163, 74, 0.15) 100%);
+            color: #059669;
+            font-weight: 600;
         }
         
         .magic-warning {
-            background: #f39c12 !important;
-            color: white;
+            background: linear-gradient(135deg, rgba(255, 193, 7, 0.2) 0%, rgba(245, 158, 11, 0.25) 100%);
+            color: #f59e0b;
+            font-weight: 600;
         }
         
         .magic-danger {
-            background: #e74c3c !important;
-            color: white;
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(220, 38, 38, 0.25) 100%);
+            color: #dc2626;
+            font-weight: 600;
         }
-        .magic-impossible {
-            background: #6b7280 !important;
-            color: white;
+        
+        .magic-selflimit {
+            background: linear-gradient(135deg, rgba(255, 193, 7, 0.3) 0%, rgba(245, 158, 11, 0.35) 100%);
+            color: #f59e0b;
+            font-weight: bold;
+        }
+        
+        .team-logo {
+            width: 18px;
+            height: 18px;
+            margin-right: 6px;
+            vertical-align: middle;
         }
         
         /* 범례 스타일 */
@@ -214,53 +212,37 @@
         .legend-box.warning { background: #f39c12; }
         .legend-box.danger { background: #e74c3c; }
         .legend-box.impossible { background: #6b7280; }
+
+        /* 5위(플레이오프 라인) 좌측 굵은 구분선 */
+        .playoff-divider-left {
+            border-left: 4px solid #f39c12 !important;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>🏆 2025 KBO 매직/트래직 넘버 실시간 계산</h1>
         
-        <div class="description">
-            <h3>📋 현재 순위 기준 매직/트래직 넘버</h3>
-            <ul>
-                <li><strong>매직 넘버 (MN):</strong> k위 이내 확정을 위해 필요한 최소 승수</li>
-                <li><strong>트래직 넘버 (TN):</strong> k위 이내 달성이 불가능해지는 최대 패수</li>
-                <li><strong>승률 계산:</strong> W / (W + L) - 무승부는 분모에서 제외</li>
-                <li><strong>색상 구분:</strong> 확보(녹색), 매직1-5(연녹색), 6-10(노랑), 11+(빨강), 불가(회색)</li>
-                <li><strong>5위 하이라이트:</strong> 플레이오프 진출 라인 (노란 헤더)</li>
-            </ul>
-        </div>
-
-        <div class="controls">
-            <h3>🔧 제어 옵션</h3>
-            <button onclick="loadCurrentData()">📊 현재 KBO 데이터 로드</button>
-            <button onclick="loadSampleData()">🎲 샘플 데이터 로드</button>
-            <button onclick="calculate()">⚡ 계산 실행</button>
-            <button onclick="exportCSV()">📄 CSV 다운로드</button>
-            <button onclick="exportJSON()">💾 JSON 다운로드</button>
-            <button onclick="toggleSimpleMode()">🎯 단순화 모드 (strict만)</button>
+        <div style="text-align: center; margin-bottom: 20px;">
+            <button onclick="refreshData()" style="background: #10b981; font-size: 14px;">🔄 데이터 새로고침</button>
         </div>
 
         <div id="results"></div>
 
-        <div class="export-section">
-            <h3>💡 답변</h3>
-            <p><strong>Q1. 파일 저장:</strong> CSV와 JSON 둘 다 구현했습니다. CSV는 엑셀에서 보기 좋고, JSON은 프로그래밍 활용에 좋습니다.</p>
-            <p><strong>Q2. 5위 하이라이트:</strong> 플레이오프 라인인 5위 컬럼을 노란색으로 하이라이트했습니다.</p>
-            <p><strong>Q3. 단순화 모드:</strong> strict만 사용하는 버전도 토글로 구현했습니다.</p>
-        </div>
     </div>
 
     <script>
         let teams = [];
         let results = [];
         let isSimpleMode = false;
+        let currentRanksMap = new Map(); // team -> rank (from calc-magic-numbers.json results[])
+        let remainingMap    = new Map(); // team -> remainingGames (from playoffResults[])
 
         /**
          * KBO: 1~9위(≤k위) 확정/탈락 매직·트래직 넘버 (잔여경기 R로 캡핑 표기)
          */
         function calcR(team, season = 144) {
-            return season - (team.W + team.L + team.T);
+            return team.actualR || (season - (team.W + team.L + team.T));
         }
 
         function pNow(team) {
@@ -292,12 +274,13 @@
             return sorted[k - 1] ?? 0;
         }
 
-        function kBenchmarksForTeam(team, teams, season, k) {
+        function kBenchmarksForTeam(team, teams, season, k)
+        {
             const maxList = [];
             const minList = [];
             for (const t of teams) {
                 if (t.id === team.id) continue;
-                const R = calcR(t, season);
+                const R = remainingMap.has(t.id) ? remainingMap.get(t.id) : calcR(t, season);
                 maxList.push(pMax(t, R));
                 minList.push(pMin(t, R));
             }
@@ -308,7 +291,7 @@
         }
 
         function magicTragicForK(team, season, Kk_max, Kk_min) {
-            const R = calcR(team, season);
+            const R = remainingMap.has(team.id) ? remainingMap.get(team.id) : calcR(team, season);
             const D = team.W + team.L + R;
 
             // Magic
@@ -325,17 +308,18 @@
             const y_strict = clamp(y_strict_raw, 0, R);
             const y_tieOK = clamp(y_tieOK_raw, 0, R);
 
-            return { R, Kk_max, Kk_min, x_strict, x_tieOK, y_strict, y_tieOK };
+            return { R, Kk_max, Kk_min, x_strict, x_tieOK, y_strict, y_tieOK, x_strict_raw, x_tieOK_raw, y_strict_raw, y_tieOK_raw };
         }
 
         function kboMagicTragicRanksAll(teams, season = 144) {
             const ks = [1, 2, 3, 4, 5, 6, 7, 8, 9];
             return teams.map(team => {
-                const R = calcR(team, season);
+                const R = remainingMap.has(team.id) ? remainingMap.get(team.id) : calcR(team, season);
                 const row = {
                     team: team.id,
                     W: team.W, L: team.L, T: team.T, R,
                     winPct: round3(pNow(team)),
+                    _jsonRank: currentRanksMap.get(team.id) ?? null
                 };
 
                 for (const k of ks) {
@@ -347,6 +331,10 @@
                     row[`x${k}_tieOK`] = r.x_tieOK;
                     row[`y${k}_strict`] = r.y_strict;
                     row[`y${k}_tieOK`] = r.y_tieOK;
+                    row[`x${k}_strict_raw`] = r.x_strict_raw;
+                    row[`x${k}_tieOK_raw`] = r.x_tieOK_raw;
+                    row[`y${k}_strict_raw`] = r.y_strict_raw;
+                    row[`y${k}_tieOK_raw`] = r.y_tieOK_raw;
                 }
                 return row;
             });
@@ -355,36 +343,35 @@
         // 현재 KBO 데이터 로드
         async function loadCurrentData() {
             try {
-                // 먼저 calc-standings.json 시도
-                let response = await fetch('magic-number/data/calc-standings.json');
-                let data = await response.json();
-                
-                if (data.rankings) {
-                    teams = data.rankings.map(team => ({
-                        id: team.team,
-                        W: team.wins,
-                        L: team.losses,
-                        T: team.draws
+                const response = await fetch('magic-number/data/calc-magic-numbers.json');
+                const data = await response.json();
+
+                // 1) team W/L/T + remaining from playoffResults[]
+                if (Array.isArray(data.playoffResults)) {
+                    teams = data.playoffResults.map(r => ({
+                        id: r.team,
+                        W: r.wins,
+                        L: r.losses,
+                        T: r.draws ?? 0
                     }));
-                    alert('✅ 현재 KBO 데이터 로드 완료! (2025-09-07 기준)');
-                    return;
+                    remainingMap = new Map(data.playoffResults.map(r => [r.team, r.remainingGames]));
+                } else {
+                    teams = [];
+                    remainingMap = new Map();
                 }
-                
-                // fallback: api-data.json 시도
-                response = await fetch('magic-number/data/api-data.json');
-                data = await response.json();
-                
-                teams = data.standings.map(team => ({
-                    id: team.team,
-                    W: team.wins,
-                    L: team.losses,
-                    T: team.draws
-                }));
-                
-                alert('✅ 현재 KBO 데이터 로드 완료!');
+
+                // 2) current ranks from results[] (if provided)
+                if (Array.isArray(data.results)) {
+                    currentRanksMap = new Map(data.results.map(r => [r.team, r.rank]));
+                } else {
+                    currentRanksMap = new Map();
+                }
+
+                console.log('calc-magic-numbers.json 로드 완료');
             } catch (error) {
-                console.error('데이터 로드 실패:', error);
-                alert('❌ 데이터 로드 실패. 샘플 데이터를 사용해주세요.');
+                console.error('calc-magic-numbers.json 로드 실패:', error);
+                // 폴백: 샘플 데이터
+                loadSampleData();
             }
         }
 
@@ -402,15 +389,12 @@
                 { id: "KWO", W: 58, L: 67, T: 3 },
                 { id: "SAM", W: 57, L: 68, T: 3 },
             ];
-            alert('✅ 샘플 데이터 로드 완료!');
+            console.log('샘플 데이터 로드 완료!');
         }
 
         // 계산 실행
         function calculate() {
-            if (teams.length === 0) {
-                alert('먼저 데이터를 로드해주세요.');
-                return;
-            }
+            if (teams.length === 0) return;
 
             results = kboMagicTragicRanksAll(teams, 144);
             renderResults();
@@ -423,12 +407,11 @@
             const ranks = [9, 8, 7, 6, 5, 4, 3, 2, 1];
             let html = '<div class="results-table"><table>';
 
-            // Header rows
+            // Header
             html += '<thead><tr>';
             html += '<th rowspan="2" class="team-col">구단</th>';
-            html += '<th colspan="9" style="background: #1f2937; color: white; font-size: 16px; font-weight: bold;">순위</th>';
-            html += '</tr>';
-            html += '<tr>';
+            html += '<th colspan="9" style="background: #34495e; color: white; font-size: 16px; font-weight: bold;">순위</th>';
+            html += '</tr><tr>';
             for (const rank of ranks) {
                 const headerClass = (rank === 5) ? 'playoff-rank-header' : 'rank-header';
                 html += `<th class="${headerClass}">${rank}</th>`;
@@ -436,55 +419,92 @@
             html += '</tr></thead><tbody>';
 
             for (const row of results) {
-                html += '<tr>';
                 const currentRank = getCurrentRank(row, results);
+                html += '<tr>';
+                // 팀명 매핑 (한글 -> 영문)
+                const teamNameMap = {
+                    'LG': 'lg',
+                    '한화': 'hanwha',
+                    'SSG': 'ssg',
+                    '삼성': 'samsung',
+                    'KT': 'kt',
+                    '롯데': 'lotte',
+                    'NC': 'nc',
+                    'KIA': 'kia',
+                    '두산': 'doosan',
+                    '키움': 'kiwoom'
+                };
+                const logoName = teamNameMap[row.team] || row.team.toLowerCase();
+                
                 html += `<td class="team-info-cell">
-                    <div class="team-name">${row.team}</div>
-                    <div class="team-status">현재 ${currentRank}위 · R=${row.R}</div>
+                    <div class="team-name">
+                        <img src="magic-number/images/teams/${logoName}.png" class="team-logo" alt="${row.team}" onerror="this.style.display='none'">
+                        ${row.team}
+                    </div>
+                    <div class="team-status">현재 ${currentRank}위 · 잔여 ${row.R}경기</div>
                 </td>`;
 
                 for (const rank of ranks) {
-                    const x = isSimpleMode ? row[`x${rank}_strict`] : row[`x${rank}_strict`];
-                    const y = isSimpleMode ? row[`y${rank}_strict`] : row[`y${rank}_strict`];
+                    const x = row[`x${rank}_strict`];       // Magic: strict (>)
+                    const y = row[`y${rank}_tieOK`];        // Tragic: tieOK (<)
+                    const xraw = row[`x${rank}_strict_raw`];
+                    const yraw = row[`y${rank}_tieOK_raw`]; // optional debug
+                    const R = row.R;
 
-                    const label = displayLabel(x, y, rank);
-                    const cls = chooseCellClass(x, y);
+                    let label = '';
+                    let cls = '';
+                    // 색상 규칙 (Magic=strict, Tragic=tieOK)
+                    if (rank < currentRank) {
+                        // 현재보다 높은(더 좋은) 순위 → 트래직넘버 빨강 우선
+                        if (y === 0) {
+                            label = `${rank}위 불가`;
+                        } else {
+                            label = String(y); // TN
+                        }
+                        cls = 'magic-danger';
+                    } else if (rank === currentRank && xraw > R) {
+                        // 현재 순위를 자력으로 확정할 수 없음 → 노란색(잔여경기수)
+                        label = String(R);
+                        cls = 'magic-selflimit';
+                    } else if (y === 0) {
+                        // 트래직넘버 0 → 해당 순위 불가
+                        label = `${rank}위 불가`;
+                        cls = 'magic-danger';
+                    } else if (xraw > R) {
+                        // 일반 자력불가(해당 칸)
+                        label = String(R);
+                        cls = 'magic-selflimit';
+                    } else if (x === 0) {
+                        // 확정
+                        label = '확보';
+                        cls = 'magic-confirmed';
+                    } else {
+                        // 매직넘버 표시 구간 (기본: 매직은 초록 단일톤)
+                        label = String(x);
+                        cls = 'magic-safe';
+                    }
 
-                    html += `<td class="magic-tragic-cell ${cls}">
-                        ${label}
-                        <div style="font-size:10px; opacity:.9; margin-top:2px;">
-                          <span>MN ${x}</span> · <span>TN ${y}</span>
-                        </div>
-                    </td>`;
+                    const divider = (rank === 5) ? 'playoff-divider-left' : '';
+                    html += `<td class="magic-tragic-cell ${cls} ${divider}">${label}</td>`;
                 }
+
                 html += '</tr>';
             }
 
             html += '</tbody></table></div>';
-
-            // Legend
-            html += '<div class="legend" style="margin-top: 15px; padding: 15px; background: #f8f9fa; border-radius: 8px; color:#111;">';
-            html += '<h4 style="margin: 0 0 10px 0;">🎨 색상 구분</h4>';
-            html += '<div style="display: flex; gap: 18px; flex-wrap: wrap; font-size: 14px;">';
-            html += '<span><span class="legend-box confirmed"></span> 확보 (매직 0)</span>';
-            html += '<span><span class="legend-box safe"></span> 매직 1–5</span>';
-            html += '<span><span class="legend-box warning"></span> 매직 6–10</span>';
-            html += '<span><span class="legend-box danger"></span> 매직 11+</span>';
-            html += '<span><span class="legend-box impossible"></span> 불가/탈락 (트래직 0)</span>';
-            html += '</div></div>';
-
             document.getElementById('results').innerHTML = html;
         }
 
-        // 현재 순위 계산 (승률 기준)
+        // 현재 순위 계산 (JSON에서 제공시 우선)
         function getCurrentRank(targetTeam, allResults) {
+            if (targetTeam._jsonRank != null) return targetTeam._jsonRank;
             const sorted = [...allResults].sort((a, b) => b.winPct - a.winPct);
             return sorted.findIndex(team => team.team === targetTeam.team) + 1;
         }
 
         // 셀에 표시할 텍스트 결정 (magic, tragic, impossible)
         function displayLabel(x, y, rank){
-            if (y === 0) return (rank === 1 ? '1위 불가' : '불가');
+            if (y === 0) return `${rank}위 불가`;
             if (x === 0) return '확보';
             return String(x); // 기본은 매직넘버 표기
         }
@@ -500,10 +520,7 @@
 
         // CSV 다운로드
         function exportCSV() {
-            if (results.length === 0) {
-                alert('먼저 계산을 실행해주세요.');
-                return;
-            }
+            if (results.length === 0) return;
 
             const headers = Object.keys(results[0]);
             const csvContent = [
@@ -520,10 +537,7 @@
 
         // JSON 다운로드
         function exportJSON() {
-            if (results.length === 0) {
-                alert('먼저 계산을 실행해주세요.');
-                return;
-            }
+            if (results.length === 0) return;
 
             const jsonContent = JSON.stringify(results, null, 2);
             const blob = new Blob([jsonContent], { type: 'application/json;charset=utf-8;' });
@@ -544,6 +558,16 @@
             }
         }
 
+        // 데이터 새로고침
+        async function refreshData() {
+            console.log('데이터 새로고침 시작...');
+            await loadCurrentData();
+            if (teams.length > 0) {
+                calculate();
+                console.log('데이터 새로고침 완료!');
+            }
+        }
+
         // 초기 현재 KBO 데이터 로드
         async function init() {
             await loadCurrentData();
@@ -553,6 +577,6 @@
         }
         
         init();
-    </script>
+</script>
 </body>
 </html>
