@@ -1033,14 +1033,22 @@
                             <div>
                                 <strong style="color: #2d3748;">🎨 셀 색상 가이드</strong>
                                 <ul style="margin: 5px 0; padding-left: 20px;">
-                                    <li><span style="background: linear-gradient(135deg, rgba(34, 197, 94, 0.8) 0%, rgba(22, 163, 74, 0.9) 100%); color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px;">✓ 초록</span>: 확보 (해당 순위 확보)</li>
-                                    <li><span style="background: linear-gradient(135deg, rgba(34, 197, 94, 0.08) 0%, rgba(22, 163, 74, 0.12) 100%); color: #059669; padding: 2px 6px; border-radius: 3px; font-size: 11px;">연초록</span>: 매직넘버</li>
-                                    <li><span style="background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(220, 38, 38, 0.15) 100%); color: #dc2626; padding: 2px 6px; border-radius: 3px; font-size: 11px;">연빨강</span>: 트래직넘버</li>
-                                    <li><span style="background: linear-gradient(135deg, rgba(239, 68, 68, 0.8) 0%, rgba(220, 38, 38, 0.9) 100%); color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px;">✗ 빨강</span>: 불가능 (해당 순위 달성 불가)</li>
-                                    <li><span style="background: linear-gradient(135deg, rgba(255, 193, 7, 0.2) 0%, rgba(245, 158, 11, 0.25) 100%); color: #92400e; padding: 2px 6px; border-radius: 3px; font-size: 11px;">노랑</span>: 자력 확정 불가</li>
+                                    <li><span style="background: linear-gradient(135deg, rgba(34, 197, 94, 0.8) 0%, rgba(22, 163, 74, 0.9) 100%); color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px;">✓ 초록</span>: 순위 확정 (이미 달성)</li>
+                                    <li><span style="background: linear-gradient(135deg, rgba(34, 197, 94, 0.08) 0%, rgba(22, 163, 74, 0.12) 100%); color: #059669; padding: 2px 6px; border-radius: 3px; font-size: 11px;">연초록</span>: 매직넘버 (승수로 표시)</li>
+                                    <li><span style="background: linear-gradient(135deg, rgba(255, 193, 7, 0.15) 0%, rgba(245, 158, 11, 0.2) 100%); color: #d97706; padding: 2px 6px; border-radius: 3px; font-size: 11px;">노랑</span>: 경고 (트래직넘버 근접)</li>
+                                    <li><span style="background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(220, 38, 38, 0.15) 100%); color: #dc2626; padding: 2px 6px; border-radius: 3px; font-size: 11px;">연빨강</span>: 트래직넘버 (패수로 표시)</li>
+                                    <li><span style="background: linear-gradient(135deg, rgba(239, 68, 68, 0.8) 0%, rgba(220, 38, 38, 0.9) 100%); color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px;">✗ 빨강</span>: 순위 달성 불가능</li>
+                                    <li><span style="background: linear-gradient(135deg, rgba(255, 193, 7, 0.2) 0%, rgba(245, 158, 11, 0.25) 100%); color: #92400e; padding: 2px 6px; border-radius: 3px; font-size: 11px;">갈색</span>: 자력으로 확정 불가</li>
                                 </ul>
                             </div>
                             <div>
+                                <strong style="color: #2d3748;">📊 매트릭스 구조</strong>
+                                <ul style="margin: 5px 0; padding-left: 20px; font-size: 12px;">
+                                    <li><strong>세로축:</strong> 각 팀별 현재 상태</li>
+                                    <li><strong>가로축:</strong> 최종 순위 (1위~10위)</li>
+                                    <li><strong>플레이오프:</strong> 1~5위 (금색 경계선)</li>
+                                    <li><strong>숫자 의미:</strong> 해당 순위 달성에 필요한 승수</li>
+                                </ul>
                                 <strong style="color: #2d3748;">✅ 표시 방식</strong>
                                 <ul style="margin: 5px 0; padding-left: 20px;">
                                     <li>숫자: 매직넘버 (해당 순위 확보 필요 승수)</li>
@@ -1520,21 +1528,21 @@
                             <div>
                                 <strong style="color: #2d3748; font-size: 13px;">📊 매트릭스 읽는 법</strong>
                                 <ul style="margin: 6px 0 0 0; padding-left: 16px; line-height: 1.4; font-size: 12px;">
-                                    <li><strong>기본 구조:</strong> 세로축 팀이 가로축 팀과의 전적</li>
-                                    <li><strong>표시 형식:</strong> 전체전적(승률) / 홈전적 / 원정전적</li>
-                                    <li><strong>대각선:</strong> 자기팀 (회색 표시)</li>
-                                    <li><strong>홈/원정:</strong> 격년제 - 두산/KT/SSG/롯데/한화 홈우위</li>
+                                    <li><strong>세로축 팀 vs 가로축 팀:</strong> 세로축 팀 기준 전적</li>
+                                    <li><strong>표시 형식:</strong> 승-패 (승률) | 홈 승-패 | 원정 승-패</li>
+                                    <li><strong>대각선:</strong> 자기팀 (회색 "-" 표시)</li>
+                                    <li><strong>2025 시즌:</strong> 각 팀당 총 16경기 (홈/원정 배분은 팀별 상이)</li>
                                 </ul>
                             </div>
                             <div>
                                 <strong style="color: #2d3748; font-size: 13px;">🎨 색상 및 표시 구분</strong>
                                 <ul style="margin: 6px 0 0 0; padding-left: 16px; line-height: 1.4; font-size: 12px;">
-                                    <li><strong>초록색:</strong> 승률 0.500 초과 (우세)</li>
-                                    <li><strong>노란색:</strong> 승률 0.500 (동등)</li>
-                                    <li><strong>빨간색:</strong> 승률 0.500 미만 (열세)</li>
-                                    <li><strong>회색:</strong> 자기팀 (경기 없음)</li>
-                                    <li><strong>⭐:</strong> 상대전적 우위 확정</li>
-                                    <li><strong>🔻:</strong> 상대전적 열세 확정</li>
+                                    <li><strong>초록색:</strong> 승률 0.500 초과 (상대전적 우세)</li>
+                                    <li><strong>노란색:</strong> 승률 0.500 (상대전적 동등)</li>
+                                    <li><strong>빨간색:</strong> 승률 0.500 미만 (상대전적 열세)</li>
+                                    <li><strong>회색:</strong> 자기팀과의 경기 (표시 안함)</li>
+                                    <li><strong>⭐:</strong> 상대전적 우위 확정 (시즌 종료 후)</li>
+                                    <li><strong>🔻:</strong> 상대전적 열세 확정 (시즌 종료 후)</li>
                                 </ul>
                             </div>
                         </div>
@@ -1565,19 +1573,22 @@
                         <h4 style="margin: 0 0 10px 0; color: #22C55E; font-weight: 600; font-size: 14px;">📅 잔여경기수 가이드</h4>
                         <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
                             <div>
-                                <strong style="color: #2d3748; font-size: 13px;">📊 기본 정보</strong>
+                                <strong style="color: #2d3748; font-size: 13px;">📊 매트릭스 구조</strong>
                                 <ul style="margin: 6px 0 0 0; padding-left: 16px; line-height: 1.4; font-size: 12px;">
-                                    <li><strong>구조:</strong> 세로축 팀이 가로축 팀과 남은 경기수</li>
-                                    <li><strong>대각선:</strong> 자기팀 ("-"로 표시)</li>
-                                    <li><strong>기준:</strong> 각 팀당 총 16경기 (홈/원정 불균등)</li>
-                                    <li><strong>홈/원정:</strong> 격년제 - 두산/KT/SSG/롯데/한화 홈우위</li>
+                                    <li><strong>세로축 팀 vs 가로축 팀:</strong> 남은 직접 대결 경기수</li>
+                                    <li><strong>대각선:</strong> 자기팀과의 경기 ("-"로 표시)</li>
+                                    <li><strong>2025 시즌:</strong> 각 팀당 총 16경기 (홈/원정 배분은 팀별 상이)</li>
+                                    <li><strong>홈 어드밴티지:</strong> 홈팀이 먼저 표기됨</li>
                                 </ul>
                             </div>
                             <div>
-                                <strong style="color: #2d3748; font-size: 13px;">🎨 색상 구분</strong>
+                                <strong style="color: #2d3748; font-size: 13px;">🎨 색상 및 경기수 구분</strong>
                                 <ul style="margin: 6px 0 0 0; padding-left: 16px; line-height: 1.4; font-size: 12px;">
-                                    <li><strong>초록색:</strong> 7경기+ (많음)</li>
-                                    <li><strong>노란색:</strong> 4-6경기 (보통)</li>
+                                    <li><strong>진한 초록:</strong> 8경기 이상 (많이 남음)</li>
+                                    <li><strong>연초록:</strong> 5-7경기 (보통)</li>
+                                    <li><strong>노란색:</strong> 3-4경기 (적음)</li>
+                                    <li><strong>연빨강:</strong> 1-2경기 (매우 적음)</li>
+                                    <li><strong>회색:</strong> 0경기 (완료) 또는 자기팀</li>
                                     <li><strong>주황색:</strong> 1-3경기 (적음)</li>
                                     <li><strong>회색:</strong> 경기 종료 (0경기)</li>
                                 </ul>

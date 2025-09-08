@@ -140,7 +140,7 @@ async function loadMatrixData() {
             matrixCurrentRanksMap = new Map();
         }
 
-        console.log('매트릭스 데이터 로드 완료');
+        // 매트릭스 데이터 로드 완료
         return true;
     } catch (error) {
         console.error('매트릭스 데이터 로드 실패:', error);
