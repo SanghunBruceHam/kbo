@@ -16782,5 +16782,70 @@ KT 9:1 키움(H)`;
         });
     </script>
 
+
+    <!-- ================== 성능 최적화 스크립트 ================== -->
+    <script>
+    // 사전계산 데이터 로드 및 적용
+    let precomputedUIData = null;
+    
+    async function loadPrecomputedUIData() {
+        try {
+            const response = await fetch('data/ui-precomputed-data.json');
+            if (!response.ok) {
+                console.warn('사전계산 데이터 로드 실패, 기존 방식으로 대체');
+                return null;
+            }
+            precomputedUIData = await response.json();
+            console.log('✅ 사전계산 UI 데이터 로드 완료');
+            return precomputedUIData;
+        } catch (error) {
+            console.warn('사전계산 데이터 로드 중 오류:', error.message);
+            return null;
+        }
+    }
+    
+    // 팀 설정 최적화
+    function getOptimizedTeamConfig(teamName) {
+        if (precomputedUIData?.teamConfigurations?.[teamName]) {
+            return precomputedUIData.teamConfigurations[teamName];
+        }
+        // 기존 방식으로 폴백
+        return null;
+    }
+    
+    // 연승/연패 분석 최적화
+    function getOptimizedStreakAnalysis(teamName) {
+        if (precomputedUIData?.streakAnalysis?.[teamName]) {
+            return precomputedUIData.streakAnalysis[teamName];
+        }
+        return null;
+    }
+    
+    // 전후반기 통계 최적화  
+    function getOptimizedHalfSeasonStats(teamName) {
+        if (precomputedUIData?.halfSeasonStats?.[teamName]) {
+            return precomputedUIData.halfSeasonStats[teamName];
+        }
+        return null;
+    }
+    
+    // 페이지 로드 시 사전계산 데이터 먼저 로드
+    document.addEventListener('DOMContentLoaded', async function() {
+        const startTime = performance.now();
+        
+        // 사전계산 데이터 로드
+        await loadPrecomputedUIData();
+        
+        const loadTime = performance.now() - startTime;
+        console.log(`⚡ 최적화 데이터 로드 시간: ${loadTime.toFixed(2)}ms`);
+        
+        // 기존 초기화 함수가 있다면 실행
+        if (typeof initializeDashboard === 'function') {
+            initializeDashboard();
+        }
+    });
+    </script>
+    <!-- ============================================================ -->
+    
 </body>
 </html>

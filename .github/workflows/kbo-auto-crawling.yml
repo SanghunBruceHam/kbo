@@ -190,6 +190,20 @@ jobs:
         
         echo "✅ 일자별 순위·게임차·승률 그래프 데이터 처리 완료"
 
+    # 10-3-1. UI 최적화 사전계산 (NEW!)
+    - name: 🚀 UI 성능 최적화 사전계산
+      run: |
+        echo "⚡ UI 최적화용 사전계산 데이터 생성 중..."
+        npm run precompute-all
+        
+        echo "📊 생성된 사전계산 파일 확인:"
+        ls -la data/ui-precomputed-data.json magic-number/data/ui-magic-matrix-precomputed.json
+        
+        echo "⏱️ 성능 분석 실행..."
+        npm run performance-check
+        
+        echo "✅ UI 최적화 사전계산 완료"
+
     # 10-4. 전체 분석 데이터 생성 (모든 분석 스크립트 실행)
     - name: 📈 전체 분석 데이터 생성
       run: |

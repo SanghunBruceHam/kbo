@@ -30,7 +30,12 @@
     "test": "node magic-number/scripts/test-paths.js",
     "test-paths": "node magic-number/scripts/test-cross-platform-paths.js",
     "validate": "node magic-number/scripts/util-runner.js --help",
-    "help": "node magic-number/scripts/util-runner.js --help"
+    "help": "node magic-number/scripts/util-runner.js --help",
+    "precompute-ui": "node scripts/generate-ui-precomputed-data.js",
+    "precompute-matrix": "node magic-number/scripts/generate-magic-matrix-precomputed.js", 
+    "precompute-all": "npm run precompute-ui && npm run precompute-matrix && echo '🚀 모든 사전계산 완료!'",
+    "performance-check": "node scripts/quick-performance-check.js",
+    "optimize": "npm run precompute-all && npm run performance-check"
   },
   "keywords": [
     "kbo",
