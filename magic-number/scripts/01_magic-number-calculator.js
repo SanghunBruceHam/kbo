@@ -308,11 +308,15 @@ function calculateMagicNumbers(serviceData) {
         const maxPossibleWins = team.wins + team.remainingGames;
         
         if (team.team === firstPlaceTeam.team) {
+            // 현재 1위팀: 이미 1위이므로 탈환이 아니라 유지의 개념
             team.firstPlaceStatus = '현재 1위';
-        } else if (maxPossibleWins <= firstPlaceTeam.wins) {
-            team.firstPlaceStatus = '불가능';
         } else {
-            team.firstPlaceStatus = '가능';
+            // 다른 팀들: championshipTragic > 0이면 아직 우승 가능, 0이면 불가능
+            if (team.championshipTragic > 0) {
+                team.firstPlaceStatus = '가능';    // 아직 우승(1위) 기회 있음
+            } else {
+                team.firstPlaceStatus = '불가능';  // 이미 우승(1위) 기회 상실
+            }
         }
     });
 

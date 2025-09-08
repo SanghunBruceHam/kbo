@@ -43,6 +43,56 @@ function kthLargest(arr, k) {
     return sorted[k - 1] ?? 0;
 }
 
+// ===== 리팩토링 유틸 =====
+function buildCurrentRankMap(results){
+    const sorted = [...results].sort((a,b)=> b.winPct - a.winPct);
+    const m = new Map();
+    sorted.forEach((r, idx)=> m.set(r.team, idx+1));
+    return m;
+}
+
+function bannerTd({teamColor, colspan, stage, sub, cls='banner-top'}){
+    return `<td class="${cls}" colspan="${colspan}" style="background:${teamColor};">${stage}`
+         + (sub ? `<span class="banner-note">(${sub})</span>` : '')
+         + `</td>`;
+}
+
+function cellLabelAndClass({rank, currentRank, x, y, xraw, R}){
+    if (rank < currentRank) {
+        return {label: (y===0? `${rank}위 불가`: String(y)), cls: (y===0?'magic-impossible':'magic-danger')};
+    }
+    if (rank===currentRank && xraw>R) return {label:String(R), cls:'magic-selflimit'};
+    if (y===0)                          return {label:`${rank}위 불가`, cls:'magic-impossible'};
+    if (xraw>R)                         return {label:String(R), cls:'magic-selflimit'};
+    if (x===0)                          return {label:'확보', cls:'magic-confirmed'};
+    return {label:String(x), cls:'magic-safe'};
+}
+
+// 사전 정렬로 Kk 최적화
+function precomputeTeamBenchmarks(teams, season=144){
+    const map = new Map();
+    for (const i of teams){
+        const maxList = [], minList = [];
+        for (const t of teams){
+            if (t.id === i.id) continue;
+            const R = matrixRemainingMap.has(t.id) ? matrixRemainingMap.get(t.id) : calcR(t, season);
+            maxList.push(pMax(t, R));
+            minList.push(pMin(t, R));
+        }
+        maxList.sort((a,b)=>b-a);
+        minList.sort((a,b)=>b-a);
+        map.set(i.id, {maxSorted:maxList, minSorted:minList});
+    }
+    return map;
+}
+function kthFromPre(preMap, id, k){
+    const e = preMap.get(id);
+    return {
+        Kk_max: (e?.maxSorted?.[k-1]) ?? 0,
+        Kk_min: (e?.minSorted?.[k-1]) ?? 0
+    };
+}
+
 function kBenchmarksForTeam(team, teams, season, k) {
     const maxList = [];
     const minList = [];
@@ -81,6 +131,7 @@ function magicTragicForK(team, season, Kk_max, Kk_min) {
 
 function kboMagicTragicRanksAll(teams, season = 144) {
     const ks = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    const preMap = precomputeTeamBenchmarks(teams, season);
     return teams.map(team => {
         const R = matrixRemainingMap.has(team.id) ? matrixRemainingMap.get(team.id) : calcR(team, season);
         const row = {
@@ -91,7 +142,7 @@ function kboMagicTragicRanksAll(teams, season = 144) {
         };
 
         for (const k of ks) {
-            const { Kk_max, Kk_min } = kBenchmarksForTeam(team, teams, season, k);
+            const { Kk_max, Kk_min } = kthFromPre(preMap, team.id, k);
             const r = magicTragicForK(team, season, Kk_max, Kk_min);
             row[`K${k}_max`] = round3(r.Kk_max);
             row[`K${k}_min`] = round3(r.Kk_min);
@@ -159,6 +210,8 @@ function calculateMatrix() {
 function renderMatrixTable() {
     if (matrixResults.length === 0) return;
 
+    const currentRankMap = buildCurrentRankMap(matrixResults);
+
     const ranks = [9, 8, 7, 6, 5, 4, 3, 2, 1];
     let html = '<div class="matrix-table-container"><table class="magic-matrix-table">';
 
@@ -174,7 +227,7 @@ function renderMatrixTable() {
     html += '</tr></thead><tbody>';
 
     for (const row of matrixResults) {
-        const currentRank = getCurrentRank(row, matrixResults);
+        const currentRank = currentRankMap.get(row.team) ?? getCurrentRank(row, matrixResults);
         html += '<tr>';
         
         // 팀명 매핑
@@ -232,18 +285,19 @@ function renderMatrixTable() {
             // 1) 확정 상태 우선순위(왼쪽→오른쪽 병합)
             // 정확히 n위 확정: xk_strict === 0  &&  y(k-1)_tieOK === 0
             // k위 이상 확정:    xk_strict === 0  &&  y(k-1)_tieOK  > 0 (상위 가능성 남음)
+            // Tragic 기준은 UI 전반에서 tieOK로 통일
             const y1 = row[`y1_tieOK`];
             const y2 = row[`y2_tieOK`];
             const y3 = row[`y3_tieOK`];
             const y4 = row[`y4_tieOK`];
             const y5 = row[`y5_tieOK`];
             const y6 = row[`y6_tieOK`];
-            const y7_t = row[`y7_tieOK`];
-            const y8_t = row[`y8_tieOK`];
-            const y9_t = row[`y9_tieOK`];
+            const y7 = row[`y7_tieOK`];
+            const y8 = row[`y8_tieOK`];
+            const y9 = row[`y9_tieOK`];
 
             // 10위 확정 (정확)
-            if (y9_t === 0) {
+            if (y9 === 0) {
                 html += `<td class="banner-low" colspan="9" style="background:${teamColor};">포스트시즌 진출 실패<span class="banner-note">(정규시즌 10위 확정)</span></td>`;
                 break;
             }
@@ -308,11 +362,11 @@ function renderMatrixTable() {
                 html += `<td class="banner-low" colspan="9" style="background:${teamColor};">포스트시즌 진출 실패<span class="banner-note">(정규시즌 7위 확정)</span></td>`;
                 break;
             }
-            if (x8v === 0 && y7_t === 0) {
+            if (x8v === 0 && y7 === 0) {
                 html += `<td class="banner-low" colspan="9" style="background:${teamColor};">포스트시즌 진출 실패<span class="banner-note">(정규시즌 8위 확정)</span></td>`;
                 break;
             }
-            if (x9v === 0 && y8_t === 0) {
+            if (x9v === 0 && y8 === 0) {
                 html += `<td class="banner-low" colspan="9" style="background:${teamColor};">포스트시즌 진출 실패<span class="banner-note">(정규시즌 9위 확정)</span></td>`;
                 break;
             }
@@ -336,28 +390,14 @@ function renderMatrixTable() {
             const xraw  = row[`x${rank}_strict_raw`];
             const R     = row.R;
 
-            let label = '';
-            let cls   = '';
-
-            if (rank < currentRank) {           // 더 좋은 순위는 트래직
-                label = (y === 0) ? `${rank}위 불가` : String(y);
-                cls   = (y === 0) ? 'magic-impossible' : 'magic-danger';
-            } else if (rank === currentRank && xraw > R) { // 현재 순위 자력불가
-                label = String(R);
-                cls   = 'magic-selflimit';
-            } else if (y === 0) {                                 // 해당 순위 불가
-                label = `${rank}위 불가`;
-                cls   = 'magic-impossible';
-            } else if (xraw > R) {                                // 자력불가
-                label = String(R);
-                cls   = 'magic-selflimit';
-            } else if (x === 0) {                                 // 확보
-                label = '확보';
-                cls   = 'magic-confirmed';
-            } else {                                              // 매직넘버(초록 단일)
-                label = String(x);
-                cls   = 'magic-safe';
-            }
+            const {label, cls} = cellLabelAndClass({
+                rank,
+                currentRank,
+                x,
+                y,
+                xraw,
+                R
+            });
 
             const divider = (rank === 5) ? 'playoff-divider-left' : '';
             html += `<td class="magic-cell ${cls} ${divider}">${label}</td>`;
