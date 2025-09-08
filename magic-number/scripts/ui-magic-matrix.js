@@ -93,20 +93,6 @@ function kthFromPre(preMap, id, k){
     };
 }
 
-function kBenchmarksForTeam(team, teams, season, k) {
-    const maxList = [];
-    const minList = [];
-    for (const t of teams) {
-        if (t.id === team.id) continue;
-        const R = matrixRemainingMap.has(t.id) ? matrixRemainingMap.get(t.id) : calcR(t, season);
-        maxList.push(pMax(t, R));
-        minList.push(pMin(t, R));
-    }
-    return {
-        Kk_max: kthLargest(maxList, k),
-        Kk_min: kthLargest(minList, k),
-    };
-}
 
 function magicTragicForK(team, season, Kk_max, Kk_min) {
     const R = matrixRemainingMap.has(team.id) ? matrixRemainingMap.get(team.id) : calcR(team, season);
@@ -278,9 +264,6 @@ function renderMatrixTable() {
             const x4 = row[`x4_strict`];
             const x5 = row[`x5_strict`];
 
-            const y7 = row[`y7_tieOK`]; // ≤7 불가면 8위 이하 확정
-            const y8 = row[`y8_tieOK`]; // ≤8 불가면 9위 확정
-            const y9 = row[`y9_tieOK`]; // ≤9 불가면 10위 확정
 
             // 1) 확정 상태 우선순위(왼쪽→오른쪽 병합)
             // 정확히 n위 확정: xk_strict === 0  &&  y(k-1)_tieOK === 0
@@ -298,13 +281,13 @@ function renderMatrixTable() {
 
             // 10위 확정 (정확)
             if (y9 === 0) {
-                html += `<td class="banner-low" colspan="9" style="background:${teamColor};">포스트시즌 진출 실패<span class="banner-note">(정규시즌 10위 확정)</span></td>`;
+                html += bannerTd({ teamColor, colspan: 9, stage: '포스트시즌 진출 실패', sub: '정규시즌 10위 확정', cls: 'banner-low' });
                 break;
             }
             
             // 1위 확정 (정확)
             if (x1 === 0) {
-                html += `<td class="banner-top" colspan="9" style="background:${teamColor};">한국시리즈 진출 확보<span class="banner-note">(정규시즌 1위 확정)</span></td>`;
+                html += bannerTd({ teamColor, colspan: 9, stage: '한국시리즈 진출 확보', sub: '정규시즌 1위 확정', cls: 'banner-top' });
                 break;
             }
 
@@ -312,10 +295,10 @@ function renderMatrixTable() {
             if (x2 === 0 && x1 > 0) {
                 if (y1 === 0) {
                     // 1위 불가 → 정확히 2위 확정
-                    html += `<td class="banner-top" colspan="9" style="background:${teamColor};">플레이오프 진출 확보<span class="banner-note">(정규시즌 2위 확정)</span></td>`;
+                    html += bannerTd({ teamColor, colspan: 9, stage: '플레이오프 진출 확보', sub: '정규시즌 2위 확정', cls: 'banner-top' });
                 } else {
                     // 1위 가능 → 2위 이상 확보 (플레이오프 진출 확보)
-                    html += `<td class="banner-top" colspan="9" style="background:${teamColor};">플레이오프 진출 확보<span class="banner-note">(정규시즌 2위 이상 확보)</span></td>`;
+                    html += bannerTd({ teamColor, colspan: 9, stage: '플레이오프 진출 확보', sub: '정규시즌 2위 이상 확보', cls: 'banner-top' });
                 }
                 break;
             }
@@ -324,10 +307,10 @@ function renderMatrixTable() {
             if (x3 === 0 && x2 > 0) {
                 if (y2 === 0) {
                     // 2위 불가 → 정확히 3위 확정
-                    html += `<td class="banner-top" colspan="9" style="background:${teamColor};">준 플레이오프 진출 확보<span class="banner-note">(정규시즌 3위 확정)</span></td>`;
+                    html += bannerTd({ teamColor, colspan: 9, stage: '준 플레이오프 진출 확보', sub: '정규시즌 3위 확정', cls: 'banner-top' });
                 } else {
                     // 2위 가능 → 3위 이상 확보 (준 플레이오프 진출 확보)
-                    html += `<td class="banner-top" colspan="9" style="background:${teamColor};">준 플레이오프 진출 확보<span class="banner-note">(정규시즌 3위 이상 확보)</span></td>`;
+                    html += bannerTd({ teamColor, colspan: 9, stage: '준 플레이오프 진출 확보', sub: '정규시즌 3위 이상 확보', cls: 'banner-top' });
                 }
                 break;
             }
@@ -336,10 +319,10 @@ function renderMatrixTable() {
             if (x4 === 0 && x3 > 0) {
                 if (y3 === 0) {
                     // 3위 불가 → 정확히 4위 확정
-                    html += `<td class="banner-mid" colspan="9" style="background:${teamColor};">와일드카드 결정전 진출 확보<span class="banner-note">(정규시즌 4위 확정)</span></td>`;
+                    html += bannerTd({ teamColor, colspan: 9, stage: '와일드카드 결정전 진출 확보', sub: '정규시즌 4위 확정', cls: 'banner-mid' });
                 } else {
                     // 3위 가능 → 4위 이상 확보 (와일드카드 결정전 진출 확보)
-                    html += `<td class="banner-mid" colspan="9" style="background:${teamColor};">와일드카드 결정전 진출 확보<span class="banner-note">(정규시즌 4위 이상 확보)</span></td>`;
+                    html += bannerTd({ teamColor, colspan: 9, stage: '와일드카드 결정전 진출 확보', sub: '정규시즌 4위 이상 확보', cls: 'banner-mid' });
                 }
                 break;
             }
@@ -355,19 +338,19 @@ function renderMatrixTable() {
             const x9v = row[`x9_strict`];
 
             if (x6v === 0 && y5 === 0) {
-                html += `<td class="banner-low" colspan="9" style="background:${teamColor};">포스트시즌 진출 실패<span class="banner-note">(정규시즌 6위 확정)</span></td>`;
+                html += bannerTd({ teamColor, colspan: 9, stage: '포스트시즌 진출 실패', sub: '정규시즌 6위 확정', cls: 'banner-low' });
                 break;
             }
             if (x7v === 0 && y6 === 0) {
-                html += `<td class="banner-low" colspan="9" style="background:${teamColor};">포스트시즌 진출 실패<span class="banner-note">(정규시즌 7위 확정)</span></td>`;
+                html += bannerTd({ teamColor, colspan: 9, stage: '포스트시즌 진출 실패', sub: '정규시즌 7위 확정', cls: 'banner-low' });
                 break;
             }
             if (x8v === 0 && y7 === 0) {
-                html += `<td class="banner-low" colspan="9" style="background:${teamColor};">포스트시즌 진출 실패<span class="banner-note">(정규시즌 8위 확정)</span></td>`;
+                html += bannerTd({ teamColor, colspan: 9, stage: '포스트시즌 진출 실패', sub: '정규시즌 8위 확정', cls: 'banner-low' });
                 break;
             }
             if (x9v === 0 && y8 === 0) {
-                html += `<td class="banner-low" colspan="9" style="background:${teamColor};">포스트시즌 진출 실패<span class="banner-note">(정규시즌 9위 확정)</span></td>`;
+                html += bannerTd({ teamColor, colspan: 9, stage: '포스트시즌 진출 실패', sub: '정규시즌 9위 확정', cls: 'banner-low' });
                 break;
             }
 
@@ -375,10 +358,10 @@ function renderMatrixTable() {
             if (x5 === 0 && rank === 9) {
                 if (y4 === 0) {
                     // 4위 불가 → 정확히 5위 확정
-                    html += `<td class="banner-top" colspan="5" style="background:${teamColor};">와일드카드 결정전 진출 확보<span class="banner-note">(정규시즌 5위 확정)</span></td>`;
+                    html += bannerTd({ teamColor, colspan: 5, stage: '와일드카드 결정전 진출 확보', sub: '정규시즌 5위 확정', cls: 'banner-top' });
                 } else {
                     // 4위 가능 → 5위 이상 확보 (와일드카드 결정전 진출 확보)
-                    html += `<td class="banner-top" colspan="5" style="background:${teamColor};">와일드카드 결정전 진출 확보<span class="banner-note">(정규시즌 5위 이상 확보)</span></td>`;
+                    html += bannerTd({ teamColor, colspan: 5, stage: '와일드카드 결정전 진출 확보', sub: '정규시즌 5위 이상 확보', cls: 'banner-top' });
                 }
                 ci += 5; // 9,8,7,6,5 건너뜀
                 continue;
