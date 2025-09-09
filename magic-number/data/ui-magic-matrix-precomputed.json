@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "lastUpdated": "2025-09-09T14:15:13.028Z",
+    "lastUpdated": "2025-09-09T14:39:12.074Z",
     "version": "1.0.0",
     "description": "매직넘버 매트릭스 사전 계산된 UI 데이터",
     "source": "ui-magic-matrix.js 로직에서 추출"
@@ -70,31 +70,31 @@
         "cells": [
           {
             "rank": 9,
-            "label": "확보",
+            "label": "9위 확보",
             "className": "magic-confirmed",
             "isPlayoffDivider": false
           },
           {
             "rank": 8,
-            "label": "확보",
+            "label": "8위 확보",
             "className": "magic-confirmed",
             "isPlayoffDivider": false
           },
           {
             "rank": 7,
-            "label": "확보",
+            "label": "7위 확보",
             "className": "magic-confirmed",
             "isPlayoffDivider": false
           },
           {
             "rank": 6,
-            "label": "확보",
+            "label": "6위 확보",
             "className": "magic-confirmed",
             "isPlayoffDivider": false
           },
           {
             "rank": 5,
-            "label": "확보",
+            "label": "5위 확보",
             "className": "magic-confirmed",
             "isPlayoffDivider": true
           },
@@ -133,13 +133,13 @@
         "cells": [
           {
             "rank": 9,
-            "label": "확보",
+            "label": "9위 확보",
             "className": "magic-confirmed",
             "isPlayoffDivider": false
           },
           {
             "rank": 8,
-            "label": "확보",
+            "label": "8위 확보",
             "className": "magic-confirmed",
             "isPlayoffDivider": false
           },
@@ -181,8 +181,8 @@
           },
           {
             "rank": 1,
-            "label": "12",
-            "className": "magic-danger",
+            "label": "15",
+            "className": "magic-safe",
             "isPlayoffDivider": false
           }
         ]
@@ -196,7 +196,7 @@
         "cells": [
           {
             "rank": 9,
-            "label": "확보",
+            "label": "9위 확보",
             "className": "magic-confirmed",
             "isPlayoffDivider": false
           },
@@ -238,14 +238,14 @@
           },
           {
             "rank": 2,
-            "label": "9",
-            "className": "magic-danger",
+            "label": "17",
+            "className": "magic-safe",
             "isPlayoffDivider": false
           },
           {
             "rank": 1,
-            "label": "5",
-            "className": "magic-danger",
+            "label": "17",
+            "className": "magic-safe",
             "isPlayoffDivider": false
           }
         ]
@@ -259,7 +259,7 @@
         "cells": [
           {
             "rank": 9,
-            "label": "확보",
+            "label": "9위 확보",
             "className": "magic-confirmed",
             "isPlayoffDivider": false
           },
@@ -296,19 +296,19 @@
           {
             "rank": 3,
             "label": "15",
-            "className": "magic-danger",
+            "className": "magic-safe",
             "isPlayoffDivider": false
           },
           {
             "rank": 2,
-            "label": "6",
-            "className": "magic-danger",
+            "label": "15",
+            "className": "magic-safe",
             "isPlayoffDivider": false
           },
           {
             "rank": 1,
-            "label": "2",
-            "className": "magic-danger",
+            "label": "15",
+            "className": "magic-safe",
             "isPlayoffDivider": false
           }
         ]
@@ -322,7 +322,7 @@
         "cells": [
           {
             "rank": 9,
-            "label": "확보",
+            "label": "9위 확보",
             "className": "magic-confirmed",
             "isPlayoffDivider": false
           },
@@ -353,25 +353,25 @@
           {
             "rank": 4,
             "label": "14",
-            "className": "magic-danger",
+            "className": "magic-safe",
             "isPlayoffDivider": false
           },
           {
             "rank": 3,
             "label": "14",
-            "className": "magic-danger",
+            "className": "magic-safe",
             "isPlayoffDivider": false
           },
           {
             "rank": 2,
-            "label": "5",
-            "className": "magic-danger",
+            "label": "14",
+            "className": "magic-safe",
             "isPlayoffDivider": false
           },
           {
             "rank": 1,
-            "label": "1",
-            "className": "magic-danger",
+            "label": "14",
+            "className": "magic-safe",
             "isPlayoffDivider": false
           }
         ]
@@ -385,7 +385,7 @@
         "cells": [
           {
             "rank": 9,
-            "label": "확보",
+            "label": "9위 확보",
             "className": "magic-confirmed",
             "isPlayoffDivider": false
           },
@@ -409,26 +409,26 @@
           },
           {
             "rank": 5,
-            "label": "12",
-            "className": "magic-danger",
+            "label": "13",
+            "className": "magic-safe",
             "isPlayoffDivider": true
           },
           {
             "rank": 4,
-            "label": "12",
-            "className": "magic-danger",
+            "label": "13",
+            "className": "magic-safe",
             "isPlayoffDivider": false
           },
           {
             "rank": 3,
-            "label": "11",
-            "className": "magic-danger",
+            "label": "13",
+            "className": "magic-safe",
             "isPlayoffDivider": false
           },
           {
             "rank": 2,
-            "label": "3",
-            "className": "magic-danger",
+            "label": "13",
+            "className": "magic-safe",
             "isPlayoffDivider": false
           },
           {
@@ -448,7 +448,7 @@
         "cells": [
           {
             "rank": 9,
-            "label": "확보",
+            "label": "9위 확보",
             "className": "magic-confirmed",
             "isPlayoffDivider": false
           },
@@ -466,32 +466,32 @@
           },
           {
             "rank": 6,
-            "label": "15",
-            "className": "magic-danger",
+            "label": "18",
+            "className": "magic-safe",
             "isPlayoffDivider": false
           },
           {
             "rank": 5,
-            "label": "13",
-            "className": "magic-danger",
+            "label": "18",
+            "className": "magic-safe",
             "isPlayoffDivider": true
           },
           {
             "rank": 4,
-            "label": "13",
-            "className": "magic-danger",
+            "label": "18",
+            "className": "magic-safe",
             "isPlayoffDivider": false
           },
           {
             "rank": 3,
-            "label": "12",
-            "className": "magic-danger",
+            "label": "18",
+            "className": "magic-safe",
             "isPlayoffDivider": false
           },
           {
             "rank": 2,
-            "label": "4",
-            "className": "magic-danger",
+            "label": "18",
+            "className": "magic-safe",
             "isPlayoffDivider": false
           },
           {
@@ -511,7 +511,7 @@
         "cells": [
           {
             "rank": 9,
-            "label": "확보",
+            "label": "9위 확보",
             "className": "magic-confirmed",
             "isPlayoffDivider": false
           },
@@ -524,37 +524,37 @@
           {
             "rank": 7,
             "label": "18",
-            "className": "magic-danger",
+            "className": "magic-safe",
             "isPlayoffDivider": false
           },
           {
             "rank": 6,
-            "label": "14",
-            "className": "magic-danger",
+            "label": "18",
+            "className": "magic-safe",
             "isPlayoffDivider": false
           },
           {
             "rank": 5,
-            "label": "13",
-            "className": "magic-danger",
+            "label": "18",
+            "className": "magic-safe",
             "isPlayoffDivider": true
           },
           {
             "rank": 4,
-            "label": "12",
-            "className": "magic-danger",
+            "label": "18",
+            "className": "magic-safe",
             "isPlayoffDivider": false
           },
           {
             "rank": 3,
-            "label": "12",
-            "className": "magic-danger",
+            "label": "18",
+            "className": "magic-safe",
             "isPlayoffDivider": false
           },
           {
             "rank": 2,
-            "label": "3",
-            "className": "magic-danger",
+            "label": "18",
+            "className": "magic-safe",
             "isPlayoffDivider": false
           },
           {
@@ -574,44 +574,44 @@
         "cells": [
           {
             "rank": 9,
-            "label": "확보",
+            "label": "9위 확보",
             "className": "magic-confirmed",
             "isPlayoffDivider": false
           },
           {
             "rank": 8,
-            "label": "15",
-            "className": "magic-danger",
+            "label": "16",
+            "className": "magic-safe",
             "isPlayoffDivider": false
           },
           {
             "rank": 7,
-            "label": "15",
-            "className": "magic-danger",
+            "label": "16",
+            "className": "magic-safe",
             "isPlayoffDivider": false
           },
           {
             "rank": 6,
-            "label": "11",
-            "className": "magic-danger",
+            "label": "16",
+            "className": "magic-safe",
             "isPlayoffDivider": false
           },
           {
             "rank": 5,
-            "label": "9",
-            "className": "magic-danger",
+            "label": "16",
+            "className": "magic-safe",
             "isPlayoffDivider": true
           },
           {
             "rank": 4,
-            "label": "9",
-            "className": "magic-danger",
+            "label": "16",
+            "className": "magic-safe",
             "isPlayoffDivider": false
           },
           {
             "rank": 3,
-            "label": "8",
-            "className": "magic-danger",
+            "label": "16",
+            "className": "magic-safe",
             "isPlayoffDivider": false
           },
           {
@@ -1701,7 +1701,7 @@
       "두산": 9,
       "키움": 10
     },
-    "lastCalculated": "2025-09-09T14:15:13.028Z"
+    "lastCalculated": "2025-09-09T14:39:12.074Z"
   },
   "matrixTableStructure": {
     "ranks": [
