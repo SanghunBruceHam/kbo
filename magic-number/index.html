@@ -495,6 +495,115 @@
             box-shadow: 0 2px 4px rgba(76, 175, 80, 0.3);
             white-space: nowrap;
         }
+        /* === Magic/Tragic Matrix: uniform row height (high-specificity) === */
+        #magicMatrixContent .magic-matrix-table { table-layout: fixed !important; width: 100%; }
+        #magicMatrixContent .magic-matrix-table tbody tr { height: 28px !important; }
+        #magicMatrixContent .magic-matrix-table tbody td {
+          padding-top: 2px !important;
+          padding-bottom: 2px !important;
+          line-height: 24px !important; /* 28px row - 2px*2 padding = 24 */
+          vertical-align: middle !important;
+          white-space: nowrap !important;
+          overflow: hidden !important;
+          text-overflow: ellipsis !important;
+        }
+        /* Team cell: center the whole block with Flex (replaces grid) */
+        #magicMatrixContent td.matrix-team-info {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 0;
+          text-align: center !important;
+        }
+        /* merged cells should not push row height */
+        #magicMatrixContent .magic-cell { font-weight: 600; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; }
+        /* header keep natural size */
+        #magicMatrixContent .magic-matrix-table thead th { white-space: nowrap; }
+
+        /* --- Magic/Tragic Matrix: banner cells & inline normalization --- */
+        /* === Magic/Tragic Matrix: center-align team column via CSS (no inline emphasis) === */
+        #magicMatrixContent .magic-matrix-table th,
+        #magicMatrixContent .magic-matrix-table td { text-align: center; }
+
+        /* Brand color handled via data attribute; fall back to default if missing */
+        #magicMatrixContent .matrix-team-name { color: var(--team-color, #333); font-weight: 800; }
+        /* Optional: apply data attribute color using inline CSS var if present elsewhere */
+        /* If you later set style="--team-color: <hex>" on the TD, this will pick up automatically. */
+
+        #magicMatrixContent td.matrix-team-info .matrix-team-name {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          font-size: 12px;
+          line-height: 14px;
+          font-weight: 800;
+        }
+
+        #magicMatrixContent td.matrix-team-info .matrix-team-status {
+          display: block !important;
+          margin-top: 0;
+          font-size: 10px;
+          line-height: 12px;
+          color: #666;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        #magicMatrixContent td.matrix-team-info .team-logo-small {
+          max-height: 20px !important;
+          height: 20px !important;
+          width: auto;
+        }
+
+        /* Ensure merged cells and data cells are centered */
+        #magicMatrixContent .magic-cell { text-align: center; }
+        #magicMatrixContent .rank-cell, #magicMatrixContent .matrix-header-main { text-align: center; }
+        
+        /* Prevent long team names from shifting layout */
+        #magicMatrixContent .matrix-team-name-text { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        #magicMatrixContent .magic-matrix-table tbody td.banner-top,
+        #magicMatrixContent .magic-matrix-table tbody td.banner-mid,
+        #magicMatrixContent .magic-matrix-table tbody td.banner-low {
+          padding: 2px 6px !important;
+          line-height: 24px !important; /* match 28px row height minus vertical padding */
+          vertical-align: middle !important;
+          white-space: nowrap !important;
+          overflow: hidden !important;
+          text-overflow: ellipsis !important;
+          font-size: 12px !important;
+        }
+
+        /* Ensure inline elements inside cells don't override line-height, except for matrix-team-info */
+        #magicMatrixContent .magic-matrix-table tbody td:not(.matrix-team-info) * {
+          line-height: inherit !important;
+        }
+
+        /* Prevent accidental multi-line in banner note */
+        #magicMatrixContent .magic-matrix-table .banner-note {
+          margin-left: 6px;
+          opacity: 0.9;
+          white-space: nowrap !important;
+          display: inline-block;
+        }
+
+        /* Guard against oversized logos/images affecting row height */
+        #magicMatrixContent .magic-matrix-table tbody td img,
+        #magicMatrixContent .magic-matrix-table tbody td svg {
+          max-height: 20px !important;
+          height: 20px !important;
+        }
+
+        /* mobile tuning */
+        @media (max-width: 768px) {
+          #magicMatrixContent .magic-matrix-table tbody tr { height: 22px !important; }
+          #magicMatrixContent .magic-matrix-table tbody td { line-height: 18px !important; }
+          #magicMatrixContent .team-logo-small { max-height: 16px !important; height: 16px !important; }
+        }
     </style>
     
     <!-- JSON-LD 구조화 데이터 -->
@@ -2469,3 +2578,70 @@
     
 </body>
 </html><!-- Updated at Tue Aug  5 10:21:58 JST 2025 -->
+
+        /* ===== Uniform row height across key tables ===== */
+        :root {
+          --row-h-desktop: 28px;
+          --row-h-mobile: 22px;
+        }
+
+        /* Use fixed layout so cells don't auto-expand by content */
+        .magic-matrix-table,
+        .scenario-matrix-table,
+        #chase-table {
+          table-layout: fixed !important;
+        }
+
+        /* Set consistent row height (tbody only) */
+        .magic-matrix-table tbody tr,
+        .scenario-matrix-table tbody tr,
+        #chase-table tbody tr {
+          height: var(--row-h-desktop) !important;
+        }
+
+        /* Normalize cell padding, line-height, and vertical alignment */
+        .magic-matrix-table tbody td,
+        .scenario-matrix-table tbody td,
+        #chase-table tbody td {
+          padding-top: 2px !important;
+          padding-bottom: 2px !important;
+          line-height: calc(var(--row-h-desktop) - 2px) !important;
+          vertical-align: middle !important;
+          overflow: hidden !important;
+          text-overflow: ellipsis !important;
+          white-space: nowrap !important;
+        }
+
+        /* Prevent header rows from being squashed; keep current look */
+        .magic-matrix-table thead th,
+        .scenario-matrix-table thead th,
+        #chase-table thead th {
+          white-space: nowrap;
+        }
+
+        /* Team cell adjustments to avoid multi-line growth */
+        .magic-matrix-table .matrix-team-info {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          overflow: hidden;
+          white-space: nowrap;
+        }
+        .magic-matrix-table .matrix-team-info .matrix-team-name { white-space: nowrap; }
+        .magic-matrix-table .matrix-team-info .matrix-team-status { display: none; }
+        .magic-matrix-table .team-logo-small { max-height: calc(var(--row-h-desktop) - 6px); height: auto; width: auto; }
+
+        /* Mobile tuning */
+        @media (max-width: 768px) {
+          .magic-matrix-table tbody tr,
+          .scenario-matrix-table tbody tr,
+          #chase-table tbody tr {
+            height: var(--row-h-mobile) !important;
+          }
+          .magic-matrix-table tbody td,
+          .scenario-matrix-table tbody td,
+          #chase-table tbody td {
+            line-height: calc(var(--row-h-mobile) - 2px) !important;
+          }
+          .magic-matrix-table .team-logo-small { max-height: calc(var(--row-h-mobile) - 4px); }
+        }

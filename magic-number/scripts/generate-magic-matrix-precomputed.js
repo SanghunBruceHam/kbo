@@ -137,13 +137,24 @@ function kboMagicTragicRanksAll(teams, matrixRemainingMap, matrixCurrentRanksMap
 
 // 셀 레이블과 클래스 결정
 function cellLabelAndClass({ rank, currentRank, x, y, xraw, R }) {
-    if (rank < currentRank) {
-        return { label: (y === 0 ? `${rank}위 불가` : String(y)), cls: (y === 0 ? 'magic-impossible' : 'magic-danger') };
+    // 불가(Tragic) 우선 처리: 어떤 경우든 해당 순위를 달성할 수 없다면 명확히 표기
+    if (y === 0) {
+        return { label: `${rank}위 불가`, cls: 'magic-impossible' };
     }
-    if (rank === currentRank && xraw > R) return { label: String(R), cls: 'magic-selflimit' };
-    if (y === 0) return { label: `${rank}위 불가`, cls: 'magic-impossible' };
-    if (xraw > R) return { label: String(R), cls: 'magic-selflimit' };
-    if (x === 0) return { label: '확보', cls: 'magic-confirmed' };
+
+    // 자기 한계(잔여 경기로 충족 불가) 처리
+    if (rank === currentRank && xraw > R) {
+        return { label: String(R), cls: 'magic-selflimit' };
+    }
+
+    // 확보(Magic) 처리: 해당 순위를 이미 확보했다면 순위를 포함해 명확히 표기
+    if (x === 0) {
+        return { label: `${rank}위 확보`, cls: 'magic-confirmed' };
+    }
+
+    // 그 외: 기본적으로 매직넘버(필요 승수)를 숫자로 표기
+    // 이전 로직에서 rank < currentRank 인 경우 y(트래직)를 노출했으나,
+    // 사용자 의도에 맞춰 매트릭스의 일관성을 위해 기본은 매직 숫자를 유지한다.
     return { label: String(x), cls: 'magic-safe' };
 }
 
