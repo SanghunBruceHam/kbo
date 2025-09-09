@@ -1,3 +1,28 @@
+/**
+ * =============================================================================
+ * 📈 KBO 메인 순위 변동 차트 관리 시스템 (ui-charts.js)
+ * =============================================================================
+ * 
+ * 🎯 담당 차트: 메인 페이지의 순위 변동 차트 (index.html의 rankChart 캔버스)
+ * 📍 HTML 위치: index.html 4770번째 줄 <canvas id="rankChart"></canvas>
+ * 📍 레전드 위치: index.html 4775번째 줄 <div id="mainRankChartLegend">
+ * 📍 호출 위치: index.html 14624번째 줄 initSimpleChart() 함수에서 호출
+ * 
+ * 🔧 주요 기능:
+ * - 실제 KBO 데이터를 월별로 분할하여 순위 변동 그래프 생성
+ * - 전체 시즌/월별 보기 모드 지원
+ * - 팀별 표시/숨김 토글 기능 (선택된 팀 수 표시: "전체 선택 (7/10)")
+ * - 팀 로고가 그래프 끝점에 표시
+ * - 동적 레전드 생성 (HTML을 덮어씀)
+ * 
+ * ⚠️ 주의사항:
+ * - 이 파일은 index.html의 mainRankChartLegend 요소 내용을 완전히 덮어씀
+ * - HTML에 직접 레전드를 작성하면 이 스크립트가 덮어쓰므로 주의
+ * - 다른 차트들(일별 통계, 승률 추이)과는 별개의 독립적인 시스템
+ * 
+ * =============================================================================
+ */
+
 // 매우 단순한 차트 관리 시스템
 let chartState = {
     isFullView: false,
@@ -377,7 +402,21 @@ function getTeamLogo(team) {
     return logos[team] || "default.png";
 }
 
-// 커스텀 범례 생성
+/**
+ * 🎨 커스텀 레전드 생성 함수
+ * =============================================================================
+ * 📍 대상: index.html의 <div id="mainRankChartLegend"> 요소
+ * 🔄 HTML 덮어쓰기: 기존 HTML 내용을 완전히 제거하고 새로 생성
+ * 
+ * 🎯 생성되는 레전드 구성:
+ * 1. 전체 선택/해제 버튼 ("전체 선택 (7/10)" 형태)
+ * 2. 팀별 개별 레전드 (로고 + 색상 + 팀명)
+ * 
+ * 💡 팀 수 실시간 업데이트:
+ * - 개별 팀 클릭 시 → 전체 버튼 텍스트 업데이트
+ * - 전체 선택/해제 클릭 시 → 즉시 숫자 반영
+ * =============================================================================
+ */
 function createCustomLegend() {
     
     // 기존 커스텀 범례 제거
@@ -420,13 +459,24 @@ function createCustomLegend() {
         box-sizing: border-box;
     `;
 
+    // 메인 페이지 현재 순위 순서대로 팀 정렬 (범례 순서만 통일, 실제 순위는 각 날짜별로 계산)
+    const sortedTeams = getMainPageTeamOrder();
+    
     // 버튼 클릭 상태 초기화
     let allVisible = true;
     
     // 전체선택/해제 버튼 생성 (팀 아이템과 동일한 스타일)
     const toggleAllButton = document.createElement('button');
     toggleAllButton.id = 'toggle-all-teams';
-    toggleAllButton.textContent = '전체 해제';
+    
+    // 선택된 팀 수 계산
+    const totalTeams = sortedTeams.length;
+    const visibleTeams = chartState.chart.data.datasets.filter((dataset, index) => {
+        const meta = chartState.chart.getDatasetMeta(index);
+        return !meta.hidden;
+    }).length;
+    
+    toggleAllButton.textContent = allVisible ? `전체 해제 (${visibleTeams}/${totalTeams})` : `전체 선택 (${visibleTeams}/${totalTeams})`;
     toggleAllButton.style.cssText = `
         display: flex;
         align-items: center;
@@ -476,8 +526,9 @@ function createCustomLegend() {
         
         chartState.chart.update();
         
-        // 버튼 텍스트 및 색상 업데이트
-        toggleAllButton.textContent = allVisible ? '전체 해제' : '전체 선택';
+        // 버튼 텍스트 및 색상 업데이트 (선택된 팀 수 포함)
+        const updatedVisibleTeams = allVisible ? totalTeams : 0;
+        toggleAllButton.textContent = allVisible ? `전체 해제 (${updatedVisibleTeams}/${totalTeams})` : `전체 선택 (${updatedVisibleTeams}/${totalTeams})`;
         const buttonGradient = allVisible ? 
             'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)' :
             'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)';
@@ -507,9 +558,6 @@ function createCustomLegend() {
             }
         });
     });
-
-    // 메인 페이지 현재 순위 순서대로 팀 정렬 (범례 순서만 통일, 실제 순위는 각 날짜별로 계산)
-    const sortedTeams = getMainPageTeamOrder();
     
     sortedTeams.forEach(({teamName, datasetIndex}, index) => {
         const dataset = chartState.chart.data.datasets[datasetIndex];
@@ -578,11 +626,25 @@ function createCustomLegend() {
         legendItem.appendChild(logoImg);
         legendItem.appendChild(teamText);
         
-        // 클릭 이벤트로 데이터셋 토글
+        // 🎯 개별 팀 클릭 이벤트 (차트 표시/숨김 + 전체 버튼 업데이트)
         legendItem.addEventListener('click', () => {
             const meta = chartState.chart.getDatasetMeta(datasetIndex);
             meta.hidden = !meta.hidden;
             chartState.chart.update();
+            
+            // 💡 중요: 전체 선택/해제 버튼 텍스트를 실시간으로 업데이트
+            // 현재 보이는 팀 수를 다시 계산하여 "전체 선택 (7/10)" 형태로 표시
+            const currentVisibleTeams = chartState.chart.data.datasets.filter((dataset, index) => {
+                const meta = chartState.chart.getDatasetMeta(index);
+                return !meta.hidden;
+            }).length;
+            const currentAllVisible = currentVisibleTeams === totalTeams;
+            toggleAllButton.textContent = currentAllVisible ? `전체 해제 (${currentVisibleTeams}/${totalTeams})` : `전체 선택 (${currentVisibleTeams}/${totalTeams})`;
+            const currentButtonGradient = currentAllVisible ? 
+                'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)' :
+                'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)';
+            toggleAllButton.style.background = currentButtonGradient;
+            allVisible = currentAllVisible;
             
             // 시각적 피드백
             const opacity = meta.hidden ? '0.4' : '1';
@@ -1063,7 +1125,21 @@ function updateSimpleUI() {
     
 }
 
-// 초기화
+/**
+ * 🚀 메인 순위 차트 초기화 함수
+ * =============================================================================
+ * 📍 호출 위치: index.html 14624번째 줄에서 호출됨
+ * 🔄 실행 순서:
+ * 1. 팀 로고 이미지 로딩 (loadTeamLogos)
+ * 2. 실제 KBO 데이터 로딩 (loadRealKBOData)
+ * 3. 차트 생성 및 업데이트 (updateSimpleChart)
+ * 4. 커스텀 레전드 생성 (createCustomLegend)
+ * 
+ * 🎯 이 함수가 실행되면:
+ * - index.html의 rankChart 캔버스에 차트가 그려짐
+ * - mainRankChartLegend div의 내용이 동적으로 생성됨
+ * =============================================================================
+ */
 async function initSimpleChart() {
     try {
         // 1. 팀 로고 로드
