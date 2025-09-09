@@ -1,5 +1,5 @@
 {
-  "updateTime": "2025-09-09T12:52:57.180Z",
+  "updateTime": "2025-09-09T13:01:22.084Z",
   "updateDate": "2025년 9월 9일",
   "standings": [
     {
@@ -19,16 +19,16 @@
     {
       "rank": 2,
       "team_name": "한화",
-      "games_played": 128,
-      "wins": 73,
+      "games_played": 129,
+      "wins": 74,
       "losses": 52,
       "draws": 3,
-      "runs_scored": 592,
-      "runs_allowed": 487,
-      "win_rate": "0.584",
-      "run_differential": 105,
-      "current_streak": "1L",
-      "games_behind": 4.5
+      "runs_scored": 601,
+      "runs_allowed": 488,
+      "win_rate": "0.587",
+      "run_differential": 113,
+      "current_streak": "1W",
+      "games_behind": 4
     },
     {
       "rank": 3,
@@ -75,16 +75,16 @@
     {
       "rank": 6,
       "team_name": "롯데",
-      "games_played": 130,
+      "games_played": 131,
       "wins": 62,
-      "losses": 62,
+      "losses": 63,
       "draws": 6,
-      "runs_scored": 610,
-      "runs_allowed": 644,
-      "win_rate": "0.500",
-      "run_differential": -34,
-      "current_streak": "3L",
-      "games_behind": 15
+      "runs_scored": 611,
+      "runs_allowed": 653,
+      "win_rate": "0.496",
+      "run_differential": -42,
+      "current_streak": "4L",
+      "games_behind": 15.5
     },
     {
       "rank": 7,
@@ -153,9 +153,9 @@
     },
     {
       "team_name": "한화",
-      "actual_win_rate": "0.584",
-      "expected_win_rate": "0.596",
-      "luck_factor": "-0.012",
+      "actual_win_rate": "0.587",
+      "expected_win_rate": "0.603",
+      "luck_factor": "-0.016",
       "luck_status": "평균적"
     },
     {
@@ -181,9 +181,9 @@
     },
     {
       "team_name": "롯데",
-      "actual_win_rate": "0.500",
-      "expected_win_rate": "0.473",
-      "luck_factor": "+0.027",
+      "actual_win_rate": "0.496",
+      "expected_win_rate": "0.467",
+      "luck_factor": "+0.029",
       "luck_status": "평균적"
     },
     {
@@ -303,10 +303,10 @@
       "home_wins": 39,
       "home_losses": 25,
       "home_win_rate": "0.609",
-      "away_wins": 34,
+      "away_wins": 35,
       "away_losses": 27,
-      "away_win_rate": "0.557",
-      "home_advantage": "+0.052"
+      "away_win_rate": "0.565",
+      "home_advantage": "+0.045"
     },
     {
       "team_name": "SSG",
@@ -341,12 +341,12 @@
     {
       "team_name": "롯데",
       "home_wins": 33,
-      "home_losses": 29,
-      "home_win_rate": "0.532",
+      "home_losses": 30,
+      "home_win_rate": "0.524",
       "away_wins": 29,
       "away_losses": 33,
       "away_win_rate": "0.468",
-      "home_advantage": "+0.065"
+      "home_advantage": "+0.056"
     },
     {
       "team_name": "NC",
@@ -886,12 +886,12 @@
       {
         "month": 9,
         "wins": 0,
-        "losses": 3,
+        "losses": 4,
         "draws": 0,
-        "games": 3,
+        "games": 4,
         "win_rate": "0.000",
-        "runs_scored": 15,
-        "runs_allowed": 19
+        "runs_scored": 16,
+        "runs_allowed": 28
       }
     ],
     "한화": [
@@ -957,13 +957,13 @@
       },
       {
         "month": 9,
-        "wins": 3,
+        "wins": 4,
         "losses": 1,
         "draws": 0,
-        "games": 4,
-        "win_rate": "0.750",
-        "runs_scored": 37,
-        "runs_allowed": 16
+        "games": 5,
+        "win_rate": "0.800",
+        "runs_scored": 46,
+        "runs_allowed": 17
       }
     ],
     "NC": [
@@ -1385,9 +1385,9 @@
       },
       "화": {
         "wins": 7,
-        "losses": 13,
+        "losses": 14,
         "draws": 0,
-        "win_rate": "0.350"
+        "win_rate": "0.333"
       },
       "수": {
         "wins": 11,
@@ -1428,10 +1428,10 @@
         "win_rate": "1.000"
       },
       "화": {
-        "wins": 13,
+        "wins": 14,
         "losses": 7,
         "draws": 0,
-        "win_rate": "0.650"
+        "win_rate": "0.667"
       },
       "수": {
         "wins": 14,
@@ -1962,9 +1962,9 @@
       {
         "stadium": "부산 사직야구장",
         "wins": 33,
-        "losses": 29,
+        "losses": 30,
         "draws": 4,
-        "win_rate": "0.532"
+        "win_rate": "0.524"
       },
       {
         "stadium": "대전 한화생명이글스파크",
@@ -2047,10 +2047,10 @@
       },
       {
         "stadium": "부산 사직야구장",
-        "wins": 2,
+        "wins": 3,
         "losses": 3,
         "draws": 0,
-        "win_rate": "0.400"
+        "win_rate": "0.500"
       },
       {
         "stadium": "광주 챔피언스필드",
@@ -24859,8 +24859,8 @@
       },
       "롯데": "-",
       "한화": {
-        "record": "6-7",
-        "win_rate": "0.462"
+        "record": "6-8",
+        "win_rate": "0.429"
       },
       "NC": {
         "record": "7-7",
@@ -24897,8 +24897,8 @@
         "win_rate": "0.533"
       },
       "롯데": {
-        "record": "7-6",
-        "win_rate": "0.538"
+        "record": "8-6",
+        "win_rate": "0.571"
       },
       "한화": "-",
       "NC": {
@@ -25034,17 +25034,17 @@
     },
     {
       "team_name": "롯데",
-      "current_streak": "3L",
+      "current_streak": "4L",
       "max_win_streak": 6,
       "max_lose_streak": 12,
       "streak_status": "연패 중"
     },
     {
       "team_name": "한화",
-      "current_streak": "1L",
+      "current_streak": "1W",
       "max_win_streak": 12,
       "max_lose_streak": 6,
-      "streak_status": "연패 중"
+      "streak_status": "연승 중"
     },
     {
       "team_name": "NC",
@@ -25111,16 +25111,16 @@
       "avg_run_diff": "0.00"
     },
     {
-      "runs_scored": 610,
-      "runs_allowed": 644,
+      "runs_scored": 611,
+      "runs_allowed": 653,
       "run_differential": 0,
       "avg_runs_scored": "0.00",
       "avg_runs_allowed": "0.00",
       "avg_run_diff": "0.00"
     },
     {
-      "runs_scored": 592,
-      "runs_allowed": 487,
+      "runs_scored": 601,
+      "runs_allowed": 488,
       "run_differential": 0,
       "avg_runs_scored": "0.00",
       "avg_runs_allowed": "0.00",
