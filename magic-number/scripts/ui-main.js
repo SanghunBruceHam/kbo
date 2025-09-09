@@ -3309,7 +3309,7 @@ const kboTeams = {
             let html = `
                 
                 <div class="scenario-matrix-container" style="
-                    overflow-x: auto; 
+                    overflow-x: ${skipFiltering ? 'visible' : 'auto'}; 
                     overflow-y: auto;
                     border-radius: 12px; 
                     border: 1px solid #e0e0e0; 
@@ -3318,9 +3318,9 @@ const kboTeams = {
                     width: 100%;
                     position: relative;
                 ">
-                    <table class="scenario-matrix-table scenario-table-compact" style="
+                    <table class="scenario-matrix-table scenario-table-compact${skipFiltering ? ' popup-mode' : ''}" style="
                         background: white; 
-                        min-width: ${window.innerWidth <= 768 ? '800px' : Math.max(1200, eligibleTeams.length * 205 + 70 + 140) + 'px'};
+                        min-width: ${skipFiltering ? 'auto' : (window.innerWidth <= 768 ? '800px' : Math.max(1200, eligibleTeams.length * 205 + 70 + 140) + 'px')};
                     ">
                         <thead>
                             <!-- 1행: 순위 -->
@@ -3335,7 +3335,7 @@ const kboTeams = {
                 const teamColor = teamData?.color || '#333';
                 const columnWidth = index < 6 ? '160px' : '120px';
                 
-                const totalColumnWidth = '205px'; // 95+110 통일
+                const totalColumnWidth = skipFiltering ? '95px' : '205px'; // 45+50 or 95+110
                 const borderClass = index === 4 ? 'playoff-border' : (!isLast ? 'team-border' : '');
                 html += `<th colspan="2" class="header-team ${borderClass}" style="
                     min-width: ${totalColumnWidth}; 
@@ -3352,8 +3352,8 @@ const kboTeams = {
                     position: sticky;
                     left: 0;
                     z-index: 110;
-                    min-width: 70px; 
-                    width: 70px;
+                    min-width: ${skipFiltering ? '50px' : '70px'}; 
+                    width: ${skipFiltering ? '50px' : '70px'};
                     padding: 4px 6px; 
                     text-align: center; 
                     font-weight: 600; 
@@ -3364,7 +3364,7 @@ const kboTeams = {
                 
             eligibleTeams.forEach((team, index) => {
                 const isLast = index === eligibleTeams.length - 1;
-                const totalColumnWidth = '205px';  // 95+110 통일
+                const totalColumnWidth = skipFiltering ? '95px' : '205px';  // 45+50 or 95+110
                 html += `<th colspan="2" style="
                     min-width: ${totalColumnWidth}; 
                     width: ${totalColumnWidth};
@@ -3384,8 +3384,8 @@ const kboTeams = {
                     position: sticky;
                     left: 0;
                     z-index: 110;
-                    min-width: 70px; 
-                    width: 70px;
+                    min-width: ${skipFiltering ? '50px' : '70px'}; 
+                    width: ${skipFiltering ? '50px' : '70px'};
                     padding: 4px 6px; 
                     text-align: center; 
                     font-weight: 600; 
@@ -3396,7 +3396,7 @@ const kboTeams = {
                 
             eligibleTeams.forEach((team, index) => {
                 const isLast = index === eligibleTeams.length - 1;
-                const totalColumnWidth = '205px';  // 95+110 통일
+                const totalColumnWidth = skipFiltering ? '95px' : '205px';  // 45+50 or 95+110
                 html += `<th colspan="2" style="
                     min-width: ${totalColumnWidth}; 
                     width: ${totalColumnWidth};
@@ -3416,8 +3416,8 @@ const kboTeams = {
                     position: sticky;
                     left: 0;
                     z-index: 110;
-                    min-width: 70px; 
-                    width: 70px;
+                    min-width: ${skipFiltering ? '50px' : '70px'}; 
+                    width: ${skipFiltering ? '50px' : '70px'};
                     padding: 4px 6px; 
                     text-align: center; 
                     font-weight: 600; 
@@ -3429,8 +3429,9 @@ const kboTeams = {
             // 네 번째 헤더 행 - 컬럼 구분 (잔여경기 vs 최종성적)
             eligibleTeams.forEach((team, index) => {
                 const isLast = index === eligibleTeams.length - 1;
-                const cellWidth = '95px';  // 모든 팀 통일
-                const finalCellWidth = '110px';  // 최종성적은 더 넓게 통일
+                // 팝업(전체 팀)에서는 더 작은 셀 폭 사용
+                const cellWidth = skipFiltering ? '45px' : '95px';
+                const finalCellWidth = skipFiltering ? '50px' : '110px';
                 html += `
                     <th style="
                         width: ${cellWidth}; 
@@ -3520,7 +3521,7 @@ const kboTeams = {
                             const remainingWinRateTextColor = getWinRateTextColor(remainingWinRate);
                             
                             // 잔여경기 컬럼
-                            const cellWidth = '95px';  // 모든 팀 통일
+                            const cellWidth = skipFiltering ? '45px' : '95px';  // 팝업에서는 더 작게
                             html += `<td class="wins-cell" style="
                                 width: ${cellWidth};
                                 min-width: ${cellWidth};
@@ -3532,7 +3533,7 @@ const kboTeams = {
                             </td>`;
                             
                             // 최종성적 컬럼 (더 넓게)
-                            const finalCellWidth = '110px';  // 최종성적은 더 넓게 통일
+                            const finalCellWidth = skipFiltering ? '50px' : '110px';  // 팝업에서는 더 작게
                             const borderStyle = teamIndex === 4 ? 'border-right: 4px solid #FF6B35;' : (!isLast ? 'border-right: 2px solid #dee2e6;' : '');
                             html += `<td class="final-cell" style="
                                 width: ${finalCellWidth};
@@ -3851,6 +3852,9 @@ const kboTeams = {
                         <meta charset="UTF-8">
                         <meta name="viewport" content="width=device-width, initial-scale=1.0">
                         <title>KBO 전체 팀 경우의수 분석</title>
+                        <link rel="icon" type="image/png" sizes="32x32" href="./images/icons/favicon-32x32.png">
+                        <link rel="icon" type="image/png" sizes="16x16" href="./images/icons/favicon-16x16.png">
+                        <link rel="apple-touch-icon" href="./images/icons/apple-touch-icon.png">
                         <style>
                             body { 
                                 font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
@@ -3880,7 +3884,129 @@ const kboTeams = {
                                 border-radius: 12px; 
                                 padding: 20px; 
                                 box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-                                overflow-x: auto;
+                                overflow-x: visible;
+                            }
+                            
+                            /* 시나리오 테이블 컴팩트 스타일 - 새창용 */
+                            .scenario-table-compact { 
+                              table-layout: auto; 
+                              width: 100%; 
+                              border-collapse: collapse;
+                              border-spacing: 0;
+                            }
+                            .scenario-table-compact thead {
+                              position: sticky;
+                              top: 0;
+                              z-index: 100;
+                            }
+                            .scenario-table-compact thead th {
+                              padding: 4px 6px;
+                              text-align: center;
+                              font-weight: 600;
+                              position: sticky;
+                              top: 0;
+                              z-index: 100;
+                            }
+                            .scenario-table-compact tbody tr { 
+                              height: auto;
+                              min-height: 20px;
+                            }
+                            .scenario-table-compact tbody td {
+                              padding: 2px 4px;
+                              line-height: 1.1;
+                              vertical-align: middle;
+                              white-space: nowrap;
+                              overflow: visible;
+                              text-overflow: clip;
+                              border-spacing: 0;
+                              min-width: auto;
+                            }
+                            .scenario-table-compact .scenario-row td {
+                              font-size: 0.8rem;
+                              padding: 2px 4px;
+                              font-weight: 700;
+                              background: white;
+                              border: 1px solid #dee2e6;
+                              text-align: center;
+                              line-height: 1.1;
+                            }
+                            .scenario-table-compact .rate-cell {
+                              color: #2E7D32;
+                              position: sticky;
+                              left: 0;
+                              z-index: 5;
+                              width: 60px;
+                              box-shadow: 2px 0 4px rgba(0,0,0,0.1);
+                            }
+                            .scenario-table-compact .wins-cell {
+                              padding: 2px 2px;
+                              line-height: 1.1;
+                              white-space: nowrap;
+                              vertical-align: middle;
+                              max-width: 60px;
+                              width: 60px;
+                            }
+                            .scenario-table-compact .final-cell {
+                              padding: 2px 2px;
+                              line-height: 1.1;
+                              white-space: nowrap;
+                              vertical-align: middle;
+                              max-width: 65px;
+                              width: 65px;
+                            }
+                            .scenario-table-compact .cell-main {
+                              font-size: 0.8rem;
+                              font-weight: 600;
+                              margin: 0;
+                              line-height: 1.1;
+                            }
+                            .scenario-table-compact .cell-sub {
+                              font-size: 0.7rem;
+                              margin: 0;
+                              line-height: 1.1;
+                            }
+                            .scenario-table-compact .sticky-left {
+                              position: sticky;
+                              left: 0;
+                              z-index: 110;
+                              min-width: 70px;
+                              width: 70px;
+                              background: inherit;
+                              border-right: 2px solid rgba(255,255,255,0.4);
+                              font-size: 0.7rem;
+                            }
+                            .scenario-table-compact.popup-mode .sticky-left {
+                              min-width: 50px !important;
+                              width: 50px !important;
+                              max-width: 50px !important;
+                            }
+                            .scenario-table-compact.popup-mode .wins-cell {
+                              min-width: 65px !important;
+                              width: 65px !important;
+                              max-width: 65px !important;
+                            }
+                            .scenario-table-compact.popup-mode .final-cell {
+                              min-width: 88.89px !important;
+                              width: 88.89px !important;
+                              max-width: 88.89px !important;
+                            }
+                            .scenario-table-compact .header-rank {
+                              background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%);
+                              color: white;
+                            }
+                            .scenario-table-compact .header-team {
+                              background: linear-gradient(135deg, rgba(233, 236, 239, 0.9) 0%, rgba(248, 249, 250, 0.9) 100%);
+                              font-weight: 700;
+                              font-size: 0.8rem;
+                              white-space: nowrap;
+                              line-height: 1.2;
+                              padding: 6px 4px 3px 4px;
+                            }
+                            .scenario-table-compact .header-team.playoff-border {
+                              border-right: 4px solid #FF6B35;
+                            }
+                            .scenario-table-compact .header-team.team-border {
+                              border-right: 2px solid rgba(255,255,255,0.5);
                             }
                             .magic-number-table {
                                 width: 100%;
