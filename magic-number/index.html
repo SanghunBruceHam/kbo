@@ -507,6 +507,138 @@
           overflow: hidden !important;
           text-overflow: ellipsis !important;
         }
+
+        /* === Scenario Table 클래스 기반 스타일 === */
+        .scenario-table-compact { 
+          table-layout: auto; 
+          width: 100%; 
+          border-collapse: collapse;
+          border-spacing: 0;
+        }
+        .scenario-table-compact tbody tr { 
+          height: auto;
+          min-height: 14px;
+        }
+        .scenario-table-compact tbody td {
+          padding: 1px 2px;
+          line-height: 1;
+          vertical-align: middle;
+          white-space: nowrap;
+          overflow: visible;
+          text-overflow: clip;
+          border-spacing: 0;
+          min-width: auto;
+        }
+        
+        /* 특정 열들의 최소 너비 보장 */
+        .scenario-table-compact .team-column {
+          min-width: 60px;
+          width: auto;
+        }
+        .scenario-table-compact .record-column {
+          min-width: 80px;
+          width: auto;
+        }
+        .scenario-table-compact .percentage-column {
+          min-width: 50px;
+          width: auto;
+        }
+        
+        /* 시나리오 테이블 헤더 스타일 */
+        .scenario-table-compact thead {
+          position: sticky;
+          top: 0;
+          z-index: 100;
+        }
+        
+        .scenario-table-compact thead th {
+          padding: 4px 6px;
+          text-align: center;
+          font-weight: 600;
+          position: sticky;
+          top: 0;
+          z-index: 100;
+        }
+        
+        /* 첫 번째 열 (고정 열) */
+        .scenario-table-compact .sticky-left {
+          position: sticky;
+          left: 0;
+          z-index: 110;
+          min-width: 70px;
+          width: 70px;
+          background: inherit;
+          border-right: 2px solid rgba(255,255,255,0.4);
+          font-size: 0.7rem;
+        }
+        
+        /* 헤더 행 스타일 */
+        .scenario-table-compact .header-rank {
+          background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%);
+          color: white;
+        }
+        
+        .scenario-table-compact .header-team {
+          background: linear-gradient(135deg, rgba(233, 236, 239, 0.9) 0%, rgba(248, 249, 250, 0.9) 100%);
+          font-weight: 700;
+          font-size: 0.8rem;
+          white-space: nowrap;
+          line-height: 1.2;
+          padding: 6px 4px 3px 4px;
+        }
+        
+        .scenario-table-compact .header-team.playoff-border {
+          border-right: 4px solid #FF6B35;
+        }
+        
+        .scenario-table-compact .header-team.team-border {
+          border-right: 2px solid rgba(255,255,255,0.5);
+        }
+        
+        /* 데이터 행 스타일 */
+        .scenario-table-compact .scenario-row td {
+          font-size: 0.8rem;
+          padding: 0px 2px;
+          font-weight: 700;
+          background: white;
+          border: 1px solid #dee2e6;
+          text-align: center;
+          line-height: 1;
+        }
+        
+        /* 왼쪽 고정 셀 (승률) */
+        .scenario-table-compact .rate-cell {
+          color: #2E7D32;
+          position: sticky;
+          left: 0;
+          z-index: 5;
+          width: 60px;
+          box-shadow: 2px 0 4px rgba(0,0,0,0.1);
+        }
+        
+        /* 팀 승률 셀 - 기존 tbody td 설정을 오버라이드 */
+        .scenario-table-compact .wins-cell,
+        .scenario-table-compact .final-cell {
+          padding: 0px 1px;
+          line-height: 1;
+          white-space: nowrap;
+          vertical-align: top;
+        }
+        
+        /* 셀 내부 텍스트 */
+        .scenario-table-compact .cell-main {
+          font-size: 0.8rem;
+          font-weight: 600;
+          margin: 0;
+          line-height: 1;
+        }
+        
+        .scenario-table-compact .cell-sub {
+          font-size: 0.7rem;
+          margin: 0;
+          line-height: 1;
+        }
+        
         /* Team cell: center the whole block with Flex (replaces grid) */
         #magicMatrixContent td.matrix-team-info {
           display: flex;
@@ -607,6 +739,25 @@
           #magicMatrixContent .magic-matrix-table tbody tr { height: 22px !important; }
           #magicMatrixContent .magic-matrix-table tbody td { line-height: 18px !important; }
           #magicMatrixContent .team-logo-small { max-height: 16px !important; height: 16px !important; }
+          
+          /* Scenario table mobile */
+          .scenario-table-compact tbody tr { 
+            height: auto; 
+            min-height: 12px; 
+          }
+          .scenario-table-compact tbody td { 
+            padding: 0px 1px;
+            font-size: 0.75em;
+            line-height: 0.9;
+          }
+          
+          .scenario-table-compact .cell-main {
+            font-size: 0.75rem;
+          }
+          
+          .scenario-table-compact .cell-sub {
+            font-size: 0.65rem;
+          }
         }
     </style>
     

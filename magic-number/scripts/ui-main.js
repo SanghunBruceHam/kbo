@@ -3318,29 +3318,14 @@ const kboTeams = {
                     width: 100%;
                     position: relative;
                 ">
-                    <table class="scenario-matrix-table" style="
-                        width: 100%; 
-                        border-collapse: collapse; 
-                        font-size: 0.75rem; 
+                    <table class="scenario-matrix-table scenario-table-compact" style="
                         background: white; 
-                        min-width: ${window.innerWidth <= 768 ? '800px' : Math.max(1100, 6 * (75 + 95) + 70 + 140) + 'px'};
+                        min-width: ${window.innerWidth <= 768 ? '800px' : Math.max(1200, eligibleTeams.length * 205 + 70 + 140) + 'px'};
                     ">
-                        <thead style="position: sticky; top: 0; z-index: 100;">
+                        <thead>
                             <!-- 1행: 순위 -->
-                            <tr style="background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%); color: white;">
-                                <th style="
-                                    position: sticky;
-                                    left: 0;
-                                    z-index: 110;
-                                    min-width: 70px; 
-                                    width: 70px;
-                                    padding: 4px 6px; 
-                                    text-align: center; 
-                                    font-weight: 600; 
-                                    border-right: 2px solid rgba(255,255,255,0.4); 
-                                    background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%); 
-                                    font-size: 0.7rem;
-                                ">순위</th>
+                            <tr class="header-rank">
+                                <th class="sticky-left">순위</th>
             `;
             
             // 첫 번째 헤더 행 - 팀 정보 통합 (순위 + 팀명 + 현재성적)
@@ -3350,19 +3335,12 @@ const kboTeams = {
                 const teamColor = teamData?.color || '#333';
                 const columnWidth = index < 6 ? '160px' : '120px';
                 
-                const totalColumnWidth = index < 6 ? '170px' : '140px'; // 75+95 또는 60+80
-                html += `<th colspan="2" style="
+                const totalColumnWidth = '205px'; // 95+110 통일
+                const borderClass = index === 4 ? 'playoff-border' : (!isLast ? 'team-border' : '');
+                html += `<th colspan="2" class="header-team ${borderClass}" style="
                     min-width: ${totalColumnWidth}; 
                     width: ${totalColumnWidth};
-                    padding: 6px 4px 3px 4px; 
-                    text-align: center; 
-                    font-weight: 700; 
-                    background: linear-gradient(135deg, rgba(233, 236, 239, 0.9) 0%, rgba(248, 249, 250, 0.9) 100%); 
-                    color: ${teamColor}; 
-                    ${index === 4 ? 'border-right: 4px solid #FF6B35;' : (!isLast ? 'border-right: 2px solid rgba(255,255,255,0.5);' : '')} 
-                    font-size: 0.8rem;
-                    white-space: nowrap;
-                    line-height: 1.2;
+                    color: ${teamColor};
                 ">
                     <div style="font-size: 0.85rem; font-weight: 800; color: ${teamColor};">${team.displayRank || team.rank}위 ${teamData?.logo || ''} ${teamData?.shortName || team.team}</div>
                 </th>`;
@@ -3386,7 +3364,7 @@ const kboTeams = {
                 
             eligibleTeams.forEach((team, index) => {
                 const isLast = index === eligibleTeams.length - 1;
-                const totalColumnWidth = '170px';
+                const totalColumnWidth = '205px';  // 95+110 통일
                 html += `<th colspan="2" style="
                     min-width: ${totalColumnWidth}; 
                     width: ${totalColumnWidth};
@@ -3418,7 +3396,7 @@ const kboTeams = {
                 
             eligibleTeams.forEach((team, index) => {
                 const isLast = index === eligibleTeams.length - 1;
-                const totalColumnWidth = '170px';
+                const totalColumnWidth = '205px';  // 95+110 통일
                 html += `<th colspan="2" style="
                     min-width: ${totalColumnWidth}; 
                     width: ${totalColumnWidth};
@@ -3451,8 +3429,8 @@ const kboTeams = {
             // 네 번째 헤더 행 - 컬럼 구분 (잔여경기 vs 최종성적)
             eligibleTeams.forEach((team, index) => {
                 const isLast = index === eligibleTeams.length - 1;
-                const cellWidth = '75px';
-                const finalCellWidth = '95px';
+                const cellWidth = '95px';  // 모든 팀 통일
+                const finalCellWidth = '110px';  // 최종성적은 더 넓게 통일
                 html += `
                     <th style="
                         width: ${cellWidth}; 
@@ -3518,7 +3496,7 @@ const kboTeams = {
                     const winRate = parseFloat(rateKey);
                     
                     html += `<tr class="scenario-row">
-                        <td style="font-size: 0.8rem; padding: 3px 2px; font-weight: 700; background: white; color: #2E7D32; border: 1px solid #dee2e6; text-align: center; position: sticky; left: 0; z-index: 5; width: 60px; box-shadow: 2px 0 4px rgba(0,0,0,0.1); line-height: 1.2;">
+                        <td class="rate-cell">
                             ${winRate.toFixed(3)}
                         </td>`;
                     
@@ -3542,37 +3520,29 @@ const kboTeams = {
                             const remainingWinRateTextColor = getWinRateTextColor(remainingWinRate);
                             
                             // 잔여경기 컬럼
-                            const cellWidth = '75px';
-                            html += `<td style="
-                                padding: 4px 1px; 
-                                text-align: center; 
-                                border: 1px solid #dee2e6; 
+                            const cellWidth = '95px';  // 모든 팀 통일
+                            html += `<td class="wins-cell" style="
                                 width: ${cellWidth};
                                 min-width: ${cellWidth};
-                                line-height: 1.1;
                                 background: ${remainingWinRateBg};
                                 color: ${remainingWinRateTextColor};
                             ">
-                                <div style="font-size: 0.8rem; font-weight: 600;">${teamScenario.wins}승 ${teamScenario.losses}패</div>
-                                <div style="font-size: 0.7rem;">${remainingWinRate.toFixed(3)}</div>
+                                <div class="cell-main">${teamScenario.wins}승 ${teamScenario.losses}패</div>
+                                <div class="cell-sub">${remainingWinRate.toFixed(3)}</div>
                             </td>`;
                             
                             // 최종성적 컬럼 (더 넓게)
-                            const finalCellWidth = '95px';
-                            html += `<td style="
-                                padding: 4px 2px; 
-                                text-align: center; 
-                                border: 1px solid #dee2e6; 
+                            const finalCellWidth = '110px';  // 최종성적은 더 넓게 통일
+                            const borderStyle = teamIndex === 4 ? 'border-right: 4px solid #FF6B35;' : (!isLast ? 'border-right: 2px solid #dee2e6;' : '');
+                            html += `<td class="final-cell" style="
                                 width: ${finalCellWidth};
                                 min-width: ${finalCellWidth};
-                                line-height: 1.1;
-                                white-space: nowrap;
                                 background: ${finalWinRateBg};
                                 color: ${finalWinRateTextColor};
-                                ${teamIndex === 4 ? 'border-right: 4px solid #FF6B35;' : (!isLast ? 'border-right: 2px solid #dee2e6;' : '')}
+                                ${borderStyle}
                             ">
-                                <div style="font-size: 0.8rem; font-weight: 600;">${finalWins}승 ${finalLosses}패 ${finalDraws}무</div>
-                                <div style="font-size: 0.7rem;">${teamScenario.finalWinRate.toFixed(3)}</div>
+                                <div class="cell-main">${finalWins}승 ${finalLosses}패 ${finalDraws}무</div>
+                                <div class="cell-sub">${teamScenario.finalWinRate.toFixed(3)}</div>
                             </td>`;
                         } else {
                             html += `<td style="background: #f8f9fa; border: 1px solid #dee2e6;"></td><td style="background: #f8f9fa; border: 1px solid #dee2e6; ${teamIndex === 4 ? 'border-right: 4px solid #FF6B35;' : (!isLast ? 'border-right: 2px solid #dee2e6;' : '')}"></td>`;
