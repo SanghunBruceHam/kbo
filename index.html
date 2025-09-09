@@ -4152,6 +4152,7 @@
                     <a href="#season-progress" class="nav-item">📈 진행률</a>
                     <a href="#daily-stats" class="nav-item">📅 일별통계</a>
                     <a href="#standings" class="nav-item">🏆 종합순위</a>
+                    <a href="#wingap-chart-section" class="nav-item">📊 승차추이</a>
                     <a href="#rank-chart-section" class="nav-item">📈 순위변동</a>
                     <a href="#winrate-chart-section" class="nav-item">📉 승률추이</a>
                     <a href="#half-season-stats" class="nav-item">⚾ 전후반기</a>
@@ -4688,7 +4689,129 @@
         </div>
 
 
-        <!-- 2. 순위 변동 그래프 -->
+        <!-- 2. 승차 변화 추이 그래프 - 우선 순위로 이동 -->
+        <div class="card" id="wingap-chart-section" style="margin-bottom: 30px;">
+            <div class="card-header">
+                <span class="card-icon">📈</span>
+                <h2 class="card-title">승차 변화 추이</h2>
+            </div>
+            
+            <!-- 그래프 네비게이션 -->
+            <div class="chart-nav" id="wingap-chart-nav" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding: 0 10px;">
+                <div style="min-width: 120px; display: flex; justify-content: flex-start;">
+                    <button id="prevPeriodWinGap" class="nav-btn" onclick="handlePrevPeriodWinGap()" style="
+                        background: #4CAF50; 
+                        color: white; 
+                        border: none; 
+                        padding: 8px 16px; 
+                        border-radius: 6px; 
+                        cursor: pointer;
+                        font-size: 14px;
+                        transition: all 0.3s ease;
+                    " aria-label="이전 달 승차 변화 추이 차트 보기">← 이전 월</button>
+                </div>
+                
+                <!-- 토글 버튼 (기간 정보 + 모드 전환) -->
+                <button id="periodToggleWinGap" onclick="handlePeriodToggleWinGap()" style="
+                    background: linear-gradient(135deg, #28a745, #34ce57);
+                    color: white;
+                    border: none;
+                    padding: 10px 20px;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    font-size: 14px;
+                    font-weight: 600;
+                    transition: all 0.3s ease;
+                    box-shadow: 0 2px 4px rgba(40, 167, 69, 0.3);
+                    min-width: 220px;
+                " onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 4px 8px rgba(40, 167, 69, 0.4)'" 
+                   onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 4px rgba(40, 167, 69, 0.3)'" 
+                   aria-label="승차 변화 추이 전체 기간과 구간 보기 전환">
+                    📊 전체 시즌 보기
+                </button>
+                
+                <div style="min-width: 120px; display: flex; justify-content: flex-end;">
+                    <button id="nextPeriodWinGap" class="nav-btn" onclick="handleNextPeriodWinGap()" style="
+                        background: #4CAF50; 
+                        color: white; 
+                        border: none; 
+                        padding: 8px 16px; 
+                        border-radius: 6px; 
+                        cursor: pointer;
+                        font-size: 14px;
+                        transition: all 0.3s ease;
+                    " aria-label="다음 달 승차 변화 추이 차트 보기">다음 월 →</button>
+                </div>
+            </div>
+            
+            <!-- 현재 기간 텍스트 (월 단위 모드에서만) -->
+            <div id="currentPeriodTextWinGap" style="
+                text-align: center;
+                margin: 0;
+                height: 18px;
+                font-size: 13px;
+                color: #666;
+                font-weight: 500;
+                line-height: 18px;
+                visibility: hidden;
+            ">
+                현재 보는 기간: -
+            </div>
+            
+            <!-- 진행 인디케이터 -->
+            <div class="progress-indicator" style="
+                display: flex; 
+                justify-content: center; 
+                margin-bottom: 8px;
+                gap: 4px;
+            " id="progressDotsWinGap"></div>
+            
+            <div class="daily-stats-sub-card" style="background: #f8f9fa; border-radius: 8px; padding: 16px; border: 1px solid #e9ecef; margin-bottom: 20px; height: 535px; display: flex; flex-direction: column;">
+                <div style="position: relative; flex: 1; min-height: 0; overflow: hidden;">
+                    <!-- 메인 승차변화추이 카드 캔버스 -->
+                    <canvas id="winGapChart"></canvas>
+                </div>
+            </div>
+            
+            <!-- 팀 레전드 (순위 변동 추이와 동일한 형식) -->
+            <div id="winGapChartLegend" style="display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; padding: 0; background: transparent; border: none; flex-shrink: 0; max-height: 60px; overflow-y: auto; margin-bottom: 0;">
+                <!-- 동적으로 생성됨 -->
+            </div>
+            
+            <!-- 설명 섹션 -->
+            <div style="margin-top: 20px; padding: 12px; background: #f8f9fa; border-radius: 6px; border: 1px solid #e9ecef;">
+                <div style="font-size: var(--font-base); font-weight: var(--font-weight-medium); margin-bottom: 8px; color: #495057;">📈 승차 변화 추이 그래프 이용 가이드</div>
+                <ul style="margin: 6px 0; padding-left: 16px; line-height: 1.5; font-size: var(--font-sm); color: var(--text-secondary);">
+                    <li><strong>기간:</strong> 3월 22일 개막~현재</li>
+                    <li><strong>승차:</strong> 1위팀과의 승수 차이</li>
+                    <li><strong>PO 기준:</strong> 5위까지 포스트시즌 진출</li>
+                </ul>
+                <div style="margin-top: 8px; font-size: 11px; color: #666;">
+                    <strong>💡 사용법:</strong>
+                    <ul style="margin: 6px 0 0 0; padding-left: 16px; line-height: 1.4; font-size: 12px;">
+                        <li><strong>📊 전체시즌:</strong> 전체/30일 전환</li>
+                        <li><strong>로고클릭:</strong> 팀 라인 숨기기</li>
+                        <li><strong>마우스오버:</strong> 날짜별 승차표</li>
+                    </ul>
+                </div>
+                <div style="margin-top: 8px; font-size: 11px; color: #666;">
+                    📌 팀명 순서는 현재 순위 기준 고정, 마우스 오버로 날짜별 승차 확인
+                </div>
+            </div>
+        </div>
+
+        <!-- 쿠팡 광고 1: 승차 변화 추이 차트 후 -->
+        <div class="ad-card">
+            <div class="coupang-ad-wrapper">
+                <div>광고</div>
+                <script src="https://ads-partners.coupang.com/g.js"></script>
+                <script>
+                    new PartnersCoupang.G({"id":918101,"trackingCode":"AF6959276","template":"carousel","width":"1300","height":"180","tsource":""});
+                </script>
+            </div>
+        </div>
+
+        <!-- 3. 순위 변동 그래프 -->
         <div class="card" id="rank-chart-section" style="margin-bottom: 30px;">
             <div class="card-header">
                 <span class="card-icon">📈</span>
@@ -4798,13 +4921,13 @@
             </div>
         </div>
 
-        <!-- 광고: 승률 추이 카드 위 -->
+        <!-- 쿠팡 광고: 승률 추이 카드 전 -->
         <div class="ad-card">
             <div class="coupang-ad-wrapper">
                 <div>광고</div>
                 <script src="https://ads-partners.coupang.com/g.js"></script>
                 <script>
-                    new PartnersCoupang.G({"id":918101,"trackingCode":"AF6959276","template":"carousel","width":"1300","height":"180","tsource":""});
+                    new PartnersCoupang.G({"id":867629,"trackingCode":"AF6959276","subId":null,"template":"banner","width":"1100","height":"180"});
                 </script>
             </div>
         </div>
@@ -12096,28 +12219,19 @@
                 scrollNavToActiveItem(activeItem);
             }
             
-            // 네비게이션을 활성화된 아이템이 보이도록 스크롤
+            // 네비게이션을 활성화된 아이템이 중앙에 오도록 스크롤
             function scrollNavToActiveItem(activeItem) {
                 const navContainer = document.querySelector('.nav-menu');
                 if (navContainer && activeItem) {
-                    const containerRect = navContainer.getBoundingClientRect();
-                    const itemRect = activeItem.getBoundingClientRect();
+                    // 항상 아이템을 중앙에 위치시키도록 스크롤
+                    const scrollLeft = activeItem.offsetLeft - 
+                                     (navContainer.clientWidth / 2) + 
+                                     (activeItem.clientWidth / 2);
                     
-                    // 아이템이 컨테이너 영역을 벗어났는지 확인
-                    const isItemVisible = itemRect.left >= containerRect.left && 
-                                        itemRect.right <= containerRect.right;
-                    
-                    if (!isItemVisible) {
-                        // 아이템을 중앙에 위치시키도록 스크롤
-                        const scrollLeft = activeItem.offsetLeft - 
-                                         (navContainer.clientWidth / 2) + 
-                                         (activeItem.clientWidth / 2);
-                        
-                        navContainer.scrollTo({
-                            left: scrollLeft,
-                            behavior: 'smooth'
-                        });
-                    }
+                    navContainer.scrollTo({
+                        left: Math.max(0, scrollLeft), // 음수 값 방지
+                        behavior: 'smooth'
+                    });
                 }
             }
             
@@ -14675,6 +14789,12 @@ KT 9:1 키움(H)`;
                                 await createWinRateChart();
                                 console.log('승률 추이 차트 초기화 완료');
                             }
+                            
+                            // 승차 변화 차트도 초기화
+                            if (!winGapChartInstance && typeof createWinGapChart === 'function') {
+                                await createWinGapChart();
+                                console.log('승차 변화 차트 초기화 완료');
+                            }
                             break;
                         }
                         
@@ -14687,8 +14807,9 @@ KT 9:1 키움(H)`;
                     }
                 };
                 
-                // 승률 차트는 비동기로 초기화 (메인 흐름을 차단하지 않음)
+                // 메인 차트들을 비동기로 초기화 (메인 흐름을 차단하지 않음)
                 waitForDailyStatsAndInitWinRate();
+                createWinGapChart(); // 승차 변화 차트 초기화
                 
                 // 4단계: 일별통계 내 차트 업데이트 (로고 로딩 완료 후)
                 setTimeout(() => {
@@ -14703,6 +14824,621 @@ KT 9:1 키움(H)`;
                 
             } catch (error) {
                 console.error('메인 차트 초기화 실패:', error);
+            }
+        }
+
+        // 승차 변화 차트 전역 변수
+        let winGapChartInstance = null;
+        let winGapChartState = {
+            isFullView: true,
+            currentPeriod: 0,
+            periods: []
+        };
+
+        // 승차 변화 차트 처리 함수들
+        function handlePrevPeriodWinGap() {
+            console.log('이전 버튼 클릭');
+            console.log('현재 상태:', winGapChartState);
+            if (!winGapChartState.isFullView && winGapChartState.currentPeriod > 0) {
+                winGapChartState.currentPeriod--;
+                console.log('이전 기간으로 변경:', winGapChartState.currentPeriod);
+                
+                // 차트를 완전히 재생성하여 데이터 포인트 업데이트 보장
+                if (winGapChartInstance) {
+                    console.log('🔄 기존 차트 destroy하고 캔버스 재생성');
+                    winGapChartInstance.destroy();
+                    winGapChartInstance = null;
+                    
+                    // 캔버스 요소 완전 교체
+                    const canvasContainer = document.querySelector('#winGapChart').parentElement;
+                    const oldCanvas = document.querySelector('#winGapChart');
+                    const newCanvas = document.createElement('canvas');
+                    newCanvas.id = 'winGapChart';
+                    newCanvas.style.cssText = oldCanvas.style.cssText;
+                    canvasContainer.replaceChild(newCanvas, oldCanvas);
+                    console.log('🎨 캔버스 요소 완전 교체됨 (월별 네비게이션)');
+                }
+                
+                updateWinGapChart();
+            } else {
+                console.log('이전 버튼 비활성 조건:', {
+                    isFullView: winGapChartState.isFullView,
+                    currentPeriod: winGapChartState.currentPeriod
+                });
+            }
+        }
+
+        function handleNextPeriodWinGap() {
+            console.log('다음 버튼 클릭');
+            console.log('현재 상태:', winGapChartState);
+            if (!winGapChartState.isFullView && winGapChartState.currentPeriod < winGapChartState.periods.length - 1) {
+                winGapChartState.currentPeriod++;
+                console.log('다음 기간으로 변경:', winGapChartState.currentPeriod);
+                
+                // 차트를 완전히 재생성하여 데이터 포인트 업데이트 보장
+                if (winGapChartInstance) {
+                    console.log('🔄 기존 차트 destroy하고 캔버스 재생성');
+                    winGapChartInstance.destroy();
+                    winGapChartInstance = null;
+                    
+                    // 캔버스 요소 완전 교체
+                    const canvasContainer = document.querySelector('#winGapChart').parentElement;
+                    const oldCanvas = document.querySelector('#winGapChart');
+                    const newCanvas = document.createElement('canvas');
+                    newCanvas.id = 'winGapChart';
+                    newCanvas.style.cssText = oldCanvas.style.cssText;
+                    canvasContainer.replaceChild(newCanvas, oldCanvas);
+                    console.log('🎨 캔버스 요소 완전 교체됨 (월별 네비게이션)');
+                }
+                
+                updateWinGapChart();
+            } else {
+                console.log('다음 버튼 비활성 조건:', {
+                    isFullView: winGapChartState.isFullView,
+                    currentPeriod: winGapChartState.currentPeriod,
+                    periodsLength: winGapChartState.periods.length
+                });
+            }
+        }
+
+        function handlePeriodToggleWinGap() {
+            console.log('전체시즌 토글 버튼 클릭');
+            console.log('현재 isFullView:', winGapChartState.isFullView);
+            winGapChartState.isFullView = !winGapChartState.isFullView;
+            console.log('변경된 isFullView:', winGapChartState.isFullView);
+            
+            // 차트를 완전히 재생성하여 데이터 포인트 업데이트 보장
+            if (winGapChartInstance) {
+                console.log('🔄 기존 차트 destroy하고 캔버스 재생성');
+                winGapChartInstance.destroy();
+                winGapChartInstance = null;
+                
+                // 캔버스 요소 완전 교체
+                const canvasContainer = document.querySelector('#winGapChart').parentElement;
+                const oldCanvas = document.querySelector('#winGapChart');
+                const newCanvas = document.createElement('canvas');
+                newCanvas.id = 'winGapChart';
+                newCanvas.style.cssText = oldCanvas.style.cssText;
+                canvasContainer.replaceChild(newCanvas, oldCanvas);
+                console.log('🎨 캔버스 요소 완전 교체됨');
+            }
+            
+            updateWinGapChart();
+        }
+
+        // 승차 변화 차트 생성 및 업데이트 함수
+        async function createWinGapChart() {
+            console.log('🎯 createWinGapChart 함수 시작');
+            try {
+                // Chart.js 지연 로딩 먼저 실행
+                console.log('📦 Chart.js 지연 로딩 시작');
+                await window.loadChartJs();
+                console.log('✅ Chart.js 로딩 완료');
+                
+                console.log('Chart 라이브러리 확인:', typeof Chart);
+                if (typeof Chart === 'undefined') {
+                    console.error('❌ Chart.js 라이브러리가 여전히 로드되지 않음');
+                    return;
+                }
+                
+                const ctx = document.getElementById('winGapChart');
+                console.log('캔버스 요소:', ctx);
+                if (!ctx) {
+                    console.error('❌ winGapChart 캔버스를 찾을 수 없음');
+                    return;
+                }
+
+                // 일자별 통계 데이터가 로드될 때까지 대기
+                let retryCount = 0;
+                const maxRetries = 10;
+                console.log('📊 dailyStats 데이터 대기 중...');
+
+                while (!window.dailyStats?.seasonData && retryCount < maxRetries) {
+                    console.log(`대기 중... (${retryCount + 1}/${maxRetries})`);
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                    retryCount++;
+                }
+
+                console.log('dailyStats:', !!window.dailyStats);
+                console.log('seasonData:', !!window.dailyStats?.seasonData);
+                console.log('seasonData 길이:', window.dailyStats?.seasonData?.length);
+
+                if (!window.dailyStats?.seasonData) {
+                    console.error('❌ 일자별 통계 데이터를 로드할 수 없습니다.');
+                    return;
+                }
+
+                console.log('📈 updateWinGapChart 호출');
+                // 첫 차트 생성 시에만 currentPeriod 초기화
+                if (window.dailyStats?.seasonData) {
+                    const tempPeriods = createMonthlyPeriods(window.dailyStats.seasonData);
+                    winGapChartState.currentPeriod = tempPeriods.length - 1; // 가장 최근 기간으로 설정
+                    console.log('currentPeriod 초기화됨:', winGapChartState.currentPeriod);
+                }
+                
+                updateWinGapChart();
+                updateWinGapProgressIndicator();
+                console.log('✅ 승차 변화 차트 초기화 완료');
+            } catch (error) {
+                console.error('❌ 승차 변화 차트 생성 실패:', error);
+                console.error('에러 스택:', error.stack);
+            }
+        }
+
+        // 승차 변화 차트 업데이트 함수
+        function updateWinGapChart() {
+            console.log('🔄 updateWinGapChart 호출됨');
+            console.log('window.dailyStats 존재:', !!window.dailyStats);
+            console.log('seasonData 존재:', !!window.dailyStats?.seasonData);
+            
+            // dailyStats가 아직 로드되지 않았다면 잠시 후 다시 시도
+            if (!window.dailyStats) {
+                console.log('⏳ window.dailyStats가 아직 로드되지 않음, 500ms 후 재시도');
+                setTimeout(() => updateWinGapChart(), 500);
+                return;
+            }
+            
+            if (!window.dailyStats.seasonData) {
+                console.error('❌ window.dailyStats.seasonData가 없습니다');
+                return;
+            }
+
+            const seasonData = window.dailyStats.seasonData;
+            console.log('seasonData 타입:', typeof seasonData, '길이:', seasonData?.length);
+            
+            if (!Array.isArray(seasonData) || seasonData.length === 0) {
+                console.error('❌ seasonData가 배열이 아니거나 비어있습니다:', {
+                    isArray: Array.isArray(seasonData),
+                    length: seasonData?.length,
+                    type: typeof seasonData
+                });
+                return;
+            }
+
+            // 기간별 데이터 준비
+            winGapChartState.periods = createMonthlyPeriods(seasonData);
+            console.log('생성된 periods:', winGapChartState.periods.length, '개');
+            console.log('현재 currentPeriod:', winGapChartState.currentPeriod);
+            console.log('현재 isFullView:', winGapChartState.isFullView);
+            
+            let chartData;
+            if (winGapChartState.isFullView) {
+                console.log('전체 시즌 모드 사용');
+                chartData = seasonData;
+            } else {
+                console.log('월별 모드 사용, period 인덱스:', winGapChartState.currentPeriod);
+                const period = winGapChartState.periods[winGapChartState.currentPeriod];
+                if (!period) {
+                    console.error('해당 period를 찾을 수 없습니다:', winGapChartState.currentPeriod);
+                    return;
+                }
+                console.log('선택된 period:', period);
+                // period.data를 직접 사용 (이미 해당 월의 데이터가 포함되어 있음)
+                chartData = period.data || [];
+                console.log('period.data에서 가져온 chartData 개수:', chartData.length);
+            }
+
+            if (chartData.length === 0) {
+                console.error('❌ chartData가 비어있습니다:', {
+                    isFullView: winGapChartState.isFullView,
+                    currentPeriod: winGapChartState.currentPeriod,
+                    periodsLength: winGapChartState.periods.length,
+                    selectedPeriod: winGapChartState.periods[winGapChartState.currentPeriod]
+                });
+                return;
+            }
+
+            // 승차 계산
+            const teamWinGaps = {};
+            const teams = ['KIA', '삼성', 'LG', '두산', 'KT', 'NC', 'SSG', '롯데', '한화', '키움'];
+            
+            teams.forEach(team => {
+                teamWinGaps[team] = [];
+            });
+
+            chartData.forEach(dayData => {
+                const standings = window.dailyStats.calculateStandings(dayData.date);
+                const firstPlaceWins = Math.max(...standings.map(team => team.wins));
+                
+                standings.forEach(teamData => {
+                    const winGap = firstPlaceWins - teamData.wins;
+                    teamWinGaps[teamData.team].push(winGap);
+                });
+            });
+
+            const labels = chartData.map(d => {
+                const [, month, day] = d.date.split('-');
+                return `${month}/${day}`;
+            });
+
+            const datasets = teams.map(team => {
+                const teamColor = window.dailyStats.teamColors[team] || '#666';
+                const data = teamWinGaps[team];
+                const logoImage = window.teamLogoImages[team];
+                
+                // pointStyle 방식 제거 - plugins 시스템으로 대체
+
+                return {
+                    label: team,
+                    data: data,
+                    borderColor: teamColor,
+                    backgroundColor: teamColor + '20',
+                    borderWidth: 2,
+                    fill: false,
+                    tension: 0.2,
+                    pointRadius: 2,
+                    pointHoverRadius: 4,
+                    pointBackgroundColor: teamColor,
+                    pointBorderColor: teamColor
+                };
+            });
+
+            console.log('📊 차트 데이터 준비 완료');
+            console.log('labels:', labels.slice(0, 5), '... (총', labels.length, '개)');
+            console.log('datasets:', datasets.length, '개 팀');
+            
+            const ctx = document.getElementById('winGapChart');
+            console.log('캔버스 요소 재확인:', ctx);
+            if (!ctx) {
+                console.error('❌ winGapChart 캔버스를 찾을 수 없습니다');
+                return;
+            }
+
+            console.log('차트 인스턴스 상태:', !!winGapChartInstance);
+            if (!winGapChartInstance) {
+                console.log('🆕 새 차트 인스턴스 생성');
+                try {
+                    winGapChartInstance = new Chart(ctx.getContext('2d'), {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: datasets
+                    },
+                    plugins: [{
+                        id: 'teamLogos',
+                        afterDraw: (chart) => {
+                            const ctx = chart.ctx;
+                            if (!window.teamLogoImages || Object.keys(window.teamLogoImages).length === 0) {
+                                return;
+                            }
+                            
+                            chart.data.datasets.forEach((dataset, index) => {
+                                const meta = chart.getDatasetMeta(index);
+                                if (meta.data && meta.data.length > 0 && !meta.hidden) {
+                                    const lastPoint = meta.data[meta.data.length - 1];
+                                    const teamName = dataset.label;
+                                    const logoImg = window.teamLogoImages[teamName];
+                                    
+                                    if (logoImg && lastPoint && typeof lastPoint.x === 'number' && typeof lastPoint.y === 'number') {
+                                        ctx.save();
+                                        ctx.globalCompositeOperation = 'source-over';
+                                        ctx.shadowColor = 'rgba(0,0,0,0.5)';
+                                        ctx.shadowBlur = 3;
+                                        ctx.shadowOffsetX = 2;
+                                        ctx.shadowOffsetY = 2;
+                                        const size = 32;
+                                        ctx.drawImage(logoImg, lastPoint.x - size/2, lastPoint.y - size/2, size, size);
+                                        ctx.restore();
+                                    }
+                                }
+                            });
+                        }
+                    }],
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: '승차'
+                                },
+                                ticks: {
+                                    stepSize: 1,
+                                    callback: function(value) {
+                                        return value === 0 ? '동률' : `${value}승차`;
+                                    }
+                                }
+                            },
+                            x: {
+                                title: {
+                                    display: false
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                mode: 'index',
+                                intersect: false,
+                                itemSort: (a, b) => a.parsed.y - b.parsed.y, // 승차 낮은 순(순위 높은 순)으로 정렬
+                                callbacks: {
+                                    title: function(tooltipItems) {
+                                        return `${tooltipItems[0].label} 기준`;
+                                    },
+                                    label: function(context) {
+                                        const value = context.parsed.y;
+                                        return `${context.dataset.label}: ${value === 0 ? '동률' : value + '승차'}`;
+                                    }
+                                }
+                            }
+                        },
+                        interaction: {
+                            intersect: false,
+                            mode: 'index'
+                        },
+                        animation: {
+                            duration: 600,
+                            easing: 'easeInOutQuart'
+                        }
+                    }
+                });
+                console.log('✅ 새 차트 생성 완료');
+                } catch (chartError) {
+                    console.error('❌ 차트 생성 실패:', chartError);
+                    console.error('차트 에러 스택:', chartError.stack);
+                    return;
+                }
+            } else {
+                console.log('🔄 기존 차트 업데이트');
+                try {
+                    // 데이터를 완전히 교체하고 강제 리렌더링
+                    winGapChartInstance.data.labels = [...labels]; // 새 배열로 복사
+                    winGapChartInstance.data.datasets = datasets.map(ds => ({...ds, data: [...ds.data]})); // 깊은 복사
+                    
+                    // 강제로 차트 리사이즈 및 업데이트
+                    winGapChartInstance.resize();
+                    winGapChartInstance.update('active'); // 'active' 모드로 업데이트
+                    
+                    console.log('✅ 차트 업데이트 완료 (강제 리렌더링)');
+                } catch (updateError) {
+                    console.error('❌ 차트 업데이트 실패:', updateError);
+                    return;
+                }
+            }
+
+            // 네비게이션 버튼 업데이트
+            updateWinGapNavigation();
+            // 레전드 업데이트 (ui-charts.js의 커스텀 레전드 사용)
+            console.log('승차 차트 레전드 업데이트 시도');
+            console.log('createWinGapCustomLegend 함수 존재:', typeof createWinGapCustomLegend);
+            console.log('window.createWinGapCustomLegend 함수 존재:', typeof window.createWinGapCustomLegend);
+            if (typeof window.createWinGapCustomLegend === 'function') {
+                console.log('커스텀 레전드 사용');
+                window.createWinGapCustomLegend(teams, winGapChartInstance);
+            } else if (typeof createWinGapCustomLegend === 'function') {
+                console.log('로컬 커스텀 레전드 사용');
+                createWinGapCustomLegend(teams, winGapChartInstance);
+            } else {
+                console.log('기본 레전드 사용');
+                updateWinGapLegend(teams);
+            }
+        }
+
+        // 승차 변화 차트 네비게이션 업데이트
+        function updateWinGapNavigation() {
+            const prevBtn = document.getElementById('prevPeriodWinGap');
+            const nextBtn = document.getElementById('nextPeriodWinGap');
+            const toggleBtn = document.getElementById('periodToggleWinGap');
+            const periodText = document.getElementById('currentPeriodTextWinGap');
+
+            if (winGapChartState.isFullView) {
+                if (prevBtn) {
+                    prevBtn.style.opacity = '0.3';
+                    prevBtn.style.display = 'none';
+                    prevBtn.textContent = '← 이전월';
+                }
+                if (nextBtn) {
+                    nextBtn.style.opacity = '0.3';
+                    nextBtn.style.display = 'none';
+                    nextBtn.textContent = '다음월 →';
+                }
+                if (toggleBtn) toggleBtn.textContent = '🗓️ 월별 보기';
+                
+                // 전체 시즌 기간 표시
+                if (periodText) {
+                    if (winGapChartState.periods && winGapChartState.periods.length > 0) {
+                        const firstPeriod = winGapChartState.periods[0];
+                        const lastPeriod = winGapChartState.periods[winGapChartState.periods.length - 1];
+                        if (firstPeriod.data.length > 0 && lastPeriod.data.length > 0) {
+                            const startDate = new Date(firstPeriod.data[0].date);
+                            const endDate = new Date(lastPeriod.data[lastPeriod.data.length - 1].date);
+                            periodText.textContent = `전체 시즌: ${startDate.getFullYear()}년 ${startDate.getMonth() + 1}월 ${startDate.getDate()}일 - ${endDate.getFullYear()}년 ${endDate.getMonth() + 1}월 ${endDate.getDate()}일`;
+                        } else {
+                            periodText.textContent = `전체 시즌: 2025년 3월 22일 개막 ~ 현재`;
+                        }
+                    } else {
+                        periodText.textContent = `전체 시즌: 2025년 3월 22일 개막 ~ 현재`;
+                    }
+                    periodText.style.visibility = 'visible';
+                }
+            } else {
+                // 이전월 버튼 처리
+                if (winGapChartState.currentPeriod === 0) {
+                    if (prevBtn) prevBtn.style.display = 'none';
+                } else {
+                    if (prevBtn) {
+                        prevBtn.style.display = 'inline-block';
+                        prevBtn.style.opacity = '1';
+                        const prevPeriod = winGapChartState.periods[winGapChartState.currentPeriod - 1];
+                        prevBtn.textContent = prevPeriod ? `← ${prevPeriod.name}` : '← 이전월';
+                    }
+                }
+                
+                // 다음월 버튼 처리
+                if (winGapChartState.currentPeriod >= winGapChartState.periods.length - 1) {
+                    if (nextBtn) nextBtn.style.display = 'none';
+                } else {
+                    if (nextBtn) {
+                        nextBtn.style.display = 'inline-block';
+                        nextBtn.style.opacity = '1';
+                        const nextPeriod = winGapChartState.periods[winGapChartState.currentPeriod + 1];
+                        nextBtn.textContent = nextPeriod ? `${nextPeriod.name} →` : '다음월 →';
+                    }
+                }
+                
+                if (toggleBtn) toggleBtn.textContent = '📊 전체 시즌 보기';
+                
+                const currentPeriod = winGapChartState.periods[winGapChartState.currentPeriod];
+                if (periodText && currentPeriod) {
+                    periodText.textContent = `현재 보는 기간: ${currentPeriod.name}`;
+                    periodText.style.visibility = 'visible';
+                }
+            }
+            
+            // 진행 인디케이터도 업데이트
+            updateWinGapProgressIndicator();
+        }
+
+        // 승차 변화 차트 진행 인디케이터 업데이트
+        function updateWinGapProgressIndicator() {
+            const container = document.getElementById('progressDotsWinGap');
+            if (!container) return;
+
+            if (winGapChartState.isFullView) {
+                container.innerHTML = '';
+                return;
+            }
+
+            const dots = winGapChartState.periods.map((period, index) => {
+                const isActive = index === winGapChartState.currentPeriod;
+                return `<div style="
+                    width: 8px; 
+                    height: 8px; 
+                    border-radius: 50%; 
+                    background: ${isActive ? '#28a745' : '#ddd'};
+                    transition: all 0.3s ease;
+                " title="${period.name}"></div>`;
+            }).join('');
+
+            container.innerHTML = dots;
+        }
+
+        // 승차 변화 차트 레전드 업데이트
+        function updateWinGapLegend(teams) {
+            const legendContainer = document.getElementById('winGapChartLegend');
+            if (!legendContainer) return;
+
+            legendContainer.innerHTML = '';
+
+            const allSelected = teams.every(team => winGapChartInstance.isDatasetVisible(winGapChartInstance.data.datasets.findIndex(d => d.label === team)));
+
+            // 전체 선택/해제 버튼
+            const allButton = document.createElement('button');
+            allButton.textContent = allSelected ? '전체 해제' : '전체 선택';
+            allButton.style.cssText = `
+                padding: 4px 8px;
+                margin: 2px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                background: ${allSelected ? '#ff6b6b' : '#28a745'};
+                color: white;
+                cursor: pointer;
+                font-size: 11px;
+                transition: all 0.2s ease;
+            `;
+            allButton.onclick = () => toggleAllWinGapTeams();
+            legendContainer.appendChild(allButton);
+
+            // 팀별 버튼
+            teams.forEach(team => {
+                const datasetIndex = winGapChartInstance.data.datasets.findIndex(d => d.label === team);
+                const isVisible = winGapChartInstance.isDatasetVisible(datasetIndex);
+                const teamColor = window.dailyStats.teamColors[team] || '#666';
+
+                const button = document.createElement('button');
+                button.style.cssText = `
+                    display: flex;
+                    align-items: center;
+                    gap: 4px;
+                    padding: 4px 8px;
+                    margin: 2px;
+                    border: 1px solid ${teamColor};
+                    border-radius: 4px;
+                    background: ${isVisible ? teamColor : 'white'};
+                    color: ${isVisible ? 'white' : teamColor};
+                    cursor: pointer;
+                    font-size: 11px;
+                    opacity: ${isVisible ? '1' : '0.6'};
+                    transition: all 0.2s ease;
+                `;
+
+                // 팀 로고
+                if (window.teamLogoImages[team]) {
+                    const img = document.createElement('img');
+                    img.src = window.teamLogoImages[team].src;
+                    img.style.cssText = 'width: 14px; height: 14px; object-fit: contain;';
+                    button.appendChild(img);
+                }
+
+                button.appendChild(document.createTextNode(team));
+                button.onclick = () => toggleWinGapTeam(datasetIndex);
+                legendContainer.appendChild(button);
+            });
+        }
+
+        // 승차 변화 차트 팀 토글
+        function toggleWinGapTeam(datasetIndex) {
+            if (!winGapChartInstance) return;
+            
+            const isVisible = winGapChartInstance.isDatasetVisible(datasetIndex);
+            winGapChartInstance.setDatasetVisibility(datasetIndex, !isVisible);
+            winGapChartInstance.update('none');
+            
+            const teams = ['KIA', '삼성', 'LG', '두산', 'KT', 'NC', 'SSG', '롯데', '한화', '키움'];
+            console.log('팀 토글 후 레전드 업데이트');
+            if (typeof window.createWinGapCustomLegend === 'function') {
+                window.createWinGapCustomLegend(teams, winGapChartInstance);
+            } else if (typeof createWinGapCustomLegend === 'function') {
+                createWinGapCustomLegend(teams, winGapChartInstance);
+            } else {
+                updateWinGapLegend(teams);
+            }
+        }
+
+        // 승차 변화 차트 전체 팀 토글
+        function toggleAllWinGapTeams() {
+            if (!winGapChartInstance) return;
+
+            const teams = ['KIA', '삼성', 'LG', '두산', 'KT', 'NC', 'SSG', '롯데', '한화', '키움'];
+            const allVisible = teams.every(team => winGapChartInstance.isDatasetVisible(winGapChartInstance.data.datasets.findIndex(d => d.label === team)));
+
+            teams.forEach(team => {
+                const datasetIndex = winGapChartInstance.data.datasets.findIndex(d => d.label === team);
+                winGapChartInstance.setDatasetVisibility(datasetIndex, !allVisible);
+            });
+
+            winGapChartInstance.update('none');
+            console.log('전체 팀 토글 후 레전드 업데이트');
+            if (typeof window.createWinGapCustomLegend === 'function') {
+                window.createWinGapCustomLegend(teams, winGapChartInstance);
+            } else if (typeof createWinGapCustomLegend === 'function') {
+                createWinGapCustomLegend(teams, winGapChartInstance);
+            } else {
+                updateWinGapLegend(teams);
             }
         }
 
@@ -14729,9 +15465,20 @@ KT 9:1 키움(H)`;
         // 승률 차트 생성 및 업데이트 함수 (안정성 개선)
         async function createWinRateChart() {
             try {
-                if (typeof Chart === 'undefined') return;
+                // Chart.js 지연 로딩 먼저 실행
+                await window.loadChartJs();
+                console.log('승률 차트: Chart.js 로딩 완료');
+                
+                if (typeof Chart === 'undefined') {
+                    console.error('승률 차트: Chart.js 라이브러리 로드 실패');
+                    return;
+                }
+                
                 const ctx = document.getElementById('winRateChart');
-                if (!ctx) return;
+                if (!ctx) {
+                    console.error('승률 차트: winRateChart 캔버스를 찾을 수 없음');
+                    return;
+                }
 
                 // 일자별 통계 데이터가 로드될 때까지 대기 (최대 10초)
                 let retryCount = 0;
@@ -14939,9 +15686,15 @@ KT 9:1 키움(H)`;
 
             Object.keys(monthlyData).sort().forEach(monthKey => {
                 const [year, month] = monthKey.split('-');
+                const monthData = monthlyData[monthKey];
+                monthData.sort((a, b) => new Date(a.date) - new Date(b.date));
+                
                 periods.push({
+                    name: `${year}년 ${month}월`,
                     label: `${year}년 ${month}월`,
-                    data: monthlyData[monthKey]
+                    start: monthData[0].date,
+                    end: monthData[monthData.length - 1].date,
+                    data: monthData
                 });
             });
 

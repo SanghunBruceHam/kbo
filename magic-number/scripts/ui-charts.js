@@ -1,3 +1,24 @@
+// =============================================================================
+// 전역 유틸리티 함수들 (먼저 정의)
+// =============================================================================
+
+// 팀 로고 파일명 매핑
+window.getTeamLogo = function getTeamLogo(team) {
+    const logos = {
+        "한화": "hanwha.png",
+        "LG": "lg.png",
+        "두산": "doosan.png",
+        "삼성": "samsung.png",
+        "KIA": "kia.png",
+        "SSG": "ssg.png",
+        "롯데": "lotte.png",
+        "NC": "nc.png",
+        "키움": "kiwoom.png",
+        "KT": "kt.png"
+    };
+    return logos[team] || "default.png";
+};
+
 /**
  * =============================================================================
  * 📈 KBO 메인 순위 변동 차트 관리 시스템 (ui-charts.js)
@@ -48,7 +69,7 @@ async function loadTeamLogos() {
     teams.forEach(teamName => {
         const promise = new Promise((resolve, reject) => {
             const img = new Image();
-            const logoPath = basePath + getTeamLogo(teamName);
+            const logoPath = basePath + window.getTeamLogo(teamName);
             
             img.onload = () => {
                 window.teamLogoImages[teamName] = img;
@@ -57,7 +78,7 @@ async function loadTeamLogos() {
             
             img.onerror = () => {
                 // 대체 경로 시도
-                const altPath = isInMagicNumberFolder ? 'magic-number/images/teams/' + getTeamLogo(teamName) : 'images/teams/' + getTeamLogo(teamName);
+                const altPath = isInMagicNumberFolder ? 'magic-number/images/teams/' + window.getTeamLogo(teamName) : 'images/teams/' + window.getTeamLogo(teamName);
                 const altImg = new Image();
                 
                 altImg.onload = () => {
@@ -386,21 +407,7 @@ function getTeamColor(team) {
     return colors[team] || "#666666";
 }
 
-function getTeamLogo(team) {
-    const logos = {
-        "한화": "hanwha.png",
-        "LG": "lg.png",
-        "두산": "doosan.png",
-        "삼성": "samsung.png",
-        "KIA": "kia.png",
-        "SSG": "ssg.png",
-        "롯데": "lotte.png",
-        "NC": "nc.png",
-        "키움": "kiwoom.png",
-        "KT": "kt.png"
-    };
-    return logos[team] || "default.png";
-}
+// (getTeamLogo 함수는 파일 상단에서 이미 정의됨)
 
 /**
  * 🎨 커스텀 레전드 생성 함수
@@ -600,7 +607,7 @@ function createCustomLegend() {
         
         // 현재 페이지가 magic-number 폴더 내에 있는지 확인
         const isInMagicNumberFolder = window.location.pathname.includes('/magic-number/');
-        const logoPath = isInMagicNumberFolder ? `images/teams/${getTeamLogo(teamName)}` : `magic-number/images/teams/${getTeamLogo(teamName)}`;
+        const logoPath = isInMagicNumberFolder ? `images/teams/${window.getTeamLogo(teamName)}` : `magic-number/images/teams/${window.getTeamLogo(teamName)}`;
         
         logoImg.src = logoPath;
         logoImg.alt = teamName;
@@ -1319,3 +1326,278 @@ window.addEventListener('load', async function() {
         }
     }
 });
+
+// =============================================================================
+// 승차 변화 추이 차트용 커스텀 레전드 생성 함수 (전역 노출)
+// =============================================================================
+window.createWinGapCustomLegend = function createWinGapCustomLegend(teams, chartInstance) {
+    console.log('createWinGapCustomLegend 함수 호출됨', teams, chartInstance);
+    const legendContainer = document.getElementById('winGapChartLegend');
+    console.log('레전드 컨테이너:', legendContainer);
+    if (!legendContainer || !chartInstance) {
+        console.log('레전드 컨테이너 또는 차트 인스턴스가 없음');
+        return;
+    }
+    
+    // 기존 레전드 제거
+    legendContainer.innerHTML = '';
+    
+    // 레전드 컨테이너 스타일 설정
+    legendContainer.style.cssText = `
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        margin-top: 5px;
+        margin-bottom: 0;
+        padding: 0 10px;
+        background: none;
+        border-radius: 0;
+        box-shadow: none;
+        border: none;
+        width: 100%;
+        box-sizing: border-box;
+    `;
+
+    // 메인 페이지 현재 순위 순서대로 팀 정렬 (순위 변동 차트와 동일한 방식)
+    let sortedTeams;
+    if (window.getRankingSystem) {
+        const rankingSystem = window.getRankingSystem();
+        if (rankingSystem.teams.length > 0) {
+            sortedTeams = rankingSystem.teams.map(teamName => {
+                const datasetIndex = chartInstance.data.datasets.findIndex(d => d.label === teamName);
+                return {
+                    teamName: teamName,
+                    rank: rankingSystem.teamRanks[teamName],
+                    datasetIndex: datasetIndex >= 0 ? datasetIndex : -1
+                };
+            }).filter(item => item.datasetIndex !== -1);
+        } else {
+            // 기본값으로 fallback
+            sortedTeams = teams.map(team => ({
+                teamName: team,
+                datasetIndex: chartInstance.data.datasets.findIndex(d => d.label === team)
+            })).filter(item => item.datasetIndex !== -1);
+        }
+    } else {
+        // getRankingSystem이 없을 때 기본값
+        sortedTeams = teams.map(team => ({
+            teamName: team,
+            datasetIndex: chartInstance.data.datasets.findIndex(d => d.label === team)
+        })).filter(item => item.datasetIndex !== -1);
+    }
+    
+    // 선택된 팀 수 계산
+    const totalTeams = sortedTeams.length;
+    const visibleTeams = sortedTeams.filter(item => 
+        chartInstance.isDatasetVisible(item.datasetIndex)
+    ).length;
+    
+    let allVisible = visibleTeams === totalTeams;
+    
+    // 전체선택/해제 버튼 생성
+    const toggleAllButton = document.createElement('button');
+    toggleAllButton.id = 'toggle-all-wingap-teams';
+    toggleAllButton.textContent = allVisible ? `전체 해제 (${visibleTeams}/${totalTeams})` : `전체 선택 (${visibleTeams}/${totalTeams})`;
+    toggleAllButton.style.cssText = `
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 5px 12px;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        color: white;
+        font-weight: 600;
+        font-size: 13px;
+        white-space: nowrap;
+        flex-shrink: 0;
+        min-height: 34px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+        border: none;
+    `;
+
+    // 버튼 호버 효과
+    toggleAllButton.addEventListener('mouseenter', () => {
+        const hoverGradient = allVisible ? 
+            'linear-gradient(135deg, #dc2626 0%, #b91c1c 100%)' :
+            'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)';
+        toggleAllButton.style.background = hoverGradient;
+        toggleAllButton.style.transform = 'translateY(-1px)';
+        toggleAllButton.style.boxShadow = '0 4px 8px rgba(0,0,0,0.12)';
+    });
+    
+    toggleAllButton.addEventListener('mouseleave', () => {
+        const normalGradient = allVisible ? 
+            'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)' :
+            'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)';
+        toggleAllButton.style.background = normalGradient;
+        toggleAllButton.style.transform = 'translateY(0)';
+        toggleAllButton.style.boxShadow = '0 2px 4px rgba(0,0,0,0.15)';
+    });
+
+    // 버튼 클릭 이벤트
+    toggleAllButton.addEventListener('click', () => {
+        allVisible = !allVisible;
+        
+        sortedTeams.forEach(item => {
+            chartInstance.setDatasetVisibility(item.datasetIndex, allVisible);
+        });
+        
+        chartInstance.update();
+        
+        // 버튼 텍스트 및 색상 업데이트
+        const updatedVisibleTeams = allVisible ? totalTeams : 0;
+        toggleAllButton.textContent = allVisible ? `전체 해제 (${updatedVisibleTeams}/${totalTeams})` : `전체 선택 (${updatedVisibleTeams}/${totalTeams})`;
+        const buttonGradient = allVisible ? 
+            'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)' :
+            'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)';
+        toggleAllButton.style.background = buttonGradient;
+        
+        // 모든 범례 아이템의 시각적 상태 업데이트
+        const legendItems = legendContainer.querySelectorAll('div[data-team]');
+        legendItems.forEach(item => {
+            const img = item.querySelector('img');
+            const colorBox = item.querySelector('div[style*="border-radius: 50%"]');
+            const text = item.querySelector('span');
+            
+            const opacity = allVisible ? '1' : '0.4';
+            const filter = allVisible ? 'none' : 'grayscale(100%)';
+            
+            item.style.opacity = opacity;
+            if (img) img.style.filter = filter;
+            if (colorBox) colorBox.style.opacity = opacity;
+            if (text) text.style.opacity = opacity;
+            
+            if (!allVisible) {
+                item.style.borderColor = 'rgba(0,0,0,0.2)';
+                item.style.background = 'rgba(128,128,128,0.1)';
+            } else {
+                item.style.borderColor = 'rgba(0,0,0,0.1)';
+                item.style.background = 'rgba(255,255,255,0.9)';
+            }
+        });
+    });
+    
+    legendContainer.appendChild(toggleAllButton);
+    
+    // 팀별 레전드 아이템 생성
+    sortedTeams.forEach(({teamName, datasetIndex}, index) => {
+        const dataset = chartInstance.data.datasets[datasetIndex];
+        if (!dataset) return;
+        
+        const legendItem = document.createElement('div');
+        legendItem.setAttribute('data-team', teamName);
+        legendItem.style.cssText = `
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 5px 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: rgba(255,255,255,0.9);
+            border: 1px solid rgba(0,0,0,0.1);
+            font-weight: 600;
+            font-size: 13px;
+            white-space: nowrap;
+            flex-shrink: 0;
+            min-height: 34px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+        `;
+        
+        // 색상 인디케이터
+        const colorBox = document.createElement('div');
+        colorBox.style.cssText = `
+            width: 12px;
+            height: 12px;
+            background-color: ${dataset.borderColor};
+            border-radius: 50%;
+            border: 2px solid white;
+            box-shadow: 0 0 0 1px rgba(0,0,0,0.2);
+            flex-shrink: 0;
+        `;
+        
+        // 팀 로고 이미지
+        const logoImg = document.createElement('img');
+        
+        // 현재 페이지가 magic-number 폴더 내에 있는지 확인
+        const isInMagicNumberFolder = window.location.pathname.includes('/magic-number/');
+        const logoPath = isInMagicNumberFolder ? `images/teams/${window.getTeamLogo(teamName)}` : `magic-number/images/teams/${window.getTeamLogo(teamName)}`;
+        
+        logoImg.src = logoPath;
+        logoImg.alt = teamName;
+        logoImg.style.cssText = `
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+            border-radius: 3px;
+            flex-shrink: 0;
+        `;
+        
+        // 팀명 텍스트
+        const teamText = document.createElement('span');
+        teamText.textContent = teamName;
+        teamText.style.cssText = `
+            color: #333;
+            font-weight: 600;
+            font-size: 13px;
+        `;
+        
+        // 클릭 이벤트
+        legendItem.addEventListener('click', () => {
+            const isVisible = chartInstance.isDatasetVisible(datasetIndex);
+            chartInstance.setDatasetVisibility(datasetIndex, !isVisible);
+            chartInstance.update();
+            
+            // 시각적 상태 업데이트
+            const opacity = !isVisible ? '1' : '0.4';
+            const filter = !isVisible ? 'none' : 'grayscale(100%)';
+            
+            legendItem.style.opacity = opacity;
+            logoImg.style.filter = filter;
+            colorBox.style.opacity = opacity;
+            teamText.style.opacity = opacity;
+            
+            if (isVisible) {
+                legendItem.style.borderColor = 'rgba(0,0,0,0.2)';
+                legendItem.style.background = 'rgba(128,128,128,0.1)';
+            } else {
+                legendItem.style.borderColor = 'rgba(0,0,0,0.1)';
+                legendItem.style.background = 'rgba(255,255,255,0.9)';
+            }
+            
+            // 전체 버튼 상태 업데이트
+            const currentVisibleTeams = sortedTeams.filter(item => 
+                chartInstance.isDatasetVisible(item.datasetIndex)
+            ).length;
+            
+            allVisible = currentVisibleTeams === totalTeams;
+            toggleAllButton.textContent = allVisible ? `전체 해제 (${currentVisibleTeams}/${totalTeams})` : `전체 선택 (${currentVisibleTeams}/${totalTeams})`;
+            const buttonGradient = allVisible ? 
+                'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)' :
+                'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)';
+            toggleAllButton.style.background = buttonGradient;
+        });
+        
+        // 호버 효과
+        legendItem.addEventListener('mouseenter', () => {
+            legendItem.style.transform = 'translateY(-1px)';
+            legendItem.style.boxShadow = '0 4px 8px rgba(0,0,0,0.12)';
+        });
+        
+        legendItem.addEventListener('mouseleave', () => {
+            legendItem.style.transform = 'translateY(0)';
+            legendItem.style.boxShadow = '0 2px 4px rgba(0,0,0,0.08)';
+        });
+        
+        // 요소 조합
+        legendItem.appendChild(colorBox);
+        legendItem.appendChild(logoImg);
+        legendItem.appendChild(teamText);
+        
+        legendContainer.appendChild(legendItem);
+    });
+};
