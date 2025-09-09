@@ -4512,9 +4512,20 @@
                         <button class="daily-stats-btn daily-stats-btn-secondary" style="padding: 8px 12px; border: none; border-radius: 7px; cursor: pointer; font-size: 12px; font-weight: 600; transition: all 0.2s ease; background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%); color: #475569; border: 1px solid #cbd5e1; box-shadow: 0 2px 4px rgba(0,0,0,0.05);" id="daily-stats-next-btn" onclick="dailyStatsChangeDate(1)" onmouseover="this.style.background='linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%)'" onmouseout="this.style.background='linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%)'" aria-label="다음 날짜로 이동">다음날 →</button>
                     </div>
                     <input type="date" class="daily-stats-date-input" style="padding: 8px 11px; border: 1px solid #cbd5e1; border-radius: 7px; font-size: 13px; background: white; transition: all 0.2s ease; box-shadow: 0 2px 4px rgba(0,0,0,0.05);" id="daily-stats-date-input" min="2025-03-22" max="" value="" onchange="dailyStatsSelectDate(this.value)" onfocus="this.style.borderColor='#3b82f6'; this.style.boxShadow='0 0 0 3px rgba(59, 130, 246, 0.1)'" onblur="this.style.borderColor='#cbd5e1'; this.style.boxShadow='0 2px 4px rgba(0,0,0,0.05)'">
-                    <div class="daily-stats-animation-controls" style="display: flex; gap: 5px;">
+                    <div class="daily-stats-animation-controls" style="display: flex; gap: 5px; align-items: center; flex-wrap: wrap;">
                         <button class="daily-stats-btn daily-stats-btn-primary" style="padding: 8px 14px; border: none; border-radius: 7px; cursor: pointer; font-size: 12px; font-weight: 600; transition: all 0.2s ease; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; box-shadow: 0 2px 5px rgba(16, 185, 129, 0.3);" id="daily-stats-animation-btn" onclick="dailyStatsToggleAnimation()" onmouseover="this.style.background='linear-gradient(135deg, #059669 0%, #047857 100%)'" onmouseout="this.style.background='linear-gradient(135deg, #10b981 0%, #059669 100%)'" aria-label="순위 변동 애니메이션 토글">▶️ 애니메이션</button>
                         <button class="daily-stats-btn daily-stats-btn-secondary" style="padding: 8px 12px; border: none; border-radius: 7px; cursor: pointer; font-size: 12px; font-weight: 600; transition: all 0.2s ease; background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: white; box-shadow: 0 2px 5px rgba(245, 158, 11, 0.3);" id="daily-stats-reset-btn" onclick="dailyStatsResetAnimation()" onmouseover="this.style.background='linear-gradient(135deg, #d97706 0%, #b45309 100%)'" onmouseout="this.style.background='linear-gradient(135deg, #f59e0b 0%, #d97706 100%)'" aria-label="애니메이션 처음부터 재생">⏮️ 처음부터</button>
+                        
+                        <!-- 애니메이션 속도 조절 -->
+                        <div class="animation-speed-control" style="display: flex; align-items: center; gap: 4px; margin-left: 8px; padding: 6px 10px; background: rgba(255,255,255,0.9); border-radius: 6px; border: 1px solid #e5e7eb;">
+                            <span style="font-size: 11px; color: #6b7280; font-weight: 600;">🐌</span>
+                            <input type="range" id="animation-speed-slider" min="1" max="5" value="3" step="1" 
+                                   style="width: 60px; height: 4px; background: #e5e7eb; outline: none; border-radius: 2px; cursor: pointer;"
+                                   oninput="dailyStatsUpdateAnimationSpeed(this.value)"
+                                   title="애니메이션 속도 조절">
+                            <span style="font-size: 11px; color: #6b7280; font-weight: 600;">🚀</span>
+                            <span id="speed-display" style="font-size: 10px; color: #9ca3af; font-weight: 600; min-width: 20px;">보통</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -4579,7 +4590,7 @@
                 <div style="font-size: var(--font-base); font-weight: var(--font-weight-medium); margin-bottom: 8px; color: #495057;">📖 일별 종합지표 이용 가이드</div>
                 <div style="font-size: var(--font-sm); color: #4b5563; line-height: 1.5;">
                     <div style="margin-bottom: 6px;"><strong>날짜 네비게이션:</strong> ← → 버튼으로 날짜 이동, 날짜 입력으로 직접 선택, 오늘 버튼으로 최신 경기일로 이동</div>
-                    <div style="margin-bottom: 6px;"><strong>애니메이션:</strong> ▶️ 버튼으로 시즌 시작부터 자동 진행, ⏸️로 일시정지, ⏮️로 시작일(3월 22일)로 이동</div>
+                    <div style="margin-bottom: 6px;"><strong>애니메이션:</strong> ▶️ 버튼으로 시즌 시작부터 자동 진행, ⏸️로 일시정지, ⏮️로 시작일(3월 22일)로 이동, 🐌🚀 슬라이더로 속도 조절</div>
                     <div style="margin-bottom: 6px;"><strong>날짜 색상:</strong> 평일은 파란색, 주말/공휴일은 빨간색으로 표시</div>
                     <div style="margin-bottom: 6px;"><strong>차트 조작:</strong> 팀 로고 클릭으로 해당 팀 선 표시/숨김, 마우스 오버로 상세 정보 확인</div>
                     <div><strong>데이터 범위:</strong> 2025년 3월 22일(개막일)부터 현재까지의 실제 경기 결과 기반</div>
@@ -12277,6 +12288,7 @@
                 this.isAnimating = false;
                 this.animationInterval = null;
                 this.animationDate = null;
+                this.animationSpeed = 3; // 기본 속도 (1=매우느림, 5=매우빠름)
                 // 시즌 전체 최대 게임차 (미리 계산)
                 this.maxSeasonGamesBehind = 0;
                 
@@ -14164,7 +14176,46 @@ KT 9:1 키움(H)`;
                     if (!hasGameData) {
                         this.stopAnimation();
                     }
-                }, 800); // 0.8초마다 날짜 변경 (더 자연스럽게)
+                }, this.getAnimationInterval()); // 동적 애니메이션 속도
+            }
+            
+            // 애니메이션 속도에 따른 간격 계산 (밀리초)
+            getAnimationInterval() {
+                const speedMap = {
+                    1: 2000,   // 매우 느림: 2초
+                    2: 1200,   // 느림: 1.2초  
+                    3: 800,    // 보통: 0.8초 (기본값)
+                    4: 500,    // 빠름: 0.5초
+                    5: 300     // 매우 빠름: 0.3초
+                };
+                return speedMap[this.animationSpeed] || 800;
+            }
+            
+            // 애니메이션 속도 업데이트
+            updateAnimationSpeed(speed) {
+                this.animationSpeed = parseInt(speed);
+                
+                // 애니메이션 중이면 재시작하여 새로운 속도 적용
+                if (this.isAnimating) {
+                    const wasAnimating = this.isAnimating;
+                    this.stopAnimation();
+                    if (wasAnimating) {
+                        this.startAnimation();
+                    }
+                }
+                
+                // 속도 표시 업데이트
+                const speedDisplay = document.getElementById('speed-display');
+                const speedLabels = {
+                    1: '매우느림',
+                    2: '느림', 
+                    3: '보통',
+                    4: '빠름',
+                    5: '매우빠름'
+                };
+                if (speedDisplay) {
+                    speedDisplay.textContent = speedLabels[this.animationSpeed] || '보통';
+                }
             }
             
             stopAnimation() {
@@ -14254,6 +14305,9 @@ KT 9:1 키움(H)`;
         }
         function dailyStatsResetAnimation() { 
             if (completeDailyStats) completeDailyStats.resetAnimation();
+        }
+        function dailyStatsUpdateAnimationSpeed(speed) { 
+            if (completeDailyStats) completeDailyStats.updateAnimationSpeed(speed);
         }
     </script>
     
