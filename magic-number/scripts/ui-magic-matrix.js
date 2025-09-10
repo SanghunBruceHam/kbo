@@ -314,25 +314,28 @@ function renderMatrixTable() {
             const anyBetterPossible = rank > 1
                 ? [...Array(rank - 1).keys()].some(i => row[`y${i + 1}_tieOK`] > 0)
                 : false;
+            
+            // 5위 구분선 클래스 추가
+            const dividerClass = (rank === 5) ? ' playoff-divider-left' : '';
 
             if (rank < currentRank) {
                 // Tragic side
                 if (yVal === 0) {
-                    return `<td class="magic-cell magic-impossible">${rank}위 불가</td>`;
+                    return `<td class="magic-cell magic-impossible${dividerClass}">${rank}위 불가</td>`;
                 }
                 // Remove "T" prefix
-                return `<td class="magic-cell magic-danger tragic" style="border-color:${teamColor};">${yVal}</td>`;
+                return `<td class="magic-cell magic-danger tragic${dividerClass}" style="border-color:${teamColor};">${yVal}</td>`;
             } else {
                 // Magic side
                 if (xVal === 0) {
                     if (anyBetterPossible) {
-                        return `<td class="magic-cell confirmed" style="border-color:${teamColor};">확보</td>`;
+                        return `<td class="magic-cell confirmed${dividerClass}" style="border-color:${teamColor};">확보</td>`;
                     } else {
-                        return `<td class="magic-cell confirmed" style="border-color:${teamColor};">확정</td>`;
+                        return `<td class="magic-cell confirmed${dividerClass}" style="border-color:${teamColor};">확정</td>`;
                     }
                 }
                 // Remove "M" prefix
-                return `<td class="magic-cell magic-safe" style="border-color:${teamColor};">${xVal}</td>`;
+                return `<td class="magic-cell magic-safe${dividerClass}" style="border-color:${teamColor};">${xVal}</td>`;
             }
         }
 
