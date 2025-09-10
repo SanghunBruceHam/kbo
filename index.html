@@ -15525,64 +15525,40 @@ KT 9:1 키움(H)`;
 
         // 승차 변화 차트 업데이트 함수
         function updateWinGapChart() {
-            console.log('🔄 updateWinGapChart 호출됨');
-            console.log('window.dailyStats 존재:', !!window.dailyStats);
-            console.log('seasonData 존재:', !!window.dailyStats?.seasonData);
-            
             // dailyStats가 아직 로드되지 않았다면 잠시 후 다시 시도
             if (!window.dailyStats) {
-                console.log('⏳ window.dailyStats가 아직 로드되지 않음, 500ms 후 재시도');
                 setTimeout(() => updateWinGapChart(), 500);
                 return;
             }
             
             if (!window.dailyStats.seasonData) {
-                console.error('❌ window.dailyStats.seasonData가 없습니다');
+                console.error('seasonData가 없습니다');
                 return;
             }
 
             const seasonData = window.dailyStats.seasonData;
-            console.log('seasonData 타입:', typeof seasonData, '길이:', seasonData?.length);
             
             if (!Array.isArray(seasonData) || seasonData.length === 0) {
-                console.error('❌ seasonData가 배열이 아니거나 비어있습니다:', {
-                    isArray: Array.isArray(seasonData),
-                    length: seasonData?.length,
-                    type: typeof seasonData
-                });
+                console.error('seasonData가 배열이 아니거나 비어있습니다:', seasonData);
                 return;
             }
 
             // 기간별 데이터 준비
             winGapChartState.periods = createMonthlyPeriods(seasonData);
-            console.log('생성된 periods:', winGapChartState.periods.length, '개');
-            console.log('현재 currentPeriod:', winGapChartState.currentPeriod);
-            console.log('현재 isFullView:', winGapChartState.isFullView);
             
             let chartData;
             if (winGapChartState.isFullView) {
-                console.log('전체 시즌 모드 사용');
                 chartData = seasonData;
             } else {
-                console.log('월별 모드 사용, period 인덱스:', winGapChartState.currentPeriod);
                 const period = winGapChartState.periods[winGapChartState.currentPeriod];
                 if (!period) {
-                    console.error('해당 period를 찾을 수 없습니다:', winGapChartState.currentPeriod);
                     return;
                 }
-                console.log('선택된 period:', period);
                 // period.data를 직접 사용 (이미 해당 월의 데이터가 포함되어 있음)
                 chartData = period.data || [];
-                console.log('period.data에서 가져온 chartData 개수:', chartData.length);
             }
 
             if (chartData.length === 0) {
-                console.error('❌ chartData가 비어있습니다:', {
-                    isFullView: winGapChartState.isFullView,
-                    currentPeriod: winGapChartState.currentPeriod,
-                    periodsLength: winGapChartState.periods.length,
-                    selectedPeriod: winGapChartState.periods[winGapChartState.currentPeriod]
-                });
                 return;
             }
 
@@ -15631,20 +15607,13 @@ KT 9:1 키움(H)`;
                 };
             });
 
-            console.log('📊 차트 데이터 준비 완료');
-            console.log('labels:', labels.slice(0, 5), '... (총', labels.length, '개)');
-            console.log('datasets:', datasets.length, '개 팀');
             
             const ctx = document.getElementById('winGapChart');
-            console.log('캔버스 요소 재확인:', ctx);
             if (!ctx) {
-                console.error('❌ winGapChart 캔버스를 찾을 수 없습니다');
                 return;
             }
 
-            console.log('차트 인스턴스 상태:', !!winGapChartInstance);
             if (!winGapChartInstance) {
-                console.log('🆕 새 차트 인스턴스 생성');
                 try {
                     winGapChartInstance = new Chart(ctx.getContext('2d'), {
                     type: 'line',
@@ -15750,26 +15719,17 @@ KT 9:1 키움(H)`;
                         }
                     }
                 });
-                console.log('✅ 새 차트 생성 완료');
                 } catch (chartError) {
-                    console.error('❌ 차트 생성 실패:', chartError);
-                    console.error('차트 에러 스택:', chartError.stack);
                     return;
                 }
             } else {
-                console.log('🔄 기존 차트 업데이트');
                 try {
-                    // 데이터를 완전히 교체하고 강제 리렌더링
-                    winGapChartInstance.data.labels = [...labels]; // 새 배열로 복사
-                    winGapChartInstance.data.datasets = datasets.map(ds => ({...ds, data: [...ds.data]})); // 깊은 복사
+                    winGapChartInstance.data.labels = [...labels];
+                    winGapChartInstance.data.datasets = datasets.map(ds => ({...ds, data: [...ds.data]}));
                     
-                    // 강제로 차트 리사이즈 및 업데이트
                     winGapChartInstance.resize();
-                    winGapChartInstance.update('active'); // 'active' 모드로 업데이트
-                    
-                    console.log('✅ 차트 업데이트 완료 (강제 리렌더링)');
+                    winGapChartInstance.update('active');
                 } catch (updateError) {
-                    console.error('❌ 차트 업데이트 실패:', updateError);
                     return;
                 }
             }

@@ -1397,9 +1397,7 @@ async function loadWinCountData() {
             // 승수 변동 데이터 생성
             generateWinCountData() {
                 const allDates = this.getAllGameDates();
-                console.log('generateWinCountData - 모든 게임 날짜:', allDates);
                 const seasonData = [];
-                console.log('generateWinCountData - seasonData 초기화됨 (빈 배열):', seasonData);
                 
                 for (const date of allDates) {
                     const teams = window.getRankingSystem ? window.getRankingSystem().teams : this.teams;
@@ -1439,24 +1437,15 @@ async function loadWinCountData() {
                     });
                 }
                 
-                console.log('generateWinCountData - 최종 seasonData:', seasonData);
-                console.log('generateWinCountData - seasonData 길이:', seasonData.length);
-                console.log('generateWinCountData - seasonData 타입:', typeof seasonData, 'Array 여부:', Array.isArray(seasonData));
-                
                 return seasonData;
             }
         };
         
         const winCountRankings = generator.generateWinCountData();
-        console.log('loadWinCountData - generateWinCountData 결과:', winCountRankings);
-        console.log('loadWinCountData - winCountRankings 타입:', typeof winCountRankings, 'Array 여부:', Array.isArray(winCountRankings));
-        
         return processWinCountData(winCountRankings);
         
     } catch (error) {
         // 실제 데이터 로드 실패 시 가짜 데이터 사용
-        console.error('loadWinCountData 에러 발생:', error);
-        console.log('가짜 승수 데이터를 사용합니다.');
         return generateMockWinCountData();
     }
 }
@@ -1464,18 +1453,7 @@ async function loadWinCountData() {
 // 승수 데이터를 기간별로 분할 (월별 처리)
 function processWinCountData(winCountData) {
     // 데이터 유효성 검사
-    if (!winCountData) {
-        console.warn('winCountData가 null/undefined입니다. 가짜 데이터를 사용합니다.');
-        return generateMockWinCountData();
-    }
-    
-    if (!Array.isArray(winCountData)) {
-        console.warn('winCountData가 배열이 아닙니다:', winCountData, 'typeof:', typeof winCountData);
-        return generateMockWinCountData();
-    }
-    
-    if (winCountData.length === 0) {
-        console.warn('winCountData가 빈 배열입니다. 가짜 데이터를 사용합니다.');
+    if (!winCountData || !Array.isArray(winCountData) || winCountData.length === 0) {
         return generateMockWinCountData();
     }
     
