@@ -705,13 +705,24 @@
         #magicMatrixContent .magic-matrix-table tbody td.banner-top,
         #magicMatrixContent .magic-matrix-table tbody td.banner-mid,
         #magicMatrixContent .magic-matrix-table tbody td.banner-low {
-          padding: 2px 6px !important;
-          line-height: 24px !important; /* match 28px row height minus vertical padding */
+          padding: 2px 8px !important;
+          line-height: 24px !important; /* row: 28px, vertical padding 2px * 2 */
           vertical-align: middle !important;
           white-space: nowrap !important;
           overflow: hidden !important;
           text-overflow: ellipsis !important;
-          font-size: 12px !important;
+          font-size: 13px !important;   /* ⬆ slightly larger */
+          font-weight: 700 !important;  /* clearer banner text */
+          letter-spacing: 0.2px !important;
+        }
+
+        @media (max-width: 768px) {
+          #magicMatrixContent .magic-matrix-table tbody td.banner-top,
+          #magicMatrixContent .magic-matrix-table tbody td.banner-mid,
+          #magicMatrixContent .magic-matrix-table tbody td.banner-low {
+            font-size: 12px !important; /* keep compact on mobile */
+            padding: 2px 6px !important;
+          }
         }
 
         /* Ensure inline elements inside cells don't override line-height, except for matrix-team-info */
@@ -2820,7 +2831,7 @@
     <!-- <script src="scripts/ui-magic-matrix.js"></script> -->
     
     <!-- 최적화된 사전계산 기반 스크립트 -->
-    <script src="scripts/ui-magic-matrix-optimized.js"></script>
+    <script defer src="scripts/ui-magic-matrix-optimized.js"></script>
     
 </body>
 </html><!-- Updated at Tue Aug  5 10:21:58 JST 2025 -->

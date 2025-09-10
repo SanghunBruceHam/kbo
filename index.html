@@ -12620,7 +12620,7 @@
                     '키움': 'magic-number/images/teams/kiwoom.png'
                 };
                 
-                this.init();
+                this.initPromise = this.init();
             }
             
             async init() {
@@ -15206,8 +15206,12 @@ KT 9:1 키움(H)`;
             
             const dailyStatsCard = document.getElementById('daily-stats');
             if (dailyStatsCard) {
-                setTimeout(() => {
+                setTimeout(async () => {
                     completeDailyStats = new CompleteDailyStats();
+                    
+                    // CompleteDailyStats 초기화 완료 대기
+                    await completeDailyStats.initPromise;
+                    
                     window.dailyStatsModule = completeDailyStats; // 전역 접근
                     window.dailyStatsManager = completeDailyStats; // 레전드 버튼용 전역 접근
                     window.dailyStats = completeDailyStats; // 승률 차트용 전역 접근
@@ -15538,6 +15542,11 @@ KT 9:1 키움(H)`;
                 return;
             }
 
+            if (!window.dailyStats || !window.dailyStats.seasonData) {
+                console.error('window.dailyStats 또는 seasonData가 초기화되지 않았습니다');
+                return;
+            }
+            
             const seasonData = window.dailyStats.seasonData;
             
             if (!Array.isArray(seasonData) || seasonData.length === 0) {

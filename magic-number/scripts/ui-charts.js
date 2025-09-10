@@ -1585,6 +1585,7 @@ function createWinCountChart(data) {
     const ctx = document.getElementById('winCountChart');
     
     if (!ctx) {
+        console.error('winCountChart 캔버스 요소를 찾을 수 없습니다.');
         return null;
     }
     
@@ -1758,6 +1759,7 @@ function createWinCountChart(data) {
 // 승수 변동 차트 업데이트
 function updateWinCountChart() {
     if (winCountChartState.periods.length === 0) {
+        console.warn('승수 변동 추이 데이터 기간이 없습니다.');
         return;
     }
     
@@ -1768,9 +1770,15 @@ function updateWinCountChart() {
     } else {
         const period = winCountChartState.periods[winCountChartState.currentPeriod];
         if (!period) {
+            console.warn('현재 기간 데이터가 없습니다:', winCountChartState.currentPeriod);
             return;
         }
         chartData = period.data;
+    }
+    
+    if (!chartData) {
+        console.error('차트 데이터가 생성되지 않았습니다.');
+        return;
     }
     
     // 기존 차트 파괴하고 새로 생성
@@ -1779,14 +1787,18 @@ function updateWinCountChart() {
         winCountChartState.chart = null;
     }
     
-    if (!winCountChartState.chart) {
-        createWinCountChart(chartData);
-    } else {
-        winCountChartState.chart.data = chartData;
-        winCountChartState.chart.update('none');
+    try {
+        if (!winCountChartState.chart) {
+            createWinCountChart(chartData);
+        } else {
+            winCountChartState.chart.data = chartData;
+            winCountChartState.chart.update('none');
+        }
+        
+        updateWinCountUI();
+    } catch (error) {
+        console.error('승수 변동 추이 차트 생성 실패:', error);
     }
-    
-    updateWinCountUI();
     updateWinCountProgressIndicator();
 }
 
@@ -1797,10 +1809,26 @@ function generateFullSeasonWinCountChart() {
     // 모든 기간의 rawData를 하나로 합치기
     let allData = [];
     winCountChartState.periods.forEach(period => {
-        if (period.rawData) {
+        if (period.rawData && Array.isArray(period.rawData)) {
             allData = allData.concat(period.rawData);
         }
     });
+    
+    // 데이터가 없으면 빈 차트 반환
+    if (allData.length === 0) {
+        console.warn('전체 시즌 승수 데이터가 없습니다.');
+        return {
+            labels: ['데이터 없음'],
+            datasets: teams.map(team => ({
+                label: team,
+                data: [0],
+                borderColor: getTeamColor(team),
+                backgroundColor: getTeamColor(team) + '20',
+                borderWidth: 2,
+                fill: false
+            }))
+        };
+    }
     
     // 날짜순으로 정렬
     allData.sort((a, b) => new Date(a.date) - new Date(b.date));

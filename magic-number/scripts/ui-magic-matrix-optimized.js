@@ -138,38 +138,101 @@ function renderOptimizedMatrixTable() {
             <div class="matrix-team-status">현재 ${teamData.currentRank}위 · 잔여 ${teamData.remainingGames}경기</div>
         </td>`;
 
+        // --- 10위 확정(포스트시즌 실패) 강제 병합 처리 ---
+        // 조건: 모든 순위 셀 라벨이 '불가'이거나 클래스가 magic-impossible 이고,
+        //       현재 순위가 10위이며(또는 배너/플래그로 10위 확정 표시) → 전체 병합 배너로 표기
+        const allImpossible =
+            Array.isArray(teamData.cells) &&
+            teamData.cells.length > 0 &&
+            teamData.cells.every(c =>
+                ((c.label || '').includes('불가')) ||
+                ((c.className || '').includes('magic-impossible'))
+            );
+
+        const bannerText = `${teamData.banner?.stage || ''} ${teamData.banner?.sub || ''}`;
+        const isFixed10 =
+            (teamData.currentRank === 10) &&
+            (
+                teamData.fixedRank === 10 ||
+                /10위/.test(bannerText) ||
+                teamData.isEliminated === true
+            );
+
+        const isPostseasonFailMentioned = /포스트시즌\s*진출\s*실패/.test(bannerText);
+
+        if (allImpossible && (isFixed10 || isPostseasonFailMentioned)) {
+            // 9~1 전 구간을 하나의 배너로 병합
+            html += `<td class="banner-low" colspan="9" style="background: ${teamConfig.color};">`
+                 + `포스트시즌 진출 실패`
+                 + `<span class="banner-note">(정규시즌 10위 확정)</span>`
+                 + `</td>`;
+            html += '</tr>';
+            continue; // 다음 팀으로
+        }
+
         // 배너 또는 개별 셀 렌더링
         if (teamData.banner) {
-            // 5위 부분 배너 처리 - 테이블 순서대로 렌더링
-            if (teamData.banner.skipRanks) {
-                // 테이블 순서: [9][8][7][6][5][4][3][2][1]
-                const ranks = [9, 8, 7, 6, 5, 4, 3, 2, 1];
-                
-                for (const rank of ranks) {
-                    if (teamData.banner.skipRanks.includes(rank)) {
-                        // 배너 영역: 9위 위치에만 배너 렌더링 (colspan=5로 9~5 덮음)
-                        if (rank === 9) {
-                            html += `<td class="${teamData.banner.type}" colspan="${teamData.banner.colspan}" style="background: ${teamConfig.color};">
-                                ${teamData.banner.stage}
-                                <span class="banner-note">(${teamData.banner.sub})</span>
-                            </td>`;
-                        }
-                        // 8,7,6,5위는 배너에 포함되어 건너뜀
-                    } else {
-                        // 1-4위: 개별 셀 렌더링 + 연속 구간 병합 (확보/불가)
-                        const cell = teamData.cells.find(c => c.rank === rank);
-                        if (cell) {
-                            const dividerClass = cell.isPlayoffDivider ? 'playoff-divider-left' : '';
-                            html += `<td class="magic-cell ${cell.className} ${dividerClass}">${cell.label}</td>`;
-                        }
-                    }
+            const allRanks = [9, 8, 7, 6, 5, 4, 3, 2, 1];
+
+            // Heuristic: infer endRank (best secured rank) from banner text when explicit fields are missing
+            function inferEndRankFromBanner(b) {
+                const txt = `${b.stage || ''} ${b.sub || ''}`;
+                // "정규시즌 n위 확정" or "n위 확정" or "n위 이상 확보"
+                let m = txt.match(/([1-9])위\s*확정/);
+                if (m) return Number(m[1]);
+                m = txt.match(/정규시즌\s*([1-9])위\s*이상\s*확보/);
+                if (m) return Number(m[1]);
+                // by stage keywords
+                if (/한국시리즈/.test(txt) || /정규시즌\s*1위/.test(txt)) return 1;
+                if (/플레이오프/.test(txt) && /진출/.test(txt)) return 2;     // 2위 확정
+                if (/준\s*플레이오프/.test(txt) && /진출/.test(txt)) return 3; // 3위 확정
+                if (/와일드카드/.test(txt)) {
+                    // sub에 4위/5위가 명시되면 그대로, 없으면 5위로 가정
+                    m = txt.match(/([4-5])위/);
+                    return m ? Number(m[1]) : 5;
                 }
-            } else {
-                // 전체 배너 렌더링
-                html += `<td class="${teamData.banner.type}" colspan="${teamData.banner.colspan}" style="background: ${teamConfig.color};">
-                    ${teamData.banner.stage}
-                    <span class="banner-note">(${teamData.banner.sub})</span>
-                </td>`;
+                return null;
+            }
+
+            // 1) 우선순위: 명시값(startRank/endRank/colspan) → 추론 → 안전 폴백
+            const explicitStart = (teamData.banner.startRank != null) ? Number(teamData.banner.startRank) : null;
+            const explicitEnd   = (teamData.banner.endRank != null) ? Number(teamData.banner.endRank) : null;
+            let startRank = explicitStart ?? 9; // 왼쪽부터 시작
+            let endRank   = explicitEnd ?? inferEndRankFromBanner(teamData.banner);
+
+            // 일부 사전계산 JSON은 전체 colspan(=9)을 주는 케이스가 있어 보정
+            if (endRank == null) {
+                // skipRanks가 있으면 그 최소값을 end로 사용
+                if (Array.isArray(teamData.banner.skipRanks) && teamData.banner.skipRanks.length) {
+                    endRank = Math.min(...teamData.banner.skipRanks);
+                }
+            }
+            // 여전히 없거나 잘못된 값이면 9로 막지 않도록 9~9만 병합
+            if (endRank == null || endRank < 1 || endRank > 9) endRank = startRank;
+
+            // colspan 계산 (rank는 9→1 내림): 9~endRank 포함
+            const colspan = (teamData.banner.colspan && !explicitEnd && !explicitStart)
+                ? Math.max(1, 9 - (endRank) + 1) // 주어진 colspan이 9라도 텍스트 기반으로 보정
+                : (teamData.banner.colspan ?? (startRank - endRank + 1));
+
+            for (const rank of allRanks) {
+                // 병합 범위(예: 9~3) 안이면 9위 칸에서만 배너 한 번 렌더링
+                if (rank <= startRank && rank >= endRank) {
+                    if (rank === startRank) {
+                        html += `<td class="${teamData.banner.type}" colspan="${colspan}" style="background: ${teamConfig.color};">`
+                             + `${teamData.banner.stage}`
+                             + (teamData.banner.sub ? `<span class="banner-note">(${teamData.banner.sub})</span>` : '')
+                             + `</td>`;
+                    }
+                    continue; // 범위 내 나머지 칸은 건너뜀
+                }
+
+                // 범위 밖(예: 2,1위)은 개별 셀
+                const cell = teamData.cells.find(c => c.rank === rank);
+                if (cell) {
+                    const dividerClass = cell.isPlayoffDivider ? 'playoff-divider-left' : '';
+                    html += `<td class="magic-cell ${cell.className} ${dividerClass}">${cell.label}</td>`;
+                }
             }
         } else {
             // 개별 셀 렌더링 + 연속 구간 병합 (확보/불가)

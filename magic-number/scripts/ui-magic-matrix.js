@@ -264,6 +264,44 @@ function renderMatrixTable() {
             return null;
         }
 
+        // --- 배너 범위 계산 함수 ---
+        function getClinchRangeForTeam(row) {
+            const x1 = row[`x1_strict`];
+            const x2 = row[`x2_strict`];
+            const x3 = row[`x3_strict`];
+            const x4 = row[`x4_strict`];
+            const x5 = row[`x5_strict`];
+            const x6 = row[`x6_strict`];
+            const x7 = row[`x7_strict`];
+            const x8 = row[`x8_strict`];
+            const x9 = row[`x9_strict`];
+
+            // 확보한 최고 순위(숫자 작을수록 상위)
+            let minClinchRank = null;
+            if (x1 === 0) minClinchRank = 1;
+            else if (x2 === 0) minClinchRank = 2;
+            else if (x3 === 0) minClinchRank = 3;
+            else if (x4 === 0) minClinchRank = 4;
+            else if (x5 === 0) minClinchRank = 5;
+            else if (x6 === 0) minClinchRank = 6;
+            else if (x7 === 0) minClinchRank = 7;
+            else if (x8 === 0) minClinchRank = 8;
+            else if (x9 === 0) minClinchRank = 9;
+
+            if (!minClinchRank) return null; // 확보 없음
+
+            // 🔒 병합 규칙: 9위(맨 왼쪽)부터 clinch된 최소 순위까지 병합
+            const startRank = 9;              // 가장 왼쪽 열
+            const endRank = minClinchRank;    // 확보된 최소 순위 (예: 3위 확보 → 3)
+
+            return { startRank, endRank };
+        }
+        
+        // --- 랭크 → 열 인덱스 매핑 (9→0, 8→1, ..., 1→8) ---
+        function rankToColIndex(rank) {
+            return 9 - rank;
+        }
+
         function renderRankCell(row, rank, teamColor) {
             const clinchLabel = computeClinchLabel(row, rank);
             if (clinchLabel) {
@@ -285,130 +323,84 @@ function renderMatrixTable() {
             }
         }
 
-        // --- 배너/셀 렌더링 (머지 지원) ---
-        let ci = 0;
-        while (ci < ranks.length) {
-            const rank = ranks[ci];
-            const x1 = row[`x1_strict`];
-            const x2 = row[`x2_strict`];
-            const x3 = row[`x3_strict`];
-            const x4 = row[`x4_strict`];
-            const x5 = row[`x5_strict`];
+        // --- 새로운 배너/셀 렌더링 시스템 (범위 기반) ---
+        const clinchRange = getClinchRangeForTeam(row);
+        
+        // 배너 텍스트 결정 함수 (확정/확보 구분)
+        function getBannerTextFor(minRank) {
+            if (minRank === 1) return {
+                stage: '한국시리즈 진출 확정',
+                sub: '정규시즌 1위 확정',
+                cls: 'banner-top'
+            };
+            if (minRank === 2) return {
+                stage: '플레이오프 진출 확정',
+                sub: '정규시즌 2위 확정',
+                cls: 'banner-top'
+            };
+            if (minRank === 3) return {
+                stage: '준 플레이오프 진출 확정',
+                sub: '정규시즌 3위 확정',
+                cls: 'banner-top'
+            };
+            if (minRank === 4) return {
+                stage: '와일드카드 결정전 진출 확정',
+                sub: '정규시즌 4위 확정',
+                cls: 'banner-mid'
+            };
+            if (minRank === 5) return {
+                stage: '와일드카드 결정전 진출 확정',
+                sub: '정규시즌 5위 확정',
+                cls: 'banner-top'
+            };
+            return {
+                stage: '순위 확정',
+                sub: `${minRank}위 확정`,
+                cls: 'banner-mid'
+            };
+        }
+        
+        if (clinchRange) {
+            // rank -> col index (9->0 ... 1->8)
+            const startIdx = rankToColIndex(clinchRange.startRank); // 9 -> 0
+            const endIdx   = rankToColIndex(clinchRange.endRank);   // e.g., 3 -> 6
+            const colspan  = (endIdx - startIdx + 1);
 
+            // 1) 좌측 병합 배너 (9 ~ clinchRank)
+            const bannerText = getBannerTextFor(clinchRange.endRank);
+            html += bannerTd({
+                teamColor,
+                colspan,
+                stage: bannerText.stage,
+                sub: bannerText.sub,
+                cls: bannerText.cls
+            });
 
-            // 1) 확정 상태 우선순위(왼쪽→오른쪽 병합)
-            // 정확히 n위 확정: xk_strict === 0  &&  y(k-1)_tieOK === 0
-            // k위 이상 확정:    xk_strict === 0  &&  y(k-1)_tieOK  > 0 (상위 가능성 남음)
-            // Tragic 기준은 UI 전반에서 tieOK로 통일
-            const y1 = row[`y1_tieOK`];
-            const y2 = row[`y2_tieOK`];
-            const y3 = row[`y3_tieOK`];
-            const y4 = row[`y4_tieOK`];
-            const y5 = row[`y5_tieOK`];
-            const y6 = row[`y6_tieOK`];
-            const y7 = row[`y7_tieOK`];
-            const y8 = row[`y8_tieOK`];
-            const y9 = row[`y9_tieOK`];
-
-            // 10위 확정 (정확)
-            if (y9 === 0) {
-                html += bannerTd({ teamColor, colspan: 9, stage: '포스트시즌 진출 실패', sub: '정규시즌 10위 확정', cls: 'banner-low' });
-                break;
-            }
-            
-            // 1위 확정 (정확)
-            if (x1 === 0) {
-                html += bannerTd({ teamColor, colspan: 9, stage: '한국시리즈 진출 확보', sub: '정규시즌 1위 확정', cls: 'banner-top' });
-                break;
-            }
-
-            // 2위 처리: 위로(1위) 가능하면 확보, 막히면 확정
-            if (x2 === 0 && x1 > 0) {
-                if (y1 === 0) {
-                    // 1위 불가 → 정확히 2위 확정
-                    html += bannerTd({ teamColor, colspan: 9, stage: '플레이오프 진출 확보', sub: '정규시즌 2위 확정', cls: 'banner-top' });
+            // 2) 우측 개별 셀들 (clinchRank-1 ~ 1)
+            for (let ci = endIdx + 1; ci < ranks.length; ci++) {
+                const rank = ranks[ci];
+                const divider = (rank === 5) ? 'playoff-divider-left' : '';
+                const cellHtml = renderRankCell(row, rank, teamColor);
+                if (divider) {
+                    html += cellHtml.replace('<td class="matrix-cell', `<td class="matrix-cell ${divider}`);
                 } else {
-                    // 1위 가능 → 2위 이상 확보 (플레이오프 진출 확보)
-                    html += bannerTd({ teamColor, colspan: 9, stage: '플레이오프 진출 확보', sub: '정규시즌 2위 이상 확보', cls: 'banner-top' });
+                    html += cellHtml;
                 }
-                break;
             }
-
-            // 3위 처리: 위로(2위) 가능하면 확보, 막히면 확정
-            if (x3 === 0 && x2 > 0) {
-                if (y2 === 0) {
-                    // 2위 불가 → 정확히 3위 확정
-                    html += bannerTd({ teamColor, colspan: 9, stage: '준 플레이오프 진출 확보', sub: '정규시즌 3위 확정', cls: 'banner-top' });
+        } else {
+            // 배너가 없는 경우: 모든 셀 개별 렌더링
+            let ci = 0;
+            while (ci < ranks.length) {
+                const rank = ranks[ci];
+                const divider = (rank === 5) ? 'playoff-divider-left' : '';
+                const cellHtml = renderRankCell(row, rank, teamColor);
+                if (divider) {
+                    html += cellHtml.replace('<td class="matrix-cell', `<td class="matrix-cell ${divider}`);
                 } else {
-                    // 2위 가능 → 3위 이상 확보 (준 플레이오프 진출 확보)
-                    html += bannerTd({ teamColor, colspan: 9, stage: '준 플레이오프 진출 확보', sub: '정규시즌 3위 이상 확보', cls: 'banner-top' });
+                    html += cellHtml;
                 }
-                break;
+                ci++;
             }
-
-            // 4위 처리: 위로(3위) 가능하면 확보, 막히면 확정
-            if (x4 === 0 && x3 > 0) {
-                if (y3 === 0) {
-                    // 3위 불가 → 정확히 4위 확정
-                    html += bannerTd({ teamColor, colspan: 9, stage: '와일드카드 결정전 진출 확보', sub: '정규시즌 4위 확정', cls: 'banner-mid' });
-                } else {
-                    // 3위 가능 → 4위 이상 확보 (와일드카드 결정전 진출 확보)
-                    html += bannerTd({ teamColor, colspan: 9, stage: '와일드카드 결정전 진출 확보', sub: '정규시즌 4위 이상 확보', cls: 'banner-mid' });
-                }
-                break;
-            }
-
-            // 2) 하위권 확정(정확) – 오른쪽 전부 병합
-            // 6위 확정: x6==0 && y5==0  (≤6 확보 & ≤5 불가) → 포스트시즌 실패
-            // 7위 확정: x7==0 && y6==0
-            // 8위 확정: x8==0 && y7==0
-            // 9위 확정: x9==0 && y8==0
-            const x6v = row[`x6_strict`];
-            const x7v = row[`x7_strict`];
-            const x8v = row[`x8_strict`];
-            const x9v = row[`x9_strict`];
-
-            if (x6v === 0 && y5 === 0) {
-                html += bannerTd({ teamColor, colspan: 9, stage: '포스트시즌 진출 실패', sub: '정규시즌 6위 확정', cls: 'banner-low' });
-                break;
-            }
-            if (x7v === 0 && y6 === 0) {
-                html += bannerTd({ teamColor, colspan: 9, stage: '포스트시즌 진출 실패', sub: '정규시즌 7위 확정', cls: 'banner-low' });
-                break;
-            }
-            if (x8v === 0 && y7 === 0) {
-                html += bannerTd({ teamColor, colspan: 9, stage: '포스트시즌 진출 실패', sub: '정규시즌 8위 확정', cls: 'banner-low' });
-                break;
-            }
-            if (x9v === 0 && y8 === 0) {
-                html += bannerTd({ teamColor, colspan: 9, stage: '포스트시즌 진출 실패', sub: '정규시즌 9위 확정', cls: 'banner-low' });
-                break;
-            }
-
-            // 5위 처리: 위로(4위) 가능하면 확보, 막히면 확정 (9~5열 병합)
-            if (x5 === 0 && rank === 9) {
-                if (y4 === 0) {
-                    // 4위 불가 → 정확히 5위 확정
-                    html += bannerTd({ teamColor, colspan: 5, stage: '와일드카드 결정전 진출 확보', sub: '정규시즌 5위 확정', cls: 'banner-top' });
-                } else {
-                    // 4위 가능 → 5위 이상 확보 (와일드카드 결정전 진출 확보)
-                    html += bannerTd({ teamColor, colspan: 5, stage: '와일드카드 결정전 진출 확보', sub: '정규시즌 5위 이상 확보', cls: 'banner-top' });
-                }
-                ci += 5; // 9,8,7,6,5 건너뜀
-                continue;
-            }
-
-            // 4) 일반 셀 렌더링 (새로운 renderRankCell 함수 사용)
-            const divider = (rank === 5) ? 'playoff-divider-left' : '';
-            const cellHtml = renderRankCell(row, rank, teamColor);
-            
-            // divider 클래스 추가
-            if (divider) {
-                html += cellHtml.replace('<td class="matrix-cell', `<td class="matrix-cell ${divider}`);
-            } else {
-                html += cellHtml;
-            }
-            ci += 1;
         }
 
         html += '</tr>';
