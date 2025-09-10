@@ -1103,7 +1103,7 @@ function updateSimpleUI() {
             prevBtn.style.display = 'none';
         } else {
             prevBtn.style.display = 'inline-block';
-            // 이전월 버튼 텍스트 업데이트
+            // 이전 기간 버튼 텍스트 업데이트
             const prevPeriod = chartState.periods[chartState.currentPeriod - 1];
             prevBtn.textContent = `← ${prevPeriod.title}`;
         }
@@ -1118,7 +1118,7 @@ function updateSimpleUI() {
             nextBtn.style.display = 'none';
         } else {
             nextBtn.style.display = 'inline-block';
-            // 다음월 버튼 텍스트 업데이트
+            // 다음 기간 버튼 텍스트 업데이트
             const nextPeriod = chartState.periods[chartState.currentPeriod + 1];
             nextBtn.textContent = `${nextPeriod.title} →`;
         }
