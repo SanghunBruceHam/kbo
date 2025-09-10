@@ -703,28 +703,31 @@
             }
         }
 
-        /* PC 버전 전체 컨테이너 폭 제한 */
-        @media (min-width: 1024px) {
-            .container {
-                max-width: 1300px;
-            }
-            
-            /* PC에서 날짜를 한 줄로 표시 */
+        /* 태블릿 이상에서 날짜를 한 줄로 표시 (768px로 낮춤) */
+        @media (min-width: 768px) {
+            /* 날짜를 한 줄로 표시 */
             .date-cell br {
                 display: none;
             }
             
             .date-cell .date-main {
-                margin-right: 6px;
+                margin-right: 4px;
             }
             
             .date-cell .date-day {
-                margin-right: 6px;
+                margin-right: 4px;
             }
             
             .date-cell .date-time,
             .date-cell .date-holiday {
-                margin-left: 6px;
+                margin-left: 4px;
+            }
+        }
+        
+        /* PC 버전 전체 컨테이너 폭 제한 */
+        @media (min-width: 1024px) {
+            .container {
+                max-width: 1300px;
             }
         }
 
