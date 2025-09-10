@@ -12902,9 +12902,9 @@ KT 9:1 키움(H)`;
                     this.updateWinGapChart(date);
                 }
                 
-                // 승수 차트 업데이트
-                if (this.winCountChart || document.getElementById('daily-stats-win-count-chart')) {
-                    this.updateWinCountChart(date);
+                // 승수 차트 업데이트 (최적화된 메서드 사용)
+                if (this.winCountChart) {
+                    this.updateWinCountChartForDateChange(date);
                 }
                 
                 // 승률 추이 차트 업데이트 (최적화된 메서드 사용)
@@ -14461,6 +14461,50 @@ KT 9:1 키움(H)`;
                     duration: 800,
                     easing: 'easeInOutQuart'
                 }); // 부드러운 애니메이션으로 업데이트
+            }
+            
+            updateWinCountChartForDateChange(selectedDate) {
+                if (!this.winCountChart) return;
+                
+                const selectedIndex = this.seasonData.findIndex(d => d.date === selectedDate);
+                if (selectedIndex === -1) return;
+                
+                const chartData = this.seasonData.slice(0, selectedIndex + 1);
+                const dates = chartData.map(d => {
+                    const [, month, day] = d.date.split('-');
+                    return `${month}/${day}`;
+                });
+                
+                // 라벨 업데이트
+                this.winCountChart.data.labels = dates;
+                
+                // 각 데이터셋의 데이터만 업데이트
+                this.winCountChart.data.datasets.forEach(dataset => {
+                    const team = dataset.label;
+                    const data = chartData.map(dayData => {
+                        const standings = this.calculateStandings(dayData.date);
+                        const teamData = standings.find(s => s.team === team);
+                        return teamData ? teamData.wins : 0;
+                    });
+                    
+                    const logoImage = this.teamLogoImages[team];
+                    const pointStyles = data.map((_, index) => 
+                        index === data.length - 1 ? (logoImage || 'circle') : 'circle'
+                    );
+                    const pointRadii = data.map((_, index) => 
+                        index === data.length - 1 && logoImage ? 10 : 2
+                    );
+                    
+                    dataset.data = data;
+                    dataset.pointStyle = pointStyles;
+                    dataset.pointRadius = pointRadii;
+                    dataset.pointHoverRadius = pointRadii.map(r => r + 2);
+                });
+                
+                this.winCountChart.update({
+                    duration: 800,
+                    easing: 'easeInOutQuart'
+                });
             }
             
             // 애니메이션 전용 디스플레이 업데이트 (차트 제외)
