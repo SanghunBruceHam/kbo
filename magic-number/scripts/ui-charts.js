@@ -1445,6 +1445,8 @@ async function loadWinCountData() {
         return processWinCountData(winCountRankings);
         
     } catch (error) {
+        console.error('승수 변동 추이 데이터 로드 실패:', error);
+        console.log('가짜 데이터를 사용합니다.');
         // 실제 데이터 로드 실패 시 가짜 데이터 사용
         return generateMockWinCountData();
     }
@@ -1454,6 +1456,7 @@ async function loadWinCountData() {
 function processWinCountData(winCountData) {
     // 데이터 유효성 검사
     if (!winCountData || !Array.isArray(winCountData) || winCountData.length === 0) {
+        console.error('승수 데이터가 배열이 아니거나 비어있습니다:', winCountData);
         return generateMockWinCountData();
     }
     

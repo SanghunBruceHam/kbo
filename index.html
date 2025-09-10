@@ -15281,11 +15281,13 @@ KT 9:1 키움(H)`;
                 }
                 
                 // 2-1단계: 승수 변동 추이 차트 초기화 (ui-charts.js 사용)
-                if (typeof initWinCountChart === 'function') {
+                if (typeof window.initWinCountChart === 'function') {
                     console.log('승수 변동 차트 초기화 중...');
                     const winCountCanvas = document.getElementById('winCountChart');
                     console.log('winCountChart 캔버스 존재:', !!winCountCanvas);
-                    await initWinCountChart();
+                    await window.initWinCountChart();
+                } else {
+                    console.warn('window.initWinCountChart 함수를 찾을 수 없습니다');
                 }
 
                 // 2-2단계: 순위 변동 차트 초기화 (simple-chart.js 사용)

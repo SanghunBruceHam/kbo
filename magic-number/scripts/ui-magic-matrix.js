@@ -254,6 +254,37 @@ function renderMatrixTable() {
             <div class="matrix-team-status">현재 ${currentRank}위 · 잔여 ${row.R}경기</div>
         </td>`;
 
+        // --- 확보/확정 상태 검사 함수 ---
+        function computeClinchLabel(row, k) {
+            const x = (kk) => row[`x${kk}_strict`];
+            if (k === 1) return x(1) === 0 ? '✓ 1위 확정' : null;
+            if (x(k) === 0 && x(k - 1) > 0) {
+                return `✓ ${k}위 확보`;
+            }
+            return null;
+        }
+
+        function renderRankCell(row, rank, teamColor) {
+            const clinchLabel = computeClinchLabel(row, rank);
+            if (clinchLabel) {
+                return `<td class="matrix-cell secured" style="border-color: ${teamColor}; background: linear-gradient(135deg, ${teamColor}22, ${teamColor}11);">
+                    <div class="clinch-label" style="color: ${teamColor}; font-weight: bold;">${clinchLabel}</div>
+                </td>`;
+            }
+            
+            // 기존 매직/트래직 넘버 로직
+            const xVal = row[`x${rank}_strict`];
+            const yVal = row[`y${rank}_tieOK`];
+            
+            if (xVal === 0) {
+                return `<td class="matrix-cell confirmed" style="border-color: ${teamColor};">확정</td>`;
+            } else if (yVal === 0) {
+                return `<td class="matrix-cell impossible">불가능</td>`;
+            } else {
+                return `<td class="matrix-cell" style="border-color: ${teamColor};">M${xVal}</td>`;
+            }
+        }
+
         // --- 배너/셀 렌더링 (머지 지원) ---
         let ci = 0;
         while (ci < ranks.length) {
@@ -367,23 +398,16 @@ function renderMatrixTable() {
                 continue;
             }
 
-            // 4) 일반 셀 렌더링 (매직=strict, 트래직=tieOK)
-            const x     = row[`x${rank}_strict`];
-            const y     = row[`y${rank}_tieOK`];
-            const xraw  = row[`x${rank}_strict_raw`];
-            const R     = row.R;
-
-            const {label, cls} = cellLabelAndClass({
-                rank,
-                currentRank,
-                x,
-                y,
-                xraw,
-                R
-            });
-
+            // 4) 일반 셀 렌더링 (새로운 renderRankCell 함수 사용)
             const divider = (rank === 5) ? 'playoff-divider-left' : '';
-            html += `<td class="magic-cell ${cls} ${divider}">${label}</td>`;
+            const cellHtml = renderRankCell(row, rank, teamColor);
+            
+            // divider 클래스 추가
+            if (divider) {
+                html += cellHtml.replace('<td class="matrix-cell', `<td class="matrix-cell ${divider}`);
+            } else {
+                html += cellHtml;
+            }
             ci += 1;
         }
 
