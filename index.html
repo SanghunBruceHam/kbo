@@ -7040,7 +7040,7 @@
                 html += `
                     <tr>
                         <td class="week-cell" style="max-width: 50px; width: 50px; padding: 6px 2px; text-align: center;">${weekCellContent}</td>
-                        <td class="date-cell" style="max-width: 120px; width: 120px; font-size: var(--font-xs); padding: 6px 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${startStr} ~ ${endStr}</td>
+                        <td class="date-cell" style="max-width: 120px; width: 120px; font-size: var(--font-xs); padding: 6px 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${startStr} ~ ${endStr}</td>
                         ${teams.map(team => {
                             const teamAnalysis = weeklyAnalysisData.weeklyAnalysis[team];
                             const weekStats = teamAnalysis?.weeklyStats?.[week] || { 
