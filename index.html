@@ -4156,6 +4156,7 @@
                     <a href="#daily-stats" class="nav-item">📅 일별통계</a>
                     <a href="#standings" class="nav-item">🏆 종합순위</a>
                     <a href="#wingap-chart-section" class="nav-item">📊 승차추이</a>
+                    <a href="#win-count-chart-section" class="nav-item">🏆 승수추이</a>
                     <a href="#rank-chart-section" class="nav-item">📈 순위변동</a>
                     <a href="#winrate-chart-section" class="nav-item">📉 승률추이</a>
                     <a href="#half-season-stats" class="nav-item">⚾ 전후반기</a>
@@ -4815,6 +4816,128 @@
         </div>
 
         <!-- 쿠팡 광고 1: 승차 변화 추이 차트 후 -->
+        <div class="ad-card">
+            <div class="coupang-ad-wrapper">
+                <div>광고</div>
+                <script src="https://ads-partners.coupang.com/g.js"></script>
+                <script>
+                    new PartnersCoupang.G({"id":918101,"trackingCode":"AF6959276","template":"carousel","width":"1300","height":"180","tsource":""});
+                </script>
+            </div>
+        </div>
+
+        <!-- 2. 승수 변동 추이 -->
+        <div class="card" id="win-count-chart-section" style="margin-bottom: 30px;">
+            <div class="card-header">
+                <span class="card-icon">🏆</span>
+                <h2 class="card-title">승수 변동 추이</h2>
+            </div>
+            
+            <!-- 그래프 네비게이션 -->
+            <div class="chart-nav" id="win-count-chart-nav" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding: 0 10px;">
+                <div style="min-width: 120px; display: flex; justify-content: flex-start;">
+                    <button id="prevPeriodWinCount" class="nav-btn" onclick="handlePrevPeriodWinCount()" style="
+                        background: #4CAF50; 
+                        color: white; 
+                        border: none; 
+                        padding: 8px 16px; 
+                        border-radius: 6px; 
+                        cursor: pointer;
+                        font-size: 14px;
+                        transition: all 0.3s ease;
+                    " aria-label="이전 달 승수 변동 차트 보기">로딩중...</button>
+                </div>
+                
+                <!-- 토글 버튼 (기간 정보 + 모드 전환) -->
+                <button id="periodToggleWinCount" onclick="handlePeriodToggleWinCount()" style="
+                    background: linear-gradient(135deg, #28a745, #34ce57);
+                    color: white;
+                    border: none;
+                    padding: 10px 20px;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    font-size: 14px;
+                    font-weight: 600;
+                    transition: all 0.3s ease;
+                    box-shadow: 0 2px 4px rgba(40, 167, 69, 0.3);
+                    min-width: 220px;
+                " onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 4px 8px rgba(40, 167, 69, 0.4)'" 
+                   onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 4px rgba(40, 167, 69, 0.3)'" 
+                   aria-label="전체 기간과 구간 보기 전환">
+                    📊 전체 시즌 보기
+                </button>
+                
+                <div style="min-width: 120px; display: flex; justify-content: flex-end;">
+                    <button id="nextPeriodWinCount" class="nav-btn" onclick="handleNextPeriodWinCount()" style="
+                        background: #4CAF50; 
+                        color: white; 
+                        border: none; 
+                        padding: 8px 16px; 
+                        border-radius: 6px; 
+                        cursor: pointer;
+                        font-size: 14px;
+                        transition: all 0.3s ease;
+                    " aria-label="다음 달 승수 변동 차트 보기">로딩중...</button>
+                </div>
+            </div>
+            
+            <!-- 현재 기간 텍스트 (월 단위 모드에서만) -->
+            <div id="currentPeriodTextWinCount" style="
+                text-align: center;
+                margin: 0;
+                height: 18px;
+                font-size: 13px;
+                color: #666;
+                font-weight: 500;
+                line-height: 18px;
+                visibility: hidden;
+            ">
+                현재 보는 기간: -
+            </div>
+            
+            <!-- 진행 인디케이터 -->
+            <div class="progress-indicator" style="
+                display: flex; 
+                justify-content: center; 
+                margin-bottom: 8px;
+                gap: 4px;
+            " id="progressDotsWinCount"></div>
+            
+            <div class="daily-stats-sub-card" style="background: #f8f9fa; border-radius: 8px; padding: 16px; border: 1px solid #e9ecef; margin-bottom: 20px; height: 535px; display: flex; flex-direction: column;">
+                <div style="position: relative; flex: 1; min-height: 0; overflow: hidden;">
+                    <!-- 메인 승수변동추이 카드 캔버스 -->
+                    <canvas id="winCountChart"></canvas>
+                </div>
+            </div>
+            
+            <!-- 팀 레전드 (순위 변동 추이와 동일한 형식) -->
+            <div id="winCountChartLegend" style="display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; padding: 0; background: transparent; border: none; flex-shrink: 0; max-height: 60px; overflow-y: auto; margin-bottom: 0;">
+                <!-- 동적으로 생성됨 -->
+            </div>
+            
+            <!-- 설명 섹션 -->
+            <div style="margin-top: 20px; padding: 12px; background: #f8f9fa; border-radius: 6px; border: 1px solid #e9ecef;">
+                <div style="font-size: var(--font-base); font-weight: var(--font-weight-medium); margin-bottom: 8px; color: #495057;">🏆 승수 변동 추이 그래프 이용 가이드</div>
+                <ul style="margin: 6px 0; padding-left: 16px; line-height: 1.5; font-size: var(--font-sm); color: var(--text-secondary);">
+                    <li><strong>기간:</strong> 3월 22일 개막~현재</li>
+                    <li><strong>승수:</strong> 각 팀의 시즌 누적 승리 횟수</li>
+                    <li><strong>추이:</strong> 시즌 진행에 따른 승수 증가 패턴</li>
+                </ul>
+                <div style="margin-top: 8px; font-size: 11px; color: #666;">
+                    <strong>💡 사용법:</strong>
+                    <ul style="margin: 6px 0 0 0; padding-left: 16px; line-height: 1.4; font-size: 12px;">
+                        <li><strong>📊 전체시즌:</strong> 전체/30일 전환</li>
+                        <li><strong>로고클릭:</strong> 팀 라인 숨기기</li>
+                        <li><strong>마우스오버:</strong> 날짜별 승수 확인</li>
+                    </ul>
+                </div>
+                <div style="margin-top: 8px; font-size: 11px; color: #666;">
+                    📌 팀명 순서는 현재 순위 기준 고정, 마우스 오버로 날짜별 승수 확인
+                </div>
+            </div>
+        </div>
+
+        <!-- 쿠팡 광고 2: 승수 변동 추이 차트 후 -->
         <div class="ad-card">
             <div class="coupang-ad-wrapper">
                 <div>광고</div>
@@ -13392,6 +13515,14 @@ KT 9:1 키움(H)`;
                             x: {
                                 grid: {
                                     color: '#e5e7eb'
+                                },
+                                ticks: {
+                                    maxRotation: 45,
+                                    minRotation: 45,
+                                    font: {
+                                        size: 11
+                                    },
+                                    maxTicksLimit: 30
                                 }
                             }
                         },
@@ -13531,6 +13662,14 @@ KT 9:1 키움(H)`;
                             x: {
                                 grid: {
                                     color: '#e5e7eb'
+                                },
+                                ticks: {
+                                    maxRotation: 45,
+                                    minRotation: 45,
+                                    font: {
+                                        size: 11
+                                    },
+                                    maxTicksLimit: 30
                                 }
                             }
                         },
@@ -13636,6 +13775,14 @@ KT 9:1 키움(H)`;
                         options: {
                             responsive: true,
                             maintainAspectRatio: false,
+                            layout: {
+                                padding: {
+                                    left: 10,
+                                    right: 50,
+                                    top: 10,
+                                    bottom: 10
+                                }
+                            },
                             scales: {
                                 y: {
                                     beginAtZero: true,
@@ -13653,6 +13800,14 @@ KT 9:1 키움(H)`;
                                 x: {
                                     title: {
                                         display: false
+                                    },
+                                    ticks: {
+                                        maxRotation: 45,
+                                        minRotation: 45,
+                                        font: {
+                                            size: 11
+                                        },
+                                        maxTicksLimit: 30
                                     }
                                 }
                             },
@@ -15125,7 +15280,15 @@ KT 9:1 키움(H)`;
                     console.log('글로벌 teamLogos:', Object.keys(teamLogos));
                 }
                 
-                // 2단계: 순위 변동 차트 초기화 (simple-chart.js 사용)
+                // 2-1단계: 승수 변동 추이 차트 초기화 (ui-charts.js 사용)
+                if (typeof initWinCountChart === 'function') {
+                    console.log('승수 변동 차트 초기화 중...');
+                    const winCountCanvas = document.getElementById('winCountChart');
+                    console.log('winCountChart 캔버스 존재:', !!winCountCanvas);
+                    await initWinCountChart();
+                }
+
+                // 2-2단계: 순위 변동 차트 초기화 (simple-chart.js 사용)
                 if (typeof initSimpleChart === 'function') {
                     console.log('순위 변동 차트 초기화 중...');
                     const rankCanvas = document.getElementById('rankChart');
@@ -15522,6 +15685,14 @@ KT 9:1 키움(H)`;
                     options: {
                         responsive: true,
                         maintainAspectRatio: false,
+                        layout: {
+                            padding: {
+                                left: 10,
+                                right: 50,
+                                top: 10,
+                                bottom: 10
+                            }
+                        },
                         scales: {
                             y: {
                                 beginAtZero: true,
@@ -15539,6 +15710,14 @@ KT 9:1 키움(H)`;
                             x: {
                                 title: {
                                     display: false
+                                },
+                                ticks: {
+                                    maxRotation: 45,
+                                    minRotation: 45,
+                                    font: {
+                                        size: 11
+                                    },
+                                    maxTicksLimit: 30
                                 }
                             }
                         },
@@ -15943,7 +16122,7 @@ KT 9:1 키움(H)`;
                         layout: {
                             padding: {
                                 left: 10,
-                                right: 30,
+                                right: 50,
                                 top: 10,
                                 bottom: 10
                             }
@@ -15976,12 +16155,19 @@ KT 9:1 키움(H)`;
                                     display: false
                                 },
                                 ticks: {
-                                    maxTicksLimit: 16, // 적절한 틱 수로 조정
+                                    maxTicksLimit: 30, // 다른 차트와 동일하게 30개로 설정
                                     maxRotation: 45,   // 사선 각도 설정
                                     minRotation: 45,   // 최소 각도도 45도로 고정
+                                    font: {
+                                        size: 11       // 다른 차트와 동일한 폰트 크기
+                                    },
                                     callback: function(value, index, ticks) {
                                         return this.getLabelForValue(value);
                                     }
+                                },
+                                grid: {
+                                    display: true,
+                                    color: '#e5e7eb'
                                 }
                             },
                             y: {
@@ -16228,8 +16414,10 @@ KT 9:1 키움(H)`;
                     maintainAspectRatio: false,
                     layout: {
                         padding: {
-                            right: 25,  // 우측 패딩 추가로 로고 짤림 방지
-                            left: 5
+                            left: 10,
+                            right: 50,  // 우측 패딩 추가로 로고 짤림 방지
+                            top: 10,
+                            bottom: 10
                         }
                     },
                     elements: {
@@ -16269,9 +16457,16 @@ KT 9:1 키움(H)`;
                         },
                         x: {
                             ticks: {
-                                maxTicksLimit: winRateChartState.isFullView ? 16 : labels.length,
+                                maxTicksLimit: 30,  // 다른 차트와 동일하게 30개로 설정
                                 maxRotation: 45,   // 사선 각도 설정
-                                minRotation: 45    // 최소 각도도 45도로 고정
+                                minRotation: 45,   // 최소 각도도 45도로 고정
+                                font: {
+                                    size: 11       // 다른 차트와 동일한 폰트 크기
+                                }
+                            },
+                            grid: {
+                                display: true,
+                                color: '#e5e7eb'
                             }
                         }
                     }

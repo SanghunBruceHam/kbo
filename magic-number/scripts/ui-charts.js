@@ -798,8 +798,17 @@ function createSimpleChart(data) {
                 scales: {
                     x: {
                         ticks: {
-                            includeBounds: true,  // 첫번째와 마지막 값 포함
-                            maxTicksLimit: 20     // 최대 틱 수
+                            maxRotation: 45,
+                            minRotation: 45,
+                            font: {
+                                size: 11
+                            },
+                            maxTicksLimit: 30,
+                            includeBounds: true
+                        },
+                        grid: {
+                            display: true,
+                            color: '#e5e7eb'
                         }
                     },
                     y: {
@@ -929,6 +938,14 @@ function createSimpleChart(data) {
                         grid: {
                             display: true,   // x축 격자 표시 활성화
                             color: '#e5e7eb'  // y축과 동일한 격자 색상
+                        },
+                        ticks: {
+                            maxRotation: 45,
+                            minRotation: 45,
+                            font: {
+                                size: 11
+                            },
+                            maxTicksLimit: 30
                         }
                     }
                 },
@@ -1326,6 +1343,936 @@ window.addEventListener('load', async function() {
         }
     }
 });
+
+// =============================================================================
+// 🏆 승수 변동 추이 차트 관리 시스템 
+// =============================================================================
+
+// 승수 변동 차트 상태 관리
+let winCountChartState = {
+    isFullView: true,
+    currentPeriod: 0,
+    periods: [],
+    chart: null,
+    teamLogoImages: {}
+};
+
+/**
+ * 실제 KBO 데이터에서 승수 변동 추이 데이터 생성
+ */
+async function loadWinCountData() {
+    try {
+        // 현재 페이지가 magic-number 폴더 내에 있는지 확인
+        const isInMagicNumberFolder = window.location.pathname.includes('/magic-number/');
+        const dataPath = isInMagicNumberFolder ? 'data/raw-game-records.json' : 'magic-number/data/raw-game-records.json';
+        
+        const response = await fetch(dataPath);
+        
+        if (!response.ok) {
+            throw new Error(`데이터 로드 실패: ${response.status}`);
+        }
+        
+        const gameData = await response.json();
+        
+        // 승수 변동 데이터 생성기
+        const generator = {
+            gameData: gameData,
+            teams: window.getRankingSystem ? window.getRankingSystem().teams : ["한화", "LG", "두산", "삼성", "KIA", "SSG", "롯데", "NC", "키움", "KT"],
+            
+            // 모든 경기 날짜 수집
+            getAllGameDates() {
+                const dates = new Set();
+                
+                for (const team of this.teams) {
+                    if (this.gameData[team] && this.gameData[team].games) {
+                        for (const game of this.gameData[team].games) {
+                            dates.add(game.date);
+                        }
+                    }
+                }
+                
+                return Array.from(dates).sort();
+            },
+            
+            // 승수 변동 데이터 생성
+            generateWinCountData() {
+                const allDates = this.getAllGameDates();
+                console.log('generateWinCountData - 모든 게임 날짜:', allDates);
+                const seasonData = [];
+                console.log('generateWinCountData - seasonData 초기화됨 (빈 배열):', seasonData);
+                
+                for (const date of allDates) {
+                    const teams = window.getRankingSystem ? window.getRankingSystem().teams : this.teams;
+                    const tempStats = {};
+                    
+                    teams.forEach(team => {
+                        tempStats[team] = {
+                            team_name: team,
+                            team: team,
+                            wins: 0
+                        };
+                    });
+                    
+                    // 해당 날짜까지의 누적 승수 계산
+                    teams.forEach(team => {
+                        if (this.gameData[team] && this.gameData[team].games) {
+                            for (const game of this.gameData[team].games) {
+                                if (game.date <= date) {
+                                    if (game.result === 'W') tempStats[team].wins++;
+                                }
+                            }
+                        }
+                    });
+                    
+                    // 승수 데이터 구성
+                    const winCountData = teams.map(team => {
+                        const stats = tempStats[team];
+                        return {
+                            team: team,
+                            wins: stats.wins
+                        };
+                    });
+                    
+                    seasonData.push({
+                        date: date,
+                        winCounts: winCountData
+                    });
+                }
+                
+                console.log('generateWinCountData - 최종 seasonData:', seasonData);
+                console.log('generateWinCountData - seasonData 길이:', seasonData.length);
+                console.log('generateWinCountData - seasonData 타입:', typeof seasonData, 'Array 여부:', Array.isArray(seasonData));
+                
+                return seasonData;
+            }
+        };
+        
+        const winCountRankings = generator.generateWinCountData();
+        console.log('loadWinCountData - generateWinCountData 결과:', winCountRankings);
+        console.log('loadWinCountData - winCountRankings 타입:', typeof winCountRankings, 'Array 여부:', Array.isArray(winCountRankings));
+        
+        return processWinCountData(winCountRankings);
+        
+    } catch (error) {
+        // 실제 데이터 로드 실패 시 가짜 데이터 사용
+        console.error('loadWinCountData 에러 발생:', error);
+        console.log('가짜 승수 데이터를 사용합니다.');
+        return generateMockWinCountData();
+    }
+}
+
+// 승수 데이터를 기간별로 분할 (월별 처리)
+function processWinCountData(winCountData) {
+    // 데이터 유효성 검사
+    if (!winCountData) {
+        console.warn('winCountData가 null/undefined입니다. 가짜 데이터를 사용합니다.');
+        return generateMockWinCountData();
+    }
+    
+    if (!Array.isArray(winCountData)) {
+        console.warn('winCountData가 배열이 아닙니다:', winCountData, 'typeof:', typeof winCountData);
+        return generateMockWinCountData();
+    }
+    
+    if (winCountData.length === 0) {
+        console.warn('winCountData가 빈 배열입니다. 가짜 데이터를 사용합니다.');
+        return generateMockWinCountData();
+    }
+    
+    const periods = [];
+    const monthlyData = {};
+    
+    // 월별로 데이터 그룹화
+    winCountData.forEach(dayData => {
+        const date = new Date(dayData.date);
+        const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+        
+        if (!monthlyData[monthKey]) {
+            monthlyData[monthKey] = [];
+        }
+        monthlyData[monthKey].push(dayData);
+    });
+    
+    // 월별 기간 생성
+    Object.keys(monthlyData).sort((a, b) => {
+        const [yearA, monthA] = a.split('-').map(Number);
+        const [yearB, monthB] = b.split('-').map(Number);
+        return yearA !== yearB ? yearA - yearB : monthA - monthB;
+    }).forEach(monthKey => {
+        const [year, month] = monthKey.split('-');
+        const monthData = monthlyData[monthKey];
+        
+        if (monthData.length > 0) {
+            const period = {
+                title: `${year}년 ${month}월`,
+                rawData: monthData,
+                data: formatWinCountDataForChart(monthData)
+            };
+            
+            periods.push(period);
+        }
+    });
+    
+    return periods;
+}
+
+// 승수 데이터를 Chart.js 형식으로 변환
+function formatWinCountDataForChart(periodData) {
+    const teams = window.getRankingSystem ? window.getRankingSystem().teams : ["한화", "LG", "두산", "삼성", "KIA", "SSG", "롯데", "NC", "키움", "KT"];
+    
+    const chartData = {
+        labels: [],
+        datasets: []
+    };
+    
+    // 날짜 라벨 생성
+    chartData.labels = periodData.map(day => {
+        const date = new Date(day.date);
+        return `${date.getMonth() + 1}/${date.getDate()}`;
+    });
+    
+    // 각 팀별 승수 데이터 생성
+    teams.forEach(teamName => {
+        const winHistory = [];
+        
+        periodData.forEach(day => {
+            const teamData = day.winCounts.find(w => w.team === teamName);
+            winHistory.push(teamData ? teamData.wins : 0);
+        });
+
+        chartData.datasets.push({
+            label: teamName,
+            data: winHistory,
+            borderColor: getTeamColor(teamName),
+            backgroundColor: getTeamColor(teamName) + '20',
+            borderWidth: 2,
+            pointRadius: 1.5,
+            pointHoverRadius: 4,
+            tension: 0.1,
+            fill: false
+        });
+    });
+    
+    return chartData;
+}
+
+// 백업용 가짜 승수 데이터 생성
+function generateMockWinCountData() {
+    const teams = window.getRankingSystem ? window.getRankingSystem().teams : ["한화", "LG", "두산", "삼성", "KIA", "SSG", "롯데", "NC", "키움", "KT"];
+    const periods = [];
+    
+    for (let p = 0; p < 5; p++) {
+        const period = {
+            title: `${p*30+1}일 - ${(p+1)*30}일`,
+            data: {
+                labels: [],
+                datasets: []
+            }
+        };
+        
+        for (let d = 1; d <= 30; d++) {
+            period.data.labels.push(`${d}일`);
+        }
+        
+        teams.forEach((team, index) => {
+            const winData = [];
+            for (let d = 1; d <= 30; d++) {
+                // 승수는 누적되므로 점진적 증가
+                const baseWins = Math.floor(d * 0.5) + (index * 2);
+                const variation = Math.floor(Math.random() * 3);
+                winData.push(baseWins + variation);
+            }
+            
+            period.data.datasets.push({
+                label: team,
+                data: winData,
+                borderColor: getTeamColor(team),
+                backgroundColor: getTeamColor(team) + '20',
+                borderWidth: 2,
+                fill: false
+            });
+        });
+        
+        periods.push(period);
+    }
+    
+    return periods;
+}
+
+// 승수 변동 차트 생성
+function createWinCountChart(data) {
+    const ctx = document.getElementById('winCountChart');
+    
+    if (!ctx) {
+        return null;
+    }
+    
+    if (winCountChartState.chart) {
+        winCountChartState.chart.destroy();
+    }
+    
+    try {
+        winCountChartState.chart = new Chart(ctx, {
+            type: 'line',
+            data: data,
+            plugins: [{
+                id: 'winCountTeamLogos',
+                afterDraw: (chart) => {
+                    const ctx = chart.ctx;
+                    if (!window.teamLogoImages || Object.keys(window.teamLogoImages).length === 0) {
+                        return;
+                    }
+                    
+                    chart.data.datasets.forEach((dataset, index) => {
+                        const meta = chart.getDatasetMeta(index);
+                        if (meta.data && meta.data.length > 0 && !meta.hidden) {
+                            const lastPoint = meta.data[meta.data.length - 1];
+                            const teamName = dataset.label;
+                            const logoImg = window.teamLogoImages[teamName];
+                            
+                            if (logoImg && lastPoint && typeof lastPoint.x === 'number' && typeof lastPoint.y === 'number') {
+                                ctx.save();
+                                
+                                ctx.globalCompositeOperation = 'source-over';
+                                ctx.shadowColor = 'rgba(0,0,0,0.3)';
+                                ctx.shadowBlur = 2;
+                                ctx.shadowOffsetX = 1;
+                                ctx.shadowOffsetY = 1;
+                                const size = 28;
+                                ctx.drawImage(logoImg, lastPoint.x - size/2, lastPoint.y - size/2, size, size);
+                                
+                                ctx.restore();
+                            }
+                        }
+                    });
+                }
+            }],
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                layout: {
+                    padding: {
+                        left: 10,
+                        right: 30,
+                        top: 10,
+                        bottom: 10
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: '승수',
+                            font: {
+                                size: 14,
+                                weight: 'bold'
+                            }
+                        },
+                        ticks: {
+                            stepSize: 5,
+                            callback: function(value) {
+                                return value + '승';
+                            },
+                            font: {
+                                size: 12
+                            }
+                        },
+                        grid: {
+                            color: '#e5e7eb'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: true,
+                            color: '#e5e7eb'
+                        },
+                        ticks: {
+                            maxRotation: 45,
+                            minRotation: 45,
+                            font: {
+                                size: 11
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        mode: 'index',
+                        intersect: false,
+                        callbacks: {
+                            title: function(tooltipItems) {
+                                const dataIndex = tooltipItems[0].dataIndex;
+                                
+                                if (winCountChartState.isFullView) {
+                                    let allData = [];
+                                    winCountChartState.periods.forEach(period => {
+                                        if (period.rawData) {
+                                            allData = allData.concat(period.rawData);
+                                        }
+                                    });
+                                    
+                                    if (allData[dataIndex] && allData[dataIndex].date) {
+                                        const date = new Date(allData[dataIndex].date);
+                                        return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`;
+                                    }
+                                }
+                                
+                                return tooltipItems[0].label;
+                            },
+                            beforeBody: function(tooltipItems) {
+                                const dataIndex = tooltipItems[0].dataIndex;
+                                const allTeamsAtThisPoint = [];
+                                
+                                tooltipItems.forEach(item => {
+                                    const wins = item.parsed.y;
+                                    const teamName = item.dataset.label;
+                                    if (wins !== null && teamName) {
+                                        allTeamsAtThisPoint.push({ wins, teamName });
+                                    }
+                                });
+                                
+                                // 승수별로 정렬 (내림차순)
+                                allTeamsAtThisPoint.sort((a, b) => b.wins - a.wins);
+                                
+                                return allTeamsAtThisPoint.map(team => {
+                                    return `${team.teamName}: ${team.wins}승`;
+                                });
+                            },
+                            label: function(context) {
+                                return '';
+                            }
+                        }
+                    }
+                },
+                interaction: {
+                    mode: 'nearest',
+                    axis: 'x',
+                    intersect: false
+                }
+            }
+        });
+        
+        // 커스텀 범례 생성
+        setTimeout(() => {
+            createWinCountCustomLegend();
+        }, 200);
+        
+        // 팀 로고 업데이트
+        setTimeout(() => {
+            if (winCountChartState.chart && window.teamLogoImages && Object.keys(window.teamLogoImages).length > 0) {
+                winCountChartState.chart.update();
+            }
+        }, 1000);
+        
+        return winCountChartState.chart;
+    } catch (error) {
+        return null;
+    }
+}
+
+// 승수 변동 차트 업데이트
+function updateWinCountChart() {
+    if (winCountChartState.periods.length === 0) {
+        return;
+    }
+    
+    let chartData;
+    
+    if (winCountChartState.isFullView) {
+        chartData = generateFullSeasonWinCountChart();
+    } else {
+        const period = winCountChartState.periods[winCountChartState.currentPeriod];
+        if (!period) {
+            return;
+        }
+        chartData = period.data;
+    }
+    
+    // 기존 차트 파괴하고 새로 생성
+    if (winCountChartState.chart) {
+        winCountChartState.chart.destroy();
+        winCountChartState.chart = null;
+    }
+    
+    if (!winCountChartState.chart) {
+        createWinCountChart(chartData);
+    } else {
+        winCountChartState.chart.data = chartData;
+        winCountChartState.chart.update('none');
+    }
+    
+    updateWinCountUI();
+    updateWinCountProgressIndicator();
+}
+
+// 전체 시즌 승수 차트 데이터 생성
+function generateFullSeasonWinCountChart() {
+    const teams = window.getRankingSystem ? window.getRankingSystem().teams : ["한화", "LG", "두산", "삼성", "KIA", "SSG", "롯데", "NC", "키움", "KT"];
+    
+    // 모든 기간의 rawData를 하나로 합치기
+    let allData = [];
+    winCountChartState.periods.forEach(period => {
+        if (period.rawData) {
+            allData = allData.concat(period.rawData);
+        }
+    });
+    
+    // 날짜순으로 정렬
+    allData.sort((a, b) => new Date(a.date) - new Date(b.date));
+    
+    const chartData = {
+        labels: [],
+        datasets: []
+    };
+    
+    // 날짜 라벨 생성
+    chartData.labels = allData.map(day => {
+        const date = new Date(day.date);
+        return `${date.getMonth() + 1}/${date.getDate()}`;
+    });
+    
+    // 각 팀별 승수 데이터 생성
+    teams.forEach(teamName => {
+        const winHistory = [];
+        
+        allData.forEach(day => {
+            const teamData = day.winCounts.find(w => w.team === teamName);
+            winHistory.push(teamData ? teamData.wins : 0);
+        });
+
+        chartData.datasets.push({
+            label: teamName,
+            data: winHistory,
+            borderColor: getTeamColor(teamName),
+            backgroundColor: getTeamColor(teamName) + '20',
+            borderWidth: 2,
+            pointRadius: 1.5,
+            pointHoverRadius: 4,
+            tension: 0.1,
+            fill: false
+        });
+    });
+    
+    return chartData;
+}
+
+// 승수 변동 차트 UI 업데이트
+function updateWinCountUI() {
+    const period = winCountChartState.periods[winCountChartState.currentPeriod];
+    
+    // 현재 기간 텍스트 업데이트
+    const periodText = document.getElementById('currentPeriodTextWinCount');
+    if (periodText) {
+        if (winCountChartState.isFullView) {
+            if (winCountChartState.periods.length > 0) {
+                const firstPeriod = winCountChartState.periods[0];
+                const lastPeriod = winCountChartState.periods[winCountChartState.periods.length - 1];
+                
+                if (firstPeriod.rawData && lastPeriod.rawData) {
+                    const startDate = new Date(firstPeriod.rawData[0].date);
+                    const endDate = new Date(lastPeriod.rawData[lastPeriod.rawData.length - 1].date);
+                    
+                    periodText.textContent = `전체 시즌: ${startDate.getFullYear()}년 ${startDate.getMonth() + 1}월 ${startDate.getDate()}일 - ${endDate.getFullYear()}년 ${endDate.getMonth() + 1}월 ${endDate.getDate()}일`;
+                } else {
+                    periodText.textContent = `전체 시즌: 2025년 3월 22일 개막 ~ 현재`;
+                }
+            } else {
+                periodText.textContent = `전체 시즌: 2025년 3월 22일 개막 ~ 현재`;
+            }
+            periodText.style.visibility = 'visible';
+        } else if (period) {
+            periodText.textContent = `현재 보는 기간: ${period.title}`;
+            periodText.style.visibility = 'visible';
+        }
+    }
+    
+    // 버튼 상태 업데이트
+    const prevBtn = document.getElementById('prevPeriodWinCount');
+    const nextBtn = document.getElementById('nextPeriodWinCount');
+    const toggleBtn = document.getElementById('periodToggleWinCount');
+    
+    if (prevBtn) {
+        prevBtn.disabled = winCountChartState.isFullView || winCountChartState.currentPeriod === 0;
+        prevBtn.style.opacity = prevBtn.disabled ? '0.5' : '1';
+        
+        if (winCountChartState.isFullView || winCountChartState.currentPeriod === 0) {
+            prevBtn.style.display = 'none';
+        } else {
+            prevBtn.style.display = 'inline-block';
+            const prevPeriod = winCountChartState.periods[winCountChartState.currentPeriod - 1];
+            prevBtn.textContent = `← ${prevPeriod.title}`;
+        }
+    }
+    
+    if (nextBtn) {
+        nextBtn.disabled = winCountChartState.isFullView || winCountChartState.currentPeriod === winCountChartState.periods.length - 1;
+        nextBtn.style.opacity = nextBtn.disabled ? '0.5' : '1';
+        
+        if (winCountChartState.isFullView || winCountChartState.currentPeriod === winCountChartState.periods.length - 1) {
+            nextBtn.style.display = 'none';
+        } else {
+            nextBtn.style.display = 'inline-block';
+            const nextPeriod = winCountChartState.periods[winCountChartState.currentPeriod + 1];
+            nextBtn.textContent = `${nextPeriod.title} →`;
+        }
+    }
+    
+    if (toggleBtn) {
+        toggleBtn.textContent = winCountChartState.isFullView ? '📅 월별 보기' : '📊 전체 시즌 보기';
+    }
+}
+
+// 승수 변동 차트 진행 인디케이터 업데이트
+function updateWinCountProgressIndicator() {
+    const container = document.getElementById('progressDotsWinCount');
+    if (!container) return;
+
+    if (winCountChartState.isFullView) {
+        container.innerHTML = '';
+        return;
+    }
+
+    let html = '';
+    for (let i = 0; i < winCountChartState.periods.length; i++) {
+        const isActive = i === winCountChartState.currentPeriod;
+        html += `<div style="
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: ${isActive ? '#28a745' : '#dee2e6'};
+            transition: all 0.3s ease;
+        "></div>`;
+    }
+    container.innerHTML = html;
+}
+
+// 승수 변동 차트 초기화 (전역 노출)
+window.initWinCountChart = async function initWinCountChart() {
+    try {
+        // 팀 로고 로드 (공통 사용)
+        await loadTeamLogos();
+        
+        // 승수 변동 데이터 로드
+        winCountChartState.periods = await loadWinCountData();
+        
+        if (!winCountChartState.periods || winCountChartState.periods.length === 0) {
+            winCountChartState.periods = generateMockWinCountData();
+        }
+        
+        winCountChartState.currentPeriod = winCountChartState.periods.length - 1;
+        winCountChartState.isFullView = true;
+        
+        // 차트 업데이트
+        updateWinCountChart();
+        
+    } catch (error) {
+        try {
+            winCountChartState.periods = generateMockWinCountData();
+            winCountChartState.currentPeriod = winCountChartState.periods.length - 1;
+            winCountChartState.isFullView = false;
+            updateWinCountChart();
+        } catch (fallbackError) {
+            // 실패 시 무시
+        }
+    }
+};
+
+// 승수 변동 차트 전역 함수들 (window 객체에 노출)
+window.handlePrevPeriodWinCount = function handlePrevPeriodWinCount() {
+    console.log('handlePrevPeriodWinCount 호출됨');
+    if (!winCountChartState.isFullView && winCountChartState.currentPeriod > 0) {
+        winCountChartState.currentPeriod--;
+        updateWinCountChart();
+    }
+};
+
+window.handleNextPeriodWinCount = function handleNextPeriodWinCount() {
+    console.log('handleNextPeriodWinCount 호출됨');
+    if (!winCountChartState.isFullView && winCountChartState.currentPeriod < winCountChartState.periods.length - 1) {
+        winCountChartState.currentPeriod++;
+        updateWinCountChart();
+    }
+};
+
+window.handlePeriodToggleWinCount = function handlePeriodToggleWinCount() {
+    console.log('handlePeriodToggleWinCount 호출됨');
+    winCountChartState.isFullView = !winCountChartState.isFullView;
+    updateWinCountChart();
+};
+
+// 승수 변동 차트용 커스텀 레전드 생성 함수
+function createWinCountCustomLegend() {
+    const legendContainer = document.getElementById('winCountChartLegend');
+    if (!legendContainer || !winCountChartState.chart) {
+        return;
+    }
+    
+    // 기존 레전드 제거
+    legendContainer.innerHTML = '';
+    
+    // 레전드 컨테이너 스타일 설정
+    legendContainer.style.cssText = `
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        margin-top: 5px;
+        margin-bottom: 0;
+        padding: 0 10px;
+        background: none;
+        border-radius: 0;
+        box-shadow: none;
+        border: none;
+        width: 100%;
+        box-sizing: border-box;
+    `;
+
+    // 메인 페이지 현재 순위 순서대로 팀 정렬
+    let sortedTeams;
+    if (window.getRankingSystem) {
+        const rankingSystem = window.getRankingSystem();
+        if (rankingSystem.teams.length > 0) {
+            sortedTeams = rankingSystem.teams.map(teamName => {
+                const datasetIndex = winCountChartState.chart.data.datasets.findIndex(d => d.label === teamName);
+                return {
+                    teamName: teamName,
+                    rank: rankingSystem.teamRanks[teamName],
+                    datasetIndex: datasetIndex >= 0 ? datasetIndex : -1
+                };
+            }).filter(item => item.datasetIndex !== -1);
+        } else {
+            const teams = window.getRankingSystem ? window.getRankingSystem().teams : ["한화", "LG", "두산", "삼성", "KIA", "SSG", "롯데", "NC", "키움", "KT"];
+            sortedTeams = teams.map(team => ({
+                teamName: team,
+                datasetIndex: winCountChartState.chart.data.datasets.findIndex(d => d.label === team)
+            })).filter(item => item.datasetIndex !== -1);
+        }
+    } else {
+        const teams = window.getRankingSystem ? window.getRankingSystem().teams : ["한화", "LG", "두산", "삼성", "KIA", "SSG", "롯데", "NC", "키움", "KT"];
+        sortedTeams = teams.map(team => ({
+            teamName: team,
+            datasetIndex: winCountChartState.chart.data.datasets.findIndex(d => d.label === team)
+        })).filter(item => item.datasetIndex !== -1);
+    }
+    
+    // 선택된 팀 수 계산
+    const totalTeams = sortedTeams.length;
+    const visibleTeams = sortedTeams.filter(item => 
+        winCountChartState.chart.isDatasetVisible(item.datasetIndex)
+    ).length;
+    
+    let allVisible = visibleTeams === totalTeams;
+    
+    // 전체선택/해제 버튼 생성
+    const toggleAllButton = document.createElement('button');
+    toggleAllButton.id = 'toggle-all-wincount-teams';
+    toggleAllButton.textContent = allVisible ? `전체 해제 (${visibleTeams}/${totalTeams})` : `전체 선택 (${visibleTeams}/${totalTeams})`;
+    toggleAllButton.style.cssText = `
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 5px 12px;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        color: white;
+        font-weight: 600;
+        font-size: 13px;
+        white-space: nowrap;
+        flex-shrink: 0;
+        min-height: 34px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+        border: none;
+    `;
+
+    // 버튼 호버 효과
+    toggleAllButton.addEventListener('mouseenter', () => {
+        const hoverGradient = allVisible ? 
+            'linear-gradient(135deg, #dc2626 0%, #b91c1c 100%)' :
+            'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)';
+        toggleAllButton.style.background = hoverGradient;
+        toggleAllButton.style.transform = 'translateY(-1px)';
+        toggleAllButton.style.boxShadow = '0 4px 8px rgba(0,0,0,0.12)';
+    });
+    
+    toggleAllButton.addEventListener('mouseleave', () => {
+        const normalGradient = allVisible ? 
+            'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)' :
+            'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)';
+        toggleAllButton.style.background = normalGradient;
+        toggleAllButton.style.transform = 'translateY(0)';
+        toggleAllButton.style.boxShadow = '0 2px 4px rgba(0,0,0,0.15)';
+    });
+
+    // 버튼 클릭 이벤트
+    toggleAllButton.addEventListener('click', () => {
+        allVisible = !allVisible;
+        
+        sortedTeams.forEach(item => {
+            winCountChartState.chart.setDatasetVisibility(item.datasetIndex, allVisible);
+        });
+        
+        winCountChartState.chart.update();
+        
+        // 버튼 텍스트 및 색상 업데이트
+        const updatedVisibleTeams = allVisible ? totalTeams : 0;
+        toggleAllButton.textContent = allVisible ? `전체 해제 (${updatedVisibleTeams}/${totalTeams})` : `전체 선택 (${updatedVisibleTeams}/${totalTeams})`;
+        const buttonGradient = allVisible ? 
+            'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)' :
+            'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)';
+        toggleAllButton.style.background = buttonGradient;
+        
+        // 모든 범례 아이템의 시각적 상태 업데이트
+        const legendItems = legendContainer.querySelectorAll('div[data-team]');
+        legendItems.forEach(item => {
+            const img = item.querySelector('img');
+            const colorBox = item.querySelector('div[style*="border-radius: 50%"]');
+            const text = item.querySelector('span');
+            
+            const opacity = allVisible ? '1' : '0.4';
+            const filter = allVisible ? 'none' : 'grayscale(100%)';
+            
+            item.style.opacity = opacity;
+            if (img) img.style.filter = filter;
+            if (colorBox) colorBox.style.opacity = opacity;
+            if (text) text.style.opacity = opacity;
+            
+            if (!allVisible) {
+                item.style.borderColor = 'rgba(0,0,0,0.2)';
+                item.style.background = 'rgba(128,128,128,0.1)';
+            } else {
+                item.style.borderColor = 'rgba(0,0,0,0.1)';
+                item.style.background = 'rgba(255,255,255,0.9)';
+            }
+        });
+    });
+    
+    legendContainer.appendChild(toggleAllButton);
+    
+    // 팀별 레전드 아이템 생성
+    sortedTeams.forEach(({teamName, datasetIndex}, index) => {
+        const dataset = winCountChartState.chart.data.datasets[datasetIndex];
+        if (!dataset) return;
+        
+        const legendItem = document.createElement('div');
+        legendItem.setAttribute('data-team', teamName);
+        legendItem.style.cssText = `
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 5px 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: rgba(255,255,255,0.9);
+            border: 1px solid rgba(0,0,0,0.1);
+            font-weight: 600;
+            font-size: 13px;
+            white-space: nowrap;
+            flex-shrink: 0;
+            min-height: 34px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+        `;
+        
+        // 색상 인디케이터
+        const colorBox = document.createElement('div');
+        colorBox.style.cssText = `
+            width: 12px;
+            height: 12px;
+            background-color: ${dataset.borderColor};
+            border-radius: 50%;
+            border: 2px solid white;
+            box-shadow: 0 0 0 1px rgba(0,0,0,0.2);
+            flex-shrink: 0;
+        `;
+        
+        // 팀 로고 이미지
+        const logoImg = document.createElement('img');
+        
+        // 현재 페이지가 magic-number 폴더 내에 있는지 확인
+        const isInMagicNumberFolder = window.location.pathname.includes('/magic-number/');
+        const logoPath = isInMagicNumberFolder ? `images/teams/${window.getTeamLogo(teamName)}` : `magic-number/images/teams/${window.getTeamLogo(teamName)}`;
+        
+        logoImg.src = logoPath;
+        logoImg.alt = teamName;
+        logoImg.style.cssText = `
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+            border-radius: 3px;
+            flex-shrink: 0;
+        `;
+        
+        // 팀명 텍스트
+        const teamText = document.createElement('span');
+        teamText.textContent = teamName;
+        teamText.style.cssText = `
+            color: #333;
+            font-weight: 600;
+            font-size: 13px;
+        `;
+        
+        // 클릭 이벤트
+        legendItem.addEventListener('click', () => {
+            const isVisible = winCountChartState.chart.isDatasetVisible(datasetIndex);
+            winCountChartState.chart.setDatasetVisibility(datasetIndex, !isVisible);
+            winCountChartState.chart.update();
+            
+            // 시각적 상태 업데이트
+            const opacity = !isVisible ? '1' : '0.4';
+            const filter = !isVisible ? 'none' : 'grayscale(100%)';
+            
+            legendItem.style.opacity = opacity;
+            logoImg.style.filter = filter;
+            colorBox.style.opacity = opacity;
+            teamText.style.opacity = opacity;
+            
+            if (isVisible) {
+                legendItem.style.borderColor = 'rgba(0,0,0,0.2)';
+                legendItem.style.background = 'rgba(128,128,128,0.1)';
+            } else {
+                legendItem.style.borderColor = 'rgba(0,0,0,0.1)';
+                legendItem.style.background = 'rgba(255,255,255,0.9)';
+            }
+            
+            // 전체 버튼 상태 업데이트
+            const currentVisibleTeams = sortedTeams.filter(item => 
+                winCountChartState.chart.isDatasetVisible(item.datasetIndex)
+            ).length;
+            
+            allVisible = currentVisibleTeams === totalTeams;
+            toggleAllButton.textContent = allVisible ? `전체 해제 (${currentVisibleTeams}/${totalTeams})` : `전체 선택 (${currentVisibleTeams}/${totalTeams})`;
+            const buttonGradient = allVisible ? 
+                'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)' :
+                'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)';
+            toggleAllButton.style.background = buttonGradient;
+        });
+        
+        // 호버 효과
+        legendItem.addEventListener('mouseenter', () => {
+            legendItem.style.transform = 'translateY(-1px)';
+            legendItem.style.boxShadow = '0 4px 8px rgba(0,0,0,0.12)';
+        });
+        
+        legendItem.addEventListener('mouseleave', () => {
+            legendItem.style.transform = 'translateY(0)';
+            legendItem.style.boxShadow = '0 2px 4px rgba(0,0,0,0.08)';
+        });
+        
+        // 요소 조합
+        legendItem.appendChild(colorBox);
+        legendItem.appendChild(logoImg);
+        legendItem.appendChild(teamText);
+        
+        legendContainer.appendChild(legendItem);
+    });
+}
 
 // =============================================================================
 // 승차 변화 추이 차트용 커스텀 레전드 생성 함수 (전역 노출)
