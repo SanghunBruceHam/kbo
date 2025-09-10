@@ -96,16 +96,9 @@ function renderOptimizedMatrixTable() {
                     const hasRankWord = /위/.test(raw);
                     label = hasRankWord ? raw : `${c.rank}위 불가`;
                 } else {
-                    // 상단 연속 구간: 최상단 경계만 표기 → "{hi}위 불가"
-                    if (lo === MIN_RANK) {
-                        label = `${hi}위 불가`;
-                    // 하단 연속 구간: "{lo}위 이하 불가"
-                    } else if (hi === MAX_RANK) {
-                        label = `${lo}위 이하 불가`;
-                    } else {
-                        // 중간 구간은 상한(더 나쁜 순위) 기준으로 요약
-                        label = `${hi}위 불가`;
-                    }
+                    // 병합된 불가 구간: 가장 낮은(숫자 큰) 순위만 표기 (예: 2,1 병합 → 2위 불가)
+                    const lowestRank = Math.max(...seg.map(s => s.rank));
+                    label = `${lowestRank}위 불가`;
                 }
             }
             // --- End: explicit label logic replacement ---
@@ -215,11 +208,15 @@ function renderOptimizedMatrixTable() {
                 ? Math.max(1, 9 - (endRank) + 1) // 주어진 colspan이 9라도 텍스트 기반으로 보정
                 : (teamData.banner.colspan ?? (startRank - endRank + 1));
 
+            const crosses = (endRank <= 5);
+            const extraClass = crosses ? ' crosses-playoff' : '';
+            const styleVars = crosses ? ` --colspan:${colspan}; --divider-offset-cols:4;` : '';
+
             for (const rank of allRanks) {
                 // 병합 범위(예: 9~3) 안이면 9위 칸에서만 배너 한 번 렌더링
                 if (rank <= startRank && rank >= endRank) {
                     if (rank === startRank) {
-                        html += `<td class="${teamData.banner.type}" colspan="${colspan}" style="background: ${teamConfig.color};">`
+                        html += `<td class="${teamData.banner.type}${extraClass}" colspan="${colspan}" style="background: ${teamConfig.color};${styleVars}">`
                              + `${teamData.banner.stage}`
                              + (teamData.banner.sub ? `<span class="banner-note">(${teamData.banner.sub})</span>` : '')
                              + `</td>`;
@@ -264,9 +261,15 @@ async function initOptimizedMagicMatrix() {
     
     const loaded = await loadPrecomputedMatrixData();
     if (loaded) {
+        // 1) 일단 사전계산본을 그린 뒤…
         renderOptimizedMatrixTable();
         console.timeEnd('매트릭스 초기화 시간');
-        
+        // 2) …정확한 Magic(strict)/Tragic(tieOK) 계산을 위해 클래식 계산기로 재계산/재렌더 (정확성 우선)
+        if (typeof initMagicMatrix === 'function') {
+            console.log('ℹ️ 정확한 매직/트래직 넘버 표기를 위해 실시간 계산 결과로 재렌더링합니다.');
+            initMagicMatrix();
+        }
+
         // 성능 정보 출력
         const { metadata, precomputedMatrixResults } = precomputedMatrixData;
         console.log(`📊 성능 정보:
