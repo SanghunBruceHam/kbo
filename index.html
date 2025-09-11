@@ -18242,9 +18242,33 @@ KT 9:1 키움(H)`;
                         header.removeEventListener('click', existingHandler);
                     }
                     
-                    // 실제 컬럼 인덱스 계산
-                    const allHeaders = Array.from(streakTable.querySelectorAll('thead tr th'));
-                    const actualColumnIndex = allHeaders.indexOf(header);
+                    // 실제 컬럼 인덱스 계산 (복잡한 헤더 구조 고려)
+                    let actualColumnIndex = 0;
+                    const columnAttr = header.getAttribute('data-column');
+                    
+                    if (columnAttr === 'rank') {
+                        actualColumnIndex = 0;
+                    } else if (header.classList.contains('team-header')) {
+                        actualColumnIndex = 1;
+                    } else if (columnAttr === 'maxWins') {
+                        // 최장연승 컬럼: 순위(1) + 팀명(1) + 연승컬럼들(maxWinCols) = 2 + maxWinCols
+                        actualColumnIndex = 2 + maxWinCols;
+                    } else if (columnAttr === 'maxLosses') {
+                        // 최장연패 컬럼: 순위(1) + 팀명(1) + 연승컬럼들(maxWinCols) + 최장연승(1) + 연패컬럼들(maxLoseCols) = 3 + maxWinCols + maxLoseCols
+                        actualColumnIndex = 3 + maxWinCols + maxLoseCols;
+                    } else if (columnAttr?.startsWith('wins')) {
+                        // 연승 컬럼: wins1, wins2, wins3...
+                        const winsNum = parseInt(columnAttr.replace('wins', ''));
+                        actualColumnIndex = 1 + winsNum; // 순위(1) + 팀명(1) + 연승번호
+                    } else if (columnAttr?.startsWith('losses')) {
+                        // 연패 컬럼: losses1, losses2, losses3...
+                        const lossesNum = parseInt(columnAttr.replace('losses', ''));
+                        actualColumnIndex = 2 + maxWinCols + lossesNum; // 순위(1) + 팀명(1) + 연승컬럼들(maxWinCols) + 최장연승(1) + 연패번호
+                    } else {
+                        // 폴백으로 기존 방식 사용
+                        const allHeaders = Array.from(streakTable.querySelectorAll('thead tr th'));
+                        actualColumnIndex = allHeaders.indexOf(header);
+                    }
                     
                     // 새 이벤트 리스너 추가
                     const sortHandler = () => {
