@@ -12,10 +12,8 @@ async function loadPrecomputedMatrixData() {
         const response = await fetch('data/ui-magic-matrix-precomputed.json');
         precomputedMatrixData = await response.json();
         
-        console.log(`✅ 사전계산 매트릭스 데이터 로드 완료 (${precomputedMatrixData.metadata.lastUpdated})`);
         return true;
     } catch (error) {
-        console.error('❌ 사전계산 매트릭스 데이터 로드 실패:', error);
         return false;
     }
 }
@@ -23,7 +21,6 @@ async function loadPrecomputedMatrixData() {
 // 빠른 매트릭스 테이블 렌더링 (사전계산 데이터 기반)
 function renderOptimizedMatrixTable() {
     if (!precomputedMatrixData || !precomputedMatrixData.precomputedMatrixResults) {
-        console.error('사전계산 데이터가 없습니다');
         return;
     }
 
@@ -252,37 +249,26 @@ function renderOptimizedMatrixTable() {
         container.innerHTML = html;
     }
 
-    console.log(`🎯 매트릭스 테이블 렌더링 완료 (${matrixData.length}팀)`);
 }
 
 // 빠른 초기화 함수 (사전계산 데이터 기반)
 async function initOptimizedMagicMatrix() {
-    console.time('매트릭스 초기화 시간');
     
     const loaded = await loadPrecomputedMatrixData();
     if (loaded) {
         // 1) 일단 사전계산본을 그린 뒤…
         renderOptimizedMatrixTable();
-        console.timeEnd('매트릭스 초기화 시간');
         // 2) …정확한 Magic(strict)/Tragic(tieOK) 계산을 위해 클래식 계산기로 재계산/재렌더 (정확성 우선)
         if (typeof initMagicMatrix === 'function') {
-            console.log('ℹ️ 정확한 매직/트래직 넘버 표기를 위해 실시간 계산 결과로 재렌더링합니다.');
             initMagicMatrix();
         }
 
         // 성능 정보 출력
         const { metadata, precomputedMatrixResults } = precomputedMatrixData;
-        console.log(`📊 성능 정보:
-        - 데이터 버전: ${metadata.version}
-        - 마지막 계산: ${metadata.lastUpdated}
-        - 처리된 팀 수: ${precomputedMatrixResults.matrixData.length}
-        - 배너 상태 팀: ${precomputedMatrixResults.matrixData.filter(t => t.banner).length}`);
     } else {
-        console.error('❌ 매트릭스 초기화 실패');
         
         // 폴백: 기존 방식 시도
         if (typeof initMagicMatrix === 'function') {
-            console.log('🔄 기존 방식으로 폴백...');
             initMagicMatrix();
         }
     }
@@ -290,7 +276,6 @@ async function initOptimizedMagicMatrix() {
 
 // 데이터 새로고침 함수 (개발용)
 async function refreshMatrixData() {
-    console.log('🔄 매트릭스 데이터 새로고침...');
     precomputedMatrixData = null;
     await initOptimizedMagicMatrix();
 }

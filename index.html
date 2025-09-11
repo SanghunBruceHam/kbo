@@ -9710,16 +9710,16 @@
             });
             
             if (monthlyMonthSortState === 1) {
-                // 첫 번째 클릭: 3월~8월 순서
-                const monthOrder = ['3월', '4월', '5월', '6월', '7월', '8월'];
+                // 첫 번째 클릭: 3월~10월 순서
+                const monthOrder = ['3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월'];
                 monthRows.sort((a, b) => {
                     const monthA = a.querySelector('td').textContent.trim();
                     const monthB = b.querySelector('td').textContent.trim();
                     return monthOrder.indexOf(monthA) - monthOrder.indexOf(monthB);
                 });
             } else {
-                // 두 번째 클릭: 8월~3월 순서 (역순)
-                const monthOrder = ['8월', '7월', '6월', '5월', '4월', '3월'];
+                // 두 번째 클릭: 10월~3월 순서 (역순)
+                const monthOrder = ['10월', '9월', '8월', '7월', '6월', '5월', '4월', '3월'];
                 monthRows.sort((a, b) => {
                     const monthA = a.querySelector('td').textContent.trim();
                     const monthB = b.querySelector('td').textContent.trim();
@@ -9758,8 +9758,8 @@
             });
             
             if (nextState === 0) {
-                // 기본 순서 (3월~8월)
-                const monthOrder = ['3월', '4월', '5월', '6월', '7월', '8월'];
+                // 기본 순서 (3월~10월)
+                const monthOrder = ['3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월'];
                 monthRows.sort((a, b) => {
                     const monthA = a.querySelector('td').textContent.trim();
                     const monthB = b.querySelector('td').textContent.trim();

@@ -1659,7 +1659,6 @@ const kboTeams = {
         // 🏟️ 포스트시즌 진출 조건 테이블 렌더링 함수
         // HTML의 #playoff-table에 데이터를 표시하는 함수
         function renderPlayoffCondition() {
-            console.log('📋 renderPlayoffCondition() 함수 호출됨');
             try {
                 const tbody = document.querySelector('#playoff-table tbody');
                 if (!tbody) {
@@ -1747,17 +1746,6 @@ const kboTeams = {
                             // 순위는 10위를 넘을 수 없음
                             minRank = Math.min(minRank, 10);
                             
-                            // 디버깅용 로그 (LG만)
-                            if (team.team === 'LG') {
-                                console.log(`🔍 LG 최소 가능 순위 계산:`, {
-                                    currentStandings: currentStandings ? currentStandings.length : 0,
-                                    remainingGames,
-                                    minPossibleWins,
-                                    myMinLosses,
-                                    myMinWinRate: myMinWinRate.toFixed(4),
-                                    calculatedMinRank: minRank
-                                });
-                            }
                             
                             // 최대 가능 순위도 계산해서 확정/확보 구분
                             const maxPossibleWins = team.wins + remainingGames;
@@ -1959,7 +1947,6 @@ const kboTeams = {
                 // 인라인 스타일 적용
                 if (rowStyle) {
                     row.setAttribute('style', rowStyle);
-                    console.log(`🔴 박스 적용: ${team.team} (${team.displayRank}위) - Style: ${rowStyle}`);
                 }
                 
                 // 팀 컬러 클래스 적용
