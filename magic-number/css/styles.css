@@ -79,7 +79,7 @@ body {
     --space-10: 2.5rem;   /* 40px */
     --space-12: 3rem;     /* 48px */
     /* ===========================================
-       COMPONENT SIZES
+       COMPSNENT SIZES
        =========================================== */
     --container-max-width: 1400px;
     --card-border-radius: 12px;
@@ -124,7 +124,7 @@ body {
 }
 
 /* ===========================================
-   LAYOUT COMPONENTS
+   LAYOUT COMPSNENTS
    =========================================== */
 .container {
     max-width: var(--container-max-width);
@@ -134,7 +134,7 @@ body {
 }
 
 /* ===========================================
-   HEADER COMPONENT
+   HEADER COMPSNENT
    =========================================== */
 .header {
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
@@ -161,7 +161,7 @@ body {
     margin: 0;
 }
 /* ===========================================
-   NAVIGATION COMPONENT - 스티키 헤더 통합 설정
+   NAVIGATION COMPSNENT - 스티키 헤더 통합 설정
    =========================================== */
 .navigation {
     position: relative;
@@ -288,7 +288,7 @@ body {
 }
 
 /* ===========================================
-   DASHBOARD COMPONENTS
+   DASHBOARD COMPSNENTS
    =========================================== */
 /* 대시보드 그리드 시스템 */
 .summary-dashboard {
@@ -428,7 +428,7 @@ body {
 }
 
 /* ===========================================
-   CARD COMPONENTS
+   CARD COMPSNENTS
    =========================================== */
 
 .card h2 {
@@ -451,7 +451,7 @@ body {
 }
 
 /* ===========================================
-   TABLE COMPONENTS
+   TABLE COMPSNENTS
    =========================================== */
 .table-container {
     overflow-x: auto;
@@ -736,7 +736,7 @@ table th {
     padding: 6px 4px !important; /* 패딩 축소 */
 }
 
-/* 플레이오프 테이블 팀명 셀 너비 조정 */
+/* 포스트시즌 테이블 팀명 셀 너비 조정 */
 #playoff-table thead th:nth-child(2),
 #playoff-table tbody tr td:nth-child(2) {
     width: 80px !important;
@@ -887,12 +887,12 @@ table th {
     font-weight: normal !important;
 }
 
-/* 플레이오프 진출 조건 테이블 기본 텍스트 색상 검은색 */
+/* 포스트시즌 진출 조건 테이블 기본 텍스트 색상 검은색 */
 #playoff-table td {
     color: #000 !important;
 }
 
-/* 플레이오프 확정 팀 (PO 매직넘버 0) - 팀 컬러로 표시 (모든 하위 요소 포함) */
+/* 포스트시즌 확정 팀 (PS 매직넘버 0) - 팀 컬러로 표시 (모든 하위 요소 포함) */
 #playoff-table .playoff-confirmed-hanwha td,
 #playoff-table .playoff-confirmed-hanwha td span { color: #FF6600 !important; font-weight: 600 !important; }
 #playoff-table .playoff-confirmed-lg td,
@@ -914,7 +914,7 @@ table th {
 #playoff-table .playoff-confirmed-kt td,
 #playoff-table .playoff-confirmed-kt td span { color: #333333 !important; font-weight: 600 !important; }
 
-/* 플레이오프 진출 조건 테이블 1~5위 팀 전체 박스 */
+/* 포스트시즌 진출 조건 테이블 1~5위 팀 전체 박스 */
 #playoff-table tbody tr:nth-child(-n+5) {
     background-color: rgba(79, 70, 229, 0.02);
 }
@@ -1063,7 +1063,7 @@ tbody tr {
         width: 5% !important;
         white-space: nowrap;
     }
-    /* 플레이오프와 1위 탈환 테이블 완전 재설정 */
+    /* 포스트시즌와 1위 탈환 테이블 완전 재설정 */
     #playoff-table,
     #chase-table {
         table-layout: auto !important;
@@ -1812,9 +1812,9 @@ tbody tr {
 
 /* strong 태그는 기본 볼드 사용 (삭제됨) */
 
-/* 플레이오프 진출 조건 카드 - 일반 카드 스타일 유지 */
+/* 포스트시즌 진출 조건 카드 - 일반 카드 스타일 유지 */
 
-/* 플레이오프 테이블 행 상태별 그라데이션 - 강화된 색상 */
+/* 포스트시즌 테이블 행 상태별 그라데이션 - 강화된 색상 */
 #playoff-table tbody tr.playoff-safe {
     background: linear-gradient(135deg, 
         rgba(76, 175, 80, 0.25) 0%,
@@ -1849,13 +1849,13 @@ tbody tr {
     opacity: 0.8;
 }
 
-/* 플레이오프 테이블 호버 효과 */
+/* 포스트시즌 테이블 호버 효과 */
 #playoff-table tbody tr:hover {
     transform: translateX(3px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* 플레이오프 테이블은 기본 폰트 스타일 사용 (삭제됨) */
+/* 포스트시즌 테이블은 기본 폰트 스타일 사용 (삭제됨) */
 
 /* ═══════════════════════════════════════════════════════════════════════
    🗑️ PC 개별 테이블 스타일 제거됨 - 통합 시스템으로 대체
@@ -2062,7 +2062,7 @@ input, textarea, select, button {
 
 🎯 관리 대상 테이블:
    ✅ #standings-table (팀 순위표) - 15개 컬럼
-   ✅ #playoff-table (플레이오프 진출 조건) - 9개 컬럼  
+   ✅ #playoff-table (포스트시즌 진출 조건) - 9개 컬럼  
    ✅ #chase-table (1위 탈환 가능성) - 12개 컬럼
 
 📐 통합 컬럼 크기 시스템:

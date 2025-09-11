@@ -18,7 +18,7 @@ class KBODataProcessor {
         this.playoffSpots = 5;
         
         // KBO 실제 시즌 기준값들
-        this.typicalPlayoffWins = 80; // 일반적인 플레이오프 진출 승수
+        this.typicalPlayoffWins = 80; // 일반적인 포스트시즌 진출 승수
         this.typicalChampionshipWins = 87; // 144경기 체제 1위팀 평균 승수 (2015-2024년: 86.9승)
         
         // 데이터 저장소
@@ -371,7 +371,7 @@ class KBODataProcessor {
             const remainingGames = team.remainingGames;
             const maxPossibleWins = team.wins + remainingGames;
             
-            // 플레이오프 진출 매직넘버 (비활성화)
+            // 포스트시즌 진출 매직넘버 (비활성화)
             let playoffMagic = '-';
             
             // 우승 매직넘버  
@@ -393,7 +393,7 @@ class KBODataProcessor {
                 currentRank: team.rank
             };
             
-            console.log(`  🎯 ${team.team} (${team.rank}위): PO ${playoffMagic}, 우승 ${championshipMagic}`);
+            console.log(`  🎯 ${team.team} (${team.rank}위): PS ${playoffMagic}, 우승 ${championshipMagic}`);
         });
     }
 
@@ -436,7 +436,7 @@ class KBODataProcessor {
          * 2. 역대 기준 트래직넘버: 71승 달성 불가능해지는 패배 수
          * 
          * 현재 적용: 역대 기준 트래직넘버 (71승 기준 - 2015-2024 5위팀 평균)
-         * - 플레이오프 매직넘버와 일관성 유지
+         * - 포스트시즌 매직넘버와 일관성 유지
          * - 안정적인 탈락 기준 제시
          */
         const HISTORIC_PLAYOFF_THRESHOLD = 71; // 역대 5위 평균 승수 기준 (2015-2024 평균 70.7승)

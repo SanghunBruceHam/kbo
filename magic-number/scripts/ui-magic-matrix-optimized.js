@@ -177,8 +177,8 @@ function renderOptimizedMatrixTable() {
                 if (m) return Number(m[1]);
                 // by stage keywords
                 if (/한국시리즈/.test(txt) || /정규시즌\s*1위/.test(txt)) return 1;
-                if (/플레이오프/.test(txt) && /진출/.test(txt)) return 2;     // 2위 확정
-                if (/준\s*플레이오프/.test(txt) && /진출/.test(txt)) return 3; // 3위 확정
+                if (/포스트시즌/.test(txt) && /진출/.test(txt)) return 2;     // 2위 확정
+                if (/준\s*포스트시즌/.test(txt) && /진출/.test(txt)) return 3; // 3위 확정
                 if (/와일드카드/.test(txt)) {
                     // sub에 4위/5위가 명시되면 그대로, 없으면 5위로 가정
                     m = txt.match(/([4-5])위/);

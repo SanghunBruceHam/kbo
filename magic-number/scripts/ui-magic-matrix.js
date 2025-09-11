@@ -360,7 +360,7 @@ function renderMatrixTable() {
             }
             if (minRank === 2) {
                 return {
-                    stage: betterPossible ? '플레이오프 진출 확보' : '플레이오프 진출 확정',
+                    stage: betterPossible ? '포스트시즌 진출 확보' : '포스트시즌 진출 확정',
                     sub: betterPossible ? '정규시즌 2위 이상 확보' : '정규시즌 2위 확정',
                     cls: 'banner-top'
                 };

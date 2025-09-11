@@ -266,7 +266,7 @@ const kboTeams = {
                 if (magicNumber === 0) {
                     return team.rank === 1 ? 
                         '<span style="color: #FFD700; ">우승확정</span>' :
-                        '<span style="color: #4CAF50; ">PO확정</span>';
+                        '<span style="color: #4CAF50; ">PS확정</span>';
                 }
                 
                 // 수학적으로 불가능한 경우
@@ -616,13 +616,13 @@ const kboTeams = {
             const magicNumber = calculateMagicNumber(firstPlace, secondPlace);
             document.getElementById('first-place-magic').textContent = `매직넘버: ${magicNumber > 0 ? magicNumber : '확정'}`;
 
-            // 플레이오프 확정 팀 수 (calc-magic-numbers.json에서 계산됨)
+            // 포스트시즌 확정 팀 수 (calc-magic-numbers.json에서 계산됨)
             let playoffConfirmedCount = 0;
             if (window.magicMatrixData && window.magicMatrixData.playoffResults) {
                 playoffConfirmedCount = window.magicMatrixData.playoffResults.filter(p => p.playoffMagicStrict === 0 && p.playoffTragicStrict > 0).length;
             }
             document.getElementById('playoff-confirmed-teams').textContent = `${playoffConfirmedCount}개 팀`;
-            document.getElementById('playoff-confirmed-desc').textContent = 'PO 매직넘버 0 달성';
+            document.getElementById('playoff-confirmed-desc').textContent = 'PS 매직넘버 0 달성';
 
             // 최고 연승팀 (동점 시 2팀 표기)
             let bestStreakTeams = [];
@@ -919,7 +919,7 @@ const kboTeams = {
             }, 300);
         }
 
-        // 플레이오프 테이블 정렬
+        // 포스트시즌 테이블 정렬
         function sortPlayoffTable(column, direction) {
             const table = document.getElementById('playoff-table');
             const tbody = table.querySelector('tbody');
@@ -1007,7 +1007,7 @@ const kboTeams = {
 
         // 매직넘버 정렬 값 변환
         function getMagicNumberSortValue(magic) {
-            if (magic === '확정' || magic === 'PO확정') return -1;
+            if (magic === '확정' || magic === 'PS확정') return -1;
             if (magic === '불가능' || magic === '탈락') return 9999;
             return parseInt(magic) || 0;
         }
@@ -1243,7 +1243,7 @@ const kboTeams = {
             if (team.displayRank === 1 && team.magicNumber <= 10) {
                 return '<span class="status-indicator clinched">우승권</span>';
             } else if (team.displayRank <= 5) {
-                return '<span class="status-indicator contending">PO권</span>';
+                return '<span class="status-indicator contending">PS권</span>';
             }
             return '';
         }
@@ -1656,13 +1656,13 @@ const kboTeams = {
         }
 
         
-        // 🏟️ 플레이오프 진출 조건 테이블 렌더링 함수
+        // 🏟️ 포스트시즌 진출 조건 테이블 렌더링 함수
         // HTML의 #playoff-table에 데이터를 표시하는 함수
         function renderPlayoffCondition() {
             try {
                 const tbody = document.querySelector('#playoff-table tbody');
                 if (!tbody) {
-                    throw new Error('플레이오프 진출 조건 테이블을 찾을 수 없습니다');
+                    throw new Error('포스트시즌 진출 조건 테이블을 찾을 수 없습니다');
                 }
                 tbody.innerHTML = '';
 
@@ -1691,7 +1691,7 @@ const kboTeams = {
                 const maxPossibleWins = team.wins + remainingGames;
                 
                 
-                // calc-magic-numbers.json에서 생성된 플레이오프 데이터 가져오기
+                // calc-magic-numbers.json에서 생성된 포스트시즌 데이터 가져오기
                 let poMagicNumber = '-';
                 let poTragicNumber = '-';
                 let maxWinsMagicDisplay = '-';
@@ -1705,7 +1705,7 @@ const kboTeams = {
                         
                         // 표시 형식 지정
                         if (poMagicNumber === 0) {
-                            maxWinsMagicDisplay = '<span style="color: #2ecc71;">PO 진출 확정</span>';
+                            maxWinsMagicDisplay = '<span style="color: #2ecc71;">PS 진출 확정</span>';
                         } else if (poTragicNumber === 0) {
                             maxWinsMagicDisplay = '<span style="color: #e74c3c;">탈락</span>';
                         } else if (remainingGames < poMagicNumber) {
@@ -1804,7 +1804,7 @@ const kboTeams = {
                     }
                 }
                 
-                // PO 필요 승률
+                // PS 필요 승률
                 let poRequiredWinPct = '-';
                 if (poMagicNumber === 0) {
                     poRequiredWinPct = '<span style="color: #2ecc71;">진출</span>';
@@ -1829,7 +1829,7 @@ const kboTeams = {
                     historicPlayoffRequiredWinPct = historicPlayoffRequiredRate.toFixed(3);
                 }
                 
-                // PO 매직넘버가 0인 팀 (플레이오프 확정팀)에게 팀 컬러 클래스 적용
+                // PS 매직넘버가 0인 팀 (포스트시즌 확정팀)에게 팀 컬러 클래스 적용
                 if (poMagicNumber === 0) {
                     const teamNameLower = team.team.toLowerCase();
                     row.className = `playoff-confirmed-${teamNameLower}`;
@@ -1853,7 +1853,7 @@ const kboTeams = {
             
             
             } catch (error) {
-                logger.error('❌ 플레이오프 진출 조건 렌더링 실패:', error);
+                logger.error('❌ 포스트시즌 진출 조건 렌더링 실패:', error);
             }
         }
 
@@ -2333,7 +2333,7 @@ const kboTeams = {
                 try {
                     renderPlayoffCondition();
                 } catch (error) {
-                    logger.error('❌ 플레이오프 조건 렌더링 오류:', error);
+                    logger.error('❌ 포스트시즌 조건 렌더링 오류:', error);
                 }
                 
                 
@@ -3002,7 +3002,7 @@ const kboTeams = {
                 const maxRemainingGames = Math.max(...topTeams.map(team => team.remainingGames || 0));
                 const maxScenarios = maxRemainingGames + 1;
                 
-                // 플레이오프 경쟁팀 계산
+                // 포스트시즌 경쟁팀 계산
                 let playoffContenders = topTeams.length;
                 
                 // 우승 가능팀 계산
@@ -3038,7 +3038,7 @@ const kboTeams = {
                 const firstPlaceRace = analyzeFirstPlaceRace(topTeams);
                 updateElementText('first-place-race', firstPlaceRace);
                 
-                // 플레이오프 경쟁 분석
+                // 포스트시즌 경쟁 분석
                 const playoffRace = analyzePlayoffRace(topTeams);
                 updateElementText('playoff-race', playoffRace);
                 
@@ -3212,7 +3212,7 @@ const kboTeams = {
                     return scenarios;
                 });
                 
-                // 현실적으로 플레이오프 경쟁 가능한 팀들만 체크
+                // 현실적으로 포스트시즌 경쟁 가능한 팀들만 체크
                 const competingTeams = teamScenarios.slice(0, Math.min(10, teamScenarios.length));
                 
                 // 더 많은 시나리오 샘플링 (더 정확한 검사)
@@ -3722,7 +3722,7 @@ const kboTeams = {
                     const type = this.getAttribute('data-type');
                     const url = window.location.href;
                     const title = 'KBO 2025 우승 매직넘버 계산기';
-                    const text = 'KBO 2025 매직넘버 계산기! 10개 구단의 플레이오프 진출 조건, 우승 가능성, 팀별 순위표와 상대전적을 실시간으로 확인하세요.';
+                    const text = 'KBO 2025 매직넘버 계산기! 10개 구단의 포스트시즌 진출 조건, 우승 가능성, 팀별 순위표와 상대전적을 실시간으로 확인하세요.';
 
                     switch(type) {
                         case 'copy':
@@ -4063,7 +4063,7 @@ const kboTeams = {
                             <h1>🎲 KBO 2025 전체 팀 경우의수 분석</h1>
                             <p>📅 업데이트: ${new Date().toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' })}</p>
                             <p>📊 KBO 리그 전체 10개 팀의 모든 승패 시나리오와 최종 순위 경우의수를 분석합니다.</p>
-                            <p>🏆 상단 5개 팀: 플레이오프 진출 가능 | 하단 5개 팀: 일반 순위</p>
+                            <p>🏆 상단 5개 팀: 포스트시즌 진출 가능 | 하단 5개 팀: 일반 순위</p>
                         </div>
                         <div class="magic-table-container">
                             ${fullScenarioMatrix}

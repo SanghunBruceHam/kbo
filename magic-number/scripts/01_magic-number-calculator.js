@@ -14,7 +14,7 @@ function loadServiceData() {
     }
 }
 
-// 플레이오프 진출 조건 매직/트래직 넘버 계산 함수들
+// 포스트시즌 진출 조건 매직/트래직 넘버 계산 함수들
 function calcRemainingGames(team, totalGames) {
     return totalGames - (team.wins + team.losses + (team.draws || 0));
 }
@@ -250,7 +250,7 @@ function calculateMagicNumbers(serviceData) {
         const gamesRemaining = totalGames - gamesPlayed;
         const currentWinRate = wins / gamesPlayed;
         
-        // 플레이오프 진출 매직넘버 비활성화
+        // 포스트시즌 진출 매직넘버 비활성화
         let magicNumber = '-';
         let status = '';
         
@@ -272,12 +272,12 @@ function calculateMagicNumbers(serviceData) {
         console.log(`${rank}위 ${team.team}: ${wins}승 ${losses}패 (승률 ${currentWinRate.toFixed(3)}, ${gamesRemaining}경기 남음) - 매직넘버: ${magicDisplay}${statusDisplay}`);
     });
     
-    // 플레이오프 진출 매직/트래직 넘버 계산
-    console.log('\n🏆 플레이오프 진출 매직/트래직 넘버 계산 중...');
+    // 포스트시즌 진출 매직/트래직 넘버 계산
+    console.log('\n🏆 포스트시즌 진출 매직/트래직 넘버 계산 중...');
     const playoffResults = calculatePlayoffMagicTragic(standings, totalGames);
     
     playoffResults.forEach(team => {
-        console.log(`${team.team}: PO 매직넘버 ${team.playoffMagicStrict} / PO 트래직넘버 ${team.playoffTragicStrict} - ${team.playoffStatus}`);
+        console.log(`${team.team}: PS 매직넘버 ${team.playoffMagicStrict} / PS 트래직넘버 ${team.playoffTragicStrict} - ${team.playoffStatus}`);
     });
 
     // 1위 매직/트래직 넘버 계산 (RAW 버전)
@@ -327,7 +327,7 @@ function calculateMagicNumbers(serviceData) {
     const matrixData = {
         lastUpdated: new Date().toISOString(),
         updateDate: new Date().toLocaleDateString('ko-KR'),
-        note: "승률 기준 정확한 매직넘버 계산 + 플레이오프 진출 조건 + 1위 매직/트래직넘버 포함",
+        note: "승률 기준 정확한 매직넘버 계산 + 포스트시즌 진출 조건 + 1위 매직/트래직넘버 포함",
         results: results,
         playoffResults: playoffResults,
         rankingMagicData: rankingMagicData
