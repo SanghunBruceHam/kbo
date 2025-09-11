@@ -803,7 +803,7 @@ function createSimpleChart(data) {
                             font: {
                                 size: 11
                             },
-                            maxTicksLimit: 30,
+                            maxTicksLimit: 120,
                             includeBounds: true
                         },
                         grid: {
@@ -945,7 +945,7 @@ function createSimpleChart(data) {
                             font: {
                                 size: 11
                             },
-                            maxTicksLimit: 30
+                            maxTicksLimit: 120
                         }
                     }
                 },

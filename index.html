@@ -4555,7 +4555,7 @@
             </div>
             
             <!-- 게임차 차트 -->
-            <div class="daily-stats-sub-card" style="background: #f8f9fa; border-radius: 8px; padding: 16px; border: 1px solid #e9ecef; margin-bottom: 20px; height: 520px; display: flex; flex-direction: column;">
+            <div class="daily-stats-sub-card" style="background: #f8f9fa; border-radius: 8px; padding: 15px; border: 1px solid #e9ecef; margin-bottom: 20px; height: 520px; display: flex; flex-direction: column;">
                 <h3 style="color: #333; font-size: 16px; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #e5e7eb; flex-shrink: 0;">📊 게임차 변화</h3>
                 <div style="position: relative; height: 300px; margin-bottom: 15px; flex-shrink: 0;">
                     <canvas id="daily-stats-game-gap-chart"></canvas>
@@ -4569,8 +4569,8 @@
             </div>
             
             <!-- 승차 변화 차트 (전체 너비) -->
-            <div class="daily-stats-sub-card" style="background: #f8f9fa; border-radius: 8px; padding: 16px; border: 1px solid #e9ecef; margin-bottom: 20px; height: 535px; display: flex; flex-direction: column;">
-                <h3 style="color: #333; font-size: 16px; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #e5e7eb; flex-shrink: 0;">📈 승차 변화 추이</h3>
+            <div class="daily-stats-sub-card" style="background: #f8f9fa; border-radius: 8px; padding: 15px; border: 1px solid #e9ecef; margin-bottom: 20px; height: 535px; display: flex; flex-direction: column;">
+                <h3 style="color: #333; font-size: 16px; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #e5e7eb; flex-shrink: 0;">📈 일간 승차 변화</h3>
                 <div style="position: relative; flex: 1;">
                     <canvas id="daily-stats-win-gap-chart"></canvas>
                 </div>
@@ -4580,8 +4580,8 @@
             </div>
             
             <!-- 승수 변동 추이 차트 (전체 너비) -->
-            <div class="daily-stats-sub-card" style="background: #f8f9fa; border-radius: 8px; padding: 16px; border: 1px solid #e9ecef; margin-bottom: 20px; height: 535px; display: flex; flex-direction: column;">
-                <h3 style="color: #333; font-size: 16px; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #e5e7eb; flex-shrink: 0;">🏆 승수 변동 추이</h3>
+            <div class="daily-stats-sub-card" style="background: #f8f9fa; border-radius: 8px; padding: 15px; border: 1px solid #e9ecef; margin-bottom: 20px; height: 535px; display: flex; flex-direction: column;">
+                <h3 style="color: #333; font-size: 16px; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #e5e7eb; flex-shrink: 0;">🏆 일간 승수 변동</h3>
                 <div style="position: relative; flex: 1;">
                     <canvas id="daily-stats-win-count-chart"></canvas>
                 </div>
@@ -4591,8 +4591,8 @@
             </div>
             
             <!-- 순위 변동 차트 (전체 너비) -->
-            <div class="daily-stats-sub-card" style="background: #f8f9fa; border-radius: 8px; padding: 16px; border: 1px solid #e9ecef; margin-bottom: 20px; height: 535px; display: flex; flex-direction: column;">
-                <h3 style="color: #333; font-size: 16px; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #e5e7eb; flex-shrink: 0;">📊 순위 변동 추이</h3>
+            <div class="daily-stats-sub-card" style="background: #f8f9fa; border-radius: 8px; padding: 15px; border: 1px solid #e9ecef; margin-bottom: 20px; height: 535px; display: flex; flex-direction: column;">
+                <h3 style="color: #333; font-size: 16px; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #e5e7eb; flex-shrink: 0;">📊 일간 순위 변동</h3>
                 <div style="position: relative; flex: 1;">
                     <canvas id="daily-stats-rank-chart"></canvas>
                 </div>
@@ -4602,9 +4602,9 @@
             </div>
             
             <!-- 승률 추이 차트 (전체 너비) - 일별통계 섹션 내 승률 추이 (ROOT INDEX 메인 카드와는 별개) -->
-            <div class="daily-stats-sub-card" style="background: #f8f9fa; border-radius: 8px; padding: 16px; border: 1px solid #e9ecef; height: 535px; display: flex; flex-direction: column;">
-                <h3 style="color: #333; font-size: 16px; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #e5e7eb; flex-shrink: 0;">📉 승률 추이</h3>
-                <div style="position: relative; flex: 1;">
+            <div class="daily-stats-sub-card" style="background: #f8f9fa; border-radius: 8px; padding: 15px; border: 1px solid #e9ecef; height: 535px; display: flex; flex-direction: column;">
+                <h3 style="color: #333; font-size: 16px; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #e5e7eb; flex-shrink: 0;">📉 일간 승률 변동</h3>
+                <div style="position: relative; flex: 1; min-height: 0; overflow: hidden;">
                     <canvas id="daily-stats-win-rate-chart"></canvas>
                 </div>
                 <div id="daily-stats-win-rate-legend" style="display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; padding: 8px; margin-top: 10px;">
@@ -4781,8 +4781,8 @@
                 gap: 4px;
             " id="progressDotsWinGap"></div>
             
-            <div class="daily-stats-sub-card" style="background: #f8f9fa; border-radius: 8px; padding: 16px; border: 1px solid #e9ecef; margin-bottom: 20px; height: 535px; display: flex; flex-direction: column;">
-                <div style="position: relative; flex: 1; min-height: 0; overflow: hidden;">
+            <div class="daily-stats-sub-card" style="background: #f8f9fa; border-radius: 8px; padding: 15px; border: 1px solid #e9ecef; margin-bottom: 20px; height: 535px; display: flex; flex-direction: column;">
+                <div style="position: relative; flex: 1; min-width: 900px;">
                     <!-- 메인 승차변화추이 카드 캔버스 -->
                     <canvas id="winGapChart"></canvas>
                 </div>
@@ -4795,7 +4795,7 @@
             
             <!-- 설명 섹션 -->
             <div style="margin-top: 20px; padding: 12px; background: #f8f9fa; border-radius: 6px; border: 1px solid #e9ecef;">
-                <div style="font-size: var(--font-base); font-weight: var(--font-weight-medium); margin-bottom: 8px; color: #495057;">📈 승차 변화 추이 그래프 이용 가이드</div>
+                <div style="font-size: var(--font-base); font-weight: var(--font-weight-medium); margin-bottom: 8px; color: #495057;">📈 일간 승차 변화 그래프 이용 가이드</div>
                 <ul style="margin: 6px 0; padding-left: 16px; line-height: 1.5; font-size: var(--font-sm); color: var(--text-secondary);">
                     <li><strong>기간:</strong> 3월 22일 개막~현재</li>
                     <li><strong>승차:</strong> 1위팀과의 승수 차이</li>
@@ -4903,8 +4903,8 @@
                 gap: 4px;
             " id="progressDotsWinCount"></div>
             
-            <div class="daily-stats-sub-card" style="background: #f8f9fa; border-radius: 8px; padding: 16px; border: 1px solid #e9ecef; margin-bottom: 20px; height: 535px; display: flex; flex-direction: column;">
-                <div style="position: relative; flex: 1; min-height: 0; overflow: hidden;">
+            <div class="daily-stats-sub-card" style="background: #f8f9fa; border-radius: 8px; padding: 15px; border: 1px solid #e9ecef; margin-bottom: 20px; height: 535px; display: flex; flex-direction: column;">
+                <div style="position: relative; flex: 1; min-width: 900px;">
                     <!-- 메인 승수변동추이 카드 캔버스 -->
                     <canvas id="winCountChart"></canvas>
                 </div>
@@ -4917,7 +4917,7 @@
             
             <!-- 설명 섹션 -->
             <div style="margin-top: 20px; padding: 12px; background: #f8f9fa; border-radius: 6px; border: 1px solid #e9ecef;">
-                <div style="font-size: var(--font-base); font-weight: var(--font-weight-medium); margin-bottom: 8px; color: #495057;">🏆 승수 변동 추이 그래프 이용 가이드</div>
+                <div style="font-size: var(--font-base); font-weight: var(--font-weight-medium); margin-bottom: 8px; color: #495057;">🏆 일간 승수 변동 그래프 이용 가이드</div>
                 <ul style="margin: 6px 0; padding-left: 16px; line-height: 1.5; font-size: var(--font-sm); color: var(--text-secondary);">
                     <li><strong>기간:</strong> 3월 22일 개막~현재</li>
                     <li><strong>승수:</strong> 각 팀의 시즌 누적 승리 횟수</li>
@@ -5025,8 +5025,8 @@
                 gap: 4px;
             " id="progressDots"></div>
             
-            <div class="daily-stats-sub-card" style="background: #f8f9fa; border-radius: 8px; padding: 16px; border: 1px solid #e9ecef; margin-bottom: 20px; height: 535px; display: flex; flex-direction: column;">
-                <div style="position: relative; flex: 1; min-height: 0; overflow: hidden;">
+            <div class="daily-stats-sub-card" style="background: #f8f9fa; border-radius: 8px; padding: 15px; border: 1px solid #e9ecef; margin-bottom: 20px; height: 535px; display: flex; flex-direction: column;">
+                <div style="position: relative; flex: 1; min-width: 900px;">
                     <!-- 📈 메인 순위 변동 차트 캔버스 - magic-number/scripts/ui-charts.js에서 관리 -->
                     <canvas id="rankChart"></canvas>
                 </div>
@@ -5146,21 +5146,21 @@
                 gap: 4px;
             " id="progressDotsWinRate"></div>
             
-            <div class="daily-stats-sub-card" style="background: #f8f9fa; border-radius: 8px; padding: 16px; border: 1px solid #e9ecef; margin-bottom: 20px; height: 535px; display: flex; flex-direction: column;">
-                <div style="position: relative; flex: 1; min-height: 0; overflow: hidden;">
+            <div class="daily-stats-sub-card" style="background: #f8f9fa; border-radius: 8px; padding: 15px; border: 1px solid #e9ecef; margin-bottom: 20px; height: 535px; display: flex; flex-direction: column;">
+                <div style="position: relative; flex: 1; min-width: 900px;">
                     <!-- 메인 승률추이 카드 캔버스 -->
                     <canvas id="winRateChart"></canvas>
                 </div>
             </div>
             
             <!-- 팀 레전드 (순위 변동 추이와 동일한 형식) -->
-            <div id="winRateChartLegend" style="display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; padding: 8px; background: white; border-radius: 6px; border: 1px solid #e5e7eb; flex-shrink: 0; max-height: 60px; overflow-y: auto;">
+            <div id="winRateChartLegend" style="display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; padding: 0; background: transparent; border: none; flex-shrink: 0; max-height: 60px; overflow-y: auto; margin-bottom: 0;">
                 <!-- 동적으로 생성됨 -->
             </div>
             
             <!-- 설명 섹션 -->
             <div style="margin-top: 20px; padding: 12px; background: #f8f9fa; border-radius: 6px; border: 1px solid #e9ecef;">
-                <div style="font-size: var(--font-base); font-weight: var(--font-weight-medium); margin-bottom: 8px; color: #495057;">📉 승률 추이 그래프 이용 가이드</div>
+                <div style="font-size: var(--font-base); font-weight: var(--font-weight-medium); margin-bottom: 8px; color: #495057;">📉 일간 승률 변동 그래프 이용 가이드</div>
                 <div style="font-size: var(--font-sm); color: #4b5563; line-height: 1.5;">
                     <div style="margin-bottom: 6px;"><strong>기간:</strong> 2025년 3월 22일 개막부터 현재까지 실제 경기 결과 기반</div>
                     <div style="margin-bottom: 6px;"><strong>승률 계산:</strong> 각 날짜별 누적 승률 (무승부 제외)</div>
@@ -13516,12 +13516,13 @@ KT 9:1 키움(H)`;
                         options: {
                             responsive: true,
                             maintainAspectRatio: false,
+                            clip: false,
                             layout: {
                                 padding: {
-                                    left: 10,
-                                    right: 50,
-                                    top: 10,
-                                    bottom: 10
+                                    left: 15,
+                                    right: 20,
+                                    top: 15,
+                                    bottom: 15
                                 }
                             },
                             scales: {
@@ -13549,7 +13550,7 @@ KT 9:1 키움(H)`;
                                         font: {
                                             size: 11
                                         },
-                                        maxTicksLimit: 30
+                                        maxTicksLimit: 120
                                     }
                                 }
                             },
@@ -13783,6 +13784,15 @@ KT 9:1 키움(H)`;
                         options: {
                             responsive: true,
                             maintainAspectRatio: false,
+                            clip: false,
+                            layout: {
+                                padding: {
+                                    left: 15,
+                                    right: 20,
+                                    top: 15,
+                                    bottom: 15
+                                }
+                            },
                             scales: {
                                 y: {
                                     beginAtZero: true,
@@ -13954,6 +13964,15 @@ KT 9:1 키움(H)`;
                         options: {
                             responsive: true,
                             maintainAspectRatio: false,
+                            clip: false,
+                            layout: {
+                                padding: {
+                                    left: 15,
+                                    right: 20,
+                                    top: 15,
+                                    bottom: 15
+                                }
+                            },
                             animation: false,  // 초기 애니메이션 비활성화
                             plugins: { 
                                 legend: { display: false },
@@ -14053,6 +14072,15 @@ KT 9:1 키움(H)`;
                         options: {
                             responsive: true,
                             maintainAspectRatio: false,
+                            clip: false,
+                            layout: {
+                                padding: {
+                                    left: 15,
+                                    right: 20,
+                                    top: 15,
+                                    bottom: 15
+                                }
+                            },
                             animation: false,  // 초기 애니메이션 비활성화
                             plugins: { 
                                 legend: { display: false },
@@ -15179,7 +15207,7 @@ KT 9:1 키움(H)`;
                     // 순위 변동 차트 설정
                     if (chartState && chartState.chart) {
                         chartState.chart.options.layout.padding = {
-                            left: 10, right: 30, top: 10, bottom: 10
+                            left: 15, right: 15, top: 15, bottom: 15
                         };
                         chartState.chart.update('none');
                     }
@@ -15544,8 +15572,8 @@ KT 9:1 키움(H)`;
                         layout: {
                             padding: {
                                 left: 10,
-                                right: 50,
-                                top: 10,
+                                right: 20,
+                                top: 25,
                                 bottom: 10
                             }
                         },
@@ -15574,7 +15602,7 @@ KT 9:1 키움(H)`;
                                     font: {
                                         size: 11
                                     },
-                                    maxTicksLimit: 30
+                                    maxTicksLimit: 120
                                 }
                             }
                         },
@@ -15970,7 +15998,7 @@ KT 9:1 키움(H)`;
                         layout: {
                             padding: {
                                 left: 10,
-                                right: 50,
+                                right: 20,
                                 top: 10,
                                 bottom: 10
                             }
@@ -16003,7 +16031,7 @@ KT 9:1 키움(H)`;
                                     display: false
                                 },
                                 ticks: {
-                                    maxTicksLimit: 30, // 다른 차트와 동일하게 30개로 설정
+                                    maxTicksLimit: 30, // 기본값 (업데이트에서 재설정됨)
                                     maxRotation: 45,   // 사선 각도 설정
                                     minRotation: 45,   // 최소 각도도 45도로 고정
                                     font: {
@@ -16192,7 +16220,7 @@ KT 9:1 키움(H)`;
                 winRateChartInstance.options.scales.y.min = yMin;
                 winRateChartInstance.options.scales.y.max = yMax;
                 winRateChartInstance.options.scales.x.ticks.maxTicksLimit = 
-                    winRateChartState.isFullView ? 16 : labels.length;
+                    winRateChartState.isFullView ? 120 : labels.length;
                 
                 // 차트 업데이트 (애니메이션 없이 빠르게)
                 winRateChartInstance.update('none');
@@ -16305,11 +16333,11 @@ KT 9:1 키움(H)`;
                         },
                         x: {
                             ticks: {
-                                maxTicksLimit: 30,  // 다른 차트와 동일하게 30개로 설정
-                                maxRotation: 45,   // 사선 각도 설정
-                                minRotation: 45,   // 최소 각도도 45도로 고정
+                                maxTicksLimit: 120, // x축에 더 많은 날짜 표시
+                                maxRotation: 30,   // 읽기 쉽도록 각도 줄임
+                                minRotation: 30,   // 최소 각도도 30도로 조정
                                 font: {
-                                    size: 11       // 다른 차트와 동일한 폰트 크기
+                                    size: 9        // 더 많은 라벨을 위해 폰트 크기 줄임
                                 }
                             },
                             grid: {
@@ -16443,10 +16471,12 @@ KT 9:1 키움(H)`;
             legendContainer.style.cssText = `
                 display: flex;
                 flex-wrap: wrap;
-                gap: 8px;
+                gap: 6px;
                 justify-content: center;
                 padding: 0;
-                margin-top: 2px;
+                background: transparent;
+                border: none;
+                margin-bottom: 0;
             `;
 
             // 종합 순위 기준 팀 순서 사용 (KBO 규정 동률 처리 반영)
