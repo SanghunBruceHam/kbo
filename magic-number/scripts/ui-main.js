@@ -1659,6 +1659,7 @@ const kboTeams = {
         // 🏟️ 포스트시즌 진출 조건 테이블 렌더링 함수
         // HTML의 #playoff-table에 데이터를 표시하는 함수
         function renderPlayoffCondition() {
+            console.log('📋 renderPlayoffCondition() 함수 호출됨');
             try {
                 const tbody = document.querySelector('#playoff-table tbody');
                 if (!tbody) {
@@ -1927,10 +1928,18 @@ const kboTeams = {
                     historicPlayoffRequiredWinPct = historicPlayoffRequiredRate.toFixed(3);
                 }
                 
-                // PS 매직넘버가 0인 팀 (포스트시즌 확정팀)에게 팀 컬러 클래스 적용
-                if (poMagicNumber === 0) {
-                    const teamNameLower = team.team.toLowerCase();
-                    row.className = `playoff-confirmed-${teamNameLower}`;
+                // 1-5위 박스 스타일 정의 (더 강력한 테두리)
+                let rowStyle = '';
+                if (team.displayRank <= 5) {
+                    rowStyle += 'border-left: 4px solid red !important; border-right: 4px solid red !important;';
+                    
+                    if (team.displayRank === 1) {
+                        rowStyle += 'border-top: 4px solid red !important; border-top-left-radius: 6px !important; border-top-right-radius: 6px !important;';
+                    }
+                    
+                    if (team.displayRank === 5) {
+                        rowStyle += 'border-bottom: 4px solid red !important; border-bottom-left-radius: 6px !important; border-bottom-right-radius: 6px !important; box-shadow: 0 2px 8px rgba(255, 0, 0, 0.15) !important;';
+                    }
                 }
                 
                 row.innerHTML = `
@@ -1946,6 +1955,22 @@ const kboTeams = {
                     <td class="historic-playoff-tragic" style="text-align: center;">${historicPlayoffTragicDisplay}</td>
                     <td class="historic-playoff-required-rate">${historicPlayoffRequiredWinPct}</td>
                 `;
+                
+                // 인라인 스타일 적용
+                if (rowStyle) {
+                    row.setAttribute('style', rowStyle);
+                    console.log(`🔴 박스 적용: ${team.team} (${team.displayRank}위) - Style: ${rowStyle}`);
+                }
+                
+                // 팀 컬러 클래스 적용
+                if (poMagicNumber === 0) {
+                    const teamNameLower = team.team.toLowerCase();
+                    row.classList.add(`playoff-confirmed-${teamNameLower}`);
+                } else if (poTragicNumber === 0) {
+                    row.classList.add(`playoff-eliminated`);
+                }
+                
+                
                 tbody.appendChild(row);
             });
             

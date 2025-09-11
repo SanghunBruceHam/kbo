@@ -892,56 +892,165 @@ table th {
     color: #000 !important;
 }
 
-/* 포스트시즌 확정 팀 (PS 매직넘버 0) - 팀 컬러로 표시 (모든 하위 요소 포함) */
-#playoff-table .playoff-confirmed-hanwha td,
-#playoff-table .playoff-confirmed-hanwha td span { color: #FF6600 !important; font-weight: 600 !important; }
-#playoff-table .playoff-confirmed-lg td,
-#playoff-table .playoff-confirmed-lg td span { color: #C50E2E !important; font-weight: 600 !important; }
-#playoff-table .playoff-confirmed-doosan td,
-#playoff-table .playoff-confirmed-doosan td span { color: #131230 !important; font-weight: 600 !important; }
-#playoff-table .playoff-confirmed-samsung td,
-#playoff-table .playoff-confirmed-samsung td span { color: #1F4E8C !important; font-weight: 600 !important; }
-#playoff-table .playoff-confirmed-kia td,
-#playoff-table .playoff-confirmed-kia td span { color: #EA0029 !important; font-weight: 600 !important; }
-#playoff-table .playoff-confirmed-ssg td,
-#playoff-table .playoff-confirmed-ssg td span { color: #CE0E2D !important; font-weight: 600 !important; }
-#playoff-table .playoff-confirmed-lotte td,
-#playoff-table .playoff-confirmed-lotte td span { color: #041E42 !important; font-weight: 600 !important; }
-#playoff-table .playoff-confirmed-nc td,
-#playoff-table .playoff-confirmed-nc td span { color: #315288 !important; font-weight: 600 !important; }
-#playoff-table .playoff-confirmed-kiwoom td,
-#playoff-table .playoff-confirmed-kiwoom td span { color: #570514 !important; font-weight: 600 !important; }
-#playoff-table .playoff-confirmed-kt td,
-#playoff-table .playoff-confirmed-kt td span { color: #333333 !important; font-weight: 600 !important; }
-
-/* 포스트시즌 진출 조건 테이블 1~5위 팀 전체 박스 */
-#playoff-table tbody tr:nth-child(-n+5) {
-    background-color: rgba(79, 70, 229, 0.02);
+/* 포스트시즌 확정 팀 (PS 매직넘버 0) - 팀 컬러로 표시 + 연한 배경색 */
+#playoff-table .playoff-confirmed-hanwha td { 
+    color: #FF6600 !important; 
+    font-weight: 600 !important; 
+    background-color: rgba(255, 102, 0, 0.08) !important;
+}
+#playoff-table .playoff-confirmed-hanwha td span { 
+    color: #FF6600 !important; 
+    font-weight: 600 !important; 
+    background-color: transparent !important;
+}
+#playoff-table .playoff-confirmed-hanwha td span[style] { 
+    color: #FF6600 !important; 
+    background-color: transparent !important;
+}
+#playoff-table .playoff-confirmed-lg td { 
+    color: #C50E2E !important; 
+    font-weight: 600 !important; 
+    background-color: rgba(197, 14, 46, 0.08) !important;
+}
+#playoff-table .playoff-confirmed-lg td span { 
+    color: #C50E2E !important; 
+    font-weight: 600 !important; 
+    background-color: transparent !important;
+}
+#playoff-table .playoff-confirmed-lg td span[style] { 
+    color: #C50E2E !important; 
+    background-color: transparent !important;
+}
+#playoff-table .playoff-confirmed-doosan td { 
+    color: #131230 !important; 
+    font-weight: 600 !important; 
+    background-color: rgba(19, 18, 48, 0.08) !important;
+}
+#playoff-table .playoff-confirmed-doosan td span { 
+    color: #131230 !important; 
+    font-weight: 600 !important; 
+    background-color: transparent !important;
+}
+#playoff-table .playoff-confirmed-doosan td span[style] { 
+    color: #131230 !important; 
+    background-color: transparent !important;
+}
+#playoff-table .playoff-confirmed-samsung td { 
+    color: #1F4E8C !important; 
+    font-weight: 600 !important; 
+    background-color: rgba(31, 78, 140, 0.08) !important;
+}
+#playoff-table .playoff-confirmed-samsung td span { 
+    color: #1F4E8C !important; 
+    font-weight: 600 !important; 
+    background-color: transparent !important;
+}
+#playoff-table .playoff-confirmed-samsung td span[style] { 
+    color: #1F4E8C !important; 
+    background-color: transparent !important;
+}
+#playoff-table .playoff-confirmed-kia td { 
+    color: #EA0029 !important; 
+    font-weight: 600 !important; 
+    background-color: rgba(234, 0, 41, 0.08) !important;
+}
+#playoff-table .playoff-confirmed-kia td span { 
+    color: #EA0029 !important; 
+    font-weight: 600 !important; 
+    background-color: transparent !important;
+}
+#playoff-table .playoff-confirmed-kia td span[style] { 
+    color: #EA0029 !important; 
+    background-color: transparent !important;
+}
+#playoff-table .playoff-confirmed-ssg td { 
+    color: #CE0E2D !important; 
+    font-weight: 600 !important; 
+    background-color: rgba(206, 14, 45, 0.08) !important;
+}
+#playoff-table .playoff-confirmed-ssg td span { 
+    color: #CE0E2D !important; 
+    font-weight: 600 !important; 
+    background-color: transparent !important;
+}
+#playoff-table .playoff-confirmed-ssg td span[style] { 
+    color: #CE0E2D !important; 
+    background-color: transparent !important;
+}
+#playoff-table .playoff-confirmed-lotte td { 
+    color: #041E42 !important; 
+    font-weight: 600 !important; 
+    background-color: rgba(4, 30, 66, 0.08) !important;
+}
+#playoff-table .playoff-confirmed-lotte td span { 
+    color: #041E42 !important; 
+    font-weight: 600 !important; 
+    background-color: transparent !important;
+}
+#playoff-table .playoff-confirmed-lotte td span[style] { 
+    color: #041E42 !important; 
+    background-color: transparent !important;
+}
+#playoff-table .playoff-confirmed-nc td { 
+    color: #315288 !important; 
+    font-weight: 600 !important; 
+    background-color: rgba(49, 82, 136, 0.08) !important;
+}
+#playoff-table .playoff-confirmed-nc td span { 
+    color: #315288 !important; 
+    font-weight: 600 !important; 
+    background-color: transparent !important;
+}
+#playoff-table .playoff-confirmed-nc td span[style] { 
+    color: #315288 !important; 
+    background-color: transparent !important;
+}
+#playoff-table .playoff-confirmed-kiwoom td { 
+    color: #570514 !important; 
+    font-weight: 600 !important; 
+    background-color: rgba(87, 5, 20, 0.08) !important;
+}
+#playoff-table .playoff-confirmed-kiwoom td span { 
+    color: #570514 !important; 
+    font-weight: 600 !important; 
+    background-color: transparent !important;
+}
+#playoff-table .playoff-confirmed-kiwoom td span[style] { 
+    color: #570514 !important; 
+    background-color: transparent !important;
+}
+#playoff-table .playoff-confirmed-kt td { 
+    color: #333333 !important; 
+    font-weight: 600 !important; 
+    background-color: rgba(51, 51, 51, 0.08) !important;
+}
+#playoff-table .playoff-confirmed-kt td span { 
+    color: #333333 !important; 
+    font-weight: 600 !important; 
+    background-color: transparent !important;
+}
+#playoff-table .playoff-confirmed-kt td span[style] { 
+    color: #333333 !important; 
+    background-color: transparent !important;
 }
 
-#playoff-table tbody tr:nth-child(1) {
-    border-top: 2px solid #4F46E5;
-    border-left: 2px solid #4F46E5;
-    border-right: 2px solid #4F46E5;
-    border-top-left-radius: 6px;
-    border-top-right-radius: 6px;
+/* 포스트시즌 탈락 팀 (PS 트래직넘버 0) - 그레이 배경색 */
+#playoff-table .playoff-eliminated td {
+    color: #6b7280 !important;
+    font-weight: 400 !important;
+    background-color: rgba(156, 163, 175, 0.1) !important;
+}
+#playoff-table .playoff-eliminated td span {
+    color: #6b7280 !important;
+    font-weight: 400 !important;
+    background-color: transparent !important;
+}
+#playoff-table .playoff-eliminated td span[style] {
+    color: #6b7280 !important;
+    background-color: transparent !important;
 }
 
-#playoff-table tbody tr:nth-child(2),
-#playoff-table tbody tr:nth-child(3),
-#playoff-table tbody tr:nth-child(4) {
-    border-left: 2px solid #4F46E5;
-    border-right: 2px solid #4F46E5;
-}
 
-#playoff-table tbody tr:nth-child(5) {
-    border-bottom: 2px solid #4F46E5;
-    border-left: 2px solid #4F46E5;
-    border-right: 2px solid #4F46E5;
-    border-bottom-left-radius: 6px;
-    border-bottom-right-radius: 6px;
-    box-shadow: 0 2px 8px rgba(79, 70, 229, 0.15);
-}
 
 /* 팀 색상 클래스들 */
 .team-hanwha { color: #FF6600 !important; font-weight: 600; }
@@ -1123,14 +1232,16 @@ tbody tr:hover td {
     background-color: inherit;
 }
 
-/* 테이블 행 짝/홀수 배경 - 통합 */
-tbody tr:nth-child(even) {
+/* 테이블 행 짝/홀수 배경 - 통합 (포스트시즌 테이블 제외) */
+tbody tr:nth-child(even):not(#playoff-table tr) {
     background-color: rgba(248, 250, 252, 0.8);
 }
 
-tbody tr:nth-child(odd) {
+tbody tr:nth-child(odd):not(#playoff-table tr) {
     background-color: rgba(255, 255, 255, 0.9);
 }
+
+/* 포스트시즌 테이블은 일반 행 배경 없음 (확정/탈락 팀만 배경색 적용) */
 
 td {
     font-weight: 400;
@@ -1904,16 +2015,17 @@ tbody tr {
         width: 24px !important;
         height: auto !important;
     }
-    table {
+    table:not(#playoff-table) {
         min-width: 100%;
         font-size: 0.8rem;
     }
-    th, td {
+    table:not(#playoff-table) th, 
+    table:not(#playoff-table) td {
         padding: 8px 4px;
         min-height: 36px;
         font-size: 0.85rem;    /* 데이터 셀 텍스트 크기 증가 */
     }
-    th {
+    table:not(#playoff-table) th {
         height: 40px;
         font-size: 0.8rem;
     }
@@ -1923,7 +2035,6 @@ tbody tr {
     /* 모든 개별 테이블 ID 스타일 - 홈/방문 컬럼 제외하고 무효화 */
     #standings-table th:not(:nth-child(13)):not(:nth-child(14)):not(:nth-child(15)), 
     #standings-table td:not(:nth-child(13)):not(:nth-child(14)):not(:nth-child(15)),
-    #playoff-table th:not(:nth-child(2)), #playoff-table td:not(:nth-child(2)),
     #chase-table th:not(:nth-child(2)), #chase-table td:not(:nth-child(2)) {
         width: auto !important; /* 통합 시스템이 제어 */
         font-size: inherit !important; /* 통합 폰트 시스템 사용 */
@@ -1959,11 +2070,12 @@ tbody tr {
 }
 
 @media screen and (max-width: 480px) {
-    th, td {
+    table:not(#playoff-table) th, 
+    table:not(#playoff-table) td {
         padding: 6px 2px;
         font-size: 0.85rem !important;   /* 초소형 화면 텍스트 크기 더 증가 */
     }
-    th {
+    table:not(#playoff-table) th {
         font-size: 0.9rem !important;    /* 헤더 크기도 더 증가 */
     }
     .table-container {
@@ -2246,7 +2358,7 @@ input, textarea, select, button {
         vertical-align: middle !important;
     }
     /* 🎨 통합 데이터 셀 스타일 - 폰트 크기 증가 */
-    table td {
+    table:not(#playoff-table) td {
         font-size: 0.85rem !important; /* 0.75rem → 0.85rem 모바일 데이터 셀 크기 증가 */
         font-weight: 500 !important;
         text-align: center !important; /* 모든 데이터 셀 중앙 정렬 강제 */
@@ -2256,7 +2368,19 @@ input, textarea, select, button {
         white-space: nowrap !important;
         vertical-align: middle !important;
         min-height: 40px !important; /* 36px → 40px 높이 증가 */
-        background: white !important; /* 기본 배경색 명시 */
+    }
+    /* 포스트시즌 테이블 전용 스타일 (배경색 제외) */
+    #playoff-table td {
+        font-size: 0.85rem !important;
+        font-weight: 500 !important;
+        text-align: center !important;
+        padding: 6px 3px !important;
+        border-bottom: 1px solid var(--border-light) !important;
+        border-right: 1px solid var(--border-color) !important;
+        white-space: nowrap !important;
+        vertical-align: middle !important;
+        min-height: 40px !important;
+        /* background는 의도적으로 제외 - 팀 컬러 배경 유지 */
     }
     /* 🏆 순위 컬럼 통합 관리 (1번째) */
     table th:nth-child(1),
@@ -2530,11 +2654,17 @@ input, textarea, select, button {
         padding: 8px 3px !important; /* 6px → 8px 패딩 증가 */
         min-height: 40px !important; /* 36px → 40px 높이 증가 */
     }
-    table td {
+    table:not(#playoff-table) td {
         font-size: 0.7rem !important; /* 0.6rem → 0.7rem 증가 */
         padding: 6px 2px !important; /* 4px → 6px 패딩 증가 */
         min-height: 36px !important; /* 32px → 36px 높이 증가 */
-        background: white !important; /* 배경색 통일 */
+    }
+    /* 포스트시즌 테이블 전용 스타일 (배경색 제외) - 작은 화면 */
+    #playoff-table td {
+        font-size: 0.7rem !important;
+        padding: 6px 2px !important;
+        min-height: 36px !important;
+        /* background는 의도적으로 제외 - 팀 컬러 배경 유지 */
     }
     /* 🏆 순위 컬럼 - 작은 화면 축소 */
     table th:nth-child(1),
