@@ -1,21 +1,21 @@
 {
-  "lastUpdated": "2025-09-11T11:37:16.421Z",
+  "lastUpdated": "2025-09-11T12:48:13.585Z",
   "updateDate": "2025. 9. 11.",
   "clutchAnalysis": {
     "LG": {
-      "totalGames": 130,
+      "totalGames": 131,
       "oneRunGames": 39,
       "oneRunWins": 22,
       "oneRunLosses": 17,
       "oneRunWinRate": "56.4",
-      "closeGames": 56,
+      "closeGames": 57,
       "closeWins": 33,
-      "closeLosses": 23,
-      "closeWinRate": "58.9",
-      "threeRunGames": 36,
+      "closeLosses": 24,
+      "closeWinRate": "57.9",
+      "threeRunGames": 37,
       "threeRunWins": 20,
-      "threeRunLosses": 16,
-      "threeRunWinRate": "55.6",
+      "threeRunLosses": 17,
+      "threeRunWinRate": "54.1",
       "blowoutWins": 31,
       "blowoutScored": [
         {
@@ -247,7 +247,7 @@
         "trailingWins": 0,
         "leadBlownLosses": 0
       },
-      "clutchIndex": "57.0"
+      "clutchIndex": "56.4"
     },
     "한화": {
       "totalGames": 130,
@@ -744,7 +744,7 @@
       "clutchIndex": "49.6"
     },
     "삼성": {
-      "totalGames": 130,
+      "totalGames": 131,
       "oneRunGames": 24,
       "oneRunWins": 9,
       "oneRunLosses": 15,
@@ -1015,19 +1015,19 @@
       "clutchIndex": "37.8"
     },
     "KT": {
-      "totalGames": 130,
+      "totalGames": 131,
       "oneRunGames": 39,
       "oneRunWins": 18,
       "oneRunLosses": 21,
       "oneRunWinRate": "46.2",
-      "closeGames": 60,
-      "closeWins": 30,
+      "closeGames": 61,
+      "closeWins": 31,
       "closeLosses": 30,
-      "closeWinRate": "50.0",
-      "threeRunGames": 29,
-      "threeRunWins": 18,
+      "closeWinRate": "50.8",
+      "threeRunGames": 30,
+      "threeRunWins": 19,
       "threeRunLosses": 11,
-      "threeRunWinRate": "62.1",
+      "threeRunWinRate": "63.3",
       "blowoutWins": 29,
       "blowoutScored": [
         {
@@ -1283,10 +1283,10 @@
         "trailingWins": 0,
         "leadBlownLosses": 0
       },
-      "clutchIndex": "50.5"
+      "clutchIndex": "51.0"
     },
     "SSG": {
-      "totalGames": 128,
+      "totalGames": 129,
       "oneRunGames": 35,
       "oneRunWins": 17,
       "oneRunLosses": 18,
@@ -1299,7 +1299,7 @@
       "threeRunWins": 23,
       "threeRunLosses": 17,
       "threeRunWinRate": "57.5",
-      "blowoutWins": 24,
+      "blowoutWins": 25,
       "blowoutScored": [
         {
           "date": "2025-03-30",
@@ -1444,6 +1444,12 @@
           "opponent": "LG",
           "score": "7:3",
           "runs": 7
+        },
+        {
+          "date": "2025-09-11",
+          "opponent": "삼성",
+          "score": "8:4",
+          "runs": 8
         }
       ],
       "blowoutLosses": 6,
@@ -2009,7 +2015,7 @@
       "clutchIndex": "44.5"
     },
     "NC": {
-      "totalGames": 127,
+      "totalGames": 128,
       "oneRunGames": 29,
       "oneRunWins": 14,
       "oneRunLosses": 15,
@@ -2018,10 +2024,10 @@
       "closeWins": 26,
       "closeLosses": 23,
       "closeWinRate": "53.1",
-      "threeRunGames": 37,
+      "threeRunGames": 38,
       "threeRunWins": 23,
-      "threeRunLosses": 14,
-      "threeRunWinRate": "62.2",
+      "threeRunLosses": 15,
+      "threeRunWinRate": "60.5",
       "blowoutWins": 32,
       "blowoutScored": [
         {
@@ -2319,10 +2325,10 @@
         "trailingWins": 0,
         "leadBlownLosses": 0
       },
-      "clutchIndex": "52.5"
+      "clutchIndex": "52.2"
     },
     "키움": {
-      "totalGames": 131,
+      "totalGames": 132,
       "oneRunGames": 27,
       "oneRunWins": 18,
       "oneRunLosses": 9,
@@ -2331,10 +2337,10 @@
       "closeWins": 23,
       "closeLosses": 30,
       "closeWinRate": "43.4",
-      "threeRunGames": 39,
-      "threeRunWins": 11,
+      "threeRunGames": 40,
+      "threeRunWins": 12,
       "threeRunLosses": 28,
-      "threeRunWinRate": "28.2",
+      "threeRunWinRate": "30.0",
       "blowoutWins": 16,
       "blowoutScored": [
         {
@@ -2536,7 +2542,7 @@
         "trailingWins": 0,
         "leadBlownLosses": 0
       },
-      "clutchIndex": "52.0"
+      "clutchIndex": "52.4"
     }
   }
 }
