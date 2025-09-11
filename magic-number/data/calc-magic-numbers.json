@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-09-11T12:48:12.078Z",
+  "lastUpdated": "2025-09-11T13:02:56.744Z",
   "updateDate": "2025. 9. 11.",
   "note": "승률 기준 정확한 매직넘버 계산 + 포스트시즌 진출 조건 + 1위 매직/트래직넘버 포함",
   "results": [
@@ -56,10 +56,10 @@
     {
       "rank": 6,
       "team": "롯데",
-      "wins": 62,
+      "wins": 63,
       "losses": 64,
-      "winRate": 0.49206349206349204,
-      "gamesRemaining": 18,
+      "winRate": 0.49606299212598426,
+      "gamesRemaining": 17,
       "magicNumber": "-",
       "status": ""
     },
@@ -77,9 +77,9 @@
       "rank": 8,
       "team": "KIA",
       "wins": 59,
-      "losses": 64,
-      "winRate": 0.4796747967479675,
-      "gamesRemaining": 21,
+      "losses": 65,
+      "winRate": 0.47580645161290325,
+      "gamesRemaining": 20,
       "magicNumber": "-",
       "status": ""
     },
@@ -197,19 +197,19 @@
     },
     {
       "team": "롯데",
-      "wins": 62,
+      "wins": 63,
       "losses": 64,
       "draws": 6,
-      "remainingGames": 12,
+      "remainingGames": 11,
       "K5_max": 0.549,
       "K5_min": 0.464,
-      "playoffMagicStrict": 14,
-      "playoffMagicTieOK": 14,
+      "playoffMagicStrict": 13,
+      "playoffMagicTieOK": 13,
       "playoffTragicStrict": 10,
       "playoffTragicTieOK": 10,
       "playoffStatus": "",
-      "playoffCondition": "14",
-      "championshipMagic": 29,
+      "playoffCondition": "13",
+      "championshipMagic": 28,
       "championshipTragic": 0,
       "firstPlaceStatus": "불가능"
     },
@@ -234,15 +234,15 @@
     {
       "team": "KIA",
       "wins": 59,
-      "losses": 64,
+      "losses": 65,
       "draws": 4,
-      "remainingGames": 17,
+      "remainingGames": 16,
       "K5_max": 0.549,
       "K5_min": 0.464,
       "playoffMagicStrict": 18,
       "playoffMagicTieOK": 18,
-      "playoffTragicStrict": 11,
-      "playoffTragicTieOK": 12,
+      "playoffTragicStrict": 10,
+      "playoffTragicTieOK": 11,
       "playoffStatus": "",
       "playoffCondition": "18",
       "championshipMagic": 33,
@@ -310,7 +310,7 @@
       "rank5Magic": 4,
       "dropRank6Tragic": 0,
       "dropRank7Tragic": 1,
-      "dropRank8Tragic": 2,
+      "dropRank8Tragic": 1,
       "dropRank9Tragic": 0
     },
     {
@@ -323,7 +323,7 @@
       "rank5Magic": 13,
       "dropRank6Tragic": 9,
       "dropRank7Tragic": 10,
-      "dropRank8Tragic": 11,
+      "dropRank8Tragic": 10,
       "dropRank9Tragic": 6
     },
     {
@@ -336,7 +336,7 @@
       "rank5Magic": 13,
       "dropRank6Tragic": 10,
       "dropRank7Tragic": 11,
-      "dropRank8Tragic": 12,
+      "dropRank8Tragic": 11,
       "dropRank9Tragic": 7
     },
     {
@@ -349,7 +349,7 @@
       "rank5Magic": 13,
       "dropRank6Tragic": 10,
       "dropRank7Tragic": 11,
-      "dropRank8Tragic": 12,
+      "dropRank8Tragic": 11,
       "dropRank9Tragic": 7
     },
     {
@@ -357,13 +357,13 @@
       "currentRank": 6,
       "championshipMagic": 999,
       "rank2Magic": 999,
-      "rank3Magic": 12,
-      "rank4Magic": 12,
-      "rank5Magic": 12,
-      "dropRank6Tragic": 13,
-      "dropRank7Tragic": 14,
-      "dropRank8Tragic": 15,
-      "dropRank9Tragic": 10
+      "rank3Magic": 11,
+      "rank4Magic": 11,
+      "rank5Magic": 11,
+      "dropRank6Tragic": 12,
+      "dropRank7Tragic": 13,
+      "dropRank8Tragic": 13,
+      "dropRank9Tragic": 9
     },
     {
       "team": "NC",
@@ -375,20 +375,20 @@
       "rank5Magic": 16,
       "dropRank6Tragic": 16,
       "dropRank7Tragic": 17,
-      "dropRank8Tragic": 18,
+      "dropRank8Tragic": 17,
       "dropRank9Tragic": 13
     },
     {
       "team": "KIA",
       "currentRank": 8,
       "championshipMagic": 999,
-      "rank2Magic": 17,
-      "rank3Magic": 17,
-      "rank4Magic": 17,
-      "rank5Magic": 17,
+      "rank2Magic": 16,
+      "rank3Magic": 16,
+      "rank4Magic": 16,
+      "rank5Magic": 16,
       "dropRank6Tragic": 16,
       "dropRank7Tragic": 17,
-      "dropRank8Tragic": 18,
+      "dropRank8Tragic": 17,
       "dropRank9Tragic": 13
     },
     {
@@ -401,7 +401,7 @@
       "rank5Magic": 15,
       "dropRank6Tragic": 19,
       "dropRank7Tragic": 20,
-      "dropRank8Tragic": 21,
+      "dropRank8Tragic": 20,
       "dropRank9Tragic": 16
     },
     {
@@ -414,7 +414,7 @@
       "rank5Magic": 999,
       "dropRank6Tragic": 32,
       "dropRank7Tragic": 33,
-      "dropRank8Tragic": 34,
+      "dropRank8Tragic": 33,
       "dropRank9Tragic": 29
     }
   ]
