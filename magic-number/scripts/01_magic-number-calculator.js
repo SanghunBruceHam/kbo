@@ -159,6 +159,19 @@ function calculatePlayoffMagicTragic(teams, totalGames = 144) {
         
         let playoffStatus = '';
         
+        // 🏟️ 포스트시즌 진출 조건 테이블용: PS 매직넘버가 0이면 확정된 최고 순위에 따른 조건 표시
+        // index.html의 full-standings-table에서 PS 매직넘버 컬럼에 사용됨
+        let playoffCondition = '';
+        if (magicStrict === 0) {
+            // PS 매직넘버가 0이면 포스트시즌 진출 확정이므로 최소 5위 확보
+            // 실제 확정된 최고 순위를 확인하기 위해 rankingMagicData 필요
+            // 일단 포스트시즌 진출 확정으로 표시하고, 나중에 rankingMagicData와 병합 시 정확한 순위 반영
+            playoffCondition = '포스트시즌 진출 확정';
+        } else {
+            // PS 매직넘버가 0이 아니면 매직넘버 값 표시
+            playoffCondition = magicStrict.toString();
+        }
+        
         return {
             team: team.team,
             wins: team.wins,
@@ -171,7 +184,8 @@ function calculatePlayoffMagicTragic(teams, totalGames = 144) {
             playoffMagicTieOK: magicTieOK,
             playoffTragicStrict: tragicStrict,
             playoffTragicTieOK: tragicTieOK,
-            playoffStatus
+            playoffStatus,
+            playoffCondition  // 🏟️ 포스트시즌 진출 조건 테이블의 PS 매직넘버 컬럼용
         };
     });
 }
@@ -322,6 +336,60 @@ function calculateMagicNumbers(serviceData) {
 
     // 추가 매직넘버 계산 (순위 관련)
     const rankingMagicData = calculateRankingMagicNumbers(standings, totalGames);
+    
+    // 🏟️ playoffResults와 rankingMagicData 병합하여 정확한 playoffCondition 계산
+    playoffResults.forEach(playoffTeam => {
+        const rankingData = rankingMagicData.find(r => r.team === playoffTeam.team);
+        
+        if (playoffTeam.playoffMagicStrict === 0 && rankingData) {
+            // PS 매직넘버 0 = 포스트시즌 진출 확정
+            // 이제 다른 팀들이 최대한 올라와도 내가 보장받는 최소 순위(최대 가능 순위) 찾기
+            let guaranteedBestRank = 5; // 기본적으로 5위는 보장됨 (PS 진출 확정이므로)
+            
+            // 트래직넘버가 0인 순위들 체크 = 그 순위에서 밀려날 수 없음
+            if (rankingData.dropRank9Tragic === 0) {
+                guaranteedBestRank = Math.min(guaranteedBestRank, 9); // 9위에서도 안 밀려남
+            }
+            if (rankingData.dropRank8Tragic === 0) {
+                guaranteedBestRank = Math.min(guaranteedBestRank, 8); // 8위에서도 안 밀려남
+            }
+            if (rankingData.dropRank7Tragic === 0) {
+                guaranteedBestRank = Math.min(guaranteedBestRank, 7); // 7위에서도 안 밀려남
+            }
+            if (rankingData.dropRank6Tragic === 0) {
+                guaranteedBestRank = Math.min(guaranteedBestRank, 6); // 6위에서도 안 밀려남
+            }
+            
+            // dropRank6Tragic이 0이면 6위에서 안 밀려나므로 최소 5위 보장
+            // dropRank7Tragic이 0이면 7위에서 안 밀려나므로 최소 4위 보장
+            // dropRank8Tragic이 0이면 8위에서 안 밀려나므로 최소 3위 보장
+            // dropRank9Tragic이 0이면 9위에서 안 밀려나므로 최소 2위 보장
+            
+            let securedRank = 5; // 기본값
+            if (rankingData.dropRank9Tragic === 0) {
+                securedRank = 1; // 9위에서도 안 밀려나면 최소 1위 보장 (실질적으로 1위 확정에 가까움)
+            } else if (rankingData.dropRank8Tragic === 0) {
+                securedRank = 2; // 8위에서도 안 밀려나면 최소 2위 보장
+            } else if (rankingData.dropRank7Tragic === 0) {
+                securedRank = 3; // 7위에서도 안 밀려나면 최소 3위 보장  
+            } else if (rankingData.dropRank6Tragic === 0) {
+                securedRank = 4; // 6위에서도 안 밀려나면 최소 4위 보장
+            } else {
+                securedRank = 5; // 기본적으로 5위는 보장 (PS 진출 확정)
+            }
+            
+            // 확정된 순위에 따른 포스트시즌 조건 설정
+            if (securedRank === 1) {
+                playoffTeam.playoffCondition = 'KS 확정';          // 한국시리즈 직행
+            } else if (securedRank === 2) {
+                playoffTeam.playoffCondition = 'PO 확정';          // 포스트시즌 직행
+            } else if (securedRank === 3) {
+                playoffTeam.playoffCondition = '준 PO 확정';       // 준 플레이오프 확정
+            } else if (securedRank === 4 || securedRank === 5) {
+                playoffTeam.playoffCondition = '와일드 카드 확정';  // 와일드카드 확정
+            }
+        }
+    });
     
     // 매직넘버 매트릭스 데이터 파일 생성
     const matrixData = {
