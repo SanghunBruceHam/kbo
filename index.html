@@ -517,6 +517,10 @@
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
     
     <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5508768187151867"
+         crossorigin="anonymous"></script>
+    
+    <!-- Coupang Partners -->
     <script src="https://ads-partners.coupang.com/g.js"></script>
     
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600&display=swap" rel="stylesheet">
@@ -753,8 +757,8 @@
             overflow: visible; /* 모든 콘텐츠 표시 */
         }
 
-        /* 쿠팡 광고 통합 스타일 */
-        .coupang-ad-wrapper {
+        /* 광고 통합 스타일 */
+        .coupang-ad-wrapper, .adsense-ad-wrapper {
             width: 100% !important;
             max-width: 1300px !important;
             margin: 5px auto !important;
@@ -763,7 +767,8 @@
             text-align: center !important;
         }
         
-        .coupang-ad-wrapper > div:first-child {
+        .coupang-ad-wrapper > div:first-child,
+        .adsense-ad-wrapper > div:first-child {
             font-size: 0.8rem;
             opacity: 0.7;
             margin-bottom: 3px;
@@ -775,6 +780,20 @@
             height: auto !important;
             display: block !important;
             border: none !important;
+        }
+        
+        /* Google AdSense 반응형 스타일 */
+        .adsense-ad-wrapper .adsbygoogle {
+            display: block;
+            width: 100%;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+        
+        @media (max-width: 768px) {
+            .adsense-ad-wrapper .adsbygoogle {
+                max-width: 100%;
+            }
         }
 
         /* 광고 카드 전용 클래스 - card 스타일 상속 */
@@ -4487,13 +4506,18 @@
         }
         </style>
 
-        <!-- 쿠팡 광고: 일자별 순위·게임차·승률 그래프 전 -->
+        <!-- Google AdSense: 디스플레이 가로 -->
         <div class="ad-card">
-            <div class="coupang-ad-wrapper">
+            <div class="adsense-ad-wrapper">
                 <div>광고</div>
-                <script src="https://ads-partners.coupang.com/g.js"></script>
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-5508768187151867"
+                     data-ad-slot="7298546648"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
                 <script>
-                    new PartnersCoupang.G({"id":867629,"trackingCode":"AF6959276","template":"carousel","width":"1300","height":"180","tsource":""});
+                     (adsbygoogle = window.adsbygoogle || []).push({});
                 </script>
             </div>
         </div>
@@ -4692,13 +4716,17 @@
             </div>
         </div>
 
-        <!-- 광고 1: 종합순위표 후 -->
+        <!-- Google AdSense: 멀티플렉스 가로 -->
         <div class="ad-card">
-            <div class="coupang-ad-wrapper">
+            <div class="adsense-ad-wrapper">
                 <div>광고</div>
-                <script src="https://ads-partners.coupang.com/g.js"></script>
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-format="autorelaxed"
+                     data-ad-client="ca-pub-5508768187151867"
+                     data-ad-slot="9345718962"></ins>
                 <script>
-                    new PartnersCoupang.G({"id":867629,"trackingCode":"AF6959276","template":"carousel","width":"1300","height":"180","tsource":""});
+                     (adsbygoogle = window.adsbygoogle || []).push({});
                 </script>
             </div>
         </div>
@@ -4937,13 +4965,18 @@
             </div>
         </div>
 
-        <!-- 쿠팡 광고 2: 승수 변동 추이 차트 후 -->
+        <!-- Google AdSense: 인 아티클 -->
         <div class="ad-card">
-            <div class="coupang-ad-wrapper">
+            <div class="adsense-ad-wrapper">
                 <div>광고</div>
-                <script src="https://ads-partners.coupang.com/g.js"></script>
+                <ins class="adsbygoogle"
+                     style="display:block; text-align:center;"
+                     data-ad-layout="in-article"
+                     data-ad-format="fluid"
+                     data-ad-client="ca-pub-5508768187151867"
+                     data-ad-slot="5430524682"></ins>
                 <script>
-                    new PartnersCoupang.G({"id":918101,"trackingCode":"AF6959276","template":"carousel","width":"1300","height":"180","tsource":""});
+                     (adsbygoogle = window.adsbygoogle || []).push({});
                 </script>
             </div>
         </div>
@@ -5171,13 +5204,18 @@
             </div>
         </div>
 
-        <!-- 광고: 전반기/후반기 성적 비교 위 -->
+        <!-- Google AdSense: 디스플레이 가로 -->
         <div class="ad-card">
-            <div class="coupang-ad-wrapper">
+            <div class="adsense-ad-wrapper">
                 <div>광고</div>
-                <script src="https://ads-partners.coupang.com/g.js"></script>
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-5508768187151867"
+                     data-ad-slot="7298546648"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
                 <script>
-                    new PartnersCoupang.G({"id":867629,"trackingCode":"AF6959276","template":"carousel","width":"1300","height":"180","tsource":""});
+                     (adsbygoogle = window.adsbygoogle || []).push({});
                 </script>
             </div>
         </div>
@@ -5351,13 +5389,17 @@
             </div>
         </div>
 
-        <!-- 광고 8: 피타고리안 분석 후 -->
+        <!-- Google AdSense: 멀티플렉스 가로 -->
         <div class="ad-card">
-            <div class="coupang-ad-wrapper">
+            <div class="adsense-ad-wrapper">
                 <div>광고</div>
-                <script src="https://ads-partners.coupang.com/g.js"></script>
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-format="autorelaxed"
+                     data-ad-client="ca-pub-5508768187151867"
+                     data-ad-slot="9345718962"></ins>
                 <script>
-                    new PartnersCoupang.G({"id":867629,"trackingCode":"AF6959276","template":"carousel","width":"1300","height":"180","tsource":""});
+                     (adsbygoogle = window.adsbygoogle || []).push({});
                 </script>
             </div>
         </div>
@@ -5466,13 +5508,18 @@
             </div>
         </div>
 
-        <!-- 쿠팡 광고 1: 홈/원정 분석 후 -->
+        <!-- Google AdSense: 인 아티클 -->
         <div class="ad-card">
-            <div class="coupang-ad-wrapper">
+            <div class="adsense-ad-wrapper">
                 <div>광고</div>
-                <script src="https://ads-partners.coupang.com/g.js"></script>
+                <ins class="adsbygoogle"
+                     style="display:block; text-align:center;"
+                     data-ad-layout="in-article"
+                     data-ad-format="fluid"
+                     data-ad-client="ca-pub-5508768187151867"
+                     data-ad-slot="5430524682"></ins>
                 <script>
-                    new PartnersCoupang.G({"id":867629,"trackingCode":"AF6959276","template":"carousel","width":"1300","height":"180","tsource":""});
+                     (adsbygoogle = window.adsbygoogle || []).push({});
                 </script>
             </div>
         </div>
@@ -5541,13 +5588,18 @@
             </div>
         </div>
 
-        <!-- 광고 11: 팀간 잔여경기수 후 -->
+        <!-- Google AdSense: 디스플레이 가로 -->
         <div class="ad-card">
-            <div class="coupang-ad-wrapper">
+            <div class="adsense-ad-wrapper">
                 <div>광고</div>
-                <script src="https://ads-partners.coupang.com/g.js"></script>
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-5508768187151867"
+                     data-ad-slot="7298546648"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
                 <script>
-                    new PartnersCoupang.G({"id":867629,"trackingCode":"AF6959276","template":"carousel","width":"1300","height":"180","tsource":""});
+                     (adsbygoogle = window.adsbygoogle || []).push({});
                 </script>
             </div>
         </div>
@@ -5633,13 +5685,17 @@
             </div>
         </div>
 
-        <!-- 광고 6: 요일별 성적 분석 후 -->
+        <!-- Google AdSense: 멀티플렉스 가로 -->
         <div class="ad-card">
-            <div class="coupang-ad-wrapper">
+            <div class="adsense-ad-wrapper">
                 <div>광고</div>
-                <script src="https://ads-partners.coupang.com/g.js"></script>
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-format="autorelaxed"
+                     data-ad-client="ca-pub-5508768187151867"
+                     data-ad-slot="9345718962"></ins>
                 <script>
-                    new PartnersCoupang.G({"id":867629,"trackingCode":"AF6959276","template":"carousel","width":"1300","height":"180","tsource":""});
+                     (adsbygoogle = window.adsbygoogle || []).push({});
                 </script>
             </div>
         </div>
@@ -5681,13 +5737,18 @@
             </div>
         </div>
 
-        <!-- 광고 9: 게임별 기록 분석 후 -->
+        <!-- Google AdSense: 인 아티클 -->
         <div class="ad-card">
-            <div class="coupang-ad-wrapper">
+            <div class="adsense-ad-wrapper">
                 <div>광고</div>
-                <script src="https://ads-partners.coupang.com/g.js"></script>
+                <ins class="adsbygoogle"
+                     style="display:block; text-align:center;"
+                     data-ad-layout="in-article"
+                     data-ad-format="fluid"
+                     data-ad-client="ca-pub-5508768187151867"
+                     data-ad-slot="5430524682"></ins>
                 <script>
-                    new PartnersCoupang.G({"id":867629,"trackingCode":"AF6959276","template":"carousel","width":"1300","height":"180","tsource":""});
+                     (adsbygoogle = window.adsbygoogle || []).push({});
                 </script>
             </div>
         </div>
@@ -5743,13 +5804,18 @@
             </div>
         </div>
 
-        <!-- 광고 4: 팀별 상세 게임 기록 후 -->
+        <!-- Google AdSense: 디스플레이 가로 -->
         <div class="ad-card">
-            <div class="coupang-ad-wrapper">
+            <div class="adsense-ad-wrapper">
                 <div>광고</div>
-                <script src="https://ads-partners.coupang.com/g.js"></script>
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-5508768187151867"
+                     data-ad-slot="7298546648"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
                 <script>
-                    new PartnersCoupang.G({"id":867629,"trackingCode":"AF6959276","template":"carousel","width":"1300","height":"180","tsource":""});
+                     (adsbygoogle = window.adsbygoogle || []).push({});
                 </script>
             </div>
         </div>
@@ -5805,13 +5871,17 @@
             </div>
         </div>
 
-        <!-- 광고 10: 경기장별 성적 분석 후 -->
+        <!-- Google AdSense: 멀티플렉스 가로 -->
         <div class="ad-card">
-            <div class="coupang-ad-wrapper">
+            <div class="adsense-ad-wrapper">
                 <div>광고</div>
-                <script src="https://ads-partners.coupang.com/g.js"></script>
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-format="autorelaxed"
+                     data-ad-client="ca-pub-5508768187151867"
+                     data-ad-slot="9345718962"></ins>
                 <script>
-                    new PartnersCoupang.G({"id":867629,"trackingCode":"AF6959276","template":"carousel","width":"1300","height":"180","tsource":""});
+                     (adsbygoogle = window.adsbygoogle || []).push({});
                 </script>
             </div>
         </div>
