@@ -94,10 +94,45 @@ class KBOWorkingCrawler:
             
             time.sleep(2)
             
-            # 스크린샷
+            # 전체 페이지 스크린샷을 위한 설정
+            # 브라우저 창 크기 조정 및 스크롤
+            original_size = driver.get_window_size()
+            
+            # 페이지 끝까지 스크롤하여 모든 내용 로드
+            last_height = driver.execute_script("return document.body.scrollHeight")
+            while True:
+                driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+                time.sleep(2)
+                new_height = driver.execute_script("return document.body.scrollHeight")
+                if new_height == last_height:
+                    break
+                last_height = new_height
+            
+            # 페이지 상단으로 돌아가기
+            driver.execute_script("window.scrollTo(0, 0);")
+            time.sleep(1)
+            
+            # 전체 페이지 높이에 맞춰 창 크기 조정
+            total_height = driver.execute_script("""
+                return Math.max(
+                    document.body.scrollHeight,
+                    document.body.offsetHeight,
+                    document.documentElement.clientHeight,
+                    document.documentElement.scrollHeight,
+                    document.documentElement.offsetHeight
+                );
+            """)
+            
+            # 브라우저 창 크기를 전체 페이지에 맞게 조정
+            driver.set_window_size(1920, total_height)
+            time.sleep(2)
+            
             screenshot_path = Path(self.paths.crawlers_dir) / 'kbo-working-screenshot.png'
             driver.save_screenshot(str(screenshot_path))
-            print("📸 스크린샷 저장: kbo-working-screenshot.png")
+            print(f"📸 전체 페이지 스크린샷 저장: kbo-working-screenshot.png (높이: {total_height}px)")
+            
+            # 원래 창 크기로 복원
+            driver.set_window_size(original_size['width'], original_size['height'])
             
             # HTML 파싱
             html = driver.page_source
