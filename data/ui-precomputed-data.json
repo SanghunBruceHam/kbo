@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "lastUpdated": "2025-09-12T12:01:29.750Z",
+    "lastUpdated": "2025-09-12T12:47:00.611Z",
     "version": "1.0.0",
     "description": "루트 index.html의 사전 계산된 UI 데이터"
   },
@@ -92,7 +92,7 @@
       "두산",
       "키움"
     ],
-    "lastCalculated": "2025-09-12T12:01:29.750Z"
+    "lastCalculated": "2025-09-12T12:47:00.611Z"
   },
   "precomputedHalfSeasonStats": {
     "allTeamsHalfStats": {
@@ -169,11 +169,11 @@
           "winRate": 0.5113636363636364
         },
         "secondHalf": {
-          "wins": 14,
+          "wins": 15,
           "losses": 26,
           "draws": 0,
-          "games": 40,
-          "winRate": 0.35
+          "games": 41,
+          "winRate": 0.36585365853658536
         }
       },
       "NC": {
@@ -218,10 +218,10 @@
         },
         "secondHalf": {
           "wins": 20,
-          "losses": 21,
+          "losses": 22,
           "draws": 0,
-          "games": 41,
-          "winRate": 0.4878048780487805
+          "games": 42,
+          "winRate": 0.47619047619047616
         }
       },
       "삼성": {
@@ -257,7 +257,7 @@
         }
       }
     },
-    "lastCalculated": "2025-09-12T12:01:29.750Z"
+    "lastCalculated": "2025-09-12T12:47:00.611Z"
   },
   "scheduleData": {
     "remainingGames": [

@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-09-12T12:01:29.425Z",
+  "lastUpdated": "2025-09-12T12:47:00.285Z",
   "updateDate": "2025. 9. 12.",
   "note": "승률 기준 정확한 매직넘버 계산 + 포스트시즌 진출 조건 + 1위 매직/트래직넘버 포함",
   "results": [
@@ -76,10 +76,10 @@
     {
       "rank": 8,
       "team": "KIA",
-      "wins": 59,
+      "wins": 60,
       "losses": 65,
-      "winRate": 0.47580645161290325,
-      "gamesRemaining": 20,
+      "winRate": 0.48,
+      "gamesRemaining": 19,
       "magicNumber": "-",
       "status": ""
     },
@@ -87,9 +87,9 @@
       "rank": 9,
       "team": "두산",
       "wins": 56,
-      "losses": 67,
-      "winRate": 0.45528455284552843,
-      "gamesRemaining": 21,
+      "losses": 68,
+      "winRate": 0.45161290322580644,
+      "gamesRemaining": 20,
       "magicNumber": "-",
       "status": ""
     },
@@ -233,34 +233,34 @@
     },
     {
       "team": "KIA",
-      "wins": 59,
+      "wins": 60,
       "losses": 65,
       "draws": 4,
-      "remainingGames": 16,
+      "remainingGames": 15,
       "K5_max": 0.549,
       "K5_min": 0.464,
-      "playoffMagicStrict": 18,
-      "playoffMagicTieOK": 18,
+      "playoffMagicStrict": 17,
+      "playoffMagicTieOK": 17,
       "playoffTragicStrict": 10,
       "playoffTragicTieOK": 11,
       "playoffStatus": "",
-      "playoffCondition": "18",
-      "championshipMagic": 33,
+      "playoffCondition": "17",
+      "championshipMagic": 32,
       "championshipTragic": 0,
       "firstPlaceStatus": "불가능"
     },
     {
       "team": "두산",
       "wins": 56,
-      "losses": 67,
+      "losses": 68,
       "draws": 6,
-      "remainingGames": 15,
+      "remainingGames": 14,
       "K5_max": 0.549,
       "K5_min": 0.464,
       "playoffMagicStrict": 20,
       "playoffMagicTieOK": 20,
-      "playoffTragicStrict": 7,
-      "playoffTragicTieOK": 7,
+      "playoffTragicStrict": 6,
+      "playoffTragicTieOK": 6,
       "playoffStatus": "",
       "playoffCondition": "20",
       "championshipMagic": 35,
@@ -324,7 +324,7 @@
       "dropRank6Tragic": 9,
       "dropRank7Tragic": 10,
       "dropRank8Tragic": 10,
-      "dropRank9Tragic": 6
+      "dropRank9Tragic": 5
     },
     {
       "team": "KT",
@@ -337,7 +337,7 @@
       "dropRank6Tragic": 10,
       "dropRank7Tragic": 11,
       "dropRank8Tragic": 11,
-      "dropRank9Tragic": 7
+      "dropRank9Tragic": 6
     },
     {
       "team": "삼성",
@@ -350,7 +350,7 @@
       "dropRank6Tragic": 10,
       "dropRank7Tragic": 11,
       "dropRank8Tragic": 11,
-      "dropRank9Tragic": 7
+      "dropRank9Tragic": 6
     },
     {
       "team": "롯데",
@@ -363,7 +363,7 @@
       "dropRank6Tragic": 12,
       "dropRank7Tragic": 13,
       "dropRank8Tragic": 13,
-      "dropRank9Tragic": 9
+      "dropRank9Tragic": 8
     },
     {
       "team": "NC",
@@ -376,33 +376,33 @@
       "dropRank6Tragic": 16,
       "dropRank7Tragic": 17,
       "dropRank8Tragic": 17,
-      "dropRank9Tragic": 13
+      "dropRank9Tragic": 12
     },
     {
       "team": "KIA",
       "currentRank": 8,
       "championshipMagic": 999,
-      "rank2Magic": 16,
-      "rank3Magic": 16,
-      "rank4Magic": 16,
-      "rank5Magic": 16,
-      "dropRank6Tragic": 16,
-      "dropRank7Tragic": 17,
-      "dropRank8Tragic": 17,
-      "dropRank9Tragic": 13
+      "rank2Magic": 15,
+      "rank3Magic": 15,
+      "rank4Magic": 15,
+      "rank5Magic": 15,
+      "dropRank6Tragic": 15,
+      "dropRank7Tragic": 16,
+      "dropRank8Tragic": 16,
+      "dropRank9Tragic": 11
     },
     {
       "team": "두산",
       "currentRank": 9,
       "championshipMagic": 999,
       "rank2Magic": 999,
-      "rank3Magic": 15,
-      "rank4Magic": 15,
-      "rank5Magic": 15,
+      "rank3Magic": 14,
+      "rank4Magic": 14,
+      "rank5Magic": 14,
       "dropRank6Tragic": 19,
       "dropRank7Tragic": 20,
       "dropRank8Tragic": 20,
-      "dropRank9Tragic": 16
+      "dropRank9Tragic": 15
     },
     {
       "team": "키움",
@@ -415,7 +415,7 @@
       "dropRank6Tragic": 32,
       "dropRank7Tragic": 33,
       "dropRank8Tragic": 33,
-      "dropRank9Tragic": 29
+      "dropRank9Tragic": 28
     }
   ]
 }
