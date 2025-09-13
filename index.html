@@ -4624,7 +4624,7 @@
                      data-ad-slot="7298546648"
                      data-ad-format="auto"
                      data-full-width-responsive="true"></ins>
-                <!-- AdSense는 최적화 시스템에서 자동 처리됩니다 -->
+                <!-- AdSense 광고 자동 로딩 -->
             </div>
         </div>
 
@@ -4832,7 +4832,7 @@
                      data-ad-format="autorelaxed"
                      data-ad-client="ca-pub-5508768187151867"
                      data-ad-slot="9345718962"></ins>
-                <!-- AdSense는 최적화 시스템에서 자동 처리됩니다 -->
+                <!-- AdSense 광고 자동 로딩 -->
             </div>
         </div>
 
@@ -4860,7 +4860,7 @@
                      data-ad-slot="7298546648"
                      data-ad-format="auto"
                      data-full-width-responsive="true"></ins>
-                <!-- AdSense는 최적화 시스템에서 자동 처리됩니다 -->
+                <!-- AdSense 광고 자동 로딩 -->
             </div>
         </div>
 
@@ -4888,7 +4888,7 @@
                      data-ad-slot="7298546648"
                      data-ad-format="auto"
                      data-full-width-responsive="true"></ins>
-                <!-- AdSense는 최적화 시스템에서 자동 처리됩니다 -->
+                <!-- AdSense 광고 자동 로딩 -->
             </div>
         </div>
 
@@ -5136,7 +5136,7 @@
                      data-ad-slot="7298546648"
                      data-ad-format="auto"
                      data-full-width-responsive="true"></ins>
-                <!-- AdSense는 최적화 시스템에서 자동 처리됩니다 -->
+                <!-- AdSense 광고 자동 로딩 -->
             </div>
         </div>
 
@@ -5374,7 +5374,7 @@
                      data-ad-slot="7298546648"
                      data-ad-format="auto"
                      data-full-width-responsive="true"></ins>
-                <!-- AdSense는 최적화 시스템에서 자동 처리됩니다 -->
+                <!-- AdSense 광고 자동 로딩 -->
             </div>
         </div>
 
@@ -5557,7 +5557,7 @@
                      data-ad-format="autorelaxed"
                      data-ad-client="ca-pub-5508768187151867"
                      data-ad-slot="9345718962"></ins>
-                <!-- AdSense는 최적화 시스템에서 자동 처리됩니다 -->
+                <!-- AdSense 광고 자동 로딩 -->
             </div>
         </div>
 
@@ -5676,7 +5676,7 @@
                      data-ad-slot="7298546648"
                      data-ad-format="auto"
                      data-full-width-responsive="true"></ins>
-                <!-- AdSense는 최적화 시스템에서 자동 처리됩니다 -->
+                <!-- AdSense 광고 자동 로딩 -->
             </div>
         </div>
 
@@ -5755,7 +5755,7 @@
                      data-ad-slot="7298546648"
                      data-ad-format="auto"
                      data-full-width-responsive="true"></ins>
-                <!-- AdSense는 최적화 시스템에서 자동 처리됩니다 -->
+                <!-- AdSense 광고 자동 로딩 -->
             </div>
         </div>
 
@@ -5833,7 +5833,7 @@
                      data-ad-format="autorelaxed"
                      data-ad-client="ca-pub-5508768187151867"
                      data-ad-slot="9345718962"></ins>
-                <!-- AdSense는 최적화 시스템에서 자동 처리됩니다 -->
+                <!-- AdSense 광고 자동 로딩 -->
             </div>
         </div>
 
@@ -5981,7 +5981,7 @@
                      data-ad-format="autorelaxed"
                      data-ad-client="ca-pub-5508768187151867"
                      data-ad-slot="9345718962"></ins>
-                <!-- AdSense는 최적화 시스템에서 자동 처리됩니다 -->
+                <!-- AdSense 광고 자동 로딩 -->
             </div>
         </div>
 
@@ -18714,94 +18714,23 @@ KT 9:1 키움(H)`;
     </script>
 
 
-    <!-- ================== AdSense 최적화 스크립트 ================== -->
+    <!-- ================== AdSense 간단 초기화 ================== -->
     <script>
-    // AdSense 비동기 로딩 최적화
-    class AdSenseOptimizer {
-        constructor() {
-            this.adsLoaded = new Set();
-            this.intersectionObserver = null;
-            this.initializeObserver();
-        }
-
-        // Intersection Observer 초기화
-        initializeObserver() {
-            if ('IntersectionObserver' in window) {
-                this.intersectionObserver = new IntersectionObserver(
-                    (entries) => {
-                        entries.forEach(entry => {
-                            if (entry.isIntersecting && !this.adsLoaded.has(entry.target)) {
-                                this.loadAd(entry.target);
-                            }
-                        });
-                    },
-                    { 
-                        rootMargin: '100px 0px', // 화면 진입 100px 전에 로드
-                        threshold: 0.1 
-                    }
-                );
-            }
-        }
-
-        // 광고 비동기 로딩
-        loadAd(adElement) {
-            if (this.adsLoaded.has(adElement)) return;
-            
-            try {
-                // DOM 완료 후 광고 로드
-                requestAnimationFrame(() => {
-                    setTimeout(() => {
-                        const adsbygoogleElement = adElement.querySelector('.adsbygoogle');
-                        if (window.adsbygoogle && adsbygoogleElement) {
-                            window.adsbygoogle.push({});
-                            this.adsLoaded.add(adElement);
-                            console.log('✅ AdSense 광고 비동기 로드 완료');
-                        }
-                    }, 50);
-                });
-            } catch (error) {
-                console.warn('AdSense 로딩 오류:', error);
-            }
-        }
-
-        // 모든 광고 요소에 Observer 적용
-        observeAds() {
-            if (!this.intersectionObserver) return;
-            
-            const adElements = document.querySelectorAll('.ad-card');
-            adElements.forEach(ad => {
-                this.intersectionObserver.observe(ad);
-            });
-            
-            console.log(`🎯 AdSense Observer 적용: ${adElements.length}개 광고`);
-        }
-
-        // 즉시 로드 (fallback)
-        loadAllAds() {
-            const adElements = document.querySelectorAll('.ad-card .adsbygoogle');
-            adElements.forEach(ad => {
-                if (!this.adsLoaded.has(ad.closest('.ad-card'))) {
-                    this.loadAd(ad.closest('.ad-card'));
-                }
-            });
-        }
-    }
-
-    // AdSense 최적화 인스턴스
-    const adSenseOptimizer = new AdSenseOptimizer();
-
-    // DOM 로드 완료 후 실행
+    // AdSense 광고 간단 초기화
     document.addEventListener('DOMContentLoaded', function() {
-        // 페이지 로딩 완료 후 지연 실행
         setTimeout(() => {
-            if ('IntersectionObserver' in window) {
-                // Intersection Observer로 지연 로딩
-                adSenseOptimizer.observeAds();
-            } else {
-                // 구식 브라우저는 즉시 로드
-                adSenseOptimizer.loadAllAds();
+            try {
+                const adElements = document.querySelectorAll('.adsense-ad-wrapper .adsbygoogle');
+                if (window.adsbygoogle && adElements.length > 0) {
+                    adElements.forEach(() => {
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    });
+                    console.log(`✅ AdSense 광고 ${adElements.length}개 초기화 완료`);
+                }
+            } catch (error) {
+                console.warn('AdSense 초기화 오류:', error);
             }
-        }, 1500);
+        }, 1000);
     });
     </script>
 
