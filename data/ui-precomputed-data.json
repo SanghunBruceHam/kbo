@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "lastUpdated": "2025-09-13T05:51:11.692Z",
+    "lastUpdated": "2025-09-13T06:06:17.768Z",
     "version": "1.0.0",
     "description": "루트 index.html의 사전 계산된 UI 데이터"
   },
@@ -75,8 +75,8 @@
       "KT": 4,
       "삼성": 5,
       "롯데": 6,
-      "KIA": 7,
       "NC": 7,
+      "KIA": 8,
       "두산": 9,
       "키움": 10
     },
@@ -87,12 +87,12 @@
       "KT",
       "삼성",
       "롯데",
-      "KIA",
       "NC",
+      "KIA",
       "두산",
       "키움"
     ],
-    "lastCalculated": "2025-09-13T05:51:11.692Z"
+    "lastCalculated": "2025-09-13T06:06:17.768Z"
   },
   "precomputedHalfSeasonStats": {
     "allTeamsHalfStats": {
@@ -106,10 +106,10 @@
         },
         "secondHalf": {
           "wins": 31,
-          "losses": 13,
+          "losses": 12,
           "draws": 0,
-          "games": 44,
-          "winRate": 0.7045454545454546
+          "games": 43,
+          "winRate": 0.7209302325581395
         }
       },
       "롯데": {
@@ -137,11 +137,11 @@
           "winRate": 0.5113636363636364
         },
         "secondHalf": {
-          "wins": 16,
+          "wins": 15,
           "losses": 26,
           "draws": 0,
-          "games": 42,
-          "winRate": 0.38095238095238093
+          "games": 41,
+          "winRate": 0.36585365853658536
         }
       },
       "NC": {
@@ -257,7 +257,7 @@
         }
       }
     },
-    "lastCalculated": "2025-09-13T05:51:11.692Z"
+    "lastCalculated": "2025-09-13T06:06:17.768Z"
   },
   "scheduleData": {
     "remainingGames": [],

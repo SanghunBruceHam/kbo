@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-09-13T05:51:11.365Z",
+  "lastUpdated": "2025-09-13T06:06:17.432Z",
   "updateDate": "2025. 9. 13.",
   "note": "승률 기준 정확한 매직넘버 계산 + 포스트시즌 진출 조건 + 1위 매직/트래직넘버 포함",
   "results": [
@@ -7,9 +7,9 @@
       "rank": 1,
       "team": "LG",
       "wins": 79,
-      "losses": 50,
-      "winRate": 0.6124031007751938,
-      "gamesRemaining": 15,
+      "losses": 49,
+      "winRate": 0.6171875,
+      "gamesRemaining": 16,
       "magicNumber": "-",
       "status": ""
     },
@@ -65,21 +65,21 @@
     },
     {
       "rank": 7,
-      "team": "KIA",
-      "wins": 61,
-      "losses": 65,
-      "winRate": 0.48412698412698413,
-      "gamesRemaining": 18,
-      "magicNumber": "-",
-      "status": ""
-    },
-    {
-      "rank": 8,
       "team": "NC",
       "wins": 59,
       "losses": 63,
       "winRate": 0.48360655737704916,
       "gamesRemaining": 22,
+      "magicNumber": "-",
+      "status": ""
+    },
+    {
+      "rank": 8,
+      "team": "KIA",
+      "wins": 60,
+      "losses": 65,
+      "winRate": 0.48,
+      "gamesRemaining": 19,
       "magicNumber": "-",
       "status": ""
     },
@@ -108,19 +108,19 @@
     {
       "team": "LG",
       "wins": 79,
-      "losses": 50,
+      "losses": 49,
       "draws": 3,
-      "remainingGames": 12,
+      "remainingGames": 13,
       "K5_max": 0.543,
       "K5_min": 0.458,
       "playoffMagicStrict": 0,
       "playoffMagicTieOK": 0,
-      "playoffTragicStrict": 27,
-      "playoffTragicTieOK": 27,
+      "playoffTragicStrict": 28,
+      "playoffTragicTieOK": 28,
       "playoffStatus": "",
       "playoffCondition": "KS 확정",
       "championshipMagic": 11,
-      "championshipTragic": 16,
+      "championshipTragic": 17,
       "firstPlaceStatus": "현재 1위"
     },
     {
@@ -137,7 +137,7 @@
       "playoffTragicTieOK": 25,
       "playoffStatus": "",
       "playoffCondition": "2",
-      "championshipMagic": 17,
+      "championshipMagic": 18,
       "championshipTragic": 10,
       "firstPlaceStatus": "가능"
     },
@@ -155,7 +155,7 @@
       "playoffTragicTieOK": 17,
       "playoffStatus": "",
       "playoffCondition": "11",
-      "championshipMagic": 25,
+      "championshipMagic": 26,
       "championshipTragic": 3,
       "firstPlaceStatus": "가능"
     },
@@ -173,7 +173,7 @@
       "playoffTragicTieOK": 14,
       "playoffStatus": "",
       "playoffCondition": "12",
-      "championshipMagic": 26,
+      "championshipMagic": 27,
       "championshipTragic": 0,
       "firstPlaceStatus": "불가능"
     },
@@ -191,7 +191,7 @@
       "playoffTragicTieOK": 13,
       "playoffStatus": "",
       "playoffCondition": "13",
-      "championshipMagic": 27,
+      "championshipMagic": 28,
       "championshipTragic": 0,
       "firstPlaceStatus": "불가능"
     },
@@ -209,25 +209,7 @@
       "playoffTragicTieOK": 10,
       "playoffStatus": "",
       "playoffCondition": "13",
-      "championshipMagic": 27,
-      "championshipTragic": 0,
-      "firstPlaceStatus": "불가능"
-    },
-    {
-      "team": "KIA",
-      "wins": 61,
-      "losses": 65,
-      "draws": 4,
-      "remainingGames": 14,
-      "K5_max": 0.549,
-      "K5_min": 0.464,
-      "playoffMagicStrict": 16,
-      "playoffMagicTieOK": 16,
-      "playoffTragicStrict": 10,
-      "playoffTragicTieOK": 11,
-      "playoffStatus": "",
-      "playoffCondition": "16",
-      "championshipMagic": 30,
+      "championshipMagic": 28,
       "championshipTragic": 0,
       "firstPlaceStatus": "불가능"
     },
@@ -245,7 +227,25 @@
       "playoffTragicTieOK": 11,
       "playoffStatus": "",
       "playoffCondition": "17",
-      "championshipMagic": 31,
+      "championshipMagic": 32,
+      "championshipTragic": 0,
+      "firstPlaceStatus": "불가능"
+    },
+    {
+      "team": "KIA",
+      "wins": 60,
+      "losses": 65,
+      "draws": 4,
+      "remainingGames": 15,
+      "K5_max": 0.549,
+      "K5_min": 0.464,
+      "playoffMagicStrict": 17,
+      "playoffMagicTieOK": 17,
+      "playoffTragicStrict": 10,
+      "playoffTragicTieOK": 11,
+      "playoffStatus": "",
+      "playoffCondition": "17",
+      "championshipMagic": 32,
       "championshipTragic": 0,
       "firstPlaceStatus": "불가능"
     },
@@ -263,7 +263,7 @@
       "playoffTragicTieOK": 6,
       "playoffStatus": "",
       "playoffCondition": "20",
-      "championshipMagic": 34,
+      "championshipMagic": 35,
       "championshipTragic": 0,
       "firstPlaceStatus": "불가능"
     },
@@ -281,7 +281,7 @@
       "playoffTragicTieOK": 0,
       "playoffStatus": "",
       "playoffCondition": "34",
-      "championshipMagic": 48,
+      "championshipMagic": 49,
       "championshipTragic": 0,
       "firstPlaceStatus": "불가능"
     }
@@ -366,21 +366,8 @@
       "dropRank9Tragic": 8
     },
     {
-      "team": "KIA",
-      "currentRank": 7,
-      "championshipMagic": 999,
-      "rank2Magic": 14,
-      "rank3Magic": 14,
-      "rank4Magic": 14,
-      "rank5Magic": 14,
-      "dropRank6Tragic": 14,
-      "dropRank7Tragic": 15,
-      "dropRank8Tragic": 15,
-      "dropRank9Tragic": 10
-    },
-    {
       "team": "NC",
-      "currentRank": 8,
+      "currentRank": 7,
       "championshipMagic": 999,
       "rank2Magic": 16,
       "rank3Magic": 16,
@@ -390,6 +377,19 @@
       "dropRank7Tragic": 17,
       "dropRank8Tragic": 17,
       "dropRank9Tragic": 12
+    },
+    {
+      "team": "KIA",
+      "currentRank": 8,
+      "championshipMagic": 999,
+      "rank2Magic": 15,
+      "rank3Magic": 15,
+      "rank4Magic": 15,
+      "rank5Magic": 15,
+      "dropRank6Tragic": 15,
+      "dropRank7Tragic": 16,
+      "dropRank8Tragic": 16,
+      "dropRank9Tragic": 11
     },
     {
       "team": "두산",
