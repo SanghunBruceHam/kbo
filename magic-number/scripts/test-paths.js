@@ -137,9 +137,9 @@ class PathValidator {
         console.log('\n💾 데이터 파일 검증...');
 
         const dataFiles = [
-            'service-data.json',
-            'kbo-rankings.json', 
-            'kbo-records.json',
+            'calc-standings.json',
+            'calc-head-to-head.json',
+            'calc-magic-numbers.json',
             '2025-season-data-clean.txt'
         ];
 
