@@ -210,35 +210,72 @@ class KBOWorkingCrawler:
                         if not away_score_elem:
                             away_score_elem = away_team_div.find('em', class_='num_score')
                         
-                        if home_team_name and away_team_name and home_score_elem and away_score_elem:
+                        if home_team_name and away_team_name:
                             home_team = home_team_name.get_text(strip=True)
                             away_team = away_team_name.get_text(strip=True)
-                            
-                            # 점수 텍스트에서 숫자만 추출
-                            home_score_text = home_score_elem.get_text(strip=True)
-                            away_score_text = away_score_elem.get_text(strip=True)
-                            
-                            # 숫자만 추출
-                            home_score_match = re.search(r'\d+', home_score_text)
-                            away_score_match = re.search(r'\d+', away_score_text)
-                            
-                            if home_score_match and away_score_match:
-                                home_score = int(home_score_match.group())
-                                away_score = int(away_score_match.group())
-                                
-                                # 경기 상태 확인
-                                state_elem = team_cell.find('span', class_='state_game')
-                                state = state_elem.get_text(strip=True) if state_elem else "종료"
-                                
-                                # 완료된 경기만 저장 - 엄격한 검증
-                                completed_states = ["종료", "완료", "끝"]
-                                is_completed = (
-                                    state in completed_states or 
-                                    (state == "종료" and home_score >= 0 and away_score >= 0 and 
-                                     home_score <= 30 and away_score <= 30)  # 점수 범위 검증
-                                )
-                                
-                                if is_completed:
+
+                            # 경기 상태 확인 (먼저 확인)
+                            state_elem = team_cell.find('span', class_='state_game')
+                            state = state_elem.get_text(strip=True) if state_elem else "종료"
+
+                            # 점수 정보 추출 (취소 경기는 점수가 없을 수 있음)
+                            home_score = 0
+                            away_score = 0
+
+                            if home_score_elem and away_score_elem:
+                                # 점수 텍스트에서 숫자만 추출
+                                home_score_text = home_score_elem.get_text(strip=True)
+                                away_score_text = away_score_elem.get_text(strip=True)
+
+                                # 숫자만 추출
+                                home_score_match = re.search(r'\d+', home_score_text)
+                                away_score_match = re.search(r'\d+', away_score_text)
+
+                                if home_score_match and away_score_match:
+                                    home_score = int(home_score_match.group())
+                                    away_score = int(away_score_match.group())
+
+                            # 완료된 경기와 취소 경기 모두 저장
+                            completed_states = ["종료", "완료", "끝", "취소", "우천취소", "연기"]
+                            cancelled_states = ["취소", "우천취소", "연기"]
+
+                            is_valid_game = (
+                                state in completed_states or
+                                (state == "종료" and home_score >= 0 and away_score >= 0 and
+                                 home_score <= 30 and away_score <= 30) or  # 완료 경기 점수 검증
+                                state in cancelled_states  # 취소 경기는 점수 무관
+                            )
+
+                            if is_valid_game:
+                                    # 추가 정보 추출
+
+                                    # td_time - 경기 시간
+                                    time_cell = row.find('td', class_='td_time')
+                                    game_time = time_cell.get_text(strip=True) if time_cell else ""
+
+                                    # td_area - 구장 정보 (앞 2글자만)
+                                    area_cell = row.find('td', class_='td_area')
+                                    stadium_full = area_cell.get_text(strip=True) if area_cell else ""
+                                    stadium = stadium_full[:2] if stadium_full else ""
+
+                                    # td_sort - 정렬 정보
+                                    sort_cell = row.find('td', class_='td_sort')
+                                    sort_info = sort_cell.get_text(strip=True) if sort_cell else ""
+
+                                    # td_tv - 중계 정보
+                                    tv_cell = row.find('td', class_='td_tv')
+                                    tv_info = tv_cell.get_text(strip=True) if tv_cell else ""
+
+                                    # info_team 정보 추출
+                                    home_info_elem = home_team_div.find('span', class_='info_team')
+                                    away_info_elem = away_team_div.find('span', class_='info_team')
+                                    home_info = home_info_elem.get_text(strip=True) if home_info_elem else ""
+                                    away_info = away_info_elem.get_text(strip=True) if away_info_elem else ""
+
+                                    # td_team 팀정보 (앞 2글자만)
+                                    home_team_short = self.normalize_team_name(home_team)[:2]
+                                    away_team_short = self.normalize_team_name(away_team)[:2]
+
                                     # KBO 웹사이트에서 team_home div가 실제로는 원정팀, team_away div가 홈팀을 의미함
                                     game = {
                                         'date': current_date,
@@ -246,13 +283,24 @@ class KBOWorkingCrawler:
                                         'home_team': self.normalize_team_name(away_team),  # team_away div = 홈팀
                                         'away_score': home_score,  # team_home 점수 = 원정팀 점수
                                         'home_score': away_score,  # team_away 점수 = 홈팀 점수
-                                        'state': state
+                                        'state': state,
+                                        'time': game_time,
+                                        'stadium': stadium,
+                                        'sort': sort_info,
+                                        'tv': tv_info,
+                                        'away_info': home_info,  # team_home div = 원정팀 정보
+                                        'home_info': away_info,  # team_away div = 홈팀 정보
+                                        'away_team_short': home_team_short,  # 원정팀 앞 2글자
+                                        'home_team_short': away_team_short   # 홈팀 앞 2글자
                                     }
                                     
                                     games.append(game)
-                                    print(f"  ✅ {self.normalize_team_name(home_team)} {home_score}:{away_score} {self.normalize_team_name(away_team)} [완료]")
-                                else:
-                                    print(f"  ⏳ {self.normalize_team_name(away_team)} vs {self.normalize_team_name(home_team)} [{state}] - 제외")
+                                    if state in cancelled_states:
+                                        print(f"  ❌ {self.normalize_team_name(home_team)} vs {self.normalize_team_name(away_team)} [{state}]")
+                                    else:
+                                        print(f"  ✅ {self.normalize_team_name(home_team)} {home_score}:{away_score} {self.normalize_team_name(away_team)} [완료]")
+                            else:
+                                print(f"  ⏳ {self.normalize_team_name(away_team)} vs {self.normalize_team_name(home_team)} [{state}] - 제외")
                 
             except Exception as e:
                 print(f"  ⚠️ 행 {row_idx} 파싱 오류: {e}")
