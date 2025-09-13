@@ -420,23 +420,26 @@ class KBOWorkingCrawler:
             game_line = f"{game['time']:<8} {game['state']:<6} {game['stadium']:<6} {game['home_team']:<4} {game['away_team']:<4} {score_part:<8} {game['tv']:<8} {game['sort']}"
             game_date = game['date']
 
-            # 중복 체크: 날짜 + 시간 조합으로 확인
-            date_time_key = f"{game_date}_{game['time']}"
+            # 중복 체크: 날짜 + 시간 + 홈팀 + 어웨이팀 조합으로 정확한 확인
+            game_key = f"{game_date}_{game['time']}_{game['home_team']}_{game['away_team']}"
 
-            # 기존 경기에서 같은 날짜+시간이 있는지 확인
+            # 기존 경기에서 정확히 같은 경기가 있는지 확인
             is_duplicate = False
             if game_date in existing_by_date:
                 for existing_line in existing_by_date[game_date]:
-                    # 기존 라인에서 시간 추출해서 비교 (공백으로 분할)
+                    # 기존 라인에서 시간, 홈팀, 어웨이팀 추출 (공백으로 분할)
                     parts = existing_line.split()
-                    if len(parts) > 0:
-                        existing_time = parts[0]  # 첫 번째 필드가 시간
-                    else:
-                        existing_time = ""
+                    if len(parts) >= 5:
+                        existing_time = parts[0]  # 시간
+                        existing_home = parts[3]  # 홈팀
+                        existing_away = parts[4]  # 어웨이팀
 
-                    if existing_time == game['time']:
-                        is_duplicate = True
-                        break
+                        # 시간, 홈팀, 어웨이팀이 모두 같으면 중복
+                        if (existing_time == game['time'] and
+                            existing_home == game['home_team'] and
+                            existing_away == game['away_team']):
+                            is_duplicate = True
+                            break
 
             if not is_duplicate:
                 new_games.append(game)
