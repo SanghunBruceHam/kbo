@@ -17,6 +17,7 @@ from datetime import datetime
 import os
 import sys
 from pathlib import Path
+import calendar
 
 # PathManager 추가 - config 디렉토리를 Python path에 추가
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent / 'config'))
@@ -236,8 +237,8 @@ class KBOWorkingCrawler:
                                     away_score = int(away_score_match.group())
 
                             # 완료된 경기와 취소 경기 모두 저장
-                            completed_states = ["종료", "완료", "끝", "취소", "우천취소", "연기"]
-                            cancelled_states = ["취소", "우천취소", "연기"]
+                            completed_states = ["종료", "완료", "끝", "취소", "우천취소", "연기", "경기취소"]
+                            cancelled_states = ["취소", "우천취소", "연기", "경기취소"]
 
                             is_valid_game = (
                                 state in completed_states or
@@ -312,6 +313,15 @@ class KBOWorkingCrawler:
         """팀명 정규화"""
         return self.team_mapping.get(team_name.strip(), team_name.strip())
 
+    def get_weekday(self, date_str):
+        """날짜 문자열에서 요일 구하기 (YYYY-MM-DD -> 요일)"""
+        try:
+            date_obj = datetime.strptime(date_str, '%Y-%m-%d')
+            weekdays = ['월', '화', '수', '목', '금', '토', '일']
+            return weekdays[date_obj.weekday()]
+        except:
+            return ""
+
     def save_results(self, games, year, month):
         """결과 저장"""
         if not games:
@@ -354,21 +364,41 @@ class KBOWorkingCrawler:
                         
         print(f"📚 기존 경기 데이터 로드: {len(existing_games)}개 경기")
         
-        # 새로운 경기만 필터링 (날짜별 정확한 중복 체크)
+        # 새로운 경기만 필터링 (날짜+시간 기준 중복 체크)
         new_games = []
         for game in games:
-            game_line = f"{game['away_team']} {game['away_score']}:{game['home_score']} {game['home_team']}(H)"
-            game_date = game['date']
-            
-            # 1차: 해당 날짜에 같은 경기가 있는지 확인
-            date_exists = game_date in existing_by_date and game_line in existing_by_date[game_date]
-            
-            # 2차: 전체에서 중복 확인 (동일 스코어 다른 날짜 허용)
-            if not date_exists:
-                new_games.append(game)
-                print(f"  🆕 새 경기 추가: {game_date} {game_line}")
+            # 새로운 확장 형식: 시간|상태|구장|홈팀|어웨이팀|점수|방송사|구분
+            if game['state'] in ["취소", "우천취소", "연기", "경기취소"]:
+                score_part = "취소"
             else:
-                print(f"  ♻️ 중복 경기 제외: {game_date} {game_line} (해당 날짜에 이미 존재)")
+                score_part = f"{game['away_score']}:{game['home_score']}"
+
+            game_line = f"{game['time']:<8} {game['state']:<6} {game['stadium']:<6} {game['home_team']:<4} {game['away_team']:<4} {score_part:<8} {game['tv']:<8} {game['sort']}"
+            game_date = game['date']
+
+            # 중복 체크: 날짜 + 시간 조합으로 확인
+            date_time_key = f"{game_date}_{game['time']}"
+
+            # 기존 경기에서 같은 날짜+시간이 있는지 확인
+            is_duplicate = False
+            if game_date in existing_by_date:
+                for existing_line in existing_by_date[game_date]:
+                    # 기존 라인에서 시간 추출해서 비교 (공백으로 분할)
+                    parts = existing_line.split()
+                    if len(parts) > 0:
+                        existing_time = parts[0]  # 첫 번째 필드가 시간
+                    else:
+                        existing_time = ""
+
+                    if existing_time == game['time']:
+                        is_duplicate = True
+                        break
+
+            if not is_duplicate:
+                new_games.append(game)
+                print(f"  🆕 새 경기 추가: {game_date} {game['time']} {game['home_team']} vs {game['away_team']}")
+            else:
+                print(f"  ♻️ 중복 경기 제외: {game_date} {game['time']} {game['home_team']} vs {game['away_team']} (같은 날짜+시간에 이미 존재)")
         
         if new_games:
             print(f"\n🆕 새로운 경기 {len(new_games)}개 발견")
@@ -381,14 +411,20 @@ class KBOWorkingCrawler:
                     date = game['date']
                     if date not in date_groups:
                         date_groups[date] = []
-                    
-                    # clean.txt 형식: "원정팀 원정점수:홈점수 홈팀(H)" (뒤에 나온 팀이 홈팀)
-                    line = f"{game['away_team']} {game['away_score']}:{game['home_score']} {game['home_team']}(H)"
+
+                    # 새로운 확장 형식: 열 정렬된 가독성 좋은 형식
+                    if game['state'] in ["취소", "우천취소", "연기", "경기취소"]:
+                        score_part = "취소"
+                    else:
+                        score_part = f"{game['away_score']}:{game['home_score']}"
+
+                    line = f"{game['time']:<8} {game['state']:<6} {game['stadium']:<6} {game['home_team']:<4} {game['away_team']:<4} {score_part:<8} {game['tv']:<8} {game['sort']}"
                     date_groups[date].append(line)
-                
+
                 # 날짜순 정렬하여 출력 (빈 줄과 함께)
                 for date in sorted(date_groups.keys()):
-                    f.write(f"\n\n{date}\n")  # 두 번 \n으로 빈 줄 추가
+                    weekday = self.get_weekday(date)
+                    f.write(f"\n\n{date} ({weekday})\n")  # 날짜 (요일) 형식
                     for line in date_groups[date]:
                         f.write(f"{line}\n")
             
