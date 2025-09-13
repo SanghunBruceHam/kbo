@@ -301,7 +301,47 @@ class KBOWorkingCrawler:
                                     else:
                                         print(f"  ✅ {self.normalize_team_name(home_team)} {home_score}:{away_score} {self.normalize_team_name(away_team)} [완료]")
                             else:
-                                print(f"  ⏳ {self.normalize_team_name(away_team)} vs {self.normalize_team_name(home_team)} [{state}] - 제외")
+                                # 경기전 상태인 경기들도 동일한 파일에 저장
+                                if state not in completed_states and state not in cancelled_states:
+                                    # 경기전 경기 정보 생성
+                                    # 추가 정보 추출
+                                    time_cell = row.find('td', class_='td_time')
+                                    game_time = time_cell.get_text(strip=True) if time_cell else ""
+
+                                    area_cell = row.find('td', class_='td_area')
+                                    stadium_full = area_cell.get_text(strip=True) if area_cell else ""
+                                    stadium = stadium_full[:2] if stadium_full else ""
+
+                                    sort_cell = row.find('td', class_='td_sort')
+                                    sort_info = sort_cell.get_text(strip=True) if sort_cell else ""
+
+                                    tv_cell = row.find('td', class_='td_tv')
+                                    tv_info = tv_cell.get_text(strip=True) if tv_cell else ""
+
+                                    # 경기전 경기도 동일한 구조로 생성 (점수는 0:0)
+                                    schedule_game = {
+                                        'date': current_date,
+                                        'away_team': self.normalize_team_name(home_team),
+                                        'home_team': self.normalize_team_name(away_team),
+                                        'away_score': 0,
+                                        'home_score': 0,
+                                        'state': state,
+                                        'time': game_time,
+                                        'stadium': stadium,
+                                        'sort': sort_info,
+                                        'tv': tv_info,
+                                        'away_info': '',
+                                        'home_info': '',
+                                        'away_team_short': self.normalize_team_name(home_team)[:2],
+                                        'home_team_short': self.normalize_team_name(away_team)[:2]
+                                    }
+
+                                    # 동일한 games 리스트에 추가
+                                    games.append(schedule_game)
+
+                                    print(f"  📅 {self.normalize_team_name(home_team)} vs {self.normalize_team_name(away_team)} [{state}] - 예정 경기 저장")
+                                else:
+                                    print(f"  ⏳ {self.normalize_team_name(away_team)} vs {self.normalize_team_name(home_team)} [{state}] - 제외")
                 
             except Exception as e:
                 print(f"  ⚠️ 행 {row_idx} 파싱 오류: {e}")
@@ -327,7 +367,8 @@ class KBOWorkingCrawler:
         if not games:
             print("\n❌ 저장할 데이터가 없습니다.")
             return
-        
+
+
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
         
         # JSON 저장 (주석 처리 - 백업 필요시 활성화)
@@ -415,8 +456,11 @@ class KBOWorkingCrawler:
                     # 새로운 확장 형식: 열 정렬된 가독성 좋은 형식
                     if game['state'] in ["취소", "우천취소", "연기", "경기취소"]:
                         score_part = "취소"
-                    else:
+                    elif game['state'] in ["종료", "완료", "끝"]:
                         score_part = f"{game['away_score']}:{game['home_score']}"
+                    else:
+                        # 경기전 상태인 경우
+                        score_part = "경기전"
 
                     line = f"{game['time']:<8} {game['state']:<6} {game['stadium']:<6} {game['home_team']:<4} {game['away_team']:<4} {score_part:<8} {game['tv']:<8} {game['sort']}"
                     date_groups[date].append(line)
@@ -452,7 +496,7 @@ class KBOWorkingCrawler:
                     print(f"    {status} {date}: 크롤링 {crawled_count}개, 기존 {existing_count}개")
                 
                 print("\n💡 자동화가 제대로 작동하려면 새 경기가 감지되어야 합니다.")
-        
+
         # 백업용 타임스탬프 파일 (주석 처리 - 백업 필요시 활성화)
         # backup_clean_file = f'kbo-{year}-{month:02d}-{timestamp}-clean.txt'
         # with open(backup_clean_file, 'w', encoding='utf-8') as f:
