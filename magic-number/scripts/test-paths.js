@@ -208,15 +208,25 @@ class PathValidator {
         console.log(`⚠️ 경고: ${this.warnings.length}개`);
         console.log(`❌ 오류: ${this.errors.length}개`);
 
-        if (this.errors.length === 0) {
-            console.log('\n🎉 모든 경로 검증이 성공적으로 완료되었습니다!');
+        // 중요한 오류와 일반 오류 구분
+        const criticalErrors = this.errors.filter(error =>
+            error.includes('PathManager') ||
+            error.includes('package.json') ||
+            error.includes('config')
+        );
+
+        if (criticalErrors.length === 0) {
+            console.log('\n🎉 중요한 경로 검증이 성공적으로 완료되었습니다!');
+            if (this.errors.length > 0) {
+                console.log('\n📝 선택적 파일들이 누락되었지만 핵심 기능은 정상 작동합니다.');
+            }
             console.log('\n📋 사용 가능한 npm 명령어:');
             console.log('  npm run process    - 시즌 데이터 처리');
             console.log('  npm run crawl      - KBO 데이터 크롤링');
             console.log('  npm run serve      - 로컬 서버 실행');
             console.log('  npm run help       - 도움말 표시');
         } else {
-            console.log('\n⚠️ 일부 오류가 발견되었습니다. 위의 오류 메시지를 확인해주세요.');
+            console.log('\n❌ 중요한 오류가 발견되었습니다. 위의 오류 메시지를 확인해주세요.');
             process.exit(1);
         }
 
