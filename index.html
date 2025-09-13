@@ -15462,13 +15462,21 @@ KT 9:1 키움(H)`;
         }
     </script>
     
-    <!-- 순위 변동 그래프 - 데이터 경로 오버라이드 -->
+    <!-- 순위 변동 그래프 - 데이터 경로 오버라이드 (AdSense 안전) -->
     <script>
-        // root index용 데이터 경로 수정
+        // root index용 데이터 경로 수정 - AdSense 요청은 건드리지 않음
         const originalFetch = window.fetch;
         window.fetch = function(url, ...args) {
+            // AdSense 관련 요청은 건드리지 않음
+            if (typeof url === 'string' &&
+                (url.includes('googlesyndication.com') ||
+                 url.includes('googletagmanager.com') ||
+                 url.includes('google.com/pagead'))) {
+                return originalFetch(url, ...args);
+            }
+
+            // 로컬 데이터 파일만 경로 수정
             if (url === 'data/raw-game-records.json') {
-                // magic-number 폴더 경로로 변경
                 url = 'magic-number/data/raw-game-records.json';
             }
             return originalFetch(url, ...args);
