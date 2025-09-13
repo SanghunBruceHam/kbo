@@ -448,32 +448,63 @@ class KBOWorkingCrawler:
             print(f"\n🆕 새로운 경기 {len(new_games)}개 발견")
 
             try:
-                # 새로운 경기를 기존 파일에 append
-                with open(main_clean_file, 'a', encoding='utf-8') as f:
-                    # 날짜별 그룹화
-                    date_groups = {}
-                    for game in new_games:
-                        date = game['date']
-                        if date not in date_groups:
-                            date_groups[date] = []
+                # 전체 파일을 다시 작성 (중복 날짜 방지)
+                all_data = {}
 
-                        # 새로운 확장 형식: 열 정렬된 가독성 좋은 형식
-                        if game['state'] in ["취소", "우천취소", "연기", "경기취소"]:
-                            score_part = "취소"
-                        elif game['state'] in ["종료", "완료", "끝"]:
-                            score_part = f"{game['away_score']}:{game['home_score']}"
-                        else:
-                            # 경기전 상태인 경우
-                            score_part = "경기전"
+                # 기존 데이터 로드
+                if main_clean_file.exists():
+                    with open(main_clean_file, 'r', encoding='utf-8') as f:
+                        content = f.read()
+                        current_date = None
 
-                        line = f"{game['time']:<8} {game['state']:<6} {game['stadium']:<6} {game['home_team']:<4} {game['away_team']:<4} {score_part:<8} {game['tv']:<8} {game['sort']}"
-                        date_groups[date].append(line)
+                        for line in content.split('\n'):
+                            line = line.strip()
+                            if not line:
+                                continue
 
-                    # 날짜순 정렬하여 출력 (빈 줄과 함께)
-                    for date in sorted(date_groups.keys()):
+                            # 날짜 라인인지 확인
+                            if re.match(r'^\d{4}-\d{2}-\d{2}(\s*\([월화수목금토일]\))?$', line):
+                                # 요일 정보 제거하고 날짜만 추출
+                                date_only = re.match(r'^(\d{4}-\d{2}-\d{2})', line).group(1)
+                                current_date = date_only
+                                if current_date not in all_data:
+                                    all_data[current_date] = []
+                            elif current_date:
+                                # 경기 라인 저장
+                                all_data[current_date].append(line)
+
+                # 새로운 경기 추가
+                for game in new_games:
+                    date = game['date']
+                    if date not in all_data:
+                        all_data[date] = []
+
+                    # 새로운 확장 형식: 열 정렬된 가독성 좋은 형식
+                    if game['state'] in ["취소", "우천취소", "연기", "경기취소"]:
+                        score_part = "취소"
+                    elif game['state'] in ["종료", "완료", "끝"]:
+                        score_part = f"{game['away_score']}:{game['home_score']}"
+                    else:
+                        # 경기전 상태인 경우
+                        score_part = "경기전"
+
+                    line = f"{game['time']:<8} {game['state']:<6} {game['stadium']:<6} {game['home_team']:<4} {game['away_team']:<4} {score_part:<8} {game['tv']:<8} {game['sort']}"
+                    all_data[date].append(line)
+
+                # 전체 파일 다시 쓰기
+                with open(main_clean_file, 'w', encoding='utf-8') as f:
+                    first = True
+                    for date in sorted(all_data.keys()):
+                        if not first:
+                            f.write("\n\n")
+                        first = False
+
                         weekday = self.get_weekday(date)
-                        f.write(f"\n\n{date} ({weekday})\n")  # 날짜 (요일) 형식
-                        for line in date_groups[date]:
+                        f.write(f"{date} ({weekday})\n")
+
+                        # 시간순으로 경기 정렬
+                        sorted_games = sorted(all_data[date], key=lambda x: x.split()[0] if x.split() else "")
+                        for line in sorted_games:
                             f.write(f"{line}\n")
 
                 print(f"💾 새 경기 {len(new_games)}개를 {main_clean_file}에 추가")
