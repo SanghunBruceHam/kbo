@@ -1,929 +1,485 @@
 {
-<<<<<<< HEAD
-  "lastUpdated": "2025-09-13T05:02:40.879Z",
+  "lastUpdated": "2025-09-13T05:10:46.304Z",
   "updateDate": "2025. 9. 13.",
   "homeAwayAnalysis": {
     "LG": {
-      "totalGames": 292,
+      "totalGames": 438,
       "home": {
-        "games": 140,
-        "wins": 84,
-        "losses": 54,
-        "draws": 2,
+        "games": 210,
+        "wins": 126,
+        "losses": 81,
+        "draws": 3,
         "winRate": "60.9",
-        "runsScored": 718,
-        "runsAllowed": 524,
+        "runsScored": 1077,
+        "runsAllowed": 786,
         "avgRunsScored": "5.13",
         "avgRunsAllowed": "3.74",
-        "runDifferential": 194
+        "runDifferential": 291
       },
       "away": {
-        "games": 152,
-        "wins": 88,
-        "losses": 60,
-        "draws": 4,
+        "games": 228,
+        "wins": 132,
+        "losses": 90,
+        "draws": 6,
         "winRate": "59.5",
-        "runsScored": 834,
-        "runsAllowed": 670,
+        "runsScored": 1251,
+        "runsAllowed": 1005,
         "avgRunsScored": "5.49",
         "avgRunsAllowed": "4.41",
-        "runDifferential": 164
-=======
-  "lastUpdated": "2025-09-13T04:59:48.412Z",
-  "updateDate": "2025. 9. 13.",
-  "homeAwayAnalysis": {
-    "LG": {
-      "totalGames": 146,
-      "home": {
-        "games": 70,
-        "wins": 42,
-        "losses": 27,
-        "draws": 1,
-        "winRate": "60.9",
-        "runsScored": 359,
-        "runsAllowed": 262,
-        "avgRunsScored": "5.13",
-        "avgRunsAllowed": "3.74",
-        "runDifferential": 97
-      },
-      "away": {
-        "games": 76,
-        "wins": 44,
-        "losses": 30,
-        "draws": 2,
-        "winRate": "59.5",
-        "runsScored": 417,
-        "runsAllowed": 335,
-        "avgRunsScored": "5.49",
-        "avgRunsAllowed": "4.41",
-        "runDifferential": 82
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+        "runDifferential": 246
       },
       "homeAdvantage": "0.0140",
       "homeAdvantageStatus": "중립",
       "stadiumRecords": {
         "수원": {
-<<<<<<< HEAD
-          "games": 18,
-          "wins": 10,
-          "losses": 8,
+          "games": 27,
+          "wins": 15,
+          "losses": 12,
           "draws": 0,
           "winRate": "55.6",
-          "runsScored": 100,
-          "runsAllowed": 100
+          "runsScored": 150,
+          "runsAllowed": 150
         },
         "사직": {
-          "games": 16,
-          "wins": 6,
-          "losses": 8,
-          "draws": 2,
+          "games": 24,
+          "wins": 9,
+          "losses": 12,
+          "draws": 3,
           "winRate": "42.9",
-          "runsScored": 86,
-          "runsAllowed": 82
+          "runsScored": 129,
+          "runsAllowed": 123
         },
         "대구": {
-          "games": 22,
-          "wins": 16,
-          "losses": 6,
+          "games": 33,
+          "wins": 24,
+          "losses": 9,
           "draws": 0,
           "winRate": "72.7",
-          "runsScored": 106,
-          "runsAllowed": 78
+          "runsScored": 159,
+          "runsAllowed": 117
         },
         "인천": {
-          "games": 22,
-          "wins": 14,
-          "losses": 8,
+          "games": 33,
+          "wins": 21,
+          "losses": 12,
           "draws": 0,
           "winRate": "63.6",
-          "runsScored": 126,
-          "runsAllowed": 100
+          "runsScored": 189,
+          "runsAllowed": 150
         },
         "잠실": {
-          "games": 156,
-          "wins": 94,
-          "losses": 60,
-          "draws": 2,
+          "games": 234,
+          "wins": 141,
+          "losses": 90,
+          "draws": 3,
           "winRate": "61.0",
-          "runsScored": 800,
-          "runsAllowed": 596
+          "runsScored": 1200,
+          "runsAllowed": 894
         },
         "창원": {
-          "games": 16,
-          "wins": 12,
-          "losses": 4,
+          "games": 24,
+          "wins": 18,
+          "losses": 6,
           "draws": 0,
           "winRate": "75.0",
-          "runsScored": 132,
-          "runsAllowed": 56
+          "runsScored": 198,
+          "runsAllowed": 84
         },
         "고척": {
-          "games": 16,
-          "wins": 6,
-          "losses": 10,
+          "games": 24,
+          "wins": 9,
+          "losses": 15,
           "draws": 0,
           "winRate": "37.5",
-          "runsScored": 66,
-          "runsAllowed": 76
+          "runsScored": 99,
+          "runsAllowed": 114
         },
         "광주": {
-          "games": 18,
-          "wins": 14,
-          "losses": 4,
+          "games": 27,
+          "wins": 21,
+          "losses": 6,
           "draws": 0,
           "winRate": "77.8",
-          "runsScored": 114,
-          "runsAllowed": 66
+          "runsScored": 171,
+          "runsAllowed": 99
         },
         "대전": {
-          "games": 8,
+          "games": 12,
           "wins": 0,
-          "losses": 6,
-          "draws": 2,
+          "losses": 9,
+          "draws": 3,
           "winRate": "0.0",
-          "runsScored": 22,
-          "runsAllowed": 40
-=======
-          "games": 9,
-          "wins": 5,
-          "losses": 4,
-          "draws": 0,
-          "winRate": "55.6",
-          "runsScored": 50,
-          "runsAllowed": 50
-        },
-        "사직": {
-          "games": 8,
-          "wins": 3,
-          "losses": 4,
-          "draws": 1,
-          "winRate": "42.9",
-          "runsScored": 43,
-          "runsAllowed": 41
-        },
-        "대구": {
-          "games": 11,
-          "wins": 8,
-          "losses": 3,
-          "draws": 0,
-          "winRate": "72.7",
-          "runsScored": 53,
-          "runsAllowed": 39
-        },
-        "인천": {
-          "games": 11,
-          "wins": 7,
-          "losses": 4,
-          "draws": 0,
-          "winRate": "63.6",
-          "runsScored": 63,
-          "runsAllowed": 50
-        },
-        "잠실": {
-          "games": 78,
-          "wins": 47,
-          "losses": 30,
-          "draws": 1,
-          "winRate": "61.0",
-          "runsScored": 400,
-          "runsAllowed": 298
-        },
-        "창원": {
-          "games": 8,
-          "wins": 6,
-          "losses": 2,
-          "draws": 0,
-          "winRate": "75.0",
-          "runsScored": 66,
-          "runsAllowed": 28
-        },
-        "고척": {
-          "games": 8,
-          "wins": 3,
-          "losses": 5,
-          "draws": 0,
-          "winRate": "37.5",
           "runsScored": 33,
-          "runsAllowed": 38
-        },
-        "광주": {
-          "games": 9,
-          "wins": 7,
-          "losses": 2,
-          "draws": 0,
-          "winRate": "77.8",
-          "runsScored": 57,
-          "runsAllowed": 33
-        },
-        "대전": {
-          "games": 4,
-          "wins": 0,
-          "losses": 3,
-          "draws": 1,
-          "winRate": "0.0",
-          "runsScored": 11,
-          "runsAllowed": 20
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "runsAllowed": 60
         }
       },
       "vsTeamsHome": {
         "NC": {
-<<<<<<< HEAD
-          "games": 14,
-          "wins": 6,
-          "losses": 8,
-=======
-          "games": 7,
-          "wins": 3,
-          "losses": 4,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 21,
+          "wins": 9,
+          "losses": 12,
           "draws": 0,
           "winRate": "42.9"
         },
         "롯데": {
-<<<<<<< HEAD
-          "games": 20,
-          "wins": 16,
-          "losses": 2,
-          "draws": 2,
+          "games": 30,
+          "wins": 24,
+          "losses": 3,
+          "draws": 3,
           "winRate": "88.9"
         },
         "한화": {
-          "games": 18,
-          "wins": 14,
-          "losses": 4,
-=======
-          "games": 10,
-          "wins": 8,
-          "losses": 1,
-          "draws": 1,
-          "winRate": "88.9"
-        },
-        "한화": {
-          "games": 9,
-          "wins": 7,
-          "losses": 2,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 27,
+          "wins": 21,
+          "losses": 6,
           "draws": 0,
           "winRate": "77.8"
         },
         "KIA": {
-<<<<<<< HEAD
-          "games": 10,
-          "wins": 6,
-          "losses": 4,
-=======
-          "games": 5,
-          "wins": 3,
-          "losses": 2,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 15,
+          "wins": 9,
+          "losses": 6,
           "draws": 0,
           "winRate": "60.0"
         },
         "두산": {
-<<<<<<< HEAD
-          "games": 16,
-          "wins": 10,
-          "losses": 6,
-=======
-          "games": 8,
-          "wins": 5,
-          "losses": 3,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 24,
+          "wins": 15,
+          "losses": 9,
           "draws": 0,
           "winRate": "62.5"
         },
         "삼성": {
-<<<<<<< HEAD
-          "games": 12,
-          "wins": 4,
-          "losses": 8,
-=======
-          "games": 6,
-          "wins": 2,
-          "losses": 4,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 18,
+          "wins": 6,
+          "losses": 12,
           "draws": 0,
           "winRate": "33.3"
         },
         "SSG": {
-<<<<<<< HEAD
-          "games": 16,
-          "wins": 8,
-          "losses": 8,
-=======
-          "games": 8,
-          "wins": 4,
-          "losses": 4,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 24,
+          "wins": 12,
+          "losses": 12,
           "draws": 0,
           "winRate": "50.0"
         },
         "키움": {
-<<<<<<< HEAD
-          "games": 18,
-          "wins": 12,
-          "losses": 6,
-=======
-          "games": 9,
-          "wins": 6,
-          "losses": 3,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 27,
+          "wins": 18,
+          "losses": 9,
           "draws": 0,
           "winRate": "66.7"
         },
         "KT": {
-<<<<<<< HEAD
-          "games": 16,
-          "wins": 8,
-          "losses": 8,
-=======
-          "games": 8,
-          "wins": 4,
-          "losses": 4,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 24,
+          "wins": 12,
+          "losses": 12,
           "draws": 0,
           "winRate": "50.0"
         }
       },
       "vsTeamsAway": {
         "KT": {
-<<<<<<< HEAD
-          "games": 18,
-          "wins": 10,
-          "losses": 8,
-=======
-          "games": 9,
-          "wins": 5,
-          "losses": 4,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 27,
+          "wins": 15,
+          "losses": 12,
           "draws": 0,
           "winRate": "55.6"
         },
         "롯데": {
-<<<<<<< HEAD
-          "games": 16,
-          "wins": 6,
-          "losses": 8,
-          "draws": 2,
+          "games": 24,
+          "wins": 9,
+          "losses": 12,
+          "draws": 3,
           "winRate": "42.9"
         },
         "삼성": {
-          "games": 22,
-          "wins": 16,
-          "losses": 6,
-=======
-          "games": 8,
-          "wins": 3,
-          "losses": 4,
-          "draws": 1,
-          "winRate": "42.9"
-        },
-        "삼성": {
-          "games": 11,
-          "wins": 8,
-          "losses": 3,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 33,
+          "wins": 24,
+          "losses": 9,
           "draws": 0,
           "winRate": "72.7"
         },
         "SSG": {
-<<<<<<< HEAD
-          "games": 22,
-          "wins": 14,
-          "losses": 8,
-=======
-          "games": 11,
-          "wins": 7,
-          "losses": 4,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 33,
+          "wins": 21,
+          "losses": 12,
           "draws": 0,
           "winRate": "63.6"
         },
         "NC": {
-<<<<<<< HEAD
-          "games": 16,
-          "wins": 12,
-          "losses": 4,
-=======
-          "games": 8,
-          "wins": 6,
-          "losses": 2,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 24,
+          "wins": 18,
+          "losses": 6,
           "draws": 0,
           "winRate": "75.0"
         },
         "키움": {
-<<<<<<< HEAD
-          "games": 16,
-          "wins": 6,
-          "losses": 10,
-=======
-          "games": 8,
-          "wins": 3,
-          "losses": 5,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 24,
+          "wins": 9,
+          "losses": 15,
           "draws": 0,
           "winRate": "37.5"
         },
         "KIA": {
-<<<<<<< HEAD
-          "games": 18,
-          "wins": 14,
-          "losses": 4,
-=======
-          "games": 9,
-          "wins": 7,
-          "losses": 2,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 27,
+          "wins": 21,
+          "losses": 6,
           "draws": 0,
           "winRate": "77.8"
         },
         "한화": {
-<<<<<<< HEAD
-          "games": 8,
+          "games": 12,
           "wins": 0,
-          "losses": 6,
-          "draws": 2,
+          "losses": 9,
+          "draws": 3,
           "winRate": "0.0"
         },
         "두산": {
-          "games": 16,
-          "wins": 10,
-          "losses": 6,
-=======
-          "games": 4,
-          "wins": 0,
-          "losses": 3,
-          "draws": 1,
-          "winRate": "0.0"
-        },
-        "두산": {
-          "games": 8,
-          "wins": 5,
-          "losses": 3,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 24,
+          "wins": 15,
+          "losses": 9,
           "draws": 0,
           "winRate": "62.5"
         }
       }
     },
     "한화": {
-<<<<<<< HEAD
-      "totalGames": 288,
+      "totalGames": 432,
       "home": {
-        "games": 142,
-        "wins": 84,
-        "losses": 54,
-        "draws": 4,
+        "games": 213,
+        "wins": 126,
+        "losses": 81,
+        "draws": 6,
         "winRate": "60.9",
-        "runsScored": 726,
-        "runsAllowed": 532,
+        "runsScored": 1089,
+        "runsAllowed": 798,
         "avgRunsScored": "5.11",
         "avgRunsAllowed": "3.75",
-        "runDifferential": 194
+        "runDifferential": 291
       },
       "away": {
-        "games": 146,
-        "wins": 86,
-        "losses": 56,
-        "draws": 4,
+        "games": 219,
+        "wins": 129,
+        "losses": 84,
+        "draws": 6,
         "winRate": "60.6",
-        "runsScored": 680,
-        "runsAllowed": 514,
+        "runsScored": 1020,
+        "runsAllowed": 771,
         "avgRunsScored": "4.66",
         "avgRunsAllowed": "3.52",
-        "runDifferential": 166
-=======
-      "totalGames": 144,
-      "home": {
-        "games": 71,
-        "wins": 42,
-        "losses": 27,
-        "draws": 2,
-        "winRate": "60.9",
-        "runsScored": 363,
-        "runsAllowed": 266,
-        "avgRunsScored": "5.11",
-        "avgRunsAllowed": "3.75",
-        "runDifferential": 97
-      },
-      "away": {
-        "games": 73,
-        "wins": 43,
-        "losses": 28,
-        "draws": 2,
-        "winRate": "60.6",
-        "runsScored": 340,
-        "runsAllowed": 257,
-        "avgRunsScored": "4.66",
-        "avgRunsAllowed": "3.52",
-        "runDifferential": 83
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+        "runDifferential": 249
       },
       "homeAdvantage": "0.0030",
       "homeAdvantageStatus": "중립",
       "stadiumRecords": {
         "대전": {
-<<<<<<< HEAD
-          "games": 142,
-          "wins": 84,
-          "losses": 54,
-          "draws": 4,
+          "games": 213,
+          "wins": 126,
+          "losses": 81,
+          "draws": 6,
           "winRate": "60.9",
-          "runsScored": 726,
-          "runsAllowed": 532
+          "runsScored": 1089,
+          "runsAllowed": 798
         },
         "인천": {
-          "games": 16,
-          "wins": 12,
-          "losses": 4,
-          "draws": 0,
-          "winRate": "75.0",
-          "runsScored": 76,
-          "runsAllowed": 38
-        },
-        "사직": {
-          "games": 22,
-          "wins": 14,
-          "losses": 6,
-          "draws": 2,
-          "winRate": "70.0",
-          "runsScored": 140,
-          "runsAllowed": 48
-        },
-        "창원": {
-          "games": 20,
-          "wins": 10,
-          "losses": 10,
-          "draws": 0,
-          "winRate": "50.0",
-          "runsScored": 108,
-          "runsAllowed": 112
-        },
-        "수원": {
-          "games": 10,
-          "wins": 8,
-          "losses": 2,
-          "draws": 0,
-          "winRate": "80.0",
-          "runsScored": 58,
-          "runsAllowed": 26
-        },
-        "잠실": {
-          "games": 30,
-          "wins": 10,
-          "losses": 18,
-          "draws": 2,
-          "winRate": "35.7",
-          "runsScored": 82,
-          "runsAllowed": 130
-        },
-        "대구": {
-          "games": 18,
-          "wins": 8,
-          "losses": 10,
-          "draws": 0,
-          "winRate": "44.4",
-          "runsScored": 64,
-          "runsAllowed": 90
-        },
-        "광주": {
-          "games": 12,
-          "wins": 6,
-          "losses": 6,
-          "draws": 0,
-          "winRate": "50.0",
-          "runsScored": 38,
-          "runsAllowed": 36
-        },
-        "고척": {
-          "games": 18,
+          "games": 24,
           "wins": 18,
-          "losses": 0,
-          "draws": 0,
-          "winRate": "100.0",
-          "runsScored": 114,
-          "runsAllowed": 34
-=======
-          "games": 71,
-          "wins": 42,
-          "losses": 27,
-          "draws": 2,
-          "winRate": "60.9",
-          "runsScored": 363,
-          "runsAllowed": 266
-        },
-        "인천": {
-          "games": 8,
-          "wins": 6,
-          "losses": 2,
+          "losses": 6,
           "draws": 0,
           "winRate": "75.0",
-          "runsScored": 38,
-          "runsAllowed": 19
+          "runsScored": 114,
+          "runsAllowed": 57
         },
         "사직": {
-          "games": 11,
-          "wins": 7,
-          "losses": 3,
-          "draws": 1,
+          "games": 33,
+          "wins": 21,
+          "losses": 9,
+          "draws": 3,
           "winRate": "70.0",
-          "runsScored": 70,
-          "runsAllowed": 24
+          "runsScored": 210,
+          "runsAllowed": 72
         },
         "창원": {
-          "games": 10,
-          "wins": 5,
-          "losses": 5,
+          "games": 30,
+          "wins": 15,
+          "losses": 15,
           "draws": 0,
           "winRate": "50.0",
-          "runsScored": 54,
-          "runsAllowed": 56
+          "runsScored": 162,
+          "runsAllowed": 168
         },
         "수원": {
-          "games": 5,
-          "wins": 4,
-          "losses": 1,
-          "draws": 0,
-          "winRate": "80.0",
-          "runsScored": 29,
-          "runsAllowed": 13
-        },
-        "잠실": {
           "games": 15,
-          "wins": 5,
-          "losses": 9,
-          "draws": 1,
-          "winRate": "35.7",
-          "runsScored": 41,
-          "runsAllowed": 65
-        },
-        "대구": {
-          "games": 9,
-          "wins": 4,
-          "losses": 5,
-          "draws": 0,
-          "winRate": "44.4",
-          "runsScored": 32,
-          "runsAllowed": 45
-        },
-        "광주": {
-          "games": 6,
-          "wins": 3,
+          "wins": 12,
           "losses": 3,
           "draws": 0,
+          "winRate": "80.0",
+          "runsScored": 87,
+          "runsAllowed": 39
+        },
+        "잠실": {
+          "games": 45,
+          "wins": 15,
+          "losses": 27,
+          "draws": 3,
+          "winRate": "35.7",
+          "runsScored": 123,
+          "runsAllowed": 195
+        },
+        "대구": {
+          "games": 27,
+          "wins": 12,
+          "losses": 15,
+          "draws": 0,
+          "winRate": "44.4",
+          "runsScored": 96,
+          "runsAllowed": 135
+        },
+        "광주": {
+          "games": 18,
+          "wins": 9,
+          "losses": 9,
+          "draws": 0,
           "winRate": "50.0",
-          "runsScored": 19,
-          "runsAllowed": 18
+          "runsScored": 57,
+          "runsAllowed": 54
         },
         "고척": {
-          "games": 9,
-          "wins": 9,
+          "games": 27,
+          "wins": 27,
           "losses": 0,
           "draws": 0,
           "winRate": "100.0",
-          "runsScored": 57,
-          "runsAllowed": 17
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "runsScored": 171,
+          "runsAllowed": 51
         }
       },
       "vsTeamsHome": {
         "두산": {
-<<<<<<< HEAD
-          "games": 22,
-          "wins": 6,
-          "losses": 16,
-=======
-          "games": 11,
-          "wins": 3,
-          "losses": 8,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 33,
+          "wins": 9,
+          "losses": 24,
           "draws": 0,
           "winRate": "27.3"
         },
         "삼성": {
-<<<<<<< HEAD
-          "games": 20,
-          "wins": 12,
-          "losses": 8,
-=======
-          "games": 10,
-          "wins": 6,
-          "losses": 4,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 30,
+          "wins": 18,
+          "losses": 12,
           "draws": 0,
           "winRate": "60.0"
         },
         "KIA": {
-<<<<<<< HEAD
-          "games": 16,
-          "wins": 14,
-          "losses": 2,
-=======
-          "games": 8,
-          "wins": 7,
-          "losses": 1,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 24,
+          "wins": 21,
+          "losses": 3,
           "draws": 0,
           "winRate": "87.5"
         },
         "롯데": {
-<<<<<<< HEAD
-          "games": 16,
-          "wins": 10,
-          "losses": 6,
-=======
-          "games": 8,
-          "wins": 5,
-          "losses": 3,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 24,
+          "wins": 15,
+          "losses": 9,
           "draws": 0,
           "winRate": "62.5"
         },
         "키움": {
-<<<<<<< HEAD
-          "games": 8,
-          "wins": 6,
-          "losses": 2,
-=======
-          "games": 4,
-          "wins": 3,
-          "losses": 1,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 12,
+          "wins": 9,
+          "losses": 3,
           "draws": 0,
           "winRate": "75.0"
         },
         "NC": {
-<<<<<<< HEAD
-          "games": 16,
-          "wins": 12,
-          "losses": 2,
-          "draws": 2,
+          "games": 24,
+          "wins": 18,
+          "losses": 3,
+          "draws": 3,
           "winRate": "85.7"
         },
         "KT": {
-          "games": 18,
-          "wins": 10,
-          "losses": 8,
-=======
-          "games": 8,
-          "wins": 6,
-          "losses": 1,
-          "draws": 1,
-          "winRate": "85.7"
-        },
-        "KT": {
-          "games": 9,
-          "wins": 5,
-          "losses": 4,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 27,
+          "wins": 15,
+          "losses": 12,
           "draws": 0,
           "winRate": "55.6"
         },
         "LG": {
-<<<<<<< HEAD
-          "games": 8,
-          "wins": 6,
+          "games": 12,
+          "wins": 9,
           "losses": 0,
-          "draws": 2,
+          "draws": 3,
           "winRate": "100.0"
         },
         "SSG": {
-          "games": 18,
-          "wins": 8,
-          "losses": 10,
-=======
-          "games": 4,
-          "wins": 3,
-          "losses": 0,
-          "draws": 1,
-          "winRate": "100.0"
-        },
-        "SSG": {
-          "games": 9,
-          "wins": 4,
-          "losses": 5,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 27,
+          "wins": 12,
+          "losses": 15,
           "draws": 0,
           "winRate": "44.4"
         }
       },
       "vsTeamsAway": {
         "SSG": {
-<<<<<<< HEAD
-          "games": 16,
-          "wins": 12,
-          "losses": 4,
-=======
-          "games": 8,
-          "wins": 6,
-          "losses": 2,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 24,
+          "wins": 18,
+          "losses": 6,
           "draws": 0,
           "winRate": "75.0"
         },
         "롯데": {
-<<<<<<< HEAD
-          "games": 22,
-          "wins": 14,
-          "losses": 6,
-          "draws": 2,
+          "games": 33,
+          "wins": 21,
+          "losses": 9,
+          "draws": 3,
           "winRate": "70.0"
         },
         "NC": {
-          "games": 20,
-          "wins": 10,
-          "losses": 10,
-=======
-          "games": 11,
-          "wins": 7,
-          "losses": 3,
-          "draws": 1,
-          "winRate": "70.0"
-        },
-        "NC": {
-          "games": 10,
-          "wins": 5,
-          "losses": 5,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 30,
+          "wins": 15,
+          "losses": 15,
           "draws": 0,
           "winRate": "50.0"
         },
         "KT": {
-<<<<<<< HEAD
-          "games": 10,
-          "wins": 8,
-          "losses": 2,
-=======
-          "games": 5,
-          "wins": 4,
-          "losses": 1,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 15,
+          "wins": 12,
+          "losses": 3,
           "draws": 0,
           "winRate": "80.0"
         },
         "LG": {
-<<<<<<< HEAD
-          "games": 18,
-          "wins": 4,
-          "losses": 14,
-=======
-          "games": 9,
-          "wins": 2,
-          "losses": 7,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 27,
+          "wins": 6,
+          "losses": 21,
           "draws": 0,
           "winRate": "22.2"
         },
         "삼성": {
-<<<<<<< HEAD
-          "games": 18,
-          "wins": 8,
-          "losses": 10,
-=======
-          "games": 9,
-          "wins": 4,
-          "losses": 5,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 27,
+          "wins": 12,
+          "losses": 15,
           "draws": 0,
           "winRate": "44.4"
         },
         "두산": {
-<<<<<<< HEAD
-          "games": 12,
-          "wins": 6,
-          "losses": 4,
-          "draws": 2,
-          "winRate": "60.0"
-        },
-        "KIA": {
-          "games": 12,
-          "wins": 6,
+          "games": 18,
+          "wins": 9,
           "losses": 6,
-=======
-          "games": 6,
-          "wins": 3,
-          "losses": 2,
-          "draws": 1,
+          "draws": 3,
           "winRate": "60.0"
         },
         "KIA": {
-          "games": 6,
-          "wins": 3,
-          "losses": 3,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 18,
+          "wins": 9,
+          "losses": 9,
           "draws": 0,
           "winRate": "50.0"
         },
         "키움": {
-<<<<<<< HEAD
-          "games": 18,
-          "wins": 18,
-=======
-          "games": 9,
-          "wins": 9,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 27,
+          "wins": 27,
           "losses": 0,
           "draws": 0,
           "winRate": "100.0"
@@ -931,3714 +487,1936 @@
       }
     },
     "KIA": {
-<<<<<<< HEAD
-      "totalGames": 288,
+      "totalGames": 432,
       "home": {
-        "games": 134,
-        "wins": 72,
-        "losses": 58,
-        "draws": 4,
+        "games": 201,
+        "wins": 108,
+        "losses": 87,
+        "draws": 6,
         "winRate": "55.4",
-        "runsScored": 626,
-        "runsAllowed": 576,
+        "runsScored": 939,
+        "runsAllowed": 864,
         "avgRunsScored": "4.67",
         "avgRunsAllowed": "4.30",
-        "runDifferential": 50
+        "runDifferential": 75
       },
       "away": {
-        "games": 154,
-        "wins": 62,
-        "losses": 84,
-        "draws": 8,
+        "games": 231,
+        "wins": 93,
+        "losses": 126,
+        "draws": 12,
         "winRate": "42.5",
-        "runsScored": 754,
-        "runsAllowed": 840,
+        "runsScored": 1131,
+        "runsAllowed": 1260,
         "avgRunsScored": "4.90",
         "avgRunsAllowed": "5.45",
-        "runDifferential": -86
-=======
-      "totalGames": 144,
-      "home": {
-        "games": 67,
-        "wins": 36,
-        "losses": 29,
-        "draws": 2,
-        "winRate": "55.4",
-        "runsScored": 313,
-        "runsAllowed": 288,
-        "avgRunsScored": "4.67",
-        "avgRunsAllowed": "4.30",
-        "runDifferential": 25
-      },
-      "away": {
-        "games": 77,
-        "wins": 31,
-        "losses": 42,
-        "draws": 4,
-        "winRate": "42.5",
-        "runsScored": 377,
-        "runsAllowed": 420,
-        "avgRunsScored": "4.90",
-        "avgRunsAllowed": "5.45",
-        "runDifferential": -43
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+        "runDifferential": -129
       },
       "homeAdvantage": "0.1290",
       "homeAdvantageStatus": "강함",
       "stadiumRecords": {
         "사직": {
-<<<<<<< HEAD
-          "games": 22,
-          "wins": 8,
-          "losses": 12,
-          "draws": 2,
+          "games": 33,
+          "wins": 12,
+          "losses": 18,
+          "draws": 3,
           "winRate": "40.0",
-          "runsScored": 68,
-          "runsAllowed": 100
+          "runsScored": 102,
+          "runsAllowed": 150
         },
         "창원": {
-          "games": 22,
-          "wins": 10,
-          "losses": 12,
+          "games": 33,
+          "wins": 15,
+          "losses": 18,
           "draws": 0,
           "winRate": "45.5",
-          "runsScored": 136,
-          "runsAllowed": 126
+          "runsScored": 204,
+          "runsAllowed": 189
         },
         "잠실": {
-          "games": 32,
-          "wins": 14,
-          "losses": 16,
-          "draws": 2,
+          "games": 48,
+          "wins": 21,
+          "losses": 24,
+          "draws": 3,
           "winRate": "46.7",
-          "runsScored": 158,
-          "runsAllowed": 132
+          "runsScored": 237,
+          "runsAllowed": 198
         },
         "광주": {
-          "games": 134,
-          "wins": 72,
-          "losses": 58,
-          "draws": 4,
+          "games": 201,
+          "wins": 108,
+          "losses": 87,
+          "draws": 6,
           "winRate": "55.4",
-          "runsScored": 626,
-          "runsAllowed": 576
+          "runsScored": 939,
+          "runsAllowed": 864
         },
         "대전": {
-          "games": 16,
-          "wins": 2,
-          "losses": 14,
+          "games": 24,
+          "wins": 3,
+          "losses": 21,
           "draws": 0,
           "winRate": "12.5",
-          "runsScored": 62,
-          "runsAllowed": 162
+          "runsScored": 93,
+          "runsAllowed": 243
         },
         "대구": {
-          "games": 16,
-          "wins": 8,
-          "losses": 8,
+          "games": 24,
+          "wins": 12,
+          "losses": 12,
           "draws": 0,
           "winRate": "50.0",
-          "runsScored": 88,
-          "runsAllowed": 94
+          "runsScored": 132,
+          "runsAllowed": 141
         },
         "고척": {
-          "games": 12,
-          "wins": 6,
-          "losses": 4,
-          "draws": 2,
-          "winRate": "60.0",
-          "runsScored": 90,
-          "runsAllowed": 64
-        },
-        "인천": {
-          "games": 16,
-          "wins": 8,
-          "losses": 6,
-          "draws": 2,
-          "winRate": "57.1",
-          "runsScored": 78,
-          "runsAllowed": 86
-        },
-        "수원": {
           "games": 18,
-          "wins": 6,
-          "losses": 12,
-          "draws": 0,
-          "winRate": "33.3",
-          "runsScored": 74,
-          "runsAllowed": 76
-=======
-          "games": 11,
-          "wins": 4,
+          "wins": 9,
           "losses": 6,
-          "draws": 1,
-          "winRate": "40.0",
-          "runsScored": 34,
-          "runsAllowed": 50
-        },
-        "창원": {
-          "games": 11,
-          "wins": 5,
-          "losses": 6,
-          "draws": 0,
-          "winRate": "45.5",
-          "runsScored": 68,
-          "runsAllowed": 63
-        },
-        "잠실": {
-          "games": 16,
-          "wins": 7,
-          "losses": 8,
-          "draws": 1,
-          "winRate": "46.7",
-          "runsScored": 79,
-          "runsAllowed": 66
-        },
-        "광주": {
-          "games": 67,
-          "wins": 36,
-          "losses": 29,
-          "draws": 2,
-          "winRate": "55.4",
-          "runsScored": 313,
-          "runsAllowed": 288
-        },
-        "대전": {
-          "games": 8,
-          "wins": 1,
-          "losses": 7,
-          "draws": 0,
-          "winRate": "12.5",
-          "runsScored": 31,
-          "runsAllowed": 81
-        },
-        "대구": {
-          "games": 8,
-          "wins": 4,
-          "losses": 4,
-          "draws": 0,
-          "winRate": "50.0",
-          "runsScored": 44,
-          "runsAllowed": 47
-        },
-        "고척": {
-          "games": 6,
-          "wins": 3,
-          "losses": 2,
-          "draws": 1,
+          "draws": 3,
           "winRate": "60.0",
-          "runsScored": 45,
-          "runsAllowed": 32
+          "runsScored": 135,
+          "runsAllowed": 96
         },
         "인천": {
-          "games": 8,
-          "wins": 4,
-          "losses": 3,
-          "draws": 1,
+          "games": 24,
+          "wins": 12,
+          "losses": 9,
+          "draws": 3,
           "winRate": "57.1",
-          "runsScored": 39,
-          "runsAllowed": 43
+          "runsScored": 117,
+          "runsAllowed": 129
         },
         "수원": {
-          "games": 9,
-          "wins": 3,
-          "losses": 6,
+          "games": 27,
+          "wins": 9,
+          "losses": 18,
           "draws": 0,
           "winRate": "33.3",
-          "runsScored": 37,
-          "runsAllowed": 38
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "runsScored": 111,
+          "runsAllowed": 114
         }
       },
       "vsTeamsHome": {
         "삼성": {
-<<<<<<< HEAD
-          "games": 18,
-          "wins": 12,
-          "losses": 6,
-=======
-          "games": 9,
-          "wins": 6,
-          "losses": 3,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 27,
+          "wins": 18,
+          "losses": 9,
           "draws": 0,
           "winRate": "66.7"
         },
         "NC": {
-<<<<<<< HEAD
-          "games": 10,
-          "wins": 6,
-          "losses": 4,
-=======
-          "games": 5,
-          "wins": 3,
-          "losses": 2,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 15,
+          "wins": 9,
+          "losses": 6,
           "draws": 0,
           "winRate": "60.0"
         },
         "키움": {
-<<<<<<< HEAD
-          "games": 18,
-          "wins": 8,
-          "losses": 8,
-          "draws": 2,
+          "games": 27,
+          "wins": 12,
+          "losses": 12,
+          "draws": 3,
           "winRate": "50.0"
         },
         "SSG": {
-          "games": 14,
-          "wins": 6,
-          "losses": 8,
-=======
-          "games": 9,
-          "wins": 4,
-          "losses": 4,
-          "draws": 1,
-          "winRate": "50.0"
-        },
-        "SSG": {
-          "games": 7,
-          "wins": 3,
-          "losses": 4,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 21,
+          "wins": 9,
+          "losses": 12,
           "draws": 0,
           "winRate": "42.9"
         },
         "KT": {
-<<<<<<< HEAD
-          "games": 12,
-          "wins": 10,
-          "losses": 2,
-=======
-          "games": 6,
-          "wins": 5,
-          "losses": 1,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 18,
+          "wins": 15,
+          "losses": 3,
           "draws": 0,
           "winRate": "83.3"
         },
         "LG": {
-<<<<<<< HEAD
-          "games": 18,
-          "wins": 4,
-          "losses": 14,
-=======
-          "games": 9,
-          "wins": 2,
-          "losses": 7,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 27,
+          "wins": 6,
+          "losses": 21,
           "draws": 0,
           "winRate": "22.2"
         },
         "한화": {
-<<<<<<< HEAD
-          "games": 12,
-          "wins": 6,
-          "losses": 6,
-=======
-          "games": 6,
-          "wins": 3,
-          "losses": 3,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 18,
+          "wins": 9,
+          "losses": 9,
           "draws": 0,
           "winRate": "50.0"
         },
         "롯데": {
-<<<<<<< HEAD
-          "games": 16,
-          "wins": 8,
-          "losses": 8,
-=======
-          "games": 8,
-          "wins": 4,
-          "losses": 4,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 24,
+          "wins": 12,
+          "losses": 12,
           "draws": 0,
           "winRate": "50.0"
         },
         "두산": {
-<<<<<<< HEAD
-          "games": 16,
-          "wins": 12,
-          "losses": 2,
-          "draws": 2,
-=======
-          "games": 8,
-          "wins": 6,
-          "losses": 1,
-          "draws": 1,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 24,
+          "wins": 18,
+          "losses": 3,
+          "draws": 3,
           "winRate": "85.7"
         }
       },
       "vsTeamsAway": {
         "롯데": {
-<<<<<<< HEAD
-          "games": 22,
-          "wins": 8,
-          "losses": 12,
-          "draws": 2,
+          "games": 33,
+          "wins": 12,
+          "losses": 18,
+          "draws": 3,
           "winRate": "40.0"
         },
         "NC": {
-          "games": 22,
-          "wins": 10,
-          "losses": 12,
-=======
-          "games": 11,
-          "wins": 4,
-          "losses": 6,
-          "draws": 1,
-          "winRate": "40.0"
-        },
-        "NC": {
-          "games": 11,
-          "wins": 5,
-          "losses": 6,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 33,
+          "wins": 15,
+          "losses": 18,
           "draws": 0,
           "winRate": "45.5"
         },
         "두산": {
-<<<<<<< HEAD
-          "games": 22,
-          "wins": 10,
-          "losses": 10,
-          "draws": 2,
+          "games": 33,
+          "wins": 15,
+          "losses": 15,
+          "draws": 3,
           "winRate": "50.0"
         },
         "한화": {
-          "games": 16,
-          "wins": 2,
-          "losses": 14,
-=======
-          "games": 11,
-          "wins": 5,
-          "losses": 5,
-          "draws": 1,
-          "winRate": "50.0"
-        },
-        "한화": {
-          "games": 8,
-          "wins": 1,
-          "losses": 7,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 24,
+          "wins": 3,
+          "losses": 21,
           "draws": 0,
           "winRate": "12.5"
         },
         "LG": {
-<<<<<<< HEAD
-          "games": 10,
-          "wins": 4,
-          "losses": 6,
-=======
-          "games": 5,
-          "wins": 2,
-          "losses": 3,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 15,
+          "wins": 6,
+          "losses": 9,
           "draws": 0,
           "winRate": "40.0"
         },
         "삼성": {
-<<<<<<< HEAD
-          "games": 16,
-          "wins": 8,
-          "losses": 8,
-=======
-          "games": 8,
-          "wins": 4,
-          "losses": 4,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 24,
+          "wins": 12,
+          "losses": 12,
           "draws": 0,
           "winRate": "50.0"
         },
         "키움": {
-<<<<<<< HEAD
-          "games": 12,
-          "wins": 6,
-          "losses": 4,
-          "draws": 2,
-          "winRate": "60.0"
-        },
-        "SSG": {
-          "games": 16,
-          "wins": 8,
-          "losses": 6,
-          "draws": 2,
-          "winRate": "57.1"
-        },
-        "KT": {
           "games": 18,
-          "wins": 6,
-          "losses": 12,
-=======
-          "games": 6,
-          "wins": 3,
-          "losses": 2,
-          "draws": 1,
+          "wins": 9,
+          "losses": 6,
+          "draws": 3,
           "winRate": "60.0"
         },
         "SSG": {
-          "games": 8,
-          "wins": 4,
-          "losses": 3,
-          "draws": 1,
+          "games": 24,
+          "wins": 12,
+          "losses": 9,
+          "draws": 3,
           "winRate": "57.1"
         },
         "KT": {
-          "games": 9,
-          "wins": 3,
-          "losses": 6,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 27,
+          "wins": 9,
+          "losses": 18,
           "draws": 0,
           "winRate": "33.3"
         }
       }
     },
     "삼성": {
-<<<<<<< HEAD
-      "totalGames": 292,
+      "totalGames": 438,
       "home": {
-        "games": 150,
-        "wins": 80,
-        "losses": 70,
+        "games": 225,
+        "wins": 120,
+        "losses": 105,
         "draws": 0,
         "winRate": "53.3",
-        "runsScored": 888,
-        "runsAllowed": 740,
+        "runsScored": 1332,
+        "runsAllowed": 1110,
         "avgRunsScored": "5.92",
         "avgRunsAllowed": "4.93",
-        "runDifferential": 148
+        "runDifferential": 222
       },
       "away": {
-        "games": 142,
-        "wins": 60,
-        "losses": 78,
-        "draws": 4,
+        "games": 213,
+        "wins": 90,
+        "losses": 117,
+        "draws": 6,
         "winRate": "43.5",
-        "runsScored": 602,
-        "runsAllowed": 606,
+        "runsScored": 903,
+        "runsAllowed": 909,
         "avgRunsScored": "4.24",
         "avgRunsAllowed": "4.27",
-        "runDifferential": -4
-=======
-      "totalGames": 146,
-      "home": {
-        "games": 75,
-        "wins": 40,
-        "losses": 35,
-        "draws": 0,
-        "winRate": "53.3",
-        "runsScored": 444,
-        "runsAllowed": 370,
-        "avgRunsScored": "5.92",
-        "avgRunsAllowed": "4.93",
-        "runDifferential": 74
-      },
-      "away": {
-        "games": 71,
-        "wins": 30,
-        "losses": 39,
-        "draws": 2,
-        "winRate": "43.5",
-        "runsScored": 301,
-        "runsAllowed": 303,
-        "avgRunsScored": "4.24",
-        "avgRunsAllowed": "4.27",
-        "runDifferential": -2
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+        "runDifferential": -6
       },
       "homeAdvantage": "0.0980",
       "homeAdvantageStatus": "보통",
       "stadiumRecords": {
         "대구": {
-<<<<<<< HEAD
-          "games": 150,
-          "wins": 80,
-          "losses": 70,
+          "games": 225,
+          "wins": 120,
+          "losses": 105,
           "draws": 0,
           "winRate": "53.3",
-          "runsScored": 888,
-          "runsAllowed": 740
+          "runsScored": 1332,
+          "runsAllowed": 1110
         },
         "광주": {
-          "games": 18,
-          "wins": 6,
-          "losses": 12,
+          "games": 27,
+          "wins": 9,
+          "losses": 18,
           "draws": 0,
           "winRate": "33.3",
-          "runsScored": 48,
-          "runsAllowed": 72
+          "runsScored": 72,
+          "runsAllowed": 108
         },
         "대전": {
-          "games": 20,
-          "wins": 8,
-          "losses": 12,
-          "draws": 0,
-          "winRate": "40.0",
-          "runsScored": 66,
-          "runsAllowed": 78
-        },
-        "잠실": {
           "games": 30,
-          "wins": 20,
-          "losses": 10,
-          "draws": 0,
-          "winRate": "66.7",
-          "runsScored": 148,
-          "runsAllowed": 106
-        },
-        "수원": {
-          "games": 16,
-          "wins": 4,
-          "losses": 12,
-          "draws": 0,
-          "winRate": "25.0",
-          "runsScored": 76,
-          "runsAllowed": 78
-        },
-        "인천": {
-          "games": 18,
-          "wins": 8,
-          "losses": 8,
-          "draws": 2,
-          "winRate": "50.0",
-          "runsScored": 68,
-          "runsAllowed": 60
-        },
-        "사직": {
-          "games": 16,
-          "wins": 4,
-          "losses": 10,
-          "draws": 2,
-          "winRate": "28.6",
-          "runsScored": 88,
-          "runsAllowed": 92
-        },
-        "고척": {
-          "games": 12,
-          "wins": 6,
-          "losses": 6,
-          "draws": 0,
-          "winRate": "50.0",
-          "runsScored": 50,
-          "runsAllowed": 56
-        },
-        "창원": {
-          "games": 12,
-          "wins": 4,
-          "losses": 8,
-          "draws": 0,
-          "winRate": "33.3",
-          "runsScored": 58,
-          "runsAllowed": 64
-=======
-          "games": 75,
-          "wins": 40,
-          "losses": 35,
-          "draws": 0,
-          "winRate": "53.3",
-          "runsScored": 444,
-          "runsAllowed": 370
-        },
-        "광주": {
-          "games": 9,
-          "wins": 3,
-          "losses": 6,
-          "draws": 0,
-          "winRate": "33.3",
-          "runsScored": 24,
-          "runsAllowed": 36
-        },
-        "대전": {
-          "games": 10,
-          "wins": 4,
-          "losses": 6,
+          "wins": 12,
+          "losses": 18,
           "draws": 0,
           "winRate": "40.0",
-          "runsScored": 33,
-          "runsAllowed": 39
+          "runsScored": 99,
+          "runsAllowed": 117
         },
         "잠실": {
-          "games": 15,
-          "wins": 10,
-          "losses": 5,
+          "games": 45,
+          "wins": 30,
+          "losses": 15,
           "draws": 0,
           "winRate": "66.7",
-          "runsScored": 74,
-          "runsAllowed": 53
+          "runsScored": 222,
+          "runsAllowed": 159
         },
         "수원": {
-          "games": 8,
-          "wins": 2,
-          "losses": 6,
+          "games": 24,
+          "wins": 6,
+          "losses": 18,
           "draws": 0,
           "winRate": "25.0",
-          "runsScored": 38,
-          "runsAllowed": 39
+          "runsScored": 114,
+          "runsAllowed": 117
         },
         "인천": {
-          "games": 9,
-          "wins": 4,
-          "losses": 4,
-          "draws": 1,
+          "games": 27,
+          "wins": 12,
+          "losses": 12,
+          "draws": 3,
           "winRate": "50.0",
-          "runsScored": 34,
-          "runsAllowed": 30
+          "runsScored": 102,
+          "runsAllowed": 90
         },
         "사직": {
-          "games": 8,
-          "wins": 2,
-          "losses": 5,
-          "draws": 1,
+          "games": 24,
+          "wins": 6,
+          "losses": 15,
+          "draws": 3,
           "winRate": "28.6",
-          "runsScored": 44,
-          "runsAllowed": 46
+          "runsScored": 132,
+          "runsAllowed": 138
         },
         "고척": {
-          "games": 6,
-          "wins": 3,
-          "losses": 3,
+          "games": 18,
+          "wins": 9,
+          "losses": 9,
           "draws": 0,
           "winRate": "50.0",
-          "runsScored": 25,
-          "runsAllowed": 28
+          "runsScored": 75,
+          "runsAllowed": 84
         },
         "창원": {
-          "games": 6,
-          "wins": 2,
-          "losses": 4,
+          "games": 18,
+          "wins": 6,
+          "losses": 12,
           "draws": 0,
           "winRate": "33.3",
-          "runsScored": 29,
-          "runsAllowed": 32
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "runsScored": 87,
+          "runsAllowed": 96
         }
       },
       "vsTeamsHome": {
         "SSG": {
-<<<<<<< HEAD
-          "games": 20,
-          "wins": 10,
-          "losses": 10,
-=======
-          "games": 10,
-          "wins": 5,
-          "losses": 5,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 30,
+          "wins": 15,
+          "losses": 15,
           "draws": 0,
           "winRate": "50.0"
         },
         "두산": {
-<<<<<<< HEAD
-          "games": 16,
-          "wins": 8,
-          "losses": 8,
-=======
-          "games": 8,
-          "wins": 4,
-          "losses": 4,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 24,
+          "wins": 12,
+          "losses": 12,
           "draws": 0,
           "winRate": "50.0"
         },
         "LG": {
-<<<<<<< HEAD
-          "games": 22,
-          "wins": 6,
-          "losses": 16,
-=======
-          "games": 11,
-          "wins": 3,
-          "losses": 8,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 33,
+          "wins": 9,
+          "losses": 24,
           "draws": 0,
           "winRate": "27.3"
         },
         "키움": {
-<<<<<<< HEAD
-          "games": 20,
-          "wins": 16,
-          "losses": 4,
-=======
-          "games": 10,
-          "wins": 8,
-          "losses": 2,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 30,
+          "wins": 24,
+          "losses": 6,
           "draws": 0,
           "winRate": "80.0"
         },
         "NC": {
-<<<<<<< HEAD
-          "games": 18,
-          "wins": 12,
-          "losses": 6,
-=======
-          "games": 9,
-          "wins": 6,
-          "losses": 3,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 27,
+          "wins": 18,
+          "losses": 9,
           "draws": 0,
           "winRate": "66.7"
         },
         "한화": {
-<<<<<<< HEAD
-          "games": 18,
-          "wins": 10,
-          "losses": 8,
-=======
-          "games": 9,
-          "wins": 5,
-          "losses": 4,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 27,
+          "wins": 15,
+          "losses": 12,
           "draws": 0,
           "winRate": "55.6"
         },
         "롯데": {
-<<<<<<< HEAD
-          "games": 10,
-          "wins": 6,
-          "losses": 4,
-=======
-          "games": 5,
-          "wins": 3,
-          "losses": 2,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 15,
+          "wins": 9,
+          "losses": 6,
           "draws": 0,
           "winRate": "60.0"
         },
         "KIA": {
-<<<<<<< HEAD
-          "games": 16,
-          "wins": 8,
-          "losses": 8,
-=======
-          "games": 8,
-          "wins": 4,
-          "losses": 4,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 24,
+          "wins": 12,
+          "losses": 12,
           "draws": 0,
           "winRate": "50.0"
         },
         "KT": {
-<<<<<<< HEAD
-          "games": 10,
-          "wins": 4,
-          "losses": 6,
-=======
-          "games": 5,
-          "wins": 2,
-          "losses": 3,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 15,
+          "wins": 6,
+          "losses": 9,
           "draws": 0,
           "winRate": "40.0"
         }
       },
       "vsTeamsAway": {
         "KIA": {
-<<<<<<< HEAD
-          "games": 18,
-          "wins": 6,
-          "losses": 12,
-=======
-          "games": 9,
-          "wins": 3,
-          "losses": 6,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 27,
+          "wins": 9,
+          "losses": 18,
           "draws": 0,
           "winRate": "33.3"
         },
         "한화": {
-<<<<<<< HEAD
-          "games": 20,
-          "wins": 8,
-          "losses": 12,
-=======
-          "games": 10,
-          "wins": 4,
-          "losses": 6,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 30,
+          "wins": 12,
+          "losses": 18,
           "draws": 0,
           "winRate": "40.0"
         },
         "두산": {
-<<<<<<< HEAD
-          "games": 18,
-          "wins": 12,
-          "losses": 6,
-=======
-          "games": 9,
-          "wins": 6,
-          "losses": 3,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 27,
+          "wins": 18,
+          "losses": 9,
           "draws": 0,
           "winRate": "66.7"
         },
         "KT": {
-<<<<<<< HEAD
-          "games": 16,
-          "wins": 4,
-          "losses": 12,
-=======
-          "games": 8,
-          "wins": 2,
-          "losses": 6,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 24,
+          "wins": 6,
+          "losses": 18,
           "draws": 0,
           "winRate": "25.0"
         },
         "LG": {
-<<<<<<< HEAD
-          "games": 12,
-          "wins": 8,
-          "losses": 4,
-=======
-          "games": 6,
-          "wins": 4,
-          "losses": 2,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 18,
+          "wins": 12,
+          "losses": 6,
           "draws": 0,
           "winRate": "66.7"
         },
         "SSG": {
-<<<<<<< HEAD
-          "games": 18,
-          "wins": 8,
-          "losses": 8,
-          "draws": 2,
+          "games": 27,
+          "wins": 12,
+          "losses": 12,
+          "draws": 3,
           "winRate": "50.0"
         },
         "롯데": {
-          "games": 16,
-          "wins": 4,
-          "losses": 10,
-          "draws": 2,
-          "winRate": "28.6"
-        },
-        "키움": {
-          "games": 12,
+          "games": 24,
           "wins": 6,
-          "losses": 6,
-=======
-          "games": 9,
-          "wins": 4,
-          "losses": 4,
-          "draws": 1,
-          "winRate": "50.0"
-        },
-        "롯데": {
-          "games": 8,
-          "wins": 2,
-          "losses": 5,
-          "draws": 1,
+          "losses": 15,
+          "draws": 3,
           "winRate": "28.6"
         },
         "키움": {
-          "games": 6,
-          "wins": 3,
-          "losses": 3,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 18,
+          "wins": 9,
+          "losses": 9,
           "draws": 0,
           "winRate": "50.0"
         },
         "NC": {
-<<<<<<< HEAD
-          "games": 12,
-          "wins": 4,
-          "losses": 8,
-=======
-          "games": 6,
-          "wins": 2,
-          "losses": 4,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 18,
+          "wins": 6,
+          "losses": 12,
           "draws": 0,
           "winRate": "33.3"
         }
       }
     },
     "KT": {
-<<<<<<< HEAD
-      "totalGames": 286,
+      "totalGames": 429,
       "home": {
-        "games": 150,
-        "wins": 78,
-        "losses": 70,
-        "draws": 2,
-        "winRate": "52.7",
-        "runsScored": 714,
-        "runsAllowed": 744,
-        "avgRunsScored": "4.76",
-        "avgRunsAllowed": "4.96",
-        "runDifferential": -30
-      },
-      "away": {
-        "games": 136,
-        "wins": 70,
-        "losses": 60,
-        "draws": 6,
-        "winRate": "53.8",
-        "runsScored": 616,
-        "runsAllowed": 556,
-        "avgRunsScored": "4.53",
-        "avgRunsAllowed": "4.09",
-        "runDifferential": 60
-=======
-      "totalGames": 143,
-      "home": {
-        "games": 75,
-        "wins": 39,
-        "losses": 35,
-        "draws": 1,
-        "winRate": "52.7",
-        "runsScored": 357,
-        "runsAllowed": 372,
-        "avgRunsScored": "4.76",
-        "avgRunsAllowed": "4.96",
-        "runDifferential": -15
-      },
-      "away": {
-        "games": 68,
-        "wins": 35,
-        "losses": 30,
+        "games": 225,
+        "wins": 117,
+        "losses": 105,
         "draws": 3,
+        "winRate": "52.7",
+        "runsScored": 1071,
+        "runsAllowed": 1116,
+        "avgRunsScored": "4.76",
+        "avgRunsAllowed": "4.96",
+        "runDifferential": -45
+      },
+      "away": {
+        "games": 204,
+        "wins": 105,
+        "losses": 90,
+        "draws": 9,
         "winRate": "53.8",
-        "runsScored": 308,
-        "runsAllowed": 278,
+        "runsScored": 924,
+        "runsAllowed": 834,
         "avgRunsScored": "4.53",
         "avgRunsAllowed": "4.09",
-        "runDifferential": 30
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+        "runDifferential": 90
       },
       "homeAdvantage": "-0.0110",
       "homeAdvantageStatus": "중립",
       "stadiumRecords": {
         "수원": {
-<<<<<<< HEAD
-          "games": 150,
-          "wins": 78,
-          "losses": 70,
-          "draws": 2,
+          "games": 225,
+          "wins": 117,
+          "losses": 105,
+          "draws": 3,
           "winRate": "52.7",
-          "runsScored": 714,
-          "runsAllowed": 744
+          "runsScored": 1071,
+          "runsAllowed": 1116
         },
         "창원": {
-          "games": 16,
-          "wins": 10,
-          "losses": 4,
-          "draws": 2,
+          "games": 24,
+          "wins": 15,
+          "losses": 6,
+          "draws": 3,
           "winRate": "71.4",
-          "runsScored": 84,
+          "runsScored": 126,
+          "runsAllowed": 72
+        },
+        "사직": {
+          "games": 27,
+          "wins": 12,
+          "losses": 12,
+          "draws": 3,
+          "winRate": "50.0",
+          "runsScored": 117,
+          "runsAllowed": 102
+        },
+        "인천": {
+          "games": 15,
+          "wins": 6,
+          "losses": 9,
+          "draws": 0,
+          "winRate": "40.0",
+          "runsScored": 51,
           "runsAllowed": 48
         },
-        "사직": {
-          "games": 18,
-          "wins": 8,
-          "losses": 8,
-          "draws": 2,
-          "winRate": "50.0",
-          "runsScored": 78,
-          "runsAllowed": 68
-        },
-        "인천": {
-          "games": 10,
-          "wins": 4,
-          "losses": 6,
-          "draws": 0,
-          "winRate": "40.0",
-          "runsScored": 34,
-          "runsAllowed": 32
-        },
         "광주": {
-          "games": 12,
-          "wins": 2,
-          "losses": 10,
-          "draws": 0,
-          "winRate": "16.7",
-          "runsScored": 26,
-          "runsAllowed": 52
-        },
-        "고척": {
           "games": 18,
-          "wins": 12,
-          "losses": 6,
-          "draws": 0,
-          "winRate": "66.7",
-          "runsScored": 98,
-          "runsAllowed": 56
-        },
-        "대전": {
-          "games": 18,
-          "wins": 8,
-          "losses": 10,
-          "draws": 0,
-          "winRate": "44.4",
-          "runsScored": 62,
-          "runsAllowed": 64
-        },
-        "잠실": {
-          "games": 34,
-          "wins": 20,
-          "losses": 12,
-          "draws": 2,
-          "winRate": "62.5",
-          "runsScored": 170,
-          "runsAllowed": 182
-        },
-        "대구": {
-          "games": 10,
-          "wins": 6,
-          "losses": 4,
-          "draws": 0,
-          "winRate": "60.0",
-          "runsScored": 64,
-          "runsAllowed": 54
-=======
-          "games": 75,
-          "wins": 39,
-          "losses": 35,
-          "draws": 1,
-          "winRate": "52.7",
-          "runsScored": 357,
-          "runsAllowed": 372
-        },
-        "창원": {
-          "games": 8,
-          "wins": 5,
-          "losses": 2,
-          "draws": 1,
-          "winRate": "71.4",
-          "runsScored": 42,
-          "runsAllowed": 24
-        },
-        "사직": {
-          "games": 9,
-          "wins": 4,
-          "losses": 4,
-          "draws": 1,
-          "winRate": "50.0",
-          "runsScored": 39,
-          "runsAllowed": 34
-        },
-        "인천": {
-          "games": 5,
-          "wins": 2,
-          "losses": 3,
-          "draws": 0,
-          "winRate": "40.0",
-          "runsScored": 17,
-          "runsAllowed": 16
-        },
-        "광주": {
-          "games": 6,
-          "wins": 1,
-          "losses": 5,
-          "draws": 0,
-          "winRate": "16.7",
-          "runsScored": 13,
-          "runsAllowed": 26
-        },
-        "고척": {
-          "games": 9,
-          "wins": 6,
-          "losses": 3,
-          "draws": 0,
-          "winRate": "66.7",
-          "runsScored": 49,
-          "runsAllowed": 28
-        },
-        "대전": {
-          "games": 9,
-          "wins": 4,
-          "losses": 5,
-          "draws": 0,
-          "winRate": "44.4",
-          "runsScored": 31,
-          "runsAllowed": 32
-        },
-        "잠실": {
-          "games": 17,
-          "wins": 10,
-          "losses": 6,
-          "draws": 1,
-          "winRate": "62.5",
-          "runsScored": 85,
-          "runsAllowed": 91
-        },
-        "대구": {
-          "games": 5,
           "wins": 3,
-          "losses": 2,
+          "losses": 15,
+          "draws": 0,
+          "winRate": "16.7",
+          "runsScored": 39,
+          "runsAllowed": 78
+        },
+        "고척": {
+          "games": 27,
+          "wins": 18,
+          "losses": 9,
+          "draws": 0,
+          "winRate": "66.7",
+          "runsScored": 147,
+          "runsAllowed": 84
+        },
+        "대전": {
+          "games": 27,
+          "wins": 12,
+          "losses": 15,
+          "draws": 0,
+          "winRate": "44.4",
+          "runsScored": 93,
+          "runsAllowed": 96
+        },
+        "잠실": {
+          "games": 51,
+          "wins": 30,
+          "losses": 18,
+          "draws": 3,
+          "winRate": "62.5",
+          "runsScored": 255,
+          "runsAllowed": 273
+        },
+        "대구": {
+          "games": 15,
+          "wins": 9,
+          "losses": 6,
           "draws": 0,
           "winRate": "60.0",
-          "runsScored": 32,
-          "runsAllowed": 27
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "runsScored": 96,
+          "runsAllowed": 81
         }
       },
       "vsTeamsHome": {
         "LG": {
-<<<<<<< HEAD
-          "games": 18,
-          "wins": 8,
-          "losses": 10,
-=======
-          "games": 9,
-          "wins": 4,
-          "losses": 5,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 27,
+          "wins": 12,
+          "losses": 15,
           "draws": 0,
           "winRate": "44.4"
         },
         "키움": {
-<<<<<<< HEAD
-          "games": 16,
-          "wins": 10,
-          "losses": 6,
-=======
-          "games": 8,
-          "wins": 5,
-          "losses": 3,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 24,
+          "wins": 15,
+          "losses": 9,
           "draws": 0,
           "winRate": "62.5"
         },
         "두산": {
-<<<<<<< HEAD
-          "games": 18,
-          "wins": 14,
-          "losses": 4,
-=======
-          "games": 9,
-          "wins": 7,
-          "losses": 2,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 27,
+          "wins": 21,
+          "losses": 6,
           "draws": 0,
           "winRate": "77.8"
         },
         "한화": {
-<<<<<<< HEAD
-          "games": 10,
-          "wins": 2,
-          "losses": 8,
-=======
-          "games": 5,
-          "wins": 1,
-          "losses": 4,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 15,
+          "wins": 3,
+          "losses": 12,
           "draws": 0,
           "winRate": "20.0"
         },
         "NC": {
-<<<<<<< HEAD
-          "games": 20,
-          "wins": 6,
-          "losses": 14,
-=======
-          "games": 10,
-          "wins": 3,
-          "losses": 7,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 30,
+          "wins": 9,
+          "losses": 21,
           "draws": 0,
           "winRate": "30.0"
         },
         "삼성": {
-<<<<<<< HEAD
-          "games": 16,
-          "wins": 12,
-          "losses": 4,
-=======
-          "games": 8,
-          "wins": 6,
-          "losses": 2,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 24,
+          "wins": 18,
+          "losses": 6,
           "draws": 0,
           "winRate": "75.0"
         },
         "SSG": {
-<<<<<<< HEAD
-          "games": 18,
-          "wins": 8,
-          "losses": 10,
-=======
-          "games": 9,
-          "wins": 4,
-          "losses": 5,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 27,
+          "wins": 12,
+          "losses": 15,
           "draws": 0,
           "winRate": "44.4"
         },
         "롯데": {
-<<<<<<< HEAD
-          "games": 16,
-          "wins": 6,
-          "losses": 8,
-          "draws": 2,
+          "games": 24,
+          "wins": 9,
+          "losses": 12,
+          "draws": 3,
           "winRate": "42.9"
         },
         "KIA": {
-          "games": 18,
-          "wins": 12,
-          "losses": 6,
-=======
-          "games": 8,
-          "wins": 3,
-          "losses": 4,
-          "draws": 1,
-          "winRate": "42.9"
-        },
-        "KIA": {
-          "games": 9,
-          "wins": 6,
-          "losses": 3,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 27,
+          "wins": 18,
+          "losses": 9,
           "draws": 0,
           "winRate": "66.7"
         }
       },
       "vsTeamsAway": {
         "NC": {
-<<<<<<< HEAD
-          "games": 16,
-          "wins": 10,
-          "losses": 4,
-          "draws": 2,
-          "winRate": "71.4"
-        },
-        "롯데": {
-          "games": 18,
-          "wins": 8,
-          "losses": 8,
-          "draws": 2,
-          "winRate": "50.0"
-        },
-        "SSG": {
-          "games": 10,
-          "wins": 4,
+          "games": 24,
+          "wins": 15,
           "losses": 6,
-=======
-          "games": 8,
-          "wins": 5,
-          "losses": 2,
-          "draws": 1,
+          "draws": 3,
           "winRate": "71.4"
         },
         "롯데": {
-          "games": 9,
-          "wins": 4,
-          "losses": 4,
-          "draws": 1,
+          "games": 27,
+          "wins": 12,
+          "losses": 12,
+          "draws": 3,
           "winRate": "50.0"
         },
         "SSG": {
-          "games": 5,
-          "wins": 2,
-          "losses": 3,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 15,
+          "wins": 6,
+          "losses": 9,
           "draws": 0,
           "winRate": "40.0"
         },
         "KIA": {
-<<<<<<< HEAD
-          "games": 12,
-          "wins": 2,
-          "losses": 10,
-=======
-          "games": 6,
-          "wins": 1,
-          "losses": 5,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 18,
+          "wins": 3,
+          "losses": 15,
           "draws": 0,
           "winRate": "16.7"
         },
         "키움": {
-<<<<<<< HEAD
-          "games": 18,
-          "wins": 12,
-          "losses": 6,
-=======
-          "games": 9,
-          "wins": 6,
-          "losses": 3,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 27,
+          "wins": 18,
+          "losses": 9,
           "draws": 0,
           "winRate": "66.7"
         },
         "한화": {
-<<<<<<< HEAD
-          "games": 18,
-          "wins": 8,
-          "losses": 10,
-=======
-          "games": 9,
-          "wins": 4,
-          "losses": 5,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 27,
+          "wins": 12,
+          "losses": 15,
           "draws": 0,
           "winRate": "44.4"
         },
         "두산": {
-<<<<<<< HEAD
-          "games": 18,
-          "wins": 12,
-          "losses": 4,
-          "draws": 2,
+          "games": 27,
+          "wins": 18,
+          "losses": 6,
+          "draws": 3,
           "winRate": "75.0"
         },
         "삼성": {
-          "games": 10,
-          "wins": 6,
-          "losses": 4,
-=======
-          "games": 9,
-          "wins": 6,
-          "losses": 2,
-          "draws": 1,
-          "winRate": "75.0"
-        },
-        "삼성": {
-          "games": 5,
-          "wins": 3,
-          "losses": 2,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 15,
+          "wins": 9,
+          "losses": 6,
           "draws": 0,
           "winRate": "60.0"
         },
         "LG": {
-<<<<<<< HEAD
-          "games": 16,
-          "wins": 8,
-          "losses": 8,
-=======
-          "games": 8,
-          "wins": 4,
-          "losses": 4,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 24,
+          "wins": 12,
+          "losses": 12,
           "draws": 0,
           "winRate": "50.0"
         }
       }
     },
     "SSG": {
-<<<<<<< HEAD
-      "totalGames": 286,
+      "totalGames": 429,
       "home": {
-        "games": 146,
-        "wins": 72,
-        "losses": 66,
-        "draws": 8,
+        "games": 219,
+        "wins": 108,
+        "losses": 99,
+        "draws": 12,
         "winRate": "52.2",
-        "runsScored": 604,
-        "runsAllowed": 604,
-=======
-      "totalGames": 143,
-      "home": {
-        "games": 73,
-        "wins": 36,
-        "losses": 33,
-        "draws": 4,
-        "winRate": "52.2",
-        "runsScored": 302,
-        "runsAllowed": 302,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+        "runsScored": 906,
+        "runsAllowed": 906,
         "avgRunsScored": "4.14",
         "avgRunsAllowed": "4.14",
         "runDifferential": 0
       },
       "away": {
-<<<<<<< HEAD
-        "games": 140,
-        "wins": 76,
-        "losses": 64,
+        "games": 210,
+        "wins": 114,
+        "losses": 96,
         "draws": 0,
         "winRate": "54.3",
-        "runsScored": 596,
-        "runsAllowed": 526,
+        "runsScored": 894,
+        "runsAllowed": 789,
         "avgRunsScored": "4.26",
         "avgRunsAllowed": "3.76",
-        "runDifferential": 70
-=======
-        "games": 70,
-        "wins": 38,
-        "losses": 32,
-        "draws": 0,
-        "winRate": "54.3",
-        "runsScored": 298,
-        "runsAllowed": 263,
-        "avgRunsScored": "4.26",
-        "avgRunsAllowed": "3.76",
-        "runDifferential": 35
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+        "runDifferential": 105
       },
       "homeAdvantage": "-0.0210",
       "homeAdvantageStatus": "중립",
       "stadiumRecords": {
         "대구": {
-<<<<<<< HEAD
-          "games": 20,
-          "wins": 10,
-          "losses": 10,
+          "games": 30,
+          "wins": 15,
+          "losses": 15,
           "draws": 0,
           "winRate": "50.0",
-          "runsScored": 82,
-          "runsAllowed": 92
+          "runsScored": 123,
+          "runsAllowed": 138
         },
         "인천": {
-          "games": 146,
-          "wins": 72,
-          "losses": 66,
-          "draws": 8,
+          "games": 219,
+          "wins": 108,
+          "losses": 99,
+          "draws": 12,
           "winRate": "52.2",
-          "runsScored": 604,
-          "runsAllowed": 604
+          "runsScored": 906,
+          "runsAllowed": 906
         },
         "고척": {
-          "games": 12,
-          "wins": 6,
-          "losses": 6,
-          "draws": 0,
-          "winRate": "50.0",
-          "runsScored": 58,
-          "runsAllowed": 40
-        },
-        "광주": {
-          "games": 14,
-          "wins": 8,
-          "losses": 6,
-          "draws": 0,
-          "winRate": "57.1",
-          "runsScored": 60,
-          "runsAllowed": 54
-        },
-        "수원": {
           "games": 18,
-          "wins": 10,
-          "losses": 8,
-          "draws": 0,
-          "winRate": "55.6",
-          "runsScored": 88,
-          "runsAllowed": 86
-        },
-        "잠실": {
-          "games": 32,
-          "wins": 18,
-          "losses": 14,
-          "draws": 0,
-          "winRate": "56.3",
-          "runsScored": 148,
-          "runsAllowed": 128
-        },
-        "사직": {
-          "games": 16,
-          "wins": 10,
-          "losses": 6,
-          "draws": 0,
-          "winRate": "62.5",
-          "runsScored": 66,
-          "runsAllowed": 48
-        },
-        "대전": {
-          "games": 18,
-          "wins": 10,
-          "losses": 8,
-          "draws": 0,
-          "winRate": "55.6",
-          "runsScored": 54,
-          "runsAllowed": 50
-        },
-        "창원": {
-          "games": 10,
-          "wins": 4,
-          "losses": 6,
-          "draws": 0,
-          "winRate": "40.0",
-          "runsScored": 40,
-          "runsAllowed": 28
-=======
-          "games": 10,
-          "wins": 5,
-          "losses": 5,
-          "draws": 0,
-          "winRate": "50.0",
-          "runsScored": 41,
-          "runsAllowed": 46
-        },
-        "인천": {
-          "games": 73,
-          "wins": 36,
-          "losses": 33,
-          "draws": 4,
-          "winRate": "52.2",
-          "runsScored": 302,
-          "runsAllowed": 302
-        },
-        "고척": {
-          "games": 6,
-          "wins": 3,
-          "losses": 3,
-          "draws": 0,
-          "winRate": "50.0",
-          "runsScored": 29,
-          "runsAllowed": 20
-        },
-        "광주": {
-          "games": 7,
-          "wins": 4,
-          "losses": 3,
-          "draws": 0,
-          "winRate": "57.1",
-          "runsScored": 30,
-          "runsAllowed": 27
-        },
-        "수원": {
-          "games": 9,
-          "wins": 5,
-          "losses": 4,
-          "draws": 0,
-          "winRate": "55.6",
-          "runsScored": 44,
-          "runsAllowed": 43
-        },
-        "잠실": {
-          "games": 16,
           "wins": 9,
-          "losses": 7,
+          "losses": 9,
           "draws": 0,
-          "winRate": "56.3",
-          "runsScored": 74,
-          "runsAllowed": 64
+          "winRate": "50.0",
+          "runsScored": 87,
+          "runsAllowed": 60
         },
-        "사직": {
-          "games": 8,
-          "wins": 5,
-          "losses": 3,
+        "광주": {
+          "games": 21,
+          "wins": 12,
+          "losses": 9,
           "draws": 0,
-          "winRate": "62.5",
-          "runsScored": 33,
-          "runsAllowed": 24
+          "winRate": "57.1",
+          "runsScored": 90,
+          "runsAllowed": 81
         },
-        "대전": {
-          "games": 9,
-          "wins": 5,
-          "losses": 4,
+        "수원": {
+          "games": 27,
+          "wins": 15,
+          "losses": 12,
           "draws": 0,
           "winRate": "55.6",
-          "runsScored": 27,
-          "runsAllowed": 25
+          "runsScored": 132,
+          "runsAllowed": 129
+        },
+        "잠실": {
+          "games": 48,
+          "wins": 27,
+          "losses": 21,
+          "draws": 0,
+          "winRate": "56.3",
+          "runsScored": 222,
+          "runsAllowed": 192
+        },
+        "사직": {
+          "games": 24,
+          "wins": 15,
+          "losses": 9,
+          "draws": 0,
+          "winRate": "62.5",
+          "runsScored": 99,
+          "runsAllowed": 72
+        },
+        "대전": {
+          "games": 27,
+          "wins": 15,
+          "losses": 12,
+          "draws": 0,
+          "winRate": "55.6",
+          "runsScored": 81,
+          "runsAllowed": 75
         },
         "창원": {
-          "games": 5,
-          "wins": 2,
-          "losses": 3,
+          "games": 15,
+          "wins": 6,
+          "losses": 9,
           "draws": 0,
           "winRate": "40.0",
-          "runsScored": 20,
-          "runsAllowed": 14
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "runsScored": 60,
+          "runsAllowed": 42
         }
       },
       "vsTeamsHome": {
         "한화": {
-<<<<<<< HEAD
-          "games": 16,
-          "wins": 4,
-          "losses": 12,
-=======
-          "games": 8,
-          "wins": 2,
-          "losses": 6,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 24,
+          "wins": 6,
+          "losses": 18,
           "draws": 0,
           "winRate": "25.0"
         },
         "키움": {
-<<<<<<< HEAD
-          "games": 24,
-          "wins": 14,
-          "losses": 8,
-          "draws": 2,
+          "games": 36,
+          "wins": 21,
+          "losses": 12,
+          "draws": 3,
           "winRate": "63.6"
         },
         "LG": {
-          "games": 22,
-          "wins": 8,
-          "losses": 14,
-=======
-          "games": 12,
-          "wins": 7,
-          "losses": 4,
-          "draws": 1,
-          "winRate": "63.6"
-        },
-        "LG": {
-          "games": 11,
-          "wins": 4,
-          "losses": 7,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 33,
+          "wins": 12,
+          "losses": 21,
           "draws": 0,
           "winRate": "36.4"
         },
         "두산": {
-<<<<<<< HEAD
-=======
-          "games": 4,
-          "wins": 2,
-          "losses": 2,
-          "draws": 0,
-          "winRate": "50.0"
-        },
-        "롯데": {
-          "games": 7,
-          "wins": 5,
-          "losses": 2,
-          "draws": 0,
-          "winRate": "71.4"
-        },
-        "KT": {
-          "games": 5,
-          "wins": 3,
-          "losses": 2,
-          "draws": 0,
-          "winRate": "60.0"
-        },
-        "삼성": {
-          "games": 9,
-          "wins": 4,
-          "losses": 4,
-          "draws": 1,
-          "winRate": "50.0"
-        },
-        "KIA": {
-          "games": 8,
-          "wins": 3,
-          "losses": 4,
-          "draws": 1,
-          "winRate": "42.9"
-        },
-        "NC": {
-          "games": 9,
-          "wins": 6,
-          "losses": 2,
-          "draws": 1,
-          "winRate": "75.0"
-        }
-      },
-      "vsTeamsAway": {
-        "삼성": {
-          "games": 10,
-          "wins": 5,
-          "losses": 5,
-          "draws": 0,
-          "winRate": "50.0"
-        },
-        "키움": {
-          "games": 6,
-          "wins": 3,
-          "losses": 3,
-          "draws": 0,
-          "winRate": "50.0"
-        },
-        "KIA": {
-          "games": 7,
-          "wins": 4,
-          "losses": 3,
-          "draws": 0,
-          "winRate": "57.1"
-        },
-        "KT": {
-          "games": 9,
-          "wins": 5,
-          "losses": 4,
-          "draws": 0,
-          "winRate": "55.6"
-        },
-        "LG": {
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
-          "games": 8,
-          "wins": 4,
-          "losses": 4,
-          "draws": 0,
-          "winRate": "50.0"
-        },
-        "롯데": {
-<<<<<<< HEAD
-          "games": 14,
-          "wins": 10,
-          "losses": 4,
-          "draws": 0,
-          "winRate": "71.4"
-        },
-        "KT": {
-          "games": 10,
-          "wins": 6,
-          "losses": 4,
-          "draws": 0,
-          "winRate": "60.0"
-        },
-        "삼성": {
-          "games": 18,
-          "wins": 8,
-          "losses": 8,
-          "draws": 2,
-          "winRate": "50.0"
-        },
-        "KIA": {
-          "games": 16,
-          "wins": 6,
-          "losses": 8,
-          "draws": 2,
-          "winRate": "42.9"
-        },
-        "NC": {
-          "games": 18,
-          "wins": 12,
-          "losses": 4,
-          "draws": 2,
-          "winRate": "75.0"
-        }
-      },
-      "vsTeamsAway": {
-        "삼성": {
-          "games": 20,
-          "wins": 10,
-          "losses": 10,
-          "draws": 0,
-          "winRate": "50.0"
-        },
-        "키움": {
           "games": 12,
           "wins": 6,
           "losses": 6,
           "draws": 0,
           "winRate": "50.0"
         },
-        "KIA": {
-          "games": 14,
-          "wins": 8,
+        "롯데": {
+          "games": 21,
+          "wins": 15,
           "losses": 6,
+          "draws": 0,
+          "winRate": "71.4"
+        },
+        "KT": {
+          "games": 15,
+          "wins": 9,
+          "losses": 6,
+          "draws": 0,
+          "winRate": "60.0"
+        },
+        "삼성": {
+          "games": 27,
+          "wins": 12,
+          "losses": 12,
+          "draws": 3,
+          "winRate": "50.0"
+        },
+        "KIA": {
+          "games": 24,
+          "wins": 9,
+          "losses": 12,
+          "draws": 3,
+          "winRate": "42.9"
+        },
+        "NC": {
+          "games": 27,
+          "wins": 18,
+          "losses": 6,
+          "draws": 3,
+          "winRate": "75.0"
+        }
+      },
+      "vsTeamsAway": {
+        "삼성": {
+          "games": 30,
+          "wins": 15,
+          "losses": 15,
+          "draws": 0,
+          "winRate": "50.0"
+        },
+        "키움": {
+          "games": 18,
+          "wins": 9,
+          "losses": 9,
+          "draws": 0,
+          "winRate": "50.0"
+        },
+        "KIA": {
+          "games": 21,
+          "wins": 12,
+          "losses": 9,
           "draws": 0,
           "winRate": "57.1"
         },
         "KT": {
-          "games": 18,
-          "wins": 10,
-          "losses": 8,
+          "games": 27,
+          "wins": 15,
+          "losses": 12,
           "draws": 0,
           "winRate": "55.6"
         },
         "LG": {
-          "games": 16,
-          "wins": 8,
-          "losses": 8,
+          "games": 24,
+          "wins": 12,
+          "losses": 12,
           "draws": 0,
           "winRate": "50.0"
         },
         "롯데": {
-          "games": 16,
-          "wins": 10,
-          "losses": 6,
-=======
-          "games": 8,
-          "wins": 5,
-          "losses": 3,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 24,
+          "wins": 15,
+          "losses": 9,
           "draws": 0,
           "winRate": "62.5"
         },
         "한화": {
-<<<<<<< HEAD
-          "games": 18,
-          "wins": 10,
-          "losses": 8,
-=======
-          "games": 9,
-          "wins": 5,
-          "losses": 4,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 27,
+          "wins": 15,
+          "losses": 12,
           "draws": 0,
           "winRate": "55.6"
         },
         "두산": {
-<<<<<<< HEAD
-          "games": 16,
-          "wins": 10,
-          "losses": 6,
-=======
-          "games": 8,
-          "wins": 5,
-          "losses": 3,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 24,
+          "wins": 15,
+          "losses": 9,
           "draws": 0,
           "winRate": "62.5"
         },
         "NC": {
-<<<<<<< HEAD
-          "games": 10,
-          "wins": 4,
-          "losses": 6,
-=======
-          "games": 5,
-          "wins": 2,
-          "losses": 3,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 15,
+          "wins": 6,
+          "losses": 9,
           "draws": 0,
           "winRate": "40.0"
         }
       }
     },
     "롯데": {
-<<<<<<< HEAD
-      "totalGames": 294,
+      "totalGames": 441,
       "home": {
-        "games": 152,
-        "wins": 70,
-        "losses": 70,
-        "draws": 12,
+        "games": 228,
+        "wins": 105,
+        "losses": 105,
+        "draws": 18,
         "winRate": "50.0",
-        "runsScored": 678,
-        "runsAllowed": 808,
+        "runsScored": 1017,
+        "runsAllowed": 1212,
         "avgRunsScored": "4.46",
         "avgRunsAllowed": "5.32",
-        "runDifferential": -130
+        "runDifferential": -195
       },
       "away": {
-        "games": 142,
-        "wins": 62,
-        "losses": 76,
-        "draws": 4,
-        "winRate": "44.9",
-        "runsScored": 626,
-        "runsAllowed": 668,
-        "avgRunsScored": "4.41",
-        "avgRunsAllowed": "4.70",
-        "runDifferential": -42
-=======
-      "totalGames": 147,
-      "home": {
-        "games": 76,
-        "wins": 35,
-        "losses": 35,
+        "games": 213,
+        "wins": 93,
+        "losses": 114,
         "draws": 6,
-        "winRate": "50.0",
-        "runsScored": 339,
-        "runsAllowed": 404,
-        "avgRunsScored": "4.46",
-        "avgRunsAllowed": "5.32",
-        "runDifferential": -65
-      },
-      "away": {
-        "games": 71,
-        "wins": 31,
-        "losses": 38,
-        "draws": 2,
         "winRate": "44.9",
-        "runsScored": 313,
-        "runsAllowed": 334,
+        "runsScored": 939,
+        "runsAllowed": 1002,
         "avgRunsScored": "4.41",
         "avgRunsAllowed": "4.70",
-        "runDifferential": -21
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+        "runDifferential": -63
       },
       "homeAdvantage": "0.0510",
       "homeAdvantageStatus": "보통",
       "stadiumRecords": {
         "사직": {
-<<<<<<< HEAD
-          "games": 152,
-          "wins": 70,
-          "losses": 70,
-          "draws": 12,
+          "games": 228,
+          "wins": 105,
+          "losses": 105,
+          "draws": 18,
           "winRate": "50.0",
-          "runsScored": 678,
-          "runsAllowed": 808
+          "runsScored": 1017,
+          "runsAllowed": 1212
         },
         "고척": {
-          "games": 22,
-          "wins": 14,
-          "losses": 8,
+          "games": 33,
+          "wins": 21,
+          "losses": 12,
           "draws": 0,
           "winRate": "63.6",
-          "runsScored": 104,
-          "runsAllowed": 66
+          "runsScored": 156,
+          "runsAllowed": 99
         },
         "잠실": {
-          "games": 32,
-          "wins": 10,
-          "losses": 20,
-          "draws": 2,
+          "games": 48,
+          "wins": 15,
+          "losses": 30,
+          "draws": 3,
           "winRate": "33.3",
-          "runsScored": 124,
-          "runsAllowed": 160
+          "runsScored": 186,
+          "runsAllowed": 240
         },
         "인천": {
-          "games": 14,
-          "wins": 4,
-          "losses": 10,
-          "draws": 0,
-          "winRate": "28.6",
-          "runsScored": 40,
-          "runsAllowed": 54
-        },
-        "대전": {
-          "games": 16,
+          "games": 21,
           "wins": 6,
-          "losses": 10,
-          "draws": 0,
-          "winRate": "37.5",
-          "runsScored": 62,
-          "runsAllowed": 70
-        },
-        "창원": {
-          "games": 16,
-          "wins": 8,
-          "losses": 8,
-          "draws": 0,
-          "winRate": "50.0",
-          "runsScored": 96,
-          "runsAllowed": 86
-        },
-        "대구": {
-          "games": 10,
-          "wins": 4,
-          "losses": 6,
-          "draws": 0,
-          "winRate": "40.0",
-          "runsScored": 42,
-          "runsAllowed": 60
-        },
-        "수원": {
-          "games": 16,
-          "wins": 8,
-          "losses": 6,
-          "draws": 2,
-          "winRate": "57.1",
-          "runsScored": 100,
-          "runsAllowed": 94
-        },
-        "광주": {
-          "games": 16,
-          "wins": 8,
-          "losses": 8,
-          "draws": 0,
-          "winRate": "50.0",
-          "runsScored": 58,
-          "runsAllowed": 78
-=======
-          "games": 76,
-          "wins": 35,
-          "losses": 35,
-          "draws": 6,
-          "winRate": "50.0",
-          "runsScored": 339,
-          "runsAllowed": 404
-        },
-        "고척": {
-          "games": 11,
-          "wins": 7,
-          "losses": 4,
-          "draws": 0,
-          "winRate": "63.6",
-          "runsScored": 52,
-          "runsAllowed": 33
-        },
-        "잠실": {
-          "games": 16,
-          "wins": 5,
-          "losses": 10,
-          "draws": 1,
-          "winRate": "33.3",
-          "runsScored": 62,
-          "runsAllowed": 80
-        },
-        "인천": {
-          "games": 7,
-          "wins": 2,
-          "losses": 5,
+          "losses": 15,
           "draws": 0,
           "winRate": "28.6",
-          "runsScored": 20,
-          "runsAllowed": 27
+          "runsScored": 60,
+          "runsAllowed": 81
         },
         "대전": {
-          "games": 8,
-          "wins": 3,
-          "losses": 5,
+          "games": 24,
+          "wins": 9,
+          "losses": 15,
           "draws": 0,
           "winRate": "37.5",
-          "runsScored": 31,
-          "runsAllowed": 35
+          "runsScored": 93,
+          "runsAllowed": 105
         },
         "창원": {
-          "games": 8,
-          "wins": 4,
-          "losses": 4,
+          "games": 24,
+          "wins": 12,
+          "losses": 12,
           "draws": 0,
           "winRate": "50.0",
-          "runsScored": 48,
-          "runsAllowed": 43
+          "runsScored": 144,
+          "runsAllowed": 129
         },
         "대구": {
-          "games": 5,
-          "wins": 2,
-          "losses": 3,
+          "games": 15,
+          "wins": 6,
+          "losses": 9,
           "draws": 0,
           "winRate": "40.0",
-          "runsScored": 21,
-          "runsAllowed": 30
+          "runsScored": 63,
+          "runsAllowed": 90
         },
         "수원": {
-          "games": 8,
-          "wins": 4,
-          "losses": 3,
-          "draws": 1,
+          "games": 24,
+          "wins": 12,
+          "losses": 9,
+          "draws": 3,
           "winRate": "57.1",
-          "runsScored": 50,
-          "runsAllowed": 47
+          "runsScored": 150,
+          "runsAllowed": 141
         },
         "광주": {
-          "games": 8,
-          "wins": 4,
-          "losses": 4,
+          "games": 24,
+          "wins": 12,
+          "losses": 12,
           "draws": 0,
           "winRate": "50.0",
-          "runsScored": 29,
-          "runsAllowed": 39
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "runsScored": 87,
+          "runsAllowed": 117
         }
       },
       "vsTeamsHome": {
         "KIA": {
-<<<<<<< HEAD
-          "games": 22,
+          "games": 33,
+          "wins": 18,
+          "losses": 12,
+          "draws": 3,
+          "winRate": "60.0"
+        },
+        "LG": {
+          "games": 24,
           "wins": 12,
-          "losses": 8,
-          "draws": 2,
-          "winRate": "60.0"
+          "losses": 9,
+          "draws": 3,
+          "winRate": "57.1"
         },
-        "LG": {
-          "games": 16,
-          "wins": 8,
+        "한화": {
+          "games": 33,
+          "wins": 9,
+          "losses": 21,
+          "draws": 3,
+          "winRate": "30.0"
+        },
+        "KT": {
+          "games": 27,
+          "wins": 12,
+          "losses": 12,
+          "draws": 3,
+          "winRate": "50.0"
+        },
+        "두산": {
+          "games": 27,
+          "wins": 9,
+          "losses": 15,
+          "draws": 3,
+          "winRate": "37.5"
+        },
+        "키움": {
+          "games": 18,
+          "wins": 12,
           "losses": 6,
-          "draws": 2,
-          "winRate": "57.1"
-        },
-        "한화": {
-          "games": 22,
-          "wins": 6,
-          "losses": 14,
-          "draws": 2,
-          "winRate": "30.0"
-        },
-        "KT": {
-          "games": 18,
-          "wins": 8,
-          "losses": 8,
-          "draws": 2,
-          "winRate": "50.0"
-        },
-        "두산": {
-          "games": 18,
-          "wins": 6,
-          "losses": 10,
-          "draws": 2,
-          "winRate": "37.5"
-        },
-        "키움": {
-          "games": 12,
-          "wins": 8,
-          "losses": 4,
-=======
-          "games": 11,
-          "wins": 6,
-          "losses": 4,
-          "draws": 1,
-          "winRate": "60.0"
-        },
-        "LG": {
-          "games": 8,
-          "wins": 4,
-          "losses": 3,
-          "draws": 1,
-          "winRate": "57.1"
-        },
-        "한화": {
-          "games": 11,
-          "wins": 3,
-          "losses": 7,
-          "draws": 1,
-          "winRate": "30.0"
-        },
-        "KT": {
-          "games": 9,
-          "wins": 4,
-          "losses": 4,
-          "draws": 1,
-          "winRate": "50.0"
-        },
-        "두산": {
-          "games": 9,
-          "wins": 3,
-          "losses": 5,
-          "draws": 1,
-          "winRate": "37.5"
-        },
-        "키움": {
-          "games": 6,
-          "wins": 4,
-          "losses": 2,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
           "draws": 0,
           "winRate": "66.7"
         },
         "NC": {
-<<<<<<< HEAD
-          "games": 12,
-          "wins": 6,
-          "losses": 6,
-=======
-          "games": 6,
-          "wins": 3,
-          "losses": 3,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 18,
+          "wins": 9,
+          "losses": 9,
           "draws": 0,
           "winRate": "50.0"
         },
         "SSG": {
-<<<<<<< HEAD
-          "games": 16,
-          "wins": 6,
-          "losses": 10,
-=======
-          "games": 8,
-          "wins": 3,
-          "losses": 5,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 24,
+          "wins": 9,
+          "losses": 15,
           "draws": 0,
           "winRate": "37.5"
         },
         "삼성": {
-<<<<<<< HEAD
-          "games": 16,
-          "wins": 10,
-          "losses": 4,
-          "draws": 2,
-=======
-          "games": 8,
-          "wins": 5,
-          "losses": 2,
-          "draws": 1,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 24,
+          "wins": 15,
+          "losses": 6,
+          "draws": 3,
           "winRate": "71.4"
         }
       },
       "vsTeamsAway": {
         "키움": {
-<<<<<<< HEAD
-          "games": 22,
-          "wins": 14,
-          "losses": 8,
-=======
-          "games": 11,
-          "wins": 7,
-          "losses": 4,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 33,
+          "wins": 21,
+          "losses": 12,
           "draws": 0,
           "winRate": "63.6"
         },
         "LG": {
-<<<<<<< HEAD
-          "games": 20,
-          "wins": 2,
-          "losses": 16,
-          "draws": 2,
+          "games": 30,
+          "wins": 3,
+          "losses": 24,
+          "draws": 3,
           "winRate": "11.1"
         },
         "SSG": {
-          "games": 14,
-          "wins": 4,
-          "losses": 10,
-=======
-          "games": 10,
-          "wins": 1,
-          "losses": 8,
-          "draws": 1,
-          "winRate": "11.1"
-        },
-        "SSG": {
-          "games": 7,
-          "wins": 2,
-          "losses": 5,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 21,
+          "wins": 6,
+          "losses": 15,
           "draws": 0,
           "winRate": "28.6"
         },
         "한화": {
-<<<<<<< HEAD
-          "games": 16,
-          "wins": 6,
-          "losses": 10,
-=======
-          "games": 8,
-          "wins": 3,
-          "losses": 5,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 24,
+          "wins": 9,
+          "losses": 15,
           "draws": 0,
           "winRate": "37.5"
         },
         "NC": {
-<<<<<<< HEAD
-          "games": 16,
-          "wins": 8,
-          "losses": 8,
-=======
-          "games": 8,
-          "wins": 4,
-          "losses": 4,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 24,
+          "wins": 12,
+          "losses": 12,
           "draws": 0,
           "winRate": "50.0"
         },
         "삼성": {
-<<<<<<< HEAD
-          "games": 10,
-          "wins": 4,
-          "losses": 6,
-=======
-          "games": 5,
-          "wins": 2,
-          "losses": 3,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 15,
+          "wins": 6,
+          "losses": 9,
           "draws": 0,
           "winRate": "40.0"
         },
         "두산": {
-<<<<<<< HEAD
-          "games": 12,
-          "wins": 8,
-          "losses": 4,
-=======
-          "games": 6,
-          "wins": 4,
-          "losses": 2,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 18,
+          "wins": 12,
+          "losses": 6,
           "draws": 0,
           "winRate": "66.7"
         },
         "KT": {
-<<<<<<< HEAD
-          "games": 16,
-          "wins": 8,
-          "losses": 6,
-          "draws": 2,
+          "games": 24,
+          "wins": 12,
+          "losses": 9,
+          "draws": 3,
           "winRate": "57.1"
         },
         "KIA": {
-          "games": 16,
-          "wins": 8,
-          "losses": 8,
-=======
-          "games": 8,
-          "wins": 4,
-          "losses": 3,
-          "draws": 1,
-          "winRate": "57.1"
-        },
-        "KIA": {
-          "games": 8,
-          "wins": 4,
-          "losses": 4,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 24,
+          "wins": 12,
+          "losses": 12,
           "draws": 0,
           "winRate": "50.0"
         }
       }
     },
     "두산": {
-<<<<<<< HEAD
-      "totalGames": 288,
+      "totalGames": 432,
       "home": {
-        "games": 138,
-        "wins": 52,
-        "losses": 76,
-        "draws": 10,
+        "games": 207,
+        "wins": 78,
+        "losses": 114,
+        "draws": 15,
         "winRate": "40.6",
-        "runsScored": 538,
-        "runsAllowed": 676,
+        "runsScored": 807,
+        "runsAllowed": 1014,
         "avgRunsScored": "3.90",
         "avgRunsAllowed": "4.90",
-        "runDifferential": -138
+        "runDifferential": -207
       },
       "away": {
-        "games": 150,
-        "wins": 70,
-        "losses": 74,
-        "draws": 6,
+        "games": 225,
+        "wins": 105,
+        "losses": 111,
+        "draws": 9,
         "winRate": "48.6",
-        "runsScored": 794,
-        "runsAllowed": 708,
+        "runsScored": 1191,
+        "runsAllowed": 1062,
         "avgRunsScored": "5.29",
         "avgRunsAllowed": "4.72",
-        "runDifferential": 86
-=======
-      "totalGames": 144,
-      "home": {
-        "games": 69,
-        "wins": 26,
-        "losses": 38,
-        "draws": 5,
-        "winRate": "40.6",
-        "runsScored": 269,
-        "runsAllowed": 338,
-        "avgRunsScored": "3.90",
-        "avgRunsAllowed": "4.90",
-        "runDifferential": -69
-      },
-      "away": {
-        "games": 75,
-        "wins": 35,
-        "losses": 37,
-        "draws": 3,
-        "winRate": "48.6",
-        "runsScored": 397,
-        "runsAllowed": 354,
-        "avgRunsScored": "5.29",
-        "avgRunsAllowed": "4.72",
-        "runDifferential": 43
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+        "runDifferential": 129
       },
       "homeAdvantage": "-0.0800",
       "homeAdvantageStatus": "불리",
       "stadiumRecords": {
         "대전": {
-<<<<<<< HEAD
-          "games": 22,
-          "wins": 16,
-          "losses": 6,
+          "games": 33,
+          "wins": 24,
+          "losses": 9,
           "draws": 0,
           "winRate": "72.7",
-          "runsScored": 118,
-          "runsAllowed": 94
+          "runsScored": 177,
+          "runsAllowed": 141
         },
         "대구": {
-          "games": 16,
-          "wins": 8,
-          "losses": 8,
-          "draws": 0,
-          "winRate": "50.0",
-          "runsScored": 96,
-          "runsAllowed": 110
-        },
-        "잠실": {
-          "games": 154,
-          "wins": 58,
-          "losses": 86,
-          "draws": 10,
-          "winRate": "40.3",
-          "runsScored": 612,
-          "runsAllowed": 766
-        },
-        "고척": {
-          "games": 22,
-          "wins": 10,
-          "losses": 10,
-          "draws": 2,
-          "winRate": "50.0",
-          "runsScored": 104,
-          "runsAllowed": 62
-        },
-        "수원": {
-          "games": 18,
-          "wins": 4,
-          "losses": 14,
-          "draws": 0,
-          "winRate": "22.2",
-          "runsScored": 64,
-          "runsAllowed": 112
-        },
-        "인천": {
-=======
-          "games": 11,
-          "wins": 8,
-          "losses": 3,
-          "draws": 0,
-          "winRate": "72.7",
-          "runsScored": 59,
-          "runsAllowed": 47
-        },
-        "대구": {
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
-          "games": 8,
-          "wins": 4,
-          "losses": 4,
-          "draws": 0,
-          "winRate": "50.0",
-<<<<<<< HEAD
-          "runsScored": 28,
-          "runsAllowed": 24
-        },
-        "사직": {
-          "games": 18,
-          "wins": 10,
-          "losses": 6,
-          "draws": 2,
-          "winRate": "62.5",
-          "runsScored": 136,
-          "runsAllowed": 90
-        },
-        "광주": {
-          "games": 16,
-          "wins": 2,
+          "games": 24,
+          "wins": 12,
           "losses": 12,
-          "draws": 2,
-          "winRate": "14.3",
-          "runsScored": 56,
-          "runsAllowed": 70
-        },
-        "창원": {
-          "games": 14,
-          "wins": 10,
-          "losses": 4,
           "draws": 0,
-          "winRate": "71.4",
-          "runsScored": 118,
-          "runsAllowed": 56
-=======
-          "runsScored": 48,
-          "runsAllowed": 55
+          "winRate": "50.0",
+          "runsScored": 144,
+          "runsAllowed": 165
         },
         "잠실": {
-          "games": 77,
-          "wins": 29,
-          "losses": 43,
-          "draws": 5,
+          "games": 231,
+          "wins": 87,
+          "losses": 129,
+          "draws": 15,
           "winRate": "40.3",
-          "runsScored": 306,
-          "runsAllowed": 383
+          "runsScored": 918,
+          "runsAllowed": 1149
         },
         "고척": {
-          "games": 11,
-          "wins": 5,
-          "losses": 5,
-          "draws": 1,
+          "games": 33,
+          "wins": 15,
+          "losses": 15,
+          "draws": 3,
           "winRate": "50.0",
-          "runsScored": 52,
-          "runsAllowed": 31
+          "runsScored": 156,
+          "runsAllowed": 93
         },
         "수원": {
-          "games": 9,
-          "wins": 2,
-          "losses": 7,
+          "games": 27,
+          "wins": 6,
+          "losses": 21,
           "draws": 0,
           "winRate": "22.2",
-          "runsScored": 32,
-          "runsAllowed": 56
+          "runsScored": 96,
+          "runsAllowed": 168
         },
         "인천": {
-          "games": 4,
-          "wins": 2,
-          "losses": 2,
+          "games": 12,
+          "wins": 6,
+          "losses": 6,
           "draws": 0,
           "winRate": "50.0",
-          "runsScored": 14,
-          "runsAllowed": 12
+          "runsScored": 42,
+          "runsAllowed": 36
         },
         "사직": {
-          "games": 9,
-          "wins": 5,
-          "losses": 3,
-          "draws": 1,
+          "games": 27,
+          "wins": 15,
+          "losses": 9,
+          "draws": 3,
           "winRate": "62.5",
-          "runsScored": 68,
-          "runsAllowed": 45
+          "runsScored": 204,
+          "runsAllowed": 135
         },
         "광주": {
-          "games": 8,
-          "wins": 1,
-          "losses": 6,
-          "draws": 1,
+          "games": 24,
+          "wins": 3,
+          "losses": 18,
+          "draws": 3,
           "winRate": "14.3",
-          "runsScored": 28,
-          "runsAllowed": 35
+          "runsScored": 84,
+          "runsAllowed": 105
         },
         "창원": {
-          "games": 7,
-          "wins": 5,
-          "losses": 2,
+          "games": 21,
+          "wins": 15,
+          "losses": 6,
           "draws": 0,
           "winRate": "71.4",
-          "runsScored": 59,
-          "runsAllowed": 28
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "runsScored": 177,
+          "runsAllowed": 84
         }
       },
       "vsTeamsHome": {
         "KIA": {
-<<<<<<< HEAD
-          "games": 22,
-          "wins": 10,
-          "losses": 10,
-          "draws": 2,
+          "games": 33,
+          "wins": 15,
+          "losses": 15,
+          "draws": 3,
           "winRate": "50.0"
         },
         "삼성": {
-          "games": 18,
-          "wins": 6,
-          "losses": 12,
-=======
-          "games": 11,
-          "wins": 5,
-          "losses": 5,
-          "draws": 1,
-          "winRate": "50.0"
-        },
-        "삼성": {
-          "games": 9,
-          "wins": 3,
-          "losses": 6,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 27,
+          "wins": 9,
+          "losses": 18,
           "draws": 0,
           "winRate": "33.3"
         },
         "키움": {
-<<<<<<< HEAD
-          "games": 8,
-          "wins": 8,
-=======
-          "games": 4,
-          "wins": 4,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 12,
+          "wins": 12,
           "losses": 0,
           "draws": 0,
           "winRate": "100.0"
         },
         "한화": {
-<<<<<<< HEAD
-          "games": 12,
-          "wins": 4,
-          "losses": 6,
-          "draws": 2,
+          "games": 18,
+          "wins": 6,
+          "losses": 9,
+          "draws": 3,
           "winRate": "40.0"
         },
         "롯데": {
-          "games": 12,
-          "wins": 4,
-          "losses": 8,
-=======
-          "games": 6,
-          "wins": 2,
-          "losses": 3,
-          "draws": 1,
-          "winRate": "40.0"
-        },
-        "롯데": {
-          "games": 6,
-          "wins": 2,
-          "losses": 4,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 18,
+          "wins": 6,
+          "losses": 12,
           "draws": 0,
           "winRate": "33.3"
         },
         "KT": {
-<<<<<<< HEAD
-          "games": 18,
-          "wins": 4,
-          "losses": 12,
-          "draws": 2,
-          "winRate": "25.0"
-        },
-        "LG": {
-          "games": 16,
+          "games": 27,
           "wins": 6,
-          "losses": 10,
-=======
-          "games": 9,
-          "wins": 2,
-          "losses": 6,
-          "draws": 1,
+          "losses": 18,
+          "draws": 3,
           "winRate": "25.0"
         },
         "LG": {
-          "games": 8,
-          "wins": 3,
-          "losses": 5,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 24,
+          "wins": 9,
+          "losses": 15,
           "draws": 0,
           "winRate": "37.5"
         },
         "NC": {
-<<<<<<< HEAD
-          "games": 16,
-          "wins": 4,
-          "losses": 8,
-          "draws": 4,
-          "winRate": "33.3"
-        },
-        "SSG": {
-          "games": 16,
+          "games": 24,
           "wins": 6,
-          "losses": 10,
-=======
-          "games": 8,
-          "wins": 2,
-          "losses": 4,
-          "draws": 2,
+          "losses": 12,
+          "draws": 6,
           "winRate": "33.3"
         },
         "SSG": {
-          "games": 8,
-          "wins": 3,
-          "losses": 5,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 24,
+          "wins": 9,
+          "losses": 15,
           "draws": 0,
           "winRate": "37.5"
         }
       },
       "vsTeamsAway": {
         "한화": {
-<<<<<<< HEAD
-          "games": 22,
-          "wins": 16,
-          "losses": 6,
-=======
-          "games": 11,
-          "wins": 8,
-          "losses": 3,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 33,
+          "wins": 24,
+          "losses": 9,
           "draws": 0,
           "winRate": "72.7"
         },
         "삼성": {
-<<<<<<< HEAD
-          "games": 16,
-          "wins": 8,
-          "losses": 8,
+          "games": 24,
+          "wins": 12,
+          "losses": 12,
           "draws": 0,
           "winRate": "50.0"
         },
         "키움": {
-          "games": 22,
-          "wins": 10,
-          "losses": 10,
-          "draws": 2,
+          "games": 33,
+          "wins": 15,
+          "losses": 15,
+          "draws": 3,
           "winRate": "50.0"
         },
         "KT": {
-          "games": 18,
-          "wins": 4,
-          "losses": 14,
-          "draws": 0,
-          "winRate": "22.2"
-        },
-        "SSG": {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
-          "games": 8,
-          "wins": 4,
-          "losses": 4,
-          "draws": 0,
-          "winRate": "50.0"
-        },
-<<<<<<< HEAD
-        "롯데": {
-          "games": 18,
-          "wins": 10,
-          "losses": 6,
-          "draws": 2,
-          "winRate": "62.5"
-        },
-        "LG": {
-          "games": 16,
+          "games": 27,
           "wins": 6,
-          "losses": 10,
-=======
-        "키움": {
-          "games": 11,
-          "wins": 5,
-          "losses": 5,
-          "draws": 1,
-          "winRate": "50.0"
-        },
-        "KT": {
-          "games": 9,
-          "wins": 2,
-          "losses": 7,
+          "losses": 21,
           "draws": 0,
           "winRate": "22.2"
         },
         "SSG": {
-          "games": 4,
-          "wins": 2,
-          "losses": 2,
+          "games": 12,
+          "wins": 6,
+          "losses": 6,
           "draws": 0,
           "winRate": "50.0"
         },
         "롯데": {
-          "games": 9,
-          "wins": 5,
-          "losses": 3,
-          "draws": 1,
+          "games": 27,
+          "wins": 15,
+          "losses": 9,
+          "draws": 3,
           "winRate": "62.5"
         },
         "LG": {
-          "games": 8,
-          "wins": 3,
-          "losses": 5,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 24,
+          "wins": 9,
+          "losses": 15,
           "draws": 0,
           "winRate": "37.5"
         },
         "KIA": {
-<<<<<<< HEAD
-          "games": 16,
-          "wins": 2,
-          "losses": 12,
-          "draws": 2,
+          "games": 24,
+          "wins": 3,
+          "losses": 18,
+          "draws": 3,
           "winRate": "14.3"
         },
         "NC": {
-          "games": 14,
-          "wins": 10,
-          "losses": 4,
-=======
-          "games": 8,
-          "wins": 1,
+          "games": 21,
+          "wins": 15,
           "losses": 6,
-          "draws": 1,
-          "winRate": "14.3"
-        },
-        "NC": {
-          "games": 7,
-          "wins": 5,
-          "losses": 2,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
           "draws": 0,
           "winRate": "71.4"
         }
       }
     },
     "NC": {
-<<<<<<< HEAD
-      "totalGames": 288,
+      "totalGames": 432,
       "home": {
-        "games": 148,
-        "wins": 68,
-        "losses": 78,
-        "draws": 2,
+        "games": 222,
+        "wins": 102,
+        "losses": 117,
+        "draws": 3,
         "winRate": "46.6",
-        "runsScored": 728,
-        "runsAllowed": 886,
+        "runsScored": 1092,
+        "runsAllowed": 1329,
         "avgRunsScored": "4.92",
         "avgRunsAllowed": "5.99",
-        "runDifferential": -158
+        "runDifferential": -237
       },
       "away": {
-        "games": 140,
-        "wins": 60,
-        "losses": 70,
-        "draws": 10,
+        "games": 210,
+        "wins": 90,
+        "losses": 105,
+        "draws": 15,
         "winRate": "46.2",
-        "runsScored": 680,
-        "runsAllowed": 692,
+        "runsScored": 1020,
+        "runsAllowed": 1038,
         "avgRunsScored": "4.86",
         "avgRunsAllowed": "4.94",
-        "runDifferential": -12
-=======
-      "totalGames": 144,
-      "home": {
-        "games": 74,
-        "wins": 34,
-        "losses": 39,
-        "draws": 1,
-        "winRate": "46.6",
-        "runsScored": 364,
-        "runsAllowed": 443,
-        "avgRunsScored": "4.92",
-        "avgRunsAllowed": "5.99",
-        "runDifferential": -79
-      },
-      "away": {
-        "games": 70,
-        "wins": 30,
-        "losses": 35,
-        "draws": 5,
-        "winRate": "46.2",
-        "runsScored": 340,
-        "runsAllowed": 346,
-        "avgRunsScored": "4.86",
-        "avgRunsAllowed": "4.94",
-        "runDifferential": -6
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+        "runDifferential": -18
       },
       "homeAdvantage": "0.0040",
       "homeAdvantageStatus": "중립",
       "stadiumRecords": {
         "창원": {
-<<<<<<< HEAD
-          "games": 148,
-          "wins": 68,
-          "losses": 78,
-          "draws": 2,
+          "games": 222,
+          "wins": 102,
+          "losses": 117,
+          "draws": 3,
           "winRate": "46.6",
-          "runsScored": 728,
-          "runsAllowed": 886
+          "runsScored": 1092,
+          "runsAllowed": 1329
         },
         "잠실": {
-          "games": 30,
-          "wins": 16,
-          "losses": 10,
-          "draws": 4,
+          "games": 45,
+          "wins": 24,
+          "losses": 15,
+          "draws": 6,
           "winRate": "61.5",
-          "runsScored": 130,
-          "runsAllowed": 102
+          "runsScored": 195,
+          "runsAllowed": 153
         },
         "광주": {
-          "games": 10,
-          "wins": 4,
-          "losses": 6,
-          "draws": 0,
-          "winRate": "40.0",
-          "runsScored": 38,
-          "runsAllowed": 58
-        },
-        "대구": {
-          "games": 18,
-          "wins": 6,
-          "losses": 12,
-          "draws": 0,
-          "winRate": "33.3",
-          "runsScored": 98,
-          "runsAllowed": 134
-        },
-        "고척": {
-          "games": 16,
-          "wins": 8,
-          "losses": 6,
-          "draws": 2,
-          "winRate": "57.1",
-          "runsScored": 70,
-          "runsAllowed": 58
-        },
-        "수원": {
-          "games": 20,
-          "wins": 14,
-          "losses": 6,
-          "draws": 0,
-          "winRate": "70.0",
-          "runsScored": 118,
-          "runsAllowed": 58
-        },
-        "대전": {
-          "games": 16,
-          "wins": 2,
-          "losses": 12,
-          "draws": 2,
-          "winRate": "14.3",
-          "runsScored": 60,
-          "runsAllowed": 106
-        },
-        "사직": {
-          "games": 12,
-          "wins": 6,
-          "losses": 6,
-          "draws": 0,
-          "winRate": "50.0",
-          "runsScored": 86,
-          "runsAllowed": 70
-        },
-        "인천": {
-          "games": 18,
-          "wins": 4,
-          "losses": 12,
-          "draws": 2,
-          "winRate": "25.0",
-          "runsScored": 80,
-          "runsAllowed": 106
-=======
-          "games": 74,
-          "wins": 34,
-          "losses": 39,
-          "draws": 1,
-          "winRate": "46.6",
-          "runsScored": 364,
-          "runsAllowed": 443
-        },
-        "잠실": {
           "games": 15,
-          "wins": 8,
-          "losses": 5,
-          "draws": 2,
-          "winRate": "61.5",
-          "runsScored": 65,
-          "runsAllowed": 51
-        },
-        "광주": {
-          "games": 5,
-          "wins": 2,
-          "losses": 3,
+          "wins": 6,
+          "losses": 9,
           "draws": 0,
           "winRate": "40.0",
-          "runsScored": 19,
-          "runsAllowed": 29
+          "runsScored": 57,
+          "runsAllowed": 87
         },
         "대구": {
-          "games": 9,
-          "wins": 3,
-          "losses": 6,
+          "games": 27,
+          "wins": 9,
+          "losses": 18,
           "draws": 0,
           "winRate": "33.3",
-          "runsScored": 49,
-          "runsAllowed": 67
+          "runsScored": 147,
+          "runsAllowed": 201
         },
         "고척": {
-          "games": 8,
-          "wins": 4,
-          "losses": 3,
-          "draws": 1,
+          "games": 24,
+          "wins": 12,
+          "losses": 9,
+          "draws": 3,
           "winRate": "57.1",
-          "runsScored": 35,
-          "runsAllowed": 29
+          "runsScored": 105,
+          "runsAllowed": 87
         },
         "수원": {
-          "games": 10,
-          "wins": 7,
-          "losses": 3,
+          "games": 30,
+          "wins": 21,
+          "losses": 9,
           "draws": 0,
           "winRate": "70.0",
-          "runsScored": 59,
-          "runsAllowed": 29
+          "runsScored": 177,
+          "runsAllowed": 87
         },
         "대전": {
-          "games": 8,
-          "wins": 1,
-          "losses": 6,
-          "draws": 1,
+          "games": 24,
+          "wins": 3,
+          "losses": 18,
+          "draws": 3,
           "winRate": "14.3",
-          "runsScored": 30,
-          "runsAllowed": 53
+          "runsScored": 90,
+          "runsAllowed": 159
         },
         "사직": {
-          "games": 6,
-          "wins": 3,
-          "losses": 3,
+          "games": 18,
+          "wins": 9,
+          "losses": 9,
           "draws": 0,
           "winRate": "50.0",
-          "runsScored": 43,
-          "runsAllowed": 35
+          "runsScored": 129,
+          "runsAllowed": 105
         },
         "인천": {
-          "games": 9,
-          "wins": 2,
-          "losses": 6,
-          "draws": 1,
+          "games": 27,
+          "wins": 6,
+          "losses": 18,
+          "draws": 3,
           "winRate": "25.0",
-          "runsScored": 40,
-          "runsAllowed": 53
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "runsScored": 120,
+          "runsAllowed": 159
         }
       },
       "vsTeamsHome": {
         "키움": {
-<<<<<<< HEAD
-          "games": 22,
-          "wins": 12,
-          "losses": 10,
-=======
-          "games": 11,
-          "wins": 6,
-          "losses": 5,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 33,
+          "wins": 18,
+          "losses": 15,
           "draws": 0,
           "winRate": "54.5"
         },
         "KIA": {
-<<<<<<< HEAD
-          "games": 22,
-          "wins": 12,
-          "losses": 10,
-=======
-          "games": 11,
-          "wins": 6,
-          "losses": 5,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 33,
+          "wins": 18,
+          "losses": 15,
           "draws": 0,
           "winRate": "54.5"
         },
         "KT": {
-<<<<<<< HEAD
-          "games": 16,
-          "wins": 4,
-          "losses": 10,
-          "draws": 2,
+          "games": 24,
+          "wins": 6,
+          "losses": 15,
+          "draws": 3,
           "winRate": "28.6"
         },
         "한화": {
-          "games": 20,
-          "wins": 10,
-          "losses": 10,
-=======
-          "games": 8,
-          "wins": 2,
-          "losses": 5,
-          "draws": 1,
-          "winRate": "28.6"
-        },
-        "한화": {
-          "games": 10,
-          "wins": 5,
-          "losses": 5,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 30,
+          "wins": 15,
+          "losses": 15,
           "draws": 0,
           "winRate": "50.0"
         },
         "LG": {
-<<<<<<< HEAD
-          "games": 16,
-          "wins": 4,
-          "losses": 12,
-=======
-          "games": 8,
-          "wins": 2,
-          "losses": 6,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 24,
+          "wins": 6,
+          "losses": 18,
           "draws": 0,
           "winRate": "25.0"
         },
         "롯데": {
-<<<<<<< HEAD
-          "games": 16,
-          "wins": 8,
-          "losses": 8,
-=======
-          "games": 8,
-          "wins": 4,
-          "losses": 4,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 24,
+          "wins": 12,
+          "losses": 12,
           "draws": 0,
           "winRate": "50.0"
         },
         "두산": {
-<<<<<<< HEAD
-          "games": 14,
-          "wins": 4,
-          "losses": 10,
-=======
-          "games": 7,
-          "wins": 2,
-          "losses": 5,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 21,
+          "wins": 6,
+          "losses": 15,
           "draws": 0,
           "winRate": "28.6"
         },
         "SSG": {
-<<<<<<< HEAD
-          "games": 10,
-          "wins": 6,
-          "losses": 4,
-=======
-          "games": 5,
-          "wins": 3,
-          "losses": 2,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 15,
+          "wins": 9,
+          "losses": 6,
           "draws": 0,
           "winRate": "60.0"
         },
         "삼성": {
-<<<<<<< HEAD
-          "games": 12,
-          "wins": 8,
-          "losses": 4,
-=======
-          "games": 6,
-          "wins": 4,
-          "losses": 2,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 18,
+          "wins": 12,
+          "losses": 6,
           "draws": 0,
           "winRate": "66.7"
         }
       },
       "vsTeamsAway": {
         "LG": {
-<<<<<<< HEAD
-          "games": 14,
-          "wins": 8,
-          "losses": 6,
-=======
-          "games": 7,
-          "wins": 4,
-          "losses": 3,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 21,
+          "wins": 12,
+          "losses": 9,
           "draws": 0,
           "winRate": "57.1"
         },
         "KIA": {
-<<<<<<< HEAD
-          "games": 10,
-          "wins": 4,
-          "losses": 6,
-=======
-          "games": 5,
-          "wins": 2,
-          "losses": 3,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 15,
+          "wins": 6,
+          "losses": 9,
           "draws": 0,
           "winRate": "40.0"
         },
         "삼성": {
-<<<<<<< HEAD
-          "games": 18,
-          "wins": 6,
-          "losses": 12,
-=======
-          "games": 9,
-          "wins": 3,
-          "losses": 6,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 27,
+          "wins": 9,
+          "losses": 18,
           "draws": 0,
           "winRate": "33.3"
         },
         "키움": {
-<<<<<<< HEAD
-          "games": 16,
-          "wins": 8,
-          "losses": 6,
-          "draws": 2,
+          "games": 24,
+          "wins": 12,
+          "losses": 9,
+          "draws": 3,
           "winRate": "57.1"
         },
         "KT": {
-          "games": 20,
-          "wins": 14,
-          "losses": 6,
-=======
-          "games": 8,
-          "wins": 4,
-          "losses": 3,
-          "draws": 1,
-          "winRate": "57.1"
-        },
-        "KT": {
-          "games": 10,
-          "wins": 7,
-          "losses": 3,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 30,
+          "wins": 21,
+          "losses": 9,
           "draws": 0,
           "winRate": "70.0"
         },
         "한화": {
-<<<<<<< HEAD
-          "games": 16,
-          "wins": 2,
-          "losses": 12,
-          "draws": 2,
-          "winRate": "14.3"
-        },
-        "롯데": {
-          "games": 12,
-          "wins": 6,
-          "losses": 6,
-=======
-          "games": 8,
-          "wins": 1,
-          "losses": 6,
-          "draws": 1,
-          "winRate": "14.3"
-        },
-        "롯데": {
-          "games": 6,
+          "games": 24,
           "wins": 3,
-          "losses": 3,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "losses": 18,
+          "draws": 3,
+          "winRate": "14.3"
+        },
+        "롯데": {
+          "games": 18,
+          "wins": 9,
+          "losses": 9,
           "draws": 0,
           "winRate": "50.0"
         },
         "두산": {
-<<<<<<< HEAD
-          "games": 16,
-          "wins": 8,
-          "losses": 4,
-          "draws": 4,
-          "winRate": "66.7"
-        },
-        "SSG": {
-          "games": 18,
-          "wins": 4,
-          "losses": 12,
-          "draws": 2,
-=======
-          "games": 8,
-          "wins": 4,
-          "losses": 2,
-          "draws": 2,
-          "winRate": "66.7"
-        },
-        "SSG": {
-          "games": 9,
-          "wins": 2,
+          "games": 24,
+          "wins": 12,
           "losses": 6,
-          "draws": 1,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "draws": 6,
+          "winRate": "66.7"
+        },
+        "SSG": {
+          "games": 27,
+          "wins": 6,
+          "losses": 18,
+          "draws": 3,
           "winRate": "25.0"
         }
       }
     },
     "키움": {
-<<<<<<< HEAD
-      "totalGames": 294,
+      "totalGames": 441,
       "home": {
-        "games": 148,
-        "wins": 56,
-        "losses": 86,
+        "games": 222,
+        "wins": 84,
+        "losses": 129,
+        "draws": 9,
+        "winRate": "39.4",
+        "runsScored": 768,
+        "runsAllowed": 1131,
+        "avgRunsScored": "3.46",
+        "avgRunsAllowed": "5.09",
+        "runDifferential": -363
+      },
+      "away": {
+        "games": 219,
+        "wins": 72,
+        "losses": 141,
         "draws": 6,
-        "winRate": "39.4",
-        "runsScored": 512,
-        "runsAllowed": 754,
-        "avgRunsScored": "3.46",
-        "avgRunsAllowed": "5.09",
-        "runDifferential": -242
-      },
-      "away": {
-        "games": 146,
-        "wins": 48,
-        "losses": 94,
-        "draws": 4,
         "winRate": "33.8",
-        "runsScored": 662,
-        "runsAllowed": 952,
+        "runsScored": 993,
+        "runsAllowed": 1428,
         "avgRunsScored": "4.53",
         "avgRunsAllowed": "6.52",
-        "runDifferential": -290
-=======
-      "totalGames": 147,
-      "home": {
-        "games": 74,
-        "wins": 28,
-        "losses": 43,
-        "draws": 3,
-        "winRate": "39.4",
-        "runsScored": 256,
-        "runsAllowed": 377,
-        "avgRunsScored": "3.46",
-        "avgRunsAllowed": "5.09",
-        "runDifferential": -121
-      },
-      "away": {
-        "games": 73,
-        "wins": 24,
-        "losses": 47,
-        "draws": 2,
-        "winRate": "33.8",
-        "runsScored": 331,
-        "runsAllowed": 476,
-        "avgRunsScored": "4.53",
-        "avgRunsAllowed": "6.52",
-        "runDifferential": -145
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+        "runDifferential": -435
       },
       "homeAdvantage": "0.0560",
       "homeAdvantageStatus": "보통",
       "stadiumRecords": {
         "창원": {
-<<<<<<< HEAD
-          "games": 22,
-          "wins": 10,
+          "games": 33,
+          "wins": 15,
+          "losses": 18,
+          "draws": 0,
+          "winRate": "45.5",
+          "runsScored": 171,
+          "runsAllowed": 228
+        },
+        "수원": {
+          "games": 24,
+          "wins": 9,
+          "losses": 15,
+          "draws": 0,
+          "winRate": "37.5",
+          "runsScored": 99,
+          "runsAllowed": 126
+        },
+        "인천": {
+          "games": 36,
+          "wins": 12,
+          "losses": 21,
+          "draws": 3,
+          "winRate": "36.4",
+          "runsScored": 111,
+          "runsAllowed": 156
+        },
+        "고척": {
+          "games": 222,
+          "wins": 84,
+          "losses": 129,
+          "draws": 9,
+          "winRate": "39.4",
+          "runsScored": 768,
+          "runsAllowed": 1131
+        },
+        "대구": {
+          "games": 30,
+          "wins": 6,
+          "losses": 24,
+          "draws": 0,
+          "winRate": "20.0",
+          "runsScored": 150,
+          "runsAllowed": 264
+        },
+        "광주": {
+          "games": 27,
+          "wins": 12,
+          "losses": 12,
+          "draws": 3,
+          "winRate": "50.0",
+          "runsScored": 207,
+          "runsAllowed": 210
+        },
+        "잠실": {
+          "games": 39,
+          "wins": 9,
+          "losses": 30,
+          "draws": 0,
+          "winRate": "23.1",
+          "runsScored": 126,
+          "runsAllowed": 231
+        },
+        "대전": {
+          "games": 12,
+          "wins": 3,
+          "losses": 9,
+          "draws": 0,
+          "winRate": "25.0",
+          "runsScored": 39,
+          "runsAllowed": 93
+        },
+        "사직": {
+          "games": 18,
+          "wins": 6,
           "losses": 12,
           "draws": 0,
-          "winRate": "45.5",
-          "runsScored": 114,
-          "runsAllowed": 152
-        },
-        "수원": {
-          "games": 16,
-          "wins": 6,
-          "losses": 10,
-          "draws": 0,
-          "winRate": "37.5",
-          "runsScored": 66,
-          "runsAllowed": 84
-        },
-        "인천": {
-          "games": 24,
-          "wins": 8,
-          "losses": 14,
-          "draws": 2,
-          "winRate": "36.4",
-          "runsScored": 74,
-          "runsAllowed": 104
-        },
-        "고척": {
-          "games": 148,
-          "wins": 56,
-          "losses": 86,
-          "draws": 6,
-          "winRate": "39.4",
-          "runsScored": 512,
-          "runsAllowed": 754
-        },
-        "대구": {
-          "games": 20,
-          "wins": 4,
-          "losses": 16,
-          "draws": 0,
-          "winRate": "20.0",
-          "runsScored": 100,
-          "runsAllowed": 176
-        },
-        "광주": {
-          "games": 18,
-          "wins": 8,
-          "losses": 8,
-          "draws": 2,
-          "winRate": "50.0",
-          "runsScored": 138,
-          "runsAllowed": 140
-        },
-        "잠실": {
-          "games": 26,
-          "wins": 6,
-          "losses": 20,
-          "draws": 0,
-          "winRate": "23.1",
-          "runsScored": 84,
-          "runsAllowed": 154
-        },
-        "대전": {
-          "games": 8,
-          "wins": 2,
-          "losses": 6,
-          "draws": 0,
-          "winRate": "25.0",
-          "runsScored": 26,
-          "runsAllowed": 62
-        },
-        "사직": {
-          "games": 12,
-          "wins": 4,
-          "losses": 8,
-          "draws": 0,
           "winRate": "33.3",
-          "runsScored": 60,
-          "runsAllowed": 80
-=======
-          "games": 11,
-          "wins": 5,
-          "losses": 6,
-          "draws": 0,
-          "winRate": "45.5",
-          "runsScored": 57,
-          "runsAllowed": 76
-        },
-        "수원": {
-          "games": 8,
-          "wins": 3,
-          "losses": 5,
-          "draws": 0,
-          "winRate": "37.5",
-          "runsScored": 33,
-          "runsAllowed": 42
-        },
-        "인천": {
-          "games": 12,
-          "wins": 4,
-          "losses": 7,
-          "draws": 1,
-          "winRate": "36.4",
-          "runsScored": 37,
-          "runsAllowed": 52
-        },
-        "고척": {
-          "games": 74,
-          "wins": 28,
-          "losses": 43,
-          "draws": 3,
-          "winRate": "39.4",
-          "runsScored": 256,
-          "runsAllowed": 377
-        },
-        "대구": {
-          "games": 10,
-          "wins": 2,
-          "losses": 8,
-          "draws": 0,
-          "winRate": "20.0",
-          "runsScored": 50,
-          "runsAllowed": 88
-        },
-        "광주": {
-          "games": 9,
-          "wins": 4,
-          "losses": 4,
-          "draws": 1,
-          "winRate": "50.0",
-          "runsScored": 69,
-          "runsAllowed": 70
-        },
-        "잠실": {
-          "games": 13,
-          "wins": 3,
-          "losses": 10,
-          "draws": 0,
-          "winRate": "23.1",
-          "runsScored": 42,
-          "runsAllowed": 77
-        },
-        "대전": {
-          "games": 4,
-          "wins": 1,
-          "losses": 3,
-          "draws": 0,
-          "winRate": "25.0",
-          "runsScored": 13,
-          "runsAllowed": 31
-        },
-        "사직": {
-          "games": 6,
-          "wins": 2,
-          "losses": 4,
-          "draws": 0,
-          "winRate": "33.3",
-          "runsScored": 30,
-          "runsAllowed": 40
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "runsScored": 90,
+          "runsAllowed": 120
         }
       },
       "vsTeamsHome": {
         "두산": {
-<<<<<<< HEAD
-          "games": 22,
-          "wins": 10,
-          "losses": 10,
-          "draws": 2,
+          "games": 33,
+          "wins": 15,
+          "losses": 15,
+          "draws": 3,
           "winRate": "50.0"
         },
         "롯데": {
-          "games": 22,
-          "wins": 8,
-          "losses": 14,
-=======
-          "games": 11,
-          "wins": 5,
-          "losses": 5,
-          "draws": 1,
-          "winRate": "50.0"
-        },
-        "롯데": {
-          "games": 11,
-          "wins": 4,
-          "losses": 7,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 33,
+          "wins": 12,
+          "losses": 21,
           "draws": 0,
           "winRate": "36.4"
         },
         "SSG": {
-<<<<<<< HEAD
-          "games": 12,
-          "wins": 6,
-          "losses": 6,
-=======
-          "games": 6,
-          "wins": 3,
-          "losses": 3,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 18,
+          "wins": 9,
+          "losses": 9,
           "draws": 0,
           "winRate": "50.0"
         },
         "NC": {
-<<<<<<< HEAD
-          "games": 16,
-          "wins": 6,
-          "losses": 8,
-          "draws": 2,
+          "games": 24,
+          "wins": 9,
+          "losses": 12,
+          "draws": 3,
           "winRate": "42.9"
         },
         "LG": {
-          "games": 16,
-          "wins": 10,
-          "losses": 6,
-=======
-          "games": 8,
-          "wins": 3,
-          "losses": 4,
-          "draws": 1,
-          "winRate": "42.9"
-        },
-        "LG": {
-          "games": 8,
-          "wins": 5,
-          "losses": 3,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 24,
+          "wins": 15,
+          "losses": 9,
           "draws": 0,
           "winRate": "62.5"
         },
         "KT": {
-<<<<<<< HEAD
-          "games": 18,
-          "wins": 6,
-          "losses": 12,
-=======
-          "games": 9,
-          "wins": 3,
-          "losses": 6,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 27,
+          "wins": 9,
+          "losses": 18,
           "draws": 0,
           "winRate": "33.3"
         },
         "KIA": {
-<<<<<<< HEAD
-          "games": 12,
-          "wins": 4,
-          "losses": 6,
-          "draws": 2,
-          "winRate": "40.0"
-        },
-        "한화": {
           "games": 18,
-          "wins": 0,
-          "losses": 18,
-=======
-          "games": 6,
-          "wins": 2,
-          "losses": 3,
-          "draws": 1,
+          "wins": 6,
+          "losses": 9,
+          "draws": 3,
           "winRate": "40.0"
         },
         "한화": {
-          "games": 9,
+          "games": 27,
           "wins": 0,
-          "losses": 9,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "losses": 27,
           "draws": 0,
           "winRate": "0.0"
         },
         "삼성": {
-<<<<<<< HEAD
-          "games": 12,
-          "wins": 6,
-          "losses": 6,
-=======
-          "games": 6,
-          "wins": 3,
-          "losses": 3,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 18,
+          "wins": 9,
+          "losses": 9,
           "draws": 0,
           "winRate": "50.0"
         }
       },
       "vsTeamsAway": {
         "NC": {
-<<<<<<< HEAD
-          "games": 22,
-          "wins": 10,
-          "losses": 12,
-=======
-          "games": 11,
-          "wins": 5,
-          "losses": 6,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 33,
+          "wins": 15,
+          "losses": 18,
           "draws": 0,
           "winRate": "45.5"
         },
         "KT": {
-<<<<<<< HEAD
-          "games": 16,
-          "wins": 6,
-          "losses": 10,
-=======
-          "games": 8,
-          "wins": 3,
-          "losses": 5,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 24,
+          "wins": 9,
+          "losses": 15,
           "draws": 0,
           "winRate": "37.5"
         },
         "SSG": {
-<<<<<<< HEAD
-          "games": 24,
-          "wins": 8,
-          "losses": 14,
-          "draws": 2,
+          "games": 36,
+          "wins": 12,
+          "losses": 21,
+          "draws": 3,
           "winRate": "36.4"
         },
         "삼성": {
-          "games": 20,
-          "wins": 4,
-          "losses": 16,
-=======
-          "games": 12,
-          "wins": 4,
-          "losses": 7,
-          "draws": 1,
-          "winRate": "36.4"
-        },
-        "삼성": {
-          "games": 10,
-          "wins": 2,
-          "losses": 8,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 30,
+          "wins": 6,
+          "losses": 24,
           "draws": 0,
           "winRate": "20.0"
         },
         "KIA": {
-<<<<<<< HEAD
-          "games": 18,
-          "wins": 8,
-          "losses": 8,
-          "draws": 2,
+          "games": 27,
+          "wins": 12,
+          "losses": 12,
+          "draws": 3,
           "winRate": "50.0"
         },
         "두산": {
-          "games": 8,
+          "games": 12,
           "wins": 0,
-          "losses": 8,
-=======
-          "games": 9,
-          "wins": 4,
-          "losses": 4,
-          "draws": 1,
-          "winRate": "50.0"
-        },
-        "두산": {
-          "games": 4,
-          "wins": 0,
-          "losses": 4,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "losses": 12,
           "draws": 0,
           "winRate": "0.0"
         },
         "한화": {
-<<<<<<< HEAD
-          "games": 8,
-          "wins": 2,
-          "losses": 6,
-=======
-          "games": 4,
-          "wins": 1,
-          "losses": 3,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 12,
+          "wins": 3,
+          "losses": 9,
           "draws": 0,
           "winRate": "25.0"
         },
         "롯데": {
-<<<<<<< HEAD
-          "games": 12,
-          "wins": 4,
-          "losses": 8,
-=======
-          "games": 6,
-          "wins": 2,
-          "losses": 4,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 18,
+          "wins": 6,
+          "losses": 12,
           "draws": 0,
           "winRate": "33.3"
         },
         "LG": {
-<<<<<<< HEAD
-          "games": 18,
-          "wins": 6,
-          "losses": 12,
-=======
-          "games": 9,
-          "wins": 3,
-          "losses": 6,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "games": 27,
+          "wins": 9,
+          "losses": 18,
           "draws": 0,
           "winRate": "33.3"
         }

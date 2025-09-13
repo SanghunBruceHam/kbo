@@ -1,43 +1,22 @@
 {
-<<<<<<< HEAD
-  "lastUpdated": "2025-09-13T05:02:40.651Z",
+  "lastUpdated": "2025-09-13T05:10:46.069Z",
   "updateDate": "2025. 9. 13.",
   "clutchAnalysis": {
     "LG": {
-      "totalGames": 292,
-      "oneRunGames": 82,
-      "oneRunWins": 46,
-      "oneRunLosses": 36,
+      "totalGames": 438,
+      "oneRunGames": 123,
+      "oneRunWins": 69,
+      "oneRunLosses": 54,
       "oneRunWinRate": "56.1",
-      "closeGames": 124,
-      "closeWins": 70,
-      "closeLosses": 54,
+      "closeGames": 186,
+      "closeWins": 105,
+      "closeLosses": 81,
       "closeWinRate": "56.5",
-      "threeRunGames": 82,
-      "threeRunWins": 44,
-      "threeRunLosses": 38,
+      "threeRunGames": 123,
+      "threeRunWins": 66,
+      "threeRunLosses": 57,
       "threeRunWinRate": "53.7",
-      "blowoutWins": 72,
-=======
-  "lastUpdated": "2025-09-13T04:59:43.133Z",
-  "updateDate": "2025. 9. 13.",
-  "clutchAnalysis": {
-    "LG": {
-      "totalGames": 146,
-      "oneRunGames": 41,
-      "oneRunWins": 23,
-      "oneRunLosses": 18,
-      "oneRunWinRate": "56.1",
-      "closeGames": 62,
-      "closeWins": 35,
-      "closeLosses": 27,
-      "closeWinRate": "56.5",
-      "threeRunGames": 41,
-      "threeRunWins": 22,
-      "threeRunLosses": 19,
-      "threeRunWinRate": "53.7",
-      "blowoutWins": 36,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+      "blowoutWins": 108,
       "blowoutScored": [
         {
           "date": "2025-03-10",
@@ -46,22 +25,30 @@
           "runs": 8
         },
         {
-<<<<<<< HEAD
           "date": "2025-03-10",
           "opponent": "롯데",
           "score": "8:2",
           "runs": 8
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-03-10",
+          "opponent": "롯데",
+          "score": "8:2",
+          "runs": 8
+        },
+        {
           "date": "2025-03-13",
           "opponent": "삼성",
           "score": "10:5",
           "runs": 10
         },
         {
-<<<<<<< HEAD
+          "date": "2025-03-13",
+          "opponent": "삼성",
+          "score": "10:5",
+          "runs": 10
+        },
+        {
           "date": "2025-03-13",
           "opponent": "삼성",
           "score": "10:5",
@@ -74,8 +61,12 @@
           "runs": 9
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-03-15",
+          "opponent": "SSG",
+          "score": "9:4",
+          "runs": 9
+        },
+        {
           "date": "2025-03-15",
           "opponent": "SSG",
           "score": "9:4",
@@ -88,22 +79,30 @@
           "runs": 12
         },
         {
-<<<<<<< HEAD
           "date": "2025-03-22",
           "opponent": "롯데",
           "score": "12:2",
           "runs": 12
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-03-22",
+          "opponent": "롯데",
+          "score": "12:2",
+          "runs": 12
+        },
+        {
           "date": "2025-03-23",
           "opponent": "롯데",
           "score": "10:2",
           "runs": 10
         },
         {
-<<<<<<< HEAD
+          "date": "2025-03-23",
+          "opponent": "롯데",
+          "score": "10:2",
+          "runs": 10
+        },
+        {
           "date": "2025-03-23",
           "opponent": "롯데",
           "score": "10:2",
@@ -116,8 +115,12 @@
           "runs": 8
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-03-28",
+          "opponent": "NC",
+          "score": "8:4",
+          "runs": 8
+        },
+        {
           "date": "2025-03-28",
           "opponent": "NC",
           "score": "8:4",
@@ -130,22 +133,30 @@
           "runs": 14
         },
         {
-<<<<<<< HEAD
           "date": "2025-03-29",
           "opponent": "NC",
           "score": "14:4",
           "runs": 14
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-03-29",
+          "opponent": "NC",
+          "score": "14:4",
+          "runs": 14
+        },
+        {
           "date": "2025-04-04",
           "opponent": "KIA",
           "score": "8:2",
           "runs": 8
         },
         {
-<<<<<<< HEAD
+          "date": "2025-04-04",
+          "opponent": "KIA",
+          "score": "8:2",
+          "runs": 8
+        },
+        {
           "date": "2025-04-04",
           "opponent": "KIA",
           "score": "8:2",
@@ -158,8 +169,12 @@
           "runs": 13
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-04-08",
+          "opponent": "키움",
+          "score": "13:1",
+          "runs": 13
+        },
+        {
           "date": "2025-04-08",
           "opponent": "키움",
           "score": "13:1",
@@ -172,22 +187,30 @@
           "runs": 7
         },
         {
-<<<<<<< HEAD
           "date": "2025-04-10",
           "opponent": "키움",
           "score": "7:3",
           "runs": 7
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-04-10",
+          "opponent": "키움",
+          "score": "7:3",
+          "runs": 7
+        },
+        {
           "date": "2025-04-16",
           "opponent": "삼성",
           "score": "12:2",
           "runs": 12
         },
         {
-<<<<<<< HEAD
+          "date": "2025-04-16",
+          "opponent": "삼성",
+          "score": "12:2",
+          "runs": 12
+        },
+        {
           "date": "2025-04-16",
           "opponent": "삼성",
           "score": "12:2",
@@ -200,8 +223,12 @@
           "runs": 11
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-04-19",
+          "opponent": "SSG",
+          "score": "11:4",
+          "runs": 11
+        },
+        {
           "date": "2025-04-19",
           "opponent": "SSG",
           "score": "11:4",
@@ -214,22 +241,30 @@
           "runs": 12
         },
         {
-<<<<<<< HEAD
           "date": "2025-05-04",
           "opponent": "SSG",
           "score": "12:4",
           "runs": 12
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-05-04",
+          "opponent": "SSG",
+          "score": "12:4",
+          "runs": 12
+        },
+        {
           "date": "2025-05-11",
           "opponent": "삼성",
           "score": "7:4",
           "runs": 7
         },
         {
-<<<<<<< HEAD
+          "date": "2025-05-11",
+          "opponent": "삼성",
+          "score": "7:4",
+          "runs": 7
+        },
+        {
           "date": "2025-05-11",
           "opponent": "삼성",
           "score": "7:4",
@@ -242,8 +277,12 @@
           "runs": 9
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-05-13",
+          "opponent": "키움",
+          "score": "9:6",
+          "runs": 9
+        },
+        {
           "date": "2025-05-13",
           "opponent": "키움",
           "score": "9:6",
@@ -256,22 +295,30 @@
           "runs": 12
         },
         {
-<<<<<<< HEAD
           "date": "2025-05-14",
           "opponent": "키움",
           "score": "12:0",
           "runs": 12
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-05-14",
+          "opponent": "키움",
+          "score": "12:0",
+          "runs": 12
+        },
+        {
           "date": "2025-05-20",
           "opponent": "롯데",
           "score": "17:9",
           "runs": 17
         },
         {
-<<<<<<< HEAD
+          "date": "2025-05-20",
+          "opponent": "롯데",
+          "score": "17:9",
+          "runs": 17
+        },
+        {
           "date": "2025-05-20",
           "opponent": "롯데",
           "score": "17:9",
@@ -284,8 +331,12 @@
           "runs": 9
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-05-25",
+          "opponent": "SSG",
+          "score": "9:3",
+          "runs": 9
+        },
+        {
           "date": "2025-05-25",
           "opponent": "SSG",
           "score": "9:3",
@@ -298,22 +349,30 @@
           "runs": 15
         },
         {
-<<<<<<< HEAD
           "date": "2025-06-03",
           "opponent": "NC",
           "score": "15:0",
           "runs": 15
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-06-03",
+          "opponent": "NC",
+          "score": "15:0",
+          "runs": 15
+        },
+        {
           "date": "2025-06-08",
           "opponent": "키움",
           "score": "7:2",
           "runs": 7
         },
         {
-<<<<<<< HEAD
+          "date": "2025-06-08",
+          "opponent": "키움",
+          "score": "7:2",
+          "runs": 7
+        },
+        {
           "date": "2025-06-08",
           "opponent": "키움",
           "score": "7:2",
@@ -326,8 +385,12 @@
           "runs": 8
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-06-12",
+          "opponent": "SSG",
+          "score": "8:6",
+          "runs": 8
+        },
+        {
           "date": "2025-06-12",
           "opponent": "SSG",
           "score": "8:6",
@@ -340,22 +403,30 @@
           "runs": 9
         },
         {
-<<<<<<< HEAD
           "date": "2025-06-18",
           "opponent": "NC",
           "score": "9:8",
           "runs": 9
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-06-18",
+          "opponent": "NC",
+          "score": "9:8",
+          "runs": 9
+        },
+        {
           "date": "2025-06-22",
           "opponent": "두산",
           "score": "13:5",
           "runs": 13
         },
         {
-<<<<<<< HEAD
+          "date": "2025-06-22",
+          "opponent": "두산",
+          "score": "13:5",
+          "runs": 13
+        },
+        {
           "date": "2025-06-22",
           "opponent": "두산",
           "score": "13:5",
@@ -368,8 +439,12 @@
           "runs": 12
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-07-09",
+          "opponent": "키움",
+          "score": "12:6",
+          "runs": 12
+        },
+        {
           "date": "2025-07-09",
           "opponent": "키움",
           "score": "12:6",
@@ -382,22 +457,30 @@
           "runs": 9
         },
         {
-<<<<<<< HEAD
           "date": "2025-07-22",
           "opponent": "KIA",
           "score": "9:7",
           "runs": 9
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-07-22",
+          "opponent": "KIA",
+          "score": "9:7",
+          "runs": 9
+        },
+        {
           "date": "2025-07-24",
           "opponent": "KIA",
           "score": "8:0",
           "runs": 8
         },
         {
-<<<<<<< HEAD
+          "date": "2025-07-24",
+          "opponent": "KIA",
+          "score": "8:0",
+          "runs": 8
+        },
+        {
           "date": "2025-07-24",
           "opponent": "KIA",
           "score": "8:0",
@@ -410,8 +493,12 @@
           "runs": 8
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-07-29",
+          "opponent": "KT",
+          "score": "8:2",
+          "runs": 8
+        },
+        {
           "date": "2025-07-29",
           "opponent": "KT",
           "score": "8:2",
@@ -424,7 +511,12 @@
           "runs": 18
         },
         {
-<<<<<<< HEAD
+          "date": "2025-07-31",
+          "opponent": "KT",
+          "score": "18:0",
+          "runs": 18
+        },
+        {
           "date": "2025-07-31",
           "opponent": "KT",
           "score": "18:0",
@@ -437,8 +529,12 @@
           "runs": 8
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-08-09",
+          "opponent": "한화",
+          "score": "8:1",
+          "runs": 8
+        },
+        {
           "date": "2025-08-09",
           "opponent": "한화",
           "score": "8:1",
@@ -451,22 +547,30 @@
           "runs": 11
         },
         {
-<<<<<<< HEAD
           "date": "2025-08-12",
           "opponent": "KT",
           "score": "11:2",
           "runs": 11
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-08-12",
+          "opponent": "KT",
+          "score": "11:2",
+          "runs": 11
+        },
+        {
           "date": "2025-08-22",
           "opponent": "KIA",
           "score": "14:2",
           "runs": 14
         },
         {
-<<<<<<< HEAD
+          "date": "2025-08-22",
+          "opponent": "KIA",
+          "score": "14:2",
+          "runs": 14
+        },
+        {
           "date": "2025-08-22",
           "opponent": "KIA",
           "score": "14:2",
@@ -479,8 +583,12 @@
           "runs": 10
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-08-27",
+          "opponent": "NC",
+          "score": "10:1",
+          "runs": 10
+        },
+        {
           "date": "2025-08-27",
           "opponent": "NC",
           "score": "10:1",
@@ -499,7 +607,18 @@
           "runs": 10
         },
         {
-<<<<<<< HEAD
+          "date": "2025-09-04",
+          "opponent": "KT",
+          "score": "10:8",
+          "runs": 10
+        },
+        {
+          "date": "2025-09-04",
+          "opponent": "KT",
+          "score": "10:8",
+          "runs": 10
+        },
+        {
           "date": "2025-09-04",
           "opponent": "KT",
           "score": "10:8",
@@ -524,8 +643,18 @@
           "runs": 8
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-09-10",
+          "opponent": "두산",
+          "score": "8:4",
+          "runs": 8
+        },
+        {
+          "date": "2025-09-10",
+          "opponent": "두산",
+          "score": "8:4",
+          "runs": 8
+        },
+        {
           "date": "2025-09-10",
           "opponent": "두산",
           "score": "8:4",
@@ -538,11 +667,7 @@
           "runs": 8
         }
       ],
-<<<<<<< HEAD
-      "blowoutLosses": 14,
-=======
-      "blowoutLosses": 7,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+      "blowoutLosses": 21,
       "blowoutAllowed": [
         {
           "date": "2025-03-16",
@@ -551,22 +676,30 @@
           "diff": 7
         },
         {
-<<<<<<< HEAD
           "date": "2025-03-16",
           "opponent": "SSG",
           "score": "1:8",
           "diff": 7
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-03-16",
+          "opponent": "SSG",
+          "score": "1:8",
+          "diff": 7
+        },
+        {
           "date": "2025-04-13",
           "opponent": "두산",
           "score": "2:9",
           "diff": 7
         },
         {
-<<<<<<< HEAD
+          "date": "2025-04-13",
+          "opponent": "두산",
+          "score": "2:9",
+          "diff": 7
+        },
+        {
           "date": "2025-04-13",
           "opponent": "두산",
           "score": "2:9",
@@ -579,8 +712,12 @@
           "diff": 8
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-05-17",
+          "opponent": "KT",
+          "score": "4:12",
+          "diff": 8
+        },
+        {
           "date": "2025-05-17",
           "opponent": "KT",
           "score": "4:12",
@@ -593,22 +730,30 @@
           "diff": 7
         },
         {
-<<<<<<< HEAD
           "date": "2025-05-22",
           "opponent": "롯데",
           "score": "4:11",
           "diff": 7
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-05-22",
+          "opponent": "롯데",
+          "score": "4:11",
+          "diff": 7
+        },
+        {
           "date": "2025-06-29",
           "opponent": "KIA",
           "score": "2:12",
           "diff": 10
         },
         {
-<<<<<<< HEAD
+          "date": "2025-06-29",
+          "opponent": "KIA",
+          "score": "2:12",
+          "diff": 10
+        },
+        {
           "date": "2025-06-29",
           "opponent": "KIA",
           "score": "2:12",
@@ -627,8 +772,18 @@
           "diff": 9
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-09-09",
+          "opponent": "키움",
+          "score": "2:11",
+          "diff": 9
+        },
+        {
+          "date": "2025-09-09",
+          "opponent": "키움",
+          "score": "2:11",
+          "diff": 9
+        },
+        {
           "date": "2025-09-09",
           "opponent": "키움",
           "score": "2:11",
@@ -641,19 +796,11 @@
           "diff": 9
         }
       ],
-<<<<<<< HEAD
-      "shutoutWins": 22,
-      "shutoutLosses": 8,
-      "highScoringGames": 38,
-      "highScoringWins": 38,
-      "scorelessGames": 8,
-=======
-      "shutoutWins": 11,
-      "shutoutLosses": 4,
-      "highScoringGames": 19,
-      "highScoringWins": 19,
-      "scorelessGames": 4,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+      "shutoutWins": 33,
+      "shutoutLosses": 12,
+      "highScoringGames": 57,
+      "highScoringWins": 57,
+      "scorelessGames": 12,
       "comebackPotential": {
         "trailingWins": 0,
         "leadBlownLosses": 0
@@ -661,37 +808,20 @@
       "clutchIndex": "55.7"
     },
     "한화": {
-<<<<<<< HEAD
-      "totalGames": 288,
-      "oneRunGames": 82,
-      "oneRunWins": 46,
-      "oneRunLosses": 36,
+      "totalGames": 432,
+      "oneRunGames": 123,
+      "oneRunWins": 69,
+      "oneRunLosses": 54,
       "oneRunWinRate": "56.1",
-      "closeGames": 140,
-      "closeWins": 80,
-      "closeLosses": 60,
+      "closeGames": 210,
+      "closeWins": 120,
+      "closeLosses": 90,
       "closeWinRate": "57.1",
-      "threeRunGames": 86,
-      "threeRunWins": 50,
-      "threeRunLosses": 36,
+      "threeRunGames": 129,
+      "threeRunWins": 75,
+      "threeRunLosses": 54,
       "threeRunWinRate": "58.1",
-      "blowoutWins": 74,
-=======
-      "totalGames": 144,
-      "oneRunGames": 41,
-      "oneRunWins": 23,
-      "oneRunLosses": 18,
-      "oneRunWinRate": "56.1",
-      "closeGames": 70,
-      "closeWins": 40,
-      "closeLosses": 30,
-      "closeWinRate": "57.1",
-      "threeRunGames": 43,
-      "threeRunWins": 25,
-      "threeRunLosses": 18,
-      "threeRunWinRate": "58.1",
-      "blowoutWins": 37,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+      "blowoutWins": 111,
       "blowoutScored": [
         {
           "date": "2025-03-11",
@@ -700,22 +830,30 @@
           "runs": 8
         },
         {
-<<<<<<< HEAD
           "date": "2025-03-11",
           "opponent": "SSG",
           "score": "8:0",
           "runs": 8
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-03-11",
+          "opponent": "SSG",
+          "score": "8:0",
+          "runs": 8
+        },
+        {
           "date": "2025-03-28",
           "opponent": "KIA",
           "score": "7:2",
           "runs": 7
         },
         {
-<<<<<<< HEAD
+          "date": "2025-03-28",
+          "opponent": "KIA",
+          "score": "7:2",
+          "runs": 7
+        },
+        {
           "date": "2025-03-28",
           "opponent": "KIA",
           "score": "7:2",
@@ -728,8 +866,12 @@
           "runs": 7
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-04-05",
+          "opponent": "삼성",
+          "score": "7:6",
+          "runs": 7
+        },
+        {
           "date": "2025-04-05",
           "opponent": "삼성",
           "score": "7:6",
@@ -742,22 +884,30 @@
           "runs": 7
         },
         {
-<<<<<<< HEAD
           "date": "2025-04-10",
           "opponent": "두산",
           "score": "7:2",
           "runs": 7
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-04-10",
+          "opponent": "두산",
+          "score": "7:2",
+          "runs": 7
+        },
+        {
           "date": "2025-04-11",
           "opponent": "키움",
           "score": "12:2",
           "runs": 12
         },
         {
-<<<<<<< HEAD
+          "date": "2025-04-11",
+          "opponent": "키움",
+          "score": "12:2",
+          "runs": 12
+        },
+        {
           "date": "2025-04-11",
           "opponent": "키움",
           "score": "12:2",
@@ -770,8 +920,12 @@
           "runs": 7
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-04-13",
+          "opponent": "키움",
+          "score": "7:1",
+          "runs": 7
+        },
+        {
           "date": "2025-04-13",
           "opponent": "키움",
           "score": "7:1",
@@ -784,7 +938,12 @@
           "runs": 10
         },
         {
-<<<<<<< HEAD
+          "date": "2025-04-16",
+          "opponent": "SSG",
+          "score": "10:4",
+          "runs": 10
+        },
+        {
           "date": "2025-04-16",
           "opponent": "SSG",
           "score": "10:4",
@@ -797,8 +956,12 @@
           "runs": 12
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-04-18",
+          "opponent": "NC",
+          "score": "12:4",
+          "runs": 12
+        },
+        {
           "date": "2025-04-18",
           "opponent": "NC",
           "score": "12:4",
@@ -811,7 +974,12 @@
           "runs": 7
         },
         {
-<<<<<<< HEAD
+          "date": "2025-04-19",
+          "opponent": "NC",
+          "score": "7:2",
+          "runs": 7
+        },
+        {
           "date": "2025-04-19",
           "opponent": "NC",
           "score": "7:2",
@@ -824,8 +992,12 @@
           "runs": 7
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-04-20",
+          "opponent": "NC",
+          "score": "7:1",
+          "runs": 7
+        },
+        {
           "date": "2025-04-20",
           "opponent": "NC",
           "score": "7:1",
@@ -838,7 +1010,12 @@
           "runs": 10
         },
         {
-<<<<<<< HEAD
+          "date": "2025-05-07",
+          "opponent": "삼성",
+          "score": "10:6",
+          "runs": 10
+        },
+        {
           "date": "2025-05-07",
           "opponent": "삼성",
           "score": "10:6",
@@ -851,8 +1028,12 @@
           "runs": 7
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-05-09",
+          "opponent": "키움",
+          "score": "7:5",
+          "runs": 7
+        },
+        {
           "date": "2025-05-09",
           "opponent": "키움",
           "score": "7:5",
@@ -865,22 +1046,30 @@
           "runs": 9
         },
         {
-<<<<<<< HEAD
           "date": "2025-05-10",
           "opponent": "키움",
           "score": "9:1",
           "runs": 9
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-05-10",
+          "opponent": "키움",
+          "score": "9:1",
+          "runs": 9
+        },
+        {
           "date": "2025-05-11",
           "opponent": "키움",
           "score": "8:0",
           "runs": 8
         },
         {
-<<<<<<< HEAD
+          "date": "2025-05-11",
+          "opponent": "키움",
+          "score": "8:0",
+          "runs": 8
+        },
+        {
           "date": "2025-05-11",
           "opponent": "키움",
           "score": "8:0",
@@ -893,8 +1082,12 @@
           "runs": 8
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-05-25",
+          "opponent": "롯데",
+          "score": "8:7",
+          "runs": 8
+        },
+        {
           "date": "2025-05-25",
           "opponent": "롯데",
           "score": "8:7",
@@ -907,22 +1100,30 @@
           "runs": 7
         },
         {
-<<<<<<< HEAD
           "date": "2025-05-30",
           "opponent": "NC",
           "score": "7:1",
           "runs": 7
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-05-30",
+          "opponent": "NC",
+          "score": "7:1",
+          "runs": 7
+        },
+        {
           "date": "2025-05-31",
           "opponent": "NC",
           "score": "9:6",
           "runs": 9
         },
         {
-<<<<<<< HEAD
+          "date": "2025-05-31",
+          "opponent": "NC",
+          "score": "9:6",
+          "runs": 9
+        },
+        {
           "date": "2025-05-31",
           "opponent": "NC",
           "score": "9:6",
@@ -935,8 +1136,12 @@
           "runs": 10
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-06-03",
+          "opponent": "KT",
+          "score": "10:1",
+          "runs": 10
+        },
+        {
           "date": "2025-06-03",
           "opponent": "KT",
           "score": "10:1",
@@ -949,22 +1154,30 @@
           "runs": 9
         },
         {
-<<<<<<< HEAD
           "date": "2025-06-11",
           "opponent": "두산",
           "score": "9:1",
           "runs": 9
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-06-11",
+          "opponent": "두산",
+          "score": "9:1",
+          "runs": 9
+        },
+        {
           "date": "2025-06-15",
           "opponent": "LG",
           "score": "10:5",
           "runs": 10
         },
         {
-<<<<<<< HEAD
+          "date": "2025-06-15",
+          "opponent": "LG",
+          "score": "10:5",
+          "runs": 10
+        },
+        {
           "date": "2025-06-15",
           "opponent": "LG",
           "score": "10:5",
@@ -977,8 +1190,12 @@
           "runs": 10
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-06-22",
+          "opponent": "키움",
+          "score": "10:4",
+          "runs": 10
+        },
+        {
           "date": "2025-06-22",
           "opponent": "키움",
           "score": "10:4",
@@ -991,22 +1208,30 @@
           "runs": 8
         },
         {
-<<<<<<< HEAD
           "date": "2025-07-01",
           "opponent": "NC",
           "score": "8:4",
           "runs": 8
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-07-01",
+          "opponent": "NC",
+          "score": "8:4",
+          "runs": 8
+        },
+        {
           "date": "2025-07-06",
           "opponent": "키움",
           "score": "10:1",
           "runs": 10
         },
         {
-<<<<<<< HEAD
+          "date": "2025-07-06",
+          "opponent": "키움",
+          "score": "10:1",
+          "runs": 10
+        },
+        {
           "date": "2025-07-06",
           "opponent": "키움",
           "score": "10:1",
@@ -1019,8 +1244,12 @@
           "runs": 14
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-07-08",
+          "opponent": "KIA",
+          "score": "14:8",
+          "runs": 14
+        },
+        {
           "date": "2025-07-08",
           "opponent": "KIA",
           "score": "14:8",
@@ -1033,7 +1262,12 @@
           "runs": 7
         },
         {
-<<<<<<< HEAD
+          "date": "2025-07-09",
+          "opponent": "KIA",
+          "score": "7:4",
+          "runs": 7
+        },
+        {
           "date": "2025-07-09",
           "opponent": "KIA",
           "score": "7:4",
@@ -1046,8 +1280,12 @@
           "runs": 10
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-07-20",
+          "opponent": "KT",
+          "score": "10:0",
+          "runs": 10
+        },
+        {
           "date": "2025-07-20",
           "opponent": "KT",
           "score": "10:0",
@@ -1060,22 +1298,30 @@
           "runs": 7
         },
         {
-<<<<<<< HEAD
           "date": "2025-07-31",
           "opponent": "삼성",
           "score": "7:1",
           "runs": 7
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-07-31",
+          "opponent": "삼성",
+          "score": "7:1",
+          "runs": 7
+        },
+        {
           "date": "2025-08-15",
           "opponent": "NC",
           "score": "9:2",
           "runs": 9
         },
         {
-<<<<<<< HEAD
+          "date": "2025-08-15",
+          "opponent": "NC",
+          "score": "9:2",
+          "runs": 9
+        },
+        {
           "date": "2025-08-15",
           "opponent": "NC",
           "score": "9:2",
@@ -1088,8 +1334,12 @@
           "runs": 9
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-08-28",
+          "opponent": "키움",
+          "score": "9:3",
+          "runs": 9
+        },
+        {
           "date": "2025-08-28",
           "opponent": "키움",
           "score": "9:3",
@@ -1108,7 +1358,18 @@
           "runs": 21
         },
         {
-<<<<<<< HEAD
+          "date": "2025-09-02",
+          "opponent": "KIA",
+          "score": "21:3",
+          "runs": 21
+        },
+        {
+          "date": "2025-09-02",
+          "opponent": "KIA",
+          "score": "21:3",
+          "runs": 21
+        },
+        {
           "date": "2025-09-02",
           "opponent": "KIA",
           "score": "21:3",
@@ -1133,8 +1394,18 @@
           "runs": 7
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-09-06",
+          "opponent": "삼성",
+          "score": "7:4",
+          "runs": 7
+        },
+        {
+          "date": "2025-09-06",
+          "opponent": "삼성",
+          "score": "7:4",
+          "runs": 7
+        },
+        {
           "date": "2025-09-06",
           "opponent": "삼성",
           "score": "7:4",
@@ -1159,7 +1430,18 @@
           "runs": 9
         },
         {
-<<<<<<< HEAD
+          "date": "2025-09-09",
+          "opponent": "롯데",
+          "score": "9:1",
+          "runs": 9
+        },
+        {
+          "date": "2025-09-09",
+          "opponent": "롯데",
+          "score": "9:1",
+          "runs": 9
+        },
+        {
           "date": "2025-09-09",
           "opponent": "롯데",
           "score": "9:1",
@@ -1184,8 +1466,18 @@
           "runs": 13
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-09-10",
+          "opponent": "롯데",
+          "score": "13:0",
+          "runs": 13
+        },
+        {
+          "date": "2025-09-10",
+          "opponent": "롯데",
+          "score": "13:0",
+          "runs": 13
+        },
+        {
           "date": "2025-09-10",
           "opponent": "롯데",
           "score": "13:0",
@@ -1198,11 +1490,7 @@
           "runs": 13
         }
       ],
-<<<<<<< HEAD
-      "blowoutLosses": 12,
-=======
-      "blowoutLosses": 6,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+      "blowoutLosses": 18,
       "blowoutAllowed": [
         {
           "date": "2025-04-06",
@@ -1211,22 +1499,30 @@
           "diff": 10
         },
         {
-<<<<<<< HEAD
           "date": "2025-04-06",
           "opponent": "삼성",
           "score": "0:10",
           "diff": 10
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-04-06",
+          "opponent": "삼성",
+          "score": "0:10",
+          "diff": 10
+        },
+        {
           "date": "2025-06-01",
           "opponent": "NC",
           "score": "5:16",
           "diff": 11
         },
         {
-<<<<<<< HEAD
+          "date": "2025-06-01",
+          "opponent": "NC",
+          "score": "5:16",
+          "diff": 11
+        },
+        {
           "date": "2025-06-01",
           "opponent": "NC",
           "score": "5:16",
@@ -1239,8 +1535,12 @@
           "diff": 7
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-06-05",
+          "opponent": "KT",
+          "score": "0:7",
+          "diff": 7
+        },
+        {
           "date": "2025-06-05",
           "opponent": "KT",
           "score": "0:7",
@@ -1253,22 +1553,30 @@
           "diff": 11
         },
         {
-<<<<<<< HEAD
           "date": "2025-07-23",
           "opponent": "두산",
           "score": "2:13",
           "diff": 11
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-07-23",
+          "opponent": "두산",
+          "score": "2:13",
+          "diff": 11
+        },
+        {
           "date": "2025-07-29",
           "opponent": "삼성",
           "score": "2:9",
           "diff": 7
         },
         {
-<<<<<<< HEAD
+          "date": "2025-07-29",
+          "opponent": "삼성",
+          "score": "2:9",
+          "diff": 7
+        },
+        {
           "date": "2025-07-29",
           "opponent": "삼성",
           "score": "2:9",
@@ -1281,27 +1589,23 @@
           "diff": 7
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-08-09",
+          "opponent": "LG",
+          "score": "1:8",
+          "diff": 7
+        },
+        {
           "date": "2025-08-09",
           "opponent": "LG",
           "score": "1:8",
           "diff": 7
         }
       ],
-<<<<<<< HEAD
-      "shutoutWins": 30,
-      "shutoutLosses": 18,
-      "highScoringGames": 28,
-      "highScoringWins": 28,
-      "scorelessGames": 18,
-=======
-      "shutoutWins": 15,
-      "shutoutLosses": 9,
-      "highScoringGames": 14,
-      "highScoringWins": 14,
-      "scorelessGames": 9,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+      "shutoutWins": 45,
+      "shutoutLosses": 27,
+      "highScoringGames": 42,
+      "highScoringWins": 42,
+      "scorelessGames": 27,
       "comebackPotential": {
         "trailingWins": 0,
         "leadBlownLosses": 0
@@ -1309,37 +1613,20 @@
       "clutchIndex": "56.8"
     },
     "KIA": {
-<<<<<<< HEAD
-      "totalGames": 288,
-      "oneRunGames": 92,
-      "oneRunWins": 42,
-      "oneRunLosses": 50,
+      "totalGames": 432,
+      "oneRunGames": 138,
+      "oneRunWins": 63,
+      "oneRunLosses": 75,
       "oneRunWinRate": "45.7",
-      "closeGames": 132,
-      "closeWins": 64,
-      "closeLosses": 68,
+      "closeGames": 198,
+      "closeWins": 96,
+      "closeLosses": 102,
       "closeWinRate": "48.5",
-      "threeRunGames": 72,
-      "threeRunWins": 36,
-      "threeRunLosses": 36,
+      "threeRunGames": 108,
+      "threeRunWins": 54,
+      "threeRunLosses": 54,
       "threeRunWinRate": "50.0",
-      "blowoutWins": 60,
-=======
-      "totalGames": 144,
-      "oneRunGames": 46,
-      "oneRunWins": 21,
-      "oneRunLosses": 25,
-      "oneRunWinRate": "45.7",
-      "closeGames": 66,
-      "closeWins": 32,
-      "closeLosses": 34,
-      "closeWinRate": "48.5",
-      "threeRunGames": 36,
-      "threeRunWins": 18,
-      "threeRunLosses": 18,
-      "threeRunWinRate": "50.0",
-      "blowoutWins": 30,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+      "blowoutWins": 90,
       "blowoutScored": [
         {
           "date": "2025-03-11",
@@ -1348,22 +1635,30 @@
           "runs": 17
         },
         {
-<<<<<<< HEAD
           "date": "2025-03-11",
           "opponent": "NC",
           "score": "17:10",
           "runs": 17
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-03-11",
+          "opponent": "NC",
+          "score": "17:10",
+          "runs": 17
+        },
+        {
           "date": "2025-03-16",
           "opponent": "삼성",
           "score": "11:5",
           "runs": 11
         },
         {
-<<<<<<< HEAD
+          "date": "2025-03-16",
+          "opponent": "삼성",
+          "score": "11:5",
+          "runs": 11
+        },
+        {
           "date": "2025-03-16",
           "opponent": "삼성",
           "score": "11:5",
@@ -1376,8 +1671,12 @@
           "runs": 9
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-03-22",
+          "opponent": "NC",
+          "score": "9:2",
+          "runs": 9
+        },
+        {
           "date": "2025-03-22",
           "opponent": "NC",
           "score": "9:2",
@@ -1390,7 +1689,12 @@
           "runs": 11
         },
         {
-<<<<<<< HEAD
+          "date": "2025-03-25",
+          "opponent": "키움",
+          "score": "11:6",
+          "runs": 11
+        },
+        {
           "date": "2025-03-25",
           "opponent": "키움",
           "score": "11:6",
@@ -1403,8 +1707,12 @@
           "runs": 11
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-04-13",
+          "opponent": "SSG",
+          "score": "11:5",
+          "runs": 11
+        },
+        {
           "date": "2025-04-13",
           "opponent": "SSG",
           "score": "11:5",
@@ -1417,7 +1725,12 @@
           "runs": 8
         },
         {
-<<<<<<< HEAD
+          "date": "2025-04-19",
+          "opponent": "두산",
+          "score": "8:4",
+          "runs": 8
+        },
+        {
           "date": "2025-04-19",
           "opponent": "두산",
           "score": "8:4",
@@ -1430,8 +1743,12 @@
           "runs": 8
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-04-26",
+          "opponent": "LG",
+          "score": "8:4",
+          "runs": 8
+        },
+        {
           "date": "2025-04-26",
           "opponent": "LG",
           "score": "8:4",
@@ -1444,22 +1761,30 @@
           "runs": 13
         },
         {
-<<<<<<< HEAD
           "date": "2025-04-29",
           "opponent": "NC",
           "score": "13:3",
           "runs": 13
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-04-29",
+          "opponent": "NC",
+          "score": "13:3",
+          "runs": 13
+        },
+        {
           "date": "2025-05-05",
           "opponent": "키움",
           "score": "13:1",
           "runs": 13
         },
         {
-<<<<<<< HEAD
+          "date": "2025-05-05",
+          "opponent": "키움",
+          "score": "13:1",
+          "runs": 13
+        },
+        {
           "date": "2025-05-05",
           "opponent": "키움",
           "score": "13:1",
@@ -1472,8 +1797,12 @@
           "runs": 7
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-05-15",
+          "opponent": "롯데",
+          "score": "7:6",
+          "runs": 7
+        },
+        {
           "date": "2025-05-15",
           "opponent": "롯데",
           "score": "7:6",
@@ -1486,22 +1815,30 @@
           "runs": 8
         },
         {
-<<<<<<< HEAD
           "date": "2025-05-22",
           "opponent": "KT",
           "score": "8:3",
           "runs": 8
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-05-22",
+          "opponent": "KT",
+          "score": "8:3",
+          "runs": 8
+        },
+        {
           "date": "2025-05-23",
           "opponent": "삼성",
           "score": "7:6",
           "runs": 7
         },
         {
-<<<<<<< HEAD
+          "date": "2025-05-23",
+          "opponent": "삼성",
+          "score": "7:6",
+          "runs": 7
+        },
+        {
           "date": "2025-05-23",
           "opponent": "삼성",
           "score": "7:6",
@@ -1514,8 +1851,12 @@
           "runs": 7
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-05-27",
+          "opponent": "키움",
+          "score": "7:5",
+          "runs": 7
+        },
+        {
           "date": "2025-05-27",
           "opponent": "키움",
           "score": "7:5",
@@ -1528,22 +1869,30 @@
           "runs": 13
         },
         {
-<<<<<<< HEAD
           "date": "2025-05-28",
           "opponent": "키움",
           "score": "13:7",
           "runs": 13
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-05-28",
+          "opponent": "키움",
+          "score": "13:7",
+          "runs": 13
+        },
+        {
           "date": "2025-06-03",
           "opponent": "두산",
           "score": "11:3",
           "runs": 11
         },
         {
-<<<<<<< HEAD
+          "date": "2025-06-03",
+          "opponent": "두산",
+          "score": "11:3",
+          "runs": 11
+        },
+        {
           "date": "2025-06-03",
           "opponent": "두산",
           "score": "11:3",
@@ -1556,8 +1905,12 @@
           "runs": 8
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-06-04",
+          "opponent": "두산",
+          "score": "8:3",
+          "runs": 8
+        },
+        {
           "date": "2025-06-04",
           "opponent": "두산",
           "score": "8:3",
@@ -1570,22 +1923,30 @@
           "runs": 7
         },
         {
-<<<<<<< HEAD
           "date": "2025-06-08",
           "opponent": "한화",
           "score": "7:6",
           "runs": 7
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-06-08",
+          "opponent": "한화",
+          "score": "7:6",
+          "runs": 7
+        },
+        {
           "date": "2025-06-14",
           "opponent": "NC",
           "score": "9:8",
           "runs": 9
         },
         {
-<<<<<<< HEAD
+          "date": "2025-06-14",
+          "opponent": "NC",
+          "score": "9:8",
+          "runs": 9
+        },
+        {
           "date": "2025-06-14",
           "opponent": "NC",
           "score": "9:8",
@@ -1598,8 +1959,12 @@
           "runs": 10
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-06-17",
+          "opponent": "KT",
+          "score": "10:3",
+          "runs": 10
+        },
+        {
           "date": "2025-06-17",
           "opponent": "KT",
           "score": "10:3",
@@ -1612,22 +1977,30 @@
           "runs": 9
         },
         {
-<<<<<<< HEAD
           "date": "2025-06-28",
           "opponent": "LG",
           "score": "9:8",
           "runs": 9
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-06-28",
+          "opponent": "LG",
+          "score": "9:8",
+          "runs": 9
+        },
+        {
           "date": "2025-06-29",
           "opponent": "LG",
           "score": "12:2",
           "runs": 12
         },
         {
-<<<<<<< HEAD
+          "date": "2025-06-29",
+          "opponent": "LG",
+          "score": "12:2",
+          "runs": 12
+        },
+        {
           "date": "2025-06-29",
           "opponent": "LG",
           "score": "12:2",
@@ -1640,8 +2013,12 @@
           "runs": 7
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-07-04",
+          "opponent": "롯데",
+          "score": "7:5",
+          "runs": 7
+        },
+        {
           "date": "2025-07-04",
           "opponent": "롯데",
           "score": "7:5",
@@ -1654,22 +2031,30 @@
           "runs": 13
         },
         {
-<<<<<<< HEAD
           "date": "2025-07-05",
           "opponent": "롯데",
           "score": "13:0",
           "runs": 13
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-07-05",
+          "opponent": "롯데",
+          "score": "13:0",
+          "runs": 13
+        },
+        {
           "date": "2025-08-13",
           "opponent": "삼성",
           "score": "9:1",
           "runs": 9
         },
         {
-<<<<<<< HEAD
+          "date": "2025-08-13",
+          "opponent": "삼성",
+          "score": "9:1",
+          "runs": 9
+        },
+        {
           "date": "2025-08-13",
           "opponent": "삼성",
           "score": "9:1",
@@ -1682,8 +2067,12 @@
           "runs": 10
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-08-14",
+          "opponent": "삼성",
+          "score": "10:4",
+          "runs": 10
+        },
+        {
           "date": "2025-08-14",
           "opponent": "삼성",
           "score": "10:4",
@@ -1696,7 +2085,12 @@
           "runs": 12
         },
         {
-<<<<<<< HEAD
+          "date": "2025-08-19",
+          "opponent": "키움",
+          "score": "12:9",
+          "runs": 12
+        },
+        {
           "date": "2025-08-19",
           "opponent": "키움",
           "score": "12:9",
@@ -1709,8 +2103,12 @@
           "runs": 10
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-08-28",
+          "opponent": "SSG",
+          "score": "10:6",
+          "runs": 10
+        },
+        {
           "date": "2025-08-28",
           "opponent": "SSG",
           "score": "10:6",
@@ -1723,7 +2121,12 @@
           "runs": 10
         },
         {
-<<<<<<< HEAD
+          "date": "2025-08-29",
+          "opponent": "KT",
+          "score": "10:1",
+          "runs": 10
+        },
+        {
           "date": "2025-08-29",
           "opponent": "KT",
           "score": "10:1",
@@ -1742,8 +2145,18 @@
           "runs": 8
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-09-06",
+          "opponent": "NC",
+          "score": "8:4",
+          "runs": 8
+        },
+        {
+          "date": "2025-09-06",
+          "opponent": "NC",
+          "score": "8:4",
+          "runs": 8
+        },
+        {
           "date": "2025-09-06",
           "opponent": "NC",
           "score": "8:4",
@@ -1756,11 +2169,7 @@
           "runs": 8
         }
       ],
-<<<<<<< HEAD
-      "blowoutLosses": 16,
-=======
-      "blowoutLosses": 8,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+      "blowoutLosses": 24,
       "blowoutAllowed": [
         {
           "date": "2025-03-26",
@@ -1769,22 +2178,30 @@
           "diff": 7
         },
         {
-<<<<<<< HEAD
           "date": "2025-03-26",
           "opponent": "키움",
           "score": "10:17",
           "diff": 7
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-03-26",
+          "opponent": "키움",
+          "score": "10:17",
+          "diff": 7
+        },
+        {
           "date": "2025-04-24",
           "opponent": "삼성",
           "score": "5:17",
           "diff": 12
         },
         {
-<<<<<<< HEAD
+          "date": "2025-04-24",
+          "opponent": "삼성",
+          "score": "5:17",
+          "diff": 12
+        },
+        {
           "date": "2025-04-24",
           "opponent": "삼성",
           "score": "5:17",
@@ -1797,8 +2214,12 @@
           "diff": 7
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-04-30",
+          "opponent": "NC",
+          "score": "0:7",
+          "diff": 7
+        },
+        {
           "date": "2025-04-30",
           "opponent": "NC",
           "score": "0:7",
@@ -1811,7 +2232,12 @@
           "diff": 8
         },
         {
-<<<<<<< HEAD
+          "date": "2025-06-10",
+          "opponent": "삼성",
+          "score": "0:8",
+          "diff": 8
+        },
+        {
           "date": "2025-06-10",
           "opponent": "삼성",
           "score": "0:8",
@@ -1824,8 +2250,12 @@
           "diff": 8
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-07-24",
+          "opponent": "LG",
+          "score": "0:8",
+          "diff": 8
+        },
+        {
           "date": "2025-07-24",
           "opponent": "LG",
           "score": "0:8",
@@ -1838,7 +2268,12 @@
           "diff": 12
         },
         {
-<<<<<<< HEAD
+          "date": "2025-08-22",
+          "opponent": "LG",
+          "score": "2:14",
+          "diff": 12
+        },
+        {
           "date": "2025-08-22",
           "opponent": "LG",
           "score": "2:14",
@@ -1857,8 +2292,18 @@
           "diff": 18
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-09-02",
+          "opponent": "한화",
+          "score": "3:21",
+          "diff": 18
+        },
+        {
+          "date": "2025-09-02",
+          "opponent": "한화",
+          "score": "3:21",
+          "diff": 18
+        },
+        {
           "date": "2025-09-02",
           "opponent": "한화",
           "score": "3:21",
@@ -1871,19 +2316,11 @@
           "diff": 18
         }
       ],
-<<<<<<< HEAD
-      "shutoutWins": 12,
-      "shutoutLosses": 10,
-      "highScoringGames": 38,
-      "highScoringWins": 30,
-      "scorelessGames": 10,
-=======
-      "shutoutWins": 6,
-      "shutoutLosses": 5,
-      "highScoringGames": 19,
-      "highScoringWins": 15,
-      "scorelessGames": 5,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+      "shutoutWins": 18,
+      "shutoutLosses": 15,
+      "highScoringGames": 57,
+      "highScoringWins": 45,
+      "scorelessGames": 15,
       "comebackPotential": {
         "trailingWins": 0,
         "leadBlownLosses": 0
@@ -1891,37 +2328,20 @@
       "clutchIndex": "47.4"
     },
     "삼성": {
-<<<<<<< HEAD
-      "totalGames": 292,
-      "oneRunGames": 52,
-      "oneRunWins": 20,
-      "oneRunLosses": 32,
+      "totalGames": 438,
+      "oneRunGames": 78,
+      "oneRunWins": 30,
+      "oneRunLosses": 48,
       "oneRunWinRate": "38.5",
-      "closeGames": 112,
-      "closeWins": 44,
-      "closeLosses": 68,
+      "closeGames": 168,
+      "closeWins": 66,
+      "closeLosses": 102,
       "closeWinRate": "39.3",
-      "threeRunGames": 106,
-      "threeRunWins": 40,
-      "threeRunLosses": 66,
+      "threeRunGames": 159,
+      "threeRunWins": 60,
+      "threeRunLosses": 99,
       "threeRunWinRate": "37.7",
-      "blowoutWins": 72,
-=======
-      "totalGames": 146,
-      "oneRunGames": 26,
-      "oneRunWins": 10,
-      "oneRunLosses": 16,
-      "oneRunWinRate": "38.5",
-      "closeGames": 56,
-      "closeWins": 22,
-      "closeLosses": 34,
-      "closeWinRate": "39.3",
-      "threeRunGames": 53,
-      "threeRunWins": 20,
-      "threeRunLosses": 33,
-      "threeRunWinRate": "37.7",
-      "blowoutWins": 36,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+      "blowoutWins": 108,
       "blowoutScored": [
         {
           "date": "2025-03-09",
@@ -1930,22 +2350,30 @@
           "runs": 7
         },
         {
-<<<<<<< HEAD
           "date": "2025-03-09",
           "opponent": "SSG",
           "score": "7:0",
           "runs": 7
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-03-09",
+          "opponent": "SSG",
+          "score": "7:0",
+          "runs": 7
+        },
+        {
           "date": "2025-03-11",
           "opponent": "두산",
           "score": "11:8",
           "runs": 11
         },
         {
-<<<<<<< HEAD
+          "date": "2025-03-11",
+          "opponent": "두산",
+          "score": "11:8",
+          "runs": 11
+        },
+        {
           "date": "2025-03-11",
           "opponent": "두산",
           "score": "11:8",
@@ -1958,8 +2386,12 @@
           "runs": 13
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-03-22",
+          "opponent": "키움",
+          "score": "13:5",
+          "runs": 13
+        },
+        {
           "date": "2025-03-22",
           "opponent": "키움",
           "score": "13:5",
@@ -1972,22 +2404,30 @@
           "runs": 11
         },
         {
-<<<<<<< HEAD
           "date": "2025-03-23",
           "opponent": "키움",
           "score": "11:7",
           "runs": 11
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-03-23",
+          "opponent": "키움",
+          "score": "11:7",
+          "runs": 11
+        },
+        {
           "date": "2025-03-25",
           "opponent": "NC",
           "score": "14:5",
           "runs": 14
         },
         {
-<<<<<<< HEAD
+          "date": "2025-03-25",
+          "opponent": "NC",
+          "score": "14:5",
+          "runs": 14
+        },
+        {
           "date": "2025-03-25",
           "opponent": "NC",
           "score": "14:5",
@@ -2000,8 +2440,12 @@
           "runs": 13
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-03-29",
+          "opponent": "두산",
+          "score": "13:2",
+          "runs": 13
+        },
+        {
           "date": "2025-03-29",
           "opponent": "두산",
           "score": "13:2",
@@ -2014,22 +2458,30 @@
           "runs": 10
         },
         {
-<<<<<<< HEAD
           "date": "2025-04-06",
           "opponent": "한화",
           "score": "10:0",
           "runs": 10
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-04-06",
+          "opponent": "한화",
+          "score": "10:0",
+          "runs": 10
+        },
+        {
           "date": "2025-04-08",
           "opponent": "SSG",
           "score": "7:3",
           "runs": 7
         },
         {
-<<<<<<< HEAD
+          "date": "2025-04-08",
+          "opponent": "SSG",
+          "score": "7:3",
+          "runs": 7
+        },
+        {
           "date": "2025-04-08",
           "opponent": "SSG",
           "score": "7:3",
@@ -2042,8 +2494,12 @@
           "runs": 10
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-04-19",
+          "opponent": "롯데",
+          "score": "10:3",
+          "runs": 10
+        },
+        {
           "date": "2025-04-19",
           "opponent": "롯데",
           "score": "10:3",
@@ -2056,22 +2512,30 @@
           "runs": 7
         },
         {
-<<<<<<< HEAD
           "date": "2025-04-23",
           "opponent": "KIA",
           "score": "7:2",
           "runs": 7
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-04-23",
+          "opponent": "KIA",
+          "score": "7:2",
+          "runs": 7
+        },
+        {
           "date": "2025-04-24",
           "opponent": "KIA",
           "score": "17:5",
           "runs": 17
         },
         {
-<<<<<<< HEAD
+          "date": "2025-04-24",
+          "opponent": "KIA",
+          "score": "17:5",
+          "runs": 17
+        },
+        {
           "date": "2025-04-24",
           "opponent": "KIA",
           "score": "17:5",
@@ -2084,8 +2548,12 @@
           "runs": 10
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-04-25",
+          "opponent": "NC",
+          "score": "10:6",
+          "runs": 10
+        },
+        {
           "date": "2025-04-25",
           "opponent": "NC",
           "score": "10:6",
@@ -2098,22 +2566,30 @@
           "runs": 9
         },
         {
-<<<<<<< HEAD
           "date": "2025-04-26",
           "opponent": "NC",
           "score": "9:1",
           "runs": 9
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-04-26",
+          "opponent": "NC",
+          "score": "9:1",
+          "runs": 9
+        },
+        {
           "date": "2025-04-27",
           "opponent": "NC",
           "score": "8:4",
           "runs": 8
         },
         {
-<<<<<<< HEAD
+          "date": "2025-04-27",
+          "opponent": "NC",
+          "score": "8:4",
+          "runs": 8
+        },
+        {
           "date": "2025-04-27",
           "opponent": "NC",
           "score": "8:4",
@@ -2126,8 +2602,12 @@
           "runs": 13
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-05-15",
+          "opponent": "KT",
+          "score": "13:0",
+          "runs": 13
+        },
+        {
           "date": "2025-05-15",
           "opponent": "KT",
           "score": "13:0",
@@ -2140,22 +2620,30 @@
           "runs": 8
         },
         {
-<<<<<<< HEAD
           "date": "2025-05-24",
           "opponent": "KIA",
           "score": "8:4",
           "runs": 8
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-05-24",
+          "opponent": "KIA",
+          "score": "8:4",
+          "runs": 8
+        },
+        {
           "date": "2025-05-27",
           "opponent": "롯데",
           "score": "7:3",
           "runs": 7
         },
         {
-<<<<<<< HEAD
+          "date": "2025-05-27",
+          "opponent": "롯데",
+          "score": "7:3",
+          "runs": 7
+        },
+        {
           "date": "2025-05-27",
           "opponent": "롯데",
           "score": "7:3",
@@ -2168,8 +2656,12 @@
           "runs": 9
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-05-29",
+          "opponent": "롯데",
+          "score": "9:3",
+          "runs": 9
+        },
+        {
           "date": "2025-05-29",
           "opponent": "롯데",
           "score": "9:3",
@@ -2182,7 +2674,12 @@
           "runs": 7
         },
         {
-<<<<<<< HEAD
+          "date": "2025-06-06",
+          "opponent": "NC",
+          "score": "7:3",
+          "runs": 7
+        },
+        {
           "date": "2025-06-06",
           "opponent": "NC",
           "score": "7:3",
@@ -2195,8 +2692,12 @@
           "runs": 8
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-06-10",
+          "opponent": "KIA",
+          "score": "8:0",
+          "runs": 8
+        },
+        {
           "date": "2025-06-10",
           "opponent": "KIA",
           "score": "8:0",
@@ -2209,22 +2710,30 @@
           "runs": 12
         },
         {
-<<<<<<< HEAD
           "date": "2025-06-17",
           "opponent": "두산",
           "score": "12:1",
           "runs": 12
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-06-17",
+          "opponent": "두산",
+          "score": "12:1",
+          "runs": 12
+        },
+        {
           "date": "2025-06-25",
           "opponent": "한화",
           "score": "7:2",
           "runs": 7
         },
         {
-<<<<<<< HEAD
+          "date": "2025-06-25",
+          "opponent": "한화",
+          "score": "7:2",
+          "runs": 7
+        },
+        {
           "date": "2025-06-25",
           "opponent": "한화",
           "score": "7:2",
@@ -2237,8 +2746,12 @@
           "runs": 7
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-07-05",
+          "opponent": "LG",
+          "score": "7:6",
+          "runs": 7
+        },
+        {
           "date": "2025-07-05",
           "opponent": "LG",
           "score": "7:6",
@@ -2251,22 +2764,30 @@
           "runs": 15
         },
         {
-<<<<<<< HEAD
           "date": "2025-07-20",
           "opponent": "키움",
           "score": "15:10",
           "runs": 15
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-07-20",
+          "opponent": "키움",
+          "score": "15:10",
+          "runs": 15
+        },
+        {
           "date": "2025-07-22",
           "opponent": "SSG",
           "score": "7:5",
           "runs": 7
         },
         {
-<<<<<<< HEAD
+          "date": "2025-07-22",
+          "opponent": "SSG",
+          "score": "7:5",
+          "runs": 7
+        },
+        {
           "date": "2025-07-22",
           "opponent": "SSG",
           "score": "7:5",
@@ -2279,8 +2800,12 @@
           "runs": 9
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-07-23",
+          "opponent": "SSG",
+          "score": "9:0",
+          "runs": 9
+        },
+        {
           "date": "2025-07-23",
           "opponent": "SSG",
           "score": "9:0",
@@ -2293,22 +2818,30 @@
           "runs": 11
         },
         {
-<<<<<<< HEAD
           "date": "2025-07-26",
           "opponent": "KT",
           "score": "11:0",
           "runs": 11
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-07-26",
+          "opponent": "KT",
+          "score": "11:0",
+          "runs": 11
+        },
+        {
           "date": "2025-07-29",
           "opponent": "한화",
           "score": "9:2",
           "runs": 9
         },
         {
-<<<<<<< HEAD
+          "date": "2025-07-29",
+          "opponent": "한화",
+          "score": "9:2",
+          "runs": 9
+        },
+        {
           "date": "2025-07-29",
           "opponent": "한화",
           "score": "9:2",
@@ -2321,8 +2854,12 @@
           "runs": 8
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-08-08",
+          "opponent": "KT",
+          "score": "8:4",
+          "runs": 8
+        },
+        {
           "date": "2025-08-08",
           "opponent": "KT",
           "score": "8:4",
@@ -2335,22 +2872,30 @@
           "runs": 10
         },
         {
-<<<<<<< HEAD
           "date": "2025-08-15",
           "opponent": "롯데",
           "score": "10:4",
           "runs": 10
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-08-15",
+          "opponent": "롯데",
+          "score": "10:4",
+          "runs": 10
+        },
+        {
           "date": "2025-08-22",
           "opponent": "키움",
           "score": "8:2",
           "runs": 8
         },
         {
-<<<<<<< HEAD
+          "date": "2025-08-22",
+          "opponent": "키움",
+          "score": "8:2",
+          "runs": 8
+        },
+        {
           "date": "2025-08-22",
           "opponent": "키움",
           "score": "8:2",
@@ -2363,8 +2908,12 @@
           "runs": 12
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-08-23",
+          "opponent": "키움",
+          "score": "12:8",
+          "runs": 12
+        },
+        {
           "date": "2025-08-23",
           "opponent": "키움",
           "score": "12:8",
@@ -2377,22 +2926,30 @@
           "runs": 7
         },
         {
-<<<<<<< HEAD
           "date": "2025-08-24",
           "opponent": "키움",
           "score": "7:4",
           "runs": 7
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-08-24",
+          "opponent": "키움",
+          "score": "7:4",
+          "runs": 7
+        },
+        {
           "date": "2025-08-27",
           "opponent": "두산",
           "score": "14:1",
           "runs": 14
         },
         {
-<<<<<<< HEAD
+          "date": "2025-08-27",
+          "opponent": "두산",
+          "score": "14:1",
+          "runs": 14
+        },
+        {
           "date": "2025-08-27",
           "opponent": "두산",
           "score": "14:1",
@@ -2411,8 +2968,18 @@
           "runs": 8
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-09-05",
+          "opponent": "키움",
+          "score": "8:3",
+          "runs": 8
+        },
+        {
+          "date": "2025-09-05",
+          "opponent": "키움",
+          "score": "8:3",
+          "runs": 8
+        },
+        {
           "date": "2025-09-05",
           "opponent": "키움",
           "score": "8:3",
@@ -2425,11 +2992,7 @@
           "runs": 8
         }
       ],
-<<<<<<< HEAD
-      "blowoutLosses": 14,
-=======
-      "blowoutLosses": 7,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+      "blowoutLosses": 21,
       "blowoutAllowed": [
         {
           "date": "2025-04-16",
@@ -2438,22 +3001,30 @@
           "diff": 10
         },
         {
-<<<<<<< HEAD
           "date": "2025-04-16",
           "opponent": "LG",
           "score": "2:12",
           "diff": 10
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-04-16",
+          "opponent": "LG",
+          "score": "2:12",
+          "diff": 10
+        },
+        {
           "date": "2025-04-18",
           "opponent": "롯데",
           "score": "1:8",
           "diff": 7
         },
         {
-<<<<<<< HEAD
+          "date": "2025-04-18",
+          "opponent": "롯데",
+          "score": "1:8",
+          "diff": 7
+        },
+        {
           "date": "2025-04-18",
           "opponent": "롯데",
           "score": "1:8",
@@ -2466,8 +3037,12 @@
           "diff": 7
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-06-14",
+          "opponent": "KT",
+          "score": "3:10",
+          "diff": 7
+        },
+        {
           "date": "2025-06-14",
           "opponent": "KT",
           "score": "3:10",
@@ -2480,7 +3055,12 @@
           "diff": 12
         },
         {
-<<<<<<< HEAD
+          "date": "2025-06-15",
+          "opponent": "KT",
+          "score": "4:16",
+          "diff": 12
+        },
+        {
           "date": "2025-06-15",
           "opponent": "KT",
           "score": "4:16",
@@ -2493,8 +3073,12 @@
           "diff": 9
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-06-28",
+          "opponent": "키움",
+          "score": "0:9",
+          "diff": 9
+        },
+        {
           "date": "2025-06-28",
           "opponent": "키움",
           "score": "0:9",
@@ -2507,7 +3091,12 @@
           "diff": 7
         },
         {
-<<<<<<< HEAD
+          "date": "2025-08-10",
+          "opponent": "KT",
+          "score": "2:9",
+          "diff": 7
+        },
+        {
           "date": "2025-08-10",
           "opponent": "KT",
           "score": "2:9",
@@ -2520,27 +3109,23 @@
           "diff": 8
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-08-13",
+          "opponent": "KIA",
+          "score": "1:9",
+          "diff": 8
+        },
+        {
           "date": "2025-08-13",
           "opponent": "KIA",
           "score": "1:9",
           "diff": 8
         }
       ],
-<<<<<<< HEAD
-      "shutoutWins": 20,
-      "shutoutLosses": 16,
-      "highScoringGames": 32,
-      "highScoringWins": 32,
-      "scorelessGames": 16,
-=======
-      "shutoutWins": 10,
-      "shutoutLosses": 8,
-      "highScoringGames": 16,
-      "highScoringWins": 16,
-      "scorelessGames": 8,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+      "shutoutWins": 30,
+      "shutoutLosses": 24,
+      "highScoringGames": 48,
+      "highScoringWins": 48,
+      "scorelessGames": 24,
       "comebackPotential": {
         "trailingWins": 0,
         "leadBlownLosses": 0
@@ -2548,37 +3133,20 @@
       "clutchIndex": "38.6"
     },
     "KT": {
-<<<<<<< HEAD
-      "totalGames": 286,
-      "oneRunGames": 82,
-      "oneRunWins": 40,
-      "oneRunLosses": 42,
+      "totalGames": 429,
+      "oneRunGames": 123,
+      "oneRunWins": 60,
+      "oneRunLosses": 63,
       "oneRunWinRate": "48.8",
-      "closeGames": 130,
-      "closeWins": 68,
-      "closeLosses": 62,
+      "closeGames": 195,
+      "closeWins": 102,
+      "closeLosses": 93,
       "closeWinRate": "52.3",
-      "threeRunGames": 68,
-      "threeRunWins": 44,
-      "threeRunLosses": 24,
+      "threeRunGames": 102,
+      "threeRunWins": 66,
+      "threeRunLosses": 36,
       "threeRunWinRate": "64.7",
-      "blowoutWins": 70,
-=======
-      "totalGames": 143,
-      "oneRunGames": 41,
-      "oneRunWins": 20,
-      "oneRunLosses": 21,
-      "oneRunWinRate": "48.8",
-      "closeGames": 65,
-      "closeWins": 34,
-      "closeLosses": 31,
-      "closeWinRate": "52.3",
-      "threeRunGames": 34,
-      "threeRunWins": 22,
-      "threeRunLosses": 12,
-      "threeRunWinRate": "64.7",
-      "blowoutWins": 35,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+      "blowoutWins": 105,
       "blowoutScored": [
         {
           "date": "2025-03-09",
@@ -2587,22 +3155,30 @@
           "runs": 9
         },
         {
-<<<<<<< HEAD
           "date": "2025-03-09",
           "opponent": "LG",
           "score": "9:4",
           "runs": 9
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-03-09",
+          "opponent": "LG",
+          "score": "9:4",
+          "runs": 9
+        },
+        {
           "date": "2025-03-10",
           "opponent": "키움",
           "score": "7:4",
           "runs": 7
         },
         {
-<<<<<<< HEAD
+          "date": "2025-03-10",
+          "opponent": "키움",
+          "score": "7:4",
+          "runs": 7
+        },
+        {
           "date": "2025-03-10",
           "opponent": "키움",
           "score": "7:4",
@@ -2615,8 +3191,12 @@
           "runs": 10
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-03-13",
+          "opponent": "NC",
+          "score": "10:5",
+          "runs": 10
+        },
+        {
           "date": "2025-03-13",
           "opponent": "NC",
           "score": "10:5",
@@ -2629,22 +3209,30 @@
           "runs": 9
         },
         {
-<<<<<<< HEAD
           "date": "2025-03-17",
           "opponent": "두산",
           "score": "9:6",
           "runs": 9
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-03-17",
+          "opponent": "두산",
+          "score": "9:6",
+          "runs": 9
+        },
+        {
           "date": "2025-03-25",
           "opponent": "두산",
           "score": "8:3",
           "runs": 8
         },
         {
-<<<<<<< HEAD
+          "date": "2025-03-25",
+          "opponent": "두산",
+          "score": "8:3",
+          "runs": 8
+        },
+        {
           "date": "2025-03-25",
           "opponent": "두산",
           "score": "8:3",
@@ -2657,8 +3245,12 @@
           "runs": 9
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-04-02",
+          "opponent": "LG",
+          "score": "9:5",
+          "runs": 9
+        },
+        {
           "date": "2025-04-02",
           "opponent": "LG",
           "score": "9:5",
@@ -2671,7 +3263,12 @@
           "runs": 11
         },
         {
-<<<<<<< HEAD
+          "date": "2025-04-19",
+          "opponent": "키움",
+          "score": "11:1",
+          "runs": 11
+        },
+        {
           "date": "2025-04-19",
           "opponent": "키움",
           "score": "11:1",
@@ -2684,8 +3281,12 @@
           "runs": 9
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-04-22",
+          "opponent": "SSG",
+          "score": "9:3",
+          "runs": 9
+        },
+        {
           "date": "2025-04-22",
           "opponent": "SSG",
           "score": "9:3",
@@ -2698,7 +3299,12 @@
           "runs": 8
         },
         {
-<<<<<<< HEAD
+          "date": "2025-04-30",
+          "opponent": "두산",
+          "score": "8:3",
+          "runs": 8
+        },
+        {
           "date": "2025-04-30",
           "opponent": "두산",
           "score": "8:3",
@@ -2711,8 +3317,12 @@
           "runs": 9
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-05-03",
+          "opponent": "키움",
+          "score": "9:0",
+          "runs": 9
+        },
+        {
           "date": "2025-05-03",
           "opponent": "키움",
           "score": "9:0",
@@ -2731,7 +3341,6 @@
           "runs": 7
         },
         {
-<<<<<<< HEAD
           "date": "2025-05-17",
           "opponent": "LG",
           "score": "12:4",
@@ -2744,15 +3353,30 @@
           "runs": 7
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-05-17",
+          "opponent": "LG",
+          "score": "12:4",
+          "runs": 12
+        },
+        {
+          "date": "2025-05-17",
+          "opponent": "LG",
+          "score": "7:6",
+          "runs": 7
+        },
+        {
           "date": "2025-05-23",
           "opponent": "키움",
           "score": "7:5",
           "runs": 7
         },
         {
-<<<<<<< HEAD
+          "date": "2025-05-23",
+          "opponent": "키움",
+          "score": "7:5",
+          "runs": 7
+        },
+        {
           "date": "2025-05-23",
           "opponent": "키움",
           "score": "7:5",
@@ -2765,8 +3389,12 @@
           "runs": 10
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-05-24",
+          "opponent": "키움",
+          "score": "10:4",
+          "runs": 10
+        },
+        {
           "date": "2025-05-24",
           "opponent": "키움",
           "score": "10:4",
@@ -2779,22 +3407,30 @@
           "runs": 12
         },
         {
-<<<<<<< HEAD
           "date": "2025-05-29",
           "opponent": "두산",
           "score": "12:2",
           "runs": 12
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-05-29",
+          "opponent": "두산",
+          "score": "12:2",
+          "runs": 12
+        },
+        {
           "date": "2025-06-05",
           "opponent": "한화",
           "score": "7:0",
           "runs": 7
         },
         {
-<<<<<<< HEAD
+          "date": "2025-06-05",
+          "opponent": "한화",
+          "score": "7:0",
+          "runs": 7
+        },
+        {
           "date": "2025-06-05",
           "opponent": "한화",
           "score": "7:0",
@@ -2807,8 +3443,12 @@
           "runs": 10
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-06-06",
+          "opponent": "SSG",
+          "score": "10:3",
+          "runs": 10
+        },
+        {
           "date": "2025-06-06",
           "opponent": "SSG",
           "score": "10:3",
@@ -2821,22 +3461,30 @@
           "runs": 12
         },
         {
-<<<<<<< HEAD
           "date": "2025-06-10",
           "opponent": "롯데",
           "score": "12:3",
           "runs": 12
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-06-10",
+          "opponent": "롯데",
+          "score": "12:3",
+          "runs": 12
+        },
+        {
           "date": "2025-06-14",
           "opponent": "삼성",
           "score": "10:3",
           "runs": 10
         },
         {
-<<<<<<< HEAD
+          "date": "2025-06-14",
+          "opponent": "삼성",
+          "score": "10:3",
+          "runs": 10
+        },
+        {
           "date": "2025-06-14",
           "opponent": "삼성",
           "score": "10:3",
@@ -2849,8 +3497,12 @@
           "runs": 16
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-06-15",
+          "opponent": "삼성",
+          "score": "16:4",
+          "runs": 16
+        },
+        {
           "date": "2025-06-15",
           "opponent": "삼성",
           "score": "16:4",
@@ -2863,22 +3515,30 @@
           "runs": 7
         },
         {
-<<<<<<< HEAD
           "date": "2025-06-21",
           "opponent": "NC",
           "score": "7:5",
           "runs": 7
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-06-21",
+          "opponent": "NC",
+          "score": "7:5",
+          "runs": 7
+        },
+        {
           "date": "2025-06-27",
           "opponent": "롯데",
           "score": "11:8",
           "runs": 11
         },
         {
-<<<<<<< HEAD
+          "date": "2025-06-27",
+          "opponent": "롯데",
+          "score": "11:8",
+          "runs": 11
+        },
+        {
           "date": "2025-06-27",
           "opponent": "롯데",
           "score": "11:8",
@@ -2891,8 +3551,12 @@
           "runs": 10
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-07-09",
+          "opponent": "SSG",
+          "score": "10:3",
+          "runs": 10
+        },
+        {
           "date": "2025-07-09",
           "opponent": "SSG",
           "score": "10:3",
@@ -2905,22 +3569,30 @@
           "runs": 7
         },
         {
-<<<<<<< HEAD
           "date": "2025-07-22",
           "opponent": "NC",
           "score": "7:0",
           "runs": 7
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-07-22",
+          "opponent": "NC",
+          "score": "7:0",
+          "runs": 7
+        },
+        {
           "date": "2025-07-23",
           "opponent": "NC",
           "score": "9:2",
           "runs": 9
         },
         {
-<<<<<<< HEAD
+          "date": "2025-07-23",
+          "opponent": "NC",
+          "score": "9:2",
+          "runs": 9
+        },
+        {
           "date": "2025-07-23",
           "opponent": "NC",
           "score": "9:2",
@@ -2933,8 +3605,12 @@
           "runs": 8
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-07-25",
+          "opponent": "삼성",
+          "score": "8:5",
+          "runs": 8
+        },
+        {
           "date": "2025-07-25",
           "opponent": "삼성",
           "score": "8:5",
@@ -2947,7 +3623,12 @@
           "runs": 9
         },
         {
-<<<<<<< HEAD
+          "date": "2025-08-10",
+          "opponent": "삼성",
+          "score": "9:2",
+          "runs": 9
+        },
+        {
           "date": "2025-08-10",
           "opponent": "삼성",
           "score": "9:2",
@@ -2960,8 +3641,12 @@
           "runs": 13
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-08-22",
+          "opponent": "두산",
+          "score": "13:8",
+          "runs": 13
+        },
+        {
           "date": "2025-08-22",
           "opponent": "두산",
           "score": "13:8",
@@ -2974,22 +3659,30 @@
           "runs": 7
         },
         {
-<<<<<<< HEAD
           "date": "2025-08-27",
           "opponent": "롯데",
           "score": "7:2",
           "runs": 7
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-08-27",
+          "opponent": "롯데",
+          "score": "7:2",
+          "runs": 7
+        },
+        {
           "date": "2025-08-30",
           "opponent": "KIA",
           "score": "8:2",
           "runs": 8
         },
         {
-<<<<<<< HEAD
+          "date": "2025-08-30",
+          "opponent": "KIA",
+          "score": "8:2",
+          "runs": 8
+        },
+        {
           "date": "2025-08-30",
           "opponent": "KIA",
           "score": "8:2",
@@ -3002,8 +3695,12 @@
           "runs": 7
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-08-31",
+          "opponent": "KIA",
+          "score": "7:6",
+          "runs": 7
+        },
+        {
           "date": "2025-08-31",
           "opponent": "KIA",
           "score": "7:6",
@@ -3022,7 +3719,18 @@
           "runs": 9
         },
         {
-<<<<<<< HEAD
+          "date": "2025-09-03",
+          "opponent": "롯데",
+          "score": "9:8",
+          "runs": 9
+        },
+        {
+          "date": "2025-09-03",
+          "opponent": "롯데",
+          "score": "9:8",
+          "runs": 9
+        },
+        {
           "date": "2025-09-03",
           "opponent": "롯데",
           "score": "9:8",
@@ -3047,8 +3755,18 @@
           "runs": 8
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-09-09",
+          "opponent": "두산",
+          "score": "8:1",
+          "runs": 8
+        },
+        {
+          "date": "2025-09-09",
+          "opponent": "두산",
+          "score": "8:1",
+          "runs": 8
+        },
+        {
           "date": "2025-09-09",
           "opponent": "두산",
           "score": "8:1",
@@ -3061,11 +3779,7 @@
           "runs": 8
         }
       ],
-<<<<<<< HEAD
-      "blowoutLosses": 22,
-=======
-      "blowoutLosses": 11,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+      "blowoutLosses": 33,
       "blowoutAllowed": [
         {
           "date": "2025-04-10",
@@ -3074,7 +3788,12 @@
           "diff": 7
         },
         {
-<<<<<<< HEAD
+          "date": "2025-04-10",
+          "opponent": "NC",
+          "score": "0:7",
+          "diff": 7
+        },
+        {
           "date": "2025-04-10",
           "opponent": "NC",
           "score": "0:7",
@@ -3087,8 +3806,12 @@
           "diff": 10
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-05-07",
+          "opponent": "NC",
+          "score": "2:12",
+          "diff": 10
+        },
+        {
           "date": "2025-05-07",
           "opponent": "NC",
           "score": "2:12",
@@ -3101,22 +3824,30 @@
           "diff": 13
         },
         {
-<<<<<<< HEAD
           "date": "2025-05-15",
           "opponent": "삼성",
           "score": "0:13",
           "diff": 13
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-05-15",
+          "opponent": "삼성",
+          "score": "0:13",
+          "diff": 13
+        },
+        {
           "date": "2025-05-28",
           "opponent": "두산",
           "score": "3:12",
           "diff": 9
         },
         {
-<<<<<<< HEAD
+          "date": "2025-05-28",
+          "opponent": "두산",
+          "score": "3:12",
+          "diff": 9
+        },
+        {
           "date": "2025-05-28",
           "opponent": "두산",
           "score": "3:12",
@@ -3129,8 +3860,12 @@
           "diff": 9
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-06-03",
+          "opponent": "한화",
+          "score": "1:10",
+          "diff": 9
+        },
+        {
           "date": "2025-06-03",
           "opponent": "한화",
           "score": "1:10",
@@ -3143,22 +3878,30 @@
           "diff": 7
         },
         {
-<<<<<<< HEAD
           "date": "2025-06-17",
           "opponent": "KIA",
           "score": "3:10",
           "diff": 7
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-06-17",
+          "opponent": "KIA",
+          "score": "3:10",
+          "diff": 7
+        },
+        {
           "date": "2025-07-20",
           "opponent": "한화",
           "score": "0:10",
           "diff": 10
         },
         {
-<<<<<<< HEAD
+          "date": "2025-07-20",
+          "opponent": "한화",
+          "score": "0:10",
+          "diff": 10
+        },
+        {
           "date": "2025-07-20",
           "opponent": "한화",
           "score": "0:10",
@@ -3171,8 +3914,12 @@
           "diff": 11
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-07-26",
+          "opponent": "삼성",
+          "score": "0:11",
+          "diff": 11
+        },
+        {
           "date": "2025-07-26",
           "opponent": "삼성",
           "score": "0:11",
@@ -3185,22 +3932,30 @@
           "diff": 18
         },
         {
-<<<<<<< HEAD
           "date": "2025-07-31",
           "opponent": "LG",
           "score": "0:18",
           "diff": 18
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-07-31",
+          "opponent": "LG",
+          "score": "0:18",
+          "diff": 18
+        },
+        {
           "date": "2025-08-12",
           "opponent": "LG",
           "score": "2:11",
           "diff": 9
         },
         {
-<<<<<<< HEAD
+          "date": "2025-08-12",
+          "opponent": "LG",
+          "score": "2:11",
+          "diff": 9
+        },
+        {
           "date": "2025-08-12",
           "opponent": "LG",
           "score": "2:11",
@@ -3213,27 +3968,23 @@
           "diff": 9
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-08-29",
+          "opponent": "KIA",
+          "score": "1:10",
+          "diff": 9
+        },
+        {
           "date": "2025-08-29",
           "opponent": "KIA",
           "score": "1:10",
           "diff": 9
         }
       ],
-<<<<<<< HEAD
-      "shutoutWins": 20,
-      "shutoutLosses": 22,
-      "highScoringGames": 24,
-      "highScoringWins": 24,
-      "scorelessGames": 22,
-=======
-      "shutoutWins": 10,
-      "shutoutLosses": 11,
-      "highScoringGames": 12,
-      "highScoringWins": 12,
-      "scorelessGames": 11,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+      "shutoutWins": 30,
+      "shutoutLosses": 33,
+      "highScoringGames": 36,
+      "highScoringWins": 36,
+      "scorelessGames": 33,
       "comebackPotential": {
         "trailingWins": 0,
         "leadBlownLosses": 0
@@ -3241,37 +3992,20 @@
       "clutchIndex": "53.0"
     },
     "SSG": {
-<<<<<<< HEAD
-      "totalGames": 286,
-      "oneRunGames": 76,
-      "oneRunWins": 36,
-      "oneRunLosses": 40,
+      "totalGames": 429,
+      "oneRunGames": 114,
+      "oneRunWins": 54,
+      "oneRunLosses": 60,
       "oneRunWinRate": "47.4",
-      "closeGames": 134,
-      "closeWins": 66,
-      "closeLosses": 68,
+      "closeGames": 201,
+      "closeWins": 99,
+      "closeLosses": 102,
       "closeWinRate": "49.3",
-      "threeRunGames": 86,
-      "threeRunWins": 50,
-      "threeRunLosses": 36,
+      "threeRunGames": 129,
+      "threeRunWins": 75,
+      "threeRunLosses": 54,
       "threeRunWinRate": "58.1",
-      "blowoutWins": 60,
-=======
-      "totalGames": 143,
-      "oneRunGames": 38,
-      "oneRunWins": 18,
-      "oneRunLosses": 20,
-      "oneRunWinRate": "47.4",
-      "closeGames": 67,
-      "closeWins": 33,
-      "closeLosses": 34,
-      "closeWinRate": "49.3",
-      "threeRunGames": 43,
-      "threeRunWins": 25,
-      "threeRunLosses": 18,
-      "threeRunWinRate": "58.1",
-      "blowoutWins": 30,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+      "blowoutWins": 90,
       "blowoutScored": [
         {
           "date": "2025-03-08",
@@ -3280,7 +4014,12 @@
           "runs": 9
         },
         {
-<<<<<<< HEAD
+          "date": "2025-03-08",
+          "opponent": "삼성",
+          "score": "9:3",
+          "runs": 9
+        },
+        {
           "date": "2025-03-08",
           "opponent": "삼성",
           "score": "9:3",
@@ -3293,8 +4032,12 @@
           "runs": 8
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-03-16",
+          "opponent": "LG",
+          "score": "8:1",
+          "runs": 8
+        },
+        {
           "date": "2025-03-16",
           "opponent": "LG",
           "score": "8:1",
@@ -3307,22 +4050,30 @@
           "runs": 8
         },
         {
-<<<<<<< HEAD
           "date": "2025-03-30",
           "opponent": "키움",
           "score": "8:2",
           "runs": 8
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-03-30",
+          "opponent": "키움",
+          "score": "8:2",
+          "runs": 8
+        },
+        {
           "date": "2025-04-11",
           "opponent": "KIA",
           "score": "9:3",
           "runs": 9
         },
         {
-<<<<<<< HEAD
+          "date": "2025-04-11",
+          "opponent": "KIA",
+          "score": "9:3",
+          "runs": 9
+        },
+        {
           "date": "2025-04-11",
           "opponent": "KIA",
           "score": "9:3",
@@ -3335,8 +4086,12 @@
           "runs": 9
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-04-20",
+          "opponent": "LG",
+          "score": "9:3",
+          "runs": 9
+        },
+        {
           "date": "2025-04-20",
           "opponent": "LG",
           "score": "9:3",
@@ -3349,22 +4104,30 @@
           "runs": 11
         },
         {
-<<<<<<< HEAD
           "date": "2025-04-23",
           "opponent": "KT",
           "score": "11:5",
           "runs": 11
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-04-23",
+          "opponent": "KT",
+          "score": "11:5",
+          "runs": 11
+        },
+        {
           "date": "2025-05-05",
           "opponent": "롯데",
           "score": "7:1",
           "runs": 7
         },
         {
-<<<<<<< HEAD
+          "date": "2025-05-05",
+          "opponent": "롯데",
+          "score": "7:1",
+          "runs": 7
+        },
+        {
           "date": "2025-05-05",
           "opponent": "롯데",
           "score": "7:1",
@@ -3377,8 +4140,12 @@
           "runs": 8
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-05-11",
+          "opponent": "KIA",
+          "score": "8:4",
+          "runs": 8
+        },
+        {
           "date": "2025-05-11",
           "opponent": "KIA",
           "score": "8:4",
@@ -3391,22 +4158,30 @@
           "runs": 7
         },
         {
-<<<<<<< HEAD
           "date": "2025-05-18",
           "opponent": "한화",
           "score": "7:3",
           "runs": 7
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-05-18",
+          "opponent": "한화",
+          "score": "7:3",
+          "runs": 7
+        },
+        {
           "date": "2025-05-21",
           "opponent": "두산",
           "score": "9:1",
           "runs": 9
         },
         {
-<<<<<<< HEAD
+          "date": "2025-05-21",
+          "opponent": "두산",
+          "score": "9:1",
+          "runs": 9
+        },
+        {
           "date": "2025-05-21",
           "opponent": "두산",
           "score": "9:1",
@@ -3419,8 +4194,12 @@
           "runs": 13
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-05-28",
+          "opponent": "NC",
+          "score": "13:5",
+          "runs": 13
+        },
+        {
           "date": "2025-05-28",
           "opponent": "NC",
           "score": "13:5",
@@ -3433,22 +4212,30 @@
           "runs": 11
         },
         {
-<<<<<<< HEAD
           "date": "2025-06-17",
           "opponent": "키움",
           "score": "11:1",
           "runs": 11
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-06-17",
+          "opponent": "키움",
+          "score": "11:1",
+          "runs": 11
+        },
+        {
           "date": "2025-06-27",
           "opponent": "한화",
           "score": "8:6",
           "runs": 8
         },
         {
-<<<<<<< HEAD
+          "date": "2025-06-27",
+          "opponent": "한화",
+          "score": "8:6",
+          "runs": 8
+        },
+        {
           "date": "2025-06-27",
           "opponent": "한화",
           "score": "8:6",
@@ -3461,8 +4248,12 @@
           "runs": 8
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-07-02",
+          "opponent": "KIA",
+          "score": "8:5",
+          "runs": 8
+        },
+        {
           "date": "2025-07-02",
           "opponent": "KIA",
           "score": "8:5",
@@ -3475,22 +4266,30 @@
           "runs": 7
         },
         {
-<<<<<<< HEAD
           "date": "2025-07-08",
           "opponent": "KT",
           "score": "7:1",
           "runs": 7
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-07-08",
+          "opponent": "KT",
+          "score": "7:1",
+          "runs": 7
+        },
+        {
           "date": "2025-07-26",
           "opponent": "한화",
           "score": "9:3",
           "runs": 9
         },
         {
-<<<<<<< HEAD
+          "date": "2025-07-26",
+          "opponent": "한화",
+          "score": "9:3",
+          "runs": 9
+        },
+        {
           "date": "2025-07-26",
           "opponent": "한화",
           "score": "9:3",
@@ -3503,8 +4302,12 @@
           "runs": 9
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-07-29",
+          "opponent": "키움",
+          "score": "9:3",
+          "runs": 9
+        },
+        {
           "date": "2025-07-29",
           "opponent": "키움",
           "score": "9:3",
@@ -3517,22 +4320,30 @@
           "runs": 7
         },
         {
-<<<<<<< HEAD
           "date": "2025-08-01",
           "opponent": "두산",
           "score": "7:2",
           "runs": 7
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-08-01",
+          "opponent": "두산",
+          "score": "7:2",
+          "runs": 7
+        },
+        {
           "date": "2025-08-10",
           "opponent": "롯데",
           "score": "10:1",
           "runs": 10
         },
         {
-<<<<<<< HEAD
+          "date": "2025-08-10",
+          "opponent": "롯데",
+          "score": "10:1",
+          "runs": 10
+        },
+        {
           "date": "2025-08-10",
           "opponent": "롯데",
           "score": "10:1",
@@ -3545,8 +4356,12 @@
           "runs": 10
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-08-16",
+          "opponent": "LG",
+          "score": "10:7",
+          "runs": 10
+        },
+        {
           "date": "2025-08-16",
           "opponent": "LG",
           "score": "10:7",
@@ -3559,7 +4374,12 @@
           "runs": 7
         },
         {
-<<<<<<< HEAD
+          "date": "2025-08-21",
+          "opponent": "KT",
+          "score": "7:1",
+          "runs": 7
+        },
+        {
           "date": "2025-08-21",
           "opponent": "KT",
           "score": "7:1",
@@ -3572,8 +4392,12 @@
           "runs": 9
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-08-26",
+          "opponent": "KIA",
+          "score": "9:5",
+          "runs": 9
+        },
+        {
           "date": "2025-08-26",
           "opponent": "KIA",
           "score": "9:5",
@@ -3586,7 +4410,12 @@
           "runs": 8
         },
         {
-<<<<<<< HEAD
+          "date": "2025-08-29",
+          "opponent": "NC",
+          "score": "8:0",
+          "runs": 8
+        },
+        {
           "date": "2025-08-29",
           "opponent": "NC",
           "score": "8:0",
@@ -3599,8 +4428,12 @@
           "runs": 10
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-08-31",
+          "opponent": "NC",
+          "score": "10:8",
+          "runs": 10
+        },
+        {
           "date": "2025-08-31",
           "opponent": "NC",
           "score": "10:8",
@@ -3619,7 +4452,6 @@
           "runs": 7
         },
         {
-<<<<<<< HEAD
           "date": "2025-09-05",
           "opponent": "롯데",
           "score": "7:5",
@@ -3632,8 +4464,24 @@
           "runs": 7
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-09-05",
+          "opponent": "롯데",
+          "score": "7:5",
+          "runs": 7
+        },
+        {
+          "date": "2025-09-05",
+          "opponent": "롯데",
+          "score": "7:5",
+          "runs": 7
+        },
+        {
+          "date": "2025-09-07",
+          "opponent": "LG",
+          "score": "7:3",
+          "runs": 7
+        },
+        {
           "date": "2025-09-07",
           "opponent": "LG",
           "score": "7:3",
@@ -3646,7 +4494,12 @@
           "runs": 7
         },
         {
-<<<<<<< HEAD
+          "date": "2025-09-07",
+          "opponent": "LG",
+          "score": "7:3",
+          "runs": 7
+        },
+        {
           "date": "2025-09-07",
           "opponent": "LG",
           "score": "7:3",
@@ -3671,8 +4524,18 @@
           "runs": 8
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-09-11",
+          "opponent": "삼성",
+          "score": "8:4",
+          "runs": 8
+        },
+        {
+          "date": "2025-09-11",
+          "opponent": "삼성",
+          "score": "8:4",
+          "runs": 8
+        },
+        {
           "date": "2025-09-11",
           "opponent": "삼성",
           "score": "8:4",
@@ -3685,11 +4548,7 @@
           "runs": 8
         }
       ],
-<<<<<<< HEAD
-      "blowoutLosses": 16,
-=======
-      "blowoutLosses": 8,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+      "blowoutLosses": 24,
       "blowoutAllowed": [
         {
           "date": "2025-03-09",
@@ -3698,22 +4557,30 @@
           "diff": 7
         },
         {
-<<<<<<< HEAD
           "date": "2025-03-09",
           "opponent": "삼성",
           "score": "0:7",
           "diff": 7
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-03-09",
+          "opponent": "삼성",
+          "score": "0:7",
+          "diff": 7
+        },
+        {
           "date": "2025-03-11",
           "opponent": "한화",
           "score": "0:8",
           "diff": 8
         },
         {
-<<<<<<< HEAD
+          "date": "2025-03-11",
+          "opponent": "한화",
+          "score": "0:8",
+          "diff": 8
+        },
+        {
           "date": "2025-03-11",
           "opponent": "한화",
           "score": "0:8",
@@ -3726,8 +4593,12 @@
           "diff": 7
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-04-19",
+          "opponent": "LG",
+          "score": "4:11",
+          "diff": 7
+        },
+        {
           "date": "2025-04-19",
           "opponent": "LG",
           "score": "4:11",
@@ -3740,22 +4611,30 @@
           "diff": 8
         },
         {
-<<<<<<< HEAD
           "date": "2025-05-04",
           "opponent": "LG",
           "score": "4:12",
           "diff": 8
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-05-04",
+          "opponent": "LG",
+          "score": "4:12",
+          "diff": 8
+        },
+        {
           "date": "2025-06-06",
           "opponent": "KT",
           "score": "3:10",
           "diff": 7
         },
         {
-<<<<<<< HEAD
+          "date": "2025-06-06",
+          "opponent": "KT",
+          "score": "3:10",
+          "diff": 7
+        },
+        {
           "date": "2025-06-06",
           "opponent": "KT",
           "score": "3:10",
@@ -3768,8 +4647,12 @@
           "diff": 7
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-07-09",
+          "opponent": "KT",
+          "score": "3:10",
+          "diff": 7
+        },
+        {
           "date": "2025-07-09",
           "opponent": "KT",
           "score": "3:10",
@@ -3782,7 +4665,12 @@
           "diff": 9
         },
         {
-<<<<<<< HEAD
+          "date": "2025-07-23",
+          "opponent": "삼성",
+          "score": "0:9",
+          "diff": 9
+        },
+        {
           "date": "2025-07-23",
           "opponent": "삼성",
           "score": "0:9",
@@ -3795,27 +4683,23 @@
           "diff": 10
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-08-30",
+          "opponent": "NC",
+          "score": "2:12",
+          "diff": 10
+        },
+        {
           "date": "2025-08-30",
           "opponent": "NC",
           "score": "2:12",
           "diff": 10
         }
       ],
-<<<<<<< HEAD
-      "shutoutWins": 16,
-      "shutoutLosses": 22,
-      "highScoringGames": 12,
-      "highScoringWins": 12,
-      "scorelessGames": 22,
-=======
-      "shutoutWins": 8,
-      "shutoutLosses": 11,
-      "highScoringGames": 6,
-      "highScoringWins": 6,
-      "scorelessGames": 11,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+      "shutoutWins": 24,
+      "shutoutLosses": 33,
+      "highScoringGames": 18,
+      "highScoringWins": 18,
+      "scorelessGames": 33,
       "comebackPotential": {
         "trailingWins": 0,
         "leadBlownLosses": 0
@@ -3823,37 +4707,20 @@
       "clutchIndex": "50.1"
     },
     "롯데": {
-<<<<<<< HEAD
-      "totalGames": 294,
-      "oneRunGames": 70,
-      "oneRunWins": 34,
-      "oneRunLosses": 36,
+      "totalGames": 441,
+      "oneRunGames": 105,
+      "oneRunWins": 51,
+      "oneRunLosses": 54,
       "oneRunWinRate": "48.6",
-      "closeGames": 126,
-      "closeWins": 64,
-      "closeLosses": 62,
+      "closeGames": 189,
+      "closeWins": 96,
+      "closeLosses": 93,
       "closeWinRate": "50.8",
-      "threeRunGames": 102,
-      "threeRunWins": 48,
-      "threeRunLosses": 54,
+      "threeRunGames": 153,
+      "threeRunWins": 72,
+      "threeRunLosses": 81,
       "threeRunWinRate": "47.1",
-      "blowoutWins": 52,
-=======
-      "totalGames": 147,
-      "oneRunGames": 35,
-      "oneRunWins": 17,
-      "oneRunLosses": 18,
-      "oneRunWinRate": "48.6",
-      "closeGames": 63,
-      "closeWins": 32,
-      "closeLosses": 31,
-      "closeWinRate": "50.8",
-      "threeRunGames": 51,
-      "threeRunWins": 24,
-      "threeRunLosses": 27,
-      "threeRunWinRate": "47.1",
-      "blowoutWins": 26,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+      "blowoutWins": 78,
       "blowoutScored": [
         {
           "date": "2025-04-10",
@@ -3862,22 +4729,30 @@
           "runs": 8
         },
         {
-<<<<<<< HEAD
           "date": "2025-04-10",
           "opponent": "KIA",
           "score": "8:3",
           "runs": 8
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-04-10",
+          "opponent": "KIA",
+          "score": "8:3",
+          "runs": 8
+        },
+        {
           "date": "2025-04-11",
           "opponent": "NC",
           "score": "7:5",
           "runs": 7
         },
         {
-<<<<<<< HEAD
+          "date": "2025-04-11",
+          "opponent": "NC",
+          "score": "7:5",
+          "runs": 7
+        },
+        {
           "date": "2025-04-11",
           "opponent": "NC",
           "score": "7:5",
@@ -3890,8 +4765,12 @@
           "runs": 8
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-04-15",
+          "opponent": "키움",
+          "score": "8:6",
+          "runs": 8
+        },
+        {
           "date": "2025-04-15",
           "opponent": "키움",
           "score": "8:6",
@@ -3904,22 +4783,30 @@
           "runs": 7
         },
         {
-<<<<<<< HEAD
           "date": "2025-04-17",
           "opponent": "키움",
           "score": "7:1",
           "runs": 7
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-04-17",
+          "opponent": "키움",
+          "score": "7:1",
+          "runs": 7
+        },
+        {
           "date": "2025-04-18",
           "opponent": "삼성",
           "score": "8:1",
           "runs": 8
         },
         {
-<<<<<<< HEAD
+          "date": "2025-04-18",
+          "opponent": "삼성",
+          "score": "8:1",
+          "runs": 8
+        },
+        {
           "date": "2025-04-18",
           "opponent": "삼성",
           "score": "8:1",
@@ -3932,8 +4819,12 @@
           "runs": 8
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-04-25",
+          "opponent": "두산",
+          "score": "8:2",
+          "runs": 8
+        },
+        {
           "date": "2025-04-25",
           "opponent": "두산",
           "score": "8:2",
@@ -3946,7 +4837,12 @@
           "runs": 7
         },
         {
-<<<<<<< HEAD
+          "date": "2025-04-26",
+          "opponent": "두산",
+          "score": "7:4",
+          "runs": 7
+        },
+        {
           "date": "2025-04-26",
           "opponent": "두산",
           "score": "7:4",
@@ -3959,8 +4855,12 @@
           "runs": 9
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-04-29",
+          "opponent": "키움",
+          "score": "9:3",
+          "runs": 9
+        },
+        {
           "date": "2025-04-29",
           "opponent": "키움",
           "score": "9:3",
@@ -3973,22 +4873,30 @@
           "runs": 10
         },
         {
-<<<<<<< HEAD
           "date": "2025-04-30",
           "opponent": "키움",
           "score": "10:9",
           "runs": 10
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-04-30",
+          "opponent": "키움",
+          "score": "10:9",
+          "runs": 10
+        },
+        {
           "date": "2025-05-10",
           "opponent": "KT",
           "score": "8:5",
           "runs": 8
         },
         {
-<<<<<<< HEAD
+          "date": "2025-05-10",
+          "opponent": "KT",
+          "score": "8:5",
+          "runs": 8
+        },
+        {
           "date": "2025-05-10",
           "opponent": "KT",
           "score": "8:5",
@@ -4007,8 +4915,18 @@
           "runs": 8
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-05-17",
+          "opponent": "삼성",
+          "score": "7:5",
+          "runs": 7
+        },
+        {
+          "date": "2025-05-17",
+          "opponent": "삼성",
+          "score": "8:7",
+          "runs": 8
+        },
+        {
           "date": "2025-05-17",
           "opponent": "삼성",
           "score": "7:5",
@@ -4027,22 +4945,30 @@
           "runs": 11
         },
         {
-<<<<<<< HEAD
           "date": "2025-05-22",
           "opponent": "LG",
           "score": "11:4",
           "runs": 11
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-05-22",
+          "opponent": "LG",
+          "score": "11:4",
+          "runs": 11
+        },
+        {
           "date": "2025-05-24",
           "opponent": "한화",
           "score": "8:6",
           "runs": 8
         },
         {
-<<<<<<< HEAD
+          "date": "2025-05-24",
+          "opponent": "한화",
+          "score": "8:6",
+          "runs": 8
+        },
+        {
           "date": "2025-05-24",
           "opponent": "한화",
           "score": "8:6",
@@ -4055,8 +4981,12 @@
           "runs": 8
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-06-03",
+          "opponent": "키움",
+          "score": "8:0",
+          "runs": 8
+        },
+        {
           "date": "2025-06-03",
           "opponent": "키움",
           "score": "8:0",
@@ -4069,22 +4999,30 @@
           "runs": 9
         },
         {
-<<<<<<< HEAD
           "date": "2025-06-07",
           "opponent": "두산",
           "score": "9:4",
           "runs": 9
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-06-07",
+          "opponent": "두산",
+          "score": "9:4",
+          "runs": 9
+        },
+        {
           "date": "2025-06-12",
           "opponent": "KT",
           "score": "12:7",
           "runs": 12
         },
         {
-<<<<<<< HEAD
+          "date": "2025-06-12",
+          "opponent": "KT",
+          "score": "12:7",
+          "runs": 12
+        },
+        {
           "date": "2025-06-12",
           "opponent": "KT",
           "score": "12:7",
@@ -4097,8 +5035,12 @@
           "runs": 9
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-06-22",
+          "opponent": "삼성",
+          "score": "9:6",
+          "runs": 9
+        },
+        {
           "date": "2025-06-22",
           "opponent": "삼성",
           "score": "9:6",
@@ -4111,22 +5053,30 @@
           "runs": 7
         },
         {
-<<<<<<< HEAD
           "date": "2025-06-26",
           "opponent": "NC",
           "score": "7:6",
           "runs": 7
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-06-26",
+          "opponent": "NC",
+          "score": "7:6",
+          "runs": 7
+        },
+        {
           "date": "2025-06-29",
           "opponent": "KT",
           "score": "10:5",
           "runs": 10
         },
         {
-<<<<<<< HEAD
+          "date": "2025-06-29",
+          "opponent": "KT",
+          "score": "10:5",
+          "runs": 10
+        },
+        {
           "date": "2025-06-29",
           "opponent": "KT",
           "score": "10:5",
@@ -4139,8 +5089,12 @@
           "runs": 7
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-07-25",
+          "opponent": "KIA",
+          "score": "7:4",
+          "runs": 7
+        },
+        {
           "date": "2025-07-25",
           "opponent": "KIA",
           "score": "7:4",
@@ -4153,7 +5107,12 @@
           "runs": 9
         },
         {
-<<<<<<< HEAD
+          "date": "2025-07-26",
+          "opponent": "KIA",
+          "score": "9:4",
+          "runs": 9
+        },
+        {
           "date": "2025-07-26",
           "opponent": "KIA",
           "score": "9:4",
@@ -4166,8 +5125,12 @@
           "runs": 11
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-07-31",
+          "opponent": "NC",
+          "score": "11:5",
+          "runs": 11
+        },
+        {
           "date": "2025-07-31",
           "opponent": "NC",
           "score": "11:5",
@@ -4180,22 +5143,30 @@
           "runs": 9
         },
         {
-<<<<<<< HEAD
           "date": "2025-08-03",
           "opponent": "키움",
           "score": "9:3",
           "runs": 9
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-08-03",
+          "opponent": "키움",
+          "score": "9:3",
+          "runs": 9
+        },
+        {
           "date": "2025-08-06",
           "opponent": "KIA",
           "score": "7:1",
           "runs": 7
         },
         {
-<<<<<<< HEAD
+          "date": "2025-08-06",
+          "opponent": "KIA",
+          "score": "7:1",
+          "runs": 7
+        },
+        {
           "date": "2025-08-06",
           "opponent": "KIA",
           "score": "7:1",
@@ -4208,19 +5179,19 @@
           "runs": 17
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-08-24",
+          "opponent": "NC",
+          "score": "17:5",
+          "runs": 17
+        },
+        {
           "date": "2025-08-24",
           "opponent": "NC",
           "score": "17:5",
           "runs": 17
         }
       ],
-<<<<<<< HEAD
-      "blowoutLosses": 30,
-=======
-      "blowoutLosses": 15,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+      "blowoutLosses": 45,
       "blowoutAllowed": [
         {
           "date": "2025-03-22",
@@ -4229,22 +5200,30 @@
           "diff": 10
         },
         {
-<<<<<<< HEAD
           "date": "2025-03-22",
           "opponent": "LG",
           "score": "2:12",
           "diff": 10
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-03-22",
+          "opponent": "LG",
+          "score": "2:12",
+          "diff": 10
+        },
+        {
           "date": "2025-03-23",
           "opponent": "LG",
           "score": "2:10",
           "diff": 8
         },
         {
-<<<<<<< HEAD
+          "date": "2025-03-23",
+          "opponent": "LG",
+          "score": "2:10",
+          "diff": 8
+        },
+        {
           "date": "2025-03-23",
           "opponent": "LG",
           "score": "2:10",
@@ -4257,8 +5236,12 @@
           "diff": 12
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-04-04",
+          "opponent": "두산",
+          "score": "3:15",
+          "diff": 12
+        },
+        {
           "date": "2025-04-04",
           "opponent": "두산",
           "score": "3:15",
@@ -4271,22 +5254,30 @@
           "diff": 7
         },
         {
-<<<<<<< HEAD
           "date": "2025-04-19",
           "opponent": "삼성",
           "score": "3:10",
           "diff": 7
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-04-19",
+          "opponent": "삼성",
+          "score": "3:10",
+          "diff": 7
+        },
+        {
           "date": "2025-04-27",
           "opponent": "두산",
           "score": "4:13",
           "diff": 9
         },
         {
-<<<<<<< HEAD
+          "date": "2025-04-27",
+          "opponent": "두산",
+          "score": "4:13",
+          "diff": 9
+        },
+        {
           "date": "2025-04-27",
           "opponent": "두산",
           "score": "4:13",
@@ -4299,8 +5290,12 @@
           "diff": 9
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-05-03",
+          "opponent": "NC",
+          "score": "4:13",
+          "diff": 9
+        },
+        {
           "date": "2025-05-03",
           "opponent": "NC",
           "score": "4:13",
@@ -4313,22 +5308,30 @@
           "diff": 8
         },
         {
-<<<<<<< HEAD
           "date": "2025-05-20",
           "opponent": "LG",
           "score": "9:17",
           "diff": 8
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-05-20",
+          "opponent": "LG",
+          "score": "9:17",
+          "diff": 8
+        },
+        {
           "date": "2025-06-10",
           "opponent": "KT",
           "score": "3:12",
           "diff": 9
         },
         {
-<<<<<<< HEAD
+          "date": "2025-06-10",
+          "opponent": "KT",
+          "score": "3:12",
+          "diff": 9
+        },
+        {
           "date": "2025-06-10",
           "opponent": "KT",
           "score": "3:12",
@@ -4341,8 +5344,12 @@
           "diff": 13
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-07-05",
+          "opponent": "KIA",
+          "score": "0:13",
+          "diff": 13
+        },
+        {
           "date": "2025-07-05",
           "opponent": "KIA",
           "score": "0:13",
@@ -4355,7 +5362,12 @@
           "diff": 9
         },
         {
-<<<<<<< HEAD
+          "date": "2025-07-10",
+          "opponent": "두산",
+          "score": "0:9",
+          "diff": 9
+        },
+        {
           "date": "2025-07-10",
           "opponent": "두산",
           "score": "0:9",
@@ -4368,8 +5380,12 @@
           "diff": 9
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-08-10",
+          "opponent": "SSG",
+          "score": "1:10",
+          "diff": 9
+        },
+        {
           "date": "2025-08-10",
           "opponent": "SSG",
           "score": "1:10",
@@ -4388,7 +5404,18 @@
           "diff": 8
         },
         {
-<<<<<<< HEAD
+          "date": "2025-09-09",
+          "opponent": "한화",
+          "score": "1:9",
+          "diff": 8
+        },
+        {
+          "date": "2025-09-09",
+          "opponent": "한화",
+          "score": "1:9",
+          "diff": 8
+        },
+        {
           "date": "2025-09-09",
           "opponent": "한화",
           "score": "1:9",
@@ -4413,8 +5440,18 @@
           "diff": 13
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-09-10",
+          "opponent": "한화",
+          "score": "0:13",
+          "diff": 13
+        },
+        {
+          "date": "2025-09-10",
+          "opponent": "한화",
+          "score": "0:13",
+          "diff": 13
+        },
+        {
           "date": "2025-09-10",
           "opponent": "한화",
           "score": "0:13",
@@ -4427,19 +5464,11 @@
           "diff": 13
         }
       ],
-<<<<<<< HEAD
-      "shutoutWins": 14,
-      "shutoutLosses": 28,
-      "highScoringGames": 14,
-      "highScoringWins": 12,
-      "scorelessGames": 28,
-=======
-      "shutoutWins": 7,
-      "shutoutLosses": 14,
-      "highScoringGames": 7,
-      "highScoringWins": 6,
-      "scorelessGames": 14,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+      "shutoutWins": 21,
+      "shutoutLosses": 42,
+      "highScoringGames": 21,
+      "highScoringWins": 18,
+      "scorelessGames": 42,
       "comebackPotential": {
         "trailingWins": 0,
         "leadBlownLosses": 0
@@ -4447,37 +5476,20 @@
       "clutchIndex": "49.0"
     },
     "두산": {
-<<<<<<< HEAD
-      "totalGames": 288,
-      "oneRunGames": 82,
-      "oneRunWins": 32,
-      "oneRunLosses": 50,
+      "totalGames": 432,
+      "oneRunGames": 123,
+      "oneRunWins": 48,
+      "oneRunLosses": 75,
       "oneRunWinRate": "39.0",
-      "closeGames": 108,
-      "closeWins": 48,
-      "closeLosses": 60,
+      "closeGames": 162,
+      "closeWins": 72,
+      "closeLosses": 90,
       "closeWinRate": "44.4",
-      "threeRunGames": 72,
-      "threeRunWins": 36,
-      "threeRunLosses": 36,
+      "threeRunGames": 108,
+      "threeRunWins": 54,
+      "threeRunLosses": 54,
       "threeRunWinRate": "50.0",
-      "blowoutWins": 60,
-=======
-      "totalGames": 144,
-      "oneRunGames": 41,
-      "oneRunWins": 16,
-      "oneRunLosses": 25,
-      "oneRunWinRate": "39.0",
-      "closeGames": 54,
-      "closeWins": 24,
-      "closeLosses": 30,
-      "closeWinRate": "44.4",
-      "threeRunGames": 36,
-      "threeRunWins": 18,
-      "threeRunLosses": 18,
-      "threeRunWinRate": "50.0",
-      "blowoutWins": 30,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+      "blowoutWins": 90,
       "blowoutScored": [
         {
           "date": "2025-03-10",
@@ -4486,22 +5498,30 @@
           "runs": 8
         },
         {
-<<<<<<< HEAD
           "date": "2025-03-10",
           "opponent": "삼성",
           "score": "8:5",
           "runs": 8
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-03-10",
+          "opponent": "삼성",
+          "score": "8:5",
+          "runs": 8
+        },
+        {
           "date": "2025-04-04",
           "opponent": "롯데",
           "score": "15:3",
           "runs": 15
         },
         {
-<<<<<<< HEAD
+          "date": "2025-04-04",
+          "opponent": "롯데",
+          "score": "15:3",
+          "runs": 15
+        },
+        {
           "date": "2025-04-04",
           "opponent": "롯데",
           "score": "15:3",
@@ -4514,8 +5534,12 @@
           "runs": 15
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-04-06",
+          "opponent": "롯데",
+          "score": "15:12",
+          "runs": 15
+        },
+        {
           "date": "2025-04-06",
           "opponent": "롯데",
           "score": "15:12",
@@ -4528,22 +5552,30 @@
           "runs": 9
         },
         {
-<<<<<<< HEAD
           "date": "2025-04-13",
           "opponent": "LG",
           "score": "9:2",
           "runs": 9
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-04-13",
+          "opponent": "LG",
+          "score": "9:2",
+          "runs": 9
+        },
+        {
           "date": "2025-04-18",
           "opponent": "KIA",
           "score": "7:1",
           "runs": 7
         },
         {
-<<<<<<< HEAD
+          "date": "2025-04-18",
+          "opponent": "KIA",
+          "score": "7:1",
+          "runs": 7
+        },
+        {
           "date": "2025-04-18",
           "opponent": "KIA",
           "score": "7:1",
@@ -4556,8 +5588,12 @@
           "runs": 8
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-04-23",
+          "opponent": "키움",
+          "score": "8:2",
+          "runs": 8
+        },
+        {
           "date": "2025-04-23",
           "opponent": "키움",
           "score": "8:2",
@@ -4570,22 +5606,30 @@
           "runs": 9
         },
         {
-<<<<<<< HEAD
           "date": "2025-04-24",
           "opponent": "키움",
           "score": "9:3",
           "runs": 9
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-04-24",
+          "opponent": "키움",
+          "score": "9:3",
+          "runs": 9
+        },
+        {
           "date": "2025-04-27",
           "opponent": "롯데",
           "score": "13:4",
           "runs": 13
         },
         {
-<<<<<<< HEAD
+          "date": "2025-04-27",
+          "opponent": "롯데",
+          "score": "13:4",
+          "runs": 13
+        },
+        {
           "date": "2025-04-27",
           "opponent": "롯데",
           "score": "13:4",
@@ -4598,8 +5642,12 @@
           "runs": 11
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-05-04",
+          "opponent": "삼성",
+          "score": "11:6",
+          "runs": 11
+        },
+        {
           "date": "2025-05-04",
           "opponent": "삼성",
           "score": "11:6",
@@ -4612,7 +5660,12 @@
           "runs": 7
         },
         {
-<<<<<<< HEAD
+          "date": "2025-05-14",
+          "opponent": "한화",
+          "score": "7:1",
+          "runs": 7
+        },
+        {
           "date": "2025-05-14",
           "opponent": "한화",
           "score": "7:1",
@@ -4625,8 +5678,12 @@
           "runs": 8
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-05-15",
+          "opponent": "한화",
+          "score": "8:2",
+          "runs": 8
+        },
+        {
           "date": "2025-05-15",
           "opponent": "한화",
           "score": "8:2",
@@ -4639,22 +5696,30 @@
           "runs": 12
         },
         {
-<<<<<<< HEAD
           "date": "2025-05-28",
           "opponent": "KT",
           "score": "12:3",
           "runs": 12
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-05-28",
+          "opponent": "KT",
+          "score": "12:3",
+          "runs": 12
+        },
+        {
           "date": "2025-05-30",
           "opponent": "키움",
           "score": "9:4",
           "runs": 9
         },
         {
-<<<<<<< HEAD
+          "date": "2025-05-30",
+          "opponent": "키움",
+          "score": "9:4",
+          "runs": 9
+        },
+        {
           "date": "2025-05-30",
           "opponent": "키움",
           "score": "9:4",
@@ -4667,8 +5732,12 @@
           "runs": 9
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-06-19",
+          "opponent": "삼성",
+          "score": "9:8",
+          "runs": 9
+        },
+        {
           "date": "2025-06-19",
           "opponent": "삼성",
           "score": "9:8",
@@ -4681,22 +5750,30 @@
           "runs": 7
         },
         {
-<<<<<<< HEAD
           "date": "2025-06-29",
           "opponent": "NC",
           "score": "7:3",
           "runs": 7
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-06-29",
+          "opponent": "NC",
+          "score": "7:3",
+          "runs": 7
+        },
+        {
           "date": "2025-07-06",
           "opponent": "KT",
           "score": "8:7",
           "runs": 8
         },
         {
-<<<<<<< HEAD
+          "date": "2025-07-06",
+          "opponent": "KT",
+          "score": "8:7",
+          "runs": 8
+        },
+        {
           "date": "2025-07-06",
           "opponent": "KT",
           "score": "8:7",
@@ -4709,8 +5786,12 @@
           "runs": 8
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-07-08",
+          "opponent": "롯데",
+          "score": "8:5",
+          "runs": 8
+        },
+        {
           "date": "2025-07-08",
           "opponent": "롯데",
           "score": "8:5",
@@ -4723,7 +5804,12 @@
           "runs": 9
         },
         {
-<<<<<<< HEAD
+          "date": "2025-07-10",
+          "opponent": "롯데",
+          "score": "9:0",
+          "runs": 9
+        },
+        {
           "date": "2025-07-10",
           "opponent": "롯데",
           "score": "9:0",
@@ -4736,8 +5822,12 @@
           "runs": 13
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-07-23",
+          "opponent": "한화",
+          "score": "13:2",
+          "runs": 13
+        },
+        {
           "date": "2025-07-23",
           "opponent": "한화",
           "score": "13:2",
@@ -4750,7 +5840,12 @@
           "runs": 9
         },
         {
-<<<<<<< HEAD
+          "date": "2025-07-27",
+          "opponent": "LG",
+          "score": "9:6",
+          "runs": 9
+        },
+        {
           "date": "2025-07-27",
           "opponent": "LG",
           "score": "9:6",
@@ -4763,8 +5858,12 @@
           "runs": 9
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-07-29",
+          "opponent": "KIA",
+          "score": "9:6",
+          "runs": 9
+        },
+        {
           "date": "2025-07-29",
           "opponent": "KIA",
           "score": "9:6",
@@ -4777,7 +5876,12 @@
           "runs": 10
         },
         {
-<<<<<<< HEAD
+          "date": "2025-08-06",
+          "opponent": "LG",
+          "score": "10:8",
+          "runs": 10
+        },
+        {
           "date": "2025-08-06",
           "opponent": "LG",
           "score": "10:8",
@@ -4790,8 +5894,12 @@
           "runs": 9
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-08-08",
+          "opponent": "키움",
+          "score": "9:2",
+          "runs": 9
+        },
+        {
           "date": "2025-08-08",
           "opponent": "키움",
           "score": "9:2",
@@ -4804,22 +5912,30 @@
           "runs": 13
         },
         {
-<<<<<<< HEAD
           "date": "2025-08-20",
           "opponent": "한화",
           "score": "13:9",
           "runs": 13
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-08-20",
+          "opponent": "한화",
+          "score": "13:9",
+          "runs": 13
+        },
+        {
           "date": "2025-08-28",
           "opponent": "삼성",
           "score": "7:6",
           "runs": 7
         },
         {
-<<<<<<< HEAD
+          "date": "2025-08-28",
+          "opponent": "삼성",
+          "score": "7:6",
+          "runs": 7
+        },
+        {
           "date": "2025-08-28",
           "opponent": "삼성",
           "score": "7:6",
@@ -4832,8 +5948,12 @@
           "runs": 7
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-08-29",
+          "opponent": "롯데",
+          "score": "7:1",
+          "runs": 7
+        },
+        {
           "date": "2025-08-29",
           "opponent": "롯데",
           "score": "7:1",
@@ -4852,7 +5972,18 @@
           "runs": 12
         },
         {
-<<<<<<< HEAD
+          "date": "2025-09-04",
+          "opponent": "NC",
+          "score": "12:3",
+          "runs": 12
+        },
+        {
+          "date": "2025-09-04",
+          "opponent": "NC",
+          "score": "12:3",
+          "runs": 12
+        },
+        {
           "date": "2025-09-04",
           "opponent": "NC",
           "score": "12:3",
@@ -4877,8 +6008,18 @@
           "runs": 9
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-09-05",
+          "opponent": "NC",
+          "score": "9:3",
+          "runs": 9
+        },
+        {
+          "date": "2025-09-05",
+          "opponent": "NC",
+          "score": "9:3",
+          "runs": 9
+        },
+        {
           "date": "2025-09-05",
           "opponent": "NC",
           "score": "9:3",
@@ -4891,11 +6032,7 @@
           "runs": 9
         }
       ],
-<<<<<<< HEAD
-      "blowoutLosses": 20,
-=======
-      "blowoutLosses": 10,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+      "blowoutLosses": 30,
       "blowoutAllowed": [
         {
           "date": "2025-03-29",
@@ -4904,7 +6041,12 @@
           "diff": 11
         },
         {
-<<<<<<< HEAD
+          "date": "2025-03-29",
+          "opponent": "삼성",
+          "score": "2:13",
+          "diff": 11
+        },
+        {
           "date": "2025-03-29",
           "opponent": "삼성",
           "score": "2:13",
@@ -4917,8 +6059,12 @@
           "diff": 8
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-05-21",
+          "opponent": "SSG",
+          "score": "1:9",
+          "diff": 8
+        },
+        {
           "date": "2025-05-21",
           "opponent": "SSG",
           "score": "1:9",
@@ -4931,22 +6077,30 @@
           "diff": 10
         },
         {
-<<<<<<< HEAD
           "date": "2025-05-29",
           "opponent": "KT",
           "score": "2:12",
           "diff": 10
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-05-29",
+          "opponent": "KT",
+          "score": "2:12",
+          "diff": 10
+        },
+        {
           "date": "2025-06-03",
           "opponent": "KIA",
           "score": "3:11",
           "diff": 8
         },
         {
-<<<<<<< HEAD
+          "date": "2025-06-03",
+          "opponent": "KIA",
+          "score": "3:11",
+          "diff": 8
+        },
+        {
           "date": "2025-06-03",
           "opponent": "KIA",
           "score": "3:11",
@@ -4959,8 +6113,12 @@
           "diff": 8
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-06-11",
+          "opponent": "한화",
+          "score": "1:9",
+          "diff": 8
+        },
+        {
           "date": "2025-06-11",
           "opponent": "한화",
           "score": "1:9",
@@ -4973,7 +6131,12 @@
           "diff": 11
         },
         {
-<<<<<<< HEAD
+          "date": "2025-06-17",
+          "opponent": "삼성",
+          "score": "1:12",
+          "diff": 11
+        },
+        {
           "date": "2025-06-17",
           "opponent": "삼성",
           "score": "1:12",
@@ -4986,8 +6149,12 @@
           "diff": 8
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-06-22",
+          "opponent": "LG",
+          "score": "5:13",
+          "diff": 8
+        },
+        {
           "date": "2025-06-22",
           "opponent": "LG",
           "score": "5:13",
@@ -5000,7 +6167,12 @@
           "diff": 13
         },
         {
-<<<<<<< HEAD
+          "date": "2025-08-27",
+          "opponent": "삼성",
+          "score": "1:14",
+          "diff": 13
+        },
+        {
           "date": "2025-08-27",
           "opponent": "삼성",
           "score": "1:14",
@@ -5019,8 +6191,18 @@
           "diff": 7
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-09-09",
+          "opponent": "KT",
+          "score": "1:8",
+          "diff": 7
+        },
+        {
+          "date": "2025-09-09",
+          "opponent": "KT",
+          "score": "1:8",
+          "diff": 7
+        },
+        {
           "date": "2025-09-09",
           "opponent": "KT",
           "score": "1:8",
@@ -5033,19 +6215,11 @@
           "diff": 7
         }
       ],
-<<<<<<< HEAD
-      "shutoutWins": 10,
-      "shutoutLosses": 6,
-      "highScoringGames": 20,
-      "highScoringWins": 20,
-      "scorelessGames": 6,
-=======
-      "shutoutWins": 5,
-      "shutoutLosses": 3,
-      "highScoringGames": 10,
-      "highScoringWins": 10,
-      "scorelessGames": 3,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+      "shutoutWins": 15,
+      "shutoutLosses": 9,
+      "highScoringGames": 30,
+      "highScoringWins": 30,
+      "scorelessGames": 9,
       "comebackPotential": {
         "trailingWins": 0,
         "leadBlownLosses": 0
@@ -5053,37 +6227,20 @@
       "clutchIndex": "42.8"
     },
     "NC": {
-<<<<<<< HEAD
-      "totalGames": 288,
-      "oneRunGames": 66,
-      "oneRunWins": 32,
-      "oneRunLosses": 34,
+      "totalGames": 432,
+      "oneRunGames": 99,
+      "oneRunWins": 48,
+      "oneRunLosses": 51,
       "oneRunWinRate": "48.5",
-      "closeGames": 110,
-      "closeWins": 56,
-      "closeLosses": 54,
+      "closeGames": 165,
+      "closeWins": 84,
+      "closeLosses": 81,
       "closeWinRate": "50.9",
-      "threeRunGames": 86,
-      "threeRunWins": 48,
-      "threeRunLosses": 38,
+      "threeRunGames": 129,
+      "threeRunWins": 72,
+      "threeRunLosses": 57,
       "threeRunWinRate": "55.8",
-      "blowoutWins": 68,
-=======
-      "totalGames": 144,
-      "oneRunGames": 33,
-      "oneRunWins": 16,
-      "oneRunLosses": 17,
-      "oneRunWinRate": "48.5",
-      "closeGames": 55,
-      "closeWins": 28,
-      "closeLosses": 27,
-      "closeWinRate": "50.9",
-      "threeRunGames": 43,
-      "threeRunWins": 24,
-      "threeRunLosses": 19,
-      "threeRunWinRate": "55.8",
-      "blowoutWins": 34,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+      "blowoutWins": 102,
       "blowoutScored": [
         {
           "date": "2025-03-09",
@@ -5092,22 +6249,30 @@
           "runs": 7
         },
         {
-<<<<<<< HEAD
           "date": "2025-03-09",
           "opponent": "키움",
           "score": "7:2",
           "runs": 7
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-03-09",
+          "opponent": "키움",
+          "score": "7:2",
+          "runs": 7
+        },
+        {
           "date": "2025-03-26",
           "opponent": "삼성",
           "score": "8:6",
           "runs": 8
         },
         {
-<<<<<<< HEAD
+          "date": "2025-03-26",
+          "opponent": "삼성",
+          "score": "8:6",
+          "runs": 8
+        },
+        {
           "date": "2025-03-26",
           "opponent": "삼성",
           "score": "8:6",
@@ -5120,8 +6285,12 @@
           "runs": 11
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-03-27",
+          "opponent": "삼성",
+          "score": "11:5",
+          "runs": 11
+        },
+        {
           "date": "2025-03-27",
           "opponent": "삼성",
           "score": "11:5",
@@ -5134,22 +6303,30 @@
           "runs": 7
         },
         {
-<<<<<<< HEAD
           "date": "2025-04-05",
           "opponent": "키움",
           "score": "7:5",
           "runs": 7
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-04-05",
+          "opponent": "키움",
+          "score": "7:5",
+          "runs": 7
+        },
+        {
           "date": "2025-04-06",
           "opponent": "키움",
           "score": "8:2",
           "runs": 8
         },
         {
-<<<<<<< HEAD
+          "date": "2025-04-06",
+          "opponent": "키움",
+          "score": "8:2",
+          "runs": 8
+        },
+        {
           "date": "2025-04-06",
           "opponent": "키움",
           "score": "8:2",
@@ -5162,8 +6339,12 @@
           "runs": 7
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-04-10",
+          "opponent": "KT",
+          "score": "7:0",
+          "runs": 7
+        },
+        {
           "date": "2025-04-10",
           "opponent": "KT",
           "score": "7:0",
@@ -5176,22 +6357,30 @@
           "runs": 9
         },
         {
-<<<<<<< HEAD
           "date": "2025-04-13",
           "opponent": "롯데",
           "score": "9:6",
           "runs": 9
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-04-13",
+          "opponent": "롯데",
+          "score": "9:6",
+          "runs": 9
+        },
+        {
           "date": "2025-04-30",
           "opponent": "KIA",
           "score": "7:0",
           "runs": 7
         },
         {
-<<<<<<< HEAD
+          "date": "2025-04-30",
+          "opponent": "KIA",
+          "score": "7:0",
+          "runs": 7
+        },
+        {
           "date": "2025-04-30",
           "opponent": "KIA",
           "score": "7:0",
@@ -5204,8 +6393,12 @@
           "runs": 13
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-05-03",
+          "opponent": "롯데",
+          "score": "13:4",
+          "runs": 13
+        },
+        {
           "date": "2025-05-03",
           "opponent": "롯데",
           "score": "13:4",
@@ -5218,22 +6411,30 @@
           "runs": 9
         },
         {
-<<<<<<< HEAD
           "date": "2025-05-04",
           "opponent": "롯데",
           "score": "9:6",
           "runs": 9
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-05-04",
+          "opponent": "롯데",
+          "score": "9:6",
+          "runs": 9
+        },
+        {
           "date": "2025-05-07",
           "opponent": "KT",
           "score": "12:2",
           "runs": 12
         },
         {
-<<<<<<< HEAD
+          "date": "2025-05-07",
+          "opponent": "KT",
+          "score": "12:2",
+          "runs": 12
+        },
+        {
           "date": "2025-05-07",
           "opponent": "KT",
           "score": "12:2",
@@ -5246,8 +6447,12 @@
           "runs": 11
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-05-11",
+          "opponent": "두산",
+          "score": "11:5",
+          "runs": 11
+        },
+        {
           "date": "2025-05-11",
           "opponent": "두산",
           "score": "11:5",
@@ -5260,22 +6465,30 @@
           "runs": 16
         },
         {
-<<<<<<< HEAD
           "date": "2025-06-01",
           "opponent": "한화",
           "score": "16:5",
           "runs": 16
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-06-01",
+          "opponent": "한화",
+          "score": "16:5",
+          "runs": 16
+        },
+        {
           "date": "2025-06-07",
           "opponent": "삼성",
           "score": "11:7",
           "runs": 11
         },
         {
-<<<<<<< HEAD
+          "date": "2025-06-07",
+          "opponent": "삼성",
+          "score": "11:7",
+          "runs": 11
+        },
+        {
           "date": "2025-06-07",
           "opponent": "삼성",
           "score": "11:7",
@@ -5288,8 +6501,12 @@
           "runs": 7
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-06-11",
+          "opponent": "키움",
+          "score": "7:1",
+          "runs": 7
+        },
+        {
           "date": "2025-06-11",
           "opponent": "키움",
           "score": "7:1",
@@ -5302,7 +6519,12 @@
           "runs": 8
         },
         {
-<<<<<<< HEAD
+          "date": "2025-06-12",
+          "opponent": "키움",
+          "score": "8:6",
+          "runs": 8
+        },
+        {
           "date": "2025-06-12",
           "opponent": "키움",
           "score": "8:6",
@@ -5315,8 +6537,12 @@
           "runs": 7
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-06-25",
+          "opponent": "롯데",
+          "score": "7:2",
+          "runs": 7
+        },
+        {
           "date": "2025-06-25",
           "opponent": "롯데",
           "score": "7:2",
@@ -5329,7 +6555,12 @@
           "runs": 10
         },
         {
-<<<<<<< HEAD
+          "date": "2025-06-27",
+          "opponent": "두산",
+          "score": "10:9",
+          "runs": 10
+        },
+        {
           "date": "2025-06-27",
           "opponent": "두산",
           "score": "10:9",
@@ -5342,8 +6573,12 @@
           "runs": 10
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-07-08",
+          "opponent": "삼성",
+          "score": "10:9",
+          "runs": 10
+        },
+        {
           "date": "2025-07-08",
           "opponent": "삼성",
           "score": "10:9",
@@ -5356,22 +6591,30 @@
           "runs": 7
         },
         {
-<<<<<<< HEAD
           "date": "2025-07-10",
           "opponent": "삼성",
           "score": "7:5",
           "runs": 7
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-07-10",
+          "opponent": "삼성",
+          "score": "7:5",
+          "runs": 7
+        },
+        {
           "date": "2025-07-25",
           "opponent": "키움",
           "score": "16:7",
           "runs": 16
         },
         {
-<<<<<<< HEAD
+          "date": "2025-07-25",
+          "opponent": "키움",
+          "score": "16:7",
+          "runs": 16
+        },
+        {
           "date": "2025-07-25",
           "opponent": "키움",
           "score": "16:7",
@@ -5384,8 +6627,12 @@
           "runs": 8
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-07-26",
+          "opponent": "키움",
+          "score": "8:6",
+          "runs": 8
+        },
+        {
           "date": "2025-07-26",
           "opponent": "키움",
           "score": "8:6",
@@ -5398,22 +6645,30 @@
           "runs": 12
         },
         {
-<<<<<<< HEAD
           "date": "2025-07-27",
           "opponent": "키움",
           "score": "12:4",
           "runs": 12
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-07-27",
+          "opponent": "키움",
+          "score": "12:4",
+          "runs": 12
+        },
+        {
           "date": "2025-07-30",
           "opponent": "롯데",
           "score": "9:4",
           "runs": 9
         },
         {
-<<<<<<< HEAD
+          "date": "2025-07-30",
+          "opponent": "롯데",
+          "score": "9:4",
+          "runs": 9
+        },
+        {
           "date": "2025-07-30",
           "opponent": "롯데",
           "score": "9:4",
@@ -5426,8 +6681,12 @@
           "runs": 7
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-08-02",
+          "opponent": "KT",
+          "score": "7:6",
+          "runs": 7
+        },
+        {
           "date": "2025-08-02",
           "opponent": "KT",
           "score": "7:6",
@@ -5440,22 +6699,30 @@
           "runs": 16
         },
         {
-<<<<<<< HEAD
           "date": "2025-08-10",
           "opponent": "KIA",
           "score": "16:12",
           "runs": 16
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-08-10",
+          "opponent": "KIA",
+          "score": "16:12",
+          "runs": 16
+        },
+        {
           "date": "2025-08-16",
           "opponent": "한화",
           "score": "9:6",
           "runs": 9
         },
         {
-<<<<<<< HEAD
+          "date": "2025-08-16",
+          "opponent": "한화",
+          "score": "9:6",
+          "runs": 9
+        },
+        {
           "date": "2025-08-16",
           "opponent": "한화",
           "score": "9:6",
@@ -5468,8 +6735,12 @@
           "runs": 9
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-08-17",
+          "opponent": "한화",
+          "score": "9:4",
+          "runs": 9
+        },
+        {
           "date": "2025-08-17",
           "opponent": "한화",
           "score": "9:4",
@@ -5482,7 +6753,12 @@
           "runs": 7
         },
         {
-<<<<<<< HEAD
+          "date": "2025-08-21",
+          "opponent": "삼성",
+          "score": "7:5",
+          "runs": 7
+        },
+        {
           "date": "2025-08-21",
           "opponent": "삼성",
           "score": "7:5",
@@ -5495,8 +6771,12 @@
           "runs": 7
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-08-22",
+          "opponent": "롯데",
+          "score": "7:6",
+          "runs": 7
+        },
+        {
           "date": "2025-08-22",
           "opponent": "롯데",
           "score": "7:6",
@@ -5509,22 +6789,30 @@
           "runs": 9
         },
         {
-<<<<<<< HEAD
           "date": "2025-08-26",
           "opponent": "LG",
           "score": "9:7",
           "runs": 9
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-08-26",
+          "opponent": "LG",
+          "score": "9:7",
+          "runs": 9
+        },
+        {
           "date": "2025-08-30",
           "opponent": "SSG",
           "score": "12:2",
           "runs": 12
         },
         {
-<<<<<<< HEAD
+          "date": "2025-08-30",
+          "opponent": "SSG",
+          "score": "12:2",
+          "runs": 12
+        },
+        {
           "date": "2025-08-30",
           "opponent": "SSG",
           "score": "12:2",
@@ -5543,8 +6831,18 @@
           "runs": 9
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-09-02",
+          "opponent": "KT",
+          "score": "9:4",
+          "runs": 9
+        },
+        {
+          "date": "2025-09-02",
+          "opponent": "KT",
+          "score": "9:4",
+          "runs": 9
+        },
+        {
           "date": "2025-09-02",
           "opponent": "KT",
           "score": "9:4",
@@ -5557,11 +6855,7 @@
           "runs": 9
         }
       ],
-<<<<<<< HEAD
-      "blowoutLosses": 34,
-=======
-      "blowoutLosses": 17,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+      "blowoutLosses": 51,
       "blowoutAllowed": [
         {
           "date": "2025-03-11",
@@ -5570,22 +6864,30 @@
           "diff": 7
         },
         {
-<<<<<<< HEAD
           "date": "2025-03-11",
           "opponent": "KIA",
           "score": "10:17",
           "diff": 7
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-03-11",
+          "opponent": "KIA",
+          "score": "10:17",
+          "diff": 7
+        },
+        {
           "date": "2025-03-22",
           "opponent": "KIA",
           "score": "2:9",
           "diff": 7
         },
         {
-<<<<<<< HEAD
+          "date": "2025-03-22",
+          "opponent": "KIA",
+          "score": "2:9",
+          "diff": 7
+        },
+        {
           "date": "2025-03-22",
           "opponent": "KIA",
           "score": "2:9",
@@ -5598,8 +6900,12 @@
           "diff": 9
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-03-25",
+          "opponent": "삼성",
+          "score": "5:14",
+          "diff": 9
+        },
+        {
           "date": "2025-03-25",
           "opponent": "삼성",
           "score": "5:14",
@@ -5612,22 +6918,30 @@
           "diff": 10
         },
         {
-<<<<<<< HEAD
           "date": "2025-03-29",
           "opponent": "LG",
           "score": "4:14",
           "diff": 10
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-03-29",
+          "opponent": "LG",
+          "score": "4:14",
+          "diff": 10
+        },
+        {
           "date": "2025-04-18",
           "opponent": "한화",
           "score": "4:12",
           "diff": 8
         },
         {
-<<<<<<< HEAD
+          "date": "2025-04-18",
+          "opponent": "한화",
+          "score": "4:12",
+          "diff": 8
+        },
+        {
           "date": "2025-04-18",
           "opponent": "한화",
           "score": "4:12",
@@ -5640,8 +6954,12 @@
           "diff": 8
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-04-26",
+          "opponent": "삼성",
+          "score": "1:9",
+          "diff": 8
+        },
+        {
           "date": "2025-04-26",
           "opponent": "삼성",
           "score": "1:9",
@@ -5654,22 +6972,30 @@
           "diff": 10
         },
         {
-<<<<<<< HEAD
           "date": "2025-04-29",
           "opponent": "KIA",
           "score": "3:13",
           "diff": 10
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-04-29",
+          "opponent": "KIA",
+          "score": "3:13",
+          "diff": 10
+        },
+        {
           "date": "2025-05-28",
           "opponent": "SSG",
           "score": "5:13",
           "diff": 8
         },
         {
-<<<<<<< HEAD
+          "date": "2025-05-28",
+          "opponent": "SSG",
+          "score": "5:13",
+          "diff": 8
+        },
+        {
           "date": "2025-05-28",
           "opponent": "SSG",
           "score": "5:13",
@@ -5682,8 +7008,12 @@
           "diff": 15
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-06-03",
+          "opponent": "LG",
+          "score": "0:15",
+          "diff": 15
+        },
+        {
           "date": "2025-06-03",
           "opponent": "LG",
           "score": "0:15",
@@ -5696,22 +7026,30 @@
           "diff": 7
         },
         {
-<<<<<<< HEAD
           "date": "2025-07-22",
           "opponent": "KT",
           "score": "0:7",
           "diff": 7
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-07-22",
+          "opponent": "KT",
+          "score": "0:7",
+          "diff": 7
+        },
+        {
           "date": "2025-07-23",
           "opponent": "KT",
           "score": "2:9",
           "diff": 7
         },
         {
-<<<<<<< HEAD
+          "date": "2025-07-23",
+          "opponent": "KT",
+          "score": "2:9",
+          "diff": 7
+        },
+        {
           "date": "2025-07-23",
           "opponent": "KT",
           "score": "2:9",
@@ -5724,8 +7062,12 @@
           "diff": 7
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-08-15",
+          "opponent": "한화",
+          "score": "2:9",
+          "diff": 7
+        },
+        {
           "date": "2025-08-15",
           "opponent": "한화",
           "score": "2:9",
@@ -5738,7 +7080,12 @@
           "diff": 12
         },
         {
-<<<<<<< HEAD
+          "date": "2025-08-24",
+          "opponent": "롯데",
+          "score": "5:17",
+          "diff": 12
+        },
+        {
           "date": "2025-08-24",
           "opponent": "롯데",
           "score": "5:17",
@@ -5751,8 +7098,12 @@
           "diff": 9
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-08-27",
+          "opponent": "LG",
+          "score": "1:10",
+          "diff": 9
+        },
+        {
           "date": "2025-08-27",
           "opponent": "LG",
           "score": "1:10",
@@ -5765,7 +7116,12 @@
           "diff": 8
         },
         {
-<<<<<<< HEAD
+          "date": "2025-08-29",
+          "opponent": "SSG",
+          "score": "0:8",
+          "diff": 8
+        },
+        {
           "date": "2025-08-29",
           "opponent": "SSG",
           "score": "0:8",
@@ -5784,8 +7140,18 @@
           "diff": 9
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-09-04",
+          "opponent": "두산",
+          "score": "3:12",
+          "diff": 9
+        },
+        {
+          "date": "2025-09-04",
+          "opponent": "두산",
+          "score": "3:12",
+          "diff": 9
+        },
+        {
           "date": "2025-09-04",
           "opponent": "두산",
           "score": "3:12",
@@ -5798,19 +7164,11 @@
           "diff": 9
         }
       ],
-<<<<<<< HEAD
-      "shutoutWins": 14,
-      "shutoutLosses": 20,
-      "highScoringGames": 28,
-      "highScoringWins": 24,
-      "scorelessGames": 20,
-=======
-      "shutoutWins": 7,
-      "shutoutLosses": 10,
-      "highScoringGames": 14,
-      "highScoringWins": 12,
-      "scorelessGames": 10,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+      "shutoutWins": 21,
+      "shutoutLosses": 30,
+      "highScoringGames": 42,
+      "highScoringWins": 36,
+      "scorelessGames": 30,
       "comebackPotential": {
         "trailingWins": 0,
         "leadBlownLosses": 0
@@ -5818,37 +7176,20 @@
       "clutchIndex": "50.7"
     },
     "키움": {
-<<<<<<< HEAD
-      "totalGames": 294,
-      "oneRunGames": 64,
-      "oneRunWins": 46,
-      "oneRunLosses": 18,
+      "totalGames": 441,
+      "oneRunGames": 96,
+      "oneRunWins": 69,
+      "oneRunLosses": 27,
       "oneRunWinRate": "71.9",
-      "closeGames": 120,
-      "closeWins": 58,
-      "closeLosses": 62,
+      "closeGames": 180,
+      "closeWins": 87,
+      "closeLosses": 93,
       "closeWinRate": "48.3",
-      "threeRunGames": 88,
-      "threeRunWins": 28,
-      "threeRunLosses": 60,
+      "threeRunGames": 132,
+      "threeRunWins": 42,
+      "threeRunLosses": 90,
       "threeRunWinRate": "31.8",
-      "blowoutWins": 38,
-=======
-      "totalGames": 147,
-      "oneRunGames": 32,
-      "oneRunWins": 23,
-      "oneRunLosses": 9,
-      "oneRunWinRate": "71.9",
-      "closeGames": 60,
-      "closeWins": 29,
-      "closeLosses": 31,
-      "closeWinRate": "48.3",
-      "threeRunGames": 44,
-      "threeRunWins": 14,
-      "threeRunLosses": 30,
-      "threeRunWinRate": "31.8",
-      "blowoutWins": 19,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+      "blowoutWins": 57,
       "blowoutScored": [
         {
           "date": "2025-03-11",
@@ -5857,22 +7198,30 @@
           "runs": 9
         },
         {
-<<<<<<< HEAD
           "date": "2025-03-11",
           "opponent": "KT",
           "score": "9:5",
           "runs": 9
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-03-11",
+          "opponent": "KT",
+          "score": "9:5",
+          "runs": 9
+        },
+        {
           "date": "2025-03-13",
           "opponent": "SSG",
           "score": "7:6",
           "runs": 7
         },
         {
-<<<<<<< HEAD
+          "date": "2025-03-13",
+          "opponent": "SSG",
+          "score": "7:6",
+          "runs": 7
+        },
+        {
           "date": "2025-03-13",
           "opponent": "SSG",
           "score": "7:6",
@@ -5885,8 +7234,12 @@
           "runs": 17
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-03-26",
+          "opponent": "KIA",
+          "score": "17:10",
+          "runs": 17
+        },
+        {
           "date": "2025-03-26",
           "opponent": "KIA",
           "score": "17:10",
@@ -5899,22 +7252,30 @@
           "runs": 9
         },
         {
-<<<<<<< HEAD
           "date": "2025-03-28",
           "opponent": "SSG",
           "score": "9:3",
           "runs": 9
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-03-28",
+          "opponent": "SSG",
+          "score": "9:3",
+          "runs": 9
+        },
+        {
           "date": "2025-04-27",
           "opponent": "SSG",
           "score": "7:3",
           "runs": 7
         },
         {
-<<<<<<< HEAD
+          "date": "2025-04-27",
+          "opponent": "SSG",
+          "score": "7:3",
+          "runs": 7
+        },
+        {
           "date": "2025-04-27",
           "opponent": "SSG",
           "score": "7:3",
@@ -5927,8 +7288,12 @@
           "runs": 11
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-05-07",
+          "opponent": "KIA",
+          "score": "11:10",
+          "runs": 11
+        },
+        {
           "date": "2025-05-07",
           "opponent": "KIA",
           "score": "11:10",
@@ -5941,7 +7306,12 @@
           "runs": 9
         },
         {
-<<<<<<< HEAD
+          "date": "2025-06-04",
+          "opponent": "롯데",
+          "score": "9:6",
+          "runs": 9
+        },
+        {
           "date": "2025-06-04",
           "opponent": "롯데",
           "score": "9:6",
@@ -5954,8 +7324,12 @@
           "runs": 10
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-06-05",
+          "opponent": "롯데",
+          "score": "10:5",
+          "runs": 10
+        },
+        {
           "date": "2025-06-05",
           "opponent": "롯데",
           "score": "10:5",
@@ -5968,7 +7342,12 @@
           "runs": 9
         },
         {
-<<<<<<< HEAD
+          "date": "2025-06-24",
+          "opponent": "KIA",
+          "score": "9:6",
+          "runs": 9
+        },
+        {
           "date": "2025-06-24",
           "opponent": "KIA",
           "score": "9:6",
@@ -5981,8 +7360,12 @@
           "runs": 9
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-06-28",
+          "opponent": "삼성",
+          "score": "9:0",
+          "runs": 9
+        },
+        {
           "date": "2025-06-28",
           "opponent": "삼성",
           "score": "9:0",
@@ -5995,22 +7378,30 @@
           "runs": 10
         },
         {
-<<<<<<< HEAD
           "date": "2025-06-29",
           "opponent": "삼성",
           "score": "10:7",
           "runs": 10
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-06-29",
+          "opponent": "삼성",
+          "score": "10:7",
+          "runs": 10
+        },
+        {
           "date": "2025-07-01",
           "opponent": "KT",
           "score": "7:3",
           "runs": 7
         },
         {
-<<<<<<< HEAD
+          "date": "2025-07-01",
+          "opponent": "KT",
+          "score": "7:3",
+          "runs": 7
+        },
+        {
           "date": "2025-07-01",
           "opponent": "KT",
           "score": "7:3",
@@ -6023,8 +7414,12 @@
           "runs": 8
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-08-05",
+          "opponent": "NC",
+          "score": "8:5",
+          "runs": 8
+        },
+        {
           "date": "2025-08-05",
           "opponent": "NC",
           "score": "8:5",
@@ -6037,7 +7432,12 @@
           "runs": 9
         },
         {
-<<<<<<< HEAD
+          "date": "2025-08-06",
+          "opponent": "NC",
+          "score": "9:5",
+          "runs": 9
+        },
+        {
           "date": "2025-08-06",
           "opponent": "NC",
           "score": "9:5",
@@ -6050,8 +7450,12 @@
           "runs": 13
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-08-07",
+          "opponent": "NC",
+          "score": "13:12",
+          "runs": 13
+        },
+        {
           "date": "2025-08-07",
           "opponent": "NC",
           "score": "13:12",
@@ -6064,22 +7468,30 @@
           "runs": 7
         },
         {
-<<<<<<< HEAD
           "date": "2025-08-15",
           "opponent": "KT",
           "score": "7:3",
           "runs": 7
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-08-15",
+          "opponent": "KT",
+          "score": "7:3",
+          "runs": 7
+        },
+        {
           "date": "2025-08-21",
           "opponent": "KIA",
           "score": "11:10",
           "runs": 11
         },
         {
-<<<<<<< HEAD
+          "date": "2025-08-21",
+          "opponent": "KIA",
+          "score": "11:10",
+          "runs": 11
+        },
+        {
           "date": "2025-08-21",
           "opponent": "KIA",
           "score": "11:10",
@@ -6098,8 +7510,18 @@
           "runs": 11
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-09-09",
+          "opponent": "LG",
+          "score": "11:2",
+          "runs": 11
+        },
+        {
+          "date": "2025-09-09",
+          "opponent": "LG",
+          "score": "11:2",
+          "runs": 11
+        },
+        {
           "date": "2025-09-09",
           "opponent": "LG",
           "score": "11:2",
@@ -6112,11 +7534,7 @@
           "runs": 11
         }
       ],
-<<<<<<< HEAD
-      "blowoutLosses": 30,
-=======
-      "blowoutLosses": 15,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+      "blowoutLosses": 45,
       "blowoutAllowed": [
         {
           "date": "2025-03-22",
@@ -6125,7 +7543,12 @@
           "diff": 8
         },
         {
-<<<<<<< HEAD
+          "date": "2025-03-22",
+          "opponent": "삼성",
+          "score": "5:13",
+          "diff": 8
+        },
+        {
           "date": "2025-03-22",
           "opponent": "삼성",
           "score": "5:13",
@@ -6138,8 +7561,12 @@
           "diff": 12
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-04-08",
+          "opponent": "LG",
+          "score": "1:13",
+          "diff": 12
+        },
+        {
           "date": "2025-04-08",
           "opponent": "LG",
           "score": "1:13",
@@ -6152,7 +7579,12 @@
           "diff": 10
         },
         {
-<<<<<<< HEAD
+          "date": "2025-04-11",
+          "opponent": "한화",
+          "score": "2:12",
+          "diff": 10
+        },
+        {
           "date": "2025-04-11",
           "opponent": "한화",
           "score": "2:12",
@@ -6165,8 +7597,12 @@
           "diff": 10
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-04-19",
+          "opponent": "KT",
+          "score": "1:11",
+          "diff": 10
+        },
+        {
           "date": "2025-04-19",
           "opponent": "KT",
           "score": "1:11",
@@ -6179,7 +7615,12 @@
           "diff": 9
         },
         {
-<<<<<<< HEAD
+          "date": "2025-05-03",
+          "opponent": "KT",
+          "score": "0:9",
+          "diff": 9
+        },
+        {
           "date": "2025-05-03",
           "opponent": "KT",
           "score": "0:9",
@@ -6192,8 +7633,12 @@
           "diff": 12
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-05-05",
+          "opponent": "KIA",
+          "score": "1:13",
+          "diff": 12
+        },
+        {
           "date": "2025-05-05",
           "opponent": "KIA",
           "score": "1:13",
@@ -6206,7 +7651,12 @@
           "diff": 8
         },
         {
-<<<<<<< HEAD
+          "date": "2025-05-10",
+          "opponent": "한화",
+          "score": "1:9",
+          "diff": 8
+        },
+        {
           "date": "2025-05-10",
           "opponent": "한화",
           "score": "1:9",
@@ -6219,8 +7669,12 @@
           "diff": 8
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-05-11",
+          "opponent": "한화",
+          "score": "0:8",
+          "diff": 8
+        },
+        {
           "date": "2025-05-11",
           "opponent": "한화",
           "score": "0:8",
@@ -6233,22 +7687,30 @@
           "diff": 12
         },
         {
-<<<<<<< HEAD
           "date": "2025-05-14",
           "opponent": "LG",
           "score": "0:12",
           "diff": 12
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-05-14",
+          "opponent": "LG",
+          "score": "0:12",
+          "diff": 12
+        },
+        {
           "date": "2025-06-03",
           "opponent": "롯데",
           "score": "0:8",
           "diff": 8
         },
         {
-<<<<<<< HEAD
+          "date": "2025-06-03",
+          "opponent": "롯데",
+          "score": "0:8",
+          "diff": 8
+        },
+        {
           "date": "2025-06-03",
           "opponent": "롯데",
           "score": "0:8",
@@ -6261,8 +7723,12 @@
           "diff": 10
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-06-17",
+          "opponent": "SSG",
+          "score": "1:11",
+          "diff": 10
+        },
+        {
           "date": "2025-06-17",
           "opponent": "SSG",
           "score": "1:11",
@@ -6275,7 +7741,12 @@
           "diff": 9
         },
         {
-<<<<<<< HEAD
+          "date": "2025-07-06",
+          "opponent": "한화",
+          "score": "1:10",
+          "diff": 9
+        },
+        {
           "date": "2025-07-06",
           "opponent": "한화",
           "score": "1:10",
@@ -6288,8 +7759,12 @@
           "diff": 9
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-07-25",
+          "opponent": "NC",
+          "score": "7:16",
+          "diff": 9
+        },
+        {
           "date": "2025-07-25",
           "opponent": "NC",
           "score": "7:16",
@@ -6302,7 +7777,12 @@
           "diff": 8
         },
         {
-<<<<<<< HEAD
+          "date": "2025-07-27",
+          "opponent": "NC",
+          "score": "4:12",
+          "diff": 8
+        },
+        {
           "date": "2025-07-27",
           "opponent": "NC",
           "score": "4:12",
@@ -6315,27 +7795,23 @@
           "diff": 7
         },
         {
-=======
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+          "date": "2025-08-08",
+          "opponent": "두산",
+          "score": "2:9",
+          "diff": 7
+        },
+        {
           "date": "2025-08-08",
           "opponent": "두산",
           "score": "2:9",
           "diff": 7
         }
       ],
-<<<<<<< HEAD
-      "shutoutWins": 12,
-      "shutoutLosses": 20,
-      "highScoringGames": 18,
-      "highScoringWins": 16,
-      "scorelessGames": 20,
-=======
-      "shutoutWins": 6,
-      "shutoutLosses": 10,
-      "highScoringGames": 9,
-      "highScoringWins": 8,
-      "scorelessGames": 10,
->>>>>>> 5df0b802 (🔧 크롤러 안정성 개선 - 월별 즉시 저장)
+      "shutoutWins": 18,
+      "shutoutLosses": 30,
+      "highScoringGames": 27,
+      "highScoringWins": 24,
+      "scorelessGames": 30,
       "comebackPotential": {
         "trailingWins": 0,
         "leadBlownLosses": 0
