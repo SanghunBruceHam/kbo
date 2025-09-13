@@ -4220,6 +4220,7 @@
                 ">←</div>
                 
                 <div class="nav-menu" id="nav-menu">
+                    <a href="magic-number/index.html" class="nav-item magic-number-nav">🎯 매직넘버</a>
                     <a href="#season-progress" class="nav-item">📈 진행률</a>
                     <a href="#daily-stats" class="nav-item">📅 일별통계</a>
                     <a href="#standings" class="nav-item">🏆 종합순위</a>
@@ -4432,6 +4433,54 @@
         @keyframes navArrowBlink {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.2; }
+        }
+
+        /* 매직넘버 네비게이션 아이템 플래싱 효과 */
+        .magic-number-nav {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+            color: white !important;
+            font-weight: 600 !important;
+            border: 2px solid #059669 !important;
+            animation: magicNavFlash 2s infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .magic-number-nav:hover {
+            background: linear-gradient(135deg, #047857 0%, #065f46 100%) !important;
+            color: white !important;
+            animation-play-state: paused;
+            transform: translateY(-2px) !important;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4) !important;
+        }
+
+        @keyframes magicNavFlash {
+            0%, 70%, 100% {
+                box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+                transform: translateY(0);
+            }
+            15%, 55% {
+                box-shadow: 0 4px 16px rgba(16, 185, 129, 0.6);
+                transform: translateY(-1px);
+            }
+        }
+
+        /* 매직넘버 네비 아이템에 펄스 효과 추가 */
+        .magic-number-nav::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 100%);
+            animation: magicPulse 2s infinite;
+            pointer-events: none;
+        }
+
+        @keyframes magicPulse {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
         }
         </style>
 
