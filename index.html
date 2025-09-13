@@ -11769,6 +11769,8 @@
                 const played = parseInt(team.games_played);
                 const progress = Math.min((played / 144) * 100, 100);
                 const data = teamData[team.team_name] || { name: team.team_name, color: '#6366f1', logo: team.team_name.toLowerCase() };
+
+                console.log('Team:', team.team_name, 'Logo path:', `magic-number/images/teams/${data.logo}.png`);
                 
                 return `
                     <div class="team-progress-card">
