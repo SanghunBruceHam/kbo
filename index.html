@@ -12806,45 +12806,121 @@ KT 9:1 키움(H)`;
                 const lines = text.split('\n');
                 const dateGamesMap = new Map(); // 날짜별 경기를 모아둘 Map
                 let currentDate = null;
-                
+
                 for (const line of lines) {
                     const trimmedLine = line.trim();
-                    
-                    if (/^\d{4}-\d{2}-\d{2}$/.test(trimmedLine)) {
-                        currentDate = trimmedLine;
+
+                    // 날짜 라인 체크 (YYYY-MM-DD (요일) 형식 또는 기존 YYYY-MM-DD 형식)
+                    if (/^\d{4}-\d{2}-\d{2}(\s*\([월화수목금토일]\))?$/.test(trimmedLine)) {
+                        currentDate = trimmedLine.replace(/\s*\([월화수목금토일]\)/, ''); // 요일 정보 제거
                         // Map에 날짜가 없으면 빈 배열로 초기화
                         if (!dateGamesMap.has(currentDate)) {
                             dateGamesMap.set(currentDate, []);
                         }
                     } else if (trimmedLine && currentDate) {
-                        const gameMatch = trimmedLine.match(/^(.+?)\s+(\d+):(\d+)\s+(.+?)(?:\(H\))?$/);
-                        if (gameMatch) {
-                            const [, team1, score1, score2, team2] = gameMatch;
-                            const gameData = {
-                                date: currentDate,
-                                team1: team1.trim(),
-                                score1: parseInt(score1),
-                                team2: team2.replace('(H)', '').trim(),
-                                score2: parseInt(score2),
-                                isHome: trimmedLine.includes('(H)')
-                            };
-                            
-                            // 중복 경기 체크 (같은 팀끼리 같은 점수의 경기)
-                            const existingGames = dateGamesMap.get(currentDate);
-                            const isDuplicate = existingGames.some(game => 
-                                (game.team1 === gameData.team1 && game.team2 === gameData.team2 && 
-                                 game.score1 === gameData.score1 && game.score2 === gameData.score2) ||
-                                (game.team1 === gameData.team2 && game.team2 === gameData.team1 && 
-                                 game.score1 === gameData.score2 && game.score2 === gameData.score1)
-                            );
-                            
-                            if (!isDuplicate) {
-                                dateGamesMap.get(currentDate).push(gameData);
+                        // 새로운 형식 파싱: "시간 상태 구장 홈팀 어웨이팀 점수 방송사 구분"
+                        const newFormatParts = trimmedLine.split(/\s+/);
+                        if (newFormatParts.length >= 8) {
+                            const [time, state, stadium, homeTeam, awayTeam, scoreOrStatus, broadcast, ...categoryParts] = newFormatParts;
+                            const category = categoryParts.join(' ');
+
+                            // 완료된 경기이면서 페넌트레이스 경기만 처리
+                            if (state === '종료' && category.includes('페넌트레이스')) {
+                                // 점수 파싱 (away:home 형식)
+                                const scoreMatch = scoreOrStatus.match(/^(\d+):(\d+)$/);
+                                if (scoreMatch) {
+                                    const [, awayScore, homeScore] = scoreMatch;
+                                    const gameData = {
+                                        date: currentDate,
+                                        team1: awayTeam, // 원정팀
+                                        score1: parseInt(awayScore),
+                                        team2: homeTeam, // 홈팀
+                                        score2: parseInt(homeScore),
+                                        isHome: true, // 홈/원정 구분됨
+                                        time: time,
+                                        stadium: stadium,
+                                        broadcast: broadcast,
+                                        category: category,
+                                        state: state
+                                    };
+
+                                    // 중복 경기 체크
+                                    const existingGames = dateGamesMap.get(currentDate);
+                                    const isDuplicate = existingGames.some(game =>
+                                        (game.team1 === gameData.team1 && game.team2 === gameData.team2 &&
+                                         game.score1 === gameData.score1 && game.score2 === gameData.score2) ||
+                                        (game.team1 === gameData.team2 && game.team2 === gameData.team1 &&
+                                         game.score1 === gameData.score2 && game.score2 === gameData.score1)
+                                    );
+
+                                    if (!isDuplicate) {
+                                        dateGamesMap.get(currentDate).push(gameData);
+                                    }
+                                }
+                            }
+
+                            // 취소/연기된 경기도 기록 (사용자가 보고 싶어함)
+                            if ((state === '경기취소' || state.includes('취소') || state.includes('연기')) && category.includes('페넌트레이스')) {
+                                const gameData = {
+                                    date: currentDate,
+                                    team1: awayTeam, // 원정팀
+                                    score1: null,
+                                    team2: homeTeam, // 홈팀
+                                    score2: null,
+                                    isHome: true,
+                                    time: time,
+                                    stadium: stadium,
+                                    broadcast: broadcast || '',
+                                    category: category,
+                                    state: state,
+                                    isCancelled: true
+                                };
+
+                                // 중복 체크 (취소 경기도)
+                                const existingGames = dateGamesMap.get(currentDate);
+                                const isDuplicate = existingGames.some(game =>
+                                    game.team1 === gameData.team1 && game.team2 === gameData.team2 &&
+                                    game.isCancelled === true
+                                );
+
+                                if (!isDuplicate) {
+                                    dateGamesMap.get(currentDate).push(gameData);
+                                }
+                            }
+
+                        } else {
+                            // 기존 형식 파싱 (팀1 점수:점수 팀2(H) 또는 팀1 점수:점수 팀2) - 백업용
+                            const gameMatch = trimmedLine.match(/^(.+?)\s+(\d+):(\d+)\s+(.+?)(?:\(H\))?$/);
+                            if (gameMatch) {
+                                const [, team1, score1, score2, team2] = gameMatch;
+                                const gameData = {
+                                    date: currentDate,
+                                    team1: team1.trim(),
+                                    score1: parseInt(score1),
+                                    team2: team2.replace('(H)', '').trim(),
+                                    score2: parseInt(score2),
+                                    isHome: trimmedLine.includes('(H)'),
+                                    state: '종료',
+                                    category: '페넌트레이스' // 기존 형식은 모두 페넌트레이스로 간주
+                                };
+
+                                // 중복 경기 체크
+                                const existingGames = dateGamesMap.get(currentDate);
+                                const isDuplicate = existingGames.some(game =>
+                                    (game.team1 === gameData.team1 && game.team2 === gameData.team2 &&
+                                     game.score1 === gameData.score1 && game.score2 === gameData.score2) ||
+                                    (game.team1 === gameData.team2 && game.team2 === gameData.team1 &&
+                                     game.score1 === gameData.score2 && game.score2 === gameData.score1)
+                                );
+
+                                if (!isDuplicate) {
+                                    dateGamesMap.get(currentDate).push(gameData);
+                                }
                             }
                         }
                     }
                 }
-                
+
                 // Map을 seasonData 배열로 변환 (날짜 순으로 정렬)
                 const sortedDates = Array.from(dateGamesMap.keys()).sort();
                 for (const date of sortedDates) {
@@ -12853,10 +12929,10 @@ KT 9:1 키움(H)`;
                         this.seasonData.push({ date: date, games: games });
                     }
                 }
-                
+
                 // 동적으로 최신 경기 날짜 설정
                 this.setLatestGameDate();
-                
+
             }
             
             // 경기 결과가 있는 가장 최신 날짜를 동적으로 설정
@@ -12985,17 +13061,20 @@ KT 9:1 키움(H)`;
                 // 해당 날짜까지의 누적 데이터 계산
                 for (const dayData of this.seasonData) {
                     if (dayData.date > targetDate) break;
-                    
+
                     dayData.games.forEach(game => {
+                        // 취소된 경기는 순위 계산에서 제외
+                        if (game.isCancelled) return;
+
                         const { team1, team2, score1, score2 } = game;
-                        
+
                         if (tempStats[team1]) {
                             tempStats[team1].games++;
                             if (score1 > score2) tempStats[team1].wins++;
                             else if (score1 < score2) tempStats[team1].losses++;
                             else tempStats[team1].draws++;
                         }
-                        
+
                         if (tempStats[team2]) {
                             tempStats[team2].games++;
                             if (score2 > score1) tempStats[team2].wins++;
@@ -13212,14 +13291,36 @@ KT 9:1 키움(H)`;
                 
                 let html = '';
                 dayData.games.forEach(game => {
-                    const winner = game.score1 > game.score2 ? game.team1 : 
-                                  game.score2 > game.score1 ? game.team2 : null;
-                    
-                    const team1Style = winner === game.team1 ? 'color: #10b981;' : winner === game.team2 ? 'color: #ef4444;' : '';
-                    const team2Style = winner === game.team2 ? 'color: #10b981;' : winner === game.team1 ? 'color: #ef4444;' : '';
-                    
-                    html += `<div style="padding: 8px 10px; margin-bottom: 8px; background: white; border-radius: 6px; border-left: 3px solid #667eea; border: 1px solid #e5e7eb;">
-                        <div style="font-size: 14px; font-weight: bold; color: #333; display: flex; align-items: center;">
+                    let contentHTML = '';
+                    let borderColor = '#667eea';
+                    let backgroundColor = 'white';
+
+                    if (game.isCancelled) {
+                        // 취소된 경기 표시
+                        contentHTML = `
+                            <div style="display: flex; align-items: center; gap: 6px; flex: 1; justify-content: flex-start;">
+                                <img src="${this.teamLogos[game.team1]}" alt="${game.team1}" style="width: 18px; height: 18px; object-fit: contain;" onerror="this.style.display='none'">
+                                <span style="color: #6b7280;">${game.team1}</span>
+                            </div>
+                            <div style="font-size: 14px; font-weight: bold; text-align: center; min-width: 100px; color: #dc2626;">
+                                ❌ ${game.state}
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 6px; flex: 1; justify-content: flex-end;">
+                                <span style="color: #6b7280;">${game.team2}</span>
+                                <img src="${this.teamLogos[game.team2]}" alt="${game.team2}" style="width: 18px; height: 18px; object-fit: contain;" onerror="this.style.display='none'">
+                                ${game.isHome ? '<span style="font-size: 12px; color: #666; margin-left: 4px;">(홈)</span>' : ''}
+                            </div>`;
+                        borderColor = '#dc2626';
+                        backgroundColor = '#fef2f2';
+                    } else {
+                        // 정상 경기 표시
+                        const winner = game.score1 > game.score2 ? game.team1 :
+                                      game.score2 > game.score1 ? game.team2 : null;
+
+                        const team1Style = winner === game.team1 ? 'color: #10b981;' : winner === game.team2 ? 'color: #ef4444;' : '';
+                        const team2Style = winner === game.team2 ? 'color: #10b981;' : winner === game.team1 ? 'color: #ef4444;' : '';
+
+                        contentHTML = `
                             <div style="display: flex; align-items: center; gap: 6px; flex: 1; justify-content: flex-start;">
                                 <img src="${this.teamLogos[game.team1]}" alt="${game.team1}" style="width: 18px; height: 18px; object-fit: contain;" onerror="this.style.display='none'">
                                 <span style="${team1Style} color: ${this.teamColors[game.team1]};">${game.team1}</span>
@@ -13229,8 +13330,24 @@ KT 9:1 키움(H)`;
                                 <span style="${team2Style} color: ${this.teamColors[game.team2]};">${game.team2}</span>
                                 <img src="${this.teamLogos[game.team2]}" alt="${game.team2}" style="width: 18px; height: 18px; object-fit: contain;" onerror="this.style.display='none'">
                                 ${game.isHome ? '<span style="font-size: 12px; color: #666; margin-left: 4px;">(홈)</span>' : ''}
-                            </div>
+                            </div>`;
+                    }
+
+                    // 추가 정보 표시 (시간, 구장, 방송사)
+                    let extraInfo = '';
+                    if (game.time || game.stadium || game.broadcast) {
+                        extraInfo = `<div style="font-size: 11px; color: #6b7280; margin-top: 6px; text-align: center;">`;
+                        if (game.time) extraInfo += `⏰ ${game.time} `;
+                        if (game.stadium) extraInfo += `🏟️ ${game.stadium} `;
+                        if (game.broadcast) extraInfo += `📺 ${game.broadcast}`;
+                        extraInfo += `</div>`;
+                    }
+
+                    html += `<div style="padding: 8px 10px; margin-bottom: 8px; background: ${backgroundColor}; border-radius: 6px; border-left: 3px solid ${borderColor}; border: 1px solid #e5e7eb;">
+                        <div style="font-size: 14px; font-weight: bold; color: #333; display: flex; align-items: center;">
+                            ${contentHTML}
                         </div>
+                        ${extraInfo}
                     </div>`;
                 });
                 

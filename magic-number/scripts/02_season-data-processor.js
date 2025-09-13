@@ -570,14 +570,126 @@ class KBODataProcessor {
             // 잔여경기
             remainingGames: this.remainingGames,
             
-            chaseData: []
+            chaseData: this.generateChaseData()
         };
         
         return serviceData;
     }
 
     generateChaseData() {
-        return [];
+        console.log('📈 일자별 순위 변화 데이터(chaseData) 생성 중...');
+
+        // 날짜별로 경기 그룹화
+        const gamesByDate = {};
+        this.games.forEach(game => {
+            if (!gamesByDate[game.date]) {
+                gamesByDate[game.date] = [];
+            }
+            gamesByDate[game.date].push(game);
+        });
+
+        // 날짜 정렬
+        const sortedDates = Object.keys(gamesByDate).sort();
+
+        // 일자별 누적 통계 계산
+        const chaseData = [];
+        const cumulativeStats = {};
+
+        // 팀별 초기 통계
+        this.teams.forEach(team => {
+            cumulativeStats[team] = {
+                games: 0,
+                wins: 0,
+                losses: 0,
+                draws: 0,
+                winRate: 0,
+                rank: 0,
+                gamesBehind: 0
+            };
+        });
+
+        sortedDates.forEach(date => {
+            const gamesOnDate = gamesByDate[date];
+
+            // 해당 날짜 경기 결과를 누적 통계에 반영
+            gamesOnDate.forEach(game => {
+                const { team1, team2, winner, loser, isDraw } = game;
+
+                // 두 팀 모두 경기수 증가
+                cumulativeStats[team1].games++;
+                cumulativeStats[team2].games++;
+
+                if (isDraw) {
+                    cumulativeStats[team1].draws++;
+                    cumulativeStats[team2].draws++;
+                } else {
+                    cumulativeStats[winner].wins++;
+                    cumulativeStats[loser].losses++;
+                }
+            });
+
+            // 승률 계산 및 순위 정렬
+            const standings = this.teams.map(team => {
+                const stats = cumulativeStats[team];
+                stats.winRate = stats.wins / (stats.wins + stats.losses) || 0;
+                return {
+                    team: team,
+                    ...stats
+                };
+            });
+
+            // 순위 정렬 (승률 기준)
+            standings.sort((a, b) => {
+                if (b.winRate !== a.winRate) return b.winRate - a.winRate;
+                if (b.wins !== a.wins) return b.wins - a.wins;
+                return a.losses - b.losses;
+            });
+
+            // 순위 및 게임차 계산
+            let currentRank = 1;
+            let previousWinRate = null;
+
+            standings.forEach((team, index) => {
+                const displayedWinRate = parseFloat(team.winRate.toFixed(3));
+                if (previousWinRate !== null && displayedWinRate !== previousWinRate) {
+                    currentRank = index + 1;
+                }
+                team.rank = currentRank;
+                previousWinRate = displayedWinRate;
+
+                // 게임차 계산
+                if (index === 0) {
+                    team.gamesBehind = 0;
+                } else {
+                    const firstPlace = standings[0];
+                    team.gamesBehind = (firstPlace.wins - team.wins + team.losses - firstPlace.losses) / 2;
+                }
+
+                // cumulativeStats 업데이트
+                cumulativeStats[team.team].rank = team.rank;
+                cumulativeStats[team.team].gamesBehind = team.gamesBehind;
+            });
+
+            // 해당 날짜의 순위표를 chaseData에 추가
+            const dayData = {
+                date: date,
+                standings: standings.map(team => ({
+                    team: team.team,
+                    rank: team.rank,
+                    games: team.games,
+                    wins: team.wins,
+                    losses: team.losses,
+                    draws: team.draws,
+                    winRate: parseFloat(team.winRate.toFixed(3)),
+                    gamesBehind: team.gamesBehind
+                }))
+            };
+
+            chaseData.push(dayData);
+        });
+
+        console.log(`  ✅ ${chaseData.length}일간의 순위 변화 데이터 생성 완료`);
+        return chaseData;
     }
 
 
