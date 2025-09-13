@@ -12467,27 +12467,33 @@
             // 네비게이션 아이템 클릭 처리
             navItems.forEach(item => {
                 item.addEventListener('click', function(e) {
+                    // 매직넘버 링크는 외부 링크이므로 예외 처리
+                    if (this.classList.contains('magic-number-nav')) {
+                        // 외부 링크는 그대로 진행 (preventDefault 하지 않음)
+                        return;
+                    }
+
                     const href = this.getAttribute('href');
                     if (href && href.startsWith('#')) {
                         const targetId = href.substring(1);
                         const targetElement = document.getElementById(targetId);
-                        
+
                         if (targetElement) {
                             // 부드럽게 스크롤
-                            targetElement.scrollIntoView({ 
-                                behavior: 'smooth', 
-                                block: 'start' 
+                            targetElement.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
                             });
-                            
+
                             // 활성화된 네비 아이템 업데이트
                             updateActiveNavItem(this);
                         } else {
                             // 해당 섹션이 없으면 가장 가까운 섹션으로 이동
                             const fallbackSection = findClosestSection(targetId);
                             if (fallbackSection) {
-                                fallbackSection.scrollIntoView({ 
-                                    behavior: 'smooth', 
-                                    block: 'start' 
+                                fallbackSection.scrollIntoView({
+                                    behavior: 'smooth',
+                                    block: 'start'
                                 });
                                 // 해당하는 네비 아이템으로 업데이트
                                 const fallbackNavItem = document.querySelector(`a[href="#${fallbackSection.id}"]`);
