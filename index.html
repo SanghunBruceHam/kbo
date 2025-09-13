@@ -12611,7 +12611,7 @@
             
             chartJsLoadPromise = new Promise((resolve, reject) => {
                 const script = document.createElement('script');
-                script.src = 'https://cdn.jsdelivr.net/npm/chart.js';
+                script.src = 'https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.js';
                 script.onload = () => {
                     chartJsLoaded = true;
                     console.log('Chart.js loaded lazily');
