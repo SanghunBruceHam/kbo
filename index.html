@@ -12671,10 +12671,10 @@
                     }
                 });
                 
-                // 페이지 언로드 시 최종 CLS 값 전송
-                window.addEventListener('beforeunload', () => {
+                // 페이지 숨김/종료 시 최종 CLS 값 전송 (visibilitychange 사용 - beforeunload 대체)
+                function sendCLSData() {
                     console.log('CLS:', cumulativeLayoutShift);
-                    
+
                     if (typeof gtag !== 'undefined') {
                         gtag('event', 'web_vitals', {
                             name: 'CLS',
@@ -12682,7 +12682,17 @@
                             event_category: 'Web Vitals'
                         });
                     }
+                }
+
+                // 페이지 숨김 시 (더 안정적인 방법)
+                document.addEventListener('visibilitychange', () => {
+                    if (document.visibilityState === 'hidden') {
+                        sendCLSData();
+                    }
                 });
+
+                // 페이지 완전 종료 시 백업용
+                window.addEventListener('pagehide', sendCLSData);
             }).observe({type: 'layout-shift', buffered: true});
         }
         
