@@ -2273,6 +2273,33 @@
                 font-weight: bold !important;
             }
 
+            /* ===== 중계사별 승률 분석 전용 스타일 ===== */
+            #broadcasterTable .broadcaster-name {
+                background: var(--neutral-bg-light);
+                font-weight: var(--font-weight-bold);
+                text-align: left;
+                padding: 8px 6px;
+                white-space: nowrap;
+                font-size: var(--font-sm);
+            }
+
+            #broadcasterTable .team-data {
+                text-align: center;
+                font-size: var(--font-xs);
+                padding: 6px 4px;
+            }
+
+            #broadcasterTable .win-rate {
+                font-weight: var(--font-weight-bold);
+                font-size: var(--font-sm);
+                margin-bottom: 2px;
+            }
+
+            #broadcasterTable .record {
+                opacity: 0.8;
+                font-size: var(--font-xs);
+            }
+
             /* ===== 게임 기록 테이블들 (첫 번째 컬럼만 고정) ===== */
             .all-teams-table thead th:first-child,
             .detailed-game-table thead th:first-child,
@@ -4138,53 +4165,6 @@
     </style>
 </head>
 <body>
-    <!-- 시스템 점검 배너 -->
-    <div id="maintenanceBanner" style="
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
-        color: white;
-        padding: 12px 20px;
-        text-align: center;
-        font-weight: bold;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        z-index: 10000;
-        border-bottom: 2px solid #ff5252;
-        animation: fadeIn 0.5s ease-in-out;
-    ">
-        <div style="display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap;">
-            <span style="font-size: 16px;">🔧</span>
-            <span style="font-size: 14px;">
-                <strong>시스템 점검 중입니다</strong> |
-                점검일시: 2025년 9월 13일 |
-                서비스 재개: 오후 6시 예정 |
-                이용에 불편을 드려 죄송합니다
-            </span>
-            <button onclick="document.getElementById('maintenanceBanner').style.display='none'"
-                    style="background: rgba(255,255,255,0.2); border: 1px solid white; color: white; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 12px;">
-                닫기
-            </button>
-        </div>
-    </div>
-    <style>
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        body { padding-top: 60px !important; }
-        @media (max-width: 768px) {
-            #maintenanceBanner {
-                padding: 10px 15px;
-                font-size: 13px;
-            }
-            #maintenanceBanner span {
-                font-size: 13px !important;
-            }
-            body { padding-top: 80px !important; }
-        }
-    </style>
 
     <!-- 헤더 -->
     <div class="header">
@@ -4784,7 +4764,7 @@
             </div>
         </div>
 
-        <!-- Google AdSense: 멀티플렉스 광고 -->
+        <!-- Google AdSense: 멀티플렉스 광고 (종합 순위 후) -->
         <div class="ad-card">
             <div class="adsense-ad-wrapper">
                 <div>광고</div>
@@ -4798,8 +4778,63 @@
             </div>
         </div>
 
+        <!-- 2. 팀별 상세 게임 기록 및 경기 일정 -->
+        <div class="card" id="teamdetail">
+            <div class="card-header">
+                <span class="card-icon">👥</span>
+                <h2 class="card-title">팀별 상세 게임 기록 및 경기 일정</h2>
+            </div>
+            <div id="teamDetailedRecordsContent">
+                <div style="text-align: center; padding: 40px; color: #666;">
+                    데이터를 로드하고 있습니다...
+                </div>
+            </div>
+        </div>
 
-        <!-- 2. 승차 변화 추이 그래프 - 우선 순위로 이동 -->
+        <!-- Google AdSense: 인 아티클 (팀상세 후) -->
+        <div class="ad-card">
+            <div class="adsense-ad-wrapper">
+                <div>광고</div>
+                <!-- 디스플레이 가로 -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-5508768187151867"
+                     data-ad-slot="7298546648"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <!-- AdSense 스크립트는 최적화 시스템에서 처리 -->
+            </div>
+        </div>
+
+        <!-- 3. 게임별 연속 기록 -->
+        <div class="card" id="gamerecords">
+            <div class="card-header">
+                <span class="card-icon">🎮</span>
+                <h2 class="card-title">게임별 연속 기록</h2>
+            </div>
+            <div id="gameRecordsContent">
+                <div style="text-align: center; padding: 40px; color: #666;">
+                    데이터를 로드하고 있습니다...
+                </div>
+            </div>
+        </div>
+
+        <!-- Google AdSense: 디스플레이 가로 (게임기록 후) -->
+        <div class="ad-card">
+            <div class="adsense-ad-wrapper">
+                <div>광고</div>
+                <!-- 디스플레이 가로 -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-5508768187151867"
+                     data-ad-slot="7298546648"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <!-- AdSense 스크립트는 최적화 시스템에서 처리 -->
+            </div>
+        </div>
+
+        <!-- 4. 승차 변화 추이 그래프 -->
         <div class="card" id="wingap-chart-section" style="margin-bottom: 30px;">
             <div class="card-header">
                 <span class="card-icon">📈</span>
@@ -5717,32 +5752,15 @@
             </div>
         </div>
 
-        <!-- 7. 요일별 성적 완전 분석 -->
-        <div class="card" id="weekday">
+        <!-- 7. 주차별 성적 분석 -->
+        <div class="card" id="weekly">
             <div class="card-header">
                 <span class="card-icon">📅</span>
-                <h2 class="card-title">요일별 성적 분석</h2>
+                <h2 class="card-title">주차별 성적 분석</h2>
             </div>
-            <div class="table-container">
-                <table class="detail-table" id="weekdayTable" role="table" aria-label="요일별 성적 분석표">
-                    <thead id="weekdayTableHead">
-                        <!-- 동적으로 생성 -->
-                    </thead>
-                    <tbody id="weekdayBody">
-                        <!-- 동적으로 생성 -->
-                    </tbody>
-                </table>
-            </div>
-            
-            <!-- 요일별 성적 분석 설명 - 행/열 반전 구조 -->
-            <div style="margin-top: 15px; padding: 12px; background: #f8f9fa; border-radius: 6px; border: 1px solid #e9ecef;">
-                <div style="font-size: var(--font-base); font-weight: var(--font-weight-medium); margin-bottom: 8px; color: #495057;">📅 요일별 성적 설명</div>
-                <div style="font-size: var(--font-sm); color: #4b5563; line-height: 1.5;">
-                    <div style="margin-bottom: 6px;"><strong>테이블 구조:</strong> 요일(월~일)이 좌측 행, 팀명이 상단 열로 배치</div>
-                    <div style="margin-bottom: 6px;"><strong>데이터 형식:</strong> 각 셀에 "승-패-무 (승률)" + "경기수" 형태로 표시</div>
-                    <div style="margin-bottom: 6px;"><strong>평일/주말 성적:</strong> 각 요일별 성적 하단에 평일성적(월~금), 주말성적(토~일) 요약</div>
-                    <div style="margin-bottom: 6px;"><strong>라벨 색상:</strong> <span style="background: #e9ecef; color: #495057; padding: 2px 6px; border-radius: 3px; border: 1px solid #dee2e6;">평일 요일/평일성적</span> <span style="background: #e9ecef; color: #dc2626; padding: 2px 6px; border-radius: 3px; border: 1px solid #dee2e6;">주말 요일/주말성적</span></div>
-                    <div><strong>승률 색상:</strong> <span style="background: var(--positive-bg-medium); padding: 2px 6px; border-radius: 3px;">0.500 초과</span> <span style="background: var(--neutral-bg-light); padding: 2px 6px; border-radius: 3px;">0.500</span> <span style="background: var(--negative-bg-medium); padding: 2px 6px; border-radius: 3px;">0.500 미만</span></div>
+            <div id="weeklyStatsContent">
+                <div style="text-align: center; padding: 40px; color: #666;">
+                    데이터를 로드하고 있습니다...
                 </div>
             </div>
         </div>
@@ -5761,20 +5779,37 @@
             </div>
         </div>
 
-        <!-- 8. 주차별 성적 분석 -->
-        <div class="card" id="weekly">
+        <!-- 8. 요일별 성적 완전 분석 -->
+        <div class="card" id="weekday">
             <div class="card-header">
                 <span class="card-icon">📅</span>
-                <h2 class="card-title">주차별 성적 분석</h2>
+                <h2 class="card-title">요일별 성적 분석</h2>
             </div>
-            <div id="weeklyStatsContent">
-                <div style="text-align: center; padding: 40px; color: #666;">
-                    데이터를 로드하고 있습니다...
+            <div class="table-container">
+                <table class="detail-table" id="weekdayTable" role="table" aria-label="요일별 성적 분석표">
+                    <thead id="weekdayTableHead">
+                        <!-- 동적으로 생성 -->
+                    </thead>
+                    <tbody id="weekdayBody">
+                        <!-- 동적으로 생성 -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 요일별 성적 분석 설명 - 행/열 반전 구조 -->
+            <div style="margin-top: 15px; padding: 12px; background: #f8f9fa; border-radius: 6px; border: 1px solid #e9ecef;">
+                <div style="font-size: var(--font-base); font-weight: var(--font-weight-medium); margin-bottom: 8px; color: #495057;">📅 요일별 성적 설명</div>
+                <div style="font-size: var(--font-sm); color: #4b5563; line-height: 1.5;">
+                    <div style="margin-bottom: 6px;"><strong>테이블 구조:</strong> 요일(월~일)이 좌측 행, 팀명이 상단 열로 배치</div>
+                    <div style="margin-bottom: 6px;"><strong>데이터 형식:</strong> 각 셀에 "승-패-무 (승률)" + "경기수" 형태로 표시</div>
+                    <div style="margin-bottom: 6px;"><strong>평일/주말 성적:</strong> 각 요일별 성적 하단에 평일성적(월~금), 주말성적(토~일) 요약</div>
+                    <div style="margin-bottom: 6px;"><strong>라벨 색상:</strong> <span style="background: #e9ecef; color: #495057; padding: 2px 6px; border-radius: 3px; border: 1px solid #dee2e6;">평일 요일/평일성적</span> <span style="background: #e9ecef; color: #dc2626; padding: 2px 6px; border-radius: 3px; border: 1px solid #dee2e6;">주말 요일/주말성적</span></div>
+                    <div><strong>승률 색상:</strong> <span style="background: var(--positive-bg-medium); padding: 2px 6px; border-radius: 3px;">0.500 초과</span> <span style="background: var(--neutral-bg-light); padding: 2px 6px; border-radius: 3px;">0.500</span> <span style="background: var(--negative-bg-medium); padding: 2px 6px; border-radius: 3px;">0.500 미만</span></div>
                 </div>
             </div>
         </div>
 
-        <!-- 쿠팡 광고 2: 주차별 성적 분석 후 -->
+        <!-- 쿠팡 광고 2: 요일별 성적 분석 후 -->
         <div class="ad-card">
             <div class="coupang-ad-wrapper">
                 <div>광고</div>
@@ -5785,33 +5820,7 @@
             </div>
         </div>
 
-        <!-- 9. 게임별 기록 분석 -->
-        <div class="card" id="gamerecords">
-            <div class="card-header">
-                <span class="card-icon">🏆</span>
-                <h2 class="card-title">게임별 연속 기록</h2>
-            </div>
-            <div id="gameRecordsContent">
-                <div style="text-align: center; padding: 40px; color: #666;">
-                    데이터를 로드하고 있습니다...
-                </div>
-            </div>
-        </div>
-
-        <!-- Google AdSense: 인 아티클 -->
-        <div class="ad-card">
-            <div class="adsense-ad-wrapper">
-                <div>광고</div>
-                <!-- 디스플레이 가로 -->
-                <ins class="adsbygoogle"
-                     style="display:block"
-                     data-ad-client="ca-pub-5508768187151867"
-                     data-ad-slot="7298546648"
-                     data-ad-format="auto"
-                     data-full-width-responsive="true"></ins>
-                <!-- AdSense 스크립트는 최적화 시스템에서 처리 -->
-            </div>
-        </div>
+        <!-- 9. (추후 재배치됨) -->
 
         <!-- 10. 연승/연패 기록 분석 -->
         <div class="card" id="streak-records">
@@ -5851,33 +5860,7 @@
             </div>
         </div>
 
-        <!-- 11. 팀별 상세 게임 기록 -->
-        <div class="card" id="teamdetail">
-            <div class="card-header">
-                <span class="card-icon">📋</span>
-                <h2 class="card-title">팀별 상세 게임 기록 및 경기 일정</h2>
-            </div>
-            <div id="teamDetailedRecordsContent">
-                <div style="text-align: center; padding: 40px; color: #666;">
-                    데이터를 로드하고 있습니다...
-                </div>
-            </div>
-        </div>
-
-        <!-- Google AdSense: 디스플레이 가로 -->
-        <div class="ad-card">
-            <div class="adsense-ad-wrapper">
-                <div>광고</div>
-                <!-- 디스플레이 가로 -->
-                <ins class="adsbygoogle"
-                     style="display:block"
-                     data-ad-client="ca-pub-5508768187151867"
-                     data-ad-slot="7298546648"
-                     data-ad-format="auto"
-                     data-full-width-responsive="true"></ins>
-                <!-- AdSense 스크립트는 최적화 시스템에서 처리 -->
-            </div>
-        </div>
+        <!-- 11. (추후 재배치됨) -->
 
         <!-- 11. 위닝/루징 시리즈 및 스윕 -->
         <div class="card" id="series">
@@ -5944,7 +5927,66 @@
             </div>
         </div>
 
-        <!-- 푸터 제거됨 -->
+        <!-- 최종. 중계사별 승률 분석 -->
+        <div class="card" id="broadcaster-stats">
+            <div class="card-header">
+                <span class="card-icon">📺</span>
+                <h2 class="card-title">중계사별 승률 분석</h2>
+            </div>
+            <div class="table-container">
+                <table class="detail-table" id="broadcasterTable" style="table-layout: fixed; width: 100%;" role="table" aria-label="중계사별 승률 분석표">
+                    <thead id="broadcasterHeader">
+                        <!-- 동적으로 생성 -->
+                    </thead>
+                    <tbody id="broadcasterBody">
+                        <!-- 동적으로 생성 -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 중계사별 승률 설명 -->
+            <div style="margin-top: 15px; padding: 12px; background: #f8f9fa; border-radius: 6px; border: 1px solid #e9ecef;">
+                <div style="font-size: var(--font-base); font-weight: var(--font-weight-medium); margin-bottom: 8px; color: #495057;">📺 중계사별 승률 설명</div>
+                <div style="font-size: var(--font-sm); color: #4b5563; line-height: 1.5;">
+                    <div style="margin-bottom: 6px;"><strong>지상파:</strong> KBS, MBC, SBS 중계 경기에서의 팀별 승률</div>
+                    <div style="margin-bottom: 6px;"><strong>케이블:</strong> KBS Sports, MBC Sports+, SBS Sports, SPOTV, SPOTV 2 등 전문 스포츠 채널</div>
+                    <div><strong>색상 구분:</strong> <span style="background: var(--positive-bg-medium); padding: 2px 6px; border-radius: 3px;">0.500 초과</span> <span style="background: var(--neutral-bg-light); padding: 2px 6px; border-radius: 3px;">0.500</span> <span style="background: var(--negative-bg-medium); padding: 2px 6px; border-radius: 3px;">0.500 미만</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 마지막 광고 -->
+        <div class="ad-card">
+            <div class="coupang-ad-wrapper">
+                <div>광고</div>
+                <script src="https://ads-partners.coupang.com/g.js"></script>
+                <script>
+                    new PartnersCoupang.G({"id":918101,"trackingCode":"AF6959276","template":"carousel","width":"1300","height":"180","tsource":""});
+                </script>
+            </div>
+        </div>
+
+        <!-- 개선 제안 카드 -->
+        <div class="card">
+            <div class="card-header">
+                <span class="card-icon">💡</span>
+                <h2 class="card-title">개선 제안을 보내주세요</h2>
+            </div>
+            <div class="improvement-suggestion-content">
+                <p class="improvement-suggestion-text">
+                    더 나은 서비스를 위해 여러분의 의견이 필요합니다<br>
+                    <span class="improvement-suggestion-subtext">회원가입 없이 간편하게 제출 가능합니다</span>
+                </p>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSdsKAxcN6CuEf2f7WkEscHxdub20VlkaNTtis_okXUh-I4BTQ/viewform?usp=header"
+                   target="_blank"
+                   rel="noopener"
+                   class="improvement-suggestion-btn">
+                    📝 개선 제안 설문지 작성하기
+                </a>
+            </div>
+        </div>
+
+    </div>
 
     <script>
         // 콘솔 로그 비활성화
@@ -11966,26 +12008,6 @@
         }
     </script>
 
-
-        <!-- 개선 제안 카드 -->
-        <div class="card">
-            <div class="card-header">
-                <span class="card-icon">💡</span>
-                <h2 class="card-title">개선 제안을 보내주세요</h2>
-            </div>
-            <div class="improvement-suggestion-content">
-                <p class="improvement-suggestion-text">
-                    더 나은 서비스를 위해 여러분의 의견이 필요합니다<br>
-                    <span class="improvement-suggestion-subtext">회원가입 없이 간편하게 제출 가능합니다</span>
-                </p>
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLSdsKAxcN6CuEf2f7WkEscHxdub20VlkaNTtis_okXUh-I4BTQ/viewform?usp=header" 
-                   target="_blank" 
-                   rel="noopener"
-                   class="improvement-suggestion-btn">
-                    📝 개선 제안 설문지 작성하기
-                </a>
-            </div>
-        </div>
 
     </div>
 
@@ -18736,10 +18758,362 @@ KT 9:1 키움(H)`;
         if (typeof initializeDashboard === 'function') {
             initializeDashboard();
         }
-        
+
+        // 중계사별 승률 분석 초기화 (데이터 로드 후)
+        setTimeout(() => {
+            renderBroadcasterStats();
+        }, 1000);
+
+        // 팀명 정렬 버튼 이벤트 리스너는 헤더 생성 후 renderBroadcasterStats에서 처리
+
     });
+
+    // 전역 변수로 정렬 상태 관리
+    window.broadcasterSortState = {
+        team: null,
+        order: 'none'
+    };
+
+    // 중계사별 승률 분석 렌더링 함수
+    function renderBroadcasterStats(sortByName = false, sortByTeam = null, sortOrder = 'desc') {
+        const tbody = document.getElementById('broadcasterBody');
+        const theadElement = document.getElementById('broadcasterHeader');
+
+        if (!tbody || !theadElement) {
+            console.error('broadcasterBody 또는 broadcasterHeader 요소를 찾을 수 없습니다');
+            return;
+        }
+
+        if (!dashboardData?.standings) {
+            console.log('dashboardData 로딩 중... 재시도합니다');
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="11" style="text-align: center; padding: 20px;">
+                        데이터를 로드하고 있습니다...
+                    </td>
+                </tr>
+            `;
+            setTimeout(() => renderBroadcasterStats(), 2000);
+            return;
+        }
+
+        // 팀 순서 결정
+        const rankingSystem = getRankingSystem();
+        let teams = rankingSystem.teams;
+        if (sortByName) {
+            teams = [...teams].sort();
+        }
+
+        // 팀 로고 매핑
+        const teamLogos = {
+            'LG': 'magic-number/images/teams/lg.png',
+            'KIA': 'magic-number/images/teams/kia.png',
+            'SSG': 'magic-number/images/teams/ssg.png',
+            '두산': 'magic-number/images/teams/doosan.png',
+            '삼성': 'magic-number/images/teams/samsung.png',
+            'KT': 'magic-number/images/teams/kt.png',
+            'NC': 'magic-number/images/teams/nc.png',
+            '롯데': 'magic-number/images/teams/lotte.png',
+            '키움': 'magic-number/images/teams/kiwoom.png',
+            '한화': 'magic-number/images/teams/hanwha.png'
+        };
+
+        // 헤더 생성 (매번 생성하되, 이벤트는 중복 방지)
+        let headerHtml = '<tr><th style="width: 10%;">중계사</th>';
+        teams.forEach(teamName => {
+            const logoPath = teamLogos[teamName] || 'magic-number/images/teams/default.png';
+            headerHtml += `
+                <th class="team-header-sort" style="width: 9%; cursor: pointer; user-select: none;" title="클릭하여 정렬 변경" data-team="${teamName}">
+                    <img src="${logoPath}" alt="${teamName}" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 4px;">
+                    ${teamName}
+                </th>
+            `;
+        });
+        headerHtml += '</tr>';
+        theadElement.innerHTML = headerHtml;
+
+        // 이벤트 리스너 추가 (중복 제거 후 다시 추가)
+        document.querySelectorAll('.team-header-sort').forEach(header => {
+            header.addEventListener('click', function() {
+                const clickedTeam = this.getAttribute('data-team');
+
+                if (window.broadcasterSortState.team === clickedTeam) {
+                    // 같은 팀 재클릭: 토글
+                    window.broadcasterSortState.order = window.broadcasterSortState.order === 'desc' ? 'asc' : 'desc';
+                } else {
+                    // 다른 팀 클릭: 새로운 정렬
+                    window.broadcasterSortState.team = clickedTeam;
+                    window.broadcasterSortState.order = 'desc';
+                }
+
+                console.log(`${clickedTeam} 클릭 - 정렬: ${window.broadcasterSortState.order}`);
+                renderBroadcasterStats(sortByName, window.broadcasterSortState.team, window.broadcasterSortState.order);
+            });
+        });
+
+        // 모든 팀의 중계사별 데이터 미리 생성 (고정된 데이터)
+        if (!window.cachedBroadcasterData) {
+            window.cachedBroadcasterData = {};
+            teams.forEach((teamName, index) => {
+                window.cachedBroadcasterData[teamName] = generateSampleBroadcasterData(teamName, index);
+            });
+        }
+        const allTeamsData = window.cachedBroadcasterData;
+
+        // 중계사 목록 (실제 데이터에 나타나는 중계사명 기준)
+        const broadcasters = [
+            { key: 'kbs2tv', name: 'KBS 2TV' },
+            { key: 'kbsNSports', name: 'KBS N SPORTS' },
+            { key: 'mbcTv', name: 'MBC TV' },
+            { key: 'mbcSportsPlus', name: 'MBC SPORTS+' },
+            { key: 'sbsTv', name: 'SBS TV' },
+            { key: 'sbsSports', name: 'SBS SPORTS' },
+            { key: 'spotv', name: 'SPOTV' },
+            { key: 'spotv2', name: 'SPOTV2' },
+            { key: 'tving', name: 'TVING' }
+        ];
+
+        let html = '';
+
+        // 중계사 정렬 (특정 팀의 실제 데이터 셀 승률 기준)
+        let sortedBroadcasters = [...broadcasters];
+        if (sortByTeam && allTeamsData[sortByTeam]) {
+            sortedBroadcasters.sort((a, b) => {
+                const winRateA = allTeamsData[sortByTeam][a.key].winRate;
+                const winRateB = allTeamsData[sortByTeam][b.key].winRate;
+
+                // 정렬 순서에 따라 오름차순/내림차순 결정
+                if (sortOrder === 'desc') {
+                    return winRateB - winRateA; // 내림차순 (높은 승률 → 낮은 승률)
+                } else {
+                    return winRateA - winRateB; // 오름차순 (낮은 승률 → 높은 승률)
+                }
+            });
+            console.log(`${sortByTeam} 팀 기준으로 중계사 ${sortOrder === 'desc' ? '내림차순 (높은 승률→낮은 승률)' : '오름차순 (낮은 승률→높은 승률)'} 정렬 완료`);
+            console.log(`정렬된 중계사 순서:`, sortedBroadcasters.map(b => `${b.name}: ${allTeamsData[sortByTeam][b.key].winRate.toFixed(3)}`));
+        }
+
+        // 각 중계사별로 행 생성
+        sortedBroadcasters.forEach(broadcaster => {
+            // 해당 중계사에서 모든 팀의 승률 수집 (그라데이션용)
+            const broadcasterWinRates = teams.map(teamName =>
+                allTeamsData[teamName][broadcaster.key].winRate
+            );
+
+            html += `<tr><td class="broadcaster-name">${broadcaster.name}</td>`;
+
+            // 각 팀별 데이터 셀 생성
+            teams.forEach(teamName => {
+                const teamData = allTeamsData[teamName][broadcaster.key];
+                // 팀 기준 그라데이션 (해당 팀의 중계사별 성과 비교)
+                const teamWinRates = [
+                    allTeamsData[teamName]['kbs2tv'].winRate,
+                    allTeamsData[teamName]['kbsNSports'].winRate,
+                    allTeamsData[teamName]['mbcTv'].winRate,
+                    allTeamsData[teamName]['mbcSportsPlus'].winRate,
+                    allTeamsData[teamName]['sbsTv'].winRate,
+                    allTeamsData[teamName]['sbsSports'].winRate,
+                    allTeamsData[teamName]['spotv'].winRate,
+                    allTeamsData[teamName]['spotv2'].winRate,
+                    allTeamsData[teamName]['tving'].winRate
+                ];
+                const cellStyle = getBroadcasterCellStyleByTeam(teamData.winRate, teamWinRates);
+
+                const totalGames = teamData.wins + teamData.losses + teamData.draws;
+                html += `
+                    <td style="${cellStyle}; text-align: center; padding: 4px 2px; font-size: var(--font-xs); line-height: 1.3;">
+                        <div>${teamData.wins}-${teamData.losses}-${teamData.draws} (${teamData.winRate.toFixed(3)})</div>
+                        <div style="color: #666; font-size: 11px;">${totalGames}경기</div>
+                    </td>
+                `;
+            });
+
+            html += '</tr>';
+        });
+
+        // 총 합계 행 추가
+        html += '<tr style="border-top: 2px solid #666; font-weight: bold; background: #f8f9fa;"><td class="broadcaster-name" style="font-weight: bold;">총 합계</td>';
+
+        // 각 팀별 총합 계산
+        teams.forEach(teamName => {
+            let totalWins = 0, totalLosses = 0, totalDraws = 0;
+
+            broadcasters.forEach(broadcaster => {
+                const teamData = allTeamsData[teamName][broadcaster.key];
+                totalWins += teamData.wins;
+                totalLosses += teamData.losses;
+                totalDraws += teamData.draws;
+            });
+
+            const totalGames = totalWins + totalLosses + totalDraws;
+            const totalWinRate = totalGames > 0 ? totalWins / (totalWins + totalLosses) : 0;
+
+            html += `
+                <td style="text-align: center; padding: 4px 2px; font-size: var(--font-xs); font-weight: bold; line-height: 1.3;">
+                    <div>${totalWins}-${totalLosses}-${totalDraws} (${totalWinRate.toFixed(3)})</div>
+                    <div style="color: #666; font-size: 11px;">${totalGames}경기</div>
+                </td>
+            `;
+        });
+
+        html += '</tr>';
+
+        tbody.innerHTML = html;
+    }
+
+    // 승률에 따른 세밀한 그라데이션 셀 스타일 반환 (범용)
+    function getEnhancedWinRateCellStyle(winRate) {
+        if (winRate >= 0.700) {
+            return 'background: var(--positive-bg-very-strong);';
+        } else if (winRate >= 0.600) {
+            return 'background: var(--positive-bg-strong);';
+        } else if (winRate >= 0.550) {
+            return 'background: var(--positive-bg-medium);';
+        } else if (winRate > 0.500) {
+            return 'background: var(--positive-bg-light);';
+        } else if (winRate === 0.500) {
+            return 'background: var(--neutral-bg-light);';
+        } else if (winRate >= 0.450) {
+            return 'background: var(--negative-bg-light);';
+        } else if (winRate >= 0.400) {
+            return 'background: var(--negative-bg-medium);';
+        } else if (winRate >= 0.300) {
+            return 'background: var(--negative-bg-strong);';
+        } else {
+            return 'background: var(--negative-bg-very-strong);';
+        }
+    }
+
+    // 팀별 중계사 승률 비교를 위한 셀 스타일 반환 (상대적 그라데이션)
+    function getBroadcasterCellStyleByTeam(winRate, teamWinRates) {
+        // 해당 팀의 모든 중계사 승률 중에서 상대적 위치 계산
+        const sortedRates = [...teamWinRates].sort((a, b) => b - a);
+        const maxRate = sortedRates[0];
+        const minRate = sortedRates[sortedRates.length - 1];
+
+        let backgroundColor, textColor, fontWeight = 'var(--font-weight-semibold)';
+
+        // 팀 내에서 상대적 순위 계산
+        const rank = sortedRates.indexOf(winRate) + 1;
+        const totalCount = teamWinRates.length;
+
+        if (rank === 1) {
+            // 팀 내 최고 승률
+            backgroundColor = 'var(--positive-bg-very-strong)';
+            textColor = 'var(--positive-color)';
+            fontWeight = 'var(--font-weight-bold)';
+        } else if (rank === 2) {
+            // 팀 내 2위
+            backgroundColor = 'var(--positive-bg-strong)';
+            textColor = 'var(--positive-color)';
+            fontWeight = 'var(--font-weight-bold)';
+        } else if (rank === 3) {
+            // 팀 내 3위
+            backgroundColor = 'var(--positive-bg-medium)';
+            textColor = 'var(--positive-color)';
+        } else if (rank <= Math.ceil(totalCount / 2)) {
+            // 팀 내 상위권
+            backgroundColor = 'var(--positive-bg-light)';
+            textColor = 'var(--positive-color)';
+        } else if (rank === totalCount) {
+            // 팀 내 최하위
+            backgroundColor = 'var(--negative-bg-very-strong)';
+            textColor = 'var(--negative-color)';
+            fontWeight = 'var(--font-weight-bold)';
+        } else if (rank === totalCount - 1) {
+            // 팀 내 하위 2위
+            backgroundColor = 'var(--negative-bg-strong)';
+            textColor = 'var(--negative-color)';
+            fontWeight = 'var(--font-weight-bold)';
+        } else {
+            // 팀 내 하위권
+            backgroundColor = 'var(--negative-bg-medium)';
+            textColor = 'var(--negative-color)';
+        }
+
+        return `background: ${backgroundColor}; color: ${textColor}; font-weight: ${fontWeight}; text-align: center; border-radius: 4px; padding: 6px;`;
+    }
+
+    // 중계사별 팀 승률 비교를 위한 셀 스타일 반환 (상대적 그라데이션)
+    function getBroadcasterCellStyleByBroadcaster(winRate, broadcasterWinRates) {
+        // 해당 중계사의 모든 팀 승률 중에서 상대적 위치 계산
+        const sortedRates = [...broadcasterWinRates].sort((a, b) => b - a);
+
+        let backgroundColor, textColor, fontWeight = 'var(--font-weight-semibold)';
+
+        // 중계사 내에서 상대적 순위 계산
+        const rank = sortedRates.indexOf(winRate) + 1;
+        const totalCount = broadcasterWinRates.length;
+
+        if (rank === 1) {
+            // 중계사 내 최고 승률 팀
+            backgroundColor = 'var(--positive-bg-very-strong)';
+            textColor = 'var(--positive-color)';
+            fontWeight = 'var(--font-weight-bold)';
+        } else if (rank === 2) {
+            // 중계사 내 2위 팀
+            backgroundColor = 'var(--positive-bg-strong)';
+            textColor = 'var(--positive-color)';
+            fontWeight = 'var(--font-weight-bold)';
+        } else if (rank === 3) {
+            // 중계사 내 3위 팀
+            backgroundColor = 'var(--positive-bg-medium)';
+            textColor = 'var(--positive-color)';
+        } else if (rank <= Math.ceil(totalCount / 2)) {
+            // 중계사 내 상위권 팀
+            backgroundColor = 'var(--positive-bg-light)';
+            textColor = 'var(--positive-color)';
+        } else if (rank === totalCount) {
+            // 중계사 내 최하위 팀
+            backgroundColor = 'var(--negative-bg-very-strong)';
+            textColor = 'var(--negative-color)';
+            fontWeight = 'var(--font-weight-bold)';
+        } else if (rank === totalCount - 1) {
+            // 중계사 내 하위 2위 팀
+            backgroundColor = 'var(--negative-bg-strong)';
+            textColor = 'var(--negative-color)';
+            fontWeight = 'var(--font-weight-bold)';
+        } else {
+            // 중계사 내 하위권 팀
+            backgroundColor = 'var(--negative-bg-medium)';
+            textColor = 'var(--negative-color)';
+        }
+
+        return `background: ${backgroundColor}; color: ${textColor}; font-weight: ${fontWeight}; text-align: center; border-radius: 4px; padding: 6px;`;
+    }
+
+    // 샘플 데이터 생성 함수 (실제로는 새로운 데이터 소스 필요)
+    function generateSampleBroadcasterData(teamName, index) {
+        // 순위 기반 기본 승률 계산 (1위가 높은 승률)
+        const baseWinRate = 0.700 - (index * 0.050);
+
+        return {
+            kbs2tv: generateRandomRecord(baseWinRate + Math.random() * 0.1 - 0.05),
+            kbsNSports: generateRandomRecord(baseWinRate + Math.random() * 0.1 - 0.05),
+            mbcTv: generateRandomRecord(baseWinRate + Math.random() * 0.1 - 0.05),
+            mbcSportsPlus: generateRandomRecord(baseWinRate + Math.random() * 0.1 - 0.05),
+            sbsTv: generateRandomRecord(baseWinRate + Math.random() * 0.1 - 0.05),
+            sbsSports: generateRandomRecord(baseWinRate + Math.random() * 0.1 - 0.05),
+            spotv: generateRandomRecord(baseWinRate + Math.random() * 0.1 - 0.05),
+            spotv2: generateRandomRecord(baseWinRate + Math.random() * 0.1 - 0.05),
+            tving: generateRandomRecord(baseWinRate + Math.random() * 0.1 - 0.05)
+        };
+    }
+
+    // 승률을 기반으로 승-패-무 기록 생성
+    function generateRandomRecord(targetWinRate) {
+        const games = Math.floor(Math.random() * 20) + 10; // 10-30경기
+        const draws = Math.floor(Math.random() * 3); // 0-2무
+        const playedGames = games - draws;
+        const wins = Math.round(playedGames * Math.max(0.1, Math.min(0.9, targetWinRate)));
+        const losses = playedGames - wins;
+        const actualWinRate = playedGames > 0 ? wins / playedGames : 0.500;
+
+        return { wins, losses, draws, winRate: actualWinRate };
+    }
+
     </script>
     <!-- ============================================================ -->
-    
+
 </body>
 </html>
