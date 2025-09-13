@@ -9,7 +9,7 @@ const path = require('path');
 
 class RawGameRecordsGenerator {
     constructor() {
-        this.teams = ['KIA', 'LG', '삼성', '두산', 'KT', 'SSG', '롯데', '한화', 'NC', '키움'];
+        // 동적으로 팀 목록을 수집할 예정
     }
 
     generateRawGameRecords() {
@@ -24,9 +24,18 @@ class RawGameRecordsGenerator {
             const games = JSON.parse(fs.readFileSync(gamesPath, 'utf8'));
             console.log(`✅ ${games.length}개 경기 데이터 로드 완료`);
 
+            // 실제 게임 데이터에서 팀 이름 수집
+            const actualTeams = new Set();
+            games.forEach(game => {
+                actualTeams.add(game.home_team);
+                actualTeams.add(game.away_team);
+            });
+
+            const teams = Array.from(actualTeams);
+
             // 팀별 게임 기록 구조 초기화
             const teamGameRecords = {};
-            this.teams.forEach(team => {
+            teams.forEach(team => {
                 teamGameRecords[team] = { games: [] };
             });
 
@@ -65,7 +74,7 @@ class RawGameRecordsGenerator {
             });
 
             // 각 팀의 게임을 날짜순으로 정렬하고 gameNumber 재부여
-            this.teams.forEach(team => {
+            teams.forEach(team => {
                 teamGameRecords[team].games.sort((a, b) => new Date(a.date) - new Date(b.date));
                 teamGameRecords[team].games.forEach((game, index) => {
                     game.gameNumber = index + 1;
@@ -79,12 +88,12 @@ class RawGameRecordsGenerator {
             console.log(`✅ raw-game-records.json 생성 완료: ${outputPath}`);
             
             // 생성된 데이터 요약
-            this.teams.forEach(team => {
+            teams.forEach(team => {
                 const gameCount = teamGameRecords[team].games.length;
                 const wins = teamGameRecords[team].games.filter(g => g.result === 'W').length;
                 const losses = teamGameRecords[team].games.filter(g => g.result === 'L').length;
                 const draws = teamGameRecords[team].games.filter(g => g.result === 'D').length;
-                
+
                 console.log(`   ${team}: ${gameCount}경기 (${wins}승 ${losses}패 ${draws}무)`);
             });
 

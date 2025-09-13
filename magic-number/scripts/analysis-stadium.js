@@ -14,10 +14,17 @@ function generateStadiumRecords() {
         
         const gamesData = fs.readFileSync(gamesPath, 'utf-8');
         const games = JSON.parse(gamesData);
-        
-        const teams = ['KIA', 'LG', '삼성', '두산', 'KT', 'SSG', '롯데', '한화', 'NC', '키움'];
+
+        // 실제 게임 데이터에서 팀 이름 수집
+        const actualTeams = new Set();
+        games.forEach(game => {
+            actualTeams.add(game.home_team);
+            actualTeams.add(game.away_team);
+        });
+
+        const teams = Array.from(actualTeams);
         const stadiumStats = {};
-        
+
         // 경기장 정보 매핑
         const stadiums = {
             'KIA': '광주 챔피언스필드',
@@ -31,11 +38,11 @@ function generateStadiumRecords() {
             '한화': '대전 한화생명이글스파크',
             '키움': '서울 고척스카이돔'
         };
-        
+
         function getStadium(homeTeam) {
             return stadiums[homeTeam] || '미상';
         }
-        
+
         // 팀/경기장 단위로 초기화
         teams.forEach(team => {
             stadiumStats[team] = {};
@@ -44,31 +51,35 @@ function generateStadiumRecords() {
         // 각 경기 경기장별 처리
         games.forEach(game => {
             const stadium = getStadium(game.home_team);
-            
+
             // 홈팀 처리
-            if (!stadiumStats[game.home_team][stadium]) {
-                stadiumStats[game.home_team][stadium] = { wins: 0, losses: 0, draws: 0 };
+            if (stadiumStats[game.home_team]) {
+                if (!stadiumStats[game.home_team][stadium]) {
+                    stadiumStats[game.home_team][stadium] = { wins: 0, losses: 0, draws: 0 };
+                }
+
+                if (game.winner === game.home_team) {
+                    stadiumStats[game.home_team][stadium].wins++;
+                } else if (game.winner === game.away_team) {
+                    stadiumStats[game.home_team][stadium].losses++;
+                } else {
+                    stadiumStats[game.home_team][stadium].draws++;
+                }
             }
-            
-            if (game.winner === game.home_team) {
-                stadiumStats[game.home_team][stadium].wins++;
-            } else if (game.winner === game.away_team) {
-                stadiumStats[game.home_team][stadium].losses++;
-            } else {
-                stadiumStats[game.home_team][stadium].draws++;
-            }
-            
+
             // 원정팀 처리
-            if (!stadiumStats[game.away_team][stadium]) {
-                stadiumStats[game.away_team][stadium] = { wins: 0, losses: 0, draws: 0 };
-            }
-            
-            if (game.winner === game.away_team) {
-                stadiumStats[game.away_team][stadium].wins++;
-            } else if (game.winner === game.home_team) {
-                stadiumStats[game.away_team][stadium].losses++;
-            } else {
-                stadiumStats[game.away_team][stadium].draws++;
+            if (stadiumStats[game.away_team]) {
+                if (!stadiumStats[game.away_team][stadium]) {
+                    stadiumStats[game.away_team][stadium] = { wins: 0, losses: 0, draws: 0 };
+                }
+
+                if (game.winner === game.away_team) {
+                    stadiumStats[game.away_team][stadium].wins++;
+                } else if (game.winner === game.home_team) {
+                    stadiumStats[game.away_team][stadium].losses++;
+                } else {
+                    stadiumStats[game.away_team][stadium].draws++;
+                }
             }
         });
         
