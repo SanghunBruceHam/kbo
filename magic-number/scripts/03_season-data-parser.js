@@ -23,8 +23,8 @@ function parseSeasonData() {
                 const [time, state, stadium, homeTeam, awayTeam, scoreOrStatus, broadcast, ...categoryParts] = parts;
                 const category = categoryParts.join(' ');
 
-                // 완료된 경기만 처리 (취소/연기 경기 제외)
-                if (state === '종료' || state === '완료' || state === '끝') {
+                // 페넌트레이스 게임이면서 완료된 경기만 처리 (종료된 경기만)
+                if (state === '종료' && category.includes('페넌트레이스')) {
                     // 점수 파싱 (away:home 형식)
                     const scoreMatch = scoreOrStatus.match(/^(\d+):(\d+)$/);
                     if (scoreMatch) {

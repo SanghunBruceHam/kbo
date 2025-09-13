@@ -72,6 +72,17 @@ class KBODataProcessor {
                         continue;
                     }
 
+                    // 페넌트레이스 게임이면서 완료된 경기만 처리 (종료된 경기만)
+                    if (!category.includes('페넌트레이스') || state !== '종료') {
+                        if (!category.includes('페넌트레이스')) {
+                            console.log(`  ⚠️ 페넌트레이스 외 경기 제외: ${homeTeam} vs ${awayTeam} [${category}]`);
+                        }
+                        if (state !== '종료') {
+                            console.log(`  ⚠️ 비완료 경기 제외: ${homeTeam} vs ${awayTeam} [${state}]`);
+                        }
+                        continue;
+                    }
+
                     // 점수 파싱 (away:home 형식)
                     const scoreMatch = scoreOrStatus.match(/^(\d+):(\d+)$/);
                     if (scoreMatch) {
