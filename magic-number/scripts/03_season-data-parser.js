@@ -12,29 +12,42 @@ function parseSeasonData() {
     for (const line of lines) {
         const trimmed = line.trim();
         
-        // 날짜 패턴: YYYY-MM-DD
-        if (/^\d{4}-\d{2}-\d{2}$/.test(trimmed)) {
-            currentDate = trimmed;
+        // 날짜 패턴: YYYY-MM-DD (요일) 또는 YYYY-MM-DD
+        if (/^\d{4}-\d{2}-\d{2}(\s*\([월화수목금토일]\))?$/.test(trimmed)) {
+            currentDate = trimmed.replace(/\s*\([월화수목금토일]\)/, ''); // 요일 정보 제거
         }
-        // 경기 결과 패턴: 팀1 스코어1:스코어2 팀2(H)
-        else if (trimmed.includes(':') && currentDate) {
-            const match = trimmed.match(/^(.+?)\s+(\d+):(\d+)\s+(.+?)$/);
-            if (match) {
-                const [_, team1, score1, score2, team2AndHome] = match;
-                
-                // 홈팀 표시 (H) 분리
-                const isTeam2Home = team2AndHome.endsWith('(H)');
-                const team2 = team2AndHome.replace('(H)', '').trim();
-                
-                games.push({
-                    date: currentDate,
-                    away_team: isTeam2Home ? team1 : team2,
-                    home_team: isTeam2Home ? team2 : team1,
-                    away_score: isTeam2Home ? parseInt(score1) : parseInt(score2),
-                    home_score: isTeam2Home ? parseInt(score2) : parseInt(score1),
-                    winner: parseInt(score1) > parseInt(score2) ? team1 : 
-                           (parseInt(score1) < parseInt(score2) ? team2 : 'draw')
-                });
+        // 새로운 형식 패턴: "시간 상태 구장 홈팀 어웨이팀 점수 방송사 구분"
+        else if (trimmed && currentDate) {
+            const parts = trimmed.split(/\s+/);
+            if (parts.length >= 8) {
+                const [time, state, stadium, homeTeam, awayTeam, scoreOrStatus, broadcast, ...categoryParts] = parts;
+                const category = categoryParts.join(' ');
+
+                // 완료된 경기만 처리 (취소/연기 경기 제외)
+                if (state === '종료' || state === '완료' || state === '끝') {
+                    // 점수 파싱 (away:home 형식)
+                    const scoreMatch = scoreOrStatus.match(/^(\d+):(\d+)$/);
+                    if (scoreMatch) {
+                        const [, awayScore, homeScore] = scoreMatch;
+                        const away_score = parseInt(awayScore);
+                        const home_score = parseInt(homeScore);
+
+                        games.push({
+                            date: currentDate,
+                            time: time,
+                            stadium: stadium,
+                            away_team: awayTeam,
+                            home_team: homeTeam,
+                            away_score: away_score,
+                            home_score: home_score,
+                            winner: away_score > home_score ? awayTeam :
+                                   (away_score < home_score ? homeTeam : 'draw'),
+                            broadcast: broadcast,
+                            category: category,
+                            state: state
+                        });
+                    }
+                }
             }
         }
     }

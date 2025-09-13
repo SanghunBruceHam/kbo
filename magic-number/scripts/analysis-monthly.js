@@ -15,9 +15,16 @@ function generateMonthlyRecords() {
         const gamesData = fs.readFileSync(gamesPath, 'utf-8');
         const games = JSON.parse(gamesData);
         
-        const teams = ['KIA', 'LG', '삼성', '두산', 'KT', 'SSG', '롯데', '한화', 'NC', '키움'];
+        // 실제 게임 데이터에서 팀 이름 수집
+        const actualTeams = new Set();
+        games.forEach(game => {
+            actualTeams.add(game.home_team);
+            actualTeams.add(game.away_team);
+        });
+
+        const teams = Array.from(actualTeams);
         const monthlyStats = {};
-        
+
         // 팀/월 단위로 초기화
         teams.forEach(team => {
             monthlyStats[team] = {};
@@ -29,34 +36,38 @@ function generateMonthlyRecords() {
             const month = date.getMonth() + 1; // 1-12월
             
             // 홈팀 처리
-            if (!monthlyStats[game.home_team][month]) {
-                monthlyStats[game.home_team][month] = {
-                    wins: 0, losses: 0, draws: 0,
-                    runs_scored: 0, runs_allowed: 0
-                };
+            if (monthlyStats[game.home_team]) {
+                if (!monthlyStats[game.home_team][month]) {
+                    monthlyStats[game.home_team][month] = {
+                        wins: 0, losses: 0, draws: 0,
+                        runs_scored: 0, runs_allowed: 0
+                    };
+                }
+                const homeStats = monthlyStats[game.home_team][month];
+                homeStats.runs_scored += game.home_score;
+                homeStats.runs_allowed += game.away_score;
+
+                if (game.winner === game.home_team) homeStats.wins++;
+                else if (game.winner === game.away_team) homeStats.losses++;
+                else homeStats.draws++;
             }
-            const homeStats = monthlyStats[game.home_team][month];
-            homeStats.runs_scored += game.home_score;
-            homeStats.runs_allowed += game.away_score;
-            
-            if (game.winner === game.home_team) homeStats.wins++;
-            else if (game.winner === game.away_team) homeStats.losses++;
-            else homeStats.draws++;
-            
+
             // 원정팀 처리
-            if (!monthlyStats[game.away_team][month]) {
-                monthlyStats[game.away_team][month] = {
-                    wins: 0, losses: 0, draws: 0,
-                    runs_scored: 0, runs_allowed: 0
-                };
+            if (monthlyStats[game.away_team]) {
+                if (!monthlyStats[game.away_team][month]) {
+                    monthlyStats[game.away_team][month] = {
+                        wins: 0, losses: 0, draws: 0,
+                        runs_scored: 0, runs_allowed: 0
+                    };
+                }
+                const awayStats = monthlyStats[game.away_team][month];
+                awayStats.runs_scored += game.away_score;
+                awayStats.runs_allowed += game.home_score;
+
+                if (game.winner === game.away_team) awayStats.wins++;
+                else if (game.winner === game.home_team) awayStats.losses++;
+                else awayStats.draws++;
             }
-            const awayStats = monthlyStats[game.away_team][month];
-            awayStats.runs_scored += game.away_score;
-            awayStats.runs_allowed += game.home_score;
-            
-            if (game.winner === game.away_team) awayStats.wins++;
-            else if (game.winner === game.home_team) awayStats.losses++;
-            else awayStats.draws++;
         });
         
         // 결과 정리 - DB와 동일한 구조

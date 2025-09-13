@@ -282,25 +282,35 @@ class EnhancedDashboardGenerator {
 
     getHomeAwayStats() {
         const homeAwayStats = {};
-        
-        // 팀 초기화
-        this.teams.forEach(team => {
+
+        // 실제 게임 데이터에서 팀 이름 수집
+        const actualTeams = new Set();
+        this.games.forEach(game => {
+            actualTeams.add(game.home_team);
+            actualTeams.add(game.away_team);
+        });
+
+        // 팀 초기화 (실제 팀 이름 사용)
+        Array.from(actualTeams).forEach(team => {
             homeAwayStats[team] = {
                 home_wins: 0, home_losses: 0,
                 away_wins: 0, away_losses: 0
             };
         });
-        
+
         // 홈/원정 통계 계산
         this.games.forEach(game => {
             if (game.winner === 'draw') return;
-            
-            if (game.winner === game.home_team) {
-                homeAwayStats[game.home_team].home_wins++;
-                homeAwayStats[game.away_team].away_losses++;
-            } else {
-                homeAwayStats[game.away_team].away_wins++;
-                homeAwayStats[game.home_team].home_losses++;
+
+            // 팀이 존재하는지 확인 후 처리
+            if (homeAwayStats[game.home_team] && homeAwayStats[game.away_team]) {
+                if (game.winner === game.home_team) {
+                    homeAwayStats[game.home_team].home_wins++;
+                    homeAwayStats[game.away_team].away_losses++;
+                } else {
+                    homeAwayStats[game.away_team].away_wins++;
+                    homeAwayStats[game.home_team].home_losses++;
+                }
             }
         });
         
@@ -329,9 +339,16 @@ class EnhancedDashboardGenerator {
 
     getMonthlyPerformance() {
         const monthlyStats = {};
-        
+
+        // 실제 게임 데이터에서 팀 이름 수집
+        const actualTeams = new Set();
+        this.games.forEach(game => {
+            actualTeams.add(game.home_team);
+            actualTeams.add(game.away_team);
+        });
+
         // 팀/월 단위로 초기화
-        this.teams.forEach(team => {
+        Array.from(actualTeams).forEach(team => {
             monthlyStats[team] = {};
         });
         
@@ -341,34 +358,38 @@ class EnhancedDashboardGenerator {
             const month = date.getMonth() + 1; // 1-12월
             
             // 홈팀 처리
-            if (!monthlyStats[game.home_team][month]) {
-                monthlyStats[game.home_team][month] = {
-                    wins: 0, losses: 0, draws: 0,
-                    runs_scored: 0, runs_allowed: 0
-                };
+            if (monthlyStats[game.home_team]) {
+                if (!monthlyStats[game.home_team][month]) {
+                    monthlyStats[game.home_team][month] = {
+                        wins: 0, losses: 0, draws: 0,
+                        runs_scored: 0, runs_allowed: 0
+                    };
+                }
+                const homeStats = monthlyStats[game.home_team][month];
+                homeStats.runs_scored += game.home_score;
+                homeStats.runs_allowed += game.away_score;
+
+                if (game.winner === game.home_team) homeStats.wins++;
+                else if (game.winner === game.away_team) homeStats.losses++;
+                else homeStats.draws++;
             }
-            const homeStats = monthlyStats[game.home_team][month];
-            homeStats.runs_scored += game.home_score;
-            homeStats.runs_allowed += game.away_score;
-            
-            if (game.winner === game.home_team) homeStats.wins++;
-            else if (game.winner === game.away_team) homeStats.losses++;
-            else homeStats.draws++;
-            
+
             // 원정팀 처리
-            if (!monthlyStats[game.away_team][month]) {
-                monthlyStats[game.away_team][month] = {
-                    wins: 0, losses: 0, draws: 0,
-                    runs_scored: 0, runs_allowed: 0
-                };
+            if (monthlyStats[game.away_team]) {
+                if (!monthlyStats[game.away_team][month]) {
+                    monthlyStats[game.away_team][month] = {
+                        wins: 0, losses: 0, draws: 0,
+                        runs_scored: 0, runs_allowed: 0
+                    };
+                }
+                const awayStats = monthlyStats[game.away_team][month];
+                awayStats.runs_scored += game.away_score;
+                awayStats.runs_allowed += game.home_score;
+
+                if (game.winner === game.away_team) awayStats.wins++;
+                else if (game.winner === game.home_team) awayStats.losses++;
+                else awayStats.draws++;
             }
-            const awayStats = monthlyStats[game.away_team][month];
-            awayStats.runs_scored += game.away_score;
-            awayStats.runs_allowed += game.home_score;
-            
-            if (game.winner === game.away_team) awayStats.wins++;
-            else if (game.winner === game.home_team) awayStats.losses++;
-            else awayStats.draws++;
         });
         
         // 결과 정리 - JSON 구조에 맞춘
@@ -402,9 +423,16 @@ class EnhancedDashboardGenerator {
 
     getWeekdayPerformance() {
         const weekdayStats = {};
-        
+
+        // 실제 게임 데이터에서 팀 이름 수집
+        const actualTeams = new Set();
+        this.games.forEach(game => {
+            actualTeams.add(game.home_team);
+            actualTeams.add(game.away_team);
+        });
+
         // 팀/요일 단위로 초기화
-        this.teams.forEach(team => {
+        Array.from(actualTeams).forEach(team => {
             weekdayStats[team] = {};
             ['월', '화', '수', '목', '금', '토', '일'].forEach(day => {
                 weekdayStats[team][day] = { wins: 0, losses: 0, draws: 0 };
@@ -416,21 +444,25 @@ class EnhancedDashboardGenerator {
             const dayOfWeek = this.getDayOfWeek(game.date);
             
             // 홈팀 처리
-            if (game.winner === game.home_team) {
-                weekdayStats[game.home_team][dayOfWeek].wins++;
-            } else if (game.winner === game.away_team) {
-                weekdayStats[game.home_team][dayOfWeek].losses++;
-            } else {
-                weekdayStats[game.home_team][dayOfWeek].draws++;
+            if (weekdayStats[game.home_team] && weekdayStats[game.home_team][dayOfWeek]) {
+                if (game.winner === game.home_team) {
+                    weekdayStats[game.home_team][dayOfWeek].wins++;
+                } else if (game.winner === game.away_team) {
+                    weekdayStats[game.home_team][dayOfWeek].losses++;
+                } else {
+                    weekdayStats[game.home_team][dayOfWeek].draws++;
+                }
             }
-            
+
             // 원정팀 처리
-            if (game.winner === game.away_team) {
-                weekdayStats[game.away_team][dayOfWeek].wins++;
-            } else if (game.winner === game.home_team) {
-                weekdayStats[game.away_team][dayOfWeek].losses++;
-            } else {
-                weekdayStats[game.away_team][dayOfWeek].draws++;
+            if (weekdayStats[game.away_team] && weekdayStats[game.away_team][dayOfWeek]) {
+                if (game.winner === game.away_team) {
+                    weekdayStats[game.away_team][dayOfWeek].wins++;
+                } else if (game.winner === game.home_team) {
+                    weekdayStats[game.away_team][dayOfWeek].losses++;
+                } else {
+                    weekdayStats[game.away_team][dayOfWeek].draws++;
+                }
             }
         });
         
@@ -459,62 +491,75 @@ class EnhancedDashboardGenerator {
     
     getStadiumRecords() {
         const stadiumStats = {};
-        
+
+        // 실제 게임 데이터에서 팀 이름 수집
+        const actualTeams = new Set();
+        this.games.forEach(game => {
+            actualTeams.add(game.home_team);
+            actualTeams.add(game.away_team);
+        });
+
         // 팀/경기장 단위로 초기화
-        this.teams.forEach(team => {
+        actualTeams.forEach(team => {
             stadiumStats[team] = {};
         });
-        
+
         // 각 경기 경기장별 처리
         this.games.forEach(game => {
             const stadium = this.getStadium(game.home_team);
-            
+
             // 홈팀 처리
-            if (!stadiumStats[game.home_team][stadium]) {
+            if (stadiumStats[game.home_team] && !stadiumStats[game.home_team][stadium]) {
                 stadiumStats[game.home_team][stadium] = { wins: 0, losses: 0, draws: 0 };
             }
             
-            if (game.winner === game.home_team) {
-                stadiumStats[game.home_team][stadium].wins++;
-            } else if (game.winner === game.away_team) {
-                stadiumStats[game.home_team][stadium].losses++;
-            } else {
-                stadiumStats[game.home_team][stadium].draws++;
+            if (stadiumStats[game.home_team] && stadiumStats[game.home_team][stadium]) {
+                if (game.winner === game.home_team) {
+                    stadiumStats[game.home_team][stadium].wins++;
+                } else if (game.winner === game.away_team) {
+                    stadiumStats[game.home_team][stadium].losses++;
+                } else {
+                    stadiumStats[game.home_team][stadium].draws++;
+                }
             }
-            
+
             // 원정팀 처리
-            if (!stadiumStats[game.away_team][stadium]) {
+            if (stadiumStats[game.away_team] && !stadiumStats[game.away_team][stadium]) {
                 stadiumStats[game.away_team][stadium] = { wins: 0, losses: 0, draws: 0 };
             }
-            
-            if (game.winner === game.away_team) {
-                stadiumStats[game.away_team][stadium].wins++;
-            } else if (game.winner === game.home_team) {
-                stadiumStats[game.away_team][stadium].losses++;
-            } else {
-                stadiumStats[game.away_team][stadium].draws++;
+
+            if (stadiumStats[game.away_team] && stadiumStats[game.away_team][stadium]) {
+                if (game.winner === game.away_team) {
+                    stadiumStats[game.away_team][stadium].wins++;
+                } else if (game.winner === game.home_team) {
+                    stadiumStats[game.away_team][stadium].losses++;
+                } else {
+                    stadiumStats[game.away_team][stadium].draws++;
+                }
             }
         });
         
-        // 결과 정리 - JSON 구조에 맞쵸
+        // 결과 정리 - JSON 구조에 맞춤
         const result = {};
-        this.teams.forEach(team => {
+        actualTeams.forEach(team => {
             result[team] = [];
-            
-            Object.entries(stadiumStats[team]).forEach(([stadium, stats]) => {
-                if (stats.wins + stats.losses + stats.draws > 0) {
-                    const winRate = stats.wins + stats.losses > 0 ?
-                        (stats.wins / (stats.wins + stats.losses)).toFixed(3) : '0.000';
-                    
-                    result[team].push({
-                        stadium,
-                        wins: stats.wins,
-                        losses: stats.losses,
-                        draws: stats.draws,
-                        win_rate: winRate
-                    });
-                }
-            });
+
+            if (stadiumStats[team]) {
+                Object.entries(stadiumStats[team]).forEach(([stadium, stats]) => {
+                    if (stats.wins + stats.losses + stats.draws > 0) {
+                        const winRate = stats.wins + stats.losses > 0 ?
+                            (stats.wins / (stats.wins + stats.losses)).toFixed(3) : '0.000';
+
+                        result[team].push({
+                            stadium,
+                            wins: stats.wins,
+                            losses: stats.losses,
+                            draws: stats.draws,
+                            win_rate: winRate
+                        });
+                    }
+                });
+            }
         });
         
         return result;

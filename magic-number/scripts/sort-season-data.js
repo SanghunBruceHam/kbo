@@ -25,18 +25,25 @@ function sortSeasonData() {
     for (const line of lines) {
         const trimmed = line.trim();
         
-        // 날짜 패턴: YYYY-MM-DD
-        if (/^\d{4}-\d{2}-\d{2}$/.test(trimmed)) {
-            currentDate = trimmed;
+        // 날짜 패턴: YYYY-MM-DD (요일) 또는 YYYY-MM-DD
+        if (/^\d{4}-\d{2}-\d{2}(\s*\([월화수목금토일]\))?$/.test(trimmed)) {
+            currentDate = trimmed.replace(/\s*\([월화수목금토일]\)/, ''); // 요일 정보 제거
             if (!gamesByDate[currentDate]) {
                 gamesByDate[currentDate] = [];
             }
         }
         // 경기 결과 또는 취소 경기
         else if (trimmed && currentDate) {
-            // 완료 경기 (점수 포함) 또는 취소 경기 ([취소사유] 포함)
-            if (trimmed.includes(':') || (trimmed.includes('[') && trimmed.includes(']'))) {
-                gamesByDate[currentDate].push(trimmed);
+            // 새로운 형식: "시간 상태 구장 홈팀 어웨이팀 점수 방송사 구분"
+            // 완료 경기 (점수 포함) 또는 취소 경기 (취소/연기 상태 포함)
+            const parts = trimmed.split(/\s+/);
+            if (parts.length >= 8) {
+                const state = parts[1];
+                // 완료/종료 상태이거나 취소/연기 상태인 경기
+                if (state === '종료' || state === '완료' || state === '끝' ||
+                    state.includes('취소') || state.includes('연기') || state.includes('중단')) {
+                    gamesByDate[currentDate].push(trimmed);
+                }
             }
         }
     }
@@ -50,8 +57,22 @@ function sortSeasonData() {
         const games = gamesByDate[date];
         if (games.length > 0) {
             // 날짜별로 완료 경기와 취소 경기 분리
-            const completedGames = games.filter(g => g.includes(':') && !g.includes('['));
-            const cancelledGames = games.filter(g => g.includes('[') && g.includes(']'));
+            const completedGames = games.filter(g => {
+                const parts = g.split(/\s+/);
+                if (parts.length >= 8) {
+                    const state = parts[1];
+                    return state === '종료' || state === '완료' || state === '끝';
+                }
+                return false;
+            });
+            const cancelledGames = games.filter(g => {
+                const parts = g.split(/\s+/);
+                if (parts.length >= 8) {
+                    const state = parts[1];
+                    return state.includes('취소') || state.includes('연기') || state.includes('중단');
+                }
+                return false;
+            });
             
             // 날짜 추가
             newContent += `${date}\n`;
@@ -84,8 +105,22 @@ function sortSeasonData() {
     
     for (const date of sortedDates) {
         const games = gamesByDate[date];
-        totalCompleted += games.filter(g => g.includes(':') && !g.includes('[')).length;
-        totalCancelled += games.filter(g => g.includes('[') && g.includes(']')).length;
+        totalCompleted += games.filter(g => {
+            const parts = g.split(/\s+/);
+            if (parts.length >= 8) {
+                const state = parts[1];
+                return state === '종료' || state === '완료' || state === '끝';
+            }
+            return false;
+        }).length;
+        totalCancelled += games.filter(g => {
+            const parts = g.split(/\s+/);
+            if (parts.length >= 8) {
+                const state = parts[1];
+                return state.includes('취소') || state.includes('연기') || state.includes('중단');
+            }
+            return false;
+        }).length;
     }
     
     console.log(`\n✅ 정렬 완료!`);
@@ -97,7 +132,14 @@ function sortSeasonData() {
     // 취소 경기가 있는 날짜 표시
     console.log('\n📌 취소 경기가 있는 날짜:');
     for (const date of sortedDates) {
-        const cancelledGames = gamesByDate[date].filter(g => g.includes('[') && g.includes(']'));
+        const cancelledGames = gamesByDate[date].filter(g => {
+            const parts = g.split(/\s+/);
+            if (parts.length >= 8) {
+                const state = parts[1];
+                return state.includes('취소') || state.includes('연기') || state.includes('중단');
+            }
+            return false;
+        });
         if (cancelledGames.length > 0) {
             console.log(`  ${date}: ${cancelledGames.length}개 취소`);
             for (const game of cancelledGames) {
