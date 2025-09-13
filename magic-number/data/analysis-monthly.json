@@ -1,5 +1,5 @@
 {
-  "updateTime": "2025-09-13T10:38:53.563Z",
+  "updateTime": "2025-09-13T11:18:06.434Z",
   "updateDate": "2025년 9월 13일",
   "monthlyRecords": {
     "KIA": [
@@ -65,13 +65,13 @@
       },
       {
         "month": 9,
-        "wins": 3,
+        "wins": 4,
         "losses": 4,
         "draws": 0,
-        "games": 7,
-        "win_rate": "0.429",
-        "runs_scored": 25,
-        "runs_allowed": 37
+        "games": 8,
+        "win_rate": "0.500",
+        "runs_scored": 31,
+        "runs_allowed": 40
       }
     ],
     "NC": [
@@ -144,6 +144,150 @@
         "win_rate": "0.375",
         "runs_scored": 32,
         "runs_allowed": 48
+      }
+    ],
+    "삼성": [
+      {
+        "month": 3,
+        "wins": 5,
+        "losses": 3,
+        "draws": 0,
+        "games": 8,
+        "win_rate": "0.625",
+        "runs_scored": 65,
+        "runs_allowed": 42
+      },
+      {
+        "month": 4,
+        "wins": 13,
+        "losses": 9,
+        "draws": 1,
+        "games": 23,
+        "win_rate": "0.591",
+        "runs_scored": 127,
+        "runs_allowed": 89
+      },
+      {
+        "month": 5,
+        "wins": 12,
+        "losses": 14,
+        "draws": 0,
+        "games": 26,
+        "win_rate": "0.462",
+        "runs_scored": 121,
+        "runs_allowed": 110
+      },
+      {
+        "month": 6,
+        "wins": 9,
+        "losses": 13,
+        "draws": 0,
+        "games": 22,
+        "win_rate": "0.409",
+        "runs_scored": 101,
+        "runs_allowed": 116
+      },
+      {
+        "month": 7,
+        "wins": 9,
+        "losses": 10,
+        "draws": 0,
+        "games": 19,
+        "win_rate": "0.474",
+        "runs_scored": 98,
+        "runs_allowed": 85
+      },
+      {
+        "month": 8,
+        "wins": 15,
+        "losses": 11,
+        "draws": 1,
+        "games": 27,
+        "win_rate": "0.577",
+        "runs_scored": 144,
+        "runs_allowed": 116
+      },
+      {
+        "month": 9,
+        "wins": 2,
+        "losses": 5,
+        "draws": 0,
+        "games": 7,
+        "win_rate": "0.286",
+        "runs_scored": 26,
+        "runs_allowed": 34
+      }
+    ],
+    "키움": [
+      {
+        "month": 3,
+        "wins": 4,
+        "losses": 4,
+        "draws": 0,
+        "games": 8,
+        "win_rate": "0.500",
+        "runs_scored": 54,
+        "runs_allowed": 60
+      },
+      {
+        "month": 4,
+        "wins": 7,
+        "losses": 18,
+        "draws": 0,
+        "games": 25,
+        "win_rate": "0.280",
+        "runs_scored": 83,
+        "runs_allowed": 156
+      },
+      {
+        "month": 5,
+        "wins": 4,
+        "losses": 22,
+        "draws": 1,
+        "games": 27,
+        "win_rate": "0.154",
+        "runs_scored": 76,
+        "runs_allowed": 176
+      },
+      {
+        "month": 6,
+        "wins": 10,
+        "losses": 10,
+        "draws": 2,
+        "games": 22,
+        "win_rate": "0.500",
+        "runs_scored": 91,
+        "runs_allowed": 107
+      },
+      {
+        "month": 7,
+        "wins": 3,
+        "losses": 15,
+        "draws": 1,
+        "games": 19,
+        "win_rate": "0.167",
+        "runs_scored": 74,
+        "runs_allowed": 130
+      },
+      {
+        "month": 8,
+        "wins": 12,
+        "losses": 14,
+        "draws": 0,
+        "games": 26,
+        "win_rate": "0.462",
+        "runs_scored": 123,
+        "runs_allowed": 144
+      },
+      {
+        "month": 9,
+        "wins": 3,
+        "losses": 2,
+        "draws": 0,
+        "games": 5,
+        "win_rate": "0.600",
+        "runs_scored": 23,
+        "runs_allowed": 20
       }
     ],
     "SSG": [
@@ -290,150 +434,6 @@
         "runs_allowed": 27
       }
     ],
-    "LG": [
-      {
-        "month": 3,
-        "wins": 7,
-        "losses": 0,
-        "draws": 0,
-        "games": 7,
-        "win_rate": "1.000",
-        "runs_scored": 55,
-        "runs_allowed": 13
-      },
-      {
-        "month": 4,
-        "wins": 13,
-        "losses": 11,
-        "draws": 0,
-        "games": 24,
-        "win_rate": "0.542",
-        "runs_scored": 116,
-        "runs_allowed": 87
-      },
-      {
-        "month": 5,
-        "wins": 15,
-        "losses": 10,
-        "draws": 1,
-        "games": 26,
-        "win_rate": "0.600",
-        "runs_scored": 143,
-        "runs_allowed": 108
-      },
-      {
-        "month": 6,
-        "wins": 9,
-        "losses": 12,
-        "draws": 1,
-        "games": 22,
-        "win_rate": "0.429",
-        "runs_scored": 106,
-        "runs_allowed": 109
-      },
-      {
-        "month": 7,
-        "wins": 14,
-        "losses": 7,
-        "draws": 0,
-        "games": 21,
-        "win_rate": "0.667",
-        "runs_scored": 111,
-        "runs_allowed": 75
-      },
-      {
-        "month": 8,
-        "wins": 18,
-        "losses": 6,
-        "draws": 1,
-        "games": 25,
-        "win_rate": "0.750",
-        "runs_scored": 144,
-        "runs_allowed": 88
-      },
-      {
-        "month": 9,
-        "wins": 3,
-        "losses": 3,
-        "draws": 0,
-        "games": 6,
-        "win_rate": "0.500",
-        "runs_scored": 30,
-        "runs_allowed": 38
-      }
-    ],
-    "롯데": [
-      {
-        "month": 3,
-        "wins": 2,
-        "losses": 5,
-        "draws": 1,
-        "games": 8,
-        "win_rate": "0.286",
-        "runs_scored": 17,
-        "runs_allowed": 39
-      },
-      {
-        "month": 4,
-        "wins": 16,
-        "losses": 8,
-        "draws": 0,
-        "games": 24,
-        "win_rate": "0.667",
-        "runs_scored": 142,
-        "runs_allowed": 125
-      },
-      {
-        "month": 5,
-        "wins": 13,
-        "losses": 11,
-        "draws": 2,
-        "games": 26,
-        "win_rate": "0.542",
-        "runs_scored": 136,
-        "runs_allowed": 138
-      },
-      {
-        "month": 6,
-        "wins": 12,
-        "losses": 10,
-        "draws": 0,
-        "games": 22,
-        "win_rate": "0.545",
-        "runs_scored": 109,
-        "runs_allowed": 111
-      },
-      {
-        "month": 7,
-        "wins": 12,
-        "losses": 9,
-        "draws": 0,
-        "games": 21,
-        "win_rate": "0.571",
-        "runs_scored": 91,
-        "runs_allowed": 90
-      },
-      {
-        "month": 8,
-        "wins": 7,
-        "losses": 16,
-        "draws": 3,
-        "games": 26,
-        "win_rate": "0.304",
-        "runs_scored": 100,
-        "runs_allowed": 122
-      },
-      {
-        "month": 9,
-        "wins": 1,
-        "losses": 5,
-        "draws": 0,
-        "games": 6,
-        "win_rate": "0.167",
-        "runs_scored": 20,
-        "runs_allowed": 44
-      }
-    ],
     "KT": [
       {
         "month": 3,
@@ -497,13 +497,13 @@
       },
       {
         "month": 9,
-        "wins": 3,
+        "wins": 4,
         "losses": 2,
         "draws": 0,
-        "games": 5,
-        "win_rate": "0.600",
-        "runs_scored": 35,
-        "runs_allowed": 32
+        "games": 6,
+        "win_rate": "0.667",
+        "runs_scored": 40,
+        "runs_allowed": 35
       }
     ],
     "한화": [
@@ -578,148 +578,148 @@
         "runs_allowed": 17
       }
     ],
-    "삼성": [
+    "LG": [
       {
         "month": 3,
-        "wins": 5,
-        "losses": 3,
+        "wins": 7,
+        "losses": 0,
         "draws": 0,
-        "games": 8,
-        "win_rate": "0.625",
-        "runs_scored": 65,
-        "runs_allowed": 42
+        "games": 7,
+        "win_rate": "1.000",
+        "runs_scored": 55,
+        "runs_allowed": 13
       },
       {
         "month": 4,
         "wins": 13,
-        "losses": 9,
-        "draws": 1,
-        "games": 23,
-        "win_rate": "0.591",
-        "runs_scored": 127,
-        "runs_allowed": 89
+        "losses": 11,
+        "draws": 0,
+        "games": 24,
+        "win_rate": "0.542",
+        "runs_scored": 116,
+        "runs_allowed": 87
       },
       {
         "month": 5,
-        "wins": 12,
-        "losses": 14,
-        "draws": 0,
+        "wins": 15,
+        "losses": 10,
+        "draws": 1,
         "games": 26,
-        "win_rate": "0.462",
-        "runs_scored": 121,
-        "runs_allowed": 110
+        "win_rate": "0.600",
+        "runs_scored": 143,
+        "runs_allowed": 108
       },
       {
         "month": 6,
         "wins": 9,
-        "losses": 13,
-        "draws": 0,
+        "losses": 12,
+        "draws": 1,
         "games": 22,
-        "win_rate": "0.409",
-        "runs_scored": 101,
-        "runs_allowed": 116
+        "win_rate": "0.429",
+        "runs_scored": 106,
+        "runs_allowed": 109
       },
       {
         "month": 7,
-        "wins": 9,
-        "losses": 10,
+        "wins": 14,
+        "losses": 7,
         "draws": 0,
-        "games": 19,
-        "win_rate": "0.474",
-        "runs_scored": 98,
-        "runs_allowed": 85
+        "games": 21,
+        "win_rate": "0.667",
+        "runs_scored": 111,
+        "runs_allowed": 75
       },
       {
         "month": 8,
-        "wins": 15,
-        "losses": 11,
+        "wins": 18,
+        "losses": 6,
         "draws": 1,
-        "games": 27,
-        "win_rate": "0.577",
+        "games": 25,
+        "win_rate": "0.750",
         "runs_scored": 144,
-        "runs_allowed": 116
+        "runs_allowed": 88
       },
       {
         "month": 9,
-        "wins": 2,
+        "wins": 3,
         "losses": 4,
         "draws": 0,
-        "games": 6,
-        "win_rate": "0.333",
-        "runs_scored": 23,
-        "runs_allowed": 29
+        "games": 7,
+        "win_rate": "0.429",
+        "runs_scored": 33,
+        "runs_allowed": 44
       }
     ],
-    "키움": [
+    "롯데": [
       {
         "month": 3,
-        "wins": 4,
-        "losses": 4,
-        "draws": 0,
+        "wins": 2,
+        "losses": 5,
+        "draws": 1,
         "games": 8,
-        "win_rate": "0.500",
-        "runs_scored": 54,
-        "runs_allowed": 60
+        "win_rate": "0.286",
+        "runs_scored": 17,
+        "runs_allowed": 39
       },
       {
         "month": 4,
-        "wins": 7,
-        "losses": 18,
+        "wins": 16,
+        "losses": 8,
         "draws": 0,
-        "games": 25,
-        "win_rate": "0.280",
-        "runs_scored": 83,
-        "runs_allowed": 156
+        "games": 24,
+        "win_rate": "0.667",
+        "runs_scored": 142,
+        "runs_allowed": 125
       },
       {
         "month": 5,
-        "wins": 4,
-        "losses": 22,
-        "draws": 1,
-        "games": 27,
-        "win_rate": "0.154",
-        "runs_scored": 76,
-        "runs_allowed": 176
+        "wins": 13,
+        "losses": 11,
+        "draws": 2,
+        "games": 26,
+        "win_rate": "0.542",
+        "runs_scored": 136,
+        "runs_allowed": 138
       },
       {
         "month": 6,
-        "wins": 10,
+        "wins": 12,
         "losses": 10,
-        "draws": 2,
+        "draws": 0,
         "games": 22,
-        "win_rate": "0.500",
-        "runs_scored": 91,
-        "runs_allowed": 107
+        "win_rate": "0.545",
+        "runs_scored": 109,
+        "runs_allowed": 111
       },
       {
         "month": 7,
-        "wins": 3,
-        "losses": 15,
-        "draws": 1,
-        "games": 19,
-        "win_rate": "0.167",
-        "runs_scored": 74,
-        "runs_allowed": 130
+        "wins": 12,
+        "losses": 9,
+        "draws": 0,
+        "games": 21,
+        "win_rate": "0.571",
+        "runs_scored": 91,
+        "runs_allowed": 90
       },
       {
         "month": 8,
-        "wins": 12,
-        "losses": 14,
-        "draws": 0,
+        "wins": 7,
+        "losses": 16,
+        "draws": 3,
         "games": 26,
-        "win_rate": "0.462",
-        "runs_scored": 123,
-        "runs_allowed": 144
+        "win_rate": "0.304",
+        "runs_scored": 100,
+        "runs_allowed": 122
       },
       {
         "month": 9,
-        "wins": 3,
-        "losses": 2,
+        "wins": 1,
+        "losses": 5,
         "draws": 0,
-        "games": 5,
-        "win_rate": "0.600",
-        "runs_scored": 23,
-        "runs_allowed": 20
+        "games": 6,
+        "win_rate": "0.167",
+        "runs_scored": 20,
+        "runs_allowed": 44
       }
     ]
   }
