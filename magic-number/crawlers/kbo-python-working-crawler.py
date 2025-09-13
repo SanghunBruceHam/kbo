@@ -363,10 +363,13 @@ class KBOWorkingCrawler:
             return ""
 
     def save_results(self, games, year, month):
-        """결과 저장"""
+        """결과 저장 - 각 월별 데이터를 즉시 저장"""
         if not games:
             print("\n❌ 저장할 데이터가 없습니다.")
             return
+
+        # 저장 시작 알림
+        print(f"💾 {month}월 데이터 저장 시작...")
 
 
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
@@ -443,9 +446,10 @@ class KBOWorkingCrawler:
         
         if new_games:
             print(f"\n🆕 새로운 경기 {len(new_games)}개 발견")
-            
-            # 새로운 경기를 기존 파일에 append
-            with open(main_clean_file, 'a', encoding='utf-8') as f:
+
+            try:
+                # 새로운 경기를 기존 파일에 append
+                with open(main_clean_file, 'a', encoding='utf-8') as f:
                 # 날짜별 그룹화
                 date_groups = {}
                 for game in new_games:
@@ -465,14 +469,19 @@ class KBOWorkingCrawler:
                     line = f"{game['time']:<8} {game['state']:<6} {game['stadium']:<6} {game['home_team']:<4} {game['away_team']:<4} {score_part:<8} {game['tv']:<8} {game['sort']}"
                     date_groups[date].append(line)
 
-                # 날짜순 정렬하여 출력 (빈 줄과 함께)
-                for date in sorted(date_groups.keys()):
-                    weekday = self.get_weekday(date)
-                    f.write(f"\n\n{date} ({weekday})\n")  # 날짜 (요일) 형식
-                    for line in date_groups[date]:
-                        f.write(f"{line}\n")
-            
-            print(f"💾 새 경기 {len(new_games)}개를 {main_clean_file}에 추가")
+                    # 날짜순 정렬하여 출력 (빈 줄과 함께)
+                    for date in sorted(date_groups.keys()):
+                        weekday = self.get_weekday(date)
+                        f.write(f"\n\n{date} ({weekday})\n")  # 날짜 (요일) 형식
+                        for line in date_groups[date]:
+                            f.write(f"{line}\n")
+
+                print(f"💾 새 경기 {len(new_games)}개를 {main_clean_file}에 추가")
+                print(f"✅ {month}월 데이터 안전하게 저장 완료!")
+
+            except Exception as e:
+                print(f"❌ 파일 저장 중 오류 발생: {e}")
+                print(f"💡 수동으로 백업 필요: {len(new_games)}개 경기 데이터")
         else:
             print("ℹ️ 새로운 경기가 없습니다")
             
@@ -560,22 +569,44 @@ def main():
 
     all_games = []
     months_to_crawl = [month for month in [3, 4, 5, 6, 7, 8, 9, 10] if month >= 3]
-    
+
+    # 크롤링 성공/실패 추적
+    successful_months = []
+    failed_months = []
+
     for month in months_to_crawl:
-        print(f"\n🗓️ {month}월 크롤링 시작...")
-        games = crawler.crawl_daum_kbo(2025, month)
-        
-        if games:
-            crawler.save_results(games, 2025, month)
-            all_games.extend(games)
-            print(f"✅ {month}월 크롤링 완료! ({len(games)}개 경기)")
-        else:
-            print(f"⚠️ {month}월 크롤링 결과 없음")
-    
-    if all_games:
-        print(f"\n🎯 전체 크롤링 완료! 총 {len(all_games)}개 경기")
-    else:
+        try:
+            print(f"\n🗓️ {month}월 크롤링 시작...")
+            games = crawler.crawl_daum_kbo(2025, month)
+
+            if games:
+                # 즉시 저장 - 다음 월 크롤링이 실패해도 이미 크롤링한 데이터는 보존됨
+                crawler.save_results(games, 2025, month)
+                all_games.extend(games)
+                successful_months.append(month)
+                print(f"✅ {month}월 크롤링 완료 및 저장! ({len(games)}개 경기)")
+            else:
+                print(f"⚠️ {month}월 크롤링 결과 없음")
+
+        except Exception as e:
+            failed_months.append(month)
+            print(f"❌ {month}월 크롤링 중 오류 발생: {e}")
+            print(f"💾 이전까지 크롤링한 데이터는 저장되었습니다.")
+            continue  # 다음 월 크롤링 계속 진행
+
+    # 최종 요약
+    print("\n" + "=" * 60)
+    print("📊 크롤링 요약:")
+    if successful_months:
+        print(f"✅ 성공한 월: {', '.join(map(str, successful_months))}")
+        print(f"📊 총 {len(all_games)}개 경기 수집 및 저장 완료")
+    if failed_months:
+        print(f"❌ 실패한 월: {', '.join(map(str, failed_months))}")
+
+    if not all_games:
         print("\n❌ 전체 크롤링 실패 - 데이터 없음")
+    else:
+        print(f"\n🎯 크롤링 종료! 총 {len(all_games)}개 경기 처리")
     
     print("=" * 60)
 
