@@ -39,8 +39,14 @@ class RawGameRecordsGenerator {
                 teamGameRecords[team] = { games: [] };
             });
 
-            // 게임을 팀별로 정리
+            // 게임을 팀별로 정리 (페넌트레이스 완료 경기만)
             games.forEach(game => {
+                // 페넌트레이스이면서 완료된 경기만 처리
+                if (!game.category || !game.category.includes('페넌트레이스') ||
+                    !game.state || game.state !== '종료') {
+                    return; // 페넌트레이스가 아니거나 완료되지 않은 경기는 제외
+                }
+
                 const homeTeam = game.home_team;
                 const awayTeam = game.away_team;
                 const homeScore = parseInt(game.home_score) || 0;

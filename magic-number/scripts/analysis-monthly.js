@@ -30,8 +30,14 @@ function generateMonthlyRecords() {
             monthlyStats[team] = {};
         });
         
-        // 각 경기 월별 처리
+        // 각 경기 월별 처리 (페넌트레이스 완료 경기만)
         games.forEach(game => {
+            // 페넌트레이스이면서 완료된 경기만 처리
+            if (!game.category || !game.category.includes('페넌트레이스') ||
+                !game.state || game.state !== '종료') {
+                return; // 페넌트레이스가 아니거나 완료되지 않은 경기는 제외
+            }
+
             const date = new Date(game.date);
             const month = date.getMonth() + 1; // 1-12월
             

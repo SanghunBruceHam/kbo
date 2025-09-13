@@ -29,8 +29,15 @@ class EnhancedDashboardGenerator {
                 parseSeasonData();
             }
             const gamesData = fs.readFileSync(gamesPath, 'utf-8');
-            this.games = JSON.parse(gamesData);
-            console.log(`✅ ${this.games.length}개 경기 데이터 로드 완료`);
+            const allGames = JSON.parse(gamesData);
+
+            // 페넌트레이스이면서 완료된 경기만 필터링
+            this.games = allGames.filter(game =>
+                game.category && game.category.includes('페넌트레이스') &&
+                game.state && game.state === '종료'
+            );
+
+            console.log(`✅ 전체 ${allGames.length}개 중 페넌트레이스 ${this.games.length}개 경기 데이터 로드 완료`);
         } catch (error) {
             console.error('❌ 경기 데이터 로드 실패:', error);
             throw error;

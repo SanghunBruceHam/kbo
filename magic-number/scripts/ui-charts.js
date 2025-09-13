@@ -2,6 +2,47 @@
 // 전역 유틸리티 함수들 (먼저 정의)
 // =============================================================================
 
+/**
+ * 📅 마지막 완료 경기 날짜 찾기
+ * @param {Array} seasonData - 전체 시즌 데이터
+ * @returns {string} 마지막 완료 경기 날짜 (YYYY-MM-DD)
+ */
+function findLastCompletedGameDate(seasonData) {
+    let lastCompletedDate = null;
+
+    // 역순으로 검색하여 가장 최근 완료 경기 찾기
+    for (let i = seasonData.length - 1; i >= 0; i--) {
+        const dayData = seasonData[i];
+        if (dayData && dayData.standings && dayData.standings.length > 0) {
+            // 이전 날짜와 비교하여 승수나 패수가 증가한 팀이 있는지 확인
+            if (i > 0) {
+                const prevDayData = seasonData[i - 1];
+                if (prevDayData && prevDayData.standings) {
+                    const hasGameResults = dayData.standings.some(team => {
+                        const prevTeam = prevDayData.standings.find(p => p.team === team.team);
+                        return prevTeam && (team.wins > prevTeam.wins || team.losses > prevTeam.losses);
+                    });
+
+                    if (hasGameResults) {
+                        lastCompletedDate = dayData.date;
+                        break;
+                    }
+                }
+            } else {
+                // 첫 번째 날짜인 경우, 경기 결과가 있으면 완료된 것으로 간주
+                const hasGameResults = dayData.standings.some(team => team.wins > 0 || team.losses > 0);
+                if (hasGameResults) {
+                    lastCompletedDate = dayData.date;
+                    break;
+                }
+            }
+        }
+    }
+
+    console.log('📅 마지막 완료 경기 날짜:', lastCompletedDate);
+    return lastCompletedDate;
+}
+
 // 팀 로고 파일명 매핑
 window.getTeamLogo = function getTeamLogo(team) {
     const logos = {
@@ -303,30 +344,39 @@ function processRealData(seasonRankings) {
     return periods;
 }
 
-// 기간 데이터를 Chart.js 형식으로 변환
+// 기간 데이터를 Chart.js 형식으로 변환 (마지막 완료 경기까지만)
 function formatPeriodDataForChart(periodData) {
     const teams = window.getRankingSystem ? window.getRankingSystem().teams : ["한화", "LG", "두산", "삼성", "KIA", "SSG", "롯데", "NC", "키움", "KT"];
-    
+
+    // 마지막 완료 경기 날짜 찾기
+    const lastCompletedDate = findLastCompletedGameDate(periodData);
+
+    // 마지막 완료 경기 날짜까지만 필터링
+    const filteredData = lastCompletedDate ?
+        periodData.filter(day => day.date <= lastCompletedDate) :
+        periodData;
+
+    console.log(`📊 차트 데이터 필터링: 전체 ${periodData.length}일 → 완료된 ${filteredData.length}일 (마지막: ${lastCompletedDate})`);
+
     const chartData = {
         labels: [],
         datasets: []
     };
-    
+
     // 날짜 라벨 생성
-    chartData.labels = periodData.map(day => {
+    chartData.labels = filteredData.map(day => {
         const date = new Date(day.date);
         return `${date.getMonth() + 1}/${date.getDate()}`;
     });
-    
+
     // 각 팀별 순위 데이터 생성 (동순위 정확히 표시)
     teams.forEach(teamName => {
         const rankHistory = [];
-        
-        periodData.forEach(day => {
+
+        filteredData.forEach(day => {
             const teamData = day.standings.find(s => s.team === teamName);
             rankHistory.push(teamData ? teamData.rank : null);
         });
-        
 
         chartData.datasets.push({
             label: teamName,
@@ -340,7 +390,7 @@ function formatPeriodDataForChart(periodData) {
             fill: false
         });
     });
-    
+
     return chartData;
 }
 
@@ -1020,10 +1070,10 @@ function updateSimpleChart() {
     updateProgressIndicator();
 }
 
-// 전체 시즌 차트 데이터 생성
+// 전체 시즌 차트 데이터 생성 (마지막 완료 경기까지만)
 function generateFullSeasonChart() {
     const teams = window.getRankingSystem ? window.getRankingSystem().teams : ["한화", "LG", "두산", "삼성", "KIA", "SSG", "롯데", "NC", "키움", "KT"];
-    
+
     // 모든 기간의 rawData를 하나로 합치기
     let allData = [];
     chartState.periods.forEach(period => {
@@ -1031,31 +1081,39 @@ function generateFullSeasonChart() {
             allData = allData.concat(period.rawData);
         }
     });
-    
+
     // 날짜순으로 정렬
     allData.sort((a, b) => new Date(a.date) - new Date(b.date));
-    
-    
+
+    // 마지막 완료 경기 날짜 찾기
+    const lastCompletedDate = findLastCompletedGameDate(allData);
+
+    // 마지막 완료 경기 날짜까지만 필터링
+    const filteredData = lastCompletedDate ?
+        allData.filter(day => day.date <= lastCompletedDate) :
+        allData;
+
+    console.log(`📊 전체 시즌 차트 데이터 필터링: 전체 ${allData.length}일 → 완료된 ${filteredData.length}일 (마지막: ${lastCompletedDate})`);
+
     const chartData = {
         labels: [],
         datasets: []
     };
-    
-    // 날짜 라벨 생성 (모든 날짜 생성, Chart.js가 자동 간격 조정)
-    chartData.labels = allData.map(day => {
+
+    // 날짜 라벨 생성 (완료된 경기까지만)
+    chartData.labels = filteredData.map(day => {
         const date = new Date(day.date);
         return `${date.getMonth() + 1}/${date.getDate()}`;
     });
-    
+
     // 각 팀별 순위 데이터 생성 (동순위 정확히 표시)
     teams.forEach(teamName => {
         const rankHistory = [];
-        
-        allData.forEach(day => {
+
+        filteredData.forEach(day => {
             const teamData = day.standings.find(s => s.team === teamName);
             rankHistory.push(teamData ? teamData.rank : null);
         });
-        
 
         chartData.datasets.push({
             label: teamName,
@@ -1497,26 +1555,36 @@ function processWinCountData(winCountData) {
     return periods;
 }
 
-// 승수 데이터를 Chart.js 형식으로 변환
+// 승수 데이터를 Chart.js 형식으로 변환 (마지막 완료 경기까지만)
 function formatWinCountDataForChart(periodData) {
     const teams = window.getRankingSystem ? window.getRankingSystem().teams : ["한화", "LG", "두산", "삼성", "KIA", "SSG", "롯데", "NC", "키움", "KT"];
-    
+
+    // 마지막 완료 경기 날짜 찾기
+    const lastCompletedDate = findLastCompletedGameDate(periodData);
+
+    // 마지막 완료 경기 날짜까지만 필터링
+    const filteredData = lastCompletedDate ?
+        periodData.filter(day => day.date <= lastCompletedDate) :
+        periodData;
+
+    console.log(`📊 승수 차트 데이터 필터링: 전체 ${periodData.length}일 → 완료된 ${filteredData.length}일 (마지막: ${lastCompletedDate})`);
+
     const chartData = {
         labels: [],
         datasets: []
     };
-    
-    // 날짜 라벨 생성
-    chartData.labels = periodData.map(day => {
+
+    // 날짜 라벨 생성 (완료된 경기까지만)
+    chartData.labels = filteredData.map(day => {
         const date = new Date(day.date);
         return `${date.getMonth() + 1}/${date.getDate()}`;
     });
-    
+
     // 각 팀별 승수 데이터 생성
     teams.forEach(teamName => {
         const winHistory = [];
-        
-        periodData.forEach(day => {
+
+        filteredData.forEach(day => {
             const teamData = day.winCounts.find(w => w.team === teamName);
             winHistory.push(teamData ? teamData.wins : 0);
         });
@@ -1832,23 +1900,33 @@ function generateFullSeasonWinCountChart() {
     
     // 날짜순으로 정렬
     allData.sort((a, b) => new Date(a.date) - new Date(b.date));
-    
+
+    // 마지막 완료 경기 날짜 찾기
+    const lastCompletedDate = findLastCompletedGameDate(allData);
+
+    // 마지막 완료 경기 날짜까지만 필터링
+    const filteredData = lastCompletedDate ?
+        allData.filter(day => day.date <= lastCompletedDate) :
+        allData;
+
+    console.log(`📊 전체 시즌 승수 차트 데이터 필터링: 전체 ${allData.length}일 → 완료된 ${filteredData.length}일 (마지막: ${lastCompletedDate})`);
+
     const chartData = {
         labels: [],
         datasets: []
     };
-    
-    // 날짜 라벨 생성
-    chartData.labels = allData.map(day => {
+
+    // 날짜 라벨 생성 (완료된 경기까지만)
+    chartData.labels = filteredData.map(day => {
         const date = new Date(day.date);
         return `${date.getMonth() + 1}/${date.getDate()}`;
     });
-    
+
     // 각 팀별 승수 데이터 생성
     teams.forEach(teamName => {
         const winHistory = [];
-        
-        allData.forEach(day => {
+
+        filteredData.forEach(day => {
             const teamData = day.winCounts.find(w => w.team === teamName);
             winHistory.push(teamData ? teamData.wins : 0);
         });
@@ -1865,7 +1943,7 @@ function generateFullSeasonWinCountChart() {
             fill: false
         });
     });
-    
+
     return chartData;
 }
 
