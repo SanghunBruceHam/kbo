@@ -450,24 +450,24 @@ class KBOWorkingCrawler:
             try:
                 # 새로운 경기를 기존 파일에 append
                 with open(main_clean_file, 'a', encoding='utf-8') as f:
-                # 날짜별 그룹화
-                date_groups = {}
-                for game in new_games:
-                    date = game['date']
-                    if date not in date_groups:
-                        date_groups[date] = []
+                    # 날짜별 그룹화
+                    date_groups = {}
+                    for game in new_games:
+                        date = game['date']
+                        if date not in date_groups:
+                            date_groups[date] = []
 
-                    # 새로운 확장 형식: 열 정렬된 가독성 좋은 형식
-                    if game['state'] in ["취소", "우천취소", "연기", "경기취소"]:
-                        score_part = "취소"
-                    elif game['state'] in ["종료", "완료", "끝"]:
-                        score_part = f"{game['away_score']}:{game['home_score']}"
-                    else:
-                        # 경기전 상태인 경우
-                        score_part = "경기전"
+                        # 새로운 확장 형식: 열 정렬된 가독성 좋은 형식
+                        if game['state'] in ["취소", "우천취소", "연기", "경기취소"]:
+                            score_part = "취소"
+                        elif game['state'] in ["종료", "완료", "끝"]:
+                            score_part = f"{game['away_score']}:{game['home_score']}"
+                        else:
+                            # 경기전 상태인 경우
+                            score_part = "경기전"
 
-                    line = f"{game['time']:<8} {game['state']:<6} {game['stadium']:<6} {game['home_team']:<4} {game['away_team']:<4} {score_part:<8} {game['tv']:<8} {game['sort']}"
-                    date_groups[date].append(line)
+                        line = f"{game['time']:<8} {game['state']:<6} {game['stadium']:<6} {game['home_team']:<4} {game['away_team']:<4} {score_part:<8} {game['tv']:<8} {game['sort']}"
+                        date_groups[date].append(line)
 
                     # 날짜순 정렬하여 출력 (빈 줄과 함께)
                     for date in sorted(date_groups.keys()):
