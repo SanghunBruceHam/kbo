@@ -434,11 +434,25 @@ class KBOWorkingCrawler:
                         existing_home = parts[3]  # 홈팀
                         existing_away = parts[4]  # 어웨이팀
 
-                        # 시간, 홈팀, 어웨이팀이 모두 같으면 중복
+                        # 시간, 홈팀, 어웨이팀이 모두 같으면 같은 경기
                         if (existing_time == game['time'] and
                             existing_home == game['home_team'] and
                             existing_away == game['away_team']):
-                            is_duplicate = True
+
+                            # 기존 경기 상태 확인
+                            existing_parts = existing_line.split()
+                            existing_state = existing_parts[1] if len(existing_parts) > 1 else ""
+
+                            # 경기전 → 종료/취소 상태로 변경되었으면 업데이트 필요
+                            if existing_state in ["경기전", "예정"] and game['state'] in ["종료", "완료", "끝", "취소", "우천취소", "연기", "경기취소"]:
+                                print(f"  🔄 경기 상태 업데이트: {game_date} {game['time']} {game['home_team']} vs {game['away_team']} ({existing_state} → {game['state']})")
+                                # 기존 경기를 제거하고 새 상태로 교체하기 위해 중복으로 처리하지 않음
+                                is_duplicate = False
+                                # 기존 라인을 제거 표시 (나중에 처리)
+                                game['update_existing'] = existing_line
+                            else:
+                                # 동일한 상태이거나 이미 완료된 경기면 중복으로 처리
+                                is_duplicate = True
                             break
 
             if not is_duplicate:
@@ -473,8 +487,15 @@ class KBOWorkingCrawler:
                                 if current_date not in all_data:
                                     all_data[current_date] = []
                             elif current_date:
-                                # 경기 라인 저장
-                                all_data[current_date].append(line)
+                                # 경기 라인 저장 (단, 업데이트될 기존 경기는 제외)
+                                should_keep = True
+                                for game in new_games:
+                                    if 'update_existing' in game and game['update_existing'] == line:
+                                        should_keep = False
+                                        break
+
+                                if should_keep:
+                                    all_data[current_date].append(line)
 
                 # 새로운 경기 추가
                 for game in new_games:
