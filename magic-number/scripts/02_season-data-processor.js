@@ -53,70 +53,106 @@ class KBODataProcessor {
                 const trimmedLine = line.trim();
                 if (!trimmedLine) continue;
                 
-                // 날짜 라인 체크 (YYYY-MM-DD 형식)
-                if (trimmedLine.match(/^\d{4}-\d{2}-\d{2}$/)) {
-                    currentDate = trimmedLine;
+                // 날짜 라인 체크 (YYYY-MM-DD (요일) 형식 또는 기존 YYYY-MM-DD 형식)
+                if (trimmedLine.match(/^\d{4}-\d{2}-\d{2}(\s*\([월화수목금토일]\))?$/)) {
+                    currentDate = trimmedLine.replace(/\s*\([월화수목금토일]\)/, ''); // 요일 정보 제거
                     continue;
                 }
-                
-                // 경기 결과 파싱 (팀1 점수:점수 팀2(H) 또는 팀1 점수:점수 팀2)
+
+                // 새로운 형식 파싱: "시간 상태 구장 홈팀 어웨이팀 점수 방송사 구분"
+                // 더 유연한 패턴 사용 - 공백으로 구분된 8개 필드
+                const newFormatParts = trimmedLine.split(/\s+/);
+                if (newFormatParts.length >= 8) {
+                    const [time, state, stadium, homeTeam, awayTeam, scoreOrStatus, broadcast, ...categoryParts] = newFormatParts;
+                    const category = categoryParts.join(' ');
+
+                    // 취소 경기는 제외
+                    if (scoreOrStatus === '취소' || state.includes('취소') || state.includes('연기')) {
+                        console.log(`  ❌ 취소/연기 경기 제외: ${homeTeam} vs ${awayTeam} [${state}]`);
+                        continue;
+                    }
+
+                    // 점수 파싱 (away:home 형식)
+                    const scoreMatch = scoreOrStatus.match(/^(\d+):(\d+)$/);
+                    if (scoreMatch) {
+                        const [, awayScore, homeScore] = scoreMatch;
+                        const team1 = awayTeam;
+                        const team2Raw = homeTeam;
+                        const score1 = parseInt(awayScore);
+                        const score2 = parseInt(homeScore);
+                        const homeMarker = '(H)'; // 새 형식에서는 항상 홈/어웨이 구분됨
+
+                        // 새 형식 처리
+                        this.processGame(team1, score1, score2, team2Raw, homeMarker, currentDate);
+                        gameCount++;
+                        continue;
+                    }
+                }
+
+                // 기존 형식 파싱 (팀1 점수:점수 팀2(H) 또는 팀1 점수:점수 팀2)
                 const gameMatch = trimmedLine.match(/^(.+?)\s+(\d+):(\d+)\s+(.+?)(\(H\))?$/);
                 if (gameMatch) {
                     const [, team1, score1, score2, team2Raw, homeMarker] = gameMatch;
-                    
-                    // 올스타 경기 제외
-                    if (this.allStarTeams.includes(team1.trim()) || this.allStarTeams.includes(team2Raw.trim())) {
-                        console.log(`  ⭐ 올스타 경기 제외: ${team1} vs ${team2Raw}`);
-                        continue;
-                    }
-                    
-                    // 홈팀 식별: (H) 표시가 있으면 해당 팀이 홈팀, 없으면 기존 규칙 적용
-                    let homeTeam, awayTeam, team2;
-                    if (homeMarker === '(H)') {
-                        // (H) 표시가 있는 경우 - 명시적 홈팀 표시
-                        team2 = team2Raw;
-                        homeTeam = team2;
-                        awayTeam = team1;
-                    } else {
-                        // (H) 표시가 없는 경우 - 기존 규칙 (뒤에 나온 팀이 홈팀)
-                        team2 = team2Raw;
-                        homeTeam = team2;
-                        awayTeam = team1;
-                    }
-                    
-                    // 결과 판정
-                    let result;
-                    if (parseInt(score1) > parseInt(score2)) {
-                        result = { winner: team1, loser: team2, isDraw: false };
-                    } else if (parseInt(score1) < parseInt(score2)) {
-                        result = { winner: team2, loser: team1, isDraw: false };
-                    } else {
-                        result = { winner: null, loser: null, isDraw: true };
-                    }
-                    
-                    this.games.push({
-                        date: currentDate,
-                        team1: team1,
-                        team2: team2,
-                        score1: parseInt(score1),
-                        score2: parseInt(score2),
-                        homeTeam: homeTeam,
-                        awayTeam: awayTeam,
-                        homeMarkerPresent: !!homeMarker, // 레퍼런스용
-                        ...result
-                    });
-                    
+                    this.processGame(team1, parseInt(score1), parseInt(score2), team2Raw, homeMarker, currentDate);
                     gameCount++;
+                } else {
+                    // 인식되지 않는 라인 (건너뛰기)
+                    console.log(`  ⚠️ 인식되지 않는 라인 형식: ${trimmedLine}`);
                 }
             }
-            
+
             console.log(`✅ 파싱 완료: ${gameCount}경기, 최신 날짜: ${currentDate}`);
             return { gameCount, lastDate: currentDate };
-            
+
         } catch (error) {
-            console.error('❌ 파싱 실패:', error.message);
-            throw error;
+            console.error('❌ 데이터 파싱 실패:', error.message);
+            return { gameCount: 0, lastDate: '' };
         }
+    }
+
+    // 게임 처리 메서드
+    processGame(team1, score1, score2, team2Raw, homeMarker, currentDate) {
+        // 올스타 경기 제외
+        if (this.allStarTeams.includes(team1.trim()) || this.allStarTeams.includes(team2Raw.trim())) {
+            console.log(`  ⭐ 올스타 경기 제외: ${team1} vs ${team2Raw}`);
+            return;
+        }
+
+        // 홈팀 식별: (H) 표시가 있으면 해당 팀이 홈팀, 없으면 기존 규칙 적용
+        let homeTeam, awayTeam, team2;
+        if (homeMarker === '(H)') {
+            // (H) 표시가 있는 경우 - 명시적 홈팀 표시
+            team2 = team2Raw;
+            homeTeam = team2;
+            awayTeam = team1;
+        } else {
+            // (H) 표시가 없는 경우 - 기존 규칙 (뒤에 나온 팀이 홈팀)
+            team2 = team2Raw;
+            homeTeam = team2;
+            awayTeam = team1;
+        }
+
+        // 결과 판정
+        let result;
+        if (score1 > score2) {
+            result = { winner: team1, loser: team2, isDraw: false };
+        } else if (score1 < score2) {
+            result = { winner: team2, loser: team1, isDraw: false };
+        } else {
+            result = { winner: null, loser: null, isDraw: true };
+        }
+
+        this.games.push({
+            date: currentDate,
+            team1: team1,
+            team2: team2,
+            score1: score1,
+            score2: score2,
+            homeTeam: homeTeam,
+            awayTeam: awayTeam,
+            homeMarkerPresent: !!homeMarker, // 레퍼런스용
+            ...result
+        });
     }
 
     // 2. 팀별 기본 통계 계산
