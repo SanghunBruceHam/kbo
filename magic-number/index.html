@@ -1047,53 +1047,6 @@
     </script>
 </head>
 <body>
-    <!-- 시스템 점검 배너 -->
-    <div id="maintenanceBanner" style="
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
-        color: white;
-        padding: 12px 20px;
-        text-align: center;
-        font-weight: bold;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        z-index: 10000;
-        border-bottom: 2px solid #ff5252;
-        animation: fadeIn 0.5s ease-in-out;
-    ">
-        <div style="display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap;">
-            <span style="font-size: 16px;">🔧</span>
-            <span style="font-size: 14px;">
-                <strong>시스템 점검 중입니다</strong> |
-                점검일시: 2025년 9월 13일 |
-                서비스 재개: 오후 6시 예정 |
-                이용에 불편을 드려 죄송합니다
-            </span>
-            <button onclick="document.getElementById('maintenanceBanner').style.display='none'"
-                    style="background: rgba(255,255,255,0.2); border: 1px solid white; color: white; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 12px;">
-                닫기
-            </button>
-        </div>
-    </div>
-    <style>
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        body { padding-top: 60px !important; }
-        @media (max-width: 768px) {
-            #maintenanceBanner {
-                padding: 10px 15px;
-                font-size: 13px;
-            }
-            #maintenanceBanner span {
-                font-size: 13px !important;
-            }
-            body { padding-top: 80px !important; }
-        }
-    </style>
 
     <div class="header">
         <div class="container">
