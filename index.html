@@ -3139,6 +3139,13 @@
             background: #f39c12;
         }
 
+        .result-badge.cancelled {
+            background: #f8f9fa;
+            color: #6b7280;
+            border: 1px solid #e5e7eb;
+            font-weight: normal;
+        }
+
         /* 연승/연패 색상 스타일 - 폰트 색상 */
         .streak-hot {
             color: #e74c3c !important;
@@ -3231,6 +3238,14 @@
             font-size: var(--font-sm);
         }
 
+        .cell-cancelled {
+            background: #f8f9fa;
+            color: #9ca3af;
+            font-weight: normal;
+            font-size: var(--font-sm);
+            opacity: 0.8;
+        }
+
         .win-row {
             color: var(--positive-color);
             font-size: var(--font-sm);
@@ -3243,6 +3258,13 @@
 
         .draw-row {
             color: #f59e0b;
+            font-size: var(--font-sm);
+        }
+
+        .cancelled-row {
+            color: #9ca3af;
+            background-color: #f9fafb;
+            opacity: 0.7;
             font-size: var(--font-sm);
         }
 
@@ -3276,6 +3298,14 @@
             font-weight: 900;
             opacity: 1;
             line-height: 1;
+        }
+
+        /* 취소된 경기일 때 연하게 */
+        .result-letter.cancelled-result {
+            font-size: var(--font-xs);
+            font-weight: normal;
+            opacity: 0.6;
+            color: #9ca3af;
         }
 
         .combined-result {
@@ -4742,7 +4772,7 @@
                 <div style="font-size: var(--font-sm); color: #4b5563; line-height: 1.5;">
                     <div style="margin-bottom: 6px;"><strong>승패마진:</strong> 승수-패수 (양수일수록 우수)</div>
                     <div style="margin-bottom: 6px;"><strong>잔여경기:</strong> 정규시즌 총 144경기 중 남은 경기수</div>
-                    <div style="margin-bottom: 6px;"><strong>최근10경기:</strong> 최근 10경기의 승-무-패 기록</div>
+                    <div style="margin-bottom: 6px;"><strong>최근10경기:</strong> 최근 10경기의 승-패-무 기록</div>
                     <div style="margin-bottom: 6px;"><strong>홈/원정:</strong> 홈경기와 원정경기의 승-패-무 기록</div>
                     <div style="margin-bottom: 6px;"><strong>홈승률/원정승률:</strong> 홈경기와 원정경기에서의 승률 (무승부 제외)</div>
                     <div style="margin-bottom: 6px;"><strong>연승패:</strong> 현재 연속 승/패 상태</div>
@@ -5415,7 +5445,7 @@
                 <div style="font-size: var(--font-base); font-weight: var(--font-weight-medium); margin-bottom: 8px; color: #495057;">📊 지표 설명</div>
                 <div style="font-size: var(--font-sm); color: #4b5563; line-height: 1.5;">
                     <div style="margin-bottom: 6px;"><strong>피타고리안 기대승률:</strong> 득점과 실점으로 계산한 '이론적' 승률 (득점²÷(득점²+실점²))</div>
-                    <div style="margin-bottom: 6px;"><strong>기대 승-무-패:</strong> 피타고리안 승률을 바탕으로 계산한 이론적 승부 기록</div>
+                    <div style="margin-bottom: 6px;"><strong>기대 승-패-무:</strong> 피타고리안 승률을 바탕으로 계산한 이론적 승부 기록</div>
                     <div style="margin-bottom: 6px;"><strong>운 지수:</strong> 실제승률 - 기대승률 (양수: 운이 좋음, 음수: 운이 나쁨)</div>
                     <div style="margin-bottom: 6px;"><strong>운 상태:</strong> +0.05 이상(매우 좋음), +0.03~0.05(좋음), +0.01~0.03(약간 좋음), ±0.01(평균적), -0.01~-0.03(약간 나쁨), -0.03~-0.05(나쁨), -0.05 이하(매우 나쁨)</div>
                     <div style="margin-bottom: 6px;"><strong>기대 득실차:</strong> 피타고리안 승률 기반으로 계산한 이론적 득실차</div>
@@ -6054,7 +6084,7 @@
         function formatRecent10(recent10Text) {
             if (!recent10Text || recent10Text === '-') return '-';
             
-            // "7승1무2패" 형태를 "7승-2패-1무" 형태로 변환
+            // "7승1무2패" 형태를 "7승-2패-1무" 형태로 변환 (승-패-무 순서)
             const wins = recent10Text.match(/(\d+)승/);
             const losses = recent10Text.match(/(\d+)패/);
             const draws = recent10Text.match(/(\d+)무/);
@@ -6461,22 +6491,31 @@
                 } else if (trimmedLine && currentDate) {
                     // 새로운 형식 파싱: "시간 상태 구장 홈팀 어웨이팀 점수 방송사 구분"
                     const parts = trimmedLine.split(/\s+/);
-                    if (parts.length >= 8) {
-                        const [time, state, stadium, homeTeam, awayTeam, scoreOrStatus, broadcast, ...categoryParts] = parts;
-                        const category = categoryParts.join(' ');
+                    if (parts.length >= 7) { // 최소 7개 필드 (방송사 없어도 됨)
+                        const [time, state, stadium, homeTeam, awayTeam, scoreOrStatus, ...remainingParts] = parts;
 
-                        // 미래 경기 조건: 페넌트레이스 + 경기전 상태
-                        if (category.includes('페넌트레이스') && state === '경기전' && scoreOrStatus === '경기전') {
-                            futureGames.push({
-                                date: currentDate,
-                                time: time,
-                                homeTeam: homeTeam,
-                                awayTeam: awayTeam,
-                                stadium: stadium,
-                                broadcast: broadcast,
-                                state: state,
-                                category: category
-                            });
+                        // 페넌트레이스가 포함된 경우 찾기
+                        const categoryIndex = remainingParts.findIndex(part => part === '페넌트레이스');
+
+                        if (categoryIndex >= 0) {
+                            // 방송사는 scoreOrStatus 다음부터 페넌트레이스 전까지
+                            const broadcastParts = remainingParts.slice(0, categoryIndex);
+                            const broadcast = broadcastParts.join(' ').trim() || '';
+                            const category = remainingParts.slice(categoryIndex).join(' ');
+
+                            // 미래 경기 조건: 페넌트레이스 + 경기전 상태
+                            if (state === '경기전' && scoreOrStatus === '경기전') {
+                                futureGames.push({
+                                    date: currentDate,
+                                    time: time,
+                                    homeTeam: homeTeam,
+                                    awayTeam: awayTeam,
+                                    stadium: stadium,
+                                    broadcast: broadcast,
+                                    state: state,
+                                    category: category
+                                });
+                            }
                         }
                     }
                 }
@@ -7356,12 +7395,12 @@
             const rankingSystem = getRankingSystem();
             const teams = rankingSystem.teams;
             
-            // 각 팀의 게임 데이터를 날짜순으로 정렬하고 최대 경기 수 계산
+            // 각 팀의 게임 데이터를 날짜순으로 정렬하고 최대 경기 수 계산 (취소된 경기 제외)
             const teamSortedGames = {};
             teams.forEach(team => {
                 if (gameRecordsData[team]?.games) {
                     teamSortedGames[team] = [...gameRecordsData[team].games]
-                        .filter(game => game && game.date && game.date !== 'undefined')
+                        .filter(game => game && game.date && game.date !== 'undefined' && !game.isCancelled)
                         .sort((a, b) => new Date(a.date) - new Date(b.date));
                 } else {
                     teamSortedGames[team] = [];
@@ -7401,20 +7440,23 @@
                         const streakInfo = calculateStreakAtGame(sortedGames, gameNum - 1);
                         const streakNumber = streakInfo.count > 0 ? streakInfo.count : '';
                         
-                        // 결과를 한글로 변환
-                        const resultText = game.result === 'W' ? '승' : 
-                                         game.result === 'L' ? '패' : 
-                                         game.result === 'D' || game.result === 'T' ? '무' : game.result;
+                        // 결과를 한글로 변환 (취소된 경기 처리 포함)
+                        const resultText = game.isCancelled ? '취소' :
+                                         game.result === 'W' ? '승' :
+                                         game.result === 'L' ? '패' :
+                                         game.result === 'D' || game.result === 'T' ? '무' :
+                                         game.result || '취소';
                         
-                        // 무승부일 때 특별한 클래스 추가
+                        // 무승부 및 취소된 경기 특별한 클래스 추가
                         const isDraw = game.result === 'D' || game.result === 'T';
-                        const resultClass = isDraw ? 'result-letter draw-result' : 'result-letter';
-                        
+                        const isCancelled = game.isCancelled;
+                        const resultClass = isCancelled ? 'result-letter cancelled-result' : isDraw ? 'result-letter draw-result' : 'result-letter';
+
                         html += `
-                        <td class="game-result-cell ${game.result === 'W' ? 'cell-win' : game.result === 'L' ? 'cell-loss' : 'cell-draw'}" 
+                        <td class="game-result-cell ${isCancelled ? 'cell-cancelled' : game.result === 'W' ? 'cell-win' : game.result === 'L' ? 'cell-loss' : 'cell-draw'}" 
                             title="${team} vs ${game.opponent} (${game.score}) - ${game.date}">
                             <div class="result-display">
-                                ${isDraw ? `<span class="${resultClass}">${resultText}</span>` : (streakNumber ? `<span class="combined-result">${streakNumber}${resultText}</span>` : `<span class="${resultClass}">${resultText}</span>`)}
+                                ${isCancelled ? `<span class="${resultClass}">${resultText}</span>` : isDraw ? `<span class="${resultClass}">${resultText}</span>` : (streakNumber ? `<span class="combined-result">${streakNumber}${resultText}</span>` : `<span class="${resultClass}">${resultText}</span>`)}
                             </div>
                         </td>`;
                     } else {
@@ -7555,8 +7597,9 @@
             } else {
                 const teamRecord = gameRecordsData[currentSelectedTeam];
                 if (teamRecord) {
-                // 최근 10경기 기록
-                const recentGames = teamRecord.games.slice(-10);
+                // 최근 10경기 기록 (취소된 경기 제외)
+                const completedGames = teamRecord.games.filter(game => !game.isCancelled);
+                const recentGames = completedGames.slice(-10);
                 const recent10Record = recentGames.reduce((acc, game) => {
                     if (game.result === 'W') acc.wins++;
                     else if (game.result === 'L') acc.losses++;
@@ -7566,6 +7609,7 @@
 
                 // 전체 기록
                 const totalRecord = teamRecord.games.reduce((acc, game) => {
+                    if (game.isCancelled) return acc; // 취소된 경기는 통계에서 제외
                     if (game.result === 'W') acc.wins++;
                     else if (game.result === 'L') acc.losses++;
                     else acc.draws++;
@@ -7573,6 +7617,9 @@
                 }, { wins: 0, losses: 0, draws: 0 });
 
                 const winRate = totalRecord.wins > 0 ? (totalRecord.wins / (totalRecord.wins + totalRecord.losses)).toFixed(3) : '0.000';
+
+                // 총 경기수 (취소된 경기 제외)
+                const totalGames = totalRecord.wins + totalRecord.losses + totalRecord.draws;
 
                 html += `
                 <div class="selected-team-details">
@@ -7583,7 +7630,7 @@
                         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
                             <div style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
                                 <span style="font-size: var(--font-sm); color: #718096; font-weight: var(--font-weight-medium);">총경기</span>
-                                <span style="font-size: var(--font-lg); font-weight: var(--font-weight-bold); color: #2d3748;">${teamRecord.games.length}</span>
+                                <span style="font-size: var(--font-lg); font-weight: var(--font-weight-bold); color: #2d3748;">${totalGames}</span>
                             </div>
                             <div style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
                                 <span style="font-size: var(--font-sm); color: #718096; font-weight: var(--font-weight-medium);">전체성적</span>
@@ -7705,15 +7752,17 @@
                     }
                     
                     html += `
-                        <tr class="${game.result === 'W' ? 'win-row' : game.result === 'L' ? 'loss-row' : 'draw-row'}"${monthId}>
-                            <td class="game-num-cell">${game.gameNumber}</td>
+                        <tr class="${game.isCancelled ? 'cancelled-row' : game.result === 'W' ? 'win-row' : game.result === 'L' ? 'loss-row' : 'draw-row'}"${monthId}>
+                            <td class="game-num-cell">${game.isCancelled ? '-' : game.gameNumber}</td>
                             <td class="date-cell ${dateClass}">${displayDate}</td>
                             <td class="opponent-cell">${getTeamWithLogo(game.opponent)}</td>
                             <td class="venue-cell ${game.isHome ? 'home-venue' : 'away-venue'}">${game.isHome ? '홈' : '원정'}</td>
                             <td class="score-cell">${game.score}</td>
                             <td class="result-cell">
-                                <span class="result-badge ${game.result.toLowerCase()}">${
-                                    game.result === 'W' ? '승' : game.result === 'L' ? '패' : '무'
+                                <span class="result-badge ${game.isCancelled ? 'cancelled' : game.result.toLowerCase()}">${
+                                    game.isCancelled ? '-' :
+                                    game.result === 'W' ? '승' :
+                                    game.result === 'L' ? '패' : '무'
                                 }</span>
                             </td>
                             <td class="runs-cell">${game.runs_scored}</td>
@@ -7998,7 +8047,8 @@
                         const gameResults = teamGames.map(game => {
                             // 개별 팀 테이블과 동일한 색상 적용
                             let rowClass = '';
-                            if (game.result === 'W') rowClass = 'win-row';
+                            if (game.isCancelled) rowClass = 'cancelled-row';
+                            else if (game.result === 'W') rowClass = 'win-row';
                             else if (game.result === 'L') rowClass = 'loss-row';
                             else rowClass = 'draw-row';
                             
@@ -8007,7 +8057,7 @@
                             
                             return `<div class="${rowClass}" style="margin: 1px 0; padding: 4px 5px; border-radius: 3px; font-weight: var(--font-weight-semibold); font-size: var(--font-sm); line-height: 1.6;">
                                 <span class="${venueClass}">${venueIcon}</span> vs ${game.opponent}<br>
-                                <span class="result-badge ${game.result.toLowerCase()}">${game.result === 'W' ? '승' : game.result === 'L' ? '패' : '무'}</span> ${game.score}
+                                <span class="result-badge ${game.isCancelled ? 'cancelled' : game.result.toLowerCase()}">${game.isCancelled ? '-' : game.result === 'W' ? '승' : game.result === 'L' ? '패' : '무'}</span> ${game.score}
                             </div>`;
                         }).join('');
                         
@@ -8155,8 +8205,10 @@
                 
                 switch(column) {
                     case 'gameNumber':
-                        aVal = parseInt(a.querySelector('.game-num-cell').textContent);
-                        bVal = parseInt(b.querySelector('.game-num-cell').textContent);
+                        const aText = a.querySelector('.game-num-cell').textContent;
+                        const bText = b.querySelector('.game-num-cell').textContent;
+                        aVal = aText === '-' ? 0 : parseInt(aText);
+                        bVal = bText === '-' ? 0 : parseInt(bText);
                         break;
                     case 'date':
                         aVal = new Date(a.querySelector('.date-cell').textContent);
@@ -12735,6 +12787,7 @@ KT 9:1 키움(H)`;
                             const [time, state, stadium, homeTeam, awayTeam, scoreOrStatus, broadcast, ...categoryParts] = newFormatParts;
                             const category = categoryParts.join(' ');
 
+
                             // 완료된 경기이면서 페넌트레이스 경기만 처리
                             if (state === '종료' && category.includes('페넌트레이스')) {
                                 // 점수 파싱 (away:home 형식)
@@ -13150,8 +13203,8 @@ KT 9:1 키움(H)`;
                         <th style="padding: 6px 4px; text-align: left; border-bottom: 1px solid #e5e7eb; font-size: 11px;">팀</th>
                         <th style="padding: 6px 4px; text-align: left; border-bottom: 1px solid #e5e7eb; font-size: 11px;">경기</th>
                         <th style="padding: 6px 4px; text-align: left; border-bottom: 1px solid #e5e7eb; font-size: 11px;">승</th>
-                        <th style="padding: 6px 4px; text-align: left; border-bottom: 1px solid #e5e7eb; font-size: 11px;">무</th>
                         <th style="padding: 6px 4px; text-align: left; border-bottom: 1px solid #e5e7eb; font-size: 11px;">패</th>
+                        <th style="padding: 6px 4px; text-align: left; border-bottom: 1px solid #e5e7eb; font-size: 11px;">무</th>
                         <th style="padding: 6px 4px; text-align: left; border-bottom: 1px solid #e5e7eb; font-size: 11px;">승률</th>
                         <th style="padding: 6px 4px; text-align: left; border-bottom: 1px solid #e5e7eb; font-size: 11px;">게임차</th>
                     </tr></thead><tbody>`;
@@ -13172,8 +13225,8 @@ KT 9:1 키움(H)`;
                         </td>
                         <td style="padding: 6px 4px; border-bottom: 1px solid #e5e7eb; font-size: 14px;">${team.games}</td>
                         <td style="padding: 6px 4px; border-bottom: 1px solid #e5e7eb; font-size: 14px;">${team.wins}</td>
-                        <td style="padding: 6px 4px; border-bottom: 1px solid #e5e7eb; font-size: 14px;">${team.draws || 0}</td>
                         <td style="padding: 6px 4px; border-bottom: 1px solid #e5e7eb; font-size: 14px;">${team.losses}</td>
+                        <td style="padding: 6px 4px; border-bottom: 1px solid #e5e7eb; font-size: 14px;">${team.draws || 0}</td>
                         <td style="padding: 6px 4px; border-bottom: 1px solid #e5e7eb; font-size: 14px; font-weight: 600;">${winRateStr}</td>
                         <td style="padding: 6px 4px; border-bottom: 1px solid #e5e7eb; font-size: 14px;">${gbStr}</td>
                     </tr>`;
@@ -13214,7 +13267,7 @@ KT 9:1 키움(H)`;
                                 <span style="color: #6b7280;">${game.team1}</span>
                             </div>
                             <div style="font-size: 14px; font-weight: bold; text-align: center; min-width: 100px; color: #dc2626;">
-                                ❌ ${game.state}
+                                ❌ 취소
                             </div>
                             <div style="display: flex; align-items: center; gap: 6px; flex: 1; justify-content: flex-end;">
                                 <span style="color: #6b7280;">${game.team2}</span>
@@ -13236,7 +13289,11 @@ KT 9:1 키움(H)`;
                                 <img src="${this.teamLogos[game.team1]}" alt="${game.team1}" style="width: 18px; height: 18px; object-fit: contain;" onerror="this.style.display='none'">
                                 <span style="${team1Style} color: ${this.teamColors[game.team1]};">${game.team1}</span>
                             </div>
-                            <div style="font-size: 16px; font-weight: bold; text-align: center; min-width: 70px;">${game.score1} : ${game.score2}</div>
+                            <div style="font-size: 16px; font-weight: bold; text-align: center; min-width: 70px;">
+                                <span style="${winner === game.team1 ? 'color: #10b981; font-weight: 800;' : winner === null ? 'color: #f59e0b; font-weight: 700;' : 'color: #6b7280;'}">${game.score1}</span>
+                                <span style="color: #6b7280;"> : </span>
+                                <span style="${winner === game.team2 ? 'color: #10b981; font-weight: 800;' : winner === null ? 'color: #f59e0b; font-weight: 700;' : 'color: #6b7280;'}">${game.score2}</span>
+                            </div>
                             <div style="display: flex; align-items: center; gap: 6px; flex: 1; justify-content: flex-end;">
                                 <span style="${team2Style} color: ${this.teamColors[game.team2]};">${game.team2}</span>
                                 <img src="${this.teamLogos[game.team2]}" alt="${game.team2}" style="width: 18px; height: 18px; object-fit: contain;" onerror="this.style.display='none'">
@@ -13247,7 +13304,7 @@ KT 9:1 키움(H)`;
                     // 추가 정보 표시 (시간, 구장, 방송사)
                     let extraInfo = '';
                     if (game.time || game.stadium || game.broadcast) {
-                        extraInfo = `<div style="font-size: 11px; color: #6b7280; margin-top: 6px; text-align: center;">`;
+                        extraInfo = `<div style="font-size: 11px; color: #6b7280; margin-top: 4px; text-align: center; line-height: 1.2;">`;
                         if (game.time) extraInfo += `⏰ ${game.time} `;
                         if (game.stadium) extraInfo += `🏟️ ${game.stadium} `;
                         if (game.broadcast) extraInfo += `📺 ${game.broadcast}`;
@@ -13255,7 +13312,7 @@ KT 9:1 키움(H)`;
                     }
 
                     html += `<div style="padding: 8px 10px; margin-bottom: 8px; background: ${backgroundColor}; border-radius: 6px; border-left: 3px solid ${borderColor}; border: 1px solid #e5e7eb;">
-                        <div style="font-size: 14px; font-weight: bold; color: #333; display: flex; align-items: center;">
+                        <div style="font-size: 14px; font-weight: bold; color: #333; display: flex; align-items: center; line-height: 1.3;">
                             ${contentHTML}
                         </div>
                         ${extraInfo}
