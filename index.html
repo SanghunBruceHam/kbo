@@ -11986,20 +11986,26 @@
             // 네비게이션 클릭 이벤트
             navItems.forEach(item => {
                 item.addEventListener('click', (e) => {
+                    // 매직넘버 링크는 외부 링크이므로 예외 처리
+                    if (item.classList.contains('magic-number-nav')) {
+                        // 외부 링크는 그대로 진행
+                        return;
+                    }
+
                     e.preventDefault();
                     const targetId = item.getAttribute('href').substring(1);
                     const targetSection = document.getElementById(targetId);
-                    
+
                     if (targetSection) {
                         // 네비게이션 바 높이만큼 오프셋 추가
                         const navHeight = document.querySelector('.navigation').offsetHeight;
                         const targetPosition = targetSection.offsetTop - navHeight - 20;
-                        
+
                         window.scrollTo({
                             top: targetPosition,
                             behavior: 'smooth'
                         });
-                        
+
                         // 스크롤 완료 후 URL에서 해시 제거 (2초 후)
                         setTimeout(() => {
                             history.replaceState(null, null, window.location.pathname + window.location.search);
