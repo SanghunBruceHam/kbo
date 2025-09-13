@@ -18725,52 +18725,8 @@ KT 9:1 키움(H)`;
     </script>
 
 
-    <!-- ================== AdSense 개선된 초기화 ================== -->
-    <script>
-    // AdSense 광고 개선된 초기화
-    function initializeAdSense() {
-        try {
-            const adElements = document.querySelectorAll('.adsense-ad-wrapper .adsbygoogle');
-            console.log(`🔍 AdSense 광고 요소 ${adElements.length}개 발견`);
-
-            if (window.adsbygoogle && adElements.length > 0) {
-                let initializedCount = 0;
-                adElements.forEach((adElement, index) => {
-                    // 이미 초기화되지 않은 광고만 처리
-                    if (!adElement.hasAttribute('data-adsbygoogle-status')) {
-                        try {
-                            (window.adsbygoogle = window.adsbygoogle || []).push({});
-                            initializedCount++;
-                            console.log(`✅ 광고 ${index + 1} 초기화 완료`);
-                        } catch (e) {
-                            console.warn(`⚠️ 광고 ${index + 1} 초기화 실패:`, e);
-                        }
-                    }
-                });
-                console.log(`🎯 총 ${initializedCount}개 광고 초기화 완료`);
-            } else {
-                console.warn('⚠️ AdSense 스크립트가 로드되지 않았거나 광고 요소가 없습니다.');
-            }
-        } catch (error) {
-            console.error('❌ AdSense 초기화 오류:', error);
-        }
-    }
-
-    // DOM 로드 후 즉시 실행
-    document.addEventListener('DOMContentLoaded', function() {
-        // AdSense 스크립트 로딩 대기
-        const checkAdSenseLoad = () => {
-            if (window.adsbygoogle) {
-                initializeAdSense();
-            } else {
-                console.log('⏳ AdSense 스크립트 로딩 대기 중...');
-                setTimeout(checkAdSenseLoad, 500);
-            }
-        };
-
-        setTimeout(checkAdSenseLoad, 1000);
-    });
-    </script>
+    <!-- ================== AdSense 레퍼런스 방식 사용 ================== -->
+    <!-- 각 광고 뒤에 개별 script 태그로 초기화 (중복 초기화 제거됨) -->
 
     <!-- ================== 성능 최적화 스크립트 ================== -->
     <script>
