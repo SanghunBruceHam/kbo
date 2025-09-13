@@ -4435,33 +4435,41 @@
             50% { opacity: 0.2; }
         }
 
-        /* 매직넘버 네비게이션 아이템 플래싱 효과 */
+        /* 매직넘버 네비게이션 아이템 - 개별적으로 플래싱 */
         .magic-number-nav {
             background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
             color: white !important;
             font-weight: 600 !important;
-            border: 2px solid #059669 !important;
-            animation: magicNavFlash 2s infinite;
-            position: relative;
-            overflow: hidden;
+            border: none !important;
+            animation: magicNavFlash 2.5s infinite !important;
+            position: relative !important;
+            overflow: hidden !important;
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.2) !important;
+        }
+
+        /* 매직넘버 네비 아이템은 active 클래스 무시 */
+        .magic-number-nav.active {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+            color: white !important;
+            animation: magicNavFlash 2.5s infinite !important;
         }
 
         .magic-number-nav:hover {
-            background: linear-gradient(135deg, #047857 0%, #065f46 100%) !important;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
             color: white !important;
-            animation-play-state: paused;
-            transform: translateY(-2px) !important;
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4) !important;
+            animation-play-state: paused !important;
+            transform: translateY(-4px) !important;
+            box-shadow: 0 12px 30px rgba(16, 185, 129, 0.3) !important;
         }
 
         @keyframes magicNavFlash {
             0%, 70%, 100% {
-                box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+                box-shadow: 0 8px 25px rgba(16, 185, 129, 0.2);
                 transform: translateY(0);
             }
             15%, 55% {
-                box-shadow: 0 4px 16px rgba(16, 185, 129, 0.6);
-                transform: translateY(-1px);
+                box-shadow: 0 12px 30px rgba(16, 185, 129, 0.4);
+                transform: translateY(-2px);
             }
         }
 
