@@ -11997,12 +11997,30 @@
                     const targetSection = document.getElementById(targetId);
 
                     if (targetSection) {
-                        // 네비게이션 바 높이만큼 오프셋 추가
-                        const navHeight = document.querySelector('.navigation').offsetHeight;
-                        const targetPosition = targetSection.offsetTop - navHeight - 20;
+                        // 정확한 스크롤 위치 계산
+                        const navHeight = document.querySelector('.navigation').offsetHeight || 60;
+                        const headerHeight = document.querySelector('.header')?.offsetHeight || 0;
+
+                        // 타겟 섹션 위의 광고들 높이 계산
+                        let adHeightOffset = 0;
+                        const targetTop = targetSection.offsetTop;
+
+                        // 타겟 섹션 위에 있는 광고들의 높이 합산
+                        const allAds = document.querySelectorAll('.ad-card');
+                        allAds.forEach(ad => {
+                            const adTop = ad.offsetTop;
+                            if (adTop < targetTop) {
+                                // 광고가 로드되었는지 확인하고 실제 높이 측정
+                                const adHeight = ad.offsetHeight > 0 ? ad.offsetHeight : 220; // 기본 광고 높이 추정
+                                adHeightOffset += adHeight;
+                            }
+                        });
+
+                        // 최종 스크롤 위치 계산 (더 정확한 오프셋)
+                        const targetPosition = targetTop - navHeight - headerHeight - 30;
 
                         window.scrollTo({
-                            top: targetPosition,
+                            top: Math.max(0, targetPosition),
                             behavior: 'smooth'
                         });
 
@@ -12485,14 +12503,23 @@
                         const targetElement = document.getElementById(targetId);
 
                         if (targetElement) {
-                            // 부드럽게 스크롤
-                            targetElement.scrollIntoView({
-                                behavior: 'smooth',
-                                block: 'start'
+                            // 정확한 스크롤 위치 계산
+                            const navHeight = document.querySelector('.navigation').offsetHeight || 60;
+                            const headerHeight = document.querySelector('.header')?.offsetHeight || 0;
+                            const targetTop = targetElement.offsetTop;
+
+                            // 최종 스크롤 위치 계산 (네비게이션 바 높이 고려)
+                            const targetPosition = targetTop - navHeight - headerHeight - 30;
+
+                            window.scrollTo({
+                                top: Math.max(0, targetPosition),
+                                behavior: 'smooth'
                             });
 
                             // 활성화된 네비 아이템 업데이트
-                            updateActiveNavItem(this);
+                            setTimeout(() => {
+                                updateActiveNavItem(this);
+                            }, 100);
                         } else {
                             // 해당 섹션이 없으면 가장 가까운 섹션으로 이동
                             const fallbackSection = findClosestSection(targetId);
