@@ -14,17 +14,24 @@ function generateWeekdayRecords() {
         
         const gamesData = fs.readFileSync(gamesPath, 'utf-8');
         const games = JSON.parse(gamesData);
-        
-        const teams = ['KIA', 'LG', '삼성', '두산', 'KT', 'SSG', '롯데', '한화', 'NC', '키움'];
+
+        // 실제 게임 데이터에서 팀 이름 수집
+        const actualTeams = new Set();
+        games.forEach(game => {
+            actualTeams.add(game.home_team);
+            actualTeams.add(game.away_team);
+        });
+
+        const teams = Array.from(actualTeams);
         const weekdayStats = {};
-        
+
         // 요일 한글 변환 함수
         function getDayOfWeek(date) {
             const days = ['일', '월', '화', '수', '목', '금', '토'];
             const d = new Date(date);
             return days[d.getDay()];
         }
-        
+
         // 팀/요일 단위로 초기화
         teams.forEach(team => {
             weekdayStats[team] = {};
@@ -36,23 +43,27 @@ function generateWeekdayRecords() {
         // 각 경기 요일별 처리
         games.forEach(game => {
             const dayOfWeek = getDayOfWeek(game.date);
-            
+
             // 홈팀 처리
-            if (game.winner === game.home_team) {
-                weekdayStats[game.home_team][dayOfWeek].wins++;
-            } else if (game.winner === game.away_team) {
-                weekdayStats[game.home_team][dayOfWeek].losses++;
-            } else {
-                weekdayStats[game.home_team][dayOfWeek].draws++;
+            if (weekdayStats[game.home_team] && weekdayStats[game.home_team][dayOfWeek]) {
+                if (game.winner === game.home_team) {
+                    weekdayStats[game.home_team][dayOfWeek].wins++;
+                } else if (game.winner === game.away_team) {
+                    weekdayStats[game.home_team][dayOfWeek].losses++;
+                } else {
+                    weekdayStats[game.home_team][dayOfWeek].draws++;
+                }
             }
-            
+
             // 원정팀 처리
-            if (game.winner === game.away_team) {
-                weekdayStats[game.away_team][dayOfWeek].wins++;
-            } else if (game.winner === game.home_team) {
-                weekdayStats[game.away_team][dayOfWeek].losses++;
-            } else {
-                weekdayStats[game.away_team][dayOfWeek].draws++;
+            if (weekdayStats[game.away_team] && weekdayStats[game.away_team][dayOfWeek]) {
+                if (game.winner === game.away_team) {
+                    weekdayStats[game.away_team][dayOfWeek].wins++;
+                } else if (game.winner === game.home_team) {
+                    weekdayStats[game.away_team][dayOfWeek].losses++;
+                } else {
+                    weekdayStats[game.away_team][dayOfWeek].draws++;
+                }
             }
         });
         
