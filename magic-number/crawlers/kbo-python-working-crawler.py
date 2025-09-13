@@ -602,7 +602,13 @@ def main():
     current_month = datetime.now(kst).month
 
     all_games = []
-    months_to_crawl = [month for month in [3, 4, 5, 6, 7, 8, 9, 10] if month >= 3]
+
+    # 현재 월부터 시즌 끝(10월)까지만 크롤링
+    # KBO 정규시즌: 3월~10월
+    season_months = [3, 4, 5, 6, 7, 8, 9, 10]
+    months_to_crawl = [month for month in season_months if month >= current_month]
+
+    print(f"📅 현재 {current_month}월 - 크롤링 대상: {months_to_crawl}월")
 
     # 크롤링 성공/실패 추적
     successful_months = []
