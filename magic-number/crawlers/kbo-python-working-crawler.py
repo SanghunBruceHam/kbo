@@ -26,23 +26,93 @@ from paths import get_path_manager
 class KBOWorkingCrawler:
     def __init__(self):
         self.base_url = 'https://sports.daum.net/schedule/kbo'
-        
+
         # PathManager 사용
         self.paths = get_path_manager()
         self.paths.setup_python_path()  # Python 모듈 import 경로 설정
-        
+
         print(f"🏟️ KBO 실제 작동 크롤러 초기화 완료 - 데이터 경로: {self.paths.data_dir}")
-        
+
         # 필요한 디렉토리들 생성
         self.paths.ensure_dir(Path(self.paths.data_dir))
-        
+
         self.team_mapping = {
             'KIA': 'KIA', 'KT': 'KT', 'LG': 'LG', 'NC': 'NC', 'SSG': 'SSG',
             '두산': '두산', '롯데': '롯데', '삼성': '삼성', '키움': '키움', '한화': '한화',
             'SK': 'SSG', '기아': 'KIA'
         }
-        
+
+        # 기존 경기 데이터 캐시 (중복 방지용)
+        self.existing_games_cache = None
+
         print(f"🏟️ KBO 실제 작동 크롤러 초기화 완료 - 데이터 경로: {self.paths.data_dir}")
+
+    def load_existing_games(self, year=2025):
+        """기존 경기 데이터를 로드하여 캐시에 저장 - 상태 정보 포함"""
+        if self.existing_games_cache is not None:
+            return self.existing_games_cache
+
+        main_clean_file = Path(self.paths.data_dir) / f'{year}-season-data-clean.txt'
+        existing_games = {}  # 딕셔너리로 변경하여 상태 정보 저장
+
+        if main_clean_file.exists():
+            with open(main_clean_file, 'r', encoding='utf-8') as f:
+                content = f.read()
+                current_date = None
+
+                for line in content.split('\n'):
+                    line = line.strip()
+                    if not line:
+                        continue
+
+                    # 날짜 라인인지 확인
+                    if re.match(r'^\d{4}-\d{2}-\d{2}', line):
+                        current_date = line.split()[0]  # 날짜만 추출
+                    elif current_date:
+                        # 경기 라인에서 중복 체크용 키와 상태 저장
+                        parts = line.split()
+                        if len(parts) >= 5:
+                            time = parts[0]
+                            state = parts[1]
+                            home_team = parts[3]
+                            away_team = parts[4]
+                            game_key = f"{current_date}_{time}_{home_team}_{away_team}"
+                            existing_games[game_key] = {
+                                'state': state,
+                                'line': line,
+                                'date': current_date
+                            }
+
+        self.existing_games_cache = existing_games
+        print(f"📚 기존 경기 데이터 캐시 로드: {len(existing_games)}개 경기")
+        return existing_games
+
+    def is_duplicate_game(self, game_date, game_time, home_team, away_team, new_state=None):
+        """경기 중복 여부 확인 - 상태 업데이트 고려"""
+        existing_games = self.load_existing_games()
+        game_key = f"{game_date}_{game_time}_{home_team}_{away_team}"
+
+        if game_key in existing_games:
+            existing_state = existing_games[game_key]['state']
+
+            # 상태 업데이트인지 확인
+            if new_state and existing_state in ["경기전", "예정"]:
+                if new_state in ["종료", "완료", "끝", "취소", "우천취소", "연기", "경기취소"]:
+                    print(f"  🔄 경기 상태 업데이트 허용: {game_date} {game_time} {away_team} vs {home_team} ({existing_state} → {new_state})")
+                    # 기존 라인을 업데이트 표시하여 나중에 제거
+                    self.mark_for_update(game_key, existing_games[game_key]['line'])
+                    return False  # 중복이 아님 - 업데이트 허용
+
+            # 동일한 상태이거나 이미 완료된 경기면 중복으로 처리
+            return True
+
+        return False  # 새로운 경기
+
+    def mark_for_update(self, game_key, old_line):
+        """업데이트할 경기 표시"""
+        if not hasattr(self, 'lines_to_remove'):
+            self.lines_to_remove = set()
+        self.lines_to_remove.add(old_line)
 
     def setup_driver(self, headless=False):
         """Chrome WebDriver 설정"""
@@ -277,11 +347,20 @@ class KBOWorkingCrawler:
                                     home_team_short = self.normalize_team_name(home_team)[:2]
                                     away_team_short = self.normalize_team_name(away_team)[:2]
 
+                                    # 정규화된 팀명으로 중복 체크
+                                    normalized_home = self.normalize_team_name(away_team)  # team_away div = 홈팀
+                                    normalized_away = self.normalize_team_name(home_team)  # team_home div = 원정팀
+
+                                    # 중복 체크 - 크롤링 단계에서 즉시 확인 (상태 정보 포함)
+                                    if self.is_duplicate_game(current_date, game_time, normalized_home, normalized_away, state):
+                                        print(f"  ♻️ 중복 경기 제외: {current_date} {game_time} {normalized_away} vs {normalized_home}")
+                                        continue
+
                                     # KBO 웹사이트에서 team_home div가 실제로는 원정팀, team_away div가 홈팀을 의미함
                                     game = {
                                         'date': current_date,
-                                        'away_team': self.normalize_team_name(home_team),  # team_home div = 원정팀
-                                        'home_team': self.normalize_team_name(away_team),  # team_away div = 홈팀
+                                        'away_team': normalized_away,  # team_home div = 원정팀
+                                        'home_team': normalized_home,  # team_away div = 홈팀
                                         'away_score': home_score,  # team_home 점수 = 원정팀 점수
                                         'home_score': away_score,  # team_away 점수 = 홈팀 점수
                                         'state': state,
@@ -294,12 +373,12 @@ class KBOWorkingCrawler:
                                         'away_team_short': home_team_short,  # 원정팀 앞 2글자
                                         'home_team_short': away_team_short   # 홈팀 앞 2글자
                                     }
-                                    
+
                                     games.append(game)
                                     if state in cancelled_states:
-                                        print(f"  ❌ {self.normalize_team_name(home_team)} vs {self.normalize_team_name(away_team)} [{state}]")
+                                        print(f"  ❌ {normalized_away} vs {normalized_home} [{state}]")
                                     else:
-                                        print(f"  ✅ {self.normalize_team_name(home_team)} {home_score}:{away_score} {self.normalize_team_name(away_team)} [완료]")
+                                        print(f"  ✅ {normalized_away} {home_score}:{away_score} {normalized_home} [완료]")
                             else:
                                 # 경기전 상태인 경기들도 동일한 파일에 저장
                                 if state not in completed_states and state not in cancelled_states:
@@ -318,11 +397,20 @@ class KBOWorkingCrawler:
                                     tv_cell = row.find('td', class_='td_tv')
                                     tv_info = tv_cell.get_text(strip=True) if tv_cell else ""
 
+                                    # 정규화된 팀명으로 중복 체크
+                                    normalized_home = self.normalize_team_name(away_team)  # team_away div = 홈팀
+                                    normalized_away = self.normalize_team_name(home_team)  # team_home div = 원정팀
+
+                                    # 중복 체크 - 경기전 경기도 확인 (상태 정보 포함)
+                                    if self.is_duplicate_game(current_date, game_time, normalized_home, normalized_away, state):
+                                        print(f"  ♻️ 중복 경기전 경기 제외: {current_date} {game_time} {normalized_away} vs {normalized_home}")
+                                        continue
+
                                     # 경기전 경기도 동일한 구조로 생성 (점수는 0:0)
                                     schedule_game = {
                                         'date': current_date,
-                                        'away_team': self.normalize_team_name(home_team),
-                                        'home_team': self.normalize_team_name(away_team),
+                                        'away_team': normalized_away,
+                                        'home_team': normalized_home,
                                         'away_score': 0,
                                         'home_score': 0,
                                         'state': state,
@@ -332,14 +420,14 @@ class KBOWorkingCrawler:
                                         'tv': tv_info,
                                         'away_info': '',
                                         'home_info': '',
-                                        'away_team_short': self.normalize_team_name(home_team)[:2],
-                                        'home_team_short': self.normalize_team_name(away_team)[:2]
+                                        'away_team_short': normalized_away[:2],
+                                        'home_team_short': normalized_home[:2]
                                     }
 
                                     # 동일한 games 리스트에 추가
                                     games.append(schedule_game)
 
-                                    print(f"  📅 {self.normalize_team_name(home_team)} vs {self.normalize_team_name(away_team)} [{state}] - 예정 경기 저장")
+                                    print(f"  📅 {normalized_away} vs {normalized_home} [{state}] - 예정 경기 저장")
                                 else:
                                     print(f"  ⏳ {self.normalize_team_name(away_team)} vs {self.normalize_team_name(home_team)} [{state}] - 제외")
                 
@@ -363,7 +451,7 @@ class KBOWorkingCrawler:
             return ""
 
     def save_results(self, games, year, month):
-        """결과 저장 - 각 월별 데이터를 즉시 저장"""
+        """결과 저장 - 간소화된 중복 방지 로직"""
         if not games:
             print("\n❌ 저장할 데이터가 없습니다.")
             return
@@ -371,104 +459,17 @@ class KBOWorkingCrawler:
         # 저장 시작 알림
         print(f"💾 {month}월 데이터 저장 시작...")
 
-
-        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-        
-        # JSON 저장 (주석 처리 - 백업 필요시 활성화)
-        # json_file = f'kbo-{year}-{month:02d}-{timestamp}.json'
-        # with open(json_file, 'w', encoding='utf-8') as f:
-        #     json.dump(games, f, ensure_ascii=False, indent=2)
-        # print(f"\n💾 JSON 저장: {json_file}")
-        
         # PathManager와 일치하는 안전한 경로 사용
         main_clean_file = Path(self.paths.data_dir) / f'{year}-season-data-clean.txt'
-        
-        # 기존 경기 데이터 로드 (날짜별 매핑)
-        existing_games = set()
-        existing_by_date = {}
-        if main_clean_file.exists():
-            with open(main_clean_file, 'r', encoding='utf-8') as f:
-                content = f.read()
-                current_date = None
-                
-                for line in content.split('\n'):
-                    line = line.strip()
-                    if not line:
-                        continue
-                    
-                    # 날짜 라인인지 확인
-                    if re.match(r'^\d{4}-\d{2}-\d{2}$', line):
-                        current_date = line
-                        if current_date not in existing_by_date:
-                            existing_by_date[current_date] = set()
-                    elif current_date:
-                        # 경기 라인 저장 (날짜별 + 전체)
-                        existing_games.add(line)
-                        existing_by_date[current_date].add(line)
-                        
-        print(f"📚 기존 경기 데이터 로드: {len(existing_games)}개 경기")
-        
-        # 새로운 경기만 필터링 (날짜+시간 기준 중복 체크)
-        new_games = []
-        for game in games:
-            # 새로운 확장 형식: 시간|상태|구장|홈팀|어웨이팀|점수|방송사|구분
-            if game['state'] in ["취소", "우천취소", "연기", "경기취소"]:
-                score_part = "취소"
-            else:
-                score_part = f"{game['away_score']}:{game['home_score']}"
 
-            game_line = f"{game['time']:<8} {game['state']:<6} {game['stadium']:<6} {game['home_team']:<4} {game['away_team']:<4} {score_part:<8} {game['tv']:<8} {game['sort']}"
-            game_date = game['date']
+        # 크롤링 단계에서 이미 중복 제거했으므로 기존 로직 간소화
+        print(f"📊 크롤링에서 중복 제거된 경기: {len(games)}개")
 
-            # 중복 체크: 날짜 + 시간 + 홈팀 + 어웨이팀 조합으로 정확한 확인
-            game_key = f"{game_date}_{game['time']}_{game['home_team']}_{game['away_team']}"
-
-            # 기존 경기에서 정확히 같은 경기가 있는지 확인
-            is_duplicate = False
-            if game_date in existing_by_date:
-                for existing_line in existing_by_date[game_date]:
-                    # 기존 라인에서 시간, 홈팀, 어웨이팀 추출 (공백으로 분할)
-                    parts = existing_line.split()
-                    if len(parts) >= 5:
-                        existing_time = parts[0]  # 시간
-                        existing_home = parts[3]  # 홈팀
-                        existing_away = parts[4]  # 어웨이팀
-
-                        # 시간, 홈팀, 어웨이팀이 모두 같으면 같은 경기
-                        if (existing_time == game['time'] and
-                            existing_home == game['home_team'] and
-                            existing_away == game['away_team']):
-
-                            # 기존 경기 상태 확인
-                            existing_parts = existing_line.split()
-                            existing_state = existing_parts[1] if len(existing_parts) > 1 else ""
-
-                            # 경기전 → 종료/취소 상태로 변경되었으면 업데이트 필요
-                            if existing_state in ["경기전", "예정"] and game['state'] in ["종료", "완료", "끝", "취소", "우천취소", "연기", "경기취소"]:
-                                print(f"  🔄 경기 상태 업데이트: {game_date} {game['time']} {game['home_team']} vs {game['away_team']} ({existing_state} → {game['state']})")
-                                # 기존 경기를 제거하고 새 상태로 교체하기 위해 중복으로 처리하지 않음
-                                is_duplicate = False
-                                # 기존 라인을 제거 표시 (나중에 처리)
-                                game['update_existing'] = existing_line
-                            else:
-                                # 동일한 상태이거나 이미 완료된 경기면 중복으로 처리
-                                is_duplicate = True
-                            break
-
-            if not is_duplicate:
-                new_games.append(game)
-                print(f"  🆕 새 경기 추가: {game_date} {game['time']} {game['home_team']} vs {game['away_team']}")
-            else:
-                print(f"  ♻️ 중복 경기 제외: {game_date} {game['time']} {game['home_team']} vs {game['away_team']} (같은 날짜+시간에 이미 존재)")
-        
-        if new_games:
-            print(f"\n🆕 새로운 경기 {len(new_games)}개 발견")
-
+        if games:
             try:
-                # 전체 파일을 다시 작성 (중복 날짜 방지)
+                # 기존 데이터 로드
                 all_data = {}
 
-                # 기존 데이터 로드
                 if main_clean_file.exists():
                     with open(main_clean_file, 'r', encoding='utf-8') as f:
                         content = f.read()
@@ -485,23 +486,19 @@ class KBOWorkingCrawler:
                                 date_only = re.match(r'^(\d{4}-\d{2}-\d{2})', line).group(1)
                                 current_date = date_only
                                 if current_date not in all_data:
-                                    all_data[current_date] = []
+                                    all_data[current_date] = set()  # set으로 변경하여 중복 방지
                             elif current_date:
-                                # 경기 라인 저장 (단, 업데이트될 기존 경기는 제외)
-                                should_keep = True
-                                for game in new_games:
-                                    if 'update_existing' in game and game['update_existing'] == line:
-                                        should_keep = False
-                                        break
+                                # 기존 경기 라인 저장 (단, 업데이트될 라인은 제외)
+                                if not hasattr(self, 'lines_to_remove') or line not in self.lines_to_remove:
+                                    all_data[current_date].add(line)
+                                else:
+                                    print(f"  🗑️ 기존 라인 제거: {line[:50]}...")
 
-                                if should_keep:
-                                    all_data[current_date].append(line)
-
-                # 새로운 경기 추가
-                for game in new_games:
+                # 새로운 경기 추가 (크롤링 단계에서 이미 중복 제거됨)
+                for game in games:
                     date = game['date']
                     if date not in all_data:
-                        all_data[date] = []
+                        all_data[date] = set()
 
                     # 새로운 확장 형식: 열 정렬된 가독성 좋은 형식
                     if game['state'] in ["취소", "우천취소", "연기", "경기취소"]:
@@ -513,7 +510,9 @@ class KBOWorkingCrawler:
                         score_part = "경기전"
 
                     line = f"{game['time']:<8} {game['state']:<6} {game['stadium']:<6} {game['home_team']:<4} {game['away_team']:<4} {score_part:<8} {game['tv']:<8} {game['sort']}"
-                    all_data[date].append(line)
+
+                    # set에 추가하므로 자동으로 중복 제거됨
+                    all_data[date].add(line)
 
                 # 전체 파일 다시 쓰기
                 with open(main_clean_file, 'w', encoding='utf-8') as f:
@@ -527,78 +526,44 @@ class KBOWorkingCrawler:
                         f.write(f"{date} ({weekday})\n")
 
                         # 시간순으로 경기 정렬
-                        sorted_games = sorted(all_data[date], key=lambda x: x.split()[0] if x.split() else "")
+                        sorted_games = sorted(list(all_data[date]), key=lambda x: x.split()[0] if x.split() else "")
                         for line in sorted_games:
                             f.write(f"{line}\n")
 
-                print(f"💾 새 경기 {len(new_games)}개를 {main_clean_file}에 추가")
+                # 캐시 무효화 - 다음 크롤링에서 새로운 데이터 사용
+                self.existing_games_cache = None
+
+                # 업데이트 표시 제거
+                if hasattr(self, 'lines_to_remove'):
+                    delattr(self, 'lines_to_remove')
+
+                print(f"💾 {len(games)}개 경기를 {main_clean_file}에 저장")
                 print(f"✅ {month}월 데이터 안전하게 저장 완료!")
 
             except Exception as e:
                 print(f"❌ 파일 저장 중 오류 발생: {e}")
-                print(f"💡 수동으로 백업 필요: {len(new_games)}개 경기 데이터")
+                print(f"💡 수동으로 백업 필요: {len(games)}개 경기 데이터")
         else:
-            print("ℹ️ 새로운 경기가 없습니다")
-            
-            # GitHub Actions 환경에서 새 경기가 없을 때 상세 분석
-            if os.getenv('GITHUB_ACTIONS') == 'true' and len(games) > 0:
-                print("\n🔍 GitHub Actions 자동화 상태 분석:")
-                print(f"  📊 크롤링된 경기 수: {len(games)}개")
-                print(f"  📚 기존 경기 수: {len(existing_games)}개")
-                
-                # 최근 크롤링된 날짜별 경기 수 표시
-                date_counts = {}
-                for game in games:
-                    date = game['date']
-                    date_counts[date] = date_counts.get(date, 0) + 1
-                
-                print("  📅 크롤링된 날짜별 경기:")
-                for date in sorted(date_counts.keys())[-7:]:  # 최근 7일
-                    existing_count = len(existing_by_date.get(date, set()))
-                    crawled_count = date_counts[date]
-                    status = "✅" if existing_count == crawled_count else "⚠️"
-                    print(f"    {status} {date}: 크롤링 {crawled_count}개, 기존 {existing_count}개")
-                
-                print("\n💡 자동화가 제대로 작동하려면 새 경기가 감지되어야 합니다.")
+            print("ℹ️ 저장할 새로운 경기가 없습니다")
 
-        # 백업용 타임스탬프 파일 (주석 처리 - 백업 필요시 활성화)
-        # backup_clean_file = f'kbo-{year}-{month:02d}-{timestamp}-clean.txt'
-        # with open(backup_clean_file, 'w', encoding='utf-8') as f:
-        #     # 전체 경기 저장 (백업용)
-        #     date_groups = {}
-        #     for game in games:
-        #         date = game['date']
-        #         if date not in date_groups:
-        #             date_groups[date] = []
-        #         
-        #         line = f"{game['away_team']} {game['away_score']}:{game['home_score']} {game['home_team']}(H)"
-        #         date_groups[date].append(line)
-        #     
-        #     for date in sorted(date_groups.keys()):
-        #         f.write(f"{date}\n")
-        #         for line in date_groups[date]:
-        #             f.write(f"{line}\n")
-        #         f.write("\n")
-        # 
-        # print(f"💾 백업 파일 저장: {backup_clean_file}")
-        
         # 요약 출력
-        print("\n📊 크롤링 결과 요약:")
-        print(f"- 총 경기 수: {len(games)}개")
-        print(f"- 기간: {min(g['date'] for g in games)} ~ {max(g['date'] for g in games)}")
-        
-        # 날짜별 경기 수
-        date_counts = {}
-        for game in games:
-            date = game['date']
-            date_counts[date] = date_counts.get(date, 0) + 1
-        
-        print("\n📅 날짜별 경기 수:")
-        for date in sorted(date_counts.keys())[:10]:  # 처음 10일만
-            print(f"  {date}: {date_counts[date]}개")
-        
-        if len(date_counts) > 10:
-            print(f"  ... 외 {len(date_counts) - 10}일")
+        if games:
+            print("\n📊 크롤링 결과 요약:")
+            print(f"- 총 경기 수: {len(games)}개")
+            print(f"- 기간: {min(g['date'] for g in games)} ~ {max(g['date'] for g in games)}")
+
+            # 날짜별 경기 수
+            date_counts = {}
+            for game in games:
+                date = game['date']
+                date_counts[date] = date_counts.get(date, 0) + 1
+
+            print("\n📅 날짜별 경기 수:")
+            for date in sorted(date_counts.keys())[:10]:  # 처음 10일만
+                print(f"  {date}: {date_counts[date]}개")
+
+            if len(date_counts) > 10:
+                print(f"  ... 외 {len(date_counts) - 10}일")
 
 def main():
     """메인 실행"""
