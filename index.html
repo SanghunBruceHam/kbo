@@ -6416,164 +6416,75 @@
             }
         }
 
-        // 미래 경기 일정 데이터 로드
+        // clean.txt에서 미래 경기 일정 데이터 로드
         async function loadFutureScheduleData() {
             try {
-                
-                // 경기 일정과 실제 수집된 경기 데이터를 모두 로드
-                const [scheduleResponse, gameRecordsResponse] = await Promise.all([
-                    fetch(`magic-number/data/2025-season-schedule-complete.txt?v=${Date.now()}`, {
-                        method: 'GET',
-                        cache: 'no-store',
-                        headers: {
-                            'Cache-Control': 'no-cache, no-store, must-revalidate',
-                            'Pragma': 'no-cache',
-                            'Expires': '0'
-                        }
-                    }),
-                    fetch(`magic-number/data/raw-game-records.json?v=${Date.now()}`, {
-                        method: 'GET',
-                        cache: 'no-store',
-                        headers: {
-                            'Cache-Control': 'no-cache, no-store, must-revalidate',
-                            'Pragma': 'no-cache',
-                            'Expires': '0'
-                        }
-                    })
-                ]);
-                
-                if (!scheduleResponse.ok) {
-                    throw new Error(`일정 로드 실패: HTTP ${scheduleResponse.status}`);
-                }
-                if (!gameRecordsResponse.ok) {
-                    throw new Error(`경기 기록 로드 실패: HTTP ${gameRecordsResponse.status}`);
-                }
-                
-                const scheduleText = await scheduleResponse.text();
-                const gameRecords = await gameRecordsResponse.json();
-                const allScheduleData = parseScheduleText(scheduleText);
-                
-                
-                // 수집된 경기 데이터에서 실제 결과가 있는 날짜들을 추출
-                const completedGameDates = new Set();
-                Object.values(gameRecords).forEach(teamData => {
-                    if (teamData.games) {
-                        teamData.games.forEach(game => {
-                            if (game.date && game.result && game.score) {
-                                completedGameDates.add(game.date);
-                            }
-                        });
+                console.log('📅 clean.txt에서 미래 경기 일정 로드 중...');
+
+                const response = await fetch(`magic-number/data/2025-season-data-clean.txt?v=${Date.now()}`, {
+                    method: 'GET',
+                    cache: 'no-store',
+                    headers: {
+                        'Cache-Control': 'no-cache, no-store, must-revalidate',
+                        'Pragma': 'no-cache',
+                        'Expires': '0'
                     }
                 });
-                
-                
-                // 8월 22일 경기 확인
-                const aug22Games = allScheduleData.filter(game => game.date === '2025-08-22');
-                
-                // 미래 경기 필터링: 결과가 수집되지 않은 경기만 포함
-                futureScheduleData = allScheduleData.filter(game => {
-                    // 날짜가 없는 경기 제외
-                    if (!game.date) return false;
-                    
-                    // 결과가 수집된 날짜는 제외 (실제 경기 수집 결과 기반)
-                    const isCompleted = completedGameDates.has(game.date);
-                    if (isCompleted) {
-                        return false;
-                    }
-                    
-                    return true;
-                });
-                
-                
+
+                if (!response.ok) {
+                    throw new Error(`clean.txt 로드 실패: HTTP ${response.status}`);
+                }
+
+                const text = await response.text();
+                futureScheduleData = parseCleanTxtForFutureGames(text);
+
+                console.log(`✅ 미래 경기 ${futureScheduleData.length}경기 로드 완료`);
+
             } catch (error) {
                 console.error('❌ 미래 경기 일정 로드 실패:', error);
                 futureScheduleData = [];
             }
         }
 
-        // 스케줄 텍스트 파싱 함수
-        function parseScheduleText(text) {
+        // clean.txt에서 미래 경기 파싱
+        function parseCleanTxtForFutureGames(text) {
             const lines = text.split('\n');
-            const games = [];
-            let currentDate = '';
-            
+            const futureGames = [];
+            let currentDate = null;
+
             for (const line of lines) {
                 const trimmedLine = line.trim();
-                
-                // 빈 줄이나 경기 없음이나 대시(-) 건너뛰기
-                if (!trimmedLine || trimmedLine.includes('경기 없음') || trimmedLine === '-') {
-                    continue;
-                }
-                
-                // 날짜 라인 체크 (08.19(화) 또는 09.02(화) 형식)
-                const dateMatch = trimmedLine.match(/^(\d{2}\.\d{2})\([월화수목금토일]\)/);
-                if (dateMatch) {
-                    currentDate = '2025-' + dateMatch[1].replace('.', '-');
-                    
-                    // 같은 줄에 경기 정보가 있는지 체크 (9월 탭 형식)
-                    const parts = trimmedLine.split('\t').filter(p => p.trim());
-                    if (parts.length >= 4) {
-                        // 09.02(화) 18:30 대전 KIA vs 한화 형식
-                        const time = parts[1].trim();
-                        const stadium = parts[2].trim();
-                        const teams = parts[3].trim();
-                        
-                        const teamMatch = teams.match(/^(\S+)\s+vs\s+(\S+)$/);
-                        if (teamMatch && time.match(/^\d{2}:\d{2}$/)) {
-                            const [, awayTeam, homeTeam] = teamMatch;
-                            games.push({
+
+                // 날짜 라인 체크 (YYYY-MM-DD (요일) 형식 또는 기존 YYYY-MM-DD 형식)
+                if (/^\d{4}-\d{2}-\d{2}(\s*\([월화수목금토일]\))?$/.test(trimmedLine)) {
+                    currentDate = trimmedLine.replace(/\s*\([월화수목금토일]\)/, ''); // 요일 정보 제거
+                } else if (trimmedLine && currentDate) {
+                    // 새로운 형식 파싱: "시간 상태 구장 홈팀 어웨이팀 점수 방송사 구분"
+                    const parts = trimmedLine.split(/\s+/);
+                    if (parts.length >= 8) {
+                        const [time, state, stadium, homeTeam, awayTeam, scoreOrStatus, broadcast, ...categoryParts] = parts;
+                        const category = categoryParts.join(' ');
+
+                        // 미래 경기 조건: 페넌트레이스 + 경기전 상태
+                        if (category.includes('페넌트레이스') && state === '경기전' && scoreOrStatus === '경기전') {
+                            futureGames.push({
                                 date: currentDate,
                                 time: time,
-                                stadium: stadium,
                                 homeTeam: homeTeam,
-                                awayTeam: awayTeam
-                            });
-                        }
-                    }
-                    continue;
-                }
-                
-                // 경기만 있는 줄 체크
-                if (currentDate) {
-                    // 8월 형식 (공백 구분): 18:30 잠실   롯데 vs LG 또는 18:30 잠실   KT vs 두산
-                    // 더 유연한 패턴: 여러 개의 공백을 허용
-                    const spaceGameMatch = trimmedLine.match(/^(\d{2}:\d{2})\s+(\S+)\s+(.+?)\s+vs\s+(.+?)$/);
-                    if (spaceGameMatch) {
-                        const [, time, stadium, awayTeam, homeTeam] = spaceGameMatch;
-                        games.push({
-                            date: currentDate,
-                            time: time.trim(),
-                            stadium: stadium.trim(),
-                            homeTeam: homeTeam.trim(),
-                            awayTeam: awayTeam.trim()
-                        });
-                        continue;
-                    }
-                    
-                    // 9월 형식 (탭 구분): \t18:30\t대전\tKIA vs 한화
-                    const tabParts = trimmedLine.split('\t').filter(p => p.trim());
-                    if (tabParts.length >= 3) {
-                        const time = tabParts[0].trim();
-                        const stadium = tabParts[1].trim();
-                        const teams = tabParts[2].trim();
-                        
-                        const teamMatch = teams.match(/^(\S+)\s+vs\s+(\S+)$/);
-                        if (teamMatch && time.match(/^\d{2}:\d{2}$/)) {
-                            const [, awayTeam, homeTeam] = teamMatch;
-                            games.push({
-                                date: currentDate,
-                                time: time,
+                                awayTeam: awayTeam,
                                 stadium: stadium,
-                                homeTeam: homeTeam,
-                                awayTeam: awayTeam
+                                broadcast: broadcast,
+                                state: state,
+                                category: category
                             });
                         }
                     }
                 }
             }
-            
-            return games; // 필터링은 호출하는 곳에서 처리
+
+            return futureGames;
         }
+
 
         // 주차별 분석 데이터 로드
         async function loadWeeklyAnalysisData() {
