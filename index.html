@@ -17108,9 +17108,10 @@ KT 9:1 키움(H)`;
                 for (const line of lines) {
                     const trimmedLine = line.trim();
                     
-                    // 날짜 라인 체크 (YYYY-MM-DD 형식)
-                    if (/^\d{4}-\d{2}-\d{2}$/.test(trimmedLine)) {
-                        currentDate = new Date(trimmedLine);
+                    // 날짜 라인 체크 (YYYY-MM-DD 형식 또는 YYYY-MM-DD (요일) 형식)
+                    if (/^\d{4}-\d{2}-\d{2}(\s*\([월화수목금토일]\))?$/.test(trimmedLine)) {
+                        const dateOnly = trimmedLine.replace(/\s*\([월화수목금토일]\)/, ''); // 요일 정보 제거
+                        currentDate = new Date(dateOnly);
                         continue;
                     }
                     
@@ -17207,59 +17208,111 @@ KT 9:1 키움(H)`;
         
         // 경기 결과 파싱 함수 (점수 포함)
         function parseGameResultWithScore(gameResultLine, teamName) {
-            // 데이터 형식: "롯데 2:12 LG(H)" - 첫번째 팀이 원정팀, (H) 마크가 있는 팀이 홈팀
-            const match = gameResultLine.match(/^(\S+)\s+(\d+):(\d+)\s+(\S+)\(([HA])\)$/);
-            if (!match) return null;
-            
-            const [, firstTeam, firstScore, secondScore, secondTeam, homeMarker] = match;
-            const score1 = parseInt(firstScore);
-            const score2 = parseInt(secondScore);
-            
-            let homeTeam, awayTeam, homeScore, awayScore;
-            
-            if (homeMarker === 'H') {
-                // (H) 마크가 있는 팀이 홈팀
-                homeTeam = secondTeam;
-                awayTeam = firstTeam;
-                homeScore = score2;
-                awayScore = score1;
+            // 새로운 형식: "시간 상태 구장 홈팀 어웨이팀 점수 방송사 구분"
+            const newFormatParts = gameResultLine.trim().split(/\s+/);
+
+            if (newFormatParts.length >= 8) {
+                const [time, state, stadium, homeTeam, awayTeam, scoreOrStatus, broadcast, ...categoryParts] = newFormatParts;
+                const category = categoryParts.join(' ');
+
+                // 완료된 페넌트레이스 경기만 처리
+                if (state === '종료' && category.includes('페넌트레이스')) {
+                    // 점수 파싱 (away:home 형식)
+                    const scoreMatch = scoreOrStatus.match(/^(\d+):(\d+)$/);
+                    if (scoreMatch) {
+                        const [, awayScore, homeScore] = scoreMatch;
+                        const awayScoreInt = parseInt(awayScore);
+                        const homeScoreInt = parseInt(homeScore);
+
+                        // 해당 팀의 결과 판정
+                        if (homeTeam === teamName) {
+                            // 홈팀인 경우
+                            let result;
+                            if (homeScoreInt > awayScoreInt) result = 'win';
+                            else if (homeScoreInt < awayScoreInt) result = 'loss';
+                            else result = 'draw';
+
+                            return {
+                                result: result,
+                                runsScored: homeScoreInt,
+                                runsAllowed: awayScoreInt,
+                                isHome: true
+                            };
+                        } else if (awayTeam === teamName) {
+                            // 원정팀인 경우
+                            let result;
+                            if (awayScoreInt > homeScoreInt) result = 'win';
+                            else if (awayScoreInt < homeScoreInt) result = 'loss';
+                            else result = 'draw';
+
+                            return {
+                                result: result,
+                                runsScored: awayScoreInt,
+                                runsAllowed: homeScoreInt,
+                                isHome: false
+                            };
+                        }
+                    }
+                }
+
+                // 취소된 경기는 처리하지 않음 (전반기/후반기 성적에 포함하지 않음)
+                return null;
+
             } else {
-                // (A) 마크가 있는 팀이 원정팀
-                homeTeam = firstTeam;
-                awayTeam = secondTeam;
-                homeScore = score1;
-                awayScore = score2;
+                // 기존 형식 지원: "롯데 2:12 LG(H)" - 첫번째 팀이 원정팀, (H) 마크가 있는 팀이 홈팀
+                const oldFormatMatch = gameResultLine.match(/^(\S+)\s+(\d+):(\d+)\s+(\S+)\(([HA])\)$/);
+                if (!oldFormatMatch) return null;
+
+                const [, firstTeam, firstScore, secondScore, secondTeam, homeMarker] = oldFormatMatch;
+                const score1 = parseInt(firstScore);
+                const score2 = parseInt(secondScore);
+
+                let homeTeam, awayTeam, homeScore, awayScore;
+
+                if (homeMarker === 'H') {
+                    // (H) 마크가 있는 팀이 홈팀
+                    homeTeam = secondTeam;
+                    awayTeam = firstTeam;
+                    homeScore = score2;
+                    awayScore = score1;
+                } else {
+                    // (A) 마크가 있는 팀이 원정팀
+                    homeTeam = firstTeam;
+                    awayTeam = secondTeam;
+                    homeScore = score1;
+                    awayScore = score2;
+                }
+
+                // 해당 팀의 결과 판정
+                if (homeTeam === teamName) {
+                    // 홈팀인 경우
+                    let result;
+                    if (homeScore > awayScore) result = 'win';
+                    else if (homeScore < awayScore) result = 'loss';
+                    else result = 'draw';
+
+                    return {
+                        result: result,
+                        runsScored: homeScore,
+                        runsAllowed: awayScore,
+                        isHome: true
+                    };
+                } else if (awayTeam === teamName) {
+                    // 원정팀인 경우
+                    let result;
+                    if (awayScore > homeScore) result = 'win';
+                    else if (awayScore < homeScore) result = 'loss';
+                    else result = 'draw';
+
+                    return {
+                        result: result,
+                        runsScored: awayScore,
+                        runsAllowed: homeScore,
+                        isHome: false
+                    };
+                }
             }
-            
-            // 해당 팀의 결과 판정
-            if (homeTeam === teamName) {
-                // 홈팀인 경우
-                let result;
-                if (homeScore > awayScore) result = 'win';
-                else if (homeScore < awayScore) result = 'loss';
-                else result = 'draw';
-                
-                return {
-                    result: result,
-                    runsScored: homeScore,
-                    runsAllowed: awayScore,
-                    isHome: true
-                };
-            } else if (awayTeam === teamName) {
-                // 원정팀인 경우
-                let result;
-                if (awayScore > homeScore) result = 'win';
-                else if (awayScore < homeScore) result = 'loss';
-                else result = 'draw';
-                
-                return {
-                    result: result,
-                    runsScored: awayScore,
-                    runsAllowed: homeScore,
-                    isHome: false
-                };
-            }
-            
+
             return null;
         }
         
