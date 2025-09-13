@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "lastUpdated": "2025-09-12T14:21:50.526Z",
+    "lastUpdated": "2025-09-13T03:50:59.513Z",
     "version": "1.0.0",
     "description": "루트 index.html의 사전 계산된 UI 데이터"
   },
@@ -92,7 +92,7 @@
       "두산",
       "키움"
     ],
-    "lastCalculated": "2025-09-12T14:21:50.526Z"
+    "lastCalculated": "2025-09-13T03:50:59.513Z"
   },
   "precomputedHalfSeasonStats": {
     "allTeamsHalfStats": {
@@ -257,27 +257,11 @@
         }
       }
     },
-    "lastCalculated": "2025-09-12T14:21:50.526Z"
+    "lastCalculated": "2025-09-13T03:50:59.513Z"
   },
   "scheduleData": {
-    "remainingGames": [
-      {
-        "date": "09.13",
-        "teams": [
-          "한화",
-          "SSG",
-          "KIA",
-          "LG",
-          "KT",
-          "키움",
-          "삼성",
-          "두산",
-          "NC",
-          "롯데"
-        ]
-      }
-    ],
-    "currentDate": "2025-09-12",
+    "remainingGames": [],
+    "currentDate": "2025-09-13",
     "filteredFromCurrentDate": true
   }
 }
