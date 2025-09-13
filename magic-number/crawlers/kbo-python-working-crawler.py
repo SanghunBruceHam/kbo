@@ -473,13 +473,13 @@ def main():
     
     crawler = KBOWorkingCrawler()
     
-    # 현재 월부터 10월까지 크롤링
+    # 3월부터 10월까지 크롤링
     from datetime import datetime, timezone, timedelta
     kst = timezone(timedelta(hours=9))
     current_month = datetime.now(kst).month
-    
+
     all_games = []
-    months_to_crawl = [month for month in [8, 9, 10] if month >= current_month]
+    months_to_crawl = [month for month in [3, 4, 5, 6, 7, 8, 9, 10] if month >= 3]
     
     for month in months_to_crawl:
         print(f"\n🗓️ {month}월 크롤링 시작...")
