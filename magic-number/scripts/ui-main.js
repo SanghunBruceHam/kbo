@@ -249,18 +249,19 @@ const kboTeams = {
                 `;
             },
             
-            // 매직넘버 표시 HTML 생성
+            // 매직넘버 표시 HTML 생성 (매트릭스 데이터 사용)
             getMagicNumberDisplay(team) {
-                const magicNumbers = currentKBOData?.magicNumbers || {};
-                
+                const precomputedData = window.precomputedMatrixData;
+                const matrixRawData = precomputedData?.precomputedMatrixResults?.rawCalculationData;
+                const teamMatrixData = matrixRawData?.find(r => r.team === team.team);
+
                 let magicNumber = 0;
                 if (team.rank === 1) {
-                    // 1위팀: 우승 매직넘버
-                    const firstPlaceMagic = magicNumbers[team.team];
-                    magicNumber = firstPlaceMagic ? firstPlaceMagic.championship : 0;
+                    // 1위팀: 우승 매직넘버 (매트릭스 1위 데이터)
+                    magicNumber = teamMatrixData?.x1_strict_raw || 0;
                 } else {
-                    // 나머지 팀: calculate-magic-numbers.js에서 계산된 데이터 사용
-                    magicNumber = this.getWinsBasedMagicNumber(team);
+                    // 나머지 팀: 포스트시즌 매직넘버 (매트릭스 5위 데이터)
+                    magicNumber = teamMatrixData?.x5_strict_raw || 0;
                 }
                 
                 if (magicNumber === 0) {
@@ -284,24 +285,6 @@ const kboTeams = {
                 return `<span style="color: ${color}; ">${magicNumber}</span>`;
             },
             
-            
-            // 승수 기준 매직넘버 가져오기 (calc-magic-numbers.json에서)
-            getWinsBasedMagicNumber(team) {
-                try {
-                    // calc-magic-numbers.json에서 해당 팀의 매직넘버 찾기
-                    if (window.magicMatrixData && window.magicMatrixData.results) {
-                        const teamResult = window.magicMatrixData.results.find(t => t.team === team.team);
-                        if (teamResult) {
-                            return teamResult.magicNumber || 0;
-                        }
-                    }
-                    // 폴백으로 간단한 계산 방식 사용
-                    return 0; // 간단한 폴백
-                } catch (error) {
-                    logger.error('승수 기준 매직넘버 가져오기 실패:', error);
-                    return 0; // 간단한 폴백
-                }
-            },
             
 
             
@@ -617,9 +600,11 @@ const kboTeams = {
             document.getElementById('first-place-magic').textContent = `매직넘버: ${magicNumber > 0 ? magicNumber : '확정'}`;
 
             // 포스트시즌 확정 팀 수 (calc-magic-numbers.json에서 계산됨)
+            // 매트릭스 데이터로 포스트시즌 확정 팀 수 계산
             let playoffConfirmedCount = 0;
-            if (window.magicMatrixData && window.magicMatrixData.playoffResults) {
-                playoffConfirmedCount = window.magicMatrixData.playoffResults.filter(p => p.playoffMagicStrict === 0 && p.playoffTragicStrict > 0).length;
+            if (window.precomputedMatrixData?.precomputedMatrixResults?.rawCalculationData) {
+                playoffConfirmedCount = window.precomputedMatrixData.precomputedMatrixResults.rawCalculationData
+                    .filter(team => team.x5_strict_raw === 0 && team.y5_tieOK_raw > 0).length;
             }
             document.getElementById('playoff-confirmed-teams').textContent = `${playoffConfirmedCount}개 팀`;
             document.getElementById('playoff-confirmed-desc').textContent = 'PS 매직넘버 0 달성';
@@ -1249,10 +1234,11 @@ const kboTeams = {
         }
 
         function calculateMagicNumber(firstPlace, secondPlace) {
-            // api-data.json의 매직넘버 사용
-            const magicNumbers = currentKBOData?.magicNumbers || {};
-            const teamMagicData = magicNumbers[firstPlace.team];
-            return teamMagicData ? teamMagicData.championship : 0;
+            // 매트릭스 데이터에서 1위 매직넘버 사용
+            const precomputedData = window.precomputedMatrixData;
+            const matrixRawData = precomputedData?.precomputedMatrixResults?.rawCalculationData;
+            const teamMatrixData = matrixRawData?.find(r => r.team === firstPlace.team);
+            return teamMatrixData?.x1_strict_raw || 0;
         }
 
 
@@ -1366,13 +1352,15 @@ const kboTeams = {
             const maxPossibleWins = firstPlace.wins + remainingGames;
             const magicNumber = calculateMagicNumber(firstPlace, secondPlace);
             
-            // 우승 가능 최소 승수 계산 (api-data.json의 정확한 계산 사용)
-            const magicNumbers = currentKBOData?.magicNumbers || {};
-            const teamMagicData = magicNumbers[firstPlace.team];
-            const minWinsNeeded = firstPlace.wins + (teamMagicData ? teamMagicData.championship : 0);
-            
+            // 우승 가능 최소 승수 계산 (매트릭스 데이터 사용)
+            const precomputedData = window.precomputedMatrixData;
+            const matrixRawData = precomputedData?.precomputedMatrixResults?.rawCalculationData;
+            const teamMatrixData = matrixRawData?.find(r => r.team === firstPlace.team);
+            const championshipMagic = teamMatrixData?.x1_strict_raw || 0;
+            const minWinsNeeded = firstPlace.wins + championshipMagic;
+
             // 우승 가능 최소 승수를 달성하기 위한 필요 승률 계산
-            const neededWinsForMinWins = teamMagicData ? teamMagicData.championship : 0;
+            const neededWinsForMinWins = championshipMagic;
             const requiredWinPct = remainingGames > 0 ? (neededWinsForMinWins / remainingGames) : 0;
             
             // 144경기 체제 역대 1위 평균 기준 필요 승률 계산 (2015-2024: 86.9승)
@@ -1606,26 +1594,15 @@ const kboTeams = {
                         return '';
                     };
 
-                    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-                    // 🏆 우승 매직/트래직넘버: 📊 매직/트래직 매트릭스와 완전 동일한 1위 로직 적용
-                    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-                    //
-                    // 🔄 데이터 소스 통일:
-                    // - 우승 매직넘버: championshipMagic → x1_strict_raw (1위 기준 매직넘버)
-                    // - 우승 트래직넘버: championshipTragic → y1_strict_raw (1위 기준 트래직넘버)
-                    //
-                    // 📊 매트릭스 데이터 소스: ui-magic-matrix-precomputed.json
-                    // - x1_strict_raw: 1위 확보를 위한 실제 매직넘버 (잔여경기 제한 없음)
-                    // - y1_strict_raw: 1위를 놓치는 실제 트래직넘버 (잔여경기 제한 없음)
-                    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+                    // 🏆 우승 매직/트래직넘버: 📊 매직/트래직 매트릭스 1위 데이터 사용
 
                     const precomputedData = window.precomputedMatrixData;
                     const matrixRawData = precomputedData?.precomputedMatrixResults?.rawCalculationData;
                     const teamMatrixData = matrixRawData?.find(r => r.team === team.team);
 
-                    // 매직/트래직 매트릭스와 동일한 1위 기준 적용
-                    const championshipMagic = teamMatrixData?.x1_strict_raw ?? (team.championshipMagic || 0);
-                    const championshipTragic = teamMatrixData?.y1_tieOK_raw ?? (team.championshipTragic || 0); // 1위 트래직은 tie okay 사용
+                    // 매직/트래직 매트릭스 데이터 직접 사용 (fallback 제거)
+                    const championshipMagic = teamMatrixData.x1_strict_raw;
+                    const championshipTragic = teamMatrixData.y1_tieOK_raw; // 1위 트래직은 tie okay 사용
 
                     let magicText;
                     
@@ -1719,26 +1696,15 @@ const kboTeams = {
                 if (window.magicMatrixData && window.magicMatrixData.playoffResults) {
                     const playoffData = window.magicMatrixData.playoffResults.find(p => p.team === team.team);
                     if (playoffData) {
-                        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-                        // 🎯 PS 매직/트래직넘버: 📊 매직/트래직 매트릭스와 완전 동일한 기준 적용
-                        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-                        //
-                        // 🔄 데이터 소스 통일:
-                        // - PS 매직넘버: playoffMagicStrict → x5_strict_raw (실제 매직넘버, 값 동일)
-                        // - PS 트래직넘버: playoffTragicStrict → y5_strict_raw (실제 트래직넘버, 더 정확)
-                        //
-                        // 📊 매트릭스 데이터 소스: ui-magic-matrix-precomputed.json
-                        // - x5_strict_raw: 5위 확보를 위한 실제 매직넘버 (잔여경기 제한 없음)
-                        // - y5_strict_raw: 5위를 놓치는 실제 트래직넘버 (잔여경기 제한 없음)
-                        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+                        // 🏟️ 포스트시즌 진출 조건: 📊 매직/트래직 매트릭스 5위 데이터 사용
 
                         const precomputedData = window.precomputedMatrixData;
                         const matrixRawData = precomputedData?.precomputedMatrixResults?.rawCalculationData;
                         const teamMatrixData = matrixRawData?.find(r => r.team === team.team);
 
-                        // 매직/트래직 매트릭스와 동일한 5위 기준 적용
-                        poMagicNumber = teamMatrixData?.x5_strict_raw ?? playoffData.playoffMagicStrict;
-                        poTragicNumber = teamMatrixData?.y5_tieOK_raw ?? playoffData.playoffTragicStrict; // 5위 트래직도 tie okay 사용
+                        // 매직/트래직 매트릭스 데이터 직접 사용 (fallback 제거)
+                        poMagicNumber = teamMatrixData.x5_strict_raw;
+                        poTragicNumber = teamMatrixData.y5_tieOK_raw; // 5위 트래직도 tie okay 사용
                         
                         // 표시 형식 지정 - 최대 가능 순위 로직으로 확정 조건 계산
                         if (poMagicNumber === 0) {
