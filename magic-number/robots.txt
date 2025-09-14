@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://kbo-dashboard.co.kr/magic-number/sitemap.xml
+
+# Block unnecessary crawling of data files
+Disallow: /data/
+Disallow: /scripts/
+Disallow: /archive/
+
+# Allow important assets
+Allow: /images/
+Allow: /css/
