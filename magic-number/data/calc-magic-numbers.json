@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-09-14T11:36:45.641Z",
+  "lastUpdated": "2025-09-14T12:42:06.204Z",
   "updateDate": "2025. 9. 14.",
   "note": "승률 기준 정확한 매직넘버 계산 + 포스트시즌 진출 조건 + 1위 매직/트래직넘버 포함",
   "results": [
@@ -17,9 +17,9 @@
       "rank": 2,
       "team": "한화",
       "wins": 76,
-      "losses": 52,
-      "winRate": 0.59375,
-      "gamesRemaining": 16,
+      "losses": 53,
+      "winRate": 0.5891472868217055,
+      "gamesRemaining": 15,
       "magicNumber": "-",
       "status": ""
     },
@@ -96,10 +96,10 @@
     {
       "rank": 10,
       "team": "키움",
-      "wins": 43,
+      "wins": 44,
       "losses": 86,
-      "winRate": 0.3333333333333333,
-      "gamesRemaining": 15,
+      "winRate": 0.3384615384615385,
+      "gamesRemaining": 14,
       "magicNumber": "-",
       "status": ""
     }
@@ -119,26 +119,26 @@
       "playoffTragicTieOK": 26,
       "playoffStatus": "",
       "playoffCondition": "KS 확정",
-      "championshipMagic": 10,
+      "championshipMagic": 9,
       "championshipTragic": 15,
       "firstPlaceStatus": "현재 1위"
     },
     {
       "team": "한화",
       "wins": 76,
-      "losses": 52,
+      "losses": 53,
       "draws": 3,
-      "remainingGames": 13,
+      "remainingGames": 12,
       "K5_max": 0.542,
       "K5_min": 0.465,
       "playoffMagicStrict": 1,
       "playoffMagicTieOK": 1,
-      "playoffTragicStrict": 24,
-      "playoffTragicTieOK": 24,
+      "playoffTragicStrict": 23,
+      "playoffTragicTieOK": 23,
       "playoffStatus": "",
       "playoffCondition": "1",
       "championshipMagic": 16,
-      "championshipTragic": 9,
+      "championshipTragic": 8,
       "firstPlaceStatus": "가능"
     },
     {
@@ -269,19 +269,19 @@
     },
     {
       "team": "키움",
-      "wins": 43,
+      "wins": 44,
       "losses": 86,
       "draws": 4,
-      "remainingGames": 11,
+      "remainingGames": 10,
       "K5_max": 0.543,
       "K5_min": 0.471,
-      "playoffMagicStrict": 34,
-      "playoffMagicTieOK": 34,
+      "playoffMagicStrict": 33,
+      "playoffMagicTieOK": 33,
       "playoffTragicStrict": 0,
       "playoffTragicTieOK": 0,
       "playoffStatus": "",
-      "playoffCondition": "34",
-      "championshipMagic": 48,
+      "playoffCondition": "33",
+      "championshipMagic": 47,
       "championshipTragic": 0,
       "firstPlaceStatus": "불가능"
     }
@@ -290,8 +290,8 @@
     {
       "team": "LG",
       "currentRank": 1,
-      "championshipMagic": 10,
-      "rank2Magic": 10,
+      "championshipMagic": 9,
+      "rank2Magic": 9,
       "rank3Magic": 1,
       "rank4Magic": 0,
       "rank5Magic": 0,
@@ -304,7 +304,7 @@
       "team": "한화",
       "currentRank": 2,
       "championshipMagic": 999,
-      "rank2Magic": 13,
+      "rank2Magic": 12,
       "rank3Magic": 5,
       "rank4Magic": 2,
       "rank5Magic": 2,
@@ -412,10 +412,10 @@
       "rank3Magic": 999,
       "rank4Magic": 999,
       "rank5Magic": 999,
-      "dropRank6Tragic": 32,
-      "dropRank7Tragic": 33,
-      "dropRank8Tragic": 32,
-      "dropRank9Tragic": 26
+      "dropRank6Tragic": 31,
+      "dropRank7Tragic": 32,
+      "dropRank8Tragic": 31,
+      "dropRank9Tragic": 25
     }
   ]
 }

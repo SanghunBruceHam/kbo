@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-09-14T11:36:47.168Z",
+  "lastUpdated": "2025-09-14T12:42:07.709Z",
   "updateDate": "2025. 9. 14.",
   "clutchAnalysis": {
     "LG": {
@@ -256,7 +256,7 @@
       "clutchIndex": "56.1"
     },
     "한화": {
-      "totalGames": 143,
+      "totalGames": 144,
       "oneRunGames": 39,
       "oneRunWins": 22,
       "oneRunLosses": 17,
@@ -265,10 +265,10 @@
       "closeWins": 35,
       "closeLosses": 27,
       "closeWinRate": "56.5",
-      "threeRunGames": 36,
+      "threeRunGames": 37,
       "threeRunWins": 20,
-      "threeRunLosses": 16,
-      "threeRunWinRate": "55.6",
+      "threeRunLosses": 17,
+      "threeRunWinRate": "54.1",
       "blowoutWins": 33,
       "blowoutScored": [
         {
@@ -511,14 +511,14 @@
       ],
       "shutoutWins": 12,
       "shutoutLosses": 9,
-      "highScoringGames": 13,
+      "highScoringGames": 14,
       "highScoringWins": 13,
       "scorelessGames": 9,
       "comebackPotential": {
         "trailingWins": 0,
         "leadBlownLosses": 0
       },
-      "clutchIndex": "56.3"
+      "clutchIndex": "56.0"
     },
     "KIA": {
       "totalGames": 149,
@@ -2352,7 +2352,7 @@
       "clutchIndex": "52.6"
     },
     "키움": {
-      "totalGames": 143,
+      "totalGames": 144,
       "oneRunGames": 27,
       "oneRunWins": 18,
       "oneRunLosses": 9,
@@ -2361,11 +2361,11 @@
       "closeWins": 23,
       "closeLosses": 30,
       "closeWinRate": "43.4",
-      "threeRunGames": 40,
-      "threeRunWins": 12,
+      "threeRunGames": 41,
+      "threeRunWins": 13,
       "threeRunLosses": 28,
-      "threeRunWinRate": "30.0",
-      "blowoutWins": 16,
+      "threeRunWinRate": "31.7",
+      "blowoutWins": 17,
       "blowoutScored": [
         {
           "date": "2025-03-26",
@@ -2462,6 +2462,12 @@
           "opponent": "LG",
           "score": "11:2",
           "runs": 11
+        },
+        {
+          "date": "2025-09-14",
+          "opponent": "한화",
+          "score": "13:10",
+          "runs": 13
         }
       ],
       "blowoutLosses": 15,
@@ -2559,14 +2565,14 @@
       ],
       "shutoutWins": 6,
       "shutoutLosses": 10,
-      "highScoringGames": 8,
-      "highScoringWins": 7,
+      "highScoringGames": 9,
+      "highScoringWins": 8,
       "scorelessGames": 10,
       "comebackPotential": {
         "trailingWins": 0,
         "leadBlownLosses": 0
       },
-      "clutchIndex": "52.4"
+      "clutchIndex": "52.7"
     }
   }
 }

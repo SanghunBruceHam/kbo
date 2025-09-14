@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-09-14T11:36:44.947Z",
+  "lastUpdated": "2025-09-14T12:42:05.517Z",
   "updateDate": "2025. 9. 14.",
   "note": "2025-season-data-clean.txt 기반 완전 자동화 처리",
   "rankings": [
@@ -20,15 +20,15 @@
     {
       "rank": 2,
       "team": "한화",
-      "games": 131,
+      "games": 132,
       "wins": 76,
-      "losses": 52,
+      "losses": 53,
       "draws": 3,
-      "winRate": 0.594,
-      "gamesBehind": 3,
+      "winRate": 0.589,
+      "gamesBehind": 3.5,
       "recent10": "6승0무4패",
-      "streak": "3승",
-      "homeRecord": "40-25-2",
+      "streak": "1패",
+      "homeRecord": "40-26-2",
       "awayRecord": "36-27-1"
     },
     {
@@ -132,22 +132,22 @@
     {
       "rank": 10,
       "team": "키움",
-      "games": 133,
-      "wins": 43,
+      "games": 134,
+      "wins": 44,
       "losses": 86,
       "draws": 4,
-      "winRate": 0.333,
-      "gamesBehind": 36.5,
-      "recent10": "5승0무5패",
-      "streak": "1패",
+      "winRate": 0.338,
+      "gamesBehind": 36,
+      "recent10": "6승0무4패",
+      "streak": "1승",
       "homeRecord": "23-43-2",
-      "awayRecord": "20-43-2"
+      "awayRecord": "21-43-2"
     }
   ],
   "magicNumbers": {
     "LG": {
       "playoff": "-",
-      "championship": 10,
+      "championship": 9,
       "elimination": 999,
       "homeAdvantage": 1,
       "remainingGames": 11,
@@ -159,8 +159,8 @@
       "championship": 0,
       "elimination": 999,
       "homeAdvantage": 5,
-      "remainingGames": 13,
-      "maxPossibleWins": 89,
+      "remainingGames": 12,
+      "maxPossibleWins": 88,
       "currentRank": 2
     },
     "SSG": {
@@ -231,12 +231,12 @@
       "championship": 0,
       "elimination": 0,
       "homeAdvantage": 999,
-      "remainingGames": 11,
+      "remainingGames": 10,
       "maxPossibleWins": 54,
       "currentRank": 10
     }
   },
-  "lastMagicUpdate": "2025-09-14T11:36:44.947Z",
+  "lastMagicUpdate": "2025-09-14T12:42:05.517Z",
   "totalTeams": 10,
   "source": "CLEAN_TXT_AUTOMATION",
   "dataDate": "2025-09-14"
