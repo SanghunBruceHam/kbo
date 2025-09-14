@@ -1,5 +1,8 @@
-# KBO 매직넘버 계산기 - robots.txt
-# https://kbo-dashboard.co.kr/magic-number/
+# KBO Dashboard - robots.txt
+# https://kbo-dashboard.co.kr/
+
+# 주 도메인 명시 (인덱싱 문제 해결)
+Host: https://kbo-dashboard.co.kr
 
 User-agent: *
 Allow: /
@@ -55,6 +58,10 @@ Disallow: /_private/
 Disallow: /test/
 Disallow: /debug/
 Disallow: /scripts/
+
+# GitHub Pages 원본 URL 차단 (중복 방지)
+User-agent: *
+Disallow: https://sanghunbruceham.github.io/kbo/
 
 # 중복 URL 차단
 Disallow: /*?utm_*
