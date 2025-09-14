@@ -1814,16 +1814,32 @@ const kboTeams = {
                     }
                 }
                 
-                // 역대 기준 매직넘버 계산 (71승 기준 - 별도 컬럼용)
-                const historicPlayoffThreshold = 71;
-                const historicPlayoffMagic = Math.max(0, historicPlayoffThreshold - team.wins);
+                // 역대 기준 매직넘버 계산 (승률 0.491 기준 - 2015-2024년 5위팀 평균)
+                const historicPlayoffWinRate = 0.491; // 2015-2024년 5위팀 평균 승률 (무승부 제외)
+                const currentDecidedGames = team.wins + team.losses; // 현재 결정된 경기 (무승부 제외)
+                const maxPossibleDecidedGames = 144 - team.draws; // 최대 가능한 결정된 경기 수
+                const historicWinsNeeded = Math.ceil(historicPlayoffWinRate * maxPossibleDecidedGames);
+                const historicPlayoffMagic = Math.max(0, historicWinsNeeded - team.wins);
+
+                // 역대 기준 트래직넘버 계산으로 탈락 여부 판단
+                // maxPossibleWins는 이미 위에서 정의됨 (line 1687)
+                const canLose = maxPossibleWins - historicWinsNeeded;
+
+                let tragicNumber;
+                if (maxPossibleWins < historicWinsNeeded) {
+                    tragicNumber = 0; // 이미 불가능
+                } else {
+                    tragicNumber = canLose + 1; // 이만큼 지면 불가능해짐
+                }
+
+                // 탈락 조건: 매직넘버가 잔여경기보다 크거나, 트래직넘버가 0 (이미 불가능)
+                const isHistoricEliminated = (historicPlayoffMagic > remainingGames) || (tragicNumber === 0);
+
                 let historicMagicDisplay = '';
-                
-                if (historicPlayoffMagic === 0) {
-                    historicMagicDisplay = '<span style="color: #2ecc71;">달성</span>';
-                } else if (historicPlayoffMagic > remainingGames) {
-                    // 잔여경기를 모두 이겨도 71승 불가능
+                if (isHistoricEliminated) {
                     historicMagicDisplay = '<span style="color: #e74c3c;">탈락</span>';
+                } else if (historicPlayoffMagic === 0) {
+                    historicMagicDisplay = '<span style="color: #2ecc71;">달성</span>';
                 } else {
                     historicMagicDisplay = historicPlayoffMagic;
                 }
@@ -1874,24 +1890,18 @@ const kboTeams = {
                 // 팀명에 로고 추가
                 const teamNameWithLogo = Utils.getTeamNameWithLogo(team);
                 
-                // 역대 기준 트래직넘버 계산 (70승 기준 - 올바른 로직)
-                const historicPlayoffTragicThreshold = 70;
+                // 역대 기준 트래직넘버 계산 (탈락 조건 통일)
+                // maxPossibleWins와 tragicNumber는 이미 위에서 정의됨
                 let historicPlayoffTragicDisplay = '';
-                
-                if (maxPossibleWins < historicPlayoffTragicThreshold) {
-                    // 이미 탈락 확정
+
+                if (isHistoricEliminated) {
                     historicPlayoffTragicDisplay = '<span style="color: #e74c3c;">탈락</span>';
-                } else if (team.wins >= historicPlayoffTragicThreshold) {
+                } else if (team.wins >= historicWinsNeeded) {
                     // 이미 기준 달성
                     historicPlayoffTragicDisplay = '<span style="color: #2ecc71;">안전</span>';
                 } else {
-                    // 트래직넘버 = 현재 승수에서 몇 패 더 하면 70승 불가능해지는가
-                    const canLose = maxPossibleWins - historicPlayoffTragicThreshold;
-                    if (canLose <= 0) {
-                        historicPlayoffTragicDisplay = '<span style="color: #e74c3c;">탈락</span>';
-                    } else {
-                        historicPlayoffTragicDisplay = canLose;
-                    }
+                    // 트래직넘버 표시
+                    historicPlayoffTragicDisplay = tragicNumber;
                 }
                 
                 // PS 필요 승률
@@ -1907,16 +1917,17 @@ const kboTeams = {
                     poRequiredWinPct = requiredRate.toFixed(3);
                 }
                 
-                // 역대 기준 필요 승률 계산 및 표시 (71승 기준)
+                // 역대 기준 필요 승률 계산 및 표시 (탈락 조건 통일)
                 let historicPlayoffRequiredWinPct = '';
-                const historicPlayoffRequiredRate = remainingGames > 0 ? historicPlayoffMagic / remainingGames : 0;
-                
-                if (historicPlayoffRequiredRate === 0) {
-                    historicPlayoffRequiredWinPct = '<span style="color: #2ecc71;">달성</span>';
-                } else if (historicPlayoffRequiredRate > 1.0) {
+                if (isHistoricEliminated) {
                     historicPlayoffRequiredWinPct = '<span style="color: #e74c3c;">탈락</span>';
                 } else {
-                    historicPlayoffRequiredWinPct = historicPlayoffRequiredRate.toFixed(3);
+                    const historicPlayoffRequiredRate = remainingGames > 0 ? historicPlayoffMagic / remainingGames : 0;
+                    if (historicPlayoffRequiredRate === 0) {
+                        historicPlayoffRequiredWinPct = '<span style="color: #2ecc71;">달성</span>';
+                    } else {
+                        historicPlayoffRequiredWinPct = historicPlayoffRequiredRate.toFixed(3);
+                    }
                 }
                 
                 // 1-5위 박스 스타일 정의 (더 강력한 테두리)
