@@ -2964,14 +2964,14 @@ const kboTeams = {
 
         // 네비게이션 active 상태 업데이트
         function updateActiveNav(activeId) {
-            const navItems = document.querySelectorAll('.nav-item');
+            const navItems = document.querySelectorAll('.nav-item[data-target]');
             let activeNavItem = null;
-            
+
             navItems.forEach(item => {
                 item.classList.remove('active');
-                const onclick = item.getAttribute('onclick');
-                
-                if (onclick && onclick.includes(`smoothScrollTo('${activeId}')`)) {
+                const target = item.getAttribute('data-target');
+
+                if (target === activeId) {
                     item.classList.add('active');
                     activeNavItem = item;
                 }
@@ -3048,9 +3048,9 @@ const kboTeams = {
             
             function handleScroll() {
                 if (!navigation) return;
-                
+
                 const currentScroll = window.pageYOffset;
-                
+
                 if (currentScroll > navigationOffset) {
                     navigation.classList.add('sticky');
                     // sticky 상태일 때 body에 패딩 추가하여 점프 방지
@@ -3058,6 +3058,30 @@ const kboTeams = {
                 } else {
                     navigation.classList.remove('sticky');
                     document.body.style.paddingTop = '0px';
+                }
+
+                // 현재 보이는 섹션에 따라 네비게이션 활성 상태 업데이트
+                updateNavigationActiveState();
+            }
+
+            // 스크롤 위치에 따른 네비게이션 활성 상태 업데이트
+            function updateNavigationActiveState() {
+                const sections = document.querySelectorAll('div[id]');
+                const navItems = document.querySelectorAll('.nav-item[data-target]');
+                let current = '';
+
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - 100; // 네비게이션 높이 고려
+                    const sectionHeight = section.offsetHeight;
+
+                    if (window.pageYOffset >= sectionTop && window.pageYOffset < sectionTop + sectionHeight) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                // 현재 섹션이 있으면 네비게이션 업데이트
+                if (current) {
+                    updateActiveNav(current);
                 }
             }
             
