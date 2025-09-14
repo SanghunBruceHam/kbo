@@ -1696,11 +1696,12 @@ const kboTeams = {
                 let poTragicNumber = '-';
                 let maxWinsMagicDisplay = '-';
                 let poTragicDisplay = '-';
-                
+
                 if (window.magicMatrixData && window.magicMatrixData.playoffResults) {
                     const playoffData = window.magicMatrixData.playoffResults.find(p => p.team === team.team);
                     if (playoffData) {
                         poMagicNumber = playoffData.playoffMagicStrict;
+
                         poTragicNumber = playoffData.playoffTragicStrict;
                         
                         // 표시 형식 지정 - 최대 가능 순위 로직으로 확정 조건 계산

@@ -1129,6 +1129,145 @@
             </div>
             
             <div class="cards-grid" style="width: 100%; margin: 0 auto; margin-top: 20px;">
+                <!-- 오늘의 경기 결과 -->
+                <div class="card" id="today-games" style="margin-bottom: 20px; background: white; padding: 20px; border-radius: 12px; border: 1px solid #e5e7eb;">
+                    <h2 style="color: #1e293b; font-size: 20px; margin-bottom: 18px; display: flex; align-items: center; gap: 10px;">
+                        ⚾ 오늘의 경기 결과
+                        <span style="font-size: 14px; color: #64748b; font-weight: normal; background: #f1f5f9; padding: 4px 10px; border-radius: 20px;">2025년 9월 13일 (금)</span>
+                    </h2>
+                    <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px;">
+                        <!-- KIA vs LG -->
+                        <div style="background: #f8fafc; padding: 10px; border-radius: 10px; border: 1px solid #e2e8f0; position: relative; overflow: hidden;">
+                            <div style="text-align: center;">
+                                <!-- 원정팀 -->
+                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                                    <div style="display: flex; align-items: center; gap: 6px; flex: 1;">
+                                        <img src="images/teams/kia.png" alt="KIA" style="width: 24px; height: 24px; object-fit: contain;">
+                                        <span style="font-weight: 600; font-size: 13px;">KIA<small style="color: #9ca3af; font-size: 10px; margin-left: 2px;">(8위)</small></span>
+                                    </div>
+                                    <span style="font-size: 20px; font-weight: 800; color: #059669;">6</span>
+                                </div>
+                                <!-- 홈팀 -->
+                                <div style="display: flex; align-items: center; justify-content: space-between;">
+                                    <div style="display: flex; align-items: center; gap: 6px; flex: 1;">
+                                        <img src="images/teams/lg.png" alt="LG" style="width: 24px; height: 24px; object-fit: contain;">
+                                        <span style="font-weight: 600; font-size: 13px;">LG<small style="color: #9ca3af; font-size: 10px; margin-left: 2px;">(1위)</small></span>
+                                    </div>
+                                    <span style="font-size: 20px; font-weight: 800; color: #94a3b8;">3</span>
+                                </div>
+                                <!-- 경기장 -->
+                                <div style="margin-top: 8px; padding-top: 8px; border-top: 1px solid #e5e7eb;">
+                                    <span style="font-size: 12px; color: #475569; font-weight: 500;">📍 잠실</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 키움 vs 한화 -->
+                        <div style="background: #f8fafc; padding: 10px; border-radius: 10px; border: 1px solid #e2e8f0; position: relative; overflow: hidden;">
+                            <div style="text-align: center;">
+                                <!-- 원정팀 -->
+                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                                    <div style="display: flex; align-items: center; gap: 6px; flex: 1;">
+                                        <img src="images/teams/kiwoom.png" alt="키움" style="width: 24px; height: 24px; object-fit: contain;">
+                                        <span style="font-weight: 600; font-size: 13px;">키움<small style="color: #9ca3af; font-size: 10px; margin-left: 2px;">(10위)</small></span>
+                                    </div>
+                                    <span style="font-size: 20px; font-weight: 800; color: #94a3b8;">5</span>
+                                </div>
+                                <!-- 홈팀 -->
+                                <div style="display: flex; align-items: center; justify-content: space-between;">
+                                    <div style="display: flex; align-items: center; gap: 6px; flex: 1;">
+                                        <img src="images/teams/hanwha.png" alt="한화" style="width: 24px; height: 24px; object-fit: contain;">
+                                        <span style="font-weight: 600; font-size: 13px;">한화<small style="color: #9ca3af; font-size: 10px; margin-left: 2px;">(2위)</small></span>
+                                    </div>
+                                    <span style="font-size: 20px; font-weight: 800; color: #059669;">10</span>
+                                </div>
+                                <!-- 경기장 -->
+                                <div style="margin-top: 8px; padding-top: 8px; border-top: 1px solid #e5e7eb;">
+                                    <span style="font-size: 12px; color: #475569; font-weight: 500;">📍 대전</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SSG vs 롯데 -->
+                        <div style="background: #f8fafc; padding: 10px; border-radius: 10px; border: 1px solid #e2e8f0; position: relative; overflow: hidden;">
+                            <div style="text-align: center;">
+                                <!-- 원정팀 -->
+                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                                    <div style="display: flex; align-items: center; gap: 6px; flex: 1;">
+                                        <img src="images/teams/ssg.png" alt="SSG" style="width: 24px; height: 24px; object-fit: contain;">
+                                        <span style="font-weight: 600; font-size: 13px;">SSG<small style="color: #9ca3af; font-size: 10px; margin-left: 2px;">(3위)</small></span>
+                                    </div>
+                                    <span style="font-size: 20px; font-weight: 800; color: #94a3b8;">11</span>
+                                </div>
+                                <!-- 홈팀 -->
+                                <div style="display: flex; align-items: center; justify-content: space-between;">
+                                    <div style="display: flex; align-items: center; gap: 6px; flex: 1;">
+                                        <img src="images/teams/lotte.png" alt="롯데" style="width: 24px; height: 24px; object-fit: contain;">
+                                        <span style="font-weight: 600; font-size: 13px;">롯데<small style="color: #9ca3af; font-size: 10px; margin-left: 2px;">(5위)</small></span>
+                                    </div>
+                                    <span style="font-size: 20px; font-weight: 800; color: #059669;">12</span>
+                                </div>
+                                <!-- 경기장 -->
+                                <div style="margin-top: 8px; padding-top: 8px; border-top: 1px solid #e5e7eb;">
+                                    <span style="font-size: 12px; color: #475569; font-weight: 500;">📍 사직</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- KT vs 삼성 -->
+                        <div style="background: #f8fafc; padding: 10px; border-radius: 10px; border: 1px solid #e2e8f0; position: relative; overflow: hidden;">
+                            <div style="text-align: center;">
+                                <!-- 원정팀 -->
+                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                                    <div style="display: flex; align-items: center; gap: 6px; flex: 1;">
+                                        <img src="images/teams/kt.png" alt="KT" style="width: 24px; height: 24px; object-fit: contain;">
+                                        <span style="font-weight: 600; font-size: 13px;">KT<small style="color: #9ca3af; font-size: 10px; margin-left: 2px;">(4위)</small></span>
+                                    </div>
+                                    <span style="font-size: 20px; font-weight: 800; color: #059669;">5</span>
+                                </div>
+                                <!-- 홈팀 -->
+                                <div style="display: flex; align-items: center; justify-content: space-between;">
+                                    <div style="display: flex; align-items: center; gap: 6px; flex: 1;">
+                                        <img src="images/teams/samsung.png" alt="삼성" style="width: 24px; height: 24px; object-fit: contain;">
+                                        <span style="font-weight: 600; font-size: 13px;">삼성<small style="color: #9ca3af; font-size: 10px; margin-left: 2px;">(5위)</small></span>
+                                    </div>
+                                    <span style="font-size: 20px; font-weight: 800; color: #94a3b8;">3</span>
+                                </div>
+                                <!-- 경기장 -->
+                                <div style="margin-top: 8px; padding-top: 8px; border-top: 1px solid #e5e7eb;">
+                                    <span style="font-size: 12px; color: #475569; font-weight: 500;">📍 대구</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 두산 vs NC -->
+                        <div style="background: #f8fafc; padding: 10px; border-radius: 10px; border: 1px solid #e2e8f0; position: relative; overflow: hidden;">
+                            <div style="text-align: center;">
+                                <!-- 원정팀 -->
+                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                                    <div style="display: flex; align-items: center; gap: 6px; flex: 1;">
+                                        <img src="images/teams/doosan.png" alt="두산" style="width: 24px; height: 24px; object-fit: contain;">
+                                        <span style="font-weight: 600; font-size: 13px;">두산<small style="color: #9ca3af; font-size: 10px; margin-left: 2px;">(9위)</small></span>
+                                    </div>
+                                    <span style="font-size: 20px; font-weight: 800; color: #94a3b8;">4</span>
+                                </div>
+                                <!-- 홈팀 -->
+                                <div style="display: flex; align-items: center; justify-content: space-between;">
+                                    <div style="display: flex; align-items: center; gap: 6px; flex: 1;">
+                                        <img src="images/teams/nc.png" alt="NC" style="width: 24px; height: 24px; object-fit: contain;">
+                                        <span style="font-weight: 600; font-size: 13px;">NC<small style="color: #9ca3af; font-size: 10px; margin-left: 2px;">(7위)</small></span>
+                                    </div>
+                                    <span style="font-size: 20px; font-weight: 800; color: #059669;">6</span>
+                                </div>
+                                <!-- 경기장 -->
+                                <div style="margin-top: 8px; padding-top: 8px; border-top: 1px solid #e5e7eb;">
+                                    <span style="font-size: 12px; color: #475569; font-weight: 500;">📍 창원</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- 1위팀 우승 조건 -->
                 <div class="card championship-section" id="championship" style="position: relative;">
                     <div class="championship-bg-accent" style="position: absolute; top: 0; left: 0; right: 0; height: 6px; background: linear-gradient(90deg, #1a237e, #3949ab); opacity: 0.8;"></div>
