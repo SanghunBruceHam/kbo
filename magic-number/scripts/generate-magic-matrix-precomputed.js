@@ -286,7 +286,7 @@ function generateMagicMatrixPrecomputed() {
         const ranks = [9, 8, 7, 6, 5, 4, 3, 2, 1];
         for (const rank of ranks) {
             const x = row[`x${rank}_strict`];
-            const y = row[`y${rank}_tieOK`];
+            const y = (rank === 1 || rank === 5) ? row[`y${rank}_tieOK_raw`] : row[`y${rank}_strict_raw`]; // 1위와 5위는 tie okay, 나머지는 strict 사용
             const xraw = row[`x${rank}_strict_raw`];
             const R = row.R;
 
