@@ -1308,9 +1308,7 @@
                              data-ad-slot="7298546648"
                              data-ad-format="auto"
                              data-full-width-responsive="true"></ins>
-                        <script>
-                             (adsbygoogle = window.adsbygoogle || []).push({});
-                        </script>
+                        <!-- Lazy loading으로 대체됨 -->
                 </div>
 
                 <!-- 우승 & 포스트시즌 경우의 수 카드 -->
@@ -1368,9 +1366,7 @@
                              data-ad-format="autorelaxed"
                              data-ad-client="ca-pub-5508768187151867"
                              data-ad-slot="9345718962"></ins>
-                        <script>
-                             (adsbygoogle = window.adsbygoogle || []).push({});
-                        </script>
+                        <!-- Lazy loading으로 대체됨 -->
                 </div>
 
                 <!-- 매직/트래직 넘버 매트릭스 카드 -->
@@ -1424,9 +1420,7 @@
                          data-ad-format="autorelaxed"
                          data-ad-client="ca-pub-5508768187151867"
                          data-ad-slot="9345718962"></ins>
-                    <script>
-                         (adsbygoogle = window.adsbygoogle || []).push({});
-                    </script>
+                    <!-- Lazy loading으로 대체됨 -->
                 </div>
 
                 <!-- 1위 추격팀 가능성 -->
@@ -1508,9 +1502,7 @@
                              data-ad-slot="7298546648"
                              data-ad-format="auto"
                              data-full-width-responsive="true"></ins>
-                        <script>
-                             (adsbygoogle = window.adsbygoogle || []).push({});
-                        </script>
+                        <!-- Lazy loading으로 대체됨 -->
                 </div>
 
                 <!-- 포스트시즌 진출 조건 -->
@@ -1612,9 +1604,7 @@
                              data-ad-format="autorelaxed"
                              data-ad-client="ca-pub-5508768187151867"
                              data-ad-slot="9345718962"></ins>
-                        <script>
-                             (adsbygoogle = window.adsbygoogle || []).push({});
-                        </script>
+                        <!-- Lazy loading으로 대체됨 -->
                 </div>
 
                 <!-- 팀 순위 테이블 -->
@@ -1704,9 +1694,7 @@
                              data-ad-slot="7298546648"
                              data-ad-format="auto"
                              data-full-width-responsive="true"></ins>
-                        <script>
-                             (adsbygoogle = window.adsbygoogle || []).push({});
-                        </script>
+                        <!-- Lazy loading으로 대체됨 -->
                 </div>
 
                 <!-- 순위 변동 그래프 -->
@@ -1873,9 +1861,7 @@
                              data-ad-slot="7298546648"
                              data-ad-format="auto"
                              data-full-width-responsive="true"></ins>
-                        <script>
-                             (adsbygoogle = window.adsbygoogle || []).push({});
-                        </script>
+                        <!-- Lazy loading으로 대체됨 -->
                 </div>
 
                 <!-- 팀간 승패표 -->
@@ -1923,9 +1909,7 @@
                              data-ad-slot="7298546648"
                              data-ad-format="auto"
                              data-full-width-responsive="true"></ins>
-                        <script>
-                             (adsbygoogle = window.adsbygoogle || []).push({});
-                        </script>
+                        <!-- Lazy loading으로 대체됨 -->
                 </div>
 
                 <!-- 팀간 잔여 경기수 -->
@@ -1973,9 +1957,7 @@
                              data-ad-format="autorelaxed"
                              data-ad-client="ca-pub-5508768187151867"
                              data-ad-slot="9345718962"></ins>
-                        <script>
-                             (adsbygoogle = window.adsbygoogle || []).push({});
-                        </script>
+                        <!-- Lazy loading으로 대체됨 -->
                 </div>
 
                 <!-- 개선 제안 카드 -->
@@ -2958,7 +2940,47 @@
     <!-- Magic/Tragic Matrix scripts: optimized first, classic overlays strict/tieOK rules -->
     <script defer src="scripts/ui-magic-matrix-optimized.js"></script>
     <script defer src="scripts/ui-magic-matrix.js"></script>
-    
+
+    <!-- AdSense Lazy Loading 스크립트 -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Intersection Observer로 AdSense 광고 lazy loading
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const adContainer = entry.target;
+                    const adElement = adContainer.querySelector('.adsbygoogle');
+
+                    if (adElement && !adElement.hasAttribute('data-loaded')) {
+                        // 광고 로딩 마크
+                        adElement.setAttribute('data-loaded', 'true');
+
+                        // AdSense 광고 초기화 (이미 로드된 스크립트 사용)
+                        try {
+                            (window.adsbygoogle = window.adsbygoogle || []).push({});
+                        } catch (e) {
+                            console.warn('AdSense loading error:', e);
+                        }
+
+                        // 관찰 중단
+                        observer.unobserve(adContainer);
+                    }
+                }
+            });
+        }, {
+            rootMargin: '200px 0px', // 200px 전에 미리 로딩
+            threshold: 0.1
+        });
+
+        // 모든 AdSense 광고 컨테이너 관찰
+        document.querySelectorAll('.adsense-ad-wrapper').forEach(wrapper => {
+            observer.observe(wrapper);
+        });
+
+        console.log('AdSense lazy loading 초기화 완료');
+    });
+    </script>
+
 </div>
 </div>
 

@@ -4639,9 +4639,7 @@
                      data-ad-slot="7298546648"
                      data-ad-format="auto"
                      data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+<!-- Lazy loading으로 대체됨 -->
             </div>
         </div>
 
@@ -4848,9 +4846,7 @@
                      data-ad-format="autorelaxed"
                      data-ad-client="ca-pub-5508768187151867"
                      data-ad-slot="9345718962"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+<!-- Lazy loading으로 대체됨 -->
             </div>
         </div>
 
@@ -5470,9 +5466,7 @@
                      data-ad-format="autorelaxed"
                      data-ad-client="ca-pub-5508768187151867"
                      data-ad-slot="9345718962"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+<!-- Lazy loading으로 대체됨 -->
             </div>
         </div>
 
@@ -5772,9 +5766,7 @@
                      data-ad-format="autorelaxed"
                      data-ad-client="ca-pub-5508768187151867"
                      data-ad-slot="9345718962"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+<!-- Lazy loading으로 대체됨 -->
             </div>
         </div>
 
@@ -5882,9 +5874,7 @@
                      data-ad-slot="7298546648"
                      data-ad-format="auto"
                      data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+<!-- Lazy loading으로 대체됨 -->
             </div>
         </div>
 
@@ -19107,6 +19097,47 @@ KT 9:1 키움(H)`;
     }
 
     </script>
+
+    <!-- AdSense Lazy Loading 스크립트 -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Intersection Observer로 AdSense 광고 lazy loading
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const adContainer = entry.target;
+                    const adElement = adContainer.querySelector('.adsbygoogle');
+
+                    if (adElement && !adElement.hasAttribute('data-loaded')) {
+                        // 광고 로딩 마크
+                        adElement.setAttribute('data-loaded', 'true');
+
+                        // AdSense 광고 초기화 (이미 로드된 스크립트 사용)
+                        try {
+                            (window.adsbygoogle = window.adsbygoogle || []).push({});
+                        } catch (e) {
+                            console.warn('AdSense loading error:', e);
+                        }
+
+                        // 관찰 중단
+                        observer.unobserve(adContainer);
+                    }
+                }
+            });
+        }, {
+            rootMargin: '200px 0px', // 200px 전에 미리 로딩
+            threshold: 0.1
+        });
+
+        // 모든 AdSense 광고 컨테이너 관찰
+        document.querySelectorAll('.adsense-ad-wrapper').forEach(wrapper => {
+            observer.observe(wrapper);
+        });
+
+        console.log('AdSense lazy loading 초기화 완료');
+    });
+    </script>
+
     <!-- ============================================================ -->
 
 </body>
