@@ -2018,43 +2018,43 @@
                 <h4>KBO 팀 정보</h4>
                 <div class="team-links">
                     <a href="https://www.hanwhaeagles.co.kr" target="_blank" rel="noopener" class="team-link-item">
-                        <img src="images/teams/hanwha.png" alt="한화 이글스" class="team-logo">
+                        <img src="images/teams/hanwha.png" alt="한화 이글스" class="team-logo" loading="lazy">
                         <span>한화 이글스</span>
                     </a>
                     <a href="https://www.lgtwins.com" target="_blank" rel="noopener" class="team-link-item">
-                        <img src="images/teams/lg.png" alt="LG 트윈스" class="team-logo">
+                        <img src="images/teams/lg.png" alt="LG 트윈스" class="team-logo" loading="lazy">
                         <span>LG 트윈스</span>
                     </a>
                     <a href="https://www.giantsclub.com" target="_blank" rel="noopener" class="team-link-item">
-                        <img src="images/teams/lotte.png" alt="롯데 자이언츠" class="team-logo">
+                        <img src="images/teams/lotte.png" alt="롯데 자이언츠" class="team-logo" loading="lazy">
                         <span>롯데 자이언츠</span>
                     </a>
                     <a href="https://www.ssglanders.com" target="_blank" rel="noopener" class="team-link-item">
-                        <img src="images/teams/ssg.png" alt="SSG 랜더스" class="team-logo">
+                        <img src="images/teams/ssg.png" alt="SSG 랜더스" class="team-logo" loading="lazy">
                         <span>SSG 랜더스</span>
                     </a>
                     <a href="https://www.ktwiz.co.kr" target="_blank" rel="noopener" class="team-link-item">
-                        <img src="images/teams/kt.png" alt="KT 위즈" class="team-logo">
+                        <img src="images/teams/kt.png" alt="KT 위즈" class="team-logo" loading="lazy">
                         <span>KT 위즈</span>
                     </a>
                     <a href="https://tigers.co.kr" target="_blank" rel="noopener" class="team-link-item">
-                        <img src="images/teams/kia.png" alt="KIA 타이거즈" class="team-logo">
+                        <img src="images/teams/kia.png" alt="KIA 타이거즈" class="team-logo" loading="lazy">
                         <span>KIA 타이거즈</span>
                     </a>
                     <a href="https://www.samsunglions.com" target="_blank" rel="noopener" class="team-link-item">
-                        <img src="images/teams/samsung.png" alt="삼성 라이온즈" class="team-logo">
+                        <img src="images/teams/samsung.png" alt="삼성 라이온즈" class="team-logo" loading="lazy">
                         <span>삼성 라이온즈</span>
                     </a>
                     <a href="https://www.ncdinos.com" target="_blank" rel="noopener" class="team-link-item">
-                        <img src="images/teams/nc.png" alt="NC 다이노스" class="team-logo">
+                        <img src="images/teams/nc.png" alt="NC 다이노스" class="team-logo" loading="lazy">
                         <span>NC 다이노스</span>
                     </a>
                     <a href="https://www.doosanbears.com" target="_blank" rel="noopener" class="team-link-item">
-                        <img src="images/teams/doosan.png" alt="두산 베어스" class="team-logo">
+                        <img src="images/teams/doosan.png" alt="두산 베어스" class="team-logo" loading="lazy">
                         <span>두산 베어스</span>
                     </a>
                     <a href="https://www.heroesbaseball.co.kr" target="_blank" rel="noopener" class="team-link-item">
-                        <img src="images/teams/kiwoom.png" alt="키움 히어로즈" class="team-logo">
+                        <img src="images/teams/kiwoom.png" alt="키움 히어로즈" class="team-logo" loading="lazy">
                         <span>키움 히어로즈</span>
                     </a>
                 </div>
@@ -2329,6 +2329,11 @@
             padding: var(--card-padding);
             box-shadow: var(--card-shadow);
             backdrop-filter: var(--card-backdrop-filter);
+            /* CLS 방지용 최소 높이 */
+            min-height: 250px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
         }
         
         .coupang-ad-wrapper > div:first-child,
@@ -2353,6 +2358,7 @@
             width: 100%;
             max-width: var(--card-max-width);
             margin: 0 auto;
+            min-height: 200px; /* 광고 로딩 전 공간 확보 */
         }
         
         @media (max-width: 768px) {
