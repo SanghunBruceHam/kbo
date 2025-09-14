@@ -1,9 +1,9 @@
 {
-  "lastUpdated": "2025-09-14T10:37:52.254Z",
+  "lastUpdated": "2025-09-14T11:18:28.055Z",
   "updateDate": "2025. 9. 14.",
   "clutchAnalysis": {
     "LG": {
-      "totalGames": 146,
+      "totalGames": 147,
       "oneRunGames": 39,
       "oneRunWins": 22,
       "oneRunLosses": 17,
@@ -16,7 +16,7 @@
       "threeRunWins": 20,
       "threeRunLosses": 18,
       "threeRunWinRate": "52.6",
-      "blowoutWins": 31,
+      "blowoutWins": 32,
       "blowoutScored": [
         {
           "date": "2025-03-22",
@@ -203,6 +203,12 @@
           "opponent": "두산",
           "score": "8:4",
           "runs": 8
+        },
+        {
+          "date": "2025-09-14",
+          "opponent": "KIA",
+          "score": "14:0",
+          "runs": 14
         }
       ],
       "blowoutLosses": 5,
@@ -238,10 +244,10 @@
           "diff": 9
         }
       ],
-      "shutoutWins": 10,
+      "shutoutWins": 11,
       "shutoutLosses": 4,
-      "highScoringGames": 17,
-      "highScoringWins": 17,
+      "highScoringGames": 18,
+      "highScoringWins": 18,
       "scorelessGames": 4,
       "comebackPotential": {
         "trailingWins": 0,
@@ -515,7 +521,7 @@
       "clutchIndex": "56.3"
     },
     "KIA": {
-      "totalGames": 148,
+      "totalGames": 149,
       "oneRunGames": 41,
       "oneRunWins": 20,
       "oneRunLosses": 21,
@@ -693,7 +699,7 @@
           "runs": 8
         }
       ],
-      "blowoutLosses": 7,
+      "blowoutLosses": 8,
       "blowoutAllowed": [
         {
           "date": "2025-03-26",
@@ -736,13 +742,19 @@
           "opponent": "한화",
           "score": "3:21",
           "diff": 18
+        },
+        {
+          "date": "2025-09-14",
+          "opponent": "LG",
+          "score": "0:14",
+          "diff": 14
         }
       ],
       "shutoutWins": 5,
-      "shutoutLosses": 5,
+      "shutoutLosses": 6,
       "highScoringGames": 17,
       "highScoringWins": 13,
-      "scorelessGames": 5,
+      "scorelessGames": 6,
       "comebackPotential": {
         "trailingWins": 0,
         "leadBlownLosses": 0

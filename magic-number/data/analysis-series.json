@@ -1,15 +1,15 @@
 {
-  "lastUpdated": "2025-09-14T10:37:52.700Z",
+  "lastUpdated": "2025-09-14T11:18:28.498Z",
   "updateDate": "2025. 9. 14.",
   "teamStats": {
     "LG": {
-      "totalSeries": 45,
+      "totalSeries": 46,
       "winningSeries": 28,
       "losingSeries": 13,
       "splitSeries": 4,
       "sweepWins": 7,
       "sweepLosses": 1,
-      "seriesWinRate": "62.2",
+      "seriesWinRate": "60.9",
       "series": [
         {
           "opponent": "롯데",
@@ -2280,6 +2280,46 @@
           "totalGames": 3,
           "seriesType": "HOME",
           "seriesNumber": 45
+        },
+        {
+          "opponent": "KIA",
+          "isHome": true,
+          "games": [
+            {
+              "date": "2025-09-13",
+              "opponent": "KIA",
+              "isHome": true,
+              "score": "3:6",
+              "result": "L",
+              "runs_scored": 3,
+              "runs_allowed": 6,
+              "gameNumber": 132
+            },
+            {
+              "date": "2025-09-14",
+              "opponent": "KIA",
+              "isHome": true,
+              "score": "14:0",
+              "result": "W",
+              "runs_scored": 14,
+              "runs_allowed": 0,
+              "gameNumber": 133
+            }
+          ],
+          "startDate": "2025-09-13",
+          "lastDate": "2025-09-14",
+          "wins": 1,
+          "losses": 1,
+          "draws": 0,
+          "homeGames": 2,
+          "awayGames": 0,
+          "result": "ONGOING",
+          "isSweep": false,
+          "isWinningSweep": false,
+          "isLosingSweep": false,
+          "totalGames": 2,
+          "seriesType": "HOME",
+          "seriesNumber": 54
         }
       ],
       "currentStreak": {
@@ -2332,10 +2372,10 @@
           "sweepLosses": 0
         },
         "KIA": {
-          "totalSeries": 5,
+          "totalSeries": 6,
           "wins": 3,
           "losses": 2,
-          "splits": 0,
+          "splits": 1,
           "sweepWins": 2,
           "sweepLosses": 0
         },
@@ -4845,13 +4885,13 @@
       }
     },
     "KIA": {
-      "totalSeries": 48,
+      "totalSeries": 49,
       "winningSeries": 22,
       "losingSeries": 19,
       "splitSeries": 7,
       "sweepWins": 3,
       "sweepLosses": 5,
-      "seriesWinRate": "45.8",
+      "seriesWinRate": "44.9",
       "series": [
         {
           "opponent": "NC",
@@ -7242,6 +7282,46 @@
           "totalGames": 2,
           "seriesType": "HOME",
           "seriesNumber": 50
+        },
+        {
+          "opponent": "LG",
+          "isHome": false,
+          "games": [
+            {
+              "date": "2025-09-13",
+              "opponent": "LG",
+              "isHome": false,
+              "score": "6:3",
+              "result": "W",
+              "runs_scored": 6,
+              "runs_allowed": 3,
+              "gameNumber": 130
+            },
+            {
+              "date": "2025-09-14",
+              "opponent": "LG",
+              "isHome": false,
+              "score": "0:14",
+              "result": "L",
+              "runs_scored": 0,
+              "runs_allowed": 14,
+              "gameNumber": 131
+            }
+          ],
+          "startDate": "2025-09-13",
+          "lastDate": "2025-09-14",
+          "wins": 1,
+          "losses": 1,
+          "draws": 0,
+          "homeGames": 0,
+          "awayGames": 2,
+          "result": "ONGOING",
+          "isSweep": false,
+          "isWinningSweep": false,
+          "isLosingSweep": false,
+          "totalGames": 2,
+          "seriesType": "AWAY",
+          "seriesNumber": 53
         }
       ],
       "currentStreak": {
@@ -7294,10 +7374,10 @@
           "sweepLosses": 0
         },
         "LG": {
-          "totalSeries": 5,
+          "totalSeries": 6,
           "wins": 2,
           "losses": 3,
-          "splits": 0,
+          "splits": 1,
           "sweepWins": 0,
           "sweepLosses": 2
         },
@@ -24443,10 +24523,10 @@
         "totalSeries": 5
       },
       "KIA": {
-        "record": "3-2-0",
-        "winRate": "60.0",
+        "record": "3-2-1",
+        "winRate": "50.0",
         "sweeps": "2-0",
-        "totalSeries": 5
+        "totalSeries": 6
       },
       "삼성": {
         "record": "3-2-0",
@@ -24550,10 +24630,10 @@
     },
     "KIA": {
       "LG": {
-        "record": "2-3-0",
-        "winRate": "40.0",
+        "record": "2-3-1",
+        "winRate": "33.3",
         "sweeps": "0-2",
-        "totalSeries": 5
+        "totalSeries": 6
       },
       "한화": {
         "record": "2-3-0",

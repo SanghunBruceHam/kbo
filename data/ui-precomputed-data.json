@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "lastUpdated": "2025-09-14T10:37:51.065Z",
+    "lastUpdated": "2025-09-14T11:18:26.891Z",
     "version": "1.0.0",
     "description": "루트 index.html의 사전 계산된 UI 데이터"
   },
@@ -92,10 +92,74 @@
       "두산",
       "키움"
     ],
-    "lastCalculated": "2025-09-14T10:37:51.065Z"
+    "lastCalculated": "2025-09-14T11:18:26.891Z"
   },
   "precomputedHalfSeasonStats": {
     "allTeamsHalfStats": {
+      "KIA": {
+        "firstHalf": {
+          "wins": 45,
+          "losses": 43,
+          "draws": 0,
+          "games": 88,
+          "winRate": 0.5113636363636364
+        },
+        "secondHalf": {
+          "wins": 16,
+          "losses": 27,
+          "draws": 0,
+          "games": 43,
+          "winRate": 0.37209302325581395
+        }
+      },
+      "NC": {
+        "firstHalf": {
+          "wins": 40,
+          "losses": 45,
+          "draws": 0,
+          "games": 85,
+          "winRate": 0.47058823529411764
+        },
+        "secondHalf": {
+          "wins": 21,
+          "losses": 24,
+          "draws": 0,
+          "games": 45,
+          "winRate": 0.4666666666666667
+        }
+      },
+      "KT": {
+        "firstHalf": {
+          "wins": 45,
+          "losses": 44,
+          "draws": 0,
+          "games": 89,
+          "winRate": 0.5056179775280899
+        },
+        "secondHalf": {
+          "wins": 21,
+          "losses": 23,
+          "draws": 0,
+          "games": 44,
+          "winRate": 0.4772727272727273
+        }
+      },
+      "한화": {
+        "firstHalf": {
+          "wins": 52,
+          "losses": 35,
+          "draws": 0,
+          "games": 87,
+          "winRate": 0.5977011494252874
+        },
+        "secondHalf": {
+          "wins": 24,
+          "losses": 20,
+          "draws": 0,
+          "games": 44,
+          "winRate": 0.5454545454545454
+        }
+      },
       "삼성": {
         "firstHalf": {
           "wins": 43,
@@ -160,70 +224,6 @@
           "winRate": 0.45454545454545453
         }
       },
-      "KIA": {
-        "firstHalf": {
-          "wins": 45,
-          "losses": 43,
-          "draws": 0,
-          "games": 88,
-          "winRate": 0.5113636363636364
-        },
-        "secondHalf": {
-          "wins": 16,
-          "losses": 26,
-          "draws": 0,
-          "games": 42,
-          "winRate": 0.38095238095238093
-        }
-      },
-      "NC": {
-        "firstHalf": {
-          "wins": 40,
-          "losses": 45,
-          "draws": 0,
-          "games": 85,
-          "winRate": 0.47058823529411764
-        },
-        "secondHalf": {
-          "wins": 21,
-          "losses": 24,
-          "draws": 0,
-          "games": 45,
-          "winRate": 0.4666666666666667
-        }
-      },
-      "KT": {
-        "firstHalf": {
-          "wins": 45,
-          "losses": 44,
-          "draws": 0,
-          "games": 89,
-          "winRate": 0.5056179775280899
-        },
-        "secondHalf": {
-          "wins": 21,
-          "losses": 23,
-          "draws": 0,
-          "games": 44,
-          "winRate": 0.4772727272727273
-        }
-      },
-      "한화": {
-        "firstHalf": {
-          "wins": 52,
-          "losses": 35,
-          "draws": 0,
-          "games": 87,
-          "winRate": 0.5977011494252874
-        },
-        "secondHalf": {
-          "wins": 24,
-          "losses": 20,
-          "draws": 0,
-          "games": 44,
-          "winRate": 0.5454545454545454
-        }
-      },
       "LG": {
         "firstHalf": {
           "wins": 48,
@@ -233,11 +233,11 @@
           "winRate": 0.5454545454545454
         },
         "secondHalf": {
-          "wins": 31,
+          "wins": 32,
           "losses": 13,
           "draws": 0,
-          "games": 44,
-          "winRate": 0.7045454545454546
+          "games": 45,
+          "winRate": 0.7111111111111111
         }
       },
       "롯데": {
@@ -257,7 +257,7 @@
         }
       }
     },
-    "lastCalculated": "2025-09-14T10:37:51.065Z"
+    "lastCalculated": "2025-09-14T11:18:26.891Z"
   },
   "scheduleData": {
     "remainingGames": [],
