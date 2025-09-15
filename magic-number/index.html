@@ -985,7 +985,37 @@
         ]
     }
     </script>
-    
+
+    <script>
+    // 탭 전환 함수
+    function showGameTab(tabName) {
+        const resultsTab = document.getElementById('tab-results');
+        const scheduleTab = document.getElementById('tab-schedule');
+        const resultsContent = document.getElementById('content-results');
+        const scheduleContent = document.getElementById('content-schedule');
+
+        if (tabName === 'results') {
+            // 최근 경기 결과 탭 활성화
+            resultsTab.style.color = '#1e293b';
+            resultsTab.style.borderBottom = '2px solid #3b82f6';
+            scheduleTab.style.color = '#64748b';
+            scheduleTab.style.borderBottom = '2px solid transparent';
+
+            resultsContent.style.display = 'block';
+            scheduleContent.style.display = 'none';
+        } else if (tabName === 'schedule') {
+            // 예정 경기 탭 활성화
+            scheduleTab.style.color = '#1e293b';
+            scheduleTab.style.borderBottom = '2px solid #3b82f6';
+            resultsTab.style.color = '#64748b';
+            resultsTab.style.borderBottom = '2px solid transparent';
+
+            scheduleContent.style.display = 'block';
+            resultsContent.style.display = 'none';
+        }
+    }
+    </script>
+
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5508768187151867"
          crossorigin="anonymous"></script>
@@ -1130,13 +1160,25 @@
             </div>
             
             <div class="cards-grid" style="width: 100%; margin: 0 auto; margin-top: 20px;">
-                <!-- 최근 경기 결과 -->
+                <!-- 경기 일정 섹션 -->
                 <div class="card" id="today-games" style="margin-bottom: 20px; background: white; padding: 20px; border-radius: 12px; border: 1px solid #e5e7eb;">
-                    <h2 style="color: #1e293b; font-size: 20px; margin-bottom: 18px; display: flex; align-items: center; gap: 10px;">
-                        ⚾ 최근 경기 결과
-                        <span style="font-size: 14px; color: #64748b; font-weight: normal; background: #f1f5f9; padding: 4px 10px; border-radius: 20px;">2025년 9월 13일 (금)</span>
-                    </h2>
-                    <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px;">
+                    <!-- 탭 버튼 -->
+                    <div style="display: flex; gap: 8px; margin-bottom: 18px; border-bottom: 1px solid #e5e7eb;">
+                        <button id="tab-results" onclick="showGameTab('results')" style="padding: 10px 16px; background: none; border: none; color: #1e293b; font-weight: 600; cursor: pointer; border-bottom: 2px solid #3b82f6; transition: all 0.2s;">
+                            최근 경기 결과
+                        </button>
+                        <button id="tab-schedule" onclick="showGameTab('schedule')" style="padding: 10px 16px; background: none; border: none; color: #64748b; font-weight: 600; cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.2s;">
+                            다음 경기
+                        </button>
+                    </div>
+
+                    <!-- 최근 경기 결과 콘텐츠 -->
+                    <div id="content-results" style="display: block;">
+                        <h2 style="color: #1e293b; font-size: 20px; margin-bottom: 18px; display: flex; align-items: center; gap: 10px;">
+                            ⚾ 최근 경기 결과
+                            <span style="font-size: 14px; color: #64748b; font-weight: normal; background: #f1f5f9; padding: 4px 10px; border-radius: 20px;">2025년 9월 13일 (금)</span>
+                        </h2>
+                        <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px;">
                         <!-- KIA vs LG -->
                         <div style="background: #f8fafc; padding: 10px; border-radius: 10px; border: 1px solid #e2e8f0; position: relative; overflow: hidden;">
                             <div style="text-align: center;">
@@ -1263,6 +1305,35 @@
                                 <!-- 경기장 -->
                                 <div style="margin-top: 8px; padding-top: 8px; border-top: 1px solid #e5e7eb;">
                                     <span style="font-size: 12px; color: #475569; font-weight: 500;">📍 창원</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+
+                    <!-- 예정 경기 콘텐츠 -->
+                    <div id="content-schedule" style="display: none;">
+                        <h2 style="color: #1e293b; font-size: 20px; margin-bottom: 18px; display: flex; align-items: center; gap: 10px;">
+                            📅 다음 경기
+                            <span style="font-size: 14px; color: #64748b; font-weight: normal; background: #f1f5f9; padding: 4px 10px; border-radius: 20px;">2025년 9월 15일 (월)</span>
+                        </h2>
+
+                        <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px;">
+                            <div style="background: #f8fafc; padding: 10px; border-radius: 10px; border: 1px solid #e2e8f0;">
+                                <div style="text-align: center;">
+                                    <div style="font-size: 12px; color: #64748b; margin-bottom: 8px;">18:30</div>
+                                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                                        <div style="display: flex; align-items: center; gap: 6px;">
+                                            <img src="images/teams/hanwha.png" alt="한화" style="width: 24px; height: 24px; object-fit: contain;">
+                                            <span style="font-weight: 600; font-size: 14px;">한화</span>
+                                        </div>
+                                        <span style="color: #94a3b8; font-size: 12px;">vs</span>
+                                        <div style="display: flex; align-items: center; gap: 6px;">
+                                            <span style="font-weight: 600; font-size: 14px;">키움</span>
+                                            <img src="images/teams/kiwoom.png" alt="키움" style="width: 24px; height: 24px; object-fit: contain;">
+                                        </div>
+                                    </div>
+                                    <div style="font-size: 12px; color: #475569;">📍 대전</div>
                                 </div>
                             </div>
                         </div>
