@@ -1193,29 +1193,10 @@
                             <span style="font-size: 14px; color: #64748b; font-weight: normal; background: #f1f5f9; padding: 4px 10px; border-radius: 20px;">2025년 9월 15일 (월)</span>
                         </h2>
 
-                        <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px;">
-                            <div style="background: #f8fafc; padding: 10px; border-radius: 10px; border: 1px solid #e2e8f0;">
-                                <div style="text-align: center;">
-                                    <div style="font-size: 12px; color: #64748b; margin-bottom: 8px;">18:30</div>
-                                    <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 4px;">
-                                        <div style="display: flex; flex-direction: column; align-items: center;">
-                                            <div style="display: flex; align-items: center; gap: 6px;">
-                                                <img src="images/teams/kiwoom.png" alt="키움" style="width: 24px; height: 24px; object-fit: contain;">
-                                                <span style="font-weight: 600; font-size: 14px;">키움<small style="color: #9ca3af; font-size: 10px; margin-left: 2px;">(10위)</small></span>
-                                            </div>
-                                            <small style="color: #64748b; font-size: 11px; margin-top: 2px;">2승 13패 0무</small>
-                                        </div>
-                                        <span style="color: #94a3b8; font-size: 12px;">vs</span>
-                                        <div style="display: flex; flex-direction: column; align-items: center;">
-                                            <div style="display: flex; align-items: center; gap: 6px;">
-                                                <span style="font-weight: 600; font-size: 14px;">한화<small style="color: #9ca3af; font-size: 10px; margin-right: 2px;">(2위)</small></span>
-                                                <img src="images/teams/hanwha.png" alt="한화" style="width: 24px; height: 24px; object-fit: contain;">
-                                            </div>
-                                            <small style="color: #64748b; font-size: 11px; margin-top: 2px;">13승 2패 0무</small>
-                                        </div>
-                                    </div>
-                                    <div style="font-size: 12px; color: #475569; margin-top: 8px;">📍 대전</div>
-                                </div>
+                        <div id="upcoming-games-container" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px;">
+                            <!-- 동적으로 로드됨 -->
+                            <div style="text-align: center; color: #6b7280; padding: 20px; grid-column: 1 / -1;">
+                                📅 예정 경기를 불러오는 중...
                             </div>
                         </div>
                     </div>
@@ -3256,9 +3237,226 @@ async function loadRecentGames() {
     }
 }
 
+function parseCleanTextData(text) {
+    const games = [];
+    const lines = text.split('\n');
+    let currentDate = '';
+
+    for (const line of lines) {
+        const trimmed = line.trim();
+
+        // 날짜 라인 체크 (YYYY-MM-DD 형식)
+        if (/^\d{4}-\d{2}-\d{2}/.test(trimmed)) {
+            currentDate = trimmed.split(' ')[0];
+            continue;
+        }
+
+        // 경기 데이터 라인 체크
+        if (trimmed && !trimmed.startsWith('경기전') && currentDate) {
+            const parts = trimmed.split(/\s+/);
+            if (parts.length >= 7) {
+                const time = parts[0];
+                const state = parts[1];
+                const stadium = parts[2];
+                const homeTeam = parts[3];
+                const awayTeam = parts[4];
+                const score = parts[5];
+
+                let homeScore = null, awayScore = null;
+                if (score !== '경기전' && score.includes(':')) {
+                    const scores = score.split(':');
+                    awayScore = parseInt(scores[0]);
+                    homeScore = parseInt(scores[1]);
+                }
+
+                games.push({
+                    date: currentDate,
+                    time: time,
+                    stadium: stadium,
+                    home_team: homeTeam,
+                    away_team: awayTeam,
+                    home_score: homeScore,
+                    away_score: awayScore,
+                    state: state
+                });
+            }
+        }
+    }
+
+    return games;
+}
+
+async function loadUpcomingGames() {
+    const container = document.getElementById('upcoming-games-container');
+    if (!container) return;
+
+    try {
+        // 실제 데이터 로드 시도 (clean.txt 파일 사용)
+        const response = await fetch('data/2025-season-data-clean.txt');
+        const text = await response.text();
+        const data = parseCleanTextData(text);
+
+        // 예정된 경기들 필터링 (state가 "경기전"인 경기들)
+        const upcomingGames = data.filter(game =>
+            game.state === "경기전" || game.state === "예정" || game.state === "경기예정" || game.state === "진행중"
+        );
+
+        // 날짜별로 정렬 (오름차순)
+        upcomingGames.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+        // 가장 가까운 날짜의 경기들만 추출
+        const nextDate = upcomingGames.length > 0 ? upcomingGames[0].date : null;
+        const nextGames = nextDate ? upcomingGames.filter(game => game.date === nextDate) : [];
+
+        if (nextGames.length === 0) {
+            container.innerHTML = `
+                <div style="text-align: center; color: #6b7280; padding: 20px; grid-column: 1 / -1;">
+                    📅 시즌이 종료되었거나 다음 경기 일정이 아직 업데이트되지 않았습니다
+                </div>
+            `;
+            return;
+        }
+
+        // 팀 로고 매핑
+        const teamLogos = {
+            'KIA': 'images/teams/kia.png', 'LG': 'images/teams/lg.png',
+            'SSG': 'images/teams/ssg.png', '두산': 'images/teams/doosan.png',
+            '삼성': 'images/teams/samsung.png', 'KT': 'images/teams/kt.png',
+            '롯데': 'images/teams/lotte.png', 'NC': 'images/teams/nc.png',
+            '한화': 'images/teams/hanwha.png', '키움': 'images/teams/kiwoom.png'
+        };
+
+        // 경기장 매핑
+        const stadiumMap = {
+            '서울 잠실야구장': '잠실', '부산 사직야구장': '사직',
+            '서울 고척스카이돔': '고척', '대전 한화생명이글스파크': '대전',
+            '대구 삼성라이온즈파크': '대구', '수원 KT위즈파크': '수원',
+            '인천 SSG랜더스필드': '인천', '창원 NC파크': '창원',
+            '광주 챔피언스필드': '광주'
+        };
+
+        // 날짜 포맷팅
+        const dateObj = new Date(nextDate);
+        const formattedDate = `${dateObj.getFullYear()}년 ${dateObj.getMonth() + 1}월 ${dateObj.getDate()}일`;
+        const dayNames = ['일', '월', '화', '수', '목', '금', '토'];
+        const dayOfWeek = dayNames[dateObj.getDay()];
+
+        // 헤더 날짜 업데이트
+        const dateSpan = document.querySelector('#content-schedule h2 span');
+        if (dateSpan) {
+            dateSpan.textContent = `${formattedDate} (${dayOfWeek})`;
+        }
+
+        // 순위 데이터 로드 시도
+        let standings = {};
+        try {
+            const standingsResponse = await fetch('data/calc-standings.json');
+            const standingsData = await standingsResponse.json();
+            if (standingsData && standingsData.rankings) {
+                standingsData.rankings.forEach((team) => {
+                    standings[team.team] = {
+                        rank: team.rank,
+                        wins: team.wins || 0,
+                        losses: team.losses || 0,
+                        draws: team.draws || 0
+                    };
+                });
+            }
+        } catch (e) {
+            console.warn('순위 데이터 로드 실패:', e);
+        }
+
+        // 상대전적 데이터 로드 시도
+        let headToHead = {};
+        try {
+            const h2hResponse = await fetch('data/calc-head-to-head.json');
+            const h2hData = await h2hResponse.json();
+            if (h2hData && h2hData.totalData) {
+                headToHead = h2hData.totalData;
+            }
+        } catch (e) {
+            console.warn('상대전적 데이터 로드 실패:', e);
+        }
+
+        // 예정 경기 HTML 생성 (기존 스타일 유지)
+        let gamesHTML = '';
+        nextGames.forEach(game => {
+            const awayTeam = game.away_team;
+            const homeTeam = game.home_team;
+            const gameTime = game.time || '18:30';
+            const stadium = stadiumMap[game.stadium] || game.stadium || '미정';
+
+            // 팀 순위 및 기록 정보
+            const awayRank = standings[awayTeam]?.rank || '?';
+            const homeRank = standings[homeTeam]?.rank || '?';
+
+            // 각 팀별 상대전적 계산
+            let awayH2hRecord = '';
+            let homeH2hRecord = '';
+
+            // 원정팀 기준 상대전적
+            if (headToHead[awayTeam] && headToHead[awayTeam][homeTeam]) {
+                const h2h = headToHead[awayTeam][homeTeam];
+                const h2hWins = h2h.wins || 0;
+                const h2hLosses = h2h.losses || 0;
+                const h2hDraws = h2h.draws || 0;
+                awayH2hRecord = `${h2hWins}승 ${h2hLosses}패 ${h2hDraws}무`;
+            }
+
+            // 홈팀 기준 상대전적
+            if (headToHead[homeTeam] && headToHead[homeTeam][awayTeam]) {
+                const h2h = headToHead[homeTeam][awayTeam];
+                const h2hWins = h2h.wins || 0;
+                const h2hLosses = h2h.losses || 0;
+                const h2hDraws = h2h.draws || 0;
+                homeH2hRecord = `${h2hWins}승 ${h2hLosses}패 ${h2hDraws}무`;
+            }
+
+            gamesHTML += `
+                <div style="background: #f8fafc; padding: 10px; border-radius: 10px; border: 1px solid #e2e8f0;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 12px; color: #64748b; margin-bottom: 8px;">${gameTime}</div>
+                        <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 4px;">
+                            <div style="display: flex; flex-direction: column; align-items: center;">
+                                <div style="display: flex; align-items: center; gap: 6px;">
+                                    <img src="${teamLogos[awayTeam] || 'images/teams/default.png'}" alt="${awayTeam}" style="width: 24px; height: 24px; object-fit: contain;" onerror="this.style.display='none'">
+                                    <span style="font-weight: 600; font-size: 14px;">${awayTeam}<small style="color: #9ca3af; font-size: 10px; margin-left: 2px;">(${awayRank}위)</small></span>
+                                </div>
+                                ${awayH2hRecord ? `<small style="color: #64748b; font-size: 11px; margin-top: 2px;">${awayH2hRecord}</small>` : ''}
+                            </div>
+                            <span style="color: #94a3b8; font-size: 12px;">vs</span>
+                            <div style="display: flex; flex-direction: column; align-items: center;">
+                                <div style="display: flex; align-items: center; gap: 6px;">
+                                    <span style="font-weight: 600; font-size: 14px;">${homeTeam}<small style="color: #9ca3af; font-size: 10px; margin-right: 2px;">(${homeRank}위)</small></span>
+                                    <img src="${teamLogos[homeTeam] || 'images/teams/default.png'}" alt="${homeTeam}" style="width: 24px; height: 24px; object-fit: contain;" onerror="this.style.display='none'">
+                                </div>
+                                ${homeH2hRecord ? `<small style="color: #64748b; font-size: 11px; margin-top: 2px;">${homeH2hRecord}</small>` : ''}
+                            </div>
+                        </div>
+                        <div style="margin-top: 8px; padding-top: 8px; border-top: 1px solid #e5e7eb;">
+                            <span style="font-size: 12px; color: #475569; font-weight: 500;">📍 ${stadium}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+
+        container.innerHTML = gamesHTML;
+
+    } catch (error) {
+        console.error('예정 경기 로드 실패:', error);
+        container.innerHTML = `
+            <div style="text-align: center; color: #dc2626; padding: 20px; grid-column: 1 / -1;">
+                ❌ 예정 경기를 불러올 수 없습니다
+            </div>
+        `;
+    }
+}
+
 // 페이지 로드 시 실행
 document.addEventListener('DOMContentLoaded', function() {
     setTimeout(loadRecentGames, 1000); // 1초 후 로드
+    setTimeout(loadUpcomingGames, 1200); // 1.2초 후 로드
 });
 </script>
 
