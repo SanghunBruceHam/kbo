@@ -1965,8 +1965,21 @@ const kboTeams = {
                 
                 // 팀 컬러 클래스 적용
                 if (poMagicNumber === 0) {
-                    const teamNameLower = team.team.toLowerCase();
-                    row.classList.add(`playoff-confirmed-${teamNameLower}`);
+                    // 한글 팀명을 영문 클래스명으로 매핑
+                    const teamClassMap = {
+                        'LG': 'lg',
+                        '한화': 'hanwha',
+                        'SSG': 'ssg',
+                        'KT': 'kt',
+                        '삼성': 'samsung',
+                        '롯데': 'lotte',
+                        'NC': 'nc',
+                        'KIA': 'kia',
+                        '두산': 'doosan',
+                        '키움': 'kiwoom'
+                    };
+                    const teamClass = teamClassMap[team.team] || team.team.toLowerCase();
+                    row.classList.add(`playoff-confirmed-${teamClass}`);
                 } else if (poTragicNumber === 0) {
                     row.classList.add(`playoff-eliminated`);
                 }
