@@ -39,7 +39,6 @@ function findLastCompletedGameDate(seasonData) {
         }
     }
 
-    console.log('📅 마지막 완료 경기 날짜:', lastCompletedDate);
     return lastCompletedDate;
 }
 
@@ -356,7 +355,6 @@ function formatPeriodDataForChart(periodData) {
         periodData.filter(day => day.date <= lastCompletedDate) :
         periodData;
 
-    console.log(`📊 차트 데이터 필터링: 전체 ${periodData.length}일 → 완료된 ${filteredData.length}일 (마지막: ${lastCompletedDate})`);
 
     const chartData = {
         labels: [],
@@ -1093,7 +1091,6 @@ function generateFullSeasonChart() {
         allData.filter(day => day.date <= lastCompletedDate) :
         allData;
 
-    console.log(`📊 전체 시즌 차트 데이터 필터링: 전체 ${allData.length}일 → 완료된 ${filteredData.length}일 (마지막: ${lastCompletedDate})`);
 
     const chartData = {
         labels: [],
@@ -1567,7 +1564,6 @@ function formatWinCountDataForChart(periodData) {
         periodData.filter(day => day.date <= lastCompletedDate) :
         periodData;
 
-    console.log(`📊 승수 차트 데이터 필터링: 전체 ${periodData.length}일 → 완료된 ${filteredData.length}일 (마지막: ${lastCompletedDate})`);
 
     const chartData = {
         labels: [],
@@ -1909,7 +1905,6 @@ function generateFullSeasonWinCountChart() {
         allData.filter(day => day.date <= lastCompletedDate) :
         allData;
 
-    console.log(`📊 전체 시즌 승수 차트 데이터 필터링: 전체 ${allData.length}일 → 완료된 ${filteredData.length}일 (마지막: ${lastCompletedDate})`);
 
     const chartData = {
         labels: [],

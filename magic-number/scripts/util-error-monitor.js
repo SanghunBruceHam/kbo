@@ -67,7 +67,6 @@ class ErrorMonitor {
         // 개발자 도구를 위한 글로벌 접근
         window.ErrorMonitor = this;
         
-        console.log('🔍 에러 모니터링 시스템 초기화 완료');
     }
     
     /**
