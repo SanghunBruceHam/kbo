@@ -7664,6 +7664,85 @@
             return '';
         }
 
+        // 팀별 상대전적 계산 함수 (해당 날짜까지의 누적 기록)
+        function calculateTeamHeadToHead(team1, team2, upToDate = null) {
+            if (!gameRecordsData) return null;
+
+            const team1Record = gameRecordsData[team1];
+            const team2Record = gameRecordsData[team2];
+
+            if (!team1Record || !team2Record) return null;
+
+            // 날짜 필터링 함수 (해당 날짜 포함)
+            const isBeforeOrOnDate = (gameDate, targetDate) => {
+                if (!targetDate) return true; // 날짜 제한이 없으면 모든 경기 포함
+                return new Date(gameDate) <= new Date(targetDate);
+            };
+
+            // team1의 관점에서 team2와의 경기 기록 (해당 날짜까지)
+            const team1Games = team1Record.games.filter(game =>
+                game.opponent === team2 &&
+                !game.isCancelled &&
+                game.result &&
+                game.result !== '' &&
+                isBeforeOrOnDate(game.date, upToDate)
+            );
+
+            // team2의 관점에서 team1과의 경기 기록 (해당 날짜까지)
+            const team2Games = team2Record.games.filter(game =>
+                game.opponent === team1 &&
+                !game.isCancelled &&
+                game.result &&
+                game.result !== '' &&
+                isBeforeOrOnDate(game.date, upToDate)
+            );
+
+            // 모든 경기 합치기
+            const allGames = [...team1Games, ...team2Games];
+
+            // 중복 제거 (같은 날짜의 경기)
+            const uniqueGames = [];
+            const seenDates = new Set();
+
+            for (const game of allGames) {
+                const dateKey = `${game.date}`;
+                if (!seenDates.has(dateKey)) {
+                    seenDates.add(dateKey);
+                    uniqueGames.push(game);
+                }
+            }
+
+            let team1Wins = 0;
+            let team2Wins = 0;
+            let draws = 0;
+
+            uniqueGames.forEach(game => {
+                // 현재 게임이 어느 팀 관점인지 확인
+                const isTeam1Game = team1Games.includes(game);
+
+                if (isTeam1Game) {
+                    // team1 관점의 게임
+                    if (game.result === 'W') team1Wins++;
+                    else if (game.result === 'L') team2Wins++;
+                    else if (game.result === 'D' || game.result === 'T') draws++;
+                } else {
+                    // team2 관점의 게임
+                    if (game.result === 'W') team2Wins++;
+                    else if (game.result === 'L') team1Wins++;
+                    else if (game.result === 'D' || game.result === 'T') draws++;
+                }
+            });
+
+            // 전적이 없으면 null 반환
+            if (team1Wins + team2Wins + draws === 0) {
+                console.log(`No head-to-head found for ${team1} vs ${team2} up to ${upToDate}`);
+                return null;
+            }
+
+            console.log(`Head-to-head for ${team1} vs ${team2} up to ${upToDate}: ${team1Wins}-${team2Wins}-${draws}`);
+            return `${team1Wins}-${team2Wins}-${draws}`;
+        }
+
         // 팀별 상세 게임 기록 렌더링 (종합 순위와 동일한 방식)
         function renderTeamDetailedRecords() {
             if (!gameRecordsData || !dashboardData?.standings) return;
@@ -7794,6 +7873,7 @@
                                         <th class="sortable" data-column="venue">홈/원정</th>
                                         <th>스코어</th>
                                         <th class="sortable" data-column="result">결과</th>
+                                        <th>상대전적</th>
                                         <th class="sortable" data-column="runs_scored">득점</th>
                                         <th class="sortable" data-column="runs_allowed">실점</th>
                                         <th class="sortable" data-column="scoreDiff">득실차</th>
@@ -7863,6 +7943,10 @@
                                     game.result === 'L' ? '패' : '무'
                                 }</span>
                             </td>
+                            <td class="head-to-head-cell">${(() => {
+                                const h2h = calculateTeamHeadToHead(currentSelectedTeam, game.opponent, game.date);
+                                return h2h ? h2h : '-';
+                            })()}</td>
                             <td class="runs-cell">${game.runs_scored}</td>
                             <td class="runs-cell">${game.runs_allowed}</td>
                             <td class="diff-cell ${getRunDiffClass(scoreDiff)}">${scoreDiffText}</td>
@@ -7879,7 +7963,7 @@
                         // 구분선 추가
                         html += `
                             <tr style="background: #e9ecef; border-top: 2px solid #6c757d;">
-                                <td colspan="9" style="text-align: center; padding: 10px 8px; font-weight: 600; color: #495057;">
+                                <td colspan="10" style="text-align: center; padding: 10px 8px; font-weight: 600; color: #495057;">
                                     📅 예정 경기 (${teamFutureGames.length}경기)
                                 </td>
                             </tr>`;
@@ -7922,6 +8006,10 @@
                                     <td class="result-cell">
                                         <span class="result-badge future" style="background: #6c757d; color: white;">예정</span>
                                     </td>
+                                    <td class="head-to-head-cell">${(() => {
+                                        const h2h = calculateTeamHeadToHead(currentSelectedTeam, opponent, game.date);
+                                        return h2h ? h2h : '-';
+                                    })()}</td>
                                     <td class="runs-cell" style="color: #4b5563; text-align: center;">-</td>
                                     <td class="runs-cell" style="color: #4b5563; text-align: center;">-</td>
                                     <td class="diff-cell" style="color: #4b5563; text-align: center;">-</td>
