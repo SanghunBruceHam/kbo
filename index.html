@@ -13388,19 +13388,29 @@ KT 9:1 키움(H)`;
                     let backgroundColor = 'white';
 
                     if (game.isCancelled) {
+                        // 상대전적 계산
+                        const headToHead = this.calculateHeadToHead(game.team1, game.team2);
+                        const h2hText = headToHead ? `${headToHead.team1Wins}-${headToHead.team2Wins}-${headToHead.draws}` : '';
+
                         // 취소된 경기 표시
                         contentHTML = `
-                            <div style="display: flex; align-items: center; gap: 6px; flex: 1; justify-content: flex-start;">
-                                <img src="${this.teamLogos[game.team1]}" alt="${game.team1}" style="width: 18px; height: 18px; object-fit: contain;" onerror="this.style.display='none'">
-                                <span style="color: #6b7280;">${game.team1}</span>
+                            <div style="display: flex; flex-direction: column; align-items: center; flex: 1;">
+                                <div style="display: flex; align-items: center; gap: 6px;">
+                                    <img src="${this.teamLogos[game.team1]}" alt="${game.team1}" style="width: 18px; height: 18px; object-fit: contain;" onerror="this.style.display='none'">
+                                    <span style="color: #6b7280; font-weight: 600;">${game.team1}</span>
+                                </div>
+                                ${h2hText ? `<div style="font-size: 10px; color: #9ca3af; margin-top: 2px;">${h2hText}</div>` : ''}
                             </div>
                             <div style="font-size: 14px; font-weight: bold; text-align: center; min-width: 100px; color: #dc2626;">
                                 ❌ 취소
                             </div>
-                            <div style="display: flex; align-items: center; gap: 6px; flex: 1; justify-content: flex-end;">
-                                <span style="color: #6b7280;">${game.team2}</span>
-                                <img src="${this.teamLogos[game.team2]}" alt="${game.team2}" style="width: 18px; height: 18px; object-fit: contain;" onerror="this.style.display='none'">
-                                ${game.isHome ? '<span style="font-size: 12px; color: #666; margin-left: 4px;">(홈)</span>' : ''}
+                            <div style="display: flex; flex-direction: column; align-items: center; flex: 1;">
+                                <div style="display: flex; align-items: center; gap: 6px;">
+                                    <span style="color: #6b7280; font-weight: 600;">${game.team2}</span>
+                                    <img src="${this.teamLogos[game.team2]}" alt="${game.team2}" style="width: 18px; height: 18px; object-fit: contain;" onerror="this.style.display='none'">
+                                    ${game.isHome ? '<span style="font-size: 12px; color: #666; margin-left: 4px;">(홈)</span>' : ''}
+                                </div>
+                                ${h2hText ? `<div style="font-size: 10px; color: #9ca3af; margin-top: 2px;">${headToHead.team2Wins}-${headToHead.team1Wins}-${headToHead.draws}</div>` : ''}
                             </div>`;
                         borderColor = '#dc2626';
                         backgroundColor = '#fef2f2';
@@ -13412,20 +13422,30 @@ KT 9:1 키움(H)`;
                         const team1Style = winner === game.team1 ? 'color: #10b981;' : winner === game.team2 ? 'color: #ef4444;' : '';
                         const team2Style = winner === game.team2 ? 'color: #10b981;' : winner === game.team1 ? 'color: #ef4444;' : '';
 
+                        // 상대전적 계산
+                        const headToHead = this.calculateHeadToHead(game.team1, game.team2);
+                        const h2hText = headToHead ? `${headToHead.team1Wins}-${headToHead.team2Wins}-${headToHead.draws}` : '';
+
                         contentHTML = `
-                            <div style="display: flex; align-items: center; gap: 6px; flex: 1; justify-content: flex-start;">
-                                <img src="${this.teamLogos[game.team1]}" alt="${game.team1}" style="width: 18px; height: 18px; object-fit: contain;" onerror="this.style.display='none'">
-                                <span style="${team1Style} color: ${this.teamColors[game.team1]};">${game.team1}</span>
+                            <div style="display: flex; flex-direction: column; align-items: center; flex: 1;">
+                                <div style="display: flex; align-items: center; gap: 6px;">
+                                    <img src="${this.teamLogos[game.team1]}" alt="${game.team1}" style="width: 18px; height: 18px; object-fit: contain;" onerror="this.style.display='none'">
+                                    <span style="${team1Style} color: ${this.teamColors[game.team1]}; font-weight: 600;">${game.team1}</span>
+                                </div>
+                                ${h2hText ? `<div style="font-size: 10px; color: #9ca3af; margin-top: 2px;">${h2hText}</div>` : ''}
                             </div>
                             <div style="font-size: 16px; font-weight: bold; text-align: center; min-width: 70px;">
                                 <span style="${winner === game.team1 ? 'color: #10b981; font-weight: 800;' : winner === null ? 'color: #f59e0b; font-weight: 700;' : 'color: #6b7280;'}">${game.score1}</span>
                                 <span style="color: #6b7280;"> : </span>
                                 <span style="${winner === game.team2 ? 'color: #10b981; font-weight: 800;' : winner === null ? 'color: #f59e0b; font-weight: 700;' : 'color: #6b7280;'}">${game.score2}</span>
                             </div>
-                            <div style="display: flex; align-items: center; gap: 6px; flex: 1; justify-content: flex-end;">
-                                <span style="${team2Style} color: ${this.teamColors[game.team2]};">${game.team2}</span>
-                                <img src="${this.teamLogos[game.team2]}" alt="${game.team2}" style="width: 18px; height: 18px; object-fit: contain;" onerror="this.style.display='none'">
-                                ${game.isHome ? '<span style="font-size: 12px; color: #666; margin-left: 4px;">(홈)</span>' : ''}
+                            <div style="display: flex; flex-direction: column; align-items: center; flex: 1;">
+                                <div style="display: flex; align-items: center; gap: 6px;">
+                                    <span style="${team2Style} color: ${this.teamColors[game.team2]}; font-weight: 600;">${game.team2}</span>
+                                    <img src="${this.teamLogos[game.team2]}" alt="${game.team2}" style="width: 18px; height: 18px; object-fit: contain;" onerror="this.style.display='none'">
+                                    ${game.isHome ? '<span style="font-size: 12px; color: #666; margin-left: 4px;">(홈)</span>' : ''}
+                                </div>
+                                ${h2hText ? `<div style="font-size: 10px; color: #9ca3af; margin-top: 2px;">${headToHead.team2Wins}-${headToHead.team1Wins}-${headToHead.draws}</div>` : ''}
                             </div>`;
                     }
 
@@ -13449,7 +13469,70 @@ KT 9:1 키움(H)`;
                 
                 container.innerHTML = html;
             }
-            
+
+            // 두 팀 간 상대전적 계산 함수
+            calculateHeadToHead(team1, team2) {
+                if (!gameRecordsData) return null;
+
+                const team1Record = gameRecordsData[team1];
+                const team2Record = gameRecordsData[team2];
+
+                if (!team1Record || !team2Record) return null;
+
+                // team1의 관점에서 team2와의 경기 기록
+                const team1Games = team1Record.games.filter(game =>
+                    game.opponent === team2 && !game.isCancelled && game.result && game.result !== ''
+                );
+
+                // team2의 관점에서 team1과의 경기 기록
+                const team2Games = team2Record.games.filter(game =>
+                    game.opponent === team1 && !game.isCancelled && game.result && game.result !== ''
+                );
+
+                // 모든 경기 합치기
+                const allGames = [...team1Games, ...team2Games];
+
+                // 중복 제거 (같은 날짜의 경기)
+                const uniqueGames = [];
+                const seenDates = new Set();
+
+                for (const game of allGames) {
+                    const dateKey = `${game.date}`;
+                    if (!seenDates.has(dateKey)) {
+                        seenDates.add(dateKey);
+                        uniqueGames.push(game);
+                    }
+                }
+
+                let team1Wins = 0;
+                let team2Wins = 0;
+                let draws = 0;
+
+                uniqueGames.forEach(game => {
+                    // 현재 게임이 어느 팀 관점인지 확인
+                    const isTeam1Game = team1Games.includes(game);
+
+                    if (isTeam1Game) {
+                        // team1 관점의 게임
+                        if (game.result === 'W') team1Wins++;
+                        else if (game.result === 'L') team2Wins++;
+                        else if (game.result === 'D' || game.result === 'T') draws++;
+                    } else {
+                        // team2 관점의 게임
+                        if (game.result === 'W') team2Wins++;
+                        else if (game.result === 'L') team1Wins++;
+                        else if (game.result === 'D' || game.result === 'T') draws++;
+                    }
+                });
+
+                return {
+                    team1Wins,
+                    team2Wins,
+                    draws,
+                    totalGames: team1Wins + team2Wins + draws
+                };
+            }
+
             updateButtonStates() {
                 const prevBtn = document.getElementById('daily-stats-prev-btn');
                 const nextBtn = document.getElementById('daily-stats-next-btn');
