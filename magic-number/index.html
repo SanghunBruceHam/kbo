@@ -1178,137 +1178,12 @@
                             ⚾ 최근 경기 결과
                             <span style="font-size: 14px; color: #64748b; font-weight: normal; background: #f1f5f9; padding: 4px 10px; border-radius: 20px;">2025년 9월 13일 (금)</span>
                         </h2>
-                        <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px;">
-                        <!-- KIA vs LG -->
-                        <div style="background: #f8fafc; padding: 10px; border-radius: 10px; border: 1px solid #e2e8f0; position: relative; overflow: hidden;">
-                            <div style="text-align: center;">
-                                <!-- 원정팀 -->
-                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
-                                    <div style="display: flex; align-items: center; gap: 6px; flex: 1;">
-                                        <img src="images/teams/kia.png" alt="KIA 타이거즈 로고" style="width: 24px; height: 24px; object-fit: contain;">
-                                        <span style="font-weight: 600; font-size: 13px;">KIA<small style="color: #9ca3af; font-size: 10px; margin-left: 2px;">(8위) 5-11-0</small></span>
-                                    </div>
-                                    <span style="font-size: 20px; font-weight: 800; color: #059669;">6</span>
-                                </div>
-                                <!-- 홈팀 -->
-                                <div style="display: flex; align-items: center; justify-content: space-between;">
-                                    <div style="display: flex; align-items: center; gap: 6px; flex: 1;">
-                                        <img src="images/teams/lg.png" alt="LG 트윈스 로고" style="width: 24px; height: 24px; object-fit: contain;">
-                                        <span style="font-weight: 600; font-size: 13px;">LG<small style="color: #9ca3af; font-size: 10px; margin-left: 2px;">(1위) 11-5-0</small></span>
-                                    </div>
-                                    <span style="font-size: 20px; font-weight: 800; color: #94a3b8;">3</span>
-                                </div>
-                                <!-- 경기장 -->
-                                <div style="margin-top: 8px; padding-top: 8px; border-top: 1px solid #e5e7eb;">
-                                    <span style="font-size: 12px; color: #475569; font-weight: 500;">📍 잠실</span>
-                                </div>
+                        <div id="recent-games-container" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px;">
+                            <!-- 동적으로 로드됨 -->
+                            <div style="text-align: center; color: #6b7280; padding: 20px; grid-column: 1 / -1;">
+                                📊 최근 경기 결과를 불러오는 중...
                             </div>
                         </div>
-
-                        <!-- 키움 vs 한화 -->
-                        <div style="background: #f8fafc; padding: 10px; border-radius: 10px; border: 1px solid #e2e8f0; position: relative; overflow: hidden;">
-                            <div style="text-align: center;">
-                                <!-- 원정팀 -->
-                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
-                                    <div style="display: flex; align-items: center; gap: 6px; flex: 1;">
-                                        <img src="images/teams/kiwoom.png" alt="키움 히어로즈 로고" style="width: 24px; height: 24px; object-fit: contain;">
-                                        <span style="font-weight: 600; font-size: 13px;">키움<small style="color: #9ca3af; font-size: 10px; margin-left: 2px;">(10위) 2-13-0</small></span>
-                                    </div>
-                                    <span style="font-size: 20px; font-weight: 800; color: #94a3b8;">5</span>
-                                </div>
-                                <!-- 홈팀 -->
-                                <div style="display: flex; align-items: center; justify-content: space-between;">
-                                    <div style="display: flex; align-items: center; gap: 6px; flex: 1;">
-                                        <img src="images/teams/hanwha.png" alt="한화 이글스 로고" style="width: 24px; height: 24px; object-fit: contain;">
-                                        <span style="font-weight: 600; font-size: 13px;">한화<small style="color: #9ca3af; font-size: 10px; margin-left: 2px;">(2위) 13-2-0</small></span>
-                                    </div>
-                                    <span style="font-size: 20px; font-weight: 800; color: #059669;">10</span>
-                                </div>
-                                <!-- 경기장 -->
-                                <div style="margin-top: 8px; padding-top: 8px; border-top: 1px solid #e5e7eb;">
-                                    <span style="font-size: 12px; color: #475569; font-weight: 500;">📍 대전</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- SSG vs 롯데 -->
-                        <div style="background: #f8fafc; padding: 10px; border-radius: 10px; border: 1px solid #e2e8f0; position: relative; overflow: hidden;">
-                            <div style="text-align: center;">
-                                <!-- 원정팀 -->
-                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
-                                    <div style="display: flex; align-items: center; gap: 6px; flex: 1;">
-                                        <img src="images/teams/ssg.png" alt="SSG 랜더스 로고" style="width: 24px; height: 24px; object-fit: contain;">
-                                        <span style="font-weight: 600; font-size: 13px;">SSG<small style="color: #9ca3af; font-size: 10px; margin-left: 2px;">(3위) 9-6-0</small></span>
-                                    </div>
-                                    <span style="font-size: 20px; font-weight: 800; color: #94a3b8;">11</span>
-                                </div>
-                                <!-- 홈팀 -->
-                                <div style="display: flex; align-items: center; justify-content: space-between;">
-                                    <div style="display: flex; align-items: center; gap: 6px; flex: 1;">
-                                        <img src="images/teams/lotte.png" alt="롯데 자이언츠 로고" style="width: 24px; height: 24px; object-fit: contain;">
-                                        <span style="font-weight: 600; font-size: 13px;">롯데<small style="color: #9ca3af; font-size: 10px; margin-left: 2px;">(5위) 6-9-0</small></span>
-                                    </div>
-                                    <span style="font-size: 20px; font-weight: 800; color: #059669;">12</span>
-                                </div>
-                                <!-- 경기장 -->
-                                <div style="margin-top: 8px; padding-top: 8px; border-top: 1px solid #e5e7eb;">
-                                    <span style="font-size: 12px; color: #475569; font-weight: 500;">📍 사직</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- KT vs 삼성 -->
-                        <div style="background: #f8fafc; padding: 10px; border-radius: 10px; border: 1px solid #e2e8f0; position: relative; overflow: hidden;">
-                            <div style="text-align: center;">
-                                <!-- 원정팀 -->
-                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
-                                    <div style="display: flex; align-items: center; gap: 6px; flex: 1;">
-                                        <img src="images/teams/kt.png" alt="KT 위즈 로고" style="width: 24px; height: 24px; object-fit: contain;">
-                                        <span style="font-weight: 600; font-size: 13px;">KT<small style="color: #9ca3af; font-size: 10px; margin-left: 2px;">(4위) 10-5-0</small></span>
-                                    </div>
-                                    <span style="font-size: 20px; font-weight: 800; color: #059669;">5</span>
-                                </div>
-                                <!-- 홈팀 -->
-                                <div style="display: flex; align-items: center; justify-content: space-between;">
-                                    <div style="display: flex; align-items: center; gap: 6px; flex: 1;">
-                                        <img src="images/teams/samsung.png" alt="삼성 라이온즈 로고" style="width: 24px; height: 24px; object-fit: contain;">
-                                        <span style="font-weight: 600; font-size: 13px;">삼성<small style="color: #9ca3af; font-size: 10px; margin-left: 2px;">(6위) 5-10-0</small></span>
-                                    </div>
-                                    <span style="font-size: 20px; font-weight: 800; color: #94a3b8;">3</span>
-                                </div>
-                                <!-- 경기장 -->
-                                <div style="margin-top: 8px; padding-top: 8px; border-top: 1px solid #e5e7eb;">
-                                    <span style="font-size: 12px; color: #475569; font-weight: 500;">📍 대구</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- 두산 vs NC -->
-                        <div style="background: #f8fafc; padding: 10px; border-radius: 10px; border: 1px solid #e2e8f0; position: relative; overflow: hidden;">
-                            <div style="text-align: center;">
-                                <!-- 원정팀 -->
-                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
-                                    <div style="display: flex; align-items: center; gap: 6px; flex: 1;">
-                                        <img src="images/teams/doosan.png" alt="두산 베어스 로고" style="width: 24px; height: 24px; object-fit: contain;">
-                                        <span style="font-weight: 600; font-size: 13px;">두산<small style="color: #9ca3af; font-size: 10px; margin-left: 2px;">(9위) 5-8-0</small></span>
-                                    </div>
-                                    <span style="font-size: 20px; font-weight: 800; color: #94a3b8;">4</span>
-                                </div>
-                                <!-- 홈팀 -->
-                                <div style="display: flex; align-items: center; justify-content: space-between;">
-                                    <div style="display: flex; align-items: center; gap: 6px; flex: 1;">
-                                        <img src="images/teams/nc.png" alt="NC 다이노스 로고" style="width: 24px; height: 24px; object-fit: contain;">
-                                        <span style="font-weight: 600; font-size: 13px;">NC<small style="color: #9ca3af; font-size: 10px; margin-left: 2px;">(7위) 8-5-0</small></span>
-                                    </div>
-                                    <span style="font-size: 20px; font-weight: 800; color: #059669;">6</span>
-                                </div>
-                                <!-- 경기장 -->
-                                <div style="margin-top: 8px; padding-top: 8px; border-top: 1px solid #e5e7eb;">
-                                    <span style="font-size: 12px; color: #475569; font-weight: 500;">📍 창원</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     </div>
 
                     <!-- 예정 경기 콘텐츠 -->
@@ -3214,6 +3089,179 @@
 
 </div>
 </div>
+
+
+<!-- 최근 경기 결과 동적 로딩 스크립트 -->
+<script>
+async function loadRecentGames() {
+    const container = document.getElementById('recent-games-container');
+    if (!container) return;
+
+    try {
+        // 실제 데이터 로드 시도
+        const response = await fetch('data/2025-season-games.json');
+        const data = await response.json();
+
+        // 가장 최근 완료된 경기들 필터링
+        const completedGames = data.filter(game =>
+            game.home_score !== null && game.home_score !== undefined &&
+            game.away_score !== null && game.away_score !== undefined
+        );
+
+        // 날짜별로 정렬 (최신순)
+        completedGames.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+        // 가장 최근 날짜의 경기들만 추출
+        const latestDate = completedGames.length > 0 ? completedGames[0].date : null;
+        const latestGames = latestDate ? completedGames.filter(game => game.date === latestDate) : [];
+
+        if (latestGames.length === 0) {
+            container.innerHTML = `
+                <div style="text-align: center; color: #6b7280; padding: 20px; grid-column: 1 / -1;">
+                    📅 최근 완료된 경기가 없습니다
+                </div>
+            `;
+            return;
+        }
+
+        // 팀 로고 매핑
+        const teamLogos = {
+            'KIA': 'images/teams/kia.png', 'LG': 'images/teams/lg.png',
+            'SSG': 'images/teams/ssg.png', '두산': 'images/teams/doosan.png',
+            '삼성': 'images/teams/samsung.png', 'KT': 'images/teams/kt.png',
+            '롯데': 'images/teams/lotte.png', 'NC': 'images/teams/nc.png',
+            '한화': 'images/teams/hanwha.png', '키움': 'images/teams/kiwoom.png'
+        };
+
+        // 경기장 매핑
+        const stadiumMap = {
+            '서울 잠실야구장': '잠실', '부산 사직야구장': '사직',
+            '서울 고척스카이돔': '고척', '대전 한화생명이글스파크': '대전',
+            '대구 삼성라이온즈파크': '대구', '수원 KT위즈파크': '수원',
+            '인천 SSG랜더스필드': '인천', '창원 NC파크': '창원',
+            '광주 챔피언스필드': '광주'
+        };
+
+        // 날짜 포맷팅
+        const dateObj = new Date(latestDate);
+        const formattedDate = `${dateObj.getFullYear()}년 ${dateObj.getMonth() + 1}월 ${dateObj.getDate()}일`;
+        const dayNames = ['일', '월', '화', '수', '목', '금', '토'];
+        const dayOfWeek = dayNames[dateObj.getDay()];
+
+        // 헤더 날짜 업데이트
+        const dateSpan = document.querySelector('#content-results h2 span');
+        if (dateSpan) {
+            dateSpan.textContent = `${formattedDate} (${dayOfWeek})`;
+        }
+
+        // 순위 데이터 로드 시도
+        let standings = {};
+        try {
+            const standingsResponse = await fetch('data/calc-standings.json');
+            const standingsData = await standingsResponse.json();
+            if (standingsData && standingsData.rankings) {
+                standingsData.rankings.forEach((team) => {
+                    standings[team.team] = {
+                        rank: team.rank,
+                        wins: team.wins || 0,
+                        losses: team.losses || 0,
+                        draws: team.draws || 0
+                    };
+                });
+            }
+        } catch (e) {
+            console.warn('순위 데이터 로드 실패:', e);
+        }
+
+        // 상대전적 데이터 로드 시도
+        let headToHead = {};
+        try {
+            const h2hResponse = await fetch('data/calc-head-to-head.json');
+            const h2hData = await h2hResponse.json();
+            if (h2hData && h2hData.totalData) {
+                headToHead = h2hData.totalData;
+            }
+        } catch (e) {
+            console.warn('상대전적 데이터 로드 실패:', e);
+        }
+
+        // 경기 결과 HTML 생성 (기존 스타일 유지)
+        let gamesHTML = '';
+        latestGames.forEach(game => {
+            const awayTeam = game.away_team;
+            const homeTeam = game.home_team;
+            const awayScore = game.away_score;
+            const homeScore = game.home_score;
+            const stadium = stadiumMap[game.stadium] || game.stadium || '미정';
+
+            const awayWin = awayScore > homeScore;
+            const homeWin = homeScore > awayScore;
+
+            // 팀 순위 및 기록 정보
+            const awayRank = standings[awayTeam]?.rank || '?';
+            const homeRank = standings[homeTeam]?.rank || '?';
+            const awayRecord = standings[awayTeam] ?
+                `${standings[awayTeam].wins}-${standings[awayTeam].losses}-${standings[awayTeam].draws}` : '0-0-0';
+            const homeRecord = standings[homeTeam] ?
+                `${standings[homeTeam].wins}-${standings[homeTeam].losses}-${standings[homeTeam].draws}` : '0-0-0';
+
+            // 홈팀 기준 상대전적 계산
+            let h2hRecord = '';
+            if (headToHead[homeTeam] && headToHead[homeTeam][awayTeam]) {
+                const h2h = headToHead[homeTeam][awayTeam];
+                const h2hWins = h2h.wins || 0;
+                const h2hLosses = h2h.losses || 0;
+                const h2hDraws = h2h.draws || 0;
+                h2hRecord = `${h2hWins}-${h2hLosses}-${h2hDraws}`;
+            }
+
+            gamesHTML += `
+                <div style="background: #f8fafc; padding: 10px; border-radius: 10px; border: 1px solid #e2e8f0; position: relative; overflow: hidden;">
+                    <div style="text-align: center;">
+                        <!-- 원정팀 -->
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                            <div style="display: flex; align-items: center; gap: 6px; flex: 1;">
+                                <img src="${teamLogos[awayTeam] || 'images/teams/default.png'}" alt="${awayTeam} 로고" style="width: 24px; height: 24px; object-fit: contain;" onerror="this.style.display='none'">
+                                <span style="font-weight: 600; font-size: 13px;">${awayTeam}<small style="color: #9ca3af; font-size: 10px; margin-left: 2px;">(${awayRank}위) ${awayRecord}</small></span>
+                            </div>
+                            <span style="font-size: 20px; font-weight: 800; color: ${awayWin ? '#059669' : '#94a3b8'};">${awayScore}</span>
+                        </div>
+                        <!-- 홈팀 -->
+                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                            <div style="display: flex; align-items: center; gap: 6px; flex: 1;">
+                                <img src="${teamLogos[homeTeam] || 'images/teams/default.png'}" alt="${homeTeam} 로고" style="width: 24px; height: 24px; object-fit: contain;" onerror="this.style.display='none'">
+                                <span style="font-weight: 600; font-size: 13px;">${homeTeam}<small style="color: #9ca3af; font-size: 10px; margin-left: 2px;">(${homeRank}위) ${homeRecord}</small></span>
+                            </div>
+                            <span style="font-size: 20px; font-weight: 800; color: ${homeWin ? '#059669' : '#94a3b8'};">${homeScore}</span>
+                        </div>
+                        <!-- 홈팀 기준 상대전적 -->
+                        ${h2hRecord ? `<div style="margin-top: 6px; font-size: 11px; color: #6b7280; text-align: center;">${homeTeam} 기준 상대전적: ${h2hRecord}</div>` : ''}
+                        <!-- 경기장 -->
+                        <div style="margin-top: 8px; padding-top: 8px; border-top: 1px solid #e5e7eb;">
+                            <span style="font-size: 12px; color: #475569; font-weight: 500;">📍 ${stadium}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+
+        container.innerHTML = gamesHTML;
+
+    } catch (error) {
+        console.error('최근 경기 결과 로드 실패:', error);
+        container.innerHTML = `
+            <div style="text-align: center; color: #dc2626; padding: 20px; grid-column: 1 / -1;">
+                ❌ 경기 결과를 불러올 수 없습니다
+            </div>
+        `;
+    }
+}
+
+// 페이지 로드 시 실행
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(loadRecentGames, 1000); // 1초 후 로드
+});
+</script>
 
 </body>
 </html><!-- Updated at Tue Aug  5 10:21:58 JST 2025 -->
