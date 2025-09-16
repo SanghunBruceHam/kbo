@@ -309,6 +309,9 @@ class KBOWorkingCrawler:
                             # 완료된 경기와 취소 경기 모두 저장
                             completed_states = ["종료", "완료", "끝", "취소", "우천취소", "연기", "경기취소"]
                             cancelled_states = ["취소", "우천취소", "연기", "경기취소"]
+                            in_progress_states = ["경기중", "1회말", "2회말", "3회말", "4회말", "5회말", "6회말", "7회말", "8회말", "9회말",
+                                                 "1회초", "2회초", "3회초", "4회초", "5회초", "6회초", "7회초", "8회초", "9회초",
+                                                 "연장", "10회", "11회", "12회", "진행중"]
 
                             is_valid_game = (
                                 state in completed_states or
@@ -380,8 +383,8 @@ class KBOWorkingCrawler:
                                     else:
                                         print(f"  ✅ {normalized_away} {home_score}:{away_score} {normalized_home} [완료]")
                             else:
-                                # 경기전 상태인 경기들도 동일한 파일에 저장
-                                if state not in completed_states and state not in cancelled_states:
+                                # 경기전 상태인 경기들만 저장 (진행중인 경기는 제외)
+                                if state not in completed_states and state not in cancelled_states and state not in in_progress_states:
                                     # 경기전 경기 정보 생성
                                     # 추가 정보 추출
                                     time_cell = row.find('td', class_='td_time')
@@ -428,6 +431,8 @@ class KBOWorkingCrawler:
                                     games.append(schedule_game)
 
                                     print(f"  📅 {normalized_away} vs {normalized_home} [{state}] - 예정 경기 저장")
+                                elif state in in_progress_states:
+                                    print(f"  ⚾ {self.normalize_team_name(away_team)} vs {self.normalize_team_name(home_team)} [{state}] - 경기중, 완료 후 재크롤링 필요")
                                 else:
                                     print(f"  ⏳ {self.normalize_team_name(away_team)} vs {self.normalize_team_name(home_team)} [{state}] - 제외")
                 
