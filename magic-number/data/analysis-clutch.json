@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-09-16T11:37:40.019Z",
+  "lastUpdated": "2025-09-16T12:51:02.697Z",
   "updateDate": "2025. 9. 16.",
   "clutchAnalysis": {
     "LG": {
@@ -256,7 +256,7 @@
       "clutchIndex": "56.1"
     },
     "한화": {
-      "totalGames": 145,
+      "totalGames": 146,
       "oneRunGames": 40,
       "oneRunWins": 23,
       "oneRunLosses": 17,
@@ -269,7 +269,7 @@
       "threeRunWins": 20,
       "threeRunLosses": 17,
       "threeRunWinRate": "54.1",
-      "blowoutWins": 34,
+      "blowoutWins": 35,
       "blowoutScored": [
         {
           "date": "2025-03-28",
@@ -474,6 +474,12 @@
           "opponent": "키움",
           "score": "7:6",
           "runs": 7
+        },
+        {
+          "date": "2025-09-16",
+          "opponent": "KIA",
+          "score": "11:1",
+          "runs": 11
         }
       ],
       "blowoutLosses": 6,
@@ -517,8 +523,8 @@
       ],
       "shutoutWins": 12,
       "shutoutLosses": 9,
-      "highScoringGames": 14,
-      "highScoringWins": 13,
+      "highScoringGames": 15,
+      "highScoringWins": 14,
       "scorelessGames": 9,
       "comebackPotential": {
         "trailingWins": 0,
@@ -527,7 +533,7 @@
       "clutchIndex": "56.7"
     },
     "KIA": {
-      "totalGames": 149,
+      "totalGames": 150,
       "oneRunGames": 41,
       "oneRunWins": 20,
       "oneRunLosses": 21,
@@ -705,7 +711,7 @@
           "runs": 8
         }
       ],
-      "blowoutLosses": 8,
+      "blowoutLosses": 9,
       "blowoutAllowed": [
         {
           "date": "2025-03-26",
@@ -754,6 +760,12 @@
           "opponent": "LG",
           "score": "0:14",
           "diff": 14
+        },
+        {
+          "date": "2025-09-16",
+          "opponent": "한화",
+          "score": "1:11",
+          "diff": 10
         }
       ],
       "shutoutWins": 5,
@@ -1310,7 +1322,7 @@
       "clutchIndex": "51.5"
     },
     "SSG": {
-      "totalGames": 145,
+      "totalGames": 146,
       "oneRunGames": 36,
       "oneRunWins": 17,
       "oneRunLosses": 19,
@@ -1323,7 +1335,7 @@
       "threeRunWins": 23,
       "threeRunLosses": 17,
       "threeRunWinRate": "57.5",
-      "blowoutWins": 25,
+      "blowoutWins": 26,
       "blowoutScored": [
         {
           "date": "2025-03-30",
@@ -1474,6 +1486,12 @@
           "opponent": "삼성",
           "score": "8:4",
           "runs": 8
+        },
+        {
+          "date": "2025-09-16",
+          "opponent": "NC",
+          "score": "7:3",
+          "runs": 7
         }
       ],
       "blowoutLosses": 6,
@@ -1798,7 +1816,7 @@
       "clutchIndex": "52.0"
     },
     "두산": {
-      "totalGames": 141,
+      "totalGames": 142,
       "oneRunGames": 39,
       "oneRunWins": 16,
       "oneRunLosses": 23,
@@ -1807,10 +1825,10 @@
       "closeWins": 22,
       "closeLosses": 29,
       "closeWinRate": "43.1",
-      "threeRunGames": 31,
+      "threeRunGames": 32,
       "threeRunWins": 15,
-      "threeRunLosses": 16,
-      "threeRunWinRate": "48.4",
+      "threeRunLosses": 17,
+      "threeRunWinRate": "46.9",
       "blowoutWins": 27,
       "blowoutScored": [
         {
@@ -2042,10 +2060,10 @@
         "trailingWins": 0,
         "leadBlownLosses": 0
       },
-      "clutchIndex": "43.1"
+      "clutchIndex": "42.8"
     },
     "NC": {
-      "totalGames": 145,
+      "totalGames": 146,
       "oneRunGames": 29,
       "oneRunWins": 14,
       "oneRunLosses": 15,
@@ -2358,7 +2376,7 @@
       "clutchIndex": "52.6"
     },
     "키움": {
-      "totalGames": 145,
+      "totalGames": 146,
       "oneRunGames": 28,
       "oneRunWins": 18,
       "oneRunLosses": 10,
@@ -2367,10 +2385,10 @@
       "closeWins": 23,
       "closeLosses": 31,
       "closeWinRate": "42.6",
-      "threeRunGames": 41,
-      "threeRunWins": 13,
+      "threeRunGames": 42,
+      "threeRunWins": 14,
       "threeRunLosses": 28,
-      "threeRunWinRate": "31.7",
+      "threeRunWinRate": "33.3",
       "blowoutWins": 17,
       "blowoutScored": [
         {
@@ -2578,7 +2596,7 @@
         "trailingWins": 0,
         "leadBlownLosses": 0
       },
-      "clutchIndex": "51.3"
+      "clutchIndex": "51.6"
     }
   }
 }
