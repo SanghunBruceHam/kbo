@@ -88,10 +88,36 @@ class KBOWorkingCrawler:
         return existing_games
 
     def is_duplicate_game(self, game_date, game_time, home_team, away_team, new_state=None):
-        """경기 중복 여부 확인 - 상태 업데이트 고려"""
+        """경기 중복 여부 확인 - 오늘 날짜는 특별 처리"""
+        from datetime import datetime, timezone, timedelta
+
+        # 한국 시간으로 오늘 날짜 구하기
+        kst = timezone(timedelta(hours=9))
+        today = datetime.now(kst).strftime('%Y-%m-%d')
+
         existing_games = self.load_existing_games()
         game_key = f"{game_date}_{game_time}_{home_team}_{away_team}"
 
+        # 오늘 날짜 경기 처리
+        if game_date == today:
+            if game_key in existing_games:
+                existing_state = existing_games[game_key]['state']
+
+                # 오늘 날짜의 경기전/예정 경기는 삭제하고 새로 크롤링한 데이터로 대체
+                if existing_state in ["경기전", "예정"]:
+                    print(f"  🔄 오늘 경기 업데이트: {game_date} {game_time} {away_team} vs {home_team} ({existing_state} → {new_state})")
+                    self.mark_for_update(game_key, existing_games[game_key]['line'])
+                    return False  # 중복 아님 - 새 데이터로 대체
+
+                # 오늘 날짜의 완료/취소 경기는 그대로 유지
+                if existing_state in ["종료", "완료", "끝", "취소", "우천취소", "연기", "경기취소"]:
+                    print(f"  ✅ 오늘 완료/취소 경기 유지: {game_date} {game_time} {away_team} vs {home_team} [{existing_state}]")
+                    return True  # 중복으로 처리 - 기존 데이터 유지
+
+            # 오늘 날짜의 새로운 경기는 추가
+            return False
+
+        # 오늘이 아닌 날짜는 기존 로직 유지
         if game_key in existing_games:
             existing_state = existing_games[game_key]['state']
 
@@ -514,7 +540,14 @@ class KBOWorkingCrawler:
                         # 경기전 상태인 경우
                         score_part = "경기전"
 
-                    line = f"{game['time']:<8} {game['state']:<6} {game['stadium']:<6} {game['home_team']:<4} {game['away_team']:<4} {score_part:<8} {game['tv']:<8} {game['sort']}"
+                    # sort 필드에 페넌트레이스가 없으면 추가
+                    sort_info = game['sort']
+                    if not sort_info or sort_info == "":
+                        sort_info = "페넌트레이스"
+                    elif "페넌트레이스" not in sort_info and "올스타" not in sort_info:
+                        sort_info = "페넌트레이스"
+
+                    line = f"{game['time']:<8} {game['state']:<6} {game['stadium']:<6} {game['home_team']:<4} {game['away_team']:<4} {score_part:<8} {game['tv']:<8} {sort_info}"
 
                     # set에 추가하므로 자동으로 중복 제거됨
                     all_data[date].add(line)

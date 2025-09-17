@@ -19,32 +19,50 @@ function parseSeasonData() {
         // 새로운 형식 패턴: "시간 상태 구장 홈팀 어웨이팀 점수 방송사 구분"
         else if (trimmed && currentDate) {
             const parts = trimmed.split(/\s+/);
-            if (parts.length >= 8) {
+            if (parts.length >= 7) {  // 7개로 변경 (페넌트레이스 없는 경우도 처리)
                 const [time, state, stadium, homeTeam, awayTeam, scoreOrStatus, broadcast, ...categoryParts] = parts;
-                const category = categoryParts.join(' ');
+                const category = categoryParts.join(' ') || '';  // 빈 문자열 기본값
 
-                // 페넌트레이스 게임이면서 완료된 경기만 처리 (종료된 경기만)
-                if (state === '종료' && category.includes('페넌트레이스')) {
-                    // 점수 파싱 (away:home 형식)
-                    const scoreMatch = scoreOrStatus.match(/^(\d+):(\d+)$/);
-                    if (scoreMatch) {
-                        const [, awayScore, homeScore] = scoreMatch;
-                        const away_score = parseInt(awayScore);
-                        const home_score = parseInt(homeScore);
+                // 페넌트레이스 게임 처리 (종료, 취소 모두 포함)
+                // 페넌트레이스가 명시되어 있거나, 취소/종료 경기는 모두 포함
+                if (category.includes('페넌트레이스') || state === '경기취소' || state === '종료') {
+                    if (state === '종료') {
+                        // 완료된 경기 - 점수 파싱
+                        const scoreMatch = scoreOrStatus.match(/^(\d+):(\d+)$/);
+                        if (scoreMatch) {
+                            const [, awayScore, homeScore] = scoreMatch;
+                            const away_score = parseInt(awayScore);
+                            const home_score = parseInt(homeScore);
 
+                            games.push({
+                                date: currentDate,
+                                time: time,
+                                stadium: stadium,
+                                away_team: awayTeam,
+                                home_team: homeTeam,
+                                away_score: away_score,
+                                home_score: home_score,
+                                winner: away_score > home_score ? awayTeam :
+                                       (away_score < home_score ? homeTeam : 'draw'),
+                                broadcast: broadcast,
+                                category: category,
+                                state: state
+                            });
+                        }
+                    } else if (state === '경기취소' || scoreOrStatus === '취소') {
+                        // 취소된 경기
                         games.push({
                             date: currentDate,
                             time: time,
                             stadium: stadium,
                             away_team: awayTeam,
                             home_team: homeTeam,
-                            away_score: away_score,
-                            home_score: home_score,
-                            winner: away_score > home_score ? awayTeam :
-                                   (away_score < home_score ? homeTeam : 'draw'),
+                            away_score: 0,
+                            home_score: 0,
+                            winner: null,
                             broadcast: broadcast,
                             category: category,
-                            state: state
+                            state: '경기취소'
                         });
                     }
                 }
