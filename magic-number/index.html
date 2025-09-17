@@ -3201,23 +3201,25 @@ async function loadRecentGames() {
                 <div style="background: ${isCancelled ? '#fef2f2' : '#f8fafc'}; padding: 10px; border-radius: 10px; border: 1px solid ${isCancelled ? '#fecaca' : '#e2e8f0'}; position: relative; overflow: hidden;">
                     <div style="text-align: center;">
                         ${isCancelled ?
-                        `<!-- 취소된 경기 -->
-                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                        `<!-- 취소된 경기 - 원정팀 -->
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
                             <div style="display: flex; align-items: center; gap: 6px; flex: 1;">
                                 <img src="${teamLogos[awayTeam] || 'images/teams/default.png'}" alt="${awayTeam} 로고" style="width: 24px; height: 24px; object-fit: contain;" onerror="this.style.display='none'">
-                                <span style="font-weight: 600; font-size: 13px; color: #6b7280;">${awayTeam}<small style="color: #9ca3af; font-size: 10px; margin-left: 2px;">(${awayRank}위)</small></span>
+                                <span style="font-weight: 600; font-size: 13px; color: #6b7280;">${awayTeam}<small style="color: #9ca3af; font-size: 10px; margin-left: 2px;">(${awayRank}위) ${awayRecord}</small></span>
                             </div>
+                            <span style="font-size: 20px; font-weight: 800; color: #dc2626;">취소</span>
                         </div>
-                        <div style="font-size: 16px; font-weight: 700; color: #dc2626; margin: 8px 0;">❌ 경기 취소</div>
+                        <!-- 취소된 경기 - 홈팀 -->
                         <div style="display: flex; align-items: center; justify-content: space-between;">
                             <div style="display: flex; align-items: center; gap: 6px; flex: 1;">
                                 <img src="${teamLogos[homeTeam] || 'images/teams/default.png'}" alt="${homeTeam} 로고" style="width: 24px; height: 24px; object-fit: contain;" onerror="this.style.display='none'">
-                                <span style="font-weight: 600; font-size: 13px; color: #6b7280;">${homeTeam}<small style="color: #9ca3af; font-size: 10px; margin-left: 2px;">(${homeRank}위)</small></span>
+                                <span style="font-weight: 600; font-size: 13px; color: #6b7280;">${homeTeam}<small style="color: #9ca3af; font-size: 10px; margin-left: 2px;">(${homeRank}위) ${homeRecord}</small></span>
                             </div>
+                            <span style="font-size: 20px; font-weight: 800; color: #dc2626;">❌</span>
                         </div>`
                         :
                         `<!-- 원정팀 -->
-                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
                             <div style="display: flex; align-items: center; gap: 6px; flex: 1;">
                                 <img src="${teamLogos[awayTeam] || 'images/teams/default.png'}" alt="${awayTeam} 로고" style="width: 24px; height: 24px; object-fit: contain;" onerror="this.style.display='none'">
                                 <span style="font-weight: 600; font-size: 13px;">${awayTeam}<small style="color: #9ca3af; font-size: 10px; margin-left: 2px;">(${awayRank}위) ${awayRecord}</small></span>
@@ -3234,7 +3236,7 @@ async function loadRecentGames() {
                         </div>`
                         }
                         <!-- 홈팀 기준 상대전적 -->
-                        ${!isCancelled && h2hRecord ? `<div style="margin-top: 6px; font-size: 11px; color: #6b7280; text-align: center;">${homeTeam} 기준 상대전적: ${h2hRecord}</div>` : ''}
+                        ${h2hRecord ? `<div style="margin-top: 6px; font-size: 11px; color: #6b7280; text-align: center;">${homeTeam} 기준 상대전적: ${h2hRecord}</div>` : ''}
                         <!-- 경기장 -->
                         <div style="margin-top: 8px; padding-top: 8px; border-top: 1px solid #e5e7eb;">
                             <span style="font-size: 12px; color: #475569; font-weight: 500;">📍 ${stadium}</span>
