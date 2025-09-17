@@ -3082,18 +3082,19 @@ async function loadRecentGames() {
         const response = await fetch('data/2025-season-games.json');
         const data = await response.json();
 
-        // 가장 최근 완료된 경기들 필터링
-        const completedGames = data.filter(game =>
-            game.home_score !== null && game.home_score !== undefined &&
-            game.away_score !== null && game.away_score !== undefined
+        // 가장 최근 경기들 필터링 (완료 + 취소 경기 포함)
+        const recentGames = data.filter(game =>
+            (game.home_score !== null && game.home_score !== undefined &&
+             game.away_score !== null && game.away_score !== undefined) ||
+            game.state === '경기취소'
         );
 
         // 날짜별로 정렬 (최신순)
-        completedGames.sort((a, b) => new Date(b.date) - new Date(a.date));
+        recentGames.sort((a, b) => new Date(b.date) - new Date(a.date));
 
         // 가장 최근 날짜의 경기들만 추출
-        const latestDate = completedGames.length > 0 ? completedGames[0].date : null;
-        const latestGames = latestDate ? completedGames.filter(game => game.date === latestDate) : [];
+        const latestDate = recentGames.length > 0 ? recentGames[0].date : null;
+        const latestGames = latestDate ? recentGames.filter(game => game.date === latestDate) : [];
 
         if (latestGames.length === 0) {
             container.innerHTML = `
@@ -3173,9 +3174,10 @@ async function loadRecentGames() {
             const awayScore = game.away_score;
             const homeScore = game.home_score;
             const stadium = stadiumMap[game.stadium] || game.stadium || '미정';
+            const isCancelled = game.state === '경기취소';
 
-            const awayWin = awayScore > homeScore;
-            const homeWin = homeScore > awayScore;
+            const awayWin = !isCancelled && awayScore > homeScore;
+            const homeWin = !isCancelled && homeScore > awayScore;
 
             // 팀 순위 및 기록 정보
             const awayRank = standings[awayTeam]?.rank || '?';
@@ -3196,9 +3198,25 @@ async function loadRecentGames() {
             }
 
             gamesHTML += `
-                <div style="background: #f8fafc; padding: 10px; border-radius: 10px; border: 1px solid #e2e8f0; position: relative; overflow: hidden;">
+                <div style="background: ${isCancelled ? '#fef2f2' : '#f8fafc'}; padding: 10px; border-radius: 10px; border: 1px solid ${isCancelled ? '#fecaca' : '#e2e8f0'}; position: relative; overflow: hidden;">
                     <div style="text-align: center;">
-                        <!-- 원정팀 -->
+                        ${isCancelled ?
+                        `<!-- 취소된 경기 -->
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                            <div style="display: flex; align-items: center; gap: 6px; flex: 1;">
+                                <img src="${teamLogos[awayTeam] || 'images/teams/default.png'}" alt="${awayTeam} 로고" style="width: 24px; height: 24px; object-fit: contain;" onerror="this.style.display='none'">
+                                <span style="font-weight: 600; font-size: 13px; color: #6b7280;">${awayTeam}<small style="color: #9ca3af; font-size: 10px; margin-left: 2px;">(${awayRank}위)</small></span>
+                            </div>
+                        </div>
+                        <div style="font-size: 16px; font-weight: 700; color: #dc2626; margin: 8px 0;">❌ 경기 취소</div>
+                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                            <div style="display: flex; align-items: center; gap: 6px; flex: 1;">
+                                <img src="${teamLogos[homeTeam] || 'images/teams/default.png'}" alt="${homeTeam} 로고" style="width: 24px; height: 24px; object-fit: contain;" onerror="this.style.display='none'">
+                                <span style="font-weight: 600; font-size: 13px; color: #6b7280;">${homeTeam}<small style="color: #9ca3af; font-size: 10px; margin-left: 2px;">(${homeRank}위)</small></span>
+                            </div>
+                        </div>`
+                        :
+                        `<!-- 원정팀 -->
                         <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
                             <div style="display: flex; align-items: center; gap: 6px; flex: 1;">
                                 <img src="${teamLogos[awayTeam] || 'images/teams/default.png'}" alt="${awayTeam} 로고" style="width: 24px; height: 24px; object-fit: contain;" onerror="this.style.display='none'">
@@ -3213,9 +3231,10 @@ async function loadRecentGames() {
                                 <span style="font-weight: 600; font-size: 13px;">${homeTeam}<small style="color: #9ca3af; font-size: 10px; margin-left: 2px;">(${homeRank}위) ${homeRecord}</small></span>
                             </div>
                             <span style="font-size: 20px; font-weight: 800; color: ${homeWin ? '#059669' : '#94a3b8'};">${homeScore}</span>
-                        </div>
+                        </div>`
+                        }
                         <!-- 홈팀 기준 상대전적 -->
-                        ${h2hRecord ? `<div style="margin-top: 6px; font-size: 11px; color: #6b7280; text-align: center;">${homeTeam} 기준 상대전적: ${h2hRecord}</div>` : ''}
+                        ${!isCancelled && h2hRecord ? `<div style="margin-top: 6px; font-size: 11px; color: #6b7280; text-align: center;">${homeTeam} 기준 상대전적: ${h2hRecord}</div>` : ''}
                         <!-- 경기장 -->
                         <div style="margin-top: 8px; padding-top: 8px; border-top: 1px solid #e5e7eb;">
                             <span style="font-size: 12px; color: #475569; font-weight: 500;">📍 ${stadium}</span>
