@@ -3227,11 +3227,42 @@ const kboTeams = {
 
         function analyzeFirstPlaceRace(topTeams) {
             if (topTeams.length === 0) return '데이터 없음';
+
+            // 1위와 동순위인 팀들 찾기
             const firstPlace = topTeams[0];
-            return `${firstPlace.team} 독주 체제`;
+            const firstPlaceTeams = topTeams.filter(team =>
+                team.displayRank === firstPlace.displayRank
+            );
+
+            if (firstPlaceTeams.length === 1) {
+                return `${firstPlace.team} 독주 체제`;
+            } else {
+                const teamNames = firstPlaceTeams.map(team => team.team).join(', ');
+                return `${teamNames} 공동 ${firstPlace.displayRank}위`;
+            }
         }
 
         function analyzePlayoffRace(topTeams) {
+            if (topTeams.length === 0) return '데이터 없음';
+
+            // 5위 이하 팀들 중 동순위 확인
+            const fifthPlaceRank = 5;
+            const fifthPlaceTeams = topTeams.filter(team => team.displayRank === fifthPlaceRank);
+
+            if (fifthPlaceTeams.length > 1) {
+                const teamNames = fifthPlaceTeams.map(team => team.team).join(', ');
+                return `${teamNames} 공동 5위 경쟁`;
+            }
+
+            // 6위 이하에서 5위 진출 가능한 팀들 확인
+            const closeContenders = topTeams.filter(team =>
+                team.displayRank > 5 && team.displayRank <= 7
+            );
+
+            if (closeContenders.length > 0) {
+                return '5위 진출권 치열한 경쟁';
+            }
+
             return '상위 5팀 고정';
         }
 
