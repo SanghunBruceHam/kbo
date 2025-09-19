@@ -1926,16 +1926,29 @@ const kboTeams = {
                     }
                 }
                 
-                // 1-5위 박스 스타일 정의 (더 강력한 테두리)
+                // 1-5위 박스 스타일 정의 - 동순위 처리 포함
                 let rowStyle = '';
+
+                // 포스트시즌 진출권 박스 로직 (1-5위)
                 if (team.displayRank <= 5) {
                     rowStyle += 'border-left: 4px solid red !important; border-right: 4px solid red !important;';
-                    
+
+                    // 1위팀 상단 테두리
                     if (team.displayRank === 1) {
                         rowStyle += 'border-top: 4px solid red !important; border-top-left-radius: 6px !important; border-top-right-radius: 6px !important;';
                     }
-                    
-                    if (team.displayRank === 5) {
+
+                    // 5위 그룹의 마지막 팀 하단 테두리 처리
+                    const isLastInTop5Group = (() => {
+                        // 현재 팀이 5위권에 있고, 다음 팀이 6위 이하인 경우
+                        const currentTeamIndex = index;
+                        const nextTeam = currentStandings[currentTeamIndex + 1];
+
+                        // 다음 팀이 없거나 6위 이하인 경우 마지막 5위 그룹
+                        return !nextTeam || nextTeam.displayRank > 5;
+                    })();
+
+                    if (isLastInTop5Group) {
                         rowStyle += 'border-bottom: 4px solid red !important; border-bottom-left-radius: 6px !important; border-bottom-right-radius: 6px !important; box-shadow: 0 2px 8px rgba(255, 0, 0, 0.15) !important;';
                     }
                 }
