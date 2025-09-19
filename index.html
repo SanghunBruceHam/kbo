@@ -12079,41 +12079,23 @@
                         return;
                     }
 
+                    // 매직넘버 방식 개선: 브라우저 기본 스크롤 + 네비 높이만 고려
                     e.preventDefault();
                     const targetId = item.getAttribute('href').substring(1);
                     const targetSection = document.getElementById(targetId);
 
                     if (targetSection) {
-                        // 정확한 스크롤 위치 계산
+                        // 네비게이션 높이만 고려한 최소한의 오프셋
                         const nav = document.querySelector('.navigation');
-                        const header = document.querySelector('.header');
                         const navHeight = nav ? nav.offsetHeight : 80;
-                        const headerHeight = header ? header.offsetHeight : 0;
 
-                        // 섹션 내에서 h2 제목 요소 찾기
-                        const h2Element = targetSection.querySelector('h2');
-                        let titlePosition;
-
-                        if (h2Element) {
-                            // h2 제목의 절대 위치 계산
-                            titlePosition = h2Element.getBoundingClientRect().top + window.pageYOffset;
-                        } else {
-                            // h2가 없으면 섹션 시작점
-                            titlePosition = targetSection.offsetTop + 20;
-                        }
-
-                        // h2 제목이 네비게이션 바로 아래 오도록 조정
-                        const targetPosition = titlePosition - navHeight - headerHeight;
+                        // 섹션 위치에서 네비 높이만 빼기 (간단한 계산)
+                        const targetPosition = targetSection.offsetTop - navHeight;
 
                         window.scrollTo({
                             top: Math.max(0, targetPosition),
                             behavior: 'smooth'
                         });
-
-                        // 스크롤 완료 후 URL에서 해시 제거 (2초 후)
-                        setTimeout(() => {
-                            history.replaceState(null, null, window.location.pathname + window.location.search);
-                        }, 2000);
                     }
                 });
             });
