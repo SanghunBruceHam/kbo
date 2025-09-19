@@ -47,7 +47,20 @@ function kthLargest(arr, k) {
 function buildCurrentRankMap(results){
     const sorted = [...results].sort((a,b)=> b.winPct - a.winPct);
     const m = new Map();
-    sorted.forEach((r, idx)=> m.set(r.team, idx+1));
+
+    // 동순위 처리: 승률이 같으면 같은 순위 부여
+    let currentRank = 1;
+    let previousWinPct = null;
+
+    sorted.forEach((r, idx) => {
+        // 이전 팀과 승률이 다르면 실제 순위로 업데이트
+        if (previousWinPct !== null && r.winPct !== previousWinPct) {
+            currentRank = idx + 1;
+        }
+        m.set(r.team, currentRank);
+        previousWinPct = r.winPct;
+    });
+
     return m;
 }
 
@@ -159,16 +172,25 @@ async function loadMatrixData() {
         const response = await fetch('data/calc-magic-numbers.json');
         const data = await response.json();
 
-        if (Array.isArray(data.playoffResults)) {
-            matrixTeams = data.playoffResults.map(r => ({
+        // results 배열에서 정확한 순위와 승률 정보 가져오기
+        if (Array.isArray(data.results)) {
+            matrixTeams = data.results.map(r => ({
                 id: r.team,
+                team: r.team,
                 W: r.wins,
                 L: r.losses,
-                T: r.draws ?? 0
+                T: 0, // draws 정보가 results에 없으므로 0으로 설정
+                winPct: r.winRate,
+                rank: r.rank
             }));
-            matrixRemainingMap = new Map(data.playoffResults.map(r => [r.team, r.remainingGames]));
         } else {
             matrixTeams = [];
+        }
+
+        // playoffResults에서 남은 경기수 정보 가져오기
+        if (Array.isArray(data.playoffResults)) {
+            matrixRemainingMap = new Map(data.playoffResults.map(r => [r.team, r.remainingGames]));
+        } else {
             matrixRemainingMap = new Map();
         }
 
@@ -197,7 +219,8 @@ function calculateMatrix() {
 function renderMatrixTable() {
     if (matrixResults.length === 0) return;
 
-    const currentRankMap = buildCurrentRankMap(matrixResults);
+    // 이미 로드된 정확한 순위 정보 사용 (동순위 처리 포함)
+    const currentRankMap = matrixCurrentRanksMap;
 
     const ranks = [9, 8, 7, 6, 5, 4, 3, 2, 1];
     let html = '<div class="matrix-table-container"><table class="magic-matrix-table">';
@@ -307,7 +330,7 @@ function renderMatrixTable() {
 
         function renderRankCell(row, rank, teamColor) {
             // Magic(strict) for rank >= currentRank, Tragic(tieOK) for rank < currentRank
-            const currentRank = buildCurrentRankMap(matrixResults).get(row.team) ?? getCurrentRank(row, matrixResults);
+            const currentRank = matrixCurrentRanksMap.get(row.team) ?? getCurrentRank(row, matrixResults);
             const xVal = row[`x${rank}_strict`];
             const yVal = row[`y${rank}_tieOK`];
             // anyBetterPossible: for rank >= currentRank, check if any y{j}_tieOK > 0 for j=1..rank-1

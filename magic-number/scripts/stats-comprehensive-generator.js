@@ -211,12 +211,25 @@ class EnhancedDashboardGenerator {
         
         // 게임차 계산
         const leader = standings[0];
-        return standings.map((team, index) => ({
-            rank: index + 1,
+        // 승률이 같은 팀에게 같은 순위 부여
+        let currentRank = 1;
+        let previousWinRate = null;
+
+        return standings.map((team, index) => {
+            const winRate = team.wins / (team.wins + team.losses);
+            // 이전 팀과 승률이 다르면 실제 순위로 업데이트
+            if (previousWinRate !== null && winRate !== previousWinRate) {
+                currentRank = index + 1;
+            }
+            previousWinRate = winRate;
+
+            return {
+            rank: currentRank,
             ...team,
-            games_behind: index === 0 ? '-' : 
+            games_behind: currentRank === 1 ? '-' :
                 ((leader.wins - team.wins) + (team.losses - leader.losses)) / 2
-        }));
+        }});
+    }
     }
 
     calculatePythagorean(runsScored, runsAllowed) {

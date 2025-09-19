@@ -1622,7 +1622,7 @@ const kboTeams = {
                     
                     // 1위팀은 CSS 클래스로 처리하므로 단순하게 HTML 생성
                     row.innerHTML = `
-                        <td>${index + 1}</td>
+                        <td>${team.displayRank || team.rank || index + 1}</td>
                         <td class="${teamClass}">
                             ${kboTeams[team.team]?.logo || ''} ${team.team}
                         </td>
@@ -1676,12 +1676,8 @@ const kboTeams = {
                 currentStandings.forEach((team, index) => {
                 const teamData = kboTeams[team.team];
                 
-                // displayRank 설정
-                if (!team.displayRank && !team.rank) {
-                    team.displayRank = index + 1;
-                } else {
-                    team.displayRank = team.displayRank || team.rank;
-                }
+                // displayRank 설정 - 이미 calc-standings.json에서 올바른 순위가 설정됨
+                team.displayRank = team.rank || team.displayRank || (index + 1);
                 
                 const remainingGames = 144 - team.games;
                 const maxPossibleWins = team.wins + remainingGames;
@@ -1997,7 +1993,7 @@ const kboTeams = {
 
         function determineCellData(team, rankPosition, championshipMagic, playoffMagic, tragicNumber, teamIndex) {
             // 나무위키 스타일 매직넘버 차트 색상 결정 로직
-            const currentRank = teamIndex + 1; // 1-based rank
+            const currentRank = team.rank || team.displayRank || (teamIndex + 1); // 실제 순위 사용
             
             // 1위 열: 우승 매직넘버
             if (rankPosition === 1) {
@@ -3431,7 +3427,7 @@ const kboTeams = {
             // 필터링: 새창에서는 모든 팀, 메인에서는 경쟁 가능한 팀만
             const playoffContenders = skipFiltering ? topTeams : topTeams.filter(team => {
                 // 상위 8팀은 무조건 포함 (더 관대하게)
-                const currentRank = topTeams.findIndex(t => t.team === team.team) + 1;
+                const currentRank = team.rank || team.displayRank || (topTeams.findIndex(t => t.team === team.team) + 1);
                 if (currentRank <= 8) {
                     return true;
                 }

@@ -276,8 +276,17 @@ async function loadRealKBOData() {
                         return a.losses - b.losses;
                     });
                     
+                    // 승률과 상대전적을 고려한 순위 설정
+                    let currentRank = 1;
+                    let previousWinRate = null;
                     standings.forEach((team, index) => {
-                        team.rank = index + 1;
+                        const winPct = team.winPct;
+                        // 이전 팀과 승률이 다르면 실제 순위로 업데이트
+                        if (previousWinRate !== null && winPct !== previousWinRate) {
+                            currentRank = index + 1;
+                        }
+                        team.rank = currentRank;
+                        previousWinRate = winPct;
                     });
                     
                     seasonData.push({
@@ -417,7 +426,7 @@ function generateMockData() {
             const rankData = [];
             for (let d = 1; d <= 30; d++) {
                 // 랜덤하게 순위 변동
-                const baseRank = index + 1;
+                const baseRank = team.rank || (index + 1);
                 const variation = Math.floor(Math.random() * 3) - 1; // -1, 0, 1
                 const rank = Math.max(1, Math.min(10, baseRank + variation));
                 rankData.push(rank);

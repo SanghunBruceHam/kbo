@@ -222,7 +222,7 @@ function calculateRankingMagicNumbers(standings, totalGames = 144) {
     return standings.map((team, index) => {
         return {
             team: team.team,
-            currentRank: index + 1,
+            currentRank: team.rank || team.displayRank || (index + 1),
             championshipMagic: index === 0 ? calculateChampionshipMagic(team, standings, totalGames) : 999,
             rank2Magic: calculateRankMagic(team, standings, 1, totalGames),
             rank3Magic: calculateRankMagic(team, standings, 2, totalGames),
@@ -245,7 +245,7 @@ function calculateMagicNumbers(serviceData) {
     const results = [];
     
     standings.forEach((team, index) => {
-        const rank = index + 1;
+        const rank = team.rank || team.displayRank || (index + 1);
         const wins = team.wins;
         const losses = team.losses;
         const gamesPlayed = wins + losses;
