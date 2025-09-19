@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-09-19T13:09:36.445Z",
+  "lastUpdated": "2025-09-19T13:31:57.418Z",
   "updateDate": "2025. 9. 19.",
   "clutchAnalysis": {
     "LG": {
@@ -1575,7 +1575,7 @@
       "clutchIndex": "49.6"
     },
     "롯데": {
-      "totalGames": 148,
+      "totalGames": 149,
       "oneRunGames": 29,
       "oneRunWins": 15,
       "oneRunLosses": 14,
@@ -1588,7 +1588,7 @@
       "threeRunWins": 24,
       "threeRunLosses": 26,
       "threeRunWinRate": "48.0",
-      "blowoutWins": 27,
+      "blowoutWins": 28,
       "blowoutScored": [
         {
           "date": "2025-04-10",
@@ -1751,6 +1751,12 @@
           "opponent": "SSG",
           "score": "12:11",
           "runs": 12
+        },
+        {
+          "date": "2025-09-19",
+          "opponent": "NC",
+          "score": "18:2",
+          "runs": 18
         }
       ],
       "blowoutLosses": 13,
@@ -1836,8 +1842,8 @@
       ],
       "shutoutWins": 7,
       "shutoutLosses": 12,
-      "highScoringGames": 8,
-      "highScoringWins": 7,
+      "highScoringGames": 9,
+      "highScoringWins": 8,
       "scorelessGames": 12,
       "comebackPotential": {
         "trailingWins": 0,
@@ -2093,7 +2099,7 @@
       "clutchIndex": "43.4"
     },
     "NC": {
-      "totalGames": 151,
+      "totalGames": 152,
       "oneRunGames": 29,
       "oneRunWins": 14,
       "oneRunLosses": 15,
@@ -2301,7 +2307,7 @@
           "runs": 9
         }
       ],
-      "blowoutLosses": 15,
+      "blowoutLosses": 16,
       "blowoutAllowed": [
         {
           "date": "2025-03-22",
@@ -2392,6 +2398,12 @@
           "opponent": "두산",
           "score": "3:12",
           "diff": 9
+        },
+        {
+          "date": "2025-09-19",
+          "opponent": "롯데",
+          "score": "2:18",
+          "diff": 16
         }
       ],
       "shutoutWins": 9,
