@@ -74,12 +74,12 @@ function bannerTd({teamColor, colspan, stage, sub, cls='banner-top', crosses=fal
 function cellLabelAndClass({rank, currentRank, x, y, xraw, R}){
     if (rank < currentRank) {
         // 5위 이하 불가능인 경우 포스트시즌 진출 실패 문구 추가
-        const postSeasonText = (rank >= 5 && y === 0) ? '<br><small style="font-size: 11px; font-weight: 600;">포스트시즌 진출 실패</small>' : '';
+    const postSeasonText = (rank >= 5 && y === 0) ? '<br><small style="font-size: 12px; font-weight: 700;">포스트시즌 진출 실패</small>' : '';
         return {label: (y===0? `${rank}위 불가${postSeasonText}`: String(y)), cls: (y===0?'magic-impossible':'magic-danger')};
     }
     if (rank===currentRank && xraw>R) return {label:String(R), cls:'magic-selflimit'};
     // 5위 이하 불가능인 경우 포스트시즌 진출 실패 문구 추가
-    const postSeasonText = (rank >= 5) ? '<br><small style="font-size: 11px; font-weight: 600;">포스트시즌 진출 실패</small>' : '';
+    const postSeasonText = (rank >= 5) ? '<br><small style="font-size: 12px; font-weight: 700;">포스트시즌 진출 실패</small>' : '';
     if (y===0)                          return {label:`${rank}위 불가${postSeasonText}`, cls:'magic-impossible'};
     if (xraw>R)                         return {label:String(R), cls:'magic-selflimit'};
     if (x===0)                          return {label:'확보', cls:'magic-confirmed'};
@@ -349,7 +349,7 @@ function renderMatrixTable() {
                 // Tragic side
                 if (yVal === 0) {
                     // 5위 이하 불가능인 경우 포스트시즌 진출 실패 문구 추가
-                    const postSeasonText = (rank >= 5) ? '<br><small style="font-size: 11px; font-weight: 600;">포스트시즌 진출 실패</small>' : '';
+                    const postSeasonText = (rank >= 5) ? '<br><small style="font-size: 12px; font-weight: 700;">포스트시즌 진출 실패</small>' : '';
                     return `<td class="magic-cell magic-impossible${dividerClass}">${rank}위 불가${postSeasonText}</td>`;
                 }
                 // Remove "T" prefix
@@ -460,7 +460,7 @@ function renderMatrixTable() {
                     const dividerClass = (ranks[ci] === 5) ? 'playoff-divider-left' : '';
                     const lowestRank = Math.max(...spanRanks);
                     // 5위 이하 불가능인 경우 포스트시즌 진출 실패 문구 추가
-                    const postSeasonText = (lowestRank >= 5) ? '<br><small style="font-size: 10px; opacity: 0.9;">포스트시즌 진출 실패</small>' : '';
+                    const postSeasonText = (lowestRank >= 5) ? '<br><small style="font-size: 12px; font-weight: 700;">포스트시즌 진출 실패</small>' : '';
                     html += `<td class="magic-cell magic-impossible ${dividerClass}" colspan="${colspan}" style="border-color:${teamColor};">${lowestRank}위 불가${postSeasonText}</td>`;
                     ci = cj;
                     continue;
@@ -498,7 +498,7 @@ function renderMatrixTable() {
                     const dividerClass = (ranks[ci] === 5) ? 'playoff-divider-left' : '';
                     const lowestRank = Math.max(...spanRanks);
                     // 5위 이하 불가능인 경우 포스트시즌 진출 실패 문구 추가
-                    const postSeasonText = (lowestRank >= 5) ? '<br><small style="font-size: 10px; opacity: 0.9;">포스트시즌 진출 실패</small>' : '';
+                    const postSeasonText = (lowestRank >= 5) ? '<br><small style="font-size: 12px; font-weight: 700;">포스트시즌 진출 실패</small>' : '';
                     html += `<td class="magic-cell magic-impossible ${dividerClass}" colspan="${colspan}" style="border-color:${teamColor};">${lowestRank}위 불가${postSeasonText}</td>`;
                     ci = cj;
                     continue;

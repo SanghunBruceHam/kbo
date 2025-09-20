@@ -93,6 +93,7 @@ function renderOptimizedMatrixTable() {
             const span = seg.length;
 
             let label;
+            let rankForFailNote = null;
             if (statusLabel === '확보') {
                 // ✅ 요구사항: 병합된 경우만 "높은 순위 확보" 표기, 단일 칸은 "{순위}위 확보"
                 if (span === 1) {
@@ -109,11 +110,17 @@ function renderOptimizedMatrixTable() {
                     const raw = (c.label || '').trim();
                     const hasRankWord = /위/.test(raw);
                     label = hasRankWord ? raw : `${c.rank}위 불가`;
+                    rankForFailNote = c.rank;
                 } else {
                     // 병합된 불가 구간: 가장 낮은(숫자 큰) 순위만 표기 (예: 2,1 병합 → 2위 불가)
                     const lowestRank = Math.max(...seg.map(s => s.rank));
                     label = `${lowestRank}위 불가`;
+                    rankForFailNote = lowestRank;
                 }
+            }
+
+            if (statusLabel === '불가' && typeof rankForFailNote === 'number' && rankForFailNote >= 5) {
+                label += '<br><small style="font-size: 12px; font-weight: 700;">포스트시즌 진출 실패</small>';
             }
             // --- End: explicit label logic replacement ---
             const hasDivider = seg.some(s => s.isPlayoffDivider);
