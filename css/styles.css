@@ -572,16 +572,6 @@
             display: block !important;
             margin-bottom: 2px !important;
         }
-        .matrix-table .matrix-remaining {
-            font-size: var(--font-sm) !important;
-            color: #666 !important;
-            font-weight: var(--font-weight-medium) !important;
-        }
-        .matrix-table .diagonal {
-            background: linear-gradient(135deg, #2c3e50, #34495e) !important;
-            color: white !important;
-            font-weight: var(--font-weight-bold) !important;
-        }
         .matrix-table .positive-strong { background: var(--positive-bg-strong); color: var(--positive-color); }
         .matrix-table .positive-medium { background: var(--positive-bg-medium); color: var(--positive-color); }
         .matrix-table .positive-light { background: var(--positive-bg-light); color: var(--positive-color); }
@@ -591,56 +581,6 @@
         .matrix-table .neutral-strong { background: var(--neutral-bg-strong); color: var(--neutral-color); }
         .matrix-table .neutral-medium { background: var(--neutral-bg-medium); color: var(--neutral-color); }
         .matrix-table .neutral-light { background: var(--neutral-bg-light); color: var(--neutral-color); }
-        /* 차트 영역 */
-        .chart-container {
-            background: white;
-            border-radius: 8px;
-            padding: 20px;
-            margin: 20px 0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .chart-header {
-            font-size: var(--font-xl);
-            font-weight: var(--font-weight-semibold);
-            color: #2c3e50;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .chart-controls {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-        .chart-btn {
-            background: #3498db;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: var(--font-sm);
-            font-weight: var(--font-weight-medium);
-            transition: all 0.2s ease;
-        }
-        .chart-btn:hover {
-            background: #2980b9;
-            transform: translateY(-1px);
-        }
-        .chart-btn.active {
-            background: #2c3e50;
-        }
-        .chart-wrapper {
-            position: relative;
-            height: 300px;
-            width: 100%;
-        }
-        @media (min-width: 768px) {
-            .chart-wrapper {
-                height: 400px;
-            }
-        }
         /* 테이블 컨테이너 - 가로 스크롤 */
         .table-container {
             width: 100%;
@@ -669,179 +609,6 @@
         .table-container::-webkit-scrollbar-thumb:hover {
             background: #555;
         }
-        /* 탭 스타일 */
-        .tab-container {
-            display: flex;
-            gap: 0;
-            margin-bottom: 15px;
-            background: #f8f9fa;
-            border-radius: 12px;
-            padding: 4px;
-            box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
-            flex-wrap: wrap;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-        
-        .tab {
-            background: transparent;
-            color: #6c757d;
-            border: none;
-            padding: 12px 16px;
-            cursor: pointer;
-            border-radius: 8px;
-            transition: all 0.2s ease;
-            font-size: var(--font-base);
-            font-weight: var(--font-weight-medium);
-            font-family: var(--font-family-base);
-            white-space: nowrap;
-            flex-shrink: 0;
-            min-width: fit-content;
-        }
-        
-        .tab:hover {
-            background: rgba(0, 123, 255, 0.1);
-            color: #007bff;
-        }
-        
-        .tab.active {
-            background: #007bff;
-            color: white;
-            box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
-            transform: translateY(-1px);
-        }
-        
-        .tab-content {
-            display: none;
-        }
-        
-        .tab-content.active {
-            display: block;
-            animation: fadeIn 0.3s ease-in-out;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        /* 모바일에서 탭 컨테이너 가로 스크롤 */
-        @media (max-width: 768px) {
-            .tab-container {
-                overflow-x: auto;
-                overflow-y: hidden;
-                flex-wrap: nowrap;
-                padding-bottom: 8px;
-                margin-bottom: 20px;
-            }
-            
-            .tab {
-                padding: 10px 14px;
-                font-size: var(--font-sm);
-                min-width: 80px;
-            }
-        }
-        
-        /* 탭 컨테이너 스크롤바 스타일 */
-        .tab-container::-webkit-scrollbar {
-            height: 4px;
-        }
-        .tab-container::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        .tab-container::-webkit-scrollbar-thumb {
-            background: rgba(0, 123, 255, 0.3);
-            border-radius: 2px;
-        }
-        /* 접기/펼치기 버튼 스타일 */
-        .toggle-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: var(--font-sm);
-            font-weight: var(--font-weight-medium);
-            font-family: var(--font-family-base);
-            transition: all 0.2s ease;
-            margin-bottom: 10px;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
-        }
-        
-        .toggle-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
-        }
-        
-        .toggle-btn::after {
-            content: '▼';
-            font-size: var(--font-xs);
-            transition: transform 0.2s ease;
-        }
-        
-        .toggle-btn.collapsed::after {
-            transform: rotate(-90deg);
-        }
-        /* 분석 카드 공통 스타일 */
-        .analysis-card {
-            background: var(--card-background);
-            border-radius: var(--card-border-radius);
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: var(--card-shadow);
-            backdrop-filter: var(--card-backdrop-filter);
-        }
-        .analysis-header {
-            font-size: var(--font-2xl);
-            font-weight: var(--font-weight-semibold);
-            color: #2c3e50;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-        .analysis-content {
-            display: none;
-            animation: fadeIn 0.3s ease-in-out;
-        }
-        .analysis-content.active {
-            display: block;
-        }
-        /* 통계 요약 카드 */
-        .stats-summary {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 15px;
-            margin: 20px 0;
-        }
-        .stat-item {
-            background: #f8f9fa;
-            border-radius: 8px;
-            padding: 15px;
-            text-align: center;
-            border-left: 4px solid #3498db;
-        }
-        .stat-value {
-            font-size: var(--font-2xl);
-            font-weight: var(--font-weight-bold);
-            color: #2c3e50;
-            margin-bottom: 5px;
-        }
-        .stat-label {
-            font-size: var(--font-sm);
-            color: #7f8c8d;
-            font-weight: var(--font-weight-medium);
-        }
-        /* 하이라이트 효과 */
-        .highlight {
-            background: linear-gradient(120deg, rgba(255, 193, 7, 0.1) 0%, rgba(255, 235, 59, 0.2) 100%);
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: var(--font-weight-semibold);
-            color: #f57c00;
-        }
         /* 팀 로고 스타일 */
         .team-logo {
             width: 24px;
@@ -856,20 +623,6 @@
                 height: 26px;
                 margin-right: 4px;
             }
-        }
-        /* 팀명과 로고 컨테이너 */
-        .team-name-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-        }
-        /* 선택 기능 개선 방지 */
-        .no-select {
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
         }
         /* 반응형 폰트 크기 조정 */
         @media (max-width: 480px) {
@@ -909,36 +662,6 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-        /* 에러 메시지 */
-        .error-message {
-            background: #f8d7da;
-            color: #721c24;
-            padding: 12px 16px;
-            border-radius: 8px;
-            border-left: 4px solid #dc3545;
-            margin: 20px 0;
-            font-size: var(--font-base);
-        }
-        /* 성공 메시지 */
-        .success-message {
-            background: #d1edff;
-            color: #0c5460;
-            padding: 12px 16px;
-            border-radius: 8px;
-            border-left: 4px solid #0dcaf0;
-            margin: 20px 0;
-            font-size: var(--font-base);
-        }
-        /* 정보 메시지 */
-        .info-message {
-            background: #cff4fc;
-            color: #055160;
-            padding: 12px 16px;
-            border-radius: 8px;
-            border-left: 4px solid #17a2b8;
-            margin: 20px 0;
-            font-size: var(--font-base);
-        }
         /* 푸터 영역 */
         .footer {
             background: #2c3e50;
@@ -951,60 +674,12 @@
             max-width: 1200px;
             margin: 0 auto;
         }
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-        .footer-link {
-            color: #bdc3c7;
-            text-decoration: none;
-            font-size: var(--font-base);
-            transition: color 0.2s ease;
-        }
-        .footer-link:hover {
-            color: #3498db;
-        }
-        .footer-text {
-            color: #95a5a6;
-            font-size: var(--font-sm);
-            margin-top: 20px;
-        }
-        /* 스크롤 위치 표시 */
-        .scroll-indicator {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
-            transform-origin: left;
-            z-index: 1000;
-            opacity: 0;
-            transition: opacity 0.2s ease;
-        }
-        .scroll-indicator.visible {
-            opacity: 1;
-        }
         /* 프린트 최적화 */
         @media print {
             .card {
                 background: white !important;
                 box-shadow: none !important;
                 break-inside: avoid;
-            }
-            
-            .toggle-btn,
-            .chart-controls,
-            .tab-container {
-                display: none !important;
-            }
-            
-            .analysis-content,
-            .tab-content {
-                display: block !important;
             }
             
             body {
@@ -1086,57 +761,6 @@
                 padding: 20px 10px 15px 10px;
             }
         }
-        /* 최적화된 게임 차트 버튼 스타일 */
-        .games-chart-controls {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin: 15px 0 20px 0;
-            flex-wrap: wrap;
-        }
-        .games-chart-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 8px 14px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: var(--font-sm);
-            font-weight: var(--font-weight-medium);
-            font-family: var(--font-family-base);
-            transition: all 0.2s ease;
-            box-shadow: 0 2px 6px rgba(102, 126, 234, 0.3);
-            min-width: 70px;
-        }
-        .games-chart-btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 3px 10px rgba(102, 126, 234, 0.4);
-        }
-        .games-chart-btn.active {
-            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
-            box-shadow: 0 3px 12px rgba(79, 70, 229, 0.5);
-            transform: translateY(-2px);
-        }
-        @media (max-width: 480px) {
-            .games-chart-controls {
-                gap: 6px;
-                margin: 12px 0 18px 0;
-            }
-            .games-chart-btn {
-                padding: 6px 10px;
-                font-size: var(--font-xs);
-                min-width: 60px;
-            }
-        }
-        /* sticky 컬럼 지원 (테이블 첫 번째 컬럼 고정) */
-        .sticky-column {
-            position: sticky;
-            left: 0;
-            z-index: 10;
-            background: inherit;
-            box-shadow: var(--sticky-shadow);
-        }
-        
         /* sticky 헤더 지원 */
         .sticky-header {
             position: sticky;
@@ -1159,45 +783,16 @@
             .matrix-table .matrix-record {
                 font-size: var(--font-base) !important;
             }
-            
-            .matrix-table .matrix-remaining {
-                font-size: var(--font-xs) !important;
-            }
         }
         
         /* 성능 최적화를 위한 will-change 속성 */
-        .chart-wrapper,
-        .table-container,
-        .toggle-btn,
-        .tab {
+        .table-container {
             will-change: transform, opacity;
         }
         
         /* 메모리 최적화를 위한 contain 속성 */
-        .card,
-        .analysis-card {
+        .card {
             contain: layout style paint;
-        }
-        
-        /* GPU 가속을 위한 transform3d 사용 */
-        .card:hover,
-        .toggle-btn:hover,
-        .tab:hover {
-            transform: translate3d(0, -1px, 0);
-        }
-        
-        /* 크리티컬 CSS 최적화 */
-        .critical-above-fold {
-            display: block;
-        }
-        
-        .non-critical-below-fold {
-            display: none;
-        }
-        
-        /* 웹사이트 로드 완료 후 표시 */
-        .page-loaded .non-critical-below-fold {
-            display: block;
         }
         
         /* 매트릭스 테이블 전용 스타일 - 모바일 최적화 및 스티키 적용 */
@@ -1235,111 +830,8 @@
             background: #2c3e50;
         }
         
-        /* 경기 일정 테이블 최적화 */
-        .schedule-table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0;
-            font-size: var(--font-base);
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        
-        .schedule-table th,
-        .schedule-table td {
-            padding: 8px 6px;
-            text-align: center;
-            border-bottom: 1px solid #e9ecef;
-            border-right: 1px solid #e9ecef;
-        }
-        
-        .schedule-table th {
-            background: linear-gradient(135deg, #495057, #6c757d);
-            color: white;
-            font-weight: var(--font-weight-semibold);
-            font-size: var(--font-base);
-            position: sticky;
-            top: 0;
-            z-index: 10;
-        }
-        
-        .schedule-table tbody tr:hover {
-            background-color: rgba(0, 123, 255, 0.05);
-            transform: scale(1.005);
-            transition: all 0.2s ease;
-        }
-        
-        /* 경기 상태별 스타일 */
-        .game-completed { background-color: rgba(40, 167, 69, 0.1); }
-        .game-scheduled { background-color: rgba(0, 123, 255, 0.1); }
-        .game-postponed { background-color: rgba(220, 53, 69, 0.1); }
-        .game-cancelled { background-color: rgba(108, 117, 125, 0.1); }
-        
-        /* 날짜 셀 특별 스타일 */
-        .date-cell {
-            font-weight: var(--font-weight-semibold);
-            min-width: 80px;
-        }
-        
-        .date-main { color: #495057; }
-        .date-day { color: #6c757d; font-size: var(--font-sm); }
-        .date-time { color: #007bff; font-size: var(--font-sm); }
-        .date-holiday { color: #dc3545; font-weight: var(--font-weight-bold); }
-        
-        /* 스코어 표시 스타일 */
-        .score-display {
-            font-family: var(--data-font-family);
-            font-weight: var(--font-weight-bold);
-            font-size: var(--font-md);
-        }
-        
-        .score-winner { color: #28a745; }
-        .score-loser { color: #6c757d; }
-        
-        /* 팀명 표시 최적화 */
-        .team-name-short {
-            font-weight: var(--font-weight-semibold);
-            color: #495057;
-        }
-        
-        .team-home { border-left: 3px solid #007bff; padding-left: 6px; }
-        .team-away { border-left: 3px solid #6c757d; padding-left: 6px; }
-        
-        /* 반응형 테이블 스크롤 표시기 */
-        .table-scroll-indicator {
-            position: absolute;
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 20px;
-            height: 60px;
-            background: linear-gradient(90deg, transparent, rgba(0,0,0,0.1));
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .table-container:hover .table-scroll-indicator {
-            opacity: 1;
-        }
-        
-        /* 접근성을 위한 포커스 스타일 */
-        .tab:focus,
-        .toggle-btn:focus,
-        .chart-btn:focus {
-            outline: 2px solid #007bff;
-            outline-offset: 2px;
-        }
         
         /* 테이블 셀 내용 오버플로우 처리 */
-        .cell-content {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        
         /* 툴팁 스타일 (향후 확장용) */
         .tooltip {
             position: absolute;
@@ -1358,16 +850,10 @@
             opacity: 1;
         }
         
-        /* 성능 모니터링을 위한 숨김 스타일 */
-        .performance-marker {
-            display: none;
-        }
-        
         /* 브라우저별 최적화 */
         @supports (backdrop-filter: blur(10px)) {
             .card,
-            .ad-card,
-            .analysis-card {
+            .ad-card {
                 backdrop-filter: blur(10px);
                 background: rgba(255, 255, 255, 0.9);
             }
@@ -1375,8 +861,7 @@
         
         @supports not (backdrop-filter: blur(10px)) {
             .card,
-            .ad-card,
-            .analysis-card {
+            .ad-card {
                 background: rgba(255, 255, 255, 0.98);
             }
         }
@@ -1386,16 +871,6 @@
             .table-container {
                 -webkit-overflow-scrolling: touch;
             }
-        }
-        
-        /* 메모리 사용량 최적화 */
-        .lazy-load {
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .lazy-load.loaded {
-            opacity: 1;
         }
         
         /* 캐시 효율성을 위한 아이콘 폰트 최적화 */
@@ -1416,21 +891,3 @@
             image-rendering: crisp-edges;
         }
         
-        /* 개별 셀의 백그라운드 색상 변화를 위한 유틸리티 클래스 */
-        .bg-positive-very-light { background: var(--positive-bg-very-light); }
-        .bg-positive-light { background: var(--positive-bg-light); }
-        .bg-positive-medium { background: var(--positive-bg-medium); }
-        .bg-positive-strong { background: var(--positive-bg-strong); }
-        .bg-positive-very-strong { background: var(--positive-bg-very-strong); }
-        
-        .bg-negative-very-light { background: var(--negative-bg-very-light); }
-        .bg-negative-light { background: var(--negative-bg-light); }
-        .bg-negative-medium { background: var(--negative-bg-medium); }
-        .bg-negative-strong { background: var(--negative-bg-strong); }
-        .bg-negative-very-strong { background: var(--negative-bg-very-strong); }
-        
-        .bg-neutral-very-light { background: var(--neutral-bg-very-light); }
-        .bg-neutral-light { background: var(--neutral-bg-light); }
-        .bg-neutral-medium { background: var(--neutral-bg-medium); }
-        .bg-neutral-strong { background: var(--neutral-bg-strong); }
-        .bg-neutral-very-strong { background: var(--neutral-bg-very-strong); }
