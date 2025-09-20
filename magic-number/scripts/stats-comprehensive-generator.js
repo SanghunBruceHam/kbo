@@ -224,12 +224,12 @@ class EnhancedDashboardGenerator {
             previousWinRate = winRate;
 
             return {
-            rank: currentRank,
-            ...team,
-            games_behind: currentRank === 1 ? '-' :
-                ((leader.wins - team.wins) + (team.losses - leader.losses)) / 2
-        }});
-    }
+                rank: currentRank,
+                ...team,
+                games_behind: currentRank === 1 ? '-' :
+                    ((leader.wins - team.wins) + (team.losses - leader.losses)) / 2
+            };
+        });
     }
 
     calculatePythagorean(runsScored, runsAllowed) {
