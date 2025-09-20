@@ -1536,12 +1536,44 @@ const kboTeams = {
                         return bWinRate - aWinRate;
                     });
 
+                const firstPlaceTeam = chaseData[0];
+                const computeWinRate = (team) => {
+                    const totalGames = (team.wins ?? 0) + (team.losses ?? 0);
+                    return totalGames > 0 ? team.wins / totalGames : 0;
+                };
+                const computeGamesBehind = (team) => {
+                    if (!firstPlaceTeam || team.team === firstPlaceTeam.team) {
+                        return 0;
+                    }
+                    const rawDiff = ((firstPlaceTeam.wins - team.wins) + (team.losses - firstPlaceTeam.losses)) / 2;
+                    return Number(rawDiff.toFixed(1));
+                };
+                const formatGamesBehind = (value) => value.toFixed(1);
+
+                // 승률/게임차 기반으로 순위 동률 처리
+                chaseData.forEach((team) => {
+                    team._chaseWinRate = computeWinRate(team);
+                    team.gamesBehind = computeGamesBehind(team);
+                });
+
+                chaseData.forEach((team, index) => {
+                    if (index === 0) {
+                        team.displayRank = 1;
+                        return;
+                    }
+                    const prevTeam = chaseData[index - 1];
+                    const isWinRateTie = Math.abs(team._chaseWinRate - prevTeam._chaseWinRate) < 0.0001;
+                    const isGamesBehindTie = Math.abs((team.gamesBehind ?? 0) - (prevTeam.gamesBehind ?? 0)) < 0.05;
+                    team.displayRank = (isWinRateTie && isGamesBehindTie) ? prevTeam.displayRank : index + 1;
+                });
+
+                chaseData.forEach(team => delete team._chaseWinRate);
+
                 chaseData.forEach((team, index) => {
                     const row = document.createElement('tr');
                     
                     // 데이터에서 직접 가져오기 (계산 로직 제거)
-                    const firstPlaceTeam = chaseData[0];
-                    const gameDifference = firstPlaceTeam.wins - team.wins;
+                    const gamesBehind = team.gamesBehind ?? computeGamesBehind(team);
                     const maxPossibleWins = team.wins + team.remainingGames;
                     const maxPossibleWinRate = (maxPossibleWins / (maxPossibleWins + team.losses)).toFixed(3);
                     
@@ -1617,7 +1649,7 @@ const kboTeams = {
                     const winRateText = requiredWinRate > 100 ? '불가능' : (requiredWinRate / 100).toFixed(3);
                     const can87Text = can87Wins ? '가능' : '불가능';
 
-                    const displayGameDiff = gameDifference === 0 ? '-' : gameDifference;
+                    const displayGameDiff = team.team === firstPlaceTeam.team ? '-' : formatGamesBehind(gamesBehind);
                     const teamClass = teamClassMap[team.team] || '';
                     
                     // 1위팀은 CSS 클래스로 처리하므로 단순하게 HTML 생성
@@ -4363,4 +4395,3 @@ const kboTeams = {
         } else {
             initializeEventListeners();
         }
-
