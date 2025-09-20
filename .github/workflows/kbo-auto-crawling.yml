@@ -1,8 +1,6 @@
 name: KBO 자동 데이터 크롤링 및 업데이트
 
 on:
-  push:
-    branches: [ main ]
   schedule:
     # 한국시간 기준: 경기 시간대 집중 모니터링 (UTC +9시간 차이)
     - cron: '30 7 * * *'  # UTC 07:30 = KST 16:30 (오후 4시 반)
