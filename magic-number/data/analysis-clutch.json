@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-09-20T11:37:17.091Z",
+  "lastUpdated": "2025-09-20T12:44:53.594Z",
   "updateDate": "2025. 9. 20.",
   "clutchAnalysis": {
     "LG": {
@@ -1593,7 +1593,7 @@
       "clutchIndex": "49.6"
     },
     "롯데": {
-      "totalGames": 149,
+      "totalGames": 150,
       "oneRunGames": 29,
       "oneRunWins": 15,
       "oneRunLosses": 14,
@@ -1777,7 +1777,7 @@
           "runs": 18
         }
       ],
-      "blowoutLosses": 13,
+      "blowoutLosses": 14,
       "blowoutAllowed": [
         {
           "date": "2025-03-22",
@@ -1856,6 +1856,12 @@
           "opponent": "한화",
           "score": "0:13",
           "diff": 13
+        },
+        {
+          "date": "2025-09-20",
+          "opponent": "키움",
+          "score": "5:15",
+          "diff": 10
         }
       ],
       "shutoutWins": 7,
@@ -2442,7 +2448,7 @@
       "clutchIndex": "51.5"
     },
     "키움": {
-      "totalGames": 148,
+      "totalGames": 149,
       "oneRunGames": 29,
       "oneRunWins": 18,
       "oneRunLosses": 11,
@@ -2455,7 +2461,7 @@
       "threeRunWins": 15,
       "threeRunLosses": 28,
       "threeRunWinRate": "34.9",
-      "blowoutWins": 17,
+      "blowoutWins": 18,
       "blowoutScored": [
         {
           "date": "2025-03-26",
@@ -2558,6 +2564,12 @@
           "opponent": "한화",
           "score": "13:10",
           "runs": 13
+        },
+        {
+          "date": "2025-09-20",
+          "opponent": "롯데",
+          "score": "15:5",
+          "runs": 15
         }
       ],
       "blowoutLosses": 15,
@@ -2655,8 +2667,8 @@
       ],
       "shutoutWins": 6,
       "shutoutLosses": 10,
-      "highScoringGames": 9,
-      "highScoringWins": 8,
+      "highScoringGames": 10,
+      "highScoringWins": 9,
       "scorelessGames": 10,
       "comebackPotential": {
         "trailingWins": 0,

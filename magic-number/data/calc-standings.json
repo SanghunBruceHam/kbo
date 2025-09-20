@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-09-20T11:37:14.863Z",
+  "lastUpdated": "2025-09-20T12:44:51.391Z",
   "updateDate": "2025. 9. 20.",
   "note": "2025-season-data-clean.txt 기반 완전 자동화 처리",
   "rankings": [
@@ -76,15 +76,15 @@
     {
       "rank": 6,
       "team": "롯데",
-      "games": 136,
+      "games": 137,
       "wins": 65,
-      "losses": 65,
+      "losses": 66,
       "draws": 6,
-      "winRate": 0.5,
-      "gamesBehind": 16,
-      "recent10": "4승0무6패",
-      "streak": "1승",
-      "homeRecord": "34-31-4",
+      "winRate": 0.496,
+      "gamesBehind": 16.5,
+      "recent10": "3승0무7패",
+      "streak": "1패",
+      "homeRecord": "34-32-4",
       "awayRecord": "31-34-2"
     },
     {
@@ -132,16 +132,16 @@
     {
       "rank": 10,
       "team": "키움",
-      "games": 138,
-      "wins": 46,
+      "games": 139,
+      "wins": 47,
       "losses": 88,
       "draws": 4,
-      "winRate": 0.343,
-      "gamesBehind": 37,
+      "winRate": 0.348,
+      "gamesBehind": 36.5,
       "recent10": "6승0무4패",
-      "streak": "1패",
+      "streak": "1승",
       "homeRecord": "23-43-2",
-      "awayRecord": "23-45-2"
+      "awayRecord": "24-45-2"
     }
   ],
   "magicNumbers": {
@@ -193,10 +193,10 @@
     "롯데": {
       "playoff": "-",
       "championship": 0,
-      "elimination": 2,
+      "elimination": 1,
       "homeAdvantage": 999,
-      "remainingGames": 8,
-      "maxPossibleWins": 73,
+      "remainingGames": 7,
+      "maxPossibleWins": 72,
       "currentRank": 6
     },
     "NC": {
@@ -231,12 +231,12 @@
       "championship": 0,
       "elimination": 0,
       "homeAdvantage": 999,
-      "remainingGames": 6,
+      "remainingGames": 5,
       "maxPossibleWins": 52,
       "currentRank": 10
     }
   },
-  "lastMagicUpdate": "2025-09-20T11:37:14.863Z",
+  "lastMagicUpdate": "2025-09-20T12:44:51.391Z",
   "totalTeams": 10,
   "source": "CLEAN_TXT_AUTOMATION",
   "dataDate": "2025-09-20"
