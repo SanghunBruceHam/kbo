@@ -1,6 +1,8 @@
 name: KBO 자동 데이터 크롤링 및 업데이트
 
 on:
+  push:
+    branches: [ main ]
   schedule:
     # 한국시간 기준: 경기 시간대 집중 모니터링 (UTC +9시간 차이)
     - cron: '30 7 * * *'  # UTC 07:30 = KST 16:30 (오후 4시 반)
@@ -96,7 +98,8 @@ jobs:
 
     # 8. KBO 데이터 크롤링 (조건부)
     - name: 🕷️ KBO 데이터 크롤링
-      if: ${{ github.event.inputs.skip_crawling != 'true' }}
+      # push 이벤트일 때는 기본적으로 건너뛰고, schedule이나 workflow_dispatch일 때만 실행
+      if: ${{ github.event_name != 'push' && github.event.inputs.skip_crawling != 'true' }}
       run: |
         echo "🚀 KBO 크롤링 시작..."
         npm run crawl
@@ -110,7 +113,7 @@ jobs:
 
     # 9. 크롤링 데이터 검증
     - name: 🔍 크롤링 데이터 검증
-      if: ${{ github.event.inputs.skip_crawling != 'true' }}
+      if: ${{ github.event_name != 'push' && github.event.inputs.skip_crawling != 'true' }}
       run: |
         echo "📋 크롤링된 데이터 검증 중..."
         
@@ -246,8 +249,11 @@ jobs:
         CURRENT_TIME=$(TZ='Asia/Seoul' date '+%Y-%m-%d %H:%M')
         CURRENT_HOUR=$(TZ='Asia/Seoul' date '+%H')
         
-        # 시간대별 이모지 및 메시지
-        if [ "$CURRENT_HOUR" -ge 18 ] && [ "$CURRENT_HOUR" -lt 22 ]; then
+        # 이벤트 타입별 메시지 설정
+        if [ "${{ github.event_name }}" == "push" ]; then
+          TIME_EMOJI="📊"
+          TIME_MSG="푸시 트리거 - 데이터 처리만 실행 (크롤링 스킵)"
+        elif [ "$CURRENT_HOUR" -ge 18 ] && [ "$CURRENT_HOUR" -lt 22 ]; then
           TIME_EMOJI="🌅"
           TIME_MSG="오후 6시 경기 결과 업데이트"
         elif [ "$CURRENT_HOUR" -eq 22 ]; then
