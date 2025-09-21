@@ -3500,42 +3500,24 @@ const kboTeams = {
                 return extremeRank <= 5 && extremeRank > 0;
             }
             
-            // 필터링: 새창에서는 모든 팀, 메인에서는 5위 경쟁 가능한 팀만
+            // 필터링: 새창에서는 모든 팀, 메인에서는 최대 가능 순위가 5위 이내인 팀만
             const playoffContenders = skipFiltering ? topTeams : topTeams.filter(team => {
-                const currentRank = team.rank || team.displayRank || (topTeams.findIndex(t => t.team === team.team) + 1);
-
-                // 현재 5위 이내 팀은 무조건 포함
-                if (currentRank <= 5) {
-                    return true;
-                }
-
-                // 6위 이하 팀의 5위 진출 가능성 체크
+                // 각 팀의 최대 가능 순위 계산 (모든 잔여경기 승리 시)
                 const maxPossibleWins = team.wins + (team.remainingGames || 0);
-                const maxPossibleWinRate = maxPossibleWins / (team.wins + team.losses + team.ties + (team.remainingGames || 0));
 
-                // 현재 5위팀 찾기
-                const fifthPlaceTeam = topTeams.find(t => (t.rank || t.displayRank || 1) === 5);
-                if (!fifthPlaceTeam) return currentRank <= 7; // 5위팀이 없으면 7위까지만
+                // 다른 팀들의 최소 승수와 비교하여 최대 가능 순위 계산
+                let maxPossibleRank = 1;
+                topTeams.forEach(otherTeam => {
+                    if (otherTeam.team === team.team) return;
 
-                // 현재 5위팀의 최소 가능 승률 계산
-                const fifthMinWins = fifthPlaceTeam.wins;
-                const fifthTotalGames = fifthPlaceTeam.wins + fifthPlaceTeam.losses + fifthPlaceTeam.ties + (fifthPlaceTeam.remainingGames || 0);
-                const fifthMinWinRate = fifthMinWins / fifthTotalGames;
+                    // 다른 팀의 현재 승수가 나의 최대 가능 승수보다 크면 순위가 밀림
+                    if (otherTeam.wins > maxPossibleWins) {
+                        maxPossibleRank++;
+                    }
+                });
 
-                // 5위팀을 넘어설 수 있는 최대 승률이 있으면 포함
-                if (maxPossibleWinRate > fifthMinWinRate) {
-                    return true;
-                }
-
-                // 수학적으로는 어려워도 8위까지는 보여주되, 승차가 크면 제외
-                if (currentRank <= 8) {
-                    const winDifference = fifthPlaceTeam.wins - team.wins;
-                    const remainingGames = team.remainingGames || 0;
-                    // 승차가 잔여경기보다 많이 나면 제외
-                    return winDifference <= remainingGames + 3; // 3경기 여유
-                }
-
-                return false;
+                // 최대 가능 순위가 5위 이내면 포함
+                return maxPossibleRank <= 5;
             });
             
             // 실제 경쟁 가능한 팀만 선별 (새창: 전체 10팀, 메인: 필터링 결과)
