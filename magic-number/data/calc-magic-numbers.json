@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-09-21T08:40:15.822Z",
+  "lastUpdated": "2025-09-21T10:38:44.422Z",
   "updateDate": "2025. 9. 21.",
   "note": "승률 기준 정확한 매직넘버 계산 + 포스트시즌 진출 조건 + 1위 매직/트래직넘버 포함",
   "results": [
@@ -66,10 +66,10 @@
     {
       "rank": 7,
       "team": "NC",
-      "wins": 62,
+      "wins": 63,
       "losses": 67,
-      "winRate": 0.4806201550387597,
-      "gamesRemaining": 15,
+      "winRate": 0.4846153846153846,
+      "gamesRemaining": 14,
       "magicNumber": "-",
       "status": ""
     },
@@ -77,9 +77,9 @@
       "rank": 8,
       "team": "KIA",
       "wins": 62,
-      "losses": 69,
-      "winRate": 0.4732824427480916,
-      "gamesRemaining": 13,
+      "losses": 70,
+      "winRate": 0.4696969696969697,
+      "gamesRemaining": 12,
       "magicNumber": "-",
       "status": ""
     },
@@ -209,33 +209,33 @@
     },
     {
       "team": "NC",
-      "wins": 62,
+      "wins": 63,
       "losses": 67,
       "draws": 6,
-      "remainingGames": 9,
+      "remainingGames": 8,
       "K5_max": 0.529,
       "K5_min": 0.486,
-      "playoffMagicStrict": 11,
-      "playoffMagicTieOK": 11,
+      "playoffMagicStrict": 10,
+      "playoffMagicTieOK": 10,
       "playoffTragicStrict": 4,
       "playoffTragicTieOK": 4,
       "playoffStatus": "",
-      "championshipMagic": 27,
+      "championshipMagic": 26,
       "championshipTragic": 0,
       "firstPlaceStatus": "불가능"
     },
     {
       "team": "KIA",
       "wins": 62,
-      "losses": 69,
+      "losses": 70,
       "draws": 4,
-      "remainingGames": 9,
+      "remainingGames": 8,
       "K5_max": 0.529,
       "K5_min": 0.486,
       "playoffMagicStrict": 13,
       "playoffMagicTieOK": 12,
-      "playoffTragicStrict": 3,
-      "playoffTragicTieOK": 3,
+      "playoffTragicStrict": 2,
+      "playoffTragicTieOK": 2,
       "playoffStatus": "",
       "championshipMagic": 28,
       "championshipTragic": 0,
@@ -313,7 +313,7 @@
       "rank5Magic": 6,
       "dropRank6Tragic": 4,
       "dropRank7Tragic": 3,
-      "dropRank8Tragic": 3,
+      "dropRank8Tragic": 2,
       "dropRank9Tragic": 0
     },
     {
@@ -326,7 +326,7 @@
       "rank5Magic": 6,
       "dropRank6Tragic": 4,
       "dropRank7Tragic": 3,
-      "dropRank8Tragic": 3,
+      "dropRank8Tragic": 2,
       "dropRank9Tragic": 0
     },
     {
@@ -339,7 +339,7 @@
       "rank5Magic": 6,
       "dropRank6Tragic": 5,
       "dropRank7Tragic": 4,
-      "dropRank8Tragic": 4,
+      "dropRank8Tragic": 3,
       "dropRank9Tragic": 0
     },
     {
@@ -352,7 +352,7 @@
       "rank5Magic": 7,
       "dropRank6Tragic": 8,
       "dropRank7Tragic": 7,
-      "dropRank8Tragic": 7,
+      "dropRank8Tragic": 6,
       "dropRank9Tragic": 0
     },
     {
@@ -360,25 +360,25 @@
       "currentRank": 7,
       "championshipMagic": 999,
       "rank2Magic": 999,
-      "rank3Magic": 9,
-      "rank4Magic": 9,
-      "rank5Magic": 9,
-      "dropRank6Tragic": 11,
-      "dropRank7Tragic": 10,
-      "dropRank8Tragic": 10,
-      "dropRank9Tragic": 3
+      "rank3Magic": 8,
+      "rank4Magic": 8,
+      "rank5Magic": 8,
+      "dropRank6Tragic": 10,
+      "dropRank7Tragic": 9,
+      "dropRank8Tragic": 8,
+      "dropRank9Tragic": 2
     },
     {
       "team": "KIA",
       "currentRank": 8,
       "championshipMagic": 999,
       "rank2Magic": 999,
-      "rank3Magic": 9,
-      "rank4Magic": 9,
-      "rank5Magic": 9,
+      "rank3Magic": 8,
+      "rank4Magic": 8,
+      "rank5Magic": 8,
       "dropRank6Tragic": 11,
       "dropRank7Tragic": 10,
-      "dropRank8Tragic": 10,
+      "dropRank8Tragic": 9,
       "dropRank9Tragic": 3
     },
     {
@@ -391,7 +391,7 @@
       "rank5Magic": 999,
       "dropRank6Tragic": 16,
       "dropRank7Tragic": 15,
-      "dropRank8Tragic": 15,
+      "dropRank8Tragic": 14,
       "dropRank9Tragic": 8
     },
     {
@@ -404,7 +404,7 @@
       "rank5Magic": 999,
       "dropRank6Tragic": 26,
       "dropRank7Tragic": 25,
-      "dropRank8Tragic": 25,
+      "dropRank8Tragic": 24,
       "dropRank9Tragic": 18
     }
   ]
