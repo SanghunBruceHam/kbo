@@ -1,5 +1,5 @@
 {
-  "updateTime": "2025-09-21T07:40:21.634Z",
+  "updateTime": "2025-09-21T08:25:20.913Z",
   "updateDate": "2025년 9월 21일",
   "standings": [
     {
@@ -33,44 +33,44 @@
     {
       "rank": 3,
       "team_name": "SSG",
-      "games_played": 133,
-      "wins": 68,
+      "games_played": 134,
+      "wins": 69,
       "losses": 61,
       "draws": 4,
-      "runs_scored": 566,
-      "runs_allowed": 526,
-      "win_rate": "0.527",
-      "run_differential": 40,
-      "current_streak": "1W",
-      "games_behind": 12.5
+      "runs_scored": 573,
+      "runs_allowed": 529,
+      "win_rate": "0.531",
+      "run_differential": 44,
+      "current_streak": "2W",
+      "games_behind": 12
     },
     {
       "rank": 4,
       "team_name": "삼성",
-      "games_played": 136,
+      "games_played": 137,
       "wins": 69,
-      "losses": 65,
+      "losses": 66,
       "draws": 2,
-      "runs_scored": 718,
-      "runs_allowed": 608,
-      "win_rate": "0.515",
-      "run_differential": 110,
-      "current_streak": "4W",
-      "games_behind": 14
+      "runs_scored": 721,
+      "runs_allowed": 614,
+      "win_rate": "0.511",
+      "run_differential": 107,
+      "current_streak": "1L",
+      "games_behind": 14.5
     },
     {
       "rank": 5,
       "team_name": "KT",
-      "games_played": 137,
-      "wins": 67,
+      "games_played": 138,
+      "wins": 68,
       "losses": 66,
       "draws": 4,
-      "runs_scored": 604,
-      "runs_allowed": 630,
-      "win_rate": "0.504",
-      "run_differential": -26,
-      "current_streak": "1W",
-      "games_behind": 15.5
+      "runs_scored": 610,
+      "runs_allowed": 633,
+      "win_rate": "0.507",
+      "run_differential": -23,
+      "current_streak": "2W",
+      "games_behind": 15
     },
     {
       "rank": 6,
@@ -117,16 +117,16 @@
     {
       "rank": 9,
       "team_name": "두산",
-      "games_played": 136,
+      "games_played": 137,
       "wins": 57,
-      "losses": 73,
+      "losses": 74,
       "draws": 6,
-      "runs_scored": 608,
-      "runs_allowed": 659,
-      "win_rate": "0.438",
-      "run_differential": -51,
-      "current_streak": "1L",
-      "games_behind": 24
+      "runs_scored": 611,
+      "runs_allowed": 666,
+      "win_rate": "0.435",
+      "run_differential": -55,
+      "current_streak": "2L",
+      "games_behind": 24.5
     },
     {
       "rank": 10,
@@ -160,22 +160,22 @@
     },
     {
       "team_name": "SSG",
-      "actual_win_rate": "0.527",
-      "expected_win_rate": "0.537",
-      "luck_factor": "-0.010",
+      "actual_win_rate": "0.531",
+      "expected_win_rate": "0.540",
+      "luck_factor": "-0.009",
       "luck_status": "평균적"
     },
     {
       "team_name": "삼성",
-      "actual_win_rate": "0.515",
-      "expected_win_rate": "0.582",
-      "luck_factor": "-0.067",
+      "actual_win_rate": "0.511",
+      "expected_win_rate": "0.580",
+      "luck_factor": "-0.069",
       "luck_status": "운이 나쁨"
     },
     {
       "team_name": "KT",
-      "actual_win_rate": "0.504",
-      "expected_win_rate": "0.479",
+      "actual_win_rate": "0.507",
+      "expected_win_rate": "0.482",
       "luck_factor": "+0.025",
       "luck_status": "평균적"
     },
@@ -202,8 +202,8 @@
     },
     {
       "team_name": "두산",
-      "actual_win_rate": "0.438",
-      "expected_win_rate": "0.460",
+      "actual_win_rate": "0.435",
+      "expected_win_rate": "0.457",
       "luck_factor": "-0.022",
       "luck_status": "평균적"
     },
@@ -310,13 +310,13 @@
     },
     {
       "team_name": "SSG",
-      "home_wins": 33,
+      "home_wins": 34,
       "home_losses": 29,
-      "home_win_rate": "0.532",
+      "home_win_rate": "0.540",
       "away_wins": 35,
       "away_losses": 32,
       "away_win_rate": "0.522",
-      "home_advantage": "+0.010"
+      "home_advantage": "+0.017"
     },
     {
       "team_name": "삼성",
@@ -324,19 +324,19 @@
       "home_losses": 30,
       "home_win_rate": "0.552",
       "away_wins": 32,
-      "away_losses": 35,
-      "away_win_rate": "0.478",
-      "home_advantage": "+0.075"
+      "away_losses": 36,
+      "away_win_rate": "0.471",
+      "home_advantage": "+0.082"
     },
     {
       "team_name": "KT",
-      "home_wins": 34,
+      "home_wins": 35,
       "home_losses": 35,
-      "home_win_rate": "0.493",
+      "home_win_rate": "0.500",
       "away_wins": 33,
       "away_losses": 31,
       "away_win_rate": "0.516",
-      "home_advantage": "-0.023"
+      "home_advantage": "-0.016"
     },
     {
       "team_name": "롯데",
@@ -374,9 +374,9 @@
       "home_losses": 38,
       "home_win_rate": "0.415",
       "away_wins": 30,
-      "away_losses": 35,
-      "away_win_rate": "0.462",
-      "home_advantage": "-0.046"
+      "away_losses": 36,
+      "away_win_rate": "0.455",
+      "home_advantage": "-0.039"
     },
     {
       "team_name": "키움",
@@ -598,12 +598,12 @@
       {
         "month": 9,
         "wins": 6,
-        "losses": 5,
+        "losses": 6,
         "draws": 0,
-        "games": 11,
-        "win_rate": "0.545",
-        "runs_scored": 62,
-        "runs_allowed": 50
+        "games": 12,
+        "win_rate": "0.500",
+        "runs_scored": 65,
+        "runs_allowed": 56
       }
     ],
     "두산": [
@@ -670,12 +670,12 @@
       {
         "month": 9,
         "wins": 3,
-        "losses": 8,
+        "losses": 9,
         "draws": 0,
-        "games": 11,
-        "win_rate": "0.273",
-        "runs_scored": 42,
-        "runs_allowed": 64
+        "games": 12,
+        "win_rate": "0.250",
+        "runs_scored": 45,
+        "runs_allowed": 71
       }
     ],
     "KT": [
@@ -741,13 +741,13 @@
       },
       {
         "month": 9,
-        "wins": 5,
+        "wins": 6,
         "losses": 6,
         "draws": 0,
-        "games": 11,
-        "win_rate": "0.455",
-        "runs_scored": 55,
-        "runs_allowed": 73
+        "games": 12,
+        "win_rate": "0.500",
+        "runs_scored": 61,
+        "runs_allowed": 76
       }
     ],
     "SSG": [
@@ -813,13 +813,13 @@
       },
       {
         "month": 9,
-        "wins": 7,
+        "wins": 8,
         "losses": 3,
         "draws": 0,
-        "games": 10,
-        "win_rate": "0.700",
-        "runs_scored": 67,
-        "runs_allowed": 40
+        "games": 11,
+        "win_rate": "0.727",
+        "runs_scored": 74,
+        "runs_allowed": 43
       }
     ],
     "롯데": [
@@ -1239,9 +1239,9 @@
       },
       "일": {
         "wins": 12,
-        "losses": 12,
+        "losses": 13,
         "draws": 1,
-        "win_rate": "0.500"
+        "win_rate": "0.480"
       }
     },
     "두산": {
@@ -1283,9 +1283,9 @@
       },
       "일": {
         "wins": 11,
-        "losses": 14,
+        "losses": 15,
         "draws": 0,
-        "win_rate": "0.440"
+        "win_rate": "0.423"
       }
     },
     "KT": {
@@ -1326,10 +1326,10 @@
         "win_rate": "0.625"
       },
       "일": {
-        "wins": 11,
+        "wins": 12,
         "losses": 11,
         "draws": 3,
-        "win_rate": "0.500"
+        "win_rate": "0.522"
       }
     },
     "SSG": {
@@ -1370,10 +1370,10 @@
         "win_rate": "0.364"
       },
       "일": {
-        "wins": 16,
+        "wins": 17,
         "losses": 9,
         "draws": 0,
-        "win_rate": "0.640"
+        "win_rate": "0.654"
       }
     },
     "롯데": {
@@ -1554,20 +1554,27 @@
     }
   },
   "stadiumRecords": {
-    "삼성": [
+    "SSG": [
       {
-        "stadium": "대구 삼성라이온즈파크",
-        "wins": 37,
-        "losses": 30,
-        "draws": 0,
-        "win_rate": "0.552"
+        "stadium": "인천 SSG랜더스필드",
+        "wins": 34,
+        "losses": 29,
+        "draws": 4,
+        "win_rate": "0.540"
       },
       {
-        "stadium": "서울 잠실야구장",
-        "wins": 11,
-        "losses": 5,
+        "stadium": "서울 고척스카이돔",
+        "wins": 3,
+        "losses": 3,
         "draws": 0,
-        "win_rate": "0.688"
+        "win_rate": "0.500"
+      },
+      {
+        "stadium": "대구 삼성라이온즈파크",
+        "wins": 3,
+        "losses": 4,
+        "draws": 0,
+        "win_rate": "0.429"
       },
       {
         "stadium": "광주 챔피언스필드",
@@ -1578,119 +1585,112 @@
       },
       {
         "stadium": "수원 KT위즈파크",
-        "wins": 2,
-        "losses": 6,
-        "draws": 0,
-        "win_rate": "0.250"
-      },
-      {
-        "stadium": "인천 SSG랜더스필드",
-        "wins": 4,
+        "wins": 5,
         "losses": 4,
-        "draws": 1,
-        "win_rate": "0.500"
+        "draws": 0,
+        "win_rate": "0.556"
       },
       {
-        "stadium": "대전 한화생명이글스파크",
-        "wins": 4,
-        "losses": 5,
+        "stadium": "서울 잠실야구장",
+        "wins": 8,
+        "losses": 7,
         "draws": 0,
-        "win_rate": "0.444"
+        "win_rate": "0.533"
       },
       {
         "stadium": "부산 사직야구장",
-        "wins": 2,
-        "losses": 5,
-        "draws": 1,
-        "win_rate": "0.286"
+        "wins": 5,
+        "losses": 4,
+        "draws": 0,
+        "win_rate": "0.556"
       },
       {
-        "stadium": "서울 고척스카이돔",
-        "wins": 3,
-        "losses": 3,
+        "stadium": "대전 한화생명이글스파크",
+        "wins": 5,
+        "losses": 4,
         "draws": 0,
-        "win_rate": "0.500"
+        "win_rate": "0.556"
       },
       {
         "stadium": "창원 NC파크",
         "wins": 3,
-        "losses": 4,
+        "losses": 3,
         "draws": 0,
-        "win_rate": "0.429"
+        "win_rate": "0.500"
       }
     ],
-    "키움": [
-      {
-        "stadium": "대구 삼성라이온즈파크",
-        "wins": 1,
-        "losses": 7,
-        "draws": 0,
-        "win_rate": "0.125"
-      },
-      {
-        "stadium": "광주 챔피언스필드",
-        "wins": 4,
-        "losses": 4,
-        "draws": 1,
-        "win_rate": "0.500"
-      },
-      {
-        "stadium": "서울 고척스카이돔",
-        "wins": 23,
-        "losses": 43,
-        "draws": 2,
-        "win_rate": "0.348"
-      },
-      {
-        "stadium": "서울 잠실야구장",
-        "wins": 5,
-        "losses": 11,
-        "draws": 0,
-        "win_rate": "0.313"
-      },
-      {
-        "stadium": "대전 한화생명이글스파크",
-        "wins": 2,
-        "losses": 5,
-        "draws": 0,
-        "win_rate": "0.286"
-      },
-      {
-        "stadium": "부산 사직야구장",
-        "wins": 3,
-        "losses": 4,
-        "draws": 0,
-        "win_rate": "0.429"
-      },
+    "두산": [
       {
         "stadium": "인천 SSG랜더스필드",
-        "wins": 3,
-        "losses": 5,
-        "draws": 1,
-        "win_rate": "0.375"
-      },
-      {
-        "stadium": "수원 KT위즈파크",
         "wins": 2,
         "losses": 4,
         "draws": 0,
         "win_rate": "0.333"
       },
       {
-        "stadium": "창원 NC파크",
-        "wins": 4,
+        "stadium": "수원 KT위즈파크",
+        "wins": 2,
         "losses": 5,
         "draws": 0,
-        "win_rate": "0.444"
+        "win_rate": "0.286"
+      },
+      {
+        "stadium": "서울 잠실야구장",
+        "wins": 30,
+        "losses": 43,
+        "draws": 4,
+        "win_rate": "0.411"
+      },
+      {
+        "stadium": "부산 사직야구장",
+        "wins": 5,
+        "losses": 3,
+        "draws": 1,
+        "win_rate": "0.625"
+      },
+      {
+        "stadium": "서울 고척스카이돔",
+        "wins": 5,
+        "losses": 4,
+        "draws": 0,
+        "win_rate": "0.556"
+      },
+      {
+        "stadium": "대구 삼성라이온즈파크",
+        "wins": 3,
+        "losses": 3,
+        "draws": 0,
+        "win_rate": "0.500"
+      },
+      {
+        "stadium": "대전 한화생명이글스파크",
+        "wins": 6,
+        "losses": 3,
+        "draws": 0,
+        "win_rate": "0.667"
+      },
+      {
+        "stadium": "광주 챔피언스필드",
+        "wins": 1,
+        "losses": 5,
+        "draws": 1,
+        "win_rate": "0.167"
+      },
+      {
+        "stadium": "창원 NC파크",
+        "wins": 3,
+        "losses": 4,
+        "draws": 0,
+        "win_rate": "0.429"
       }
     ],
     "KT": [
       {
         "stadium": "수원 KT위즈파크",
-        "wins": 34,
+        "wins": 35,
         "losses": 35,
         "draws": 1,
-        "win_rate": "0.493"
+        "win_rate": "0.500"
       },
       {
         "stadium": "부산 사직야구장",
@@ -1812,266 +1812,6 @@
         "losses": 5,
         "draws": 0,
         "win_rate": "0.444"
-      }
-    ],
-    "SSG": [
-      {
-        "stadium": "인천 SSG랜더스필드",
-        "wins": 33,
-        "losses": 29,
-        "draws": 4,
-        "win_rate": "0.532"
-      },
-      {
-        "stadium": "서울 고척스카이돔",
-        "wins": 3,
-        "losses": 3,
-        "draws": 0,
-        "win_rate": "0.500"
-      },
-      {
-        "stadium": "대구 삼성라이온즈파크",
-        "wins": 3,
-        "losses": 4,
-        "draws": 0,
-        "win_rate": "0.429"
-      },
-      {
-        "stadium": "광주 챔피언스필드",
-        "wins": 3,
-        "losses": 3,
-        "draws": 0,
-        "win_rate": "0.500"
-      },
-      {
-        "stadium": "수원 KT위즈파크",
-        "wins": 5,
-        "losses": 4,
-        "draws": 0,
-        "win_rate": "0.556"
-      },
-      {
-        "stadium": "서울 잠실야구장",
-        "wins": 8,
-        "losses": 7,
-        "draws": 0,
-        "win_rate": "0.533"
-      },
-      {
-        "stadium": "부산 사직야구장",
-        "wins": 5,
-        "losses": 4,
-        "draws": 0,
-        "win_rate": "0.556"
-      },
-      {
-        "stadium": "대전 한화생명이글스파크",
-        "wins": 5,
-        "losses": 4,
-        "draws": 0,
-        "win_rate": "0.556"
-      },
-      {
-        "stadium": "창원 NC파크",
-        "wins": 3,
-        "losses": 3,
-        "draws": 0,
-        "win_rate": "0.500"
-      }
-    ],
-    "두산": [
-      {
-        "stadium": "인천 SSG랜더스필드",
-        "wins": 2,
-        "losses": 3,
-        "draws": 0,
-        "win_rate": "0.400"
-      },
-      {
-        "stadium": "수원 KT위즈파크",
-        "wins": 2,
-        "losses": 5,
-        "draws": 0,
-        "win_rate": "0.286"
-      },
-      {
-        "stadium": "서울 잠실야구장",
-        "wins": 30,
-        "losses": 43,
-        "draws": 4,
-        "win_rate": "0.411"
-      },
-      {
-        "stadium": "부산 사직야구장",
-        "wins": 5,
-        "losses": 3,
-        "draws": 1,
-        "win_rate": "0.625"
-      },
-      {
-        "stadium": "서울 고척스카이돔",
-        "wins": 5,
-        "losses": 4,
-        "draws": 0,
-        "win_rate": "0.556"
-      },
-      {
-        "stadium": "대구 삼성라이온즈파크",
-        "wins": 3,
-        "losses": 3,
-        "draws": 0,
-        "win_rate": "0.500"
-      },
-      {
-        "stadium": "대전 한화생명이글스파크",
-        "wins": 6,
-        "losses": 3,
-        "draws": 0,
-        "win_rate": "0.667"
-      },
-      {
-        "stadium": "광주 챔피언스필드",
-        "wins": 1,
-        "losses": 5,
-        "draws": 1,
-        "win_rate": "0.167"
-      },
-      {
-        "stadium": "창원 NC파크",
-        "wins": 3,
-        "losses": 4,
-        "draws": 0,
-        "win_rate": "0.429"
-      }
-    ],
-    "LG": [
-      {
-        "stadium": "서울 잠실야구장",
-        "wins": 45,
-        "losses": 30,
-        "draws": 1,
-        "win_rate": "0.600"
-      },
-      {
-        "stadium": "창원 NC파크",
-        "wins": 6,
-        "losses": 2,
-        "draws": 0,
-        "win_rate": "0.750"
-      },
-      {
-        "stadium": "수원 KT위즈파크",
-        "wins": 7,
-        "losses": 2,
-        "draws": 0,
-        "win_rate": "0.778"
-      },
-      {
-        "stadium": "서울 고척스카이돔",
-        "wins": 3,
-        "losses": 4,
-        "draws": 0,
-        "win_rate": "0.429"
-      },
-      {
-        "stadium": "인천 SSG랜더스필드",
-        "wins": 6,
-        "losses": 3,
-        "draws": 0,
-        "win_rate": "0.667"
-      },
-      {
-        "stadium": "광주 챔피언스필드",
-        "wins": 7,
-        "losses": 2,
-        "draws": 0,
-        "win_rate": "0.778"
-      },
-      {
-        "stadium": "대전 한화생명이글스파크",
-        "wins": 0,
-        "losses": 3,
-        "draws": 1,
-        "win_rate": "0.000"
-      },
-      {
-        "stadium": "대구 삼성라이온즈파크",
-        "wins": 7,
-        "losses": 2,
-        "draws": 0,
-        "win_rate": "0.778"
-      },
-      {
-        "stadium": "부산 사직야구장",
-        "wins": 2,
-        "losses": 3,
-        "draws": 1,
-        "win_rate": "0.400"
-      }
-    ],
-    "롯데": [
-      {
-        "stadium": "서울 잠실야구장",
-        "wins": 5,
-        "losses": 9,
-        "draws": 1,
-        "win_rate": "0.357"
-      },
-      {
-        "stadium": "인천 SSG랜더스필드",
-        "wins": 2,
-        "losses": 4,
-        "draws": 0,
-        "win_rate": "0.333"
-      },
-      {
-        "stadium": "부산 사직야구장",
-        "wins": 34,
-        "losses": 32,
-        "draws": 4,
-        "win_rate": "0.515"
-      },
-      {
-        "stadium": "대전 한화생명이글스파크",
-        "wins": 3,
-        "losses": 5,
-        "draws": 0,
-        "win_rate": "0.375"
-      },
-      {
-        "stadium": "창원 NC파크",
-        "wins": 5,
-        "losses": 4,
-        "draws": 0,
-        "win_rate": "0.556"
-      },
-      {
-        "stadium": "대구 삼성라이온즈파크",
-        "wins": 2,
-        "losses": 4,
-        "draws": 0,
-        "win_rate": "0.333"
-      },
-      {
-        "stadium": "서울 고척스카이돔",
-        "wins": 7,
-        "losses": 2,
-        "draws": 0,
-        "win_rate": "0.778"
-      },
-      {
-        "stadium": "수원 KT위즈파크",
-        "wins": 4,
-        "losses": 2,
-        "draws": 1,
-        "win_rate": "0.667"
-      },
-      {
-        "stadium": "광주 챔피언스필드",
-        "wins": 3,
-        "losses": 4,
-        "draws": 0,
-        "win_rate": "0.429"
       }
     ],
     "KIA": [
@@ -2202,6 +1942,266 @@
         "losses": 6,
         "draws": 1,
         "win_rate": "0.250"
+      }
+    ],
+    "삼성": [
+      {
+        "stadium": "대구 삼성라이온즈파크",
+        "wins": 37,
+        "losses": 30,
+        "draws": 0,
+        "win_rate": "0.552"
+      },
+      {
+        "stadium": "서울 잠실야구장",
+        "wins": 11,
+        "losses": 5,
+        "draws": 0,
+        "win_rate": "0.688"
+      },
+      {
+        "stadium": "광주 챔피언스필드",
+        "wins": 3,
+        "losses": 3,
+        "draws": 0,
+        "win_rate": "0.500"
+      },
+      {
+        "stadium": "수원 KT위즈파크",
+        "wins": 2,
+        "losses": 7,
+        "draws": 0,
+        "win_rate": "0.222"
+      },
+      {
+        "stadium": "인천 SSG랜더스필드",
+        "wins": 4,
+        "losses": 4,
+        "draws": 1,
+        "win_rate": "0.500"
+      },
+      {
+        "stadium": "대전 한화생명이글스파크",
+        "wins": 4,
+        "losses": 5,
+        "draws": 0,
+        "win_rate": "0.444"
+      },
+      {
+        "stadium": "부산 사직야구장",
+        "wins": 2,
+        "losses": 5,
+        "draws": 1,
+        "win_rate": "0.286"
+      },
+      {
+        "stadium": "서울 고척스카이돔",
+        "wins": 3,
+        "losses": 3,
+        "draws": 0,
+        "win_rate": "0.500"
+      },
+      {
+        "stadium": "창원 NC파크",
+        "wins": 3,
+        "losses": 4,
+        "draws": 0,
+        "win_rate": "0.429"
+      }
+    ],
+    "키움": [
+      {
+        "stadium": "대구 삼성라이온즈파크",
+        "wins": 1,
+        "losses": 7,
+        "draws": 0,
+        "win_rate": "0.125"
+      },
+      {
+        "stadium": "광주 챔피언스필드",
+        "wins": 4,
+        "losses": 4,
+        "draws": 1,
+        "win_rate": "0.500"
+      },
+      {
+        "stadium": "서울 고척스카이돔",
+        "wins": 23,
+        "losses": 43,
+        "draws": 2,
+        "win_rate": "0.348"
+      },
+      {
+        "stadium": "서울 잠실야구장",
+        "wins": 5,
+        "losses": 11,
+        "draws": 0,
+        "win_rate": "0.313"
+      },
+      {
+        "stadium": "대전 한화생명이글스파크",
+        "wins": 2,
+        "losses": 5,
+        "draws": 0,
+        "win_rate": "0.286"
+      },
+      {
+        "stadium": "부산 사직야구장",
+        "wins": 3,
+        "losses": 4,
+        "draws": 0,
+        "win_rate": "0.429"
+      },
+      {
+        "stadium": "인천 SSG랜더스필드",
+        "wins": 3,
+        "losses": 5,
+        "draws": 1,
+        "win_rate": "0.375"
+      },
+      {
+        "stadium": "수원 KT위즈파크",
+        "wins": 2,
+        "losses": 4,
+        "draws": 0,
+        "win_rate": "0.333"
+      },
+      {
+        "stadium": "창원 NC파크",
+        "wins": 4,
+        "losses": 5,
+        "draws": 0,
+        "win_rate": "0.444"
+      }
+    ],
+    "LG": [
+      {
+        "stadium": "서울 잠실야구장",
+        "wins": 45,
+        "losses": 30,
+        "draws": 1,
+        "win_rate": "0.600"
+      },
+      {
+        "stadium": "창원 NC파크",
+        "wins": 6,
+        "losses": 2,
+        "draws": 0,
+        "win_rate": "0.750"
+      },
+      {
+        "stadium": "수원 KT위즈파크",
+        "wins": 7,
+        "losses": 2,
+        "draws": 0,
+        "win_rate": "0.778"
+      },
+      {
+        "stadium": "서울 고척스카이돔",
+        "wins": 3,
+        "losses": 4,
+        "draws": 0,
+        "win_rate": "0.429"
+      },
+      {
+        "stadium": "인천 SSG랜더스필드",
+        "wins": 6,
+        "losses": 3,
+        "draws": 0,
+        "win_rate": "0.667"
+      },
+      {
+        "stadium": "광주 챔피언스필드",
+        "wins": 7,
+        "losses": 2,
+        "draws": 0,
+        "win_rate": "0.778"
+      },
+      {
+        "stadium": "대전 한화생명이글스파크",
+        "wins": 0,
+        "losses": 3,
+        "draws": 1,
+        "win_rate": "0.000"
+      },
+      {
+        "stadium": "대구 삼성라이온즈파크",
+        "wins": 7,
+        "losses": 2,
+        "draws": 0,
+        "win_rate": "0.778"
+      },
+      {
+        "stadium": "부산 사직야구장",
+        "wins": 2,
+        "losses": 3,
+        "draws": 1,
+        "win_rate": "0.400"
+      }
+    ],
+    "롯데": [
+      {
+        "stadium": "서울 잠실야구장",
+        "wins": 5,
+        "losses": 9,
+        "draws": 1,
+        "win_rate": "0.357"
+      },
+      {
+        "stadium": "인천 SSG랜더스필드",
+        "wins": 2,
+        "losses": 4,
+        "draws": 0,
+        "win_rate": "0.333"
+      },
+      {
+        "stadium": "부산 사직야구장",
+        "wins": 34,
+        "losses": 32,
+        "draws": 4,
+        "win_rate": "0.515"
+      },
+      {
+        "stadium": "대전 한화생명이글스파크",
+        "wins": 3,
+        "losses": 5,
+        "draws": 0,
+        "win_rate": "0.375"
+      },
+      {
+        "stadium": "창원 NC파크",
+        "wins": 5,
+        "losses": 4,
+        "draws": 0,
+        "win_rate": "0.556"
+      },
+      {
+        "stadium": "대구 삼성라이온즈파크",
+        "wins": 2,
+        "losses": 4,
+        "draws": 0,
+        "win_rate": "0.333"
+      },
+      {
+        "stadium": "서울 고척스카이돔",
+        "wins": 7,
+        "losses": 2,
+        "draws": 0,
+        "win_rate": "0.778"
+      },
+      {
+        "stadium": "수원 KT위즈파크",
+        "wins": 4,
+        "losses": 2,
+        "draws": 1,
+        "win_rate": "0.667"
+      },
+      {
+        "stadium": "광주 챔피언스필드",
+        "wins": 3,
+        "losses": 4,
+        "draws": 0,
+        "win_rate": "0.429"
       }
     ]
   },
@@ -4680,7 +4680,7 @@
     "한화": {
       "totalSeries": 50,
       "winningSeries": 26,
-      "losingSeries": 17,
+      "losingSeries": 18,
       "splitSeries": 6,
       "sweepWins": 11,
       "sweepLosses": 4,
@@ -7168,7 +7168,7 @@
           "draws": 0,
           "homeGames": 0,
           "awayGames": 2,
-          "result": "ONGOING",
+          "result": "LOSS",
           "isSweep": false,
           "isWinningSweep": false,
           "isLosingSweep": false,
@@ -7178,10 +7178,10 @@
         }
       ],
       "currentStreak": {
-        "type": "WIN",
-        "count": 3,
-        "startDate": "2025-09-09",
-        "endDate": "2025-09-18"
+        "type": "LOSS",
+        "count": 1,
+        "startDate": "2025-09-19",
+        "endDate": "2025-09-20"
       },
       "longestWinningStreak": {
         "count": 9,
@@ -7197,8 +7197,8 @@
         "KT": {
           "totalSeries": 6,
           "wins": 3,
-          "losses": 1,
-          "splits": 2,
+          "losses": 2,
+          "splits": 1,
           "sweepWins": 1,
           "sweepLosses": 0
         },
@@ -12432,12 +12432,12 @@
     },
     "KT": {
       "totalSeries": 48,
-      "winningSeries": 22,
+      "winningSeries": 23,
       "losingSeries": 19,
       "splitSeries": 6,
       "sweepWins": 3,
       "sweepLosses": 5,
-      "seriesWinRate": "45.8",
+      "seriesWinRate": "47.9",
       "series": [
         {
           "opponent": "한화",
@@ -14851,7 +14851,7 @@
           "draws": 0,
           "homeGames": 2,
           "awayGames": 0,
-          "result": "ONGOING",
+          "result": "WIN",
           "isSweep": false,
           "isWinningSweep": false,
           "isLosingSweep": false,
@@ -14861,10 +14861,10 @@
         }
       ],
       "currentStreak": {
-        "type": "LOSS",
+        "type": "WIN",
         "count": 1,
-        "startDate": "2025-09-16",
-        "endDate": "2025-09-18"
+        "startDate": "2025-09-19",
+        "endDate": "2025-09-20"
       },
       "longestWinningStreak": {
         "count": 5,
@@ -14879,9 +14879,9 @@
       "vsTeams": {
         "한화": {
           "totalSeries": 6,
-          "wins": 1,
+          "wins": 2,
           "losses": 3,
-          "splits": 2,
+          "splits": 1,
           "sweepWins": 0,
           "sweepLosses": 1
         },
@@ -14953,12 +14953,12 @@
     },
     "SSG": {
       "totalSeries": 50,
-      "winningSeries": 22,
+      "winningSeries": 23,
       "losingSeries": 20,
       "splitSeries": 7,
       "sweepWins": 0,
       "sweepLosses": 1,
-      "seriesWinRate": "44.0",
+      "seriesWinRate": "46.0",
       "series": [
         {
           "opponent": "두산",
@@ -17432,7 +17432,7 @@
           "draws": 0,
           "homeGames": 2,
           "awayGames": 0,
-          "result": "ONGOING",
+          "result": "WIN",
           "isSweep": false,
           "isWinningSweep": false,
           "isLosingSweep": false,
@@ -17442,10 +17442,10 @@
         }
       ],
       "currentStreak": {
-        "type": "LOSS",
+        "type": "WIN",
         "count": 1,
-        "startDate": "2025-09-09",
-        "endDate": "2025-09-10"
+        "startDate": "2025-09-19",
+        "endDate": "2025-09-20"
       },
       "longestWinningStreak": {
         "count": 4,
@@ -17460,9 +17460,9 @@
       "vsTeams": {
         "두산": {
           "totalSeries": 6,
-          "wins": 3,
+          "wins": 4,
           "losses": 1,
-          "splits": 2,
+          "splits": 1,
           "sweepWins": 0,
           "sweepLosses": 0
         },
@@ -20036,7 +20036,7 @@
     "두산": {
       "totalSeries": 48,
       "winningSeries": 14,
-      "losingSeries": 26,
+      "losingSeries": 27,
       "splitSeries": 7,
       "sweepWins": 3,
       "sweepLosses": 3,
@@ -22424,7 +22424,7 @@
           "draws": 0,
           "homeGames": 0,
           "awayGames": 2,
-          "result": "ONGOING",
+          "result": "LOSS",
           "isSweep": false,
           "isWinningSweep": false,
           "isLosingSweep": false,
@@ -22435,9 +22435,9 @@
       ],
       "currentStreak": {
         "type": "LOSS",
-        "count": 2,
+        "count": 3,
         "startDate": "2025-09-13",
-        "endDate": "2025-09-18"
+        "endDate": "2025-09-20"
       },
       "longestWinningStreak": {
         "count": 3,
@@ -22453,8 +22453,8 @@
         "SSG": {
           "totalSeries": 6,
           "wins": 1,
-          "losses": 3,
-          "splits": 2,
+          "losses": 4,
+          "splits": 1,
           "sweepWins": 0,
           "sweepLosses": 0
         },
@@ -27671,8 +27671,8 @@
         "win_rate": "0.600"
       },
       "KT": {
-        "record": "5-10",
-        "win_rate": "0.333"
+        "record": "5-11",
+        "win_rate": "0.313"
       },
       "SSG": {
         "record": "8-7",
@@ -27714,8 +27714,8 @@
         "win_rate": "0.267"
       },
       "SSG": {
-        "record": "5-8",
-        "win_rate": "0.385"
+        "record": "5-9",
+        "win_rate": "0.357"
       },
       "롯데": {
         "record": "7-7",
@@ -27744,8 +27744,8 @@
         "win_rate": "0.313"
       },
       "삼성": {
-        "record": "10-5",
-        "win_rate": "0.667"
+        "record": "11-5",
+        "win_rate": "0.688"
       },
       "두산": {
         "record": "11-4",
@@ -27787,8 +27787,8 @@
         "win_rate": "0.467"
       },
       "두산": {
-        "record": "8-5",
-        "win_rate": "0.615"
+        "record": "9-5",
+        "win_rate": "0.643"
       },
       "KT": {
         "record": "8-6",
@@ -27986,28 +27986,28 @@
     },
     {
       "team_name": "삼성",
-      "current_streak": "4W",
+      "current_streak": "1L",
       "max_win_streak": 7,
       "max_lose_streak": 8,
-      "streak_status": "연승 중"
+      "streak_status": "연패 중"
     },
     {
       "team_name": "두산",
-      "current_streak": "1L",
+      "current_streak": "2L",
       "max_win_streak": 7,
       "max_lose_streak": 7,
       "streak_status": "연패 중"
     },
     {
       "team_name": "KT",
-      "current_streak": "1W",
+      "current_streak": "2W",
       "max_win_streak": 4,
       "max_lose_streak": 6,
       "streak_status": "연승 중"
     },
     {
       "team_name": "SSG",
-      "current_streak": "1W",
+      "current_streak": "2W",
       "max_win_streak": 5,
       "max_lose_streak": 6,
       "streak_status": "연승 중"
@@ -28059,32 +28059,32 @@
       "avg_run_diff": "0.00"
     },
     {
-      "runs_scored": 718,
-      "runs_allowed": 608,
+      "runs_scored": 721,
+      "runs_allowed": 614,
       "run_differential": 0,
       "avg_runs_scored": "0.00",
       "avg_runs_allowed": "0.00",
       "avg_run_diff": "0.00"
     },
     {
-      "runs_scored": 608,
-      "runs_allowed": 659,
+      "runs_scored": 611,
+      "runs_allowed": 666,
       "run_differential": 0,
       "avg_runs_scored": "0.00",
       "avg_runs_allowed": "0.00",
       "avg_run_diff": "0.00"
     },
     {
-      "runs_scored": 604,
-      "runs_allowed": 630,
+      "runs_scored": 610,
+      "runs_allowed": 633,
       "run_differential": 0,
       "avg_runs_scored": "0.00",
       "avg_runs_allowed": "0.00",
       "avg_run_diff": "0.00"
     },
     {
-      "runs_scored": 566,
-      "runs_allowed": 526,
+      "runs_scored": 573,
+      "runs_allowed": 529,
       "run_differential": 0,
       "avg_runs_scored": "0.00",
       "avg_runs_allowed": "0.00",
