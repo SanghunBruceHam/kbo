@@ -3500,41 +3500,55 @@ const kboTeams = {
                 return extremeRank <= 5 && extremeRank > 0;
             }
             
-            // 필터링: 새창에서는 모든 팀, 메인에서는 경쟁 가능한 팀만
+            // 필터링: 새창에서는 모든 팀, 메인에서는 5위 경쟁 가능한 팀만
             const playoffContenders = skipFiltering ? topTeams : topTeams.filter(team => {
-                // 상위 8팀은 무조건 포함 (더 관대하게)
                 const currentRank = team.rank || team.displayRank || (topTeams.findIndex(t => t.team === team.team) + 1);
-                if (currentRank <= 8) {
+
+                // 현재 5위 이내 팀은 무조건 포함
+                if (currentRank <= 5) {
                     return true;
                 }
-                
-                // 9위, 10위는 기본적인 수학적 가능성 체크
+
+                // 6위 이하 팀의 5위 진출 가능성 체크
                 const maxPossibleWins = team.wins + (team.remainingGames || 0);
-                
-                // 기본적인 가능성이 있으면 포함
-                if (maxPossibleWins > 50) {
+                const maxPossibleWinRate = maxPossibleWins / (team.wins + team.losses + team.ties + (team.remainingGames || 0));
+
+                // 현재 5위팀 찾기
+                const fifthPlaceTeam = topTeams.find(t => (t.rank || t.displayRank || 1) === 5);
+                if (!fifthPlaceTeam) return currentRank <= 7; // 5위팀이 없으면 7위까지만
+
+                // 현재 5위팀의 최소 가능 승률 계산
+                const fifthMinWins = fifthPlaceTeam.wins;
+                const fifthTotalGames = fifthPlaceTeam.wins + fifthPlaceTeam.losses + fifthPlaceTeam.ties + (fifthPlaceTeam.remainingGames || 0);
+                const fifthMinWinRate = fifthMinWins / fifthTotalGames;
+
+                // 5위팀을 넘어설 수 있는 최대 승률이 있으면 포함
+                if (maxPossibleWinRate > fifthMinWinRate) {
                     return true;
                 }
-                
-                // 매우 관대한 기준: 50승 이상 가능하면 포함
-                if (maxPossibleWins >= 50) {
-                    return true;
+
+                // 수학적으로는 어려워도 8위까지는 보여주되, 승차가 크면 제외
+                if (currentRank <= 8) {
+                    const winDifference = fifthPlaceTeam.wins - team.wins;
+                    const remainingGames = team.remainingGames || 0;
+                    // 승차가 잔여경기보다 많이 나면 제외
+                    return winDifference <= remainingGames + 3; // 3경기 여유
                 }
-                
+
                 return false;
             });
             
-            // 실제 경쟁 가능한 팀만 선별 (새창: 전체 10팀, 메인: 최대 9팀)
-            const eligibleTeams = skipFiltering ? playoffContenders : playoffContenders.slice(0, 9);
-            
+            // 실제 경쟁 가능한 팀만 선별 (새창: 전체 10팀, 메인: 필터링 결과)
+            const eligibleTeams = skipFiltering ? topTeams : playoffContenders;
+
             // 두산 특별 체크
             const doosan = topTeams.find(t => t.team === '두산');
             if (doosan) {
             }
-            
-            // 팀이 너무 적으면 최소 상위 팀 보장 (새창: 10팀, 메인: 8팀)
-            const minTeamCount = skipFiltering ? 10 : 8;
-            const maxTeamCount = skipFiltering ? 10 : 9;
+
+            // 팀이 너무 적으면 최소 상위 팀 보장 (새창: 10팀, 메인: 최소 6팀)
+            const minTeamCount = skipFiltering ? 10 : 6;
+            const maxTeamCount = skipFiltering ? 10 : 8;
             if (eligibleTeams.length < minTeamCount) {
                 const minTeams = topTeams.slice(0, Math.min(maxTeamCount, topTeams.length));
                 eligibleTeams.splice(0, eligibleTeams.length, ...minTeams);
