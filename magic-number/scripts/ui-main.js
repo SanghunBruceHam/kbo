@@ -379,51 +379,71 @@ const kboTeams = {
             }
         }
 
+        function getPrecomputedMatrixEntry(teamName) {
+            const rawData = window.precomputedMatrixData?.precomputedMatrixResults?.rawCalculationData;
+            if (!rawData) return null;
+            return rawData.find(entry => entry.team === teamName) || null;
+        }
+
         // 승률과 상대전적 기준으로 순위 정렬
         async function sortStandingsByWinRateAndHeadToHead(standings) {
-            try {
-                // 상대전적 데이터 로드
-                let recordsData = null;
-                try {
-                    const response = await fetch(`data/calc-head-to-head.json?v=${Date.now()}`);
-                    recordsData = await response.json();
-                } catch (error) {
-                    logger.warn('⚠️ 상대전적 데이터 로드 실패, 승률만으로 정렬:', error);
-                }
+            const tieNotes = new Map();
 
-                // 승률과 상대전적 기준으로 정렬
+            try {
+                const resources = await loadTieBreakerResources();
+
+                // 정렬 안정성을 보장하기 위해 우선 팀명을 기준으로 정렬
+                standings.sort((a, b) => (a.team || '').localeCompare(b.team || ''));
+
+                // 1차 정렬: 승률 높은 순
                 standings.sort((a, b) => {
                     const aWinRate = parseFloat(a.winRate || a.winPct || 0);
                     const bWinRate = parseFloat(b.winRate || b.winPct || 0);
-                    
-                    // 1차: 승률 비교 (내림차순)
-                    if (aWinRate !== bWinRate) {
-                        return bWinRate - aWinRate;
-                    }
-                    
-                    // 2차: 승률이 같을 때 상대전적 비교
-                    if (recordsData && recordsData.totalData) {
-                        const aVsB = recordsData.totalData[a.team]?.[b.team];
-                        const bVsA = recordsData.totalData[b.team]?.[a.team];
-                        
-                        if (aVsB && bVsA) {
-                            const aWins = aVsB.wins || 0;
-                            const bWins = bVsA.wins || 0;
-                            
-                            // 상대전적 승수가 다르면 많이 이긴 팀을 앞에
-                            if (aWins !== bWins) {
-                                return bWins - aWins;
-                            }
-                        }
-                    }
-                    
-                    // 3차: 팀명 알파벳 순 (일관성을 위해)
-                    return (a.team || '').localeCompare(b.team || '');
+                    return (bWinRate || 0) - (aWinRate || 0);
                 });
-                
-                
+
+                let index = 0;
+                while (index < standings.length) {
+                    const currentTeam = standings[index];
+                    const currentWinRate = parseFloat(currentTeam.winRate || currentTeam.winPct || 0);
+
+                    let groupEnd = index + 1;
+                    while (groupEnd < standings.length) {
+                        const compareRate = parseFloat(standings[groupEnd].winRate || standings[groupEnd].winPct || 0);
+                        if (!nearlyEqual(currentWinRate, compareRate)) {
+                            break;
+                        }
+                        groupEnd += 1;
+                    }
+
+                    const groupSize = groupEnd - index;
+                    if (groupSize > 1) {
+                        const group = standings.slice(index, groupEnd);
+                        const resolved = resolveTieGroup(group, index, resources, tieNotes);
+                        standings.splice(index, group.length, ...resolved);
+                    } else {
+                        tieNotes.set(currentTeam.team, tieNotes.get(currentTeam.team) ?? null);
+                    }
+
+                    index = groupEnd;
+                }
+
+                standings.forEach(team => {
+                    if (!tieNotes.has(team.team)) {
+                        tieNotes.set(team.team, null);
+                    }
+                });
+
+                return tieNotes;
             } catch (error) {
                 logger.error('❌ 매직넘버 순위 정렬 실패:', error);
+                standings.sort((a, b) => {
+                    const aWinRate = parseFloat(a.winRate || a.winPct || 0);
+                    const bWinRate = parseFloat(b.winRate || b.winPct || 0);
+                    return (bWinRate || 0) - (aWinRate || 0);
+                });
+                standings.forEach(team => tieNotes.set(team.team, null));
+                return tieNotes;
             }
         }
 
@@ -444,36 +464,64 @@ const kboTeams = {
                 if (response.ok) {
                     const data = await response.json();
                     
-                    // 승률과 상대전적 기준으로 정렬
-                    await sortStandingsByWinRateAndHeadToHead(data.standings || []);
+                    // 승률 및 KBO 타이브레이커 규정 기반 정렬
+                    const tieNotes = await sortStandingsByWinRateAndHeadToHead(data.standings || []);
                     
                     // JSON 데이터 구조를 JavaScript 코드가 기대하는 형태로 변환
-                    // 승률이 같은 팀에게 같은 순위 부여
-                    let currentRank = 1;
-                    let previousWinRate = null;
-                    
-                    currentStandings = (data.standings || []).map((team, index) => {
-                        const winPct = team.winRate || team.winPct || 0;
-                        
-                        // 이전 팀과 승률이 다르면 실제 순위로 업데이트
-                        if (previousWinRate !== null && winPct !== previousWinRate) {
-                            currentRank = index + 1;
+                    const orderedStandings = data.standings || [];
+                    const rankedEntries = [];
+                    let nextRank = 1;
+                    let pointer = 0;
+
+                    while (pointer < orderedStandings.length) {
+                        const baseTeam = orderedStandings[pointer];
+                        const baseWinPct = parseFloat(baseTeam.winRate || baseTeam.winPct || 0);
+                        let groupEnd = pointer + 1;
+
+                        while (groupEnd < orderedStandings.length) {
+                            const compareTeam = orderedStandings[groupEnd];
+                            const compareWinPct = parseFloat(compareTeam.winRate || compareTeam.winPct || 0);
+                            if (!nearlyEqual(baseWinPct, compareWinPct)) {
+                                break;
+                            }
+                            groupEnd += 1;
                         }
-                        
-                        const displayRank = currentRank;
-                        previousWinRate = winPct;
-                        
+
+                        const group = orderedStandings.slice(pointer, groupEnd);
+                        const requiresPlayoff = group.some(team => team._tieBreakerMode === 'TIEBREAK_GAME');
+
+                        group.forEach((team, offset) => {
+                            rankedEntries.push({
+                                team,
+                                displayRank: requiresPlayoff ? nextRank : nextRank + offset
+                            });
+                        });
+
+                        nextRank += group.length;
+                        pointer = groupEnd;
+                    }
+
+                    currentStandings = rankedEntries.map(({ team, displayRank }) => {
+                        const winPct = team.winRate || team.winPct || 0;
+                        const tieBreakerNote = tieNotes?.get?.(team.team) ?? null;
+
                         return {
                             ...team,
-                            winPct: winPct, // winRate를 winPct로 변환
-                            displayRank: displayRank, // 동률 순위 처리
+                            winPct,
+                            displayRank,
                             recent10: team.recent10 || "5승 0무 5패",
                             streak: team.streak || "1승",
-                            homeAway: { 
-                                home: team.homeRecord || "0-0-0", 
-                                away: team.awayRecord || "0-0-0" 
-                            } // 실제 홈/원정 기록 사용
+                            homeAway: {
+                                home: team.homeRecord || "0-0-0",
+                                away: team.awayRecord || "0-0-0"
+                            },
+                            tieBreakerNote,
+                            tieBreakerMode: team._tieBreakerMode || null
                         };
+                    });
+
+                    orderedStandings.forEach(team => {
+                        delete team._tieBreakerMode;
                     });
                     
                     // currentKBOData에 전체 데이터 저장
@@ -521,6 +569,22 @@ const kboTeams = {
 
         // 팀간 상대전적 데이터 (동적 로딩)
         let headToHeadData = {};
+
+        // KBO 공식 규정 기반 타이브레이커 보조 데이터 (전년도 순위는 최신 시즌 기준으로 업데이트 필요)
+        const FALLBACK_PREVIOUS_SEASON_RANKS = {
+            'LG': 1,
+            'KT': 2,
+            'NC': 3,
+            'SSG': 4,
+            '두산': 5,
+            'KIA': 6,
+            '롯데': 7,
+            '삼성': 8,
+            '한화': 9,
+            '키움': 10
+        };
+
+        let tieBreakerResourcePromise = null;
 
         // 상대전적 데이터 로딩 함수
         async function loadHeadToHeadData() {
@@ -580,6 +644,237 @@ const kboTeams = {
                 
                 return headToHeadData;
             }
+        }
+
+        function nearlyEqual(a, b, epsilon = 1e-6) {
+            return Math.abs((a ?? 0) - (b ?? 0)) < epsilon;
+        }
+
+        function normaliseHeadToHeadRecord(record) {
+            if (!record) {
+                return { wins: 0, losses: 0, draws: 0 };
+            }
+
+            if (typeof record === 'string') {
+                const [wins = 0, losses = 0, draws = 0] = record.split('-').map(Number);
+                return {
+                    wins: Number.isFinite(wins) ? wins : 0,
+                    losses: Number.isFinite(losses) ? losses : 0,
+                    draws: Number.isFinite(draws) ? draws : 0
+                };
+            }
+
+            return {
+                wins: record.wins ?? record.W ?? 0,
+                losses: record.losses ?? record.L ?? 0,
+                draws: record.draws ?? record.D ?? record.T ?? 0
+            };
+        }
+
+        async function loadTieBreakerResources() {
+            if (tieBreakerResourcePromise) {
+                return tieBreakerResourcePromise;
+            }
+
+            tieBreakerResourcePromise = (async () => {
+                const resources = {
+                    headToHead: {},
+                    runsScored: {},
+                    previousSeasonRanks: { ...FALLBACK_PREVIOUS_SEASON_RANKS }
+                };
+
+                try {
+                    resources.headToHead = await loadHeadToHeadData();
+                } catch (error) {
+                    logger.warn('⚠️ 상대전적 데이터 로드 실패, 기본값 사용', error);
+                }
+
+                // 전년도 순위 데이터 (선택 사항)
+                try {
+                    const response = await fetch(`data/previous-season-ranks.json?v=${Date.now()}`);
+                    if (response.ok) {
+                        const prevRankData = await response.json();
+                        if (prevRankData && typeof prevRankData === 'object') {
+                            resources.previousSeasonRanks = {
+                                ...resources.previousSeasonRanks,
+                                ...prevRankData
+                            };
+                        }
+                    }
+                } catch (error) {
+                    logger.warn('⚠️ 전년도 순위 데이터 로드 실패, 기본값 사용', error);
+                }
+
+                // 다중 타이브레이커 대비 득점 합계 계산
+                try {
+                    const response = await fetch(`data/2025-season-games.json?v=${Date.now()}`);
+                    if (response.ok) {
+                        const games = await response.json();
+                        if (Array.isArray(games)) {
+                            const totals = new Map();
+
+                            games.forEach(game => {
+                                const home = game.home_team;
+                                const away = game.away_team;
+                                const homeScore = Number(game.home_score) || 0;
+                                const awayScore = Number(game.away_score) || 0;
+
+                                if (home) {
+                                    totals.set(home, (totals.get(home) || 0) + homeScore);
+                                }
+                                if (away) {
+                                    totals.set(away, (totals.get(away) || 0) + awayScore);
+                                }
+                            });
+
+                            totals.forEach((value, team) => {
+                                resources.runsScored[team] = value;
+                            });
+                        }
+                    }
+                } catch (error) {
+                    logger.warn('⚠️ 시즌 득점 데이터 로드 실패, 타이브레이커 보조값 미사용', error);
+                }
+
+                return resources;
+            })();
+
+            return tieBreakerResourcePromise;
+        }
+
+        function computeHeadToHeadMetricsForGroup(groupTeams, headToHeadRecords) {
+            const metricsMap = new Map();
+
+            groupTeams.forEach(team => {
+                let wins = 0;
+                let losses = 0;
+                let draws = 0;
+
+                groupTeams.forEach(opponent => {
+                    if (opponent.team === team.team) return;
+                    const record = normaliseHeadToHeadRecord(headToHeadRecords?.[team.team]?.[opponent.team]);
+                    wins += record.wins;
+                    losses += record.losses;
+                    draws += record.draws;
+                });
+
+                const totalGames = wins + losses + draws;
+                const winPoints = wins + draws * 0.5;
+                const winPct = totalGames > 0 ? winPoints / totalGames : 0;
+
+                metricsMap.set(team.team, {
+                    wins,
+                    losses,
+                    draws,
+                    totalGames,
+                    winPct,
+                    winPoints
+                });
+            });
+
+            return metricsMap;
+        }
+
+        function resolveTieGroup(group, startIndex, resources, tieNotes) {
+            if (group.length <= 1) {
+                return group;
+            }
+
+            const spansFirstPlace = startIndex === 0;
+            const spansFifthPlace = startIndex <= 4 && (startIndex + group.length - 1) >= 4;
+            const isMultiTeamSpecial = group.length >= 3 && (spansFirstPlace || spansFifthPlace);
+
+            const decorated = group.map(team => ({ team }));
+
+            if (isMultiTeamSpecial) {
+                decorated.forEach(entry => {
+                    const teamName = entry.team.team;
+                    entry.wins = entry.team.wins ?? 0;
+                    entry.runsScored = resources.runsScored?.[teamName] ?? 0;
+                    entry.previousRank = resources.previousSeasonRanks?.[teamName] ?? Number.POSITIVE_INFINITY;
+                });
+
+                decorated.sort((a, b) => {
+                    if (b.wins !== a.wins) {
+                        return (b.wins || 0) - (a.wins || 0);
+                    }
+                    if ((b.runsScored || 0) !== (a.runsScored || 0)) {
+                        return (b.runsScored || 0) - (a.runsScored || 0);
+                    }
+                    if ((a.previousRank || Infinity) !== (b.previousRank || Infinity)) {
+                        return (a.previousRank || Infinity) - (b.previousRank || Infinity);
+                    }
+                    return (a.team.team || '').localeCompare(b.team.team || '');
+                });
+
+                const note = spansFirstPlace
+                    ? '1위 다중동률: 총승수→득점→전년도 순위 적용'
+                    : '5위 다중동률: 총승수→득점→전년도 순위 적용';
+                decorated.forEach(({ team }) => {
+                    team._tieBreakerMode = 'MULTI_SPECIAL';
+                    tieNotes.set(team.team, note);
+                });
+
+                return decorated.map(entry => entry.team);
+            }
+
+            const headToHeadMetrics = computeHeadToHeadMetricsForGroup(group, resources.headToHead);
+
+            decorated.forEach(entry => {
+                const teamName = entry.team.team;
+                entry.headToHead = headToHeadMetrics.get(teamName) || {
+                    wins: 0,
+                    losses: 0,
+                    draws: 0,
+                    totalGames: 0,
+                    winPct: 0,
+                    winPoints: 0
+                };
+                entry.runsScored = resources.runsScored?.[teamName] ?? 0;
+                entry.previousRank = resources.previousSeasonRanks?.[teamName] ?? Number.POSITIVE_INFINITY;
+            });
+
+            decorated.sort((a, b) => {
+                if (!nearlyEqual(a.headToHead.winPct, b.headToHead.winPct)) {
+                    return (b.headToHead.winPct || 0) - (a.headToHead.winPct || 0);
+                }
+                const winDiffA = (a.headToHead.wins || 0) - (a.headToHead.losses || 0);
+                const winDiffB = (b.headToHead.wins || 0) - (b.headToHead.losses || 0);
+                if (winDiffA !== winDiffB) {
+                    return winDiffB - winDiffA;
+                }
+                if ((b.runsScored || 0) !== (a.runsScored || 0)) {
+                    return (b.runsScored || 0) - (a.runsScored || 0);
+                }
+                if ((a.previousRank || Infinity) !== (b.previousRank || Infinity)) {
+                    return (a.previousRank || Infinity) - (b.previousRank || Infinity);
+                }
+                return (a.team.team || '').localeCompare(b.team.team || '');
+            });
+
+            if (group.length === 2 && (spansFirstPlace || spansFifthPlace)) {
+                const note = spansFirstPlace
+                    ? '1위 동률: 단판 타이브레이크 예정 (상대전적 순 임시 반영)'
+                    : '5위 동률: 단판 타이브레이크 예정 (상대전적 순 임시 반영)';
+                decorated.forEach(({ team }) => {
+                    team._tieBreakerMode = 'TIEBREAK_GAME';
+                    tieNotes.set(team.team, note);
+                });
+            } else {
+                const note = group.length >= 3
+                    ? '동률 그룹 상대전적(미니리그) 승률 우선 적용'
+                    : '승률 동률 → 상대전적 승자승 적용';
+                decorated.forEach(({ team }) => {
+                    if (!tieNotes.has(team.team)) {
+                        tieNotes.set(team.team, note);
+                    }
+                    if (!team._tieBreakerMode) {
+                        team._tieBreakerMode = 'HEAD_TO_HEAD';
+                    }
+                });
+            }
+
+            return decorated.map(entry => entry.team);
         }
 
 
@@ -2123,16 +2418,25 @@ const kboTeams = {
         function calculateRankMagic(team, standings, targetRank) {
             const totalGames = 144;
             const remainingGames = totalGames - team.games;
-            
+            const rankNumber = targetRank + 1;
+
             if (targetRank >= 0 && targetRank < standings.length) {
+                const matrixEntry = getPrecomputedMatrixEntry(team.team);
+                if (matrixEntry && rankNumber >= 1 && rankNumber <= 9) {
+                    const key = `x${rankNumber}_strict`;
+                    const value = matrixEntry[key];
+                    if (typeof value === 'number') {
+                        return value;
+                    }
+                }
+
                 const targetTeam = standings[targetRank];
                 const targetMaxWins = targetTeam.wins + (totalGames - targetTeam.games);
                 const magicNumber = Math.max(0, targetMaxWins - team.wins + 1);
-                
-                // 이미 목표 달성했거나 불가능한 경우 처리
+
                 if (team.wins > targetMaxWins) return 0;
                 if (team.wins + remainingGames < targetTeam.wins) return 999;
-                
+
                 return Math.min(magicNumber, remainingGames);
             }
             return 0;
@@ -2154,47 +2458,27 @@ const kboTeams = {
         function calculateDropRankMagic(team, standings, dropToRank) {
             const totalGames = 144;
             const remainingGames = totalGames - team.games;
-            
+            const rankNumber = dropToRank + 1;
+
             if (dropToRank >= 0 && dropToRank < standings.length) {
+                const matrixEntry = getPrecomputedMatrixEntry(team.team);
+                if (matrixEntry && rankNumber >= 1 && rankNumber <= 9) {
+                    const key = `y${rankNumber}_tieOK`;
+                    const value = matrixEntry[key];
+                    if (typeof value === 'number') {
+                        return value;
+                    }
+                }
+
                 const dropToTeam = standings[dropToRank];
                 const dropToMaxWins = dropToTeam.wins + (totalGames - dropToTeam.games);
-                
-                // 우리가 모든 경기를 져도 해당 순위로 떨어지지 않으면
+
                 if (team.wins > dropToMaxWins) return 999;
-                
-                // 해당 순위까지 떨어지려면 몇 경기를 더 져야 하는가
+
                 const magicNumber = Math.max(0, dropToMaxWins - team.wins + 1);
                 return Math.min(magicNumber, remainingGames);
             }
             return 0;
-        }
-
-        function calculateChampionshipMagic(team, rankings, index) {
-            return 0;
-        }
-
-
-
-        function calculateFirstPlaceTragicNumber(team, rankings, index) {
-            return 0;
-        }
-
-        function determineTeamStatus(team, championshipMagic, playoffMagic, tragicNumber, index) {
-            // 우승 확정
-            if (championshipMagic === 0 || (index === 0 && championshipMagic <= 3)) {
-                return {
-                    label: '우승확정',
-                    backgroundColor: '#2563eb',
-                    textColor: '#ffffff'
-                };
-            }
-            
-            // 기본 (경합)
-            return {
-                label: '경합',
-                backgroundColor: '#eab308',
-                textColor: '#000000'
-            };
         }
 
         function renderHeadToHead() {

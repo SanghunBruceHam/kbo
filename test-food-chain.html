@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KBO Food Chain Diagram</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        h1 {
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 10px;
+        }
+
+        #container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            padding: 30px;
+            margin-top: 20px;
+        }
+
+        #chart {
+            position: relative;
+        }
+
+        .node {
+            cursor: pointer;
+        }
+
+        .node circle {
+            stroke-width: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .node:hover circle {
+            filter: brightness(1.2);
+            stroke-width: 4px;
+        }
+
+        .node text {
+            font-size: 12px;
+            font-weight: bold;
+            text-anchor: middle;
+            fill: white;
+            pointer-events: none;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .link {
+            fill: none;
+            stroke-opacity: 0.6;
+            stroke-width: 2;
+            marker-end: url(#arrowhead);
+            transition: all 0.3s ease;
+        }
+
+        .link:hover {
+            stroke-opacity: 1;
+            stroke-width: 4;
+        }
+
+        .dominant {
+            stroke: #2ecc71;
+        }
+
+        .weak {
+            stroke: #e74c3c;
+        }
+
+        .neutral {
+            stroke: #95a5a6;
+        }
+
+        .legend {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .legend-line {
+            width: 30px;
+            height: 3px;
+            display: inline-block;
+        }
+
+        .stats {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255,255,255,0.95);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            min-width: 200px;
+        }
+
+        .stats h3 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .stats-item {
+            font-size: 12px;
+            margin: 5px 0;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .tooltip {
+            position: absolute;
+            text-align: center;
+            padding: 10px;
+            font-size: 12px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            border-radius: 8px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+    </style>
+</head>
+<body>
+    <h1>🏆 2025 KBO Food Chain Diagram (순위순 배치)</h1>
+    <div id="container">
+        <div id="chart"></div>
+        <div class="stats" id="stats">
+            <h3>팀 통계</h3>
+            <div id="team-stats"></div>
+        </div>
+    </div>
+
+    <div class="legend">
+        <div class="legend-item">
+            <div class="legend-line" style="background: #e74c3c;"></div>
+            <span>압도적 우세 (승률 ≥ 70%)</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-line" style="background: #f39c12;"></div>
+            <span>우세 (60% ~ 70%)</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-line" style="background: #3498db;"></div>
+            <span>약간 우세 (50% ~ 60%)</span>
+        </div>
+        <div class="legend-item">
+            <span style="color: #666;">※ 50% 이하는 표시하지 않음 (열세 관계)</span>
+        </div>
+    </div>
+
+    <div class="tooltip" id="tooltip"></div>
+
+    <script>
+        // 상대전적 데이터
+        const headToHead = {
+            "LG": {"롯데": {"W": 9, "L": 4}, "한화": {"W": 7, "L": 5}, "NC": {"W": 8, "L": 6}, "KT": {"W": 8, "L": 5}, "KIA": {"W": 11, "L": 5}, "키움": {"W": 9, "L": 7}, "두산": {"W": 9, "L": 6}, "삼성": {"W": 9, "L": 6}, "SSG": {"W": 10, "L": 6}},
+            "롯데": {"LG": {"W": 4, "L": 9}, "SSG": {"W": 6, "L": 9}, "KT": {"W": 8, "L": 6}, "한화": {"W": 6, "L": 9}, "두산": {"W": 7, "L": 7}, "KIA": {"W": 8, "L": 8}, "NC": {"W": 7, "L": 7}, "키움": {"W": 11, "L": 4}, "삼성": {"W": 7, "L": 5}},
+            "KIA": {"NC": {"W": 6, "L": 6}, "키움": {"W": 7, "L": 6}, "한화": {"W": 4, "L": 9}, "삼성": {"W": 7, "L": 7}, "LG": {"W": 5, "L": 11}, "롯데": {"W": 8, "L": 8}, "SSG": {"W": 7, "L": 6}, "KT": {"W": 8, "L": 7}, "두산": {"W": 9, "L": 6}},
+            "NC": {"KIA": {"W": 6, "L": 6}, "삼성": {"W": 7, "L": 8}, "LG": {"W": 6, "L": 8}, "SSG": {"W": 4, "L": 8}, "키움": {"W": 9, "L": 6}, "KT": {"W": 8, "L": 6}, "롯데": {"W": 7, "L": 7}, "한화": {"W": 6, "L": 9}, "두산": {"W": 8, "L": 5}},
+            "SSG": {"두산": {"W": 7, "L": 5}, "롯데": {"W": 9, "L": 6}, "키움": {"W": 8, "L": 6}, "NC": {"W": 8, "L": 4}, "KT": {"W": 8, "L": 6}, "삼성": {"W": 7, "L": 8}, "KIA": {"W": 6, "L": 7}, "한화": {"W": 7, "L": 8}, "LG": {"W": 6, "L": 10}},
+            "두산": {"SSG": {"W": 5, "L": 7}, "KT": {"W": 4, "L": 11}, "삼성": {"W": 6, "L": 9}, "키움": {"W": 9, "L": 4}, "롯데": {"W": 7, "L": 7}, "한화": {"W": 8, "L": 6}, "LG": {"W": 6, "L": 9}, "KIA": {"W": 6, "L": 9}, "NC": {"W": 5, "L": 8}},
+            "KT": {"한화": {"W": 5, "L": 9}, "두산": {"W": 11, "L": 4}, "롯데": {"W": 6, "L": 8}, "LG": {"W": 5, "L": 8}, "SSG": {"W": 6, "L": 8}, "NC": {"W": 6, "L": 8}, "삼성": {"W": 10, "L": 5}, "KIA": {"W": 7, "L": 8}, "키움": {"W": 10, "L": 5}},
+            "한화": {"KT": {"W": 9, "L": 5}, "LG": {"W": 5, "L": 7}, "KIA": {"W": 9, "L": 4}, "롯데": {"W": 9, "L": 6}, "삼성": {"W": 8, "L": 8}, "두산": {"W": 6, "L": 8}, "키움": {"W": 13, "L": 2}, "SSG": {"W": 8, "L": 7}, "NC": {"W": 9, "L": 6}},
+            "삼성": {"키움": {"W": 10, "L": 4}, "NC": {"W": 8, "L": 7}, "두산": {"W": 9, "L": 6}, "KIA": {"W": 7, "L": 7}, "한화": {"W": 8, "L": 8}, "SSG": {"W": 8, "L": 7}, "KT": {"W": 5, "L": 10}, "LG": {"W": 6, "L": 9}, "롯데": {"W": 5, "L": 7}},
+            "키움": {"삼성": {"W": 4, "L": 10}, "KIA": {"W": 6, "L": 7}, "SSG": {"W": 6, "L": 8}, "두산": {"W": 4, "L": 9}, "NC": {"W": 6, "L": 9}, "LG": {"W": 7, "L": 9}, "한화": {"W": 2, "L": 13}, "롯데": {"W": 4, "L": 11}, "KT": {"W": 5, "L": 10}}
+        };
+
+        // 팀 색상
+        const teamColors = {
+            "LG": "#C30452",
+            "KIA": "#EA002C",
+            "삼성": "#074CA1",
+            "두산": "#131230",
+            "롯데": "#002955",
+            "한화": "#FF6600",
+            "SSG": "#CE0E2D",
+            "NC": "#315288",
+            "KT": "#000000",
+            "키움": "#570514"
+        };
+
+        // 각 팀의 영향력 계산 (총 승수 기준)
+        function calculateInfluence(team) {
+            let totalWins = 0;
+            let totalLosses = 0;
+
+            if (headToHead[team]) {
+                Object.values(headToHead[team]).forEach(record => {
+                    totalWins += record.W;
+                    totalLosses += record.L;
+                });
+            }
+
+            return {
+                wins: totalWins,
+                losses: totalLosses,
+                winRate: totalWins / (totalWins + totalLosses),
+                influence: totalWins // 영향력은 승수로
+            };
+        }
+
+        // 팀 순위 정의 (2025 시즌 기준)
+        const teamRankings = ["LG", "한화", "SSG", "삼성", "KT", "롯데", "NC", "KIA", "두산", "키움"];
+
+        // 노드 데이터 생성 (순위대로)
+        const nodes = teamRankings.map(team => ({
+            id: team,
+            ...calculateInfluence(team)
+        }));
+
+        // 링크 데이터 생성 (50% 이상 승률만 표시 - 우세한 방향만)
+        const links = [];
+        teamRankings.forEach(team1 => {
+            teamRankings.forEach(team2 => {
+                if (team1 !== team2 && headToHead[team1] && headToHead[team1][team2]) {
+                    const record = headToHead[team1][team2];
+                    const winRate = record.W / (record.W + record.L);
+
+                    // 50% 초과 승률인 경우만 화살표 표시 (동률은 제외)
+                    if (winRate > 0.5) {
+                        let type = 'neutral';
+                        if (winRate >= 0.7) type = 'dominant';
+                        else if (winRate >= 0.6) type = 'strong';
+
+                        links.push({
+                            source: team1,
+                            target: team2,
+                            wins: record.W,
+                            losses: record.L,
+                            winRate: winRate,
+                            type: type
+                        });
+                    }
+                }
+            });
+        });
+
+        // SVG 설정
+        const width = 800;
+        const height = 600;
+        const radius = Math.min(width, height) / 3;
+
+        const svg = d3.select("#chart")
+            .append("svg")
+            .attr("width", width)
+            .attr("height", height);
+
+        // 화살표 마커 정의
+        svg.append("defs")
+            .append("marker")
+            .attr("id", "arrowhead")
+            .attr("viewBox", "0 -5 10 10")
+            .attr("refX", 20)
+            .attr("refY", 0)
+            .attr("markerWidth", 8)
+            .attr("markerHeight", 8)
+            .attr("orient", "auto")
+            .append("path")
+            .attr("d", "M0,-5L10,0L0,5")
+            .attr("fill", "#999");
+
+        const g = svg.append("g")
+            .attr("transform", `translate(${width/2},${height/2})`);
+
+        // 원형 레이아웃으로 노드 배치 (12시 방향부터 시계방향으로 순위순)
+        const angleStep = (2 * Math.PI) / nodes.length;
+        nodes.forEach((node, i) => {
+            const angle = i * angleStep - Math.PI / 2; // 12시 방향부터 시작
+            node.x = Math.cos(angle) * radius;
+            node.y = Math.sin(angle) * radius;
+            node.rank = i + 1; // 순위 추가
+        });
+
+        // 곡선 경로 생성 함수
+        function createCurvedPath(d) {
+            const source = nodes.find(n => n.id === d.source);
+            const target = nodes.find(n => n.id === d.target);
+
+            const dx = target.x - source.x;
+            const dy = target.y - source.y;
+            const dr = Math.sqrt(dx * dx + dy * dy);
+
+            return `M${source.x},${source.y}A${dr},${dr} 0 0,1 ${target.x},${target.y}`;
+        }
+
+        // 링크 그리기
+        const link = g.selectAll(".link")
+            .data(links)
+            .enter().append("path")
+            .attr("class", d => `link ${d.type}`)
+            .attr("d", createCurvedPath)
+            .style("stroke", d => {
+                if (d.winRate >= 0.7) return "#e74c3c";  // 70% 이상: 빨강 (매우 우세)
+                else if (d.winRate >= 0.6) return "#f39c12"; // 60-70%: 주황 (우세)
+                else return "#3498db"; // 50-60%: 파랑 (약간 우세)
+            })
+            .style("stroke-width", d => Math.max(1.5, d.wins / 4))
+            .style("stroke-opacity", d => 0.3 + (d.winRate - 0.5) * 2) // 승률에 따라 투명도 조정
+            .on("mouseover", function(event, d) {
+                const source = nodes.find(n => n.id === d.source);
+                const tooltip = d3.select("#tooltip");
+                tooltip.transition().duration(200).style("opacity", 1);
+                tooltip.html(`${d.source} → ${d.target}<br/>전적: ${d.wins}승 ${d.losses}패<br/>승률: ${(d.winRate * 100).toFixed(1)}%`)
+                    .style("left", (event.pageX + 10) + "px")
+                    .style("top", (event.pageY - 28) + "px");
+            })
+            .on("mouseout", function() {
+                d3.select("#tooltip").transition().duration(500).style("opacity", 0);
+            });
+
+        // 노드 크기 스케일
+        const sizeScale = d3.scaleLinear()
+            .domain(d3.extent(nodes, d => d.influence))
+            .range([20, 50]);
+
+        // 노드 그리기
+        const node = g.selectAll(".node")
+            .data(nodes)
+            .enter().append("g")
+            .attr("class", "node")
+            .attr("transform", d => `translate(${d.x},${d.y})`)
+            .on("click", function(event, d) {
+                updateStats(d);
+            });
+
+        node.append("circle")
+            .attr("r", d => sizeScale(d.influence))
+            .style("fill", d => teamColors[d.id])
+            .style("stroke", "#fff");
+
+        node.append("text")
+            .text(d => `${d.rank}. ${d.id}`)
+            .attr("dy", ".35em")
+            .style("font-size", d => `${Math.max(10, sizeScale(d.influence) / 3)}px`);
+
+        // 통계 업데이트 함수
+        function updateStats(teamData) {
+            const statsDiv = d3.select("#team-stats");
+            statsDiv.html("");
+
+            statsDiv.append("div")
+                .attr("class", "stats-item")
+                .html(`<strong>${teamData.rank}위 ${teamData.id}</strong>`);
+
+            statsDiv.append("div")
+                .attr("class", "stats-item")
+                .html(`<span>총 승수:</span> <span>${teamData.wins}승</span>`);
+
+            statsDiv.append("div")
+                .attr("class", "stats-item")
+                .html(`<span>총 패수:</span> <span>${teamData.losses}패</span>`);
+
+            statsDiv.append("div")
+                .attr("class", "stats-item")
+                .html(`<span>승률:</span> <span>${(teamData.winRate * 100).toFixed(1)}%</span>`);
+
+            // 상대전적 디테일
+            if (headToHead[teamData.id]) {
+                statsDiv.append("div")
+                    .style("margin-top", "10px")
+                    .style("font-weight", "bold")
+                    .text("상대 전적:");
+
+                Object.entries(headToHead[teamData.id]).forEach(([opponent, record]) => {
+                    const winRate = record.W / (record.W + record.L);
+                    statsDiv.append("div")
+                        .attr("class", "stats-item")
+                        .style("font-size", "11px")
+                        .style("color", winRate > 0.5 ? "#27ae60" : "#e74c3c")
+                        .html(`<span>vs ${opponent}:</span> <span>${record.W}승 ${record.L}패</span>`);
+                });
+            }
+        }
+
+        // 초기 통계 표시 (LG)
+        updateStats(nodes.find(n => n.id === "LG"));
+
+        // 애니메이션 효과
+        node.transition()
+            .duration(1000)
+            .attr("transform", d => `translate(${d.x},${d.y})`)
+            .style("opacity", 1);
+
+        link.transition()
+            .duration(1500)
+            .style("opacity", 1);
+    </script>
+</body>
+</html>

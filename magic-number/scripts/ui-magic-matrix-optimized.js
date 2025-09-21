@@ -15,7 +15,7 @@ let precomputedMatrixData = null;
 // - 다른 스크립트(ui-main.js)에서 트래직넘버 데이터 접근 가능하게 함
 //
 // 📁 데이터 소스: ui-magic-matrix-precomputed.json
-// - rawCalculationData[].y5_strict_raw: 5위 기준 트래직넘버
+// - rawCalculationData[].x{rank}_strict_raw / y{rank}_tieOK_raw: 각 순위 매직/트래직 넘버 (tieOK는 동률 허용 탈락선)
 // - matrixData[]: 매트릭스 UI 렌더링 데이터
 // - teamConfigurations: 팀 색상 및 로고 설정
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -25,7 +25,7 @@ async function loadPrecomputedMatrixData() {
         precomputedMatrixData = await response.json();
 
         // ⚠️ 중요: window 객체에 설정하여 다른 스크립트에서 접근 가능하게 함
-        // ui-main.js의 renderPlayoffCondition()에서 y5_strict_raw 데이터를 사용
+        // ui-main.js의 순위/PS 표에서 사전 계산된 매직/트래직 값을 직접 활용
         window.precomputedMatrixData = precomputedMatrixData;
 
         return true;
