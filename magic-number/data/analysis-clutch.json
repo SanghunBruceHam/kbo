@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-09-22T12:51:48.945Z",
+  "lastUpdated": "2025-09-22T13:07:07.100Z",
   "updateDate": "2025. 9. 22.",
   "clutchAnalysis": {
     "LG": {
@@ -1364,7 +1364,7 @@
       "clutchIndex": "52.2"
     },
     "SSG": {
-      "totalGames": 153,
+      "totalGames": 154,
       "oneRunGames": 36,
       "oneRunWins": 17,
       "oneRunLosses": 19,
@@ -1548,7 +1548,7 @@
           "runs": 7
         }
       ],
-      "blowoutLosses": 6,
+      "blowoutLosses": 7,
       "blowoutAllowed": [
         {
           "date": "2025-04-19",
@@ -1585,6 +1585,12 @@
           "opponent": "NC",
           "score": "2:12",
           "diff": 10
+        },
+        {
+          "date": "2025-09-22",
+          "opponent": "두산",
+          "score": "2:9",
+          "diff": 7
         }
       ],
       "shutoutWins": 8,
@@ -1882,7 +1888,7 @@
       "clutchIndex": "51.5"
     },
     "두산": {
-      "totalGames": 148,
+      "totalGames": 149,
       "oneRunGames": 40,
       "oneRunWins": 17,
       "oneRunLosses": 23,
@@ -1895,7 +1901,7 @@
       "threeRunWins": 15,
       "threeRunLosses": 18,
       "threeRunWinRate": "45.5",
-      "blowoutWins": 27,
+      "blowoutWins": 28,
       "blowoutScored": [
         {
           "date": "2025-04-04",
@@ -2057,6 +2063,12 @@
           "date": "2025-09-05",
           "opponent": "NC",
           "score": "9:3",
+          "runs": 9
+        },
+        {
+          "date": "2025-09-22",
+          "opponent": "SSG",
+          "score": "9:2",
           "runs": 9
         }
       ],

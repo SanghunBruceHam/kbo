@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-09-22T12:51:46.664Z",
+  "lastUpdated": "2025-09-22T13:07:04.821Z",
   "updateDate": "2025. 9. 22.",
   "note": "2025-season-data-clean.txt 기반 완전 자동화 처리",
   "rankings": [
@@ -34,15 +34,15 @@
     {
       "rank": 3,
       "team": "SSG",
-      "games": 134,
+      "games": 135,
       "wins": 69,
-      "losses": 61,
+      "losses": 62,
       "draws": 4,
-      "winRate": 0.531,
-      "gamesBehind": 12,
-      "recent10": "7승0무3패",
-      "streak": "2승",
-      "homeRecord": "34-29-4",
+      "winRate": 0.527,
+      "gamesBehind": 12.5,
+      "recent10": "6승0무4패",
+      "streak": "1패",
+      "homeRecord": "34-30-4",
       "awayRecord": "35-32-0"
     },
     {
@@ -118,16 +118,16 @@
     {
       "rank": 9,
       "team": "두산",
-      "games": 137,
-      "wins": 57,
+      "games": 138,
+      "wins": 58,
       "losses": 74,
       "draws": 6,
-      "winRate": 0.435,
-      "gamesBehind": 24.5,
-      "recent10": "1승0무9패",
-      "streak": "2패",
+      "winRate": 0.439,
+      "gamesBehind": 24,
+      "recent10": "2승0무8패",
+      "streak": "1승",
       "homeRecord": "27-38-4",
-      "awayRecord": "30-36-2"
+      "awayRecord": "31-36-2"
     },
     {
       "rank": 10,
@@ -166,10 +166,10 @@
     "SSG": {
       "playoff": "-",
       "championship": 0,
-      "elimination": 8,
+      "elimination": 7,
       "homeAdvantage": 999,
-      "remainingGames": 10,
-      "maxPossibleWins": 79,
+      "remainingGames": 9,
+      "maxPossibleWins": 78,
       "currentRank": 3
     },
     "삼성": {
@@ -222,7 +222,7 @@
       "championship": 0,
       "elimination": 0,
       "homeAdvantage": 999,
-      "remainingGames": 7,
+      "remainingGames": 6,
       "maxPossibleWins": 64,
       "currentRank": 9
     },
@@ -236,8 +236,8 @@
       "currentRank": 10
     }
   },
-  "lastMagicUpdate": "2025-09-22T12:51:46.664Z",
+  "lastMagicUpdate": "2025-09-22T13:07:04.821Z",
   "totalTeams": 10,
   "source": "CLEAN_TXT_AUTOMATION",
-  "dataDate": "2025-09-21"
+  "dataDate": "2025-09-22"
 }
