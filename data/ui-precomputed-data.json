@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "lastUpdated": "2025-09-21T14:41:32.267Z",
+    "lastUpdated": "2025-09-22T07:42:39.082Z",
     "version": "1.0.0",
     "description": "루트 index.html의 사전 계산된 UI 데이터"
   },
@@ -92,40 +92,72 @@
       "두산",
       "키움"
     ],
-    "lastCalculated": "2025-09-21T14:41:32.267Z"
+    "lastCalculated": "2025-09-22T07:42:39.082Z"
   },
   "precomputedHalfSeasonStats": {
     "allTeamsHalfStats": {
-      "LG": {
+      "삼성": {
         "firstHalf": {
-          "wins": 48,
-          "losses": 49,
+          "wins": 43,
+          "losses": 54,
           "draws": 0,
           "games": 97,
-          "winRate": 0.4948453608247423
+          "winRate": 0.44329896907216493
         },
         "secondHalf": {
-          "wins": 35,
-          "losses": 20,
+          "wins": 26,
+          "losses": 29,
           "draws": 0,
           "games": 55,
-          "winRate": 0.6363636363636364
+          "winRate": 0.4727272727272727
         }
       },
-      "롯데": {
+      "키움": {
         "firstHalf": {
-          "wins": 47,
-          "losses": 51,
+          "wins": 27,
+          "losses": 69,
           "draws": 0,
-          "games": 98,
-          "winRate": 0.47959183673469385
+          "games": 96,
+          "winRate": 0.28125
         },
         "secondHalf": {
-          "wins": 18,
+          "wins": 20,
           "losses": 34,
           "draws": 0,
-          "games": 52,
-          "winRate": 0.34615384615384615
+          "games": 54,
+          "winRate": 0.37037037037037035
+        }
+      },
+      "KT": {
+        "firstHalf": {
+          "wins": 45,
+          "losses": 53,
+          "draws": 0,
+          "games": 98,
+          "winRate": 0.45918367346938777
+        },
+        "secondHalf": {
+          "wins": 23,
+          "losses": 32,
+          "draws": 0,
+          "games": 55,
+          "winRate": 0.41818181818181815
+        }
+      },
+      "한화": {
+        "firstHalf": {
+          "wins": 52,
+          "losses": 44,
+          "draws": 0,
+          "games": 96,
+          "winRate": 0.5416666666666666
+        },
+        "secondHalf": {
+          "wins": 28,
+          "losses": 27,
+          "draws": 0,
+          "games": 55,
+          "winRate": 0.509090909090909
         }
       },
       "SSG": {
@@ -192,68 +224,36 @@
           "winRate": 0.3898305084745763
         }
       },
-      "KT": {
+      "LG": {
         "firstHalf": {
-          "wins": 45,
-          "losses": 53,
-          "draws": 0,
-          "games": 98,
-          "winRate": 0.45918367346938777
-        },
-        "secondHalf": {
-          "wins": 23,
-          "losses": 32,
-          "draws": 0,
-          "games": 55,
-          "winRate": 0.41818181818181815
-        }
-      },
-      "한화": {
-        "firstHalf": {
-          "wins": 52,
-          "losses": 44,
-          "draws": 0,
-          "games": 96,
-          "winRate": 0.5416666666666666
-        },
-        "secondHalf": {
-          "wins": 28,
-          "losses": 27,
-          "draws": 0,
-          "games": 55,
-          "winRate": 0.509090909090909
-        }
-      },
-      "삼성": {
-        "firstHalf": {
-          "wins": 43,
-          "losses": 54,
+          "wins": 48,
+          "losses": 49,
           "draws": 0,
           "games": 97,
-          "winRate": 0.44329896907216493
+          "winRate": 0.4948453608247423
         },
         "secondHalf": {
-          "wins": 26,
-          "losses": 29,
+          "wins": 35,
+          "losses": 20,
           "draws": 0,
           "games": 55,
-          "winRate": 0.4727272727272727
+          "winRate": 0.6363636363636364
         }
       },
-      "키움": {
+      "롯데": {
         "firstHalf": {
-          "wins": 27,
-          "losses": 69,
+          "wins": 47,
+          "losses": 51,
           "draws": 0,
-          "games": 96,
-          "winRate": 0.28125
+          "games": 98,
+          "winRate": 0.47959183673469385
         },
         "secondHalf": {
-          "wins": 20,
+          "wins": 18,
           "losses": 34,
           "draws": 0,
-          "games": 54,
-          "winRate": 0.37037037037037035
+          "games": 52,
+          "winRate": 0.34615384615384615
         }
       },
       "나눔": {
@@ -289,11 +289,11 @@
         }
       }
     },
-    "lastCalculated": "2025-09-21T14:41:32.267Z"
+    "lastCalculated": "2025-09-22T07:42:39.082Z"
   },
   "scheduleData": {
     "remainingGames": [],
-    "currentDate": "2025-09-21",
+    "currentDate": "2025-09-22",
     "filteredFromCurrentDate": true
   }
 }
