@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-09-23T11:37:32.604Z",
+  "lastUpdated": "2025-09-23T12:50:21.124Z",
   "updateDate": "2025. 9. 23.",
   "clutchAnalysis": {
     "LG": {
@@ -551,7 +551,7 @@
       "clutchIndex": "56.8"
     },
     "KIA": {
-      "totalGames": 155,
+      "totalGames": 156,
       "oneRunGames": 44,
       "oneRunWins": 21,
       "oneRunLosses": 23,
@@ -787,10 +787,10 @@
         }
       ],
       "shutoutWins": 5,
-      "shutoutLosses": 6,
+      "shutoutLosses": 7,
       "highScoringGames": 17,
       "highScoringWins": 13,
-      "scorelessGames": 6,
+      "scorelessGames": 7,
       "comebackPotential": {
         "trailingWins": 0,
         "leadBlownLosses": 0
@@ -1087,7 +1087,7 @@
       "clutchIndex": "37.9"
     },
     "KT": {
-      "totalGames": 153,
+      "totalGames": 154,
       "oneRunGames": 39,
       "oneRunWins": 18,
       "oneRunLosses": 21,
@@ -1100,7 +1100,7 @@
       "threeRunWins": 22,
       "threeRunLosses": 11,
       "threeRunWinRate": "66.7",
-      "blowoutWins": 29,
+      "blowoutWins": 30,
       "blowoutScored": [
         {
           "date": "2025-03-25",
@@ -1275,6 +1275,12 @@
           "opponent": "두산",
           "score": "8:1",
           "runs": 8
+        },
+        {
+          "date": "2025-09-23",
+          "opponent": "키움",
+          "score": "7:0",
+          "runs": 7
         }
       ],
       "blowoutLosses": 12,
@@ -1352,7 +1358,7 @@
           "diff": 13
         }
       ],
-      "shutoutWins": 9,
+      "shutoutWins": 10,
       "shutoutLosses": 11,
       "highScoringGames": 11,
       "highScoringWins": 11,
@@ -1364,7 +1370,7 @@
       "clutchIndex": "52.2"
     },
     "SSG": {
-      "totalGames": 154,
+      "totalGames": 155,
       "oneRunGames": 36,
       "oneRunWins": 17,
       "oneRunLosses": 19,
@@ -1593,7 +1599,7 @@
           "diff": 7
         }
       ],
-      "shutoutWins": 8,
+      "shutoutWins": 9,
       "shutoutLosses": 10,
       "highScoringGames": 8,
       "highScoringWins": 7,
@@ -1605,19 +1611,19 @@
       "clutchIndex": "49.6"
     },
     "롯데": {
-      "totalGames": 150,
+      "totalGames": 151,
       "oneRunGames": 29,
       "oneRunWins": 15,
       "oneRunLosses": 14,
       "oneRunWinRate": "51.7",
-      "closeGames": 69,
+      "closeGames": 70,
       "closeWins": 30,
-      "closeLosses": 26,
-      "closeWinRate": "53.6",
-      "threeRunGames": 50,
+      "closeLosses": 27,
+      "closeWinRate": "52.6",
+      "threeRunGames": 51,
       "threeRunWins": 24,
-      "threeRunLosses": 26,
-      "threeRunWinRate": "48.0",
+      "threeRunLosses": 27,
+      "threeRunWinRate": "47.1",
       "blowoutWins": 28,
       "blowoutScored": [
         {
@@ -1885,7 +1891,7 @@
         "trailingWins": 0,
         "leadBlownLosses": 0
       },
-      "clutchIndex": "51.5"
+      "clutchIndex": "51.1"
     },
     "두산": {
       "totalGames": 149,
@@ -2147,19 +2153,19 @@
       "clutchIndex": "43.4"
     },
     "NC": {
-      "totalGames": 154,
+      "totalGames": 155,
       "oneRunGames": 31,
       "oneRunWins": 15,
       "oneRunLosses": 16,
       "oneRunWinRate": "48.4",
-      "closeGames": 70,
-      "closeWins": 28,
+      "closeGames": 71,
+      "closeWins": 29,
       "closeLosses": 24,
-      "closeWinRate": "53.8",
-      "threeRunGames": 39,
-      "threeRunWins": 24,
+      "closeWinRate": "54.7",
+      "threeRunGames": 40,
+      "threeRunWins": 25,
       "threeRunLosses": 15,
-      "threeRunWinRate": "61.5",
+      "threeRunWinRate": "62.5",
       "blowoutWins": 33,
       "blowoutScored": [
         {
@@ -2469,10 +2475,10 @@
         "trailingWins": 0,
         "leadBlownLosses": 0
       },
-      "clutchIndex": "52.6"
+      "clutchIndex": "53.1"
     },
     "키움": {
-      "totalGames": 149,
+      "totalGames": 150,
       "oneRunGames": 29,
       "oneRunWins": 18,
       "oneRunLosses": 11,
@@ -2596,7 +2602,7 @@
           "runs": 15
         }
       ],
-      "blowoutLosses": 15,
+      "blowoutLosses": 16,
       "blowoutAllowed": [
         {
           "date": "2025-03-22",
@@ -2687,13 +2693,19 @@
           "opponent": "두산",
           "score": "2:9",
           "diff": 7
+        },
+        {
+          "date": "2025-09-23",
+          "opponent": "KT",
+          "score": "0:7",
+          "diff": 7
         }
       ],
       "shutoutWins": 6,
-      "shutoutLosses": 10,
+      "shutoutLosses": 11,
       "highScoringGames": 10,
       "highScoringWins": 9,
-      "scorelessGames": 10,
+      "scorelessGames": 11,
       "comebackPotential": {
         "trailingWins": 0,
         "leadBlownLosses": 0
