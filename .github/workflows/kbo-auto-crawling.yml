@@ -151,7 +151,7 @@ jobs:
       run: |
         echo "📈 시즌 데이터 처리 및 API 데이터 생성 중..."
         npm run process
-        echo "✅ api-data.json, calc-standings.json, calc-head-to-head.json 생성 완료"
+        echo "✅ calc-standings.json, calc-head-to-head.json 생성 완료 (api-data.json은 stats-comprehensive.json으로 통합)"
 
     # 10-2. 시즌 데이터 파싱
     - name: 📊 시즌 데이터 파싱
@@ -210,7 +210,7 @@ jobs:
         
         # 생성된 JSON 파일들 확인
         echo "📋 생성된 분석 데이터 파일 확인:"
-        for file in api-data.json calc-standings.json calc-head-to-head.json 2025-season-games.json 2025-team-stats.json raw-game-records.json analysis-monthly.json analysis-weekday.json analysis-stadium.json stats-comprehensive.json analysis-weekly.json analysis-clutch.json analysis-home-away.json analysis-series.json calc-magic-numbers.json; do
+        for file in calc-standings.json calc-head-to-head.json 2025-season-games.json 2025-team-stats.json raw-game-records.json analysis-monthly.json analysis-weekday.json analysis-stadium.json stats-comprehensive.json analysis-weekly.json analysis-clutch.json analysis-home-away.json analysis-series.json calc-magic-numbers.json; do
           if [ -f "magic-number/data/$file" ]; then
             SIZE=$(du -h "magic-number/data/$file" | cut -f1)
             echo "  ✅ $file (${SIZE})"
@@ -309,10 +309,7 @@ jobs:
         
         # 데이터 파일 확인
         echo "📁 데이터 파일 현황:"
-        if [ -f magic-number/data/api-data.json ]; then
-          SERVICE_SIZE=$(du -h magic-number/data/api-data.json | cut -f1)
-          echo "  ✅ api-data.json (${SERVICE_SIZE})"
-        fi
+        echo "  📝 api-data.json → stats-comprehensive.json으로 통합됨"
         if [ -f magic-number/data/calc-standings.json ]; then
           RANKING_SIZE=$(du -h magic-number/data/calc-standings.json | cut -f1)
           echo "  ✅ calc-standings.json (${RANKING_SIZE})"
@@ -336,7 +333,7 @@ jobs:
         echo "📁 업데이트된 파일들:"
         echo "  - index.html: $([ -f index.html ] && echo '✅' || echo '❌')"
         echo "  - magic-number/index.html: $([ -f magic-number/index.html ] && echo '✅' || echo '❌')"
-        echo "  - api-data.json: $([ -f magic-number/data/api-data.json ] && echo '✅' || echo '❌')"
+        echo "  - stats-comprehensive.json (통합): $([ -f magic-number/data/stats-comprehensive.json ] && echo '✅' || echo '❌')"
         echo "  - calc-standings.json: $([ -f magic-number/data/calc-standings.json ] && echo '✅' || echo '❌')"
         
         

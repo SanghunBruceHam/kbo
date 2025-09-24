@@ -3,13 +3,13 @@ const path = require('path');
 
 const MAGIC_NUMBER_DIR = path.resolve(__dirname, '..');
 const DATA_DIR = path.join(MAGIC_NUMBER_DIR, 'data');
-const SERVICE_DATA_PATH = path.join(DATA_DIR, 'api-data.json');
+const STATS_DATA_PATH = path.join(DATA_DIR, 'stats-comprehensive.json');
 
 function loadServiceData() {
     try {
-        return JSON.parse(fs.readFileSync(SERVICE_DATA_PATH, 'utf8'));
+        return JSON.parse(fs.readFileSync(STATS_DATA_PATH, 'utf8'));
     } catch (error) {
-        console.error('❌ api-data.json 파일을 읽을 수 없습니다:', error.message);
+        console.error('❌ stats-comprehensive.json 파일을 읽을 수 없습니다:', error.message);
         process.exit(1);
     }
 }

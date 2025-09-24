@@ -698,11 +698,9 @@ class KBODataProcessor {
         console.log('💾 데이터 파일 저장 중...');
         
         try {
-            // 1. PathManager를 사용한 안전한 경로로 통합 데이터 저장
+            // 1. PathManager를 사용한 안전한 경로 확보
             pathManager.ensureDir(pathManager.dataDir);
-            const serviceDataPath = pathManager.getDataFile('api-data.json');
-            fs.writeFileSync(serviceDataPath, JSON.stringify(serviceData, null, 2));
-            console.log(`  ✅ ${serviceDataPath} 저장 완료`);
+            console.log(`  ✅ api-data.json 생성 제거됨 - stats-comprehensive.json으로 통합`);
             
             // 2. magic-number 폴더에 웹서비스용 파일들 생성
             const rankingsData = {
@@ -838,7 +836,7 @@ class KBODataProcessor {
             console.log(`📊 총 ${parseResult.gameCount}경기 처리`);
             console.log(`📅 최신 데이터: ${parseResult.lastDate}`);
             console.log('📁 생성된 파일:');
-            console.log(`   - ${pathManager.getDataFile('api-data.json')} (통합 웹서비스 데이터)`);
+            console.log(`   - stats-comprehensive.json으로 통합됨 (기존 api-data.json 대체)`);
             console.log(`   - ${pathManager.getDataFile('calc-standings.json')} (웹서비스용 순위)`);
             console.log(`   - ${pathManager.getDataFile('calc-head-to-head.json')} (웹서비스용 상대전적)`);
             

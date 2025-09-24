@@ -15,7 +15,6 @@ graph TD
     B --> G[calc-standings.json]
     B --> H[calc-magic-numbers.json]
     B --> I[calc-head-to-head.json]
-    B --> J[api-data.json]
     
     F --> K[stats-comprehensive-generator.js]
     D --> K
@@ -74,7 +73,7 @@ graph TD
 ### 🟢 최종 서비스 데이터
 | 파일명 | 생성자 | 의존 파일들 | 사용 페이지 |
 |--------|--------|-------------|-------------|
-| `api-data.json` | 02_season-data-processor | 원본 txt | **루트 index.html** |
+| ~~`api-data.json`~~ | ~~02_season-data-processor~~ | ~~원본 txt~~ | **통합됨 → stats-comprehensive.json** |
 | `stats-comprehensive.json` | stats-comprehensive-generator | raw-game-records + 2025-team-stats + 2025-season-games | **루트 index.html** |
 | `calc-standings.json` | 02_season-data-processor | 원본 txt | **매직넘버 페이지** |
 | `calc-magic-numbers.json` | 02_season-data-processor | 원본 txt | **매직넘버 페이지** |
@@ -98,7 +97,7 @@ graph TD
 npm run process  # 02_season-data-processor.js 실행
   ├── 2025-season-games.json ✅
   ├── 2025-team-stats.json ✅  
-  ├── api-data.json ✅
+  ├── ~~api-data.json~~ (통합됨)
   ├── calc-standings.json ✅
   ├── calc-magic-numbers.json ✅
   └── calc-head-to-head.json ✅
@@ -142,7 +141,7 @@ jq '.lastUpdated // .updateTime' magic-number/data/{api-data,stats-comprehensive
 
 ### 🏠 루트 index.html
 **필수 파일 (13개)**:
-- `api-data.json` - 기본 순위표
+- ~~`api-data.json`~~ - **통합됨 → stats-comprehensive.json**
 - `stats-comprehensive.json` - 종합 통계 + 연승/연패  
 - `calc-head-to-head.json` - 상대전적 매트릭스
 - `raw-game-records.json` - 연속기록 분석용

@@ -14,7 +14,8 @@ echo ""
 # 파일별 카테고리 정의
 get_file_category() {
     case "$1" in
-        "api-data.json"|"stats-comprehensive.json") echo "🔴 핵심 서비스" ;;
+        "stats-comprehensive.json") echo "🔴 핵심 서비스" ;;
+        "api-data.json") echo "🗑️ 레거시(통합됨)" ;;
         "raw-game-records.json"|"2025-season-games.json"|"2025-team-stats.json") echo "🟡 중간 데이터" ;;
         "calc-standings.json"|"calc-magic-numbers.json"|"calc-head-to-head.json") echo "🟢 매직넘버용" ;;
         "analysis-"*".json") echo "📊 분석 데이터" ;;

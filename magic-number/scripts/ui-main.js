@@ -450,8 +450,8 @@ const kboTeams = {
         // 데이터 로딩 함수
         async function loadKBOData() {
             try {
-                const dataUrl = `data/api-data.json?v=${Date.now()}`;
-                // api-data.json 하나만 사용 (중복 제거)
+                const dataUrl = `data/stats-comprehensive.json?v=${Date.now()}`;
+                // 통합된 stats-comprehensive.json 사용
                 const response = await fetch(dataUrl, {
                     cache: 'no-cache',
                     headers: {

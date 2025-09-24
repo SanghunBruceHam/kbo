@@ -145,6 +145,15 @@ class EnhancedDashboardGenerator {
         return streak > 0 ? `${streak}${streakType}` : '0';
     }
 
+    // 최근 10경기 요약 포맷 (api-data.json 호환)
+    formatRecent10(games) {
+        const wins = games.filter(g => g === '승').length;
+        const losses = games.filter(g => g === '패').length;
+        const draws = games.filter(g => g === '무').length;
+
+        return `${wins}승${draws}무${losses}패`;
+    }
+
     getStandings() {
         const teamStats = {};
         
@@ -157,34 +166,65 @@ class EnhancedDashboardGenerator {
                 losses: 0,
                 draws: 0,
                 runs_scored: 0,
-                runs_allowed: 0
+                runs_allowed: 0,
+                // 홈/원정 성적 추가
+                homeWins: 0,
+                homeLosses: 0,
+                homeDraws: 0,
+                awayWins: 0,
+                awayLosses: 0,
+                awayDraws: 0,
+                // 최근 경기 기록 추가
+                recentGames: []
             };
         });
         
         // 게임 데이터로 통계 계산
         this.games.forEach(game => {
-            const { home_team, away_team, home_score, away_score, winner } = game;
-            
+            const { home_team, away_team, home_score, away_score, winner, date } = game;
+
             // 홈팀 처리
             if (teamStats[home_team]) {
                 teamStats[home_team].games_played++;
                 teamStats[home_team].runs_scored += home_score;
                 teamStats[home_team].runs_allowed += away_score;
-                
-                if (winner === home_team) teamStats[home_team].wins++;
-                else if (winner === away_team) teamStats[home_team].losses++;
-                else teamStats[home_team].draws++;
+
+                // 홈 경기 성적 업데이트
+                if (winner === home_team) {
+                    teamStats[home_team].wins++;
+                    teamStats[home_team].homeWins++;
+                    teamStats[home_team].recentGames.push({date, result: '승'});
+                } else if (winner === away_team) {
+                    teamStats[home_team].losses++;
+                    teamStats[home_team].homeLosses++;
+                    teamStats[home_team].recentGames.push({date, result: '패'});
+                } else {
+                    teamStats[home_team].draws++;
+                    teamStats[home_team].homeDraws++;
+                    teamStats[home_team].recentGames.push({date, result: '무'});
+                }
             }
-            
+
             // 원정팀 처리
             if (teamStats[away_team]) {
                 teamStats[away_team].games_played++;
                 teamStats[away_team].runs_scored += away_score;
                 teamStats[away_team].runs_allowed += home_score;
-                
-                if (winner === away_team) teamStats[away_team].wins++;
-                else if (winner === home_team) teamStats[away_team].losses++;
-                else teamStats[away_team].draws++;
+
+                // 원정 경기 성적 업데이트
+                if (winner === away_team) {
+                    teamStats[away_team].wins++;
+                    teamStats[away_team].awayWins++;
+                    teamStats[away_team].recentGames.push({date, result: '승'});
+                } else if (winner === home_team) {
+                    teamStats[away_team].losses++;
+                    teamStats[away_team].awayLosses++;
+                    teamStats[away_team].recentGames.push({date, result: '패'});
+                } else {
+                    teamStats[away_team].draws++;
+                    teamStats[away_team].awayDraws++;
+                    teamStats[away_team].recentGames.push({date, result: '무'});
+                }
             }
         });
         
@@ -192,12 +232,28 @@ class EnhancedDashboardGenerator {
         const standings = Object.values(teamStats).map(team => {
             const winRate = team.wins + team.losses > 0 ? team.wins / (team.wins + team.losses) : 0;
             const currentStreak = this.calculateCurrentStreak(team.team_name);
-            
+
+            // 최근 10경기 정렬 및 요약
+            team.recentGames.sort((a, b) => new Date(a.date) - new Date(b.date));
+            const recent10 = team.recentGames.slice(-10);
+            const recent10Summary = this.formatRecent10(recent10.map(g => g.result));
+
             return {
                 ...team,
                 win_rate: winRate.toFixed(3),
                 run_differential: team.runs_scored - team.runs_allowed,
-                current_streak: currentStreak
+                current_streak: currentStreak,
+                // api-data.json 호환 필드 추가
+                homeRecord: `${team.homeWins}-${team.homeLosses}-${team.homeDraws}`,
+                awayRecord: `${team.awayWins}-${team.awayLosses}-${team.awayDraws}`,
+                recent10: recent10Summary,
+                remainingGames: 144 - team.games_played,
+                // 추가 호환성 필드
+                team: team.team_name, // api-data.json은 'team' 사용
+                games: team.games_played, // api-data.json은 'games' 사용
+                winRate: winRate, // api-data.json은 number 타입 사용
+                streak: currentStreak, // api-data.json은 'streak' 사용
+                gamesBehind: 0 // 게임차는 아래에서 계산됨
             };
         });
         
@@ -223,11 +279,15 @@ class EnhancedDashboardGenerator {
             }
             previousWinRate = winRate;
 
+            // KBO 공식 게임차 계산
+            const gamesBehindValue = currentRank === 1 ? 0 :
+                ((leader.wins - team.wins) + (team.losses - leader.losses)) / 2;
+
             return {
                 rank: currentRank,
                 ...team,
-                games_behind: currentRank === 1 ? '-' :
-                    ((leader.wins - team.wins) + (team.losses - leader.losses)) / 2
+                games_behind: currentRank === 1 ? '-' : gamesBehindValue,
+                gamesBehind: gamesBehindValue // api-data.json 호환 (number 타입)
             };
         });
     }
