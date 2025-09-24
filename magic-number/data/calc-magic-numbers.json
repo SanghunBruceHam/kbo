@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-09-24T13:40:06.166Z",
+  "lastUpdated": "2025-09-24T13:46:56.274Z",
   "updateDate": "2025. 9. 24.",
   "note": "승률 기준 정확한 매직넘버 계산 + 포스트시즌 진출 조건 + 1위 매직/트래직넘버 포함",
   "results": [
@@ -7,9 +7,9 @@
       "rank": 1,
       "team": "LG",
       "wins": 83,
-      "losses": 51,
-      "winRate": 0.6194029850746269,
-      "gamesRemaining": 10,
+      "losses": 52,
+      "winRate": 0.6148148148148148,
+      "gamesRemaining": 9,
       "magicNumber": "-",
       "status": ""
     },
@@ -55,21 +55,21 @@
     },
     {
       "rank": 6,
+      "team": "NC",
+      "wins": 65,
+      "losses": 67,
+      "winRate": 0.49242424242424243,
+      "gamesRemaining": 12,
+      "magicNumber": "-",
+      "status": ""
+    },
+    {
+      "rank": 7,
       "team": "롯데",
       "wins": 65,
       "losses": 68,
       "winRate": 0.48872180451127817,
       "gamesRemaining": 11,
-      "magicNumber": "-",
-      "status": ""
-    },
-    {
-      "rank": 6,
-      "team": "NC",
-      "wins": 64,
-      "losses": 67,
-      "winRate": 0.48854961832061067,
-      "gamesRemaining": 13,
       "magicNumber": "-",
       "status": ""
     },
@@ -108,18 +108,18 @@
     {
       "team": "LG",
       "wins": 83,
-      "losses": 51,
+      "losses": 52,
       "draws": 3,
-      "remainingGames": 7,
+      "remainingGames": 6,
       "K5_max": 0.514,
       "K5_min": 0.493,
       "playoffMagicStrict": 0,
       "playoffMagicTieOK": 0,
-      "playoffTragicStrict": 21,
-      "playoffTragicTieOK": 21,
+      "playoffTragicStrict": 20,
+      "playoffTragicTieOK": 20,
       "playoffStatus": "",
       "championshipMagic": 5,
-      "championshipTragic": 10,
+      "championshipTragic": 9,
       "firstPlaceStatus": "현재 1위"
     },
     {
@@ -135,7 +135,7 @@
       "playoffTragicStrict": 18,
       "playoffTragicTieOK": 18,
       "playoffStatus": "",
-      "championshipMagic": 11,
+      "championshipMagic": 10,
       "championshipTragic": 4,
       "firstPlaceStatus": "가능"
     },
@@ -152,7 +152,7 @@
       "playoffTragicStrict": 9,
       "playoffTragicTieOK": 10,
       "playoffStatus": "",
-      "championshipMagic": 20,
+      "championshipMagic": 19,
       "championshipTragic": 0,
       "firstPlaceStatus": "불가능"
     },
@@ -169,7 +169,7 @@
       "playoffTragicStrict": 7,
       "playoffTragicTieOK": 7,
       "playoffStatus": "",
-      "championshipMagic": 20,
+      "championshipMagic": 19,
       "championshipTragic": 0,
       "firstPlaceStatus": "불가능"
     },
@@ -186,7 +186,24 @@
       "playoffTragicStrict": 4,
       "playoffTragicTieOK": 5,
       "playoffStatus": "",
-      "championshipMagic": 21,
+      "championshipMagic": 20,
+      "championshipTragic": 0,
+      "firstPlaceStatus": "불가능"
+    },
+    {
+      "team": "NC",
+      "wins": 65,
+      "losses": 67,
+      "draws": 6,
+      "remainingGames": 6,
+      "K5_max": 0.529,
+      "K5_min": 0.5,
+      "playoffMagicStrict": 8,
+      "playoffMagicTieOK": 8,
+      "playoffTragicStrict": 2,
+      "playoffTragicTieOK": 3,
+      "playoffStatus": "",
+      "championshipMagic": 23,
       "championshipTragic": 0,
       "firstPlaceStatus": "불가능"
     },
@@ -203,24 +220,7 @@
       "playoffTragicStrict": 1,
       "playoffTragicTieOK": 2,
       "playoffStatus": "",
-      "championshipMagic": 24,
-      "championshipTragic": 0,
-      "firstPlaceStatus": "불가능"
-    },
-    {
-      "team": "NC",
-      "wins": 64,
-      "losses": 67,
-      "draws": 6,
-      "remainingGames": 7,
-      "K5_max": 0.529,
-      "K5_min": 0.5,
-      "playoffMagicStrict": 9,
-      "playoffMagicTieOK": 9,
-      "playoffTragicStrict": 2,
-      "playoffTragicTieOK": 3,
-      "playoffStatus": "",
-      "championshipMagic": 25,
+      "championshipMagic": 23,
       "championshipTragic": 0,
       "firstPlaceStatus": "불가능"
     },
@@ -237,7 +237,7 @@
       "playoffTragicStrict": 0,
       "playoffTragicTieOK": 0,
       "playoffStatus": "",
-      "championshipMagic": 27,
+      "championshipMagic": 26,
       "championshipTragic": 0,
       "firstPlaceStatus": "불가능"
     },
@@ -254,7 +254,7 @@
       "playoffTragicStrict": 0,
       "playoffTragicTieOK": 0,
       "playoffStatus": "",
-      "championshipMagic": 31,
+      "championshipMagic": 30,
       "championshipTragic": 0,
       "firstPlaceStatus": "불가능"
     },
@@ -271,7 +271,7 @@
       "playoffTragicStrict": 0,
       "playoffTragicTieOK": 0,
       "playoffStatus": "",
-      "championshipMagic": 43,
+      "championshipMagic": 42,
       "championshipTragic": 0,
       "firstPlaceStatus": "불가능"
     }
@@ -311,8 +311,8 @@
       "rank3Magic": 8,
       "rank4Magic": 7,
       "rank5Magic": 5,
-      "dropRank6Tragic": 1,
-      "dropRank7Tragic": 2,
+      "dropRank6Tragic": 2,
+      "dropRank7Tragic": 1,
       "dropRank8Tragic": 0,
       "dropRank9Tragic": 0
     },
@@ -324,8 +324,8 @@
       "rank3Magic": 5,
       "rank4Magic": 5,
       "rank5Magic": 4,
-      "dropRank6Tragic": 0,
-      "dropRank7Tragic": 1,
+      "dropRank6Tragic": 1,
+      "dropRank7Tragic": 0,
       "dropRank8Tragic": 0,
       "dropRank9Tragic": 0
     },
@@ -337,22 +337,9 @@
       "rank3Magic": 5,
       "rank4Magic": 5,
       "rank5Magic": 5,
-      "dropRank6Tragic": 2,
-      "dropRank7Tragic": 3,
+      "dropRank6Tragic": 3,
+      "dropRank7Tragic": 2,
       "dropRank8Tragic": 1,
-      "dropRank9Tragic": 0
-    },
-    {
-      "team": "롯데",
-      "currentRank": 6,
-      "championshipMagic": 999,
-      "rank2Magic": 999,
-      "rank3Magic": 5,
-      "rank4Magic": 999,
-      "rank5Magic": 5,
-      "dropRank6Tragic": 6,
-      "dropRank7Tragic": 7,
-      "dropRank8Tragic": 5,
       "dropRank9Tragic": 0
     },
     {
@@ -360,12 +347,25 @@
       "currentRank": 6,
       "championshipMagic": 999,
       "rank2Magic": 999,
-      "rank3Magic": 7,
-      "rank4Magic": 7,
-      "rank5Magic": 7,
+      "rank3Magic": 6,
+      "rank4Magic": 6,
+      "rank5Magic": 6,
       "dropRank6Tragic": 7,
-      "dropRank7Tragic": 8,
-      "dropRank8Tragic": 6,
+      "dropRank7Tragic": 6,
+      "dropRank8Tragic": 5,
+      "dropRank9Tragic": 0
+    },
+    {
+      "team": "롯데",
+      "currentRank": 7,
+      "championshipMagic": 999,
+      "rank2Magic": 999,
+      "rank3Magic": 5,
+      "rank4Magic": 999,
+      "rank5Magic": 5,
+      "dropRank6Tragic": 7,
+      "dropRank7Tragic": 6,
+      "dropRank8Tragic": 5,
       "dropRank9Tragic": 0
     },
     {
@@ -376,8 +376,8 @@
       "rank3Magic": 999,
       "rank4Magic": 999,
       "rank5Magic": 6,
-      "dropRank6Tragic": 8,
-      "dropRank7Tragic": 9,
+      "dropRank6Tragic": 9,
+      "dropRank7Tragic": 8,
       "dropRank8Tragic": 7,
       "dropRank9Tragic": 1
     },
@@ -389,8 +389,8 @@
       "rank3Magic": 999,
       "rank4Magic": 999,
       "rank5Magic": 999,
-      "dropRank6Tragic": 13,
-      "dropRank7Tragic": 14,
+      "dropRank6Tragic": 14,
+      "dropRank7Tragic": 13,
       "dropRank8Tragic": 12,
       "dropRank9Tragic": 6
     },
@@ -402,8 +402,8 @@
       "rank3Magic": 999,
       "rank4Magic": 999,
       "rank5Magic": 999,
-      "dropRank6Tragic": 24,
-      "dropRank7Tragic": 25,
+      "dropRank6Tragic": 25,
+      "dropRank7Tragic": 24,
       "dropRank8Tragic": 23,
       "dropRank9Tragic": 17
     }
