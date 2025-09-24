@@ -13134,22 +13134,9 @@ KT 9:1 키움(H)`;
             }
             
             calculateStandings(targetDate) {
-                // 최신 날짜의 데이터인 경우 종합 순위 데이터 우선 사용
-                if (window.dashboardData && window.dashboardData.standings && targetDate === this.getCurrentMaxDate()) {
-                    // 종합 순위 데이터를 사용하여 순위 변동 차트용 데이터 생성
-                    return window.dashboardData.standings.map((team, index) => ({
-                        team: team.team_name,
-                        rank: team.displayRank || team.rank || (index + 1),
-                        wins: team.wins,
-                        losses: team.losses,
-                        draws: team.draws,
-                        games: team.games_played || team.games,
-                        winRate: team.wins / (team.wins + team.losses),
-                        gamesBehind: team.gamesBehind || 0
-                    }));
-                }
-                
-                // 과거 날짜에 대해서도 메인 시스템과 동일한 순위 로직 사용
+                // 모든 날짜에 대해 일관된 계산 방식 사용 (dashboardData 의존성 제거)
+
+                // 메인 시스템과 동일한 순위 로직 사용
                 const teams = getRankingSystem().teams;
                 const tempStats = {};
                 
@@ -13884,7 +13871,7 @@ KT 9:1 키움(H)`;
                     const firstPlaceWins = Math.max(...standings.map(team => team.wins));
                     
                     standings.forEach(teamData => {
-                        const winGap = firstPlaceWins - teamData.wins;
+                        const winGap = teamData.gamesBehind || 0; // 공식 게임차 사용
                         teamWinGaps[teamData.team].push(winGap);
                     });
                 });
@@ -15922,7 +15909,7 @@ KT 9:1 키움(H)`;
                 const firstPlaceWins = Math.max(...standings.map(team => team.wins));
                 
                 standings.forEach(teamData => {
-                    const winGap = firstPlaceWins - teamData.wins;
+                    const winGap = teamData.gamesBehind || 0; // 공식 게임차 사용
                     teamWinGaps[teamData.team].push(winGap);
                 });
             });
