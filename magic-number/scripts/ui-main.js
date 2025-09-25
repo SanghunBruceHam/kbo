@@ -79,119 +79,109 @@ const kboTeams = {
         // 전역 이벤트 관리자 인스턴스
         const eventManager = new EventManager();
         
-        // 잔여경기 일정 데이터 - 자동 필터링 (현재 날짜 이후만 표시)
-        const allScheduleData = [
-            { date: '08.21', teams: ['SSG', 'KIA', '한화', 'LG', 'KT', '키움', '삼성', '두산', 'NC', '롯데'] },
-            { date: '08.22', teams: ['SSG', 'KIA', '한화', 'KT', 'LG', '키움', '삼성', '두산', 'NC', '롯데'] },
-            { date: '08.23', teams: ['SSG', 'KIA', '한화', 'KT', 'LG', '키움', '삼성', '두산', 'NC', '롯데'] },
-            { date: '08.24', teams: ['SSG', 'KIA', '한화', 'KT', 'LG', '키움', '삼성', '두산', 'NC', '롯데'] },
-            { date: '08.26', teams: ['SSG', '한화', 'KT', 'LG', '키움', '삼성', '두산', 'KIA', '롯데', 'NC'] },
-            { date: '08.27', teams: ['SSG', '한화', 'KT', 'LG', '키움', '삼성', '두산', 'KIA', '롯데', 'NC'] },
-            { date: '08.28', teams: ['SSG', '한화', 'KT', 'LG', '키움', '삼성', '두산', 'KIA', '롯데', 'NC'] },
-            { date: '08.29', teams: ['SSG', 'KIA', '한화', 'LG', 'KT', '키움', '삼성', '두산', 'NC', '롯데'] },
-            { date: '08.30', teams: ['SSG', 'KIA', '한화', 'LG', 'KT', '키움', '삼성', '두산', 'NC', '롯데'] },
-            { date: '08.31', teams: ['SSG', 'KIA', '한화', 'LG', 'KT', '키움', '삼성', '두산', 'NC', '롯데'] },
-            { date: '09.02', teams: ['한화', 'KIA', 'SSG', 'LG', 'KT', '키움', 'NC', '롯데'] },
-            { date: '09.03', teams: ['한화', 'SSG', 'KIA', 'KT', '키움', '삼성', 'NC', '롯데'] },
-            { date: '09.04', teams: ['SSG', 'KIA', 'LG', 'KT', '키움', '삼성', '두산', 'NC'] },
-            { date: '09.05', teams: ['SSG', 'KT', '키움', '삼성', '두산', 'KIA', '롯데', 'NC'] },
-            { date: '09.06', teams: ['한화', 'KIA', 'SSG', 'LG', '삼성', '두산', 'NC', '롯데'] },
-            { date: '09.07', teams: ['한화', 'SSG', 'KIA', 'LG', '삼성', 'NC'] },
-            { date: '09.09', teams: ['한화', 'SSG', 'KIA', 'LG', 'KT', '키움', '삼성', '두산', 'NC', '롯데'] },
-            { date: '09.10', teams: ['한화', 'SSG', 'KIA', '삼성', 'NC', '롯데'] },
-            { date: '09.11', teams: ['SSG', 'KIA', 'KT', 'LG', '키움', '삼성', 'NC', '롯데'] },
-            { date: '09.12', teams: ['한화', 'LG', '키움', '두산', 'KIA', 'NC'] },
-            { date: '09.13', teams: ['SSG', '한화', 'LG', 'KT', '키움', '삼성', '두산', 'KIA', '롯데', 'NC'] },
-            { date: '09.14', teams: ['한화', 'LG', 'KT', '키움', '삼성', '두산', 'KIA', 'NC'] },
-            { date: '09.16', teams: ['한화', 'SSG', 'LG', 'KT', '키움', '삼성', '두산', 'KIA', '롯데', 'NC'] },
-            { date: '09.17', teams: ['한화', 'SSG', 'LG', 'KT', '키움', '삼성', '두산', 'KIA', '롯데', 'NC'] },
-            { date: '09.18', teams: ['한화', 'LG', 'KT', '키움', '삼성', '두산', 'KIA', 'NC'] },
-            { date: '09.19', teams: ['한화', 'SSG', 'KT', '두산', 'NC', '롯데'] },
-            { date: '09.20', teams: ['한화', 'SSG', 'KT', 'LG', '키움', '삼성', '두산', 'KIA', '롯데', 'NC'] },
-            { date: '09.21', teams: ['SSG', 'KT', '삼성', '두산', 'KIA', 'NC'] },
-            { date: '09.23', teams: ['SSG', 'KIA', 'KT', '키움', '삼성', '두산', 'NC', '롯데'] },
-            { date: '09.24', teams: ['한화', 'SSG', 'LG', '키움', 'KIA', 'NC'] },
-            { date: '09.25', teams: ['한화', 'SSG', 'KT', 'LG', '두산', '롯데'] },
-            { date: '09.26', teams: ['SSG', '한화', 'KT', 'LG', '삼성', '두산', 'NC', '롯데'] },
-            { date: '09.27', teams: ['한화', 'SSG', 'LG', '두산', 'KIA', 'NC'] },
-            { date: '09.28', teams: ['한화', 'KIA', 'LG', '키움', '삼성', '두산', 'NC', '롯데'] },
-            { date: '09.30', teams: ['한화', 'KIA', 'SSG', 'KT', 'LG', '키움', '삼성', '두산', 'NC', '롯데'] }
-        ];
         
-        // 수집된 경기 데이터를 확인하여 미래 경기만 필터링하는 함수
-        function getFilteredRemainingSchedule(serviceData = null) {
-            if (!serviceData) {
-                // 서비스 데이터가 없으면 현재 날짜 기준으로 fallback
-                const today = new Date();
-                const currentMonth = String(today.getMonth() + 1).padStart(2, '0');
-                const currentDay = String(today.getDate()).padStart(2, '0');
-                
-                return allScheduleData.filter(game => {
-                    const gameMonth = parseInt(game.date.split('.')[0]);
-                    const gameDay = parseInt(game.date.split('.')[1]);
-                    const currentMonthInt = parseInt(currentMonth);
-                    const currentDayInt = parseInt(currentDay);
-                    
-                    return (gameMonth > currentMonthInt) || 
-                           (gameMonth === currentMonthInt && gameDay > currentDayInt);
-                });
-            }
-
-            // 수집된 경기 데이터에서 최신 경기 날짜 확인
-            const latestDataDate = serviceData.dataDate;
-            if (!latestDataDate) {
-                logger.log('데이터 날짜 정보가 없습니다');
-                return allScheduleData;
-            }
-            
-            
-            // YYYY-MM-DD 형식을 MM.DD 형식으로 변환
-            const [year, month, day] = latestDataDate.split('-');
-            const latestDateFormatted = `${month}.${day}`;
-            
-            
-            const filteredGames = allScheduleData.filter(game => {
-                // 수집된 최신 날짜 이후의 경기만 포함
-                const gameMonth = parseInt(game.date.split('.')[0]);
-                const gameDay = parseInt(game.date.split('.')[1]);
-                const latestMonth = parseInt(month);
-                const latestDay = parseInt(day);
-                
-                const isFuture = (gameMonth > latestMonth) || 
-                               (gameMonth === latestMonth && gameDay > latestDay);
-                
-                
-                
-                return isFuture;
-            });
-            
-            return filteredGames;
-        }
         
-        // 초기 잔여경기 일정 (데이터 로드 전 임시)
-        let remainingSchedule = getFilteredRemainingSchedule();
-        
-        // 우승 확정일 계산 함수
-        function calculateClinchDate(teamName, magicNumber) {
+        // clean.txt에서 실제 일정 데이터를 로드하는 함수
+        async function loadActualSchedule() {
             try {
-                let gamesPlayed = 0;
-                
-                for (const gameDay of remainingSchedule) {
-                    if (gameDay.teams.includes(teamName)) {
-                        gamesPlayed++;
-                        
-                        if (gamesPlayed >= magicNumber) {
-                            // 날짜 포맷팅 (08.19 -> 8월 19일)
-                            const [month, day] = gameDay.date.split('.');
-                            return `${parseInt(month)}월 ${parseInt(day)}일`;
+                const response = await fetch('data/2025-season-data-clean.txt');
+                const scheduleText = await response.text();
+
+                const scheduleLines = scheduleText.split('\n');
+                const actualSchedule = [];
+                let currentDate = '';
+
+                for (const line of scheduleLines) {
+                    // 날짜 패턴 매칭: 2025-09-25 (목)
+                    const dateMatch = line.match(/^(\d{4}-\d{2}-\d{2})\s*\([가-힣]\)$/);
+                    if (dateMatch) {
+                        currentDate = dateMatch[1];
+                        continue;
+                    }
+
+                    // 경기 패턴 매칭: 18:30 경기전 홈팀 어웨이팀
+                    const gameMatch = line.match(/^\d{2}:\d{2}\s+(경기전|종료|경기취소)\s+\S+\s+(\S+)\s+(\S+)/);
+                    if (gameMatch && currentDate) {
+                        const [, status, homeTeam, awayTeam] = gameMatch;
+
+                        if (status === '경기전') {  // 미래 경기만 추가
+                            actualSchedule.push({
+                                date: currentDate,
+                                homeTeam: homeTeam,
+                                awayTeam: awayTeam,
+                                teams: [homeTeam, awayTeam]
+                            });
                         }
                     }
                 }
-                
-                return null; // 시즌 내 확정 불가
+
+                return actualSchedule;
+            } catch (error) {
+                logger.error('실제 일정 로드 실패:', error);
+                return [];
+            }
+        }
+
+        // 우승 확정일 계산 함수 (clean.txt 기반 + 미확정 일정 처리)
+        async function calculateClinchDate(teamName, magicNumber) {
+            try {
+                let gamesPlayed = 0;
+                let foundScheduledGames = 0;
+
+                // clean.txt에서 실제 일정 데이터 로드
+                const actualSchedule = await loadActualSchedule();
+
+                logger.log(`🔍 calculateClinchDate 디버그: ${teamName}, 매직넘버: ${magicNumber}`);
+                logger.log(`🔍 로드된 일정 수: ${actualSchedule.length}`);
+
+                if (actualSchedule.length === 0) {
+                    return '추후 일정 확정 후 업데이트';
+                }
+
+                // 실제 일정에서 해당 팀의 경기 찾기
+                for (const game of actualSchedule) {
+                    if (game.teams.includes(teamName)) {
+                        foundScheduledGames++;
+                        gamesPlayed++;
+                        logger.log(`🔍 ${gamesPlayed}번째 경기: ${game.date}`);
+
+                        if (gamesPlayed >= magicNumber) {
+                            // 날짜 포맷팅 (2025-09-25 -> 9월 25일)
+                            const [year, month, day] = game.date.split('-');
+                            const gameMonth = parseInt(month);
+                            const gameDay = parseInt(day);
+
+                            logger.log(`🔍 매직넘버 달성: ${gameMonth}월 ${gameDay}일`);
+                            return `${gameMonth}월 ${gameDay}일`;
+                        }
+                    }
+                }
+
+                // 현재 팀의 상태 확인 (stats-comprehensive.json에서)
+                const currentTeam = currentStandings?.find(t => t.team === teamName || t.team_name === teamName);
+                const totalGames = 144;
+                const currentGames = currentTeam?.games || currentTeam?.games_played || 0;
+                const remainingGames = totalGames - currentGames;
+
+                logger.log(`🔍 현재 경기: ${currentGames}, 잔여: ${remainingGames}, 스케줄된: ${foundScheduledGames}`);
+
+                // 스케줄된 경기 수와 실제 잔여 경기 수 비교
+                if (foundScheduledGames < remainingGames) {
+                    const missingGames = remainingGames - foundScheduledGames;
+                    logger.log(`🔍 스케줄 부족: 잔여${remainingGames}, 스케줄${foundScheduledGames}, 매직${magicNumber}`);
+
+                    // 매직넘버가 스케줄된 경기 범위를 초과하거나 같은 경우
+                    if (magicNumber >= foundScheduledGames) {
+                        const currentGamesTotal = currentGames + magicNumber;
+                        logger.log(`🔍 미확정 일정 메시지: ${currentGamesTotal}번째 경기, ${missingGames}경기 미확정`);
+                        return `10월 초 추가 일정 확정 후 표시 (${currentGamesTotal}번째 경기에서 우승확정 예정)`;
+                    }
+                }
+
+                return '추후 일정 확정 후 업데이트'; // 시즌 내 확정 불가
             } catch (error) {
                 logger.error('우승 확정일 계산 오류:', error);
-                return null;
+                return '추후 일정 확정 후 업데이트';
             }
         }
         
@@ -527,8 +517,8 @@ const kboTeams = {
                     // currentKBOData에 전체 데이터 저장
                     currentKBOData = data;
                     
-                    // 수집된 데이터를 기반으로 잔여경기 일정 업데이트
-                    remainingSchedule = getFilteredRemainingSchedule(data);
+                    // 수집된 데이터를 기반으로 잔여경기 일정 업데이트 (레거시 - 사용 안함)
+                    // remainingSchedule = getFilteredRemainingSchedule(data);
                     
                     // 데이터 로딩 시간 업데이트
                     updateLoadingTime(data);
@@ -689,21 +679,6 @@ const kboTeams = {
                     logger.warn('⚠️ 상대전적 데이터 로드 실패, 기본값 사용', error);
                 }
 
-                // 전년도 순위 데이터 (선택 사항)
-                try {
-                    const response = await fetch(`data/previous-season-ranks.json?v=${Date.now()}`);
-                    if (response.ok) {
-                        const prevRankData = await response.json();
-                        if (prevRankData && typeof prevRankData === 'object') {
-                            resources.previousSeasonRanks = {
-                                ...resources.previousSeasonRanks,
-                                ...prevRankData
-                            };
-                        }
-                    }
-                } catch (error) {
-                    logger.warn('⚠️ 전년도 순위 데이터 로드 실패, 기본값 사용', error);
-                }
 
                 // 다중 타이브레이커 대비 득점 합계 계산
                 try {
@@ -1533,7 +1508,10 @@ const kboTeams = {
             const precomputedData = window.precomputedMatrixData;
             const matrixRawData = precomputedData?.precomputedMatrixResults?.rawCalculationData;
             const teamMatrixData = matrixRawData?.find(r => r.team === firstPlace.team);
-            return teamMatrixData?.x1_strict_raw || 0;
+            const magicNumber = teamMatrixData?.x1_strict_raw || 0;
+            logger.log(`🔍 calculateMagicNumber: ${firstPlace.team} 매직넘버 = ${magicNumber}`);
+            logger.log(`🔍 매트릭스 데이터 로드 상태:`, !!precomputedData);
+            return magicNumber;
         }
 
 
@@ -1630,8 +1608,8 @@ const kboTeams = {
                 (B < 255 ? B < 1 ? 0 : B : 255)).toString(16).slice(1);
         }
 
-        function renderChampionshipCondition() {
-            
+        async function renderChampionshipCondition() {
+
             if (!currentStandings || currentStandings.length === 0) {
                 logger.error('❌ currentStandings 데이터가 없습니다');
                 return;
@@ -1639,9 +1617,9 @@ const kboTeams = {
             
             const firstPlace = currentStandings[0];
             const secondPlace = currentStandings[1];
+
             const teamData = kboTeams[firstPlace.team];
-            
-            
+
             const totalGames = 144;
             const remainingGames = totalGames - firstPlace.games;
             const maxPossibleWins = firstPlace.wins + remainingGames;
@@ -1666,17 +1644,19 @@ const kboTeams = {
             // 예상 우승확정일 계산
             let clinchDateText = '';
             
+
             if (magicNumber > 0) {
                 // 매직넘버는 지금부터 필요한 승수 - 현재 경기수 + 매직넘버 = 우승확정 경기
                 const targetGameNumber = firstPlace.games + magicNumber;
-                
+
                 if (targetGameNumber <= totalGames) {
                     // 잔여경기 일정에서 날짜 계산
-                    const expectedDate = calculateClinchDate(firstPlace.team, magicNumber);
+                    const expectedDate = await calculateClinchDate(firstPlace.team, magicNumber);
                     if (expectedDate) {
                         clinchDateText = `${expectedDate} (${targetGameNumber}번째 경기)`;
                     } else {
                         clinchDateText = `${targetGameNumber}번째 경기에서 확정 가능`;
+                        logger.log(`🔍 대체 clinchDateText: ${clinchDateText}`);
                     }
                 } else {
                     clinchDateText = `시즌 종료 후 (${targetGameNumber}번째 경기 필요)`;
@@ -1720,8 +1700,13 @@ const kboTeams = {
                 formattedClinchDate = clinchDateText.replace('시즌 종료 후', '\n시즌 종료 후');
             } else if (clinchDateText === '이미 우승 확정') {
                 formattedClinchDate = '이미\n우승 확정';
+            } else if (clinchDateText === '추후 일정 확정 후 업데이트') {
+                formattedClinchDate = '추후 일정\n확정 후 업데이트';
+            } else if (clinchDateText.includes('10월 초 추가 일정 확정 후 표시')) {
+                formattedClinchDate = clinchDateText.replace('10월 초 추가 일정 확정 후 표시', '10월 초 추가 일정\n확정 후 표시');
             }
             
+            logger.log(`🔍 최종 DOM 설정: ${formattedClinchDate}`);
             document.getElementById('clinch-date').textContent = formattedClinchDate;
             
             // ===========================================
@@ -2780,7 +2765,7 @@ const kboTeams = {
                 }
                 
                 try {
-                    renderChampionshipCondition();
+                    await renderChampionshipCondition();
                 } catch (error) {
                     logger.error('❌ 우승 조건 렌더링 오류:', error);
                 }
