@@ -3809,8 +3809,8 @@ const kboTeams = {
                 if (window.magicMatrixData && window.magicMatrixData.playoffResults) {
                     const magicData = window.magicMatrixData.playoffResults.find(t => t.team === team.team);
                     if (magicData) {
-                        // 매직넘버가 20 이하면 가능성 있다고 판단 (롯데 매직넘버 8 포함)
-                        return magicData.playoffMagicStrict <= 20;
+                        // 매직넘버가 10 이하면 현실적 가능성 있음 (롯데 8, NC 8 포함)
+                        return magicData.playoffMagicStrict <= 10;
                     }
                 }
                 // 백업: 기존 복잡한 로직 사용
