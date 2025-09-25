@@ -3806,9 +3806,16 @@ const kboTeams = {
                 if (window.magicMatrixData && window.magicMatrixData.playoffResults) {
                     const magicData = window.magicMatrixData.playoffResults.find(t => t.team === team.team);
                     if (magicData) {
-                        // 매직넘버가 있거나 트래직넘버가 0이 아니면 진출 가능
-                        const hasPlayoffChance = magicData.playoffMagicStrict > 0 || magicData.playoffTragicStrict > 0;
-                        if (hasPlayoffChance) return true;
+                        // 이미 진출 확정 (매직넘버 0) 또는 아직 진출 가능성 있음 (매직넘버 > 0, 트래직넘버 > 0)
+                        const isAlreadyIn = magicData.playoffMagicStrict === 0;
+                        const hasChance = magicData.playoffMagicStrict > 0 && magicData.playoffTragicStrict > 0;
+
+                        // 현실적인 진출 가능성 판단 - 매직넘버가 10 이하인 팀만 포함
+                        if (magicData.playoffMagicStrict > 10) {
+                            return false; // 현실적으로 진출 어려움
+                        }
+
+                        return isAlreadyIn || hasChance;
                     }
                 }
 
