@@ -3719,8 +3719,19 @@ const kboTeams = {
 
         // 매트릭스 시나리오 HTML 생성
         function generateScenarioMatrix(topTeams) {
-            // 모든 팀 표시 (현재 모든 팀 트래직넘버 0 = 아직 탈락 안함)
-            const eligibleTeams = topTeams;
+            // 탈락팀(트래직넘버 0인 팀) 제외
+            const eligibleTeams = topTeams.filter(team => {
+                // 매직넘버 데이터에서 트래직넘버 확인
+                if (window.magicMatrixData && window.magicMatrixData.playoffResults) {
+                    const magicData = window.magicMatrixData.playoffResults.find(t => t.team === team.team);
+                    if (magicData) {
+                        // 트래직넘버가 0이면 탈락팀이므로 제외
+                        return magicData.playoffTragicStrict > 0;
+                    }
+                }
+                // 백업: 매직넘버 데이터 없으면 포함
+                return true;
+            });
 
             let html = `
 
