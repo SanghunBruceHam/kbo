@@ -3718,113 +3718,14 @@ const kboTeams = {
         }
 
         // 매트릭스 시나리오 HTML 생성
-        function generateScenarioMatrix(topTeams, skipFiltering = false) {
-            // 완전한 시나리오 기반 5위 진출 가능성 검사
-            function canReachTop5(targetTeam, allTeams) {
-                // 모든 팀의 가능한 최종 성적 범위 계산
-                const teamScenarios = allTeams.map(team => {
-                    const remaining = team.remainingGames || 0;
-                    const scenarios = [];
-                    
-                    // 0승부터 전승까지 모든 경우
-                    for (let wins = 0; wins <= remaining; wins++) {
-                        const finalWins = team.wins + wins;
-                        const finalLosses = team.losses + (remaining - wins);
-                        const finalGames = finalWins + finalLosses + (team.draws || 0);
-                        const finalWinRate = finalWins / (finalWins + finalLosses); // 무승부 제외한 승률
-                        
-                        scenarios.push({
-                            team: team.team,
-                            wins: finalWins,
-                            losses: finalLosses,
-                            games: finalGames,
-                            winRate: finalWinRate,
-                            winLossMargin: finalWins - finalLosses
-                        });
-                    }
-                    return scenarios;
-                });
-                
-                // 현실적으로 포스트시즌 경쟁 가능한 팀들만 체크
-                const competingTeams = teamScenarios.slice(0, Math.min(10, teamScenarios.length));
-                
-                // 더 많은 시나리오 샘플링 (더 정확한 검사)
-                const sampleSize = Math.min(100, Math.max(20, competingTeams[0].length));
-                const stepSize = Math.max(1, Math.floor(competingTeams[0].length / sampleSize));
-                
-                for (let i = 0; i < competingTeams[0].length; i += stepSize) {
-                    // 각 팀의 i번째 시나리오 조합
-                    const scenarioResults = competingTeams.map(scenarios => scenarios[Math.min(i, scenarios.length - 1)]);
-                    
-                    // 승률 기준으로 정렬
-                    scenarioResults.sort((a, b) => {
-                        if (Math.abs(a.winRate - b.winRate) < 0.001) {
-                            return b.winLossMargin - a.winLossMargin; // 승률 같으면 승패차
-                        }
-                        return b.winRate - a.winRate;
-                    });
-                    
-                    // 타겟 팀이 5위 안에 있는지 확인
-                    const targetTeamRank = scenarioResults.findIndex(team => team.team === targetTeam.team) + 1;
-                    if (targetTeamRank <= 5 && targetTeamRank > 0) {
-                        return true; // 5위 안에 들 수 있는 시나리오 발견
-                    }
-                }
-                
-                // 극한 시나리오도 체크 (타겟팀 전승, 다른팀들 전패)
-                const extremeScenario = competingTeams.map((scenarios, index) => {
-                    if (scenarios[0].team === targetTeam.team) {
-                        return scenarios[scenarios.length - 1]; // 타겟팀 전승 (최고 성적)
-                    } else {
-                        return scenarios[0]; // 다른 팀들 전패 (최저 성적)
-                    }
-                });
-                
-                // KBO 규정에 따른 정렬 (승률 → 승패차)
-                extremeScenario.sort((a, b) => {
-                    if (Math.abs(a.winRate - b.winRate) < 0.001) {
-                        return b.winLossMargin - a.winLossMargin;
-                    }
-                    return b.winRate - a.winRate;
-                });
-                
-                const extremeRank = extremeScenario.findIndex(team => team.team === targetTeam.team) + 1;
-                
-                // 디버깅: 롯데 시나리오 결과 출력
-                if (targetTeam.team === '롯데') {
-                    console.log('🔍 롯데 극한 시나리오:');
-                    extremeScenario.forEach((team, index) => {
-                        const marker = team.team === '롯데' ? '👈' : '';
-                        console.log(`${index + 1}위: ${team.team} ${team.wins}승 ${team.losses}패 (승률 ${team.winRate.toFixed(3)}) ${marker}`);
-                    });
-                    console.log(`롯데 극한 순위: ${extremeRank}`);
-                }
-                
-                return extremeRank <= 5 && extremeRank > 0;
-            }
-            
-            // 필터링 없음: 모든 팀 표시
-            const playoffContenders = topTeams;
-            
-            // 실제 경쟁 가능한 팀만 선별 (새창: 전체 10팀, 메인: 필터링 결과)
-            const eligibleTeams = skipFiltering ? topTeams : playoffContenders;
+        function generateScenarioMatrix(topTeams) {
+            // 모든 팀 표시
+            const eligibleTeams = topTeams;
 
-            // 두산 특별 체크
-            const doosan = topTeams.find(t => t.team === '두산');
-            if (doosan) {
-            }
-
-            // 팀이 너무 적으면 최소 상위 팀 보장 (새창: 10팀, 메인: 최소 6팀)
-            const minTeamCount = skipFiltering ? 10 : 6;
-            const maxTeamCount = skipFiltering ? 10 : 8;
-            if (eligibleTeams.length < minTeamCount) {
-                const minTeams = topTeams.slice(0, Math.min(maxTeamCount, topTeams.length));
-                eligibleTeams.splice(0, eligibleTeams.length, ...minTeams);
-            }
             let html = `
-                
+
                 <div class="scenario-matrix-container" style="
-                    overflow-x: ${skipFiltering ? 'visible' : 'auto'}; 
+                    overflow-x: auto;
                     overflow-y: auto;
                     border-radius: 12px; 
                     border: 1px solid #e0e0e0; 
@@ -4354,7 +4255,7 @@ const kboTeams = {
             
             // 전체 10팀의 승률 기준 시나리오 매트릭스 생성 (필터링 없음)
             const allTeams = currentStandings.slice(0, 10);
-            const fullScenarioMatrix = generateScenarioMatrix(allTeams, true);
+            const fullScenarioMatrix = generateScenarioMatrix(allTeams);
             
             // 새 창 열기
             const newWindow = window.open('', '_blank', 'width=1200,height=800,scrollbars=yes,resizable=yes');
