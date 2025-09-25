@@ -869,21 +869,51 @@ const kboTeams = {
             const magicNumber = calculateMagicNumber(firstPlace, secondPlace);
             document.getElementById('first-place-magic').textContent = `매직넘버: ${magicNumber > 0 ? magicNumber : '확정'}`;
 
-            // 포스트시즌 확정 팀 수 (calc-magic-numbers.json에서 계산됨)
-            // 매트릭스 데이터로 포스트시즌 확정 팀 수 계산
+            // 포스트시즌 확정 팀들 표시 (최대 5팀, 팀명 우선 표시)
+            let playoffConfirmedTeams = [];
             let playoffConfirmedCount = 0;
+
             if (window.precomputedMatrixData?.precomputedMatrixResults?.rawCalculationData) {
-                playoffConfirmedCount = window.precomputedMatrixData.precomputedMatrixResults.rawCalculationData
-                    .filter(team => team.x5_strict_raw === 0 && team.y5_tieOK_raw > 0).length;
+                const confirmedTeamsData = window.precomputedMatrixData.precomputedMatrixResults.rawCalculationData
+                    .filter(team => team.x5_strict_raw === 0 && team.y5_tieOK_raw > 0);
+
+                playoffConfirmedCount = confirmedTeamsData.length;
+                playoffConfirmedTeams = confirmedTeamsData.map(team => team.team).slice(0, 5); // 최대 5팀
             }
-            document.getElementById('playoff-confirmed-teams').textContent = `${playoffConfirmedCount}개 팀`;
-            document.getElementById('playoff-confirmed-desc').textContent = 'PS 매직넘버 0 달성';
+
+            if (playoffConfirmedTeams.length > 0) {
+                // 팀수에 따라 폰트 크기 자동 조정
+                let fontSize;
+                if (playoffConfirmedTeams.length <= 2) fontSize = '18px';
+                else if (playoffConfirmedTeams.length <= 3) fontSize = '16px';
+                else if (playoffConfirmedTeams.length <= 4) fontSize = '14px';
+                else fontSize = '12px';
+
+                const teamLogos = playoffConfirmedTeams.map(teamName => {
+                    const teamData = kboTeams[teamName];
+                    return `<div style="display: flex; align-items: center; gap: 2px;">
+                        ${teamData.logo}
+                        <span style="color: ${teamData.color}; font-size: ${fontSize};">${teamName}</span>
+                    </div>`;
+                }).join('');
+
+                document.getElementById('playoff-confirmed-teams').innerHTML = `
+                    <div style="display: flex; gap: 6px; align-items: center; justify-content: center; flex-wrap: wrap; margin-bottom: 2px;">
+                        ${teamLogos}
+                    </div>
+                `;
+            } else {
+                document.getElementById('playoff-confirmed-teams').textContent = '아직 없음';
+            }
+
+            document.getElementById('playoff-confirmed-desc').textContent = `${playoffConfirmedCount}팀 PS 진출 확정`;
 
             // 최고 연승팀 (동점 시 2팀 표기)
             let bestStreakTeams = [];
             let maxWinStreak = 0;
             currentStandings.forEach(team => {
-                if (team.streak.includes('승')) {
+                // 영어 형식 (W) 또는 한국어 형식 (승) 모두 지원
+                if (team.streak && (team.streak.includes('W') || team.streak.includes('승'))) {
                     const count = parseInt(team.streak);
                     if (count > maxWinStreak) {
                         maxWinStreak = count;
@@ -918,7 +948,8 @@ const kboTeams = {
             let worstStreakTeams = [];
             let maxLossStreak = 0;
             currentStandings.forEach(team => {
-                if (team.streak.includes('패')) {
+                // 영어 형식 (L) 또는 한국어 형식 (패) 모두 지원
+                if (team.streak && (team.streak.includes('L') || team.streak.includes('패'))) {
                     const count = parseInt(team.streak);
                     if (count > maxLossStreak) {
                         maxLossStreak = count;
