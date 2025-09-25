@@ -3800,41 +3800,9 @@ const kboTeams = {
                 return extremeRank <= 5 && extremeRank > 0;
             }
             
-            // 필터링: 새창에서는 모든 팀, 메인에서는 포스트시즌 진출 가능한 팀만
+            // 필터링: 새창에서는 모든 팀, 메인에서는 5위 진출 가능한 팀만
             const playoffContenders = skipFiltering ? topTeams : topTeams.filter(team => {
-                // 매직넘버 데이터에서 포스트시즌 진출 가능성 확인
-                if (window.magicMatrixData && window.magicMatrixData.playoffResults) {
-                    const magicData = window.magicMatrixData.playoffResults.find(t => t.team === team.team);
-                    if (magicData) {
-                        // 이미 진출 확정 (매직넘버 0) 또는 아직 진출 가능성 있음 (매직넘버 > 0, 트래직넘버 > 0)
-                        const isAlreadyIn = magicData.playoffMagicStrict === 0;
-                        const hasChance = magicData.playoffMagicStrict > 0 && magicData.playoffTragicStrict > 0;
-
-                        // 현실적인 진출 가능성 판단 - 매직넘버가 10 이하인 팀만 포함
-                        if (magicData.playoffMagicStrict > 10) {
-                            return false; // 현실적으로 진출 어려움
-                        }
-
-                        return isAlreadyIn || hasChance;
-                    }
-                }
-
-                // 백업 로직: 각 팀의 최대 가능 순위 계산 (모든 잔여경기 승리 시)
-                const maxPossibleWins = team.wins + (team.remainingGames || 0);
-
-                // 다른 팀들의 최소 승수와 비교하여 최대 가능 순위 계산
-                let maxPossibleRank = 1;
-                topTeams.forEach(otherTeam => {
-                    if (otherTeam.team === team.team) return;
-
-                    // 다른 팀의 현재 승수가 나의 최대 가능 승수보다 크면 순위가 밀림
-                    if (otherTeam.wins > maxPossibleWins) {
-                        maxPossibleRank++;
-                    }
-                });
-
-                // 최대 가능 순위가 5위 이내면 포함
-                return maxPossibleRank <= 5;
+                return canReachTop5(team, topTeams);
             });
             
             // 실제 경쟁 가능한 팀만 선별 (새창: 전체 10팀, 메인: 필터링 결과)
