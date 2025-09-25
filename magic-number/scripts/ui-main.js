@@ -3790,11 +3790,14 @@ const kboTeams = {
                 
                 const extremeRank = extremeScenario.findIndex(team => team.team === targetTeam.team) + 1;
                 
-                // 디버깅: 극한 시나리오 결과 출력
-                if (targetTeam.team === '두산') {
+                // 디버깅: 롯데 시나리오 결과 출력
+                if (targetTeam.team === '롯데') {
+                    console.log('🔍 롯데 극한 시나리오:');
                     extremeScenario.forEach((team, index) => {
-                        const marker = team.team === '두산' ? '👈' : '';
+                        const marker = team.team === '롯데' ? '👈' : '';
+                        console.log(`${index + 1}위: ${team.team} ${team.wins}승 ${team.losses}패 (승률 ${team.winRate.toFixed(3)}) ${marker}`);
                     });
+                    console.log(`롯데 극한 순위: ${extremeRank}`);
                 }
                 
                 return extremeRank <= 5 && extremeRank > 0;
@@ -3802,6 +3805,15 @@ const kboTeams = {
             
             // 필터링: 새창에서는 모든 팀, 메인에서는 5위 진출 가능한 팀만
             const playoffContenders = skipFiltering ? topTeams : topTeams.filter(team => {
+                // 매직넘버 데이터 기반 간단한 판단
+                if (window.magicMatrixData && window.magicMatrixData.playoffResults) {
+                    const magicData = window.magicMatrixData.playoffResults.find(t => t.team === team.team);
+                    if (magicData) {
+                        // 매직넘버가 20 이하면 가능성 있다고 판단 (롯데 매직넘버 8 포함)
+                        return magicData.playoffMagicStrict <= 20;
+                    }
+                }
+                // 백업: 기존 복잡한 로직 사용
                 return canReachTop5(team, topTeams);
             });
             
