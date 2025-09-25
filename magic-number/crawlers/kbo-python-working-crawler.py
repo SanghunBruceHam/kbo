@@ -13,6 +13,7 @@ from bs4 import BeautifulSoup
 import json
 import time
 import re
+import subprocess
 from datetime import datetime
 import os
 import sys
@@ -22,6 +23,49 @@ import calendar
 # PathManager 추가 - config 디렉토리를 Python path에 추가
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent / 'config'))
 from paths import get_path_manager
+
+
+def run_post_crawl_processing():
+    """크롤링 완료 후 자동으로 데이터 처리 및 분석 스크립트 실행"""
+    try:
+        # 프로젝트 루트 디렉토리 찾기
+        project_root = Path(__file__).resolve().parent.parent.parent
+        os.chdir(project_root)
+
+        print("📊 1단계: 시즌 데이터 처리 및 API 데이터 생성...")
+        result = subprocess.run(['npm', 'run', 'process'], capture_output=True, text=True)
+        if result.returncode == 0:
+            print("✅ 시즌 데이터 처리 완료")
+        else:
+            print(f"❌ 시즌 데이터 처리 실패: {result.stderr}")
+
+        print("📈 2단계: 매직넘버 계산...")
+        result = subprocess.run(['npm', 'run', 'rank-matrix'], capture_output=True, text=True)
+        if result.returncode == 0:
+            print("✅ 매직넘버 계산 완료")
+        else:
+            print(f"❌ 매직넘버 계산 실패: {result.stderr}")
+
+        print("⚡ 3단계: UI 최적화 사전계산...")
+        result = subprocess.run(['npm', 'run', 'precompute-matrix'], capture_output=True, text=True)
+        if result.returncode == 0:
+            print("✅ UI 사전계산 완료")
+        else:
+            print(f"❌ UI 사전계산 실패: {result.stderr}")
+
+        print("🔍 4단계: 전체 분석 데이터 생성...")
+        result = subprocess.run(['npm', 'run', 'analysis'], capture_output=True, text=True)
+        if result.returncode == 0:
+            print("✅ 전체 분석 완료")
+        else:
+            print(f"❌ 전체 분석 실패: {result.stderr}")
+
+        print("🎉 모든 후처리 작업 완료!")
+
+    except Exception as e:
+        print(f"❌ 후처리 작업 중 오류 발생: {e}")
+        print("💡 수동으로 다음 명령어들을 실행해주세요:")
+        print("   npm run process && npm run rank-matrix && npm run precompute-matrix && npm run analysis")
 
 class KBOWorkingCrawler:
     def __init__(self):
@@ -671,7 +715,11 @@ def main():
         print("\n❌ 전체 크롤링 실패 - 데이터 없음")
     else:
         print(f"\n🎯 크롤링 종료! 총 {len(all_games)}개 경기 처리")
-    
+
+        # 크롤링 성공 시 데이터 처리 및 분석 스크립트 자동 실행
+        print("\n🚀 크롤링 완료 - 자동 데이터 처리 시작...")
+        run_post_crawl_processing()
+
     print("=" * 60)
 
 if __name__ == "__main__":
