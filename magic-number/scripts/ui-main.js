@@ -3803,19 +3803,8 @@ const kboTeams = {
                 return extremeRank <= 5 && extremeRank > 0;
             }
             
-            // 필터링: 새창에서는 모든 팀, 메인에서는 5위 진출 가능한 팀만
-            const playoffContenders = skipFiltering ? topTeams : topTeams.filter(team => {
-                // 매직넘버 데이터 기반 간단한 판단
-                if (window.magicMatrixData && window.magicMatrixData.playoffResults) {
-                    const magicData = window.magicMatrixData.playoffResults.find(t => t.team === team.team);
-                    if (magicData) {
-                        // 매직넘버가 10 이하면 현실적 가능성 있음 (롯데 8, NC 8 포함)
-                        return magicData.playoffMagicStrict <= 10;
-                    }
-                }
-                // 백업: 기존 복잡한 로직 사용
-                return canReachTop5(team, topTeams);
-            });
+            // 필터링 없음: 모든 팀 표시
+            const playoffContenders = topTeams;
             
             // 실제 경쟁 가능한 팀만 선별 (새창: 전체 10팀, 메인: 필터링 결과)
             const eligibleTeams = skipFiltering ? topTeams : playoffContenders;
