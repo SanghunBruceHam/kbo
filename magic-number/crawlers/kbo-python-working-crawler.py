@@ -32,12 +32,13 @@ def run_post_crawl_processing():
         project_root = Path(__file__).resolve().parent.parent.parent
         os.chdir(project_root)
 
-        print("📊 1단계: 시즌 데이터 처리 및 API 데이터 생성...")
+        print("📊 1단계: 시즌 데이터 처리...")
         result = subprocess.run(['npm', 'run', 'process'], capture_output=True, text=True)
         if result.returncode == 0:
             print("✅ 시즌 데이터 처리 완료")
         else:
             print(f"❌ 시즌 데이터 처리 실패: {result.stderr}")
+            return
 
         print("📈 2단계: 매직넘버 계산...")
         result = subprocess.run(['npm', 'run', 'rank-matrix'], capture_output=True, text=True)

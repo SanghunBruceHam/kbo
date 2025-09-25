@@ -18,7 +18,6 @@
     "clutch-analysis": "node magic-number/scripts/util-runner.js magic-number/scripts/analysis-clutch.js",
     "home-away-analysis": "node magic-number/scripts/util-runner.js magic-number/scripts/analysis-home-away.js",
     "series-analysis": "node magic-number/scripts/util-runner.js magic-number/scripts/analysis-series.js",
-    "weekly-game-analysis": "node magic-number/scripts/util-runner.js magic-number/scripts/analysis-weekly.js",
     "rank-matrix": "node magic-number/scripts/util-runner.js magic-number/scripts/01_magic-number-calculator.js",
     "parse-season-data": "node magic-number/scripts/util-runner.js magic-number/scripts/03_season-data-parser.js",
     "monthly-analysis": "node magic-number/scripts/util-runner.js magic-number/scripts/analysis-monthly.js",
