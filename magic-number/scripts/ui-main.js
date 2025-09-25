@@ -3714,9 +3714,9 @@ const kboTeams = {
         }
 
         // 매트릭스 시나리오 HTML 생성
-        function generateScenarioMatrix(topTeams) {
+        function generateScenarioMatrix(topTeams, skipFiltering = false) {
             // 탈락팀(트래직넘버 0인 팀) 제외 - 포스트시즌 테이블과 같은 데이터 사용
-            const eligibleTeams = topTeams.filter(team => {
+            const eligibleTeams = skipFiltering ? topTeams : topTeams.filter(team => {
                 // 매트릭스 데이터에서 트래직넘버 확인 (포스트시즌 테이블과 동일)
                 const precomputedData = window.precomputedMatrixData;
                 if (precomputedData?.precomputedMatrixResults?.rawCalculationData) {
@@ -4263,7 +4263,7 @@ const kboTeams = {
             
             // 전체 10팀의 승률 기준 시나리오 매트릭스 생성 (필터링 없음)
             const allTeams = currentStandings.slice(0, 10);
-            const fullScenarioMatrix = generateScenarioMatrix(allTeams);
+            const fullScenarioMatrix = generateScenarioMatrix(allTeams, true);
             
             // 새 창 열기
             const newWindow = window.open('', '_blank', 'width=1200,height=800,scrollbars=yes,resizable=yes');
