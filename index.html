@@ -19223,9 +19223,10 @@ KT 9:1 키움(H)`;
 
             // 경기 데이터 라인 파싱
             // 형식: "18:30    종료     잠실     LG   한화   0:4      SBS SPORTS 페넌트레이스"
+            // 스코어 형식: 원정팀점수:홈팀점수
             const gameMatch = trimmedLine.match(/^(\d{2}:\d{2})\s+종료\s+(\S+)\s+(\S+)\s+(\S+)\s+(\d+):(\d+)\s+(.+)$/);
             if (gameMatch && currentDate) {
-                const [, time, stadium, homeTeam, awayTeam, homeScore, awayScore, broadcastInfo] = gameMatch;
+                const [, time, stadium, homeTeam, awayTeam, awayScore, homeScore, broadcastInfo] = gameMatch;
 
                 const homeScoreInt = parseInt(homeScore);
                 const awayScoreInt = parseInt(awayScore);
