@@ -3734,9 +3734,9 @@ const kboTeams = {
                     width: 100%;
                     position: relative;
                 ">
-                    <table class="scenario-matrix-table scenario-table-compact${skipFiltering ? ' popup-mode' : ''}" style="
-                        background: white; 
-                        min-width: ${skipFiltering ? 'auto' : (window.innerWidth <= 768 ? '800px' : Math.max(1200, eligibleTeams.length * 205 + 70 + 140) + 'px')};
+                    <table class="scenario-matrix-table scenario-table-compact" style="
+                        background: white;
+                        min-width: ${window.innerWidth <= 768 ? '800px' : Math.max(1200, eligibleTeams.length * 205 + 70 + 140) + 'px'};
                     ">
                         <thead>
                             <!-- 1행: 순위 -->
@@ -3751,7 +3751,7 @@ const kboTeams = {
                 const teamColor = teamData?.color || '#333';
                 const columnWidth = index < 6 ? '160px' : '120px';
                 
-                const totalColumnWidth = skipFiltering ? '95px' : '205px'; // 45+50 or 95+110
+                const totalColumnWidth = '205px'; // 기본 크기
                 const borderClass = index === 4 ? 'playoff-border' : (!isLast ? 'team-border' : '');
                 html += `<th colspan="2" class="header-team ${borderClass}" style="
                     min-width: ${totalColumnWidth}; 
@@ -3768,8 +3768,8 @@ const kboTeams = {
                     position: sticky;
                     left: 0;
                     z-index: 110;
-                    min-width: ${skipFiltering ? '50px' : '70px'}; 
-                    width: ${skipFiltering ? '50px' : '70px'};
+                    min-width: 70px;
+                    width: 70px;
                     padding: 4px 6px; 
                     text-align: center; 
                     font-weight: 600; 
@@ -3780,7 +3780,7 @@ const kboTeams = {
                 
             eligibleTeams.forEach((team, index) => {
                 const isLast = index === eligibleTeams.length - 1;
-                const totalColumnWidth = skipFiltering ? '95px' : '205px';  // 45+50 or 95+110
+                const totalColumnWidth = '205px';  // 기본 크기
                 html += `<th colspan="2" style="
                     min-width: ${totalColumnWidth}; 
                     width: ${totalColumnWidth};
@@ -3800,8 +3800,8 @@ const kboTeams = {
                     position: sticky;
                     left: 0;
                     z-index: 110;
-                    min-width: ${skipFiltering ? '50px' : '70px'}; 
-                    width: ${skipFiltering ? '50px' : '70px'};
+                    min-width: 70px;
+                    width: 70px;
                     padding: 4px 6px; 
                     text-align: center; 
                     font-weight: 600; 
@@ -3812,7 +3812,7 @@ const kboTeams = {
                 
             eligibleTeams.forEach((team, index) => {
                 const isLast = index === eligibleTeams.length - 1;
-                const totalColumnWidth = skipFiltering ? '95px' : '205px';  // 45+50 or 95+110
+                const totalColumnWidth = '205px';  // 기본 크기
                 html += `<th colspan="2" style="
                     min-width: ${totalColumnWidth}; 
                     width: ${totalColumnWidth};
@@ -3832,8 +3832,8 @@ const kboTeams = {
                     position: sticky;
                     left: 0;
                     z-index: 110;
-                    min-width: ${skipFiltering ? '50px' : '70px'}; 
-                    width: ${skipFiltering ? '50px' : '70px'};
+                    min-width: 70px;
+                    width: 70px;
                     padding: 4px 6px; 
                     text-align: center; 
                     font-weight: 600; 
@@ -3846,8 +3846,8 @@ const kboTeams = {
             eligibleTeams.forEach((team, index) => {
                 const isLast = index === eligibleTeams.length - 1;
                 // 팝업(전체 팀)에서는 더 작은 셀 폭 사용
-                const cellWidth = skipFiltering ? '45px' : '95px';
-                const finalCellWidth = skipFiltering ? '50px' : '110px';
+                const cellWidth = '95px';
+                const finalCellWidth = '110px';
                 html += `
                     <th style="
                         width: ${cellWidth}; 
@@ -3937,7 +3937,7 @@ const kboTeams = {
                             const remainingWinRateTextColor = getWinRateTextColor(remainingWinRate);
                             
                             // 잔여경기 컬럼
-                            const cellWidth = skipFiltering ? '45px' : '95px';  // 팝업에서는 더 작게
+                            const cellWidth = '95px';  // 팝업에서는 더 작게
                             html += `<td class="wins-cell" style="
                                 width: ${cellWidth};
                                 min-width: ${cellWidth};
@@ -3949,7 +3949,7 @@ const kboTeams = {
                             </td>`;
                             
                             // 최종성적 컬럼 (더 넓게)
-                            const finalCellWidth = skipFiltering ? '50px' : '110px';  // 팝업에서는 더 작게
+                            const finalCellWidth = '110px';  // 팝업에서는 더 작게
                             const borderStyle = teamIndex === 4 ? 'border-right: 4px solid #FF6B35;' : (!isLast ? 'border-right: 2px solid #dee2e6;' : '');
                             html += `<td class="final-cell" style="
                                 width: ${finalCellWidth};
