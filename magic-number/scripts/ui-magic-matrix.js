@@ -371,50 +371,14 @@ function renderMatrixTable() {
         // --- 새로운 배너/셀 렌더링 시스템 (범위 기반) ---
         const clinchRange = getClinchRangeForTeam(row);
 
-        // 배너 텍스트 결정 함수 (확정/확보 구분, 상위 순위 가능성 체크)
-        function getBannerTextFor(row, minRank) {
-            // 상위 순위(더 좋은 순위)가 아직 가능한지: y{j}_tieOK > 0 가 하나라도 있으면 "확보", 아니면 "확정"
-            let betterPossible = false;
-            for (let j = 1; j < minRank; ++j) {
-                if (row[`y${j}_tieOK`] > 0) { betterPossible = true; break; }
+        // precomputed 데이터에서 배너 정보 가져오기
+        function getBannerFromPrecomputed(teamName) {
+            if (!window.precomputedMatrixData?.precomputedMatrixResults?.matrixData) {
+                return null;
             }
-
-            // 1~5위는 포스트시즌 스테이지 문구 + sub 텍스트
-            if (minRank === 1) {
-                return {
-                    stage: betterPossible ? '한국시리즈 진출 확보' : '한국시리즈 진출 확정',
-                    sub: betterPossible ? '정규시즌 1위 이상 확보' : '정규시즌 1위 확정',
-                    cls: 'banner-top'
-                };
-            }
-            if (minRank === 2) {
-                return {
-                    stage: betterPossible ? '포스트시즌 진출 확보' : '포스트시즌 진출 확정',
-                    sub: betterPossible ? '정규시즌 2위 이상 확보' : '정규시즌 2위 확정',
-                    cls: 'banner-top'
-                };
-            }
-            if (minRank === 3) {
-                return {
-                    stage: betterPossible ? '준 플레이오프 진출 확보' : '준 플레이오프 진출 확정',
-                    sub: betterPossible ? '정규시즌 3위 이상 확보' : '정규시즌 3위 확정',
-                    cls: 'banner-top'
-                };
-            }
-            if (minRank === 4 || minRank === 5) {
-                return {
-                    stage: betterPossible ? '와일드카드 진출 확보' : '와일드카드 진출 확정',
-                    sub: betterPossible ? `정규시즌 ${minRank}위 이상 확보` : `정규시즌 ${minRank}위 확정`,
-                    cls: 'banner-mid'
-                };
-            }
-
-            // 6~9위는 단순 텍스트(서브 문구 제거)
-            return {
-                stage: betterPossible ? `${minRank}위 확보` : `${minRank}위 확정`,
-                sub: null,
-                cls: 'banner-mid'
-            };
+            const teamData = window.precomputedMatrixData.precomputedMatrixResults.matrixData
+                .find(t => t.team === teamName);
+            return teamData?.banner || null;
         }
 
         if (clinchRange) {
@@ -423,17 +387,30 @@ function renderMatrixTable() {
             const endIdx   = rankToColIndex(clinchRange.endRank);   // e.g., 3 -> 6
             const colspan  = (endIdx - startIdx + 1);
 
-            // 1) 좌측 병합 배너 (9 ~ clinchRank)
-            const bannerText = getBannerTextFor(row, clinchRange.endRank);
-            const crosses = (clinchRange.endRank <= 5);
-            html += bannerTd({
-                teamColor,
-                colspan,
-                stage: bannerText.stage,
-                sub: bannerText.sub,
-                cls: bannerText.cls,
-                crosses
-            });
+            // 1) 좌측 병합 배너 (precomputed 데이터 사용)
+            const precomputedBanner = getBannerFromPrecomputed(row.team);
+            if (precomputedBanner) {
+                const crosses = (clinchRange.endRank <= 5);
+                html += bannerTd({
+                    teamColor,
+                    colspan,
+                    stage: precomputedBanner.stage,
+                    sub: precomputedBanner.sub,
+                    cls: precomputedBanner.type || 'banner-top',
+                    crosses
+                });
+            } else {
+                // 백업: 단순 확보 텍스트
+                const crosses = (clinchRange.endRank <= 5);
+                html += bannerTd({
+                    teamColor,
+                    colspan,
+                    stage: `${clinchRange.endRank}위 확보`,
+                    sub: null,
+                    cls: 'banner-mid',
+                    crosses
+                });
+            }
 
             // 2) 우측 개별 셀들 (clinchRank-1 ~ 1) - 연속 "불가"(y_tieOK===0, higher ranks) 구간 병합
             let ci = endIdx + 1;

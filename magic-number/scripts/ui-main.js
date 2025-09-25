@@ -2032,18 +2032,15 @@ const kboTeams = {
                 let maxWinsMagicDisplay = '-';
                 let poTragicDisplay = '-';
 
-                if (window.magicMatrixData && window.magicMatrixData.playoffResults) {
-                    const playoffData = window.magicMatrixData.playoffResults.find(p => p.team === team.team);
-                    if (playoffData) {
-                        // 🏟️ 포스트시즌 진출 조건: 📊 매직/트래직 매트릭스 5위 데이터 사용
+                // 🏟️ 포스트시즌 진출 조건: 📊 매직/트래직 매트릭스 5위 데이터 사용
+                const precomputedData = window.precomputedMatrixData;
+                const matrixRawData = precomputedData?.precomputedMatrixResults?.rawCalculationData;
+                const teamMatrixData = matrixRawData?.find(r => r.team === team.team);
 
-                        const precomputedData = window.precomputedMatrixData;
-                        const matrixRawData = precomputedData?.precomputedMatrixResults?.rawCalculationData;
-                        const teamMatrixData = matrixRawData?.find(r => r.team === team.team);
-
-                        // 매직/트래직 매트릭스 데이터 직접 사용 (fallback 제거)
-                        poMagicNumber = teamMatrixData.x5_strict_raw;
-                        poTragicNumber = teamMatrixData.y5_tieOK_raw; // 5위 트래직도 tie okay 사용
+                if (teamMatrixData) {
+                    // 매직/트래직 매트릭스 데이터 직접 사용
+                    poMagicNumber = teamMatrixData.x5_strict_raw;
+                    poTragicNumber = teamMatrixData.y5_tieOK_raw; // 5위 트래직도 tie okay 사용
                         
                         // 표시 형식 지정 - 최대 가능 순위 로직으로 확정 조건 계산
                         if (poMagicNumber === 0) {
@@ -2151,7 +2148,6 @@ const kboTeams = {
                             poTragicDisplay = poTragicNumber;
                         }
                     }
-                }
                 
                 // 역대 기준 매직넘버 계산 (승률 0.491 기준 - 2015-2024년 5위팀 평균)
                 const historicPlayoffWinRate = 0.491; // 2015-2024년 5위팀 평균 승률 (무승부 제외)
@@ -3719,17 +3715,18 @@ const kboTeams = {
 
         // 매트릭스 시나리오 HTML 생성
         function generateScenarioMatrix(topTeams) {
-            // 탈락팀(트래직넘버 0인 팀) 제외
+            // 탈락팀(트래직넘버 0인 팀) 제외 - 포스트시즌 테이블과 같은 데이터 사용
             const eligibleTeams = topTeams.filter(team => {
-                // 매직넘버 데이터에서 트래직넘버 확인
-                if (window.magicMatrixData && window.magicMatrixData.playoffResults) {
-                    const magicData = window.magicMatrixData.playoffResults.find(t => t.team === team.team);
-                    if (magicData) {
-                        // 트래직넘버가 0이면 탈락팀이므로 제외
-                        return magicData.playoffTragicStrict > 0;
+                // 매트릭스 데이터에서 트래직넘버 확인 (포스트시즌 테이블과 동일)
+                const precomputedData = window.precomputedMatrixData;
+                if (precomputedData?.precomputedMatrixResults?.rawCalculationData) {
+                    const teamMatrixData = precomputedData.precomputedMatrixResults.rawCalculationData.find(r => r.team === team.team);
+                    if (teamMatrixData) {
+                        // y5_tieOK_raw가 0이면 탈락팀이므로 제외
+                        return teamMatrixData.y5_tieOK_raw > 0;
                     }
                 }
-                // 백업: 매직넘버 데이터 없으면 포함
+                // 백업: 매트릭스 데이터 없으면 포함
                 return true;
             });
 

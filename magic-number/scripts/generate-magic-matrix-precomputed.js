@@ -193,9 +193,9 @@ function analyzeBannerStatus(row, currentRank) {
     // 2위 처리
     if (x2 === 0 && x1 > 0) {
         if (y1 === 0) {
-            return { type: 'banner-top', stage: '포스트시즌 진출 확보', sub: '정규시즌 2위 확정', colspan: 9 };
+            return { type: 'banner-top', stage: '플레이오프 직행 확보', sub: '정규시즌 2위 확정', colspan: 9 };
         } else {
-            return { type: 'banner-top', stage: '포스트시즌 진출 확보', sub: '정규시즌 2위 이상 확보', colspan: 9 };
+            return { type: 'banner-top', stage: '플레이오프 직행 확보', sub: '정규시즌 2위 이상 확보', colspan: 9 };
         }
     }
 
