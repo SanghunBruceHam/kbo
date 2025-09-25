@@ -6005,6 +6005,7 @@
                 <div style="font-size: var(--font-sm); color: #4b5563; line-height: 1.5;">
                     <div style="margin-bottom: 6px;"><strong>지상파:</strong> KBS, MBC, SBS 중계 경기에서의 팀별 승률</div>
                     <div style="margin-bottom: 6px;"><strong>케이블:</strong> KBS Sports, MBC Sports+, SBS Sports, SPOTV, SPOTV 2 등 전문 스포츠 채널</div>
+                    <div style="margin-bottom: 6px;"><strong>총 합계:</strong> 5개 주요 중계사 (KBS, MBC, SBS, SPOTV, SPOTV2) 기준</div>
                     <div><strong>색상 구분:</strong> <span style="background: var(--positive-bg-medium); padding: 2px 6px; border-radius: 3px;">0.500 초과</span> <span style="background: var(--neutral-bg-light); padding: 2px 6px; border-radius: 3px;">0.500</span> <span style="background: var(--negative-bg-medium); padding: 2px 6px; border-radius: 3px;">0.500 미만</span></div>
                 </div>
             </div>
@@ -18836,13 +18837,16 @@ KT 9:1 키움(H)`;
     // 페이지 로드 시 사전계산 데이터 먼저 로드
     document.addEventListener('DOMContentLoaded', async function() {
         const startTime = performance.now();
-        
+
         // 사전계산 데이터 로드
         await loadPrecomputedUIData();
-        
+
+        // 시즌 경기 데이터 로드 (중계사 분석용)
+        await loadSeasonGamesData();
+
         const loadTime = performance.now() - startTime;
         console.log(`⚡ 최적화 데이터 로드 시간: ${loadTime.toFixed(2)}ms`);
-        
+
         // 기존 초기화 함수가 있다면 실행
         if (typeof initializeDashboard === 'function') {
             initializeDashboard();
@@ -18865,13 +18869,17 @@ KT 9:1 키움(H)`;
 
     // 중계사별 승률 분석 렌더링 함수
     function renderBroadcasterStats(sortByName = false, sortByTeam = null, sortOrder = 'desc') {
+        console.log('🔧 renderBroadcasterStats 시작');
+
         const tbody = document.getElementById('broadcasterBody');
         const theadElement = document.getElementById('broadcasterHeader');
 
         if (!tbody || !theadElement) {
-            console.error('broadcasterBody 또는 broadcasterHeader 요소를 찾을 수 없습니다');
+            console.error('❌ broadcasterBody 또는 broadcasterHeader 요소를 찾을 수 없습니다');
             return;
         }
+
+        console.log('✅ HTML 요소 찾기 완료');
 
         if (!dashboardData?.standings) {
             console.log('dashboardData 로딩 중... 재시도합니다');
@@ -18940,27 +18948,29 @@ KT 9:1 키움(H)`;
             });
         });
 
-        // 모든 팀의 중계사별 데이터 미리 생성 (고정된 데이터)
-        if (!window.cachedBroadcasterData) {
-            window.cachedBroadcasterData = {};
-            teams.forEach((teamName, index) => {
-                window.cachedBroadcasterData[teamName] = generateSampleBroadcasterData(teamName, index);
-            });
-        }
+        // 실제 KBO 경기 데이터에서 중계사별 데이터 계산 (캐시 초기화)
+        window.cachedBroadcasterData = {};
+        teams.forEach(teamName => {
+            const data = calculateRealBroadcasterData(teamName);
+            window.cachedBroadcasterData[teamName] = data;
+            console.log(`📊 ${teamName} 중계사별 데이터:`, Object.keys(data));
+        });
         const allTeamsData = window.cachedBroadcasterData;
 
-        // 중계사 목록 (실제 데이터에 나타나는 중계사명 기준)
+        // 중계사 목록 (알파벳 순, clean.txt 실제 데이터 기준, TVING 제외)
         const broadcasters = [
-            { key: 'kbs2tv', name: 'KBS 2TV' },
-            { key: 'kbsNSports', name: 'KBS N SPORTS' },
-            { key: 'mbcTv', name: 'MBC TV' },
-            { key: 'mbcSportsPlus', name: 'MBC SPORTS+' },
-            { key: 'sbsTv', name: 'SBS TV' },
-            { key: 'sbsSports', name: 'SBS SPORTS' },
+            { key: 'kbs_2tv', name: 'KBS 2TV' },
+            { key: 'kbs_n_sports', name: 'KBS N SPORTS' },
+            { key: 'mbc_sports_plus', name: 'MBC SPORTS+' },
+            { key: 'mbc_tv', name: 'MBC TV' },
+            { key: 'sbs_sports', name: 'SBS SPORTS' },
+            { key: 'sbs_tv', name: 'SBS TV' },
             { key: 'spotv', name: 'SPOTV' },
-            { key: 'spotv2', name: 'SPOTV2' },
-            { key: 'tving', name: 'TVING' }
+            { key: 'spotv2', name: 'SPOTV2' }
         ];
+
+        // 모든 중계사 포함 (TVING 제거로 필터링 불필요)
+        const broadcastersForTotal = broadcasters;
 
         let html = '';
 
@@ -18993,18 +19003,25 @@ KT 9:1 키움(H)`;
 
             // 각 팀별 데이터 셀 생성
             teams.forEach(teamName => {
-                const teamData = allTeamsData[teamName][broadcaster.key];
-                // 팀 기준 그라데이션 (해당 팀의 중계사별 성과 비교)
+                const teamData = allTeamsData[teamName]?.[broadcaster.key];
+
+                // 디버깅: 데이터 존재 여부 확인
+                if (!teamData) {
+                    console.error(`❌ ${teamName} 팀의 ${broadcaster.key} 데이터가 없습니다.`);
+                    console.log('allTeamsData[teamName]:', allTeamsData[teamName]);
+                    return;
+                }
+
+                // 팀 기준 그라데이션 (해당 팀의 중계사별 성과 비교) - 알파벳 순
                 const teamWinRates = [
-                    allTeamsData[teamName]['kbs2tv'].winRate,
-                    allTeamsData[teamName]['kbsNSports'].winRate,
-                    allTeamsData[teamName]['mbcTv'].winRate,
-                    allTeamsData[teamName]['mbcSportsPlus'].winRate,
-                    allTeamsData[teamName]['sbsTv'].winRate,
-                    allTeamsData[teamName]['sbsSports'].winRate,
-                    allTeamsData[teamName]['spotv'].winRate,
-                    allTeamsData[teamName]['spotv2'].winRate,
-                    allTeamsData[teamName]['tving'].winRate
+                    allTeamsData[teamName]?.['kbs_2tv']?.winRate || 0,
+                    allTeamsData[teamName]?.['kbs_n_sports']?.winRate || 0,
+                    allTeamsData[teamName]?.['mbc_sports_plus']?.winRate || 0,
+                    allTeamsData[teamName]?.['mbc_tv']?.winRate || 0,
+                    allTeamsData[teamName]?.['sbs_sports']?.winRate || 0,
+                    allTeamsData[teamName]?.['sbs_tv']?.winRate || 0,
+                    allTeamsData[teamName]?.['spotv']?.winRate || 0,
+                    allTeamsData[teamName]?.['spotv2']?.winRate || 0
                 ];
                 const cellStyle = getBroadcasterCellStyleByTeam(teamData.winRate, teamWinRates);
 
@@ -19027,7 +19044,7 @@ KT 9:1 키움(H)`;
         teams.forEach(teamName => {
             let totalWins = 0, totalLosses = 0, totalDraws = 0;
 
-            broadcasters.forEach(broadcaster => {
+            broadcastersForTotal.forEach(broadcaster => {
                 const teamData = allTeamsData[teamName][broadcaster.key];
                 totalWins += teamData.wins;
                 totalLosses += teamData.losses;
@@ -19171,34 +19188,132 @@ KT 9:1 키움(H)`;
         return `background: ${backgroundColor}; color: ${textColor}; font-weight: ${fontWeight}; text-align: center; border-radius: 4px; padding: 6px;`;
     }
 
-    // 샘플 데이터 생성 함수 (실제로는 새로운 데이터 소스 필요)
-    function generateSampleBroadcasterData(teamName, index) {
-        // 순위 기반 기본 승률 계산 (1위가 높은 승률)
-        const baseWinRate = 0.700 - (index * 0.050);
-
-        return {
-            kbs2tv: generateRandomRecord(baseWinRate + Math.random() * 0.1 - 0.05),
-            kbsNSports: generateRandomRecord(baseWinRate + Math.random() * 0.1 - 0.05),
-            mbcTv: generateRandomRecord(baseWinRate + Math.random() * 0.1 - 0.05),
-            mbcSportsPlus: generateRandomRecord(baseWinRate + Math.random() * 0.1 - 0.05),
-            sbsTv: generateRandomRecord(baseWinRate + Math.random() * 0.1 - 0.05),
-            sbsSports: generateRandomRecord(baseWinRate + Math.random() * 0.1 - 0.05),
-            spotv: generateRandomRecord(baseWinRate + Math.random() * 0.1 - 0.05),
-            spotv2: generateRandomRecord(baseWinRate + Math.random() * 0.1 - 0.05),
-            tving: generateRandomRecord(baseWinRate + Math.random() * 0.1 - 0.05)
-        };
+    // clean.txt 파일에서 실제 KBO 경기 데이터 로드
+    async function loadSeasonGamesData() {
+        try {
+            const response = await fetch(`magic-number/data/2025-season-data-clean.txt?v=${Date.now()}`);
+            if (response.ok) {
+                const cleanText = await response.text();
+                window.seasonGamesData = parseCleanTextData(cleanText);
+                console.log('✅ clean.txt 경기 데이터 로드 완료:', window.seasonGamesData.length, '게임');
+            } else {
+                console.warn('⚠️ clean.txt 데이터 로드 실패');
+                window.seasonGamesData = [];
+            }
+        } catch (error) {
+            console.error('❌ clean.txt 데이터 로드 에러:', error);
+            window.seasonGamesData = [];
+        }
     }
 
-    // 승률을 기반으로 승-패-무 기록 생성
-    function generateRandomRecord(targetWinRate) {
-        const games = Math.floor(Math.random() * 20) + 10; // 10-30경기
-        const draws = Math.floor(Math.random() * 3); // 0-2무
-        const playedGames = games - draws;
-        const wins = Math.round(playedGames * Math.max(0.1, Math.min(0.9, targetWinRate)));
-        const losses = playedGames - wins;
-        const actualWinRate = playedGames > 0 ? wins / playedGames : 0.500;
+    // clean.txt 파일 파싱 함수
+    function parseCleanTextData(cleanText) {
+        const games = [];
+        const lines = cleanText.split('\n');
+        let currentDate = '';
 
-        return { wins, losses, draws, winRate: actualWinRate };
+        for (const line of lines) {
+            const trimmedLine = line.trim();
+
+            // 날짜 라인 감지 (예: "2025-03-22 (금)")
+            if (trimmedLine.match(/^\d{4}-\d{2}-\d{2} \([월화수목금토일]\)$/)) {
+                currentDate = trimmedLine.substring(0, 10); // "2025-03-22"
+                continue;
+            }
+
+            // 경기 데이터 라인 파싱
+            // 형식: "18:30    종료     잠실     LG   한화   0:4      SBS SPORTS 페넌트레이스"
+            const gameMatch = trimmedLine.match(/^(\d{2}:\d{2})\s+종료\s+(\S+)\s+(\S+)\s+(\S+)\s+(\d+):(\d+)\s+(.+)$/);
+            if (gameMatch && currentDate) {
+                const [, time, stadium, homeTeam, awayTeam, homeScore, awayScore, broadcastInfo] = gameMatch;
+
+                const homeScoreInt = parseInt(homeScore);
+                const awayScoreInt = parseInt(awayScore);
+                let winner = null;
+
+                if (homeScoreInt > awayScoreInt) {
+                    winner = homeTeam;
+                } else if (awayScoreInt > homeScoreInt) {
+                    winner = awayTeam;
+                } // 무승부는 winner가 null로 남음
+
+                // 중계사 정보 추출 (페넌트레이스 앞부분)
+                const broadcast = broadcastInfo.replace(/\s*페넌트레이스$/, '').trim();
+
+                games.push({
+                    date: currentDate,
+                    time: time,
+                    stadium: stadium,
+                    home_team: homeTeam,
+                    away_team: awayTeam,
+                    home_score: homeScoreInt,
+                    away_score: awayScoreInt,
+                    winner: winner,
+                    broadcast: broadcast,
+                    state: "종료"
+                });
+            }
+        }
+
+        return games;
+    }
+
+    // 실제 KBO 경기 데이터를 기반으로 중계사별 집계 계산
+    function calculateRealBroadcasterData(teamName) {
+        const seasonGames = window.seasonGamesData || [];
+
+        // 중계사별 집계 초기화 (알파벳 순, clean.txt 실제 중계사 기준, TVING 제외)
+        const broadcasterStats = {
+            kbs_2tv: { wins: 0, losses: 0, draws: 0, winRate: 0 },
+            kbs_n_sports: { wins: 0, losses: 0, draws: 0, winRate: 0 },
+            mbc_sports_plus: { wins: 0, losses: 0, draws: 0, winRate: 0 },
+            mbc_tv: { wins: 0, losses: 0, draws: 0, winRate: 0 },
+            sbs_sports: { wins: 0, losses: 0, draws: 0, winRate: 0 },
+            sbs_tv: { wins: 0, losses: 0, draws: 0, winRate: 0 },
+            spotv: { wins: 0, losses: 0, draws: 0, winRate: 0 },
+            spotv2: { wins: 0, losses: 0, draws: 0, winRate: 0 }
+        };
+
+        // 해당 팀의 경기만 필터링하여 집계
+        seasonGames.forEach(game => {
+            if (game.home_team === teamName || game.away_team === teamName) {
+                const broadcast = game.broadcast || '';
+                let broadcasterKey = null;
+
+                // 중계사 분류 (clean.txt 정확한 매칭, TVING 제외)
+                if (broadcast === 'KBS N SPORTS') broadcasterKey = 'kbs_n_sports';
+                else if (broadcast === 'MBC SPORTS+') broadcasterKey = 'mbc_sports_plus';
+                else if (broadcast === 'SBS SPORTS') broadcasterKey = 'sbs_sports';
+                else if (broadcast === 'SPOTV') broadcasterKey = 'spotv';
+                else if (broadcast === 'SPOTV2') broadcasterKey = 'spotv2';
+                else if (broadcast === 'SBS TV') broadcasterKey = 'sbs_tv';
+                else if (broadcast === 'KBS 2TV') broadcasterKey = 'kbs_2tv';
+                else if (broadcast === 'MBC TV') broadcasterKey = 'mbc_tv';
+                // TVING과 기타 중계사는 집계에서 제외
+
+                if (broadcasterKey && broadcasterStats[broadcasterKey]) {
+                    const stats = broadcasterStats[broadcasterKey];
+
+                    // 승부 결과 계산
+                    if (game.winner === teamName) {
+                        stats.wins++;
+                    } else if (game.winner && game.winner !== teamName) {
+                        stats.losses++;
+                    } else {
+                        stats.draws++; // 무승부 또는 결과가 없는 경우
+                    }
+                }
+            }
+        });
+
+        // 승률 계산
+        Object.keys(broadcasterStats).forEach(key => {
+            const stats = broadcasterStats[key];
+            const totalGames = stats.wins + stats.losses;
+            stats.winRate = totalGames > 0 ? stats.wins / totalGames : 0;
+        });
+
+        return broadcasterStats;
     }
 
     </script>
