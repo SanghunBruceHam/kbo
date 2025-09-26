@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-09-26T13:41:25.134Z",
+  "lastUpdated": "2025-09-26T13:46:28.563Z",
   "updateDate": "2025. 9. 26.",
   "seasonStart": "2025-03-22T00:00:00.000Z",
   "currentWeek": 28,
@@ -7805,16 +7805,16 @@
             "startStr": "9월 23일",
             "endStr": "9월 29일"
           },
-          "games": 3,
+          "games": 4,
           "wins": 3,
-          "losses": 0,
+          "losses": 1,
           "draws": 0,
-          "winRate": "100.0",
-          "runsScored": 28,
-          "runsAllowed": 12,
-          "runDifferential": 16,
-          "avgRunsScored": "9.33",
-          "avgRunsAllowed": "4.00",
+          "winRate": "75.0",
+          "runsScored": 37,
+          "runsAllowed": 22,
+          "runDifferential": 15,
+          "avgRunsScored": "9.25",
+          "avgRunsAllowed": "5.50",
           "gameDetails": [
             {
               "date": "2025-09-23",
@@ -7836,6 +7836,13 @@
               "score": "12:3",
               "result": "W",
               "isHome": true
+            },
+            {
+              "date": "2025-09-26",
+              "opponent": "롯데",
+              "score": "9:10",
+              "result": "L",
+              "isHome": false
             }
           ]
         }
@@ -8183,22 +8190,22 @@
           "runDifferential": 34
         },
         "9월": {
-          "games": 18,
+          "games": 19,
           "wins": 9,
-          "losses": 6,
+          "losses": 7,
           "draws": 0,
-          "runsScored": 93,
-          "runsAllowed": 68,
+          "runsScored": 102,
+          "runsAllowed": 78,
           "weeks": [
             25,
             26,
             27,
             28
           ],
-          "winRate": "60.0",
-          "avgRunsScored": "5.17",
-          "avgRunsAllowed": "3.78",
-          "runDifferential": 25
+          "winRate": "56.3",
+          "avgRunsScored": "5.37",
+          "avgRunsAllowed": "4.11",
+          "runDifferential": 24
         }
       }
     },
@@ -13950,16 +13957,16 @@
             "startStr": "9월 23일",
             "endStr": "9월 29일"
           },
-          "games": 3,
-          "wins": 0,
+          "games": 4,
+          "wins": 1,
           "losses": 3,
           "draws": 0,
-          "winRate": "0.0",
-          "runsScored": 7,
-          "runsAllowed": 24,
-          "runDifferential": -17,
-          "avgRunsScored": "2.33",
-          "avgRunsAllowed": "8.00",
+          "winRate": "25.0",
+          "runsScored": 17,
+          "runsAllowed": 33,
+          "runDifferential": -16,
+          "avgRunsScored": "4.25",
+          "avgRunsAllowed": "8.25",
           "gameDetails": [
             {
               "date": "2025-09-23",
@@ -13980,6 +13987,13 @@
               "opponent": "LG",
               "score": "1:11",
               "result": "L",
+              "isHome": true
+            },
+            {
+              "date": "2025-09-26",
+              "opponent": "삼성",
+              "score": "10:9",
+              "result": "W",
               "isHome": true
             }
           ]
@@ -14335,22 +14349,22 @@
           "runDifferential": -27
         },
         "9월": {
-          "games": 15,
-          "wins": 3,
+          "games": 16,
+          "wins": 4,
           "losses": 10,
           "draws": 0,
-          "runsScored": 67,
-          "runsAllowed": 103,
+          "runsScored": 77,
+          "runsAllowed": 112,
           "weeks": [
             25,
             26,
             27,
             28
           ],
-          "winRate": "23.1",
-          "avgRunsScored": "4.47",
-          "avgRunsAllowed": "6.87",
-          "runDifferential": -36
+          "winRate": "28.6",
+          "avgRunsScored": "4.81",
+          "avgRunsAllowed": "7.00",
+          "runDifferential": -35
         }
       }
     },
