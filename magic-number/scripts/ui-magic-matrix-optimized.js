@@ -224,6 +224,12 @@ function renderOptimizedMatrixTable() {
             // 여전히 없거나 잘못된 값이면 9로 막지 않도록 9~9만 병합
             if (endRank == null || endRank < 1 || endRank > 9) endRank = startRank;
 
+            const bannerText = `${teamData.banner.stage || ''} ${teamData.banner.sub || ''}`.trim();
+            const isPostseasonFailBanner = /포스트시즌\s*진출\s*실패/.test(bannerText);
+            if (isPostseasonFailBanner && !explicitEnd && startRank === 9 && endRank === startRank && (teamData.currentRank ?? 0) >= 9) {
+                endRank = 1;
+            }
+
             // colspan 계산 (rank는 9→1 내림): 9~endRank 포함
             const colspan = (teamData.banner.colspan && !explicitEnd && !explicitStart)
                 ? Math.max(1, 9 - (endRank) + 1) // 주어진 colspan이 9라도 텍스트 기반으로 보정

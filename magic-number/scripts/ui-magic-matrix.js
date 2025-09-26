@@ -381,16 +381,26 @@ function renderMatrixTable() {
             return teamData?.banner || null;
         }
 
-        if (clinchRange) {
+        const precomputedBanner = getBannerFromPrecomputed(row.team);
+        const bannerText = `${precomputedBanner?.stage || ''} ${precomputedBanner?.sub || ''}`.trim();
+        const isPostseasonFailBanner = /포스트시즌\s*진출\s*실패/.test(bannerText);
+
+        if (clinchRange || precomputedBanner) {
             // rank -> col index (9->0 ... 1->8)
-            const startIdx = rankToColIndex(clinchRange.startRank); // 9 -> 0
-            const endIdx   = rankToColIndex(clinchRange.endRank);   // e.g., 3 -> 6
+            let startRank = clinchRange?.startRank ?? 9;
+            let endRank   = clinchRange?.endRank ?? startRank;
+
+            if (isPostseasonFailBanner && startRank === 9 && endRank === startRank && currentRank >= 9) {
+                endRank = 1;
+            }
+
+            const startIdx = rankToColIndex(startRank); // 9 -> 0
+            const endIdx   = rankToColIndex(endRank);   // e.g., 3 -> 6
             const colspan  = (endIdx - startIdx + 1);
 
             // 1) 좌측 병합 배너 (precomputed 데이터 사용)
-            const precomputedBanner = getBannerFromPrecomputed(row.team);
             if (precomputedBanner) {
-                const crosses = (clinchRange.endRank <= 5);
+                const crosses = (endRank <= 5);
                 html += bannerTd({
                     teamColor,
                     colspan,
@@ -401,11 +411,11 @@ function renderMatrixTable() {
                 });
             } else {
                 // 백업: 단순 확보 텍스트
-                const crosses = (clinchRange.endRank <= 5);
+                const crosses = (endRank <= 5);
                 html += bannerTd({
                     teamColor,
                     colspan,
-                    stage: `${clinchRange.endRank}위 확보`,
+                    stage: `${endRank}위 확보`,
                     sub: null,
                     cls: 'banner-mid',
                     crosses
