@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-09-28T08:25:35.366Z",
+  "lastUpdated": "2025-09-28T08:40:55.370Z",
   "updateDate": "2025. 9. 28.",
   "note": "2025-season-data-clean.txt 기반 완전 자동화 처리",
   "totalData": {
@@ -285,13 +285,13 @@
       },
       "두산": {
         "wins": 7,
-        "losses": 7,
+        "losses": 8,
         "draws": 1,
         "homeWins": 3,
         "homeLosses": 5,
         "homeDraws": 1,
         "awayWins": 4,
-        "awayLosses": 2,
+        "awayLosses": 3,
         "awayDraws": 0
       },
       "키움": {
@@ -699,13 +699,13 @@
         "awayDraws": 0
       },
       "키움": {
-        "wins": 11,
+        "wins": 12,
         "losses": 4,
         "draws": 0,
         "homeWins": 8,
         "homeLosses": 1,
         "homeDraws": 0,
-        "awayWins": 3,
+        "awayWins": 4,
         "awayLosses": 3,
         "awayDraws": 0
       }
@@ -835,10 +835,10 @@
         "awayDraws": 0
       },
       "롯데": {
-        "wins": 7,
+        "wins": 8,
         "losses": 7,
         "draws": 1,
-        "homeWins": 2,
+        "homeWins": 3,
         "homeLosses": 4,
         "homeDraws": 0,
         "awayWins": 5,
@@ -981,10 +981,10 @@
       },
       "삼성": {
         "wins": 4,
-        "losses": 11,
+        "losses": 12,
         "draws": 0,
         "homeWins": 3,
-        "homeLosses": 3,
+        "homeLosses": 4,
         "homeDraws": 0,
         "awayWins": 1,
         "awayLosses": 8,
@@ -1015,5 +1015,5 @@
     }
   },
   "source": "CLEAN_TXT_AUTOMATION",
-  "dataDate": "2025-09-27"
+  "dataDate": "2025-09-28"
 }
