@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const { StadiumHelper } = require('../config/stadium-mapping');
 
 function generateStadiumRecords() {
     console.log('🏟️ 경기장별 기록 분석 시작...');
@@ -25,23 +26,6 @@ function generateStadiumRecords() {
         const teams = Array.from(actualTeams);
         const stadiumStats = {};
 
-        // 경기장 정보 매핑 (LG/두산 구분)
-        const stadiums = {
-            'KIA': '광주 챔피언스필드',
-            'LG': '서울 잠실야구장 (LG)',
-            '두산': '서울 잠실야구장 (두산)',
-            '삼성': '대구 삼성라이온즈파크',
-            'SSG': '인천 SSG랜더스필드',
-            'KT': '수원 KT위즈파크',
-            'NC': '창원 NC파크',
-            '롯데': '부산 사직야구장',
-            '한화': '대전 한화생명이글스파크',
-            '키움': '서울 고척스카이돔'
-        };
-
-        function getStadium(homeTeam) {
-            return stadiums[homeTeam] || '미상';
-        }
 
         // 팀/경기장 단위로 초기화
         teams.forEach(team => {
@@ -56,7 +40,7 @@ function generateStadiumRecords() {
                 return; // 페넌트레이스가 아니거나 완료되지 않은 경기는 제외
             }
 
-            const stadium = getStadium(game.home_team);
+            const stadium = StadiumHelper.getStadium(game.home_team);
 
             // 홈팀 처리
             if (stadiumStats[game.home_team]) {

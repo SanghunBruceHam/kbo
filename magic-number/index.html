@@ -3073,6 +3073,18 @@
 
 <!-- 최근 경기 결과 동적 로딩 스크립트 -->
 <script>
+// 공통 경기장 매핑 상수
+const STADIUM_MAP = {
+    '서울 잠실야구장': '잠실',
+    '부산 사직야구장': '사직',
+    '서울 고척스카이돔': '고척',
+    '대전 한화생명이글스파크': '대전',
+    '대구 삼성라이온즈파크': '대구',
+    '수원 KT위즈파크': '수원',
+    '인천 SSG랜더스필드': '인천',
+    '창원 NC파크': '창원',
+    '광주 챔피언스필드': '광주'
+};
 async function loadRecentGames() {
     const container = document.getElementById('recent-games-container');
     if (!container) return;
@@ -3114,14 +3126,6 @@ async function loadRecentGames() {
             '한화': 'images/teams/hanwha.png', '키움': 'images/teams/kiwoom.png'
         };
 
-        // 경기장 매핑
-        const stadiumMap = {
-            '서울 잠실야구장': '잠실', '부산 사직야구장': '사직',
-            '서울 고척스카이돔': '고척', '대전 한화생명이글스파크': '대전',
-            '대구 삼성라이온즈파크': '대구', '수원 KT위즈파크': '수원',
-            '인천 SSG랜더스필드': '인천', '창원 NC파크': '창원',
-            '광주 챔피언스필드': '광주'
-        };
 
         // 날짜 포맷팅
         const dateObj = new Date(latestDate);
@@ -3173,7 +3177,7 @@ async function loadRecentGames() {
             const homeTeam = game.home_team;
             const awayScore = game.away_score;
             const homeScore = game.home_score;
-            const stadium = stadiumMap[game.stadium] || game.stadium || '미정';
+            const stadium = STADIUM_MAP[game.stadium] || game.stadium || '미정';
             const isCancelled = game.state === '경기취소';
 
             const awayWin = !isCancelled && awayScore > homeScore;
@@ -3347,14 +3351,6 @@ async function loadUpcomingGames() {
             '한화': 'images/teams/hanwha.png', '키움': 'images/teams/kiwoom.png'
         };
 
-        // 경기장 매핑
-        const stadiumMap = {
-            '서울 잠실야구장': '잠실', '부산 사직야구장': '사직',
-            '서울 고척스카이돔': '고척', '대전 한화생명이글스파크': '대전',
-            '대구 삼성라이온즈파크': '대구', '수원 KT위즈파크': '수원',
-            '인천 SSG랜더스필드': '인천', '창원 NC파크': '창원',
-            '광주 챔피언스필드': '광주'
-        };
 
         // 날짜 포맷팅
         const dateObj = new Date(nextDate);
@@ -3405,7 +3401,7 @@ async function loadUpcomingGames() {
             const awayTeam = game.away_team;
             const homeTeam = game.home_team;
             const gameTime = game.time || '18:30';
-            const stadium = stadiumMap[game.stadium] || game.stadium || '미정';
+            const stadium = STADIUM_MAP[game.stadium] || game.stadium || '미정';
 
             // 팀 순위 및 기록 정보
             const awayRank = standings[awayTeam]?.rank || '?';

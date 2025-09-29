@@ -39,8 +39,6 @@ graph TD
     F --> W[analysis-weekday.js]
     W --> X[analysis-weekday.json]
     
-    F --> Y[analysis-stadium.js]
-    Y --> Z[analysis-stadium.json]
     
     style A fill:#ff9999
     style L fill:#99ff99
@@ -88,7 +86,7 @@ graph TD
 | `analysis-series.json` | analysis-series.js | raw-game-records.json | **루트 index.html** |
 | `analysis-monthly.json` | analysis-monthly.js | raw-game-records.json | - |
 | `analysis-weekday.json` | analysis-weekday.js | raw-game-records.json | - |
-| `analysis-stadium.json` | analysis-stadium.js | raw-game-records.json | - |
+| ~~`analysis-stadium.json`~~ | ~~analysis-stadium.js~~ | ~~raw-game-records.json~~ | **제거됨 → stats-comprehensive.json에 통합** |
 
 ## ⚙️ GitHub Actions 업데이트 순서
 
@@ -118,7 +116,6 @@ npm run analysis
   ├── analysis-series.json ✅
   ├── analysis-monthly.json ✅
   ├── analysis-weekday.json ✅
-  └── analysis-stadium.json ✅
 ```
 
 ## 🚨 누락 위험 체크포인트
@@ -151,7 +148,6 @@ jq '.lastUpdated // .updateTime' magic-number/data/{api-data,stats-comprehensive
 - `analysis-series.json` - 시리즈 분석
 - `analysis-monthly.json` - 월별 분석
 - `analysis-weekday.json` - 요일별 분석
-- `analysis-stadium.json` - 경기장별 분석
 
 ### 🎯 매직넘버 페이지 (magic-number/index.html)
 **필수 파일 (3개)**:

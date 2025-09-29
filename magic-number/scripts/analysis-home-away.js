@@ -5,6 +5,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const { StadiumHelper } = require('../config/stadium-mapping');
 
 class HomeAwayAnalyzer {
     constructor() {
@@ -12,19 +13,6 @@ class HomeAwayAnalyzer {
         this.gameRecords = null;
         this.homeAwayData = {};
         
-        // 팀별 홈구장 매핑
-        this.homeStadiums = {
-            'LG': '잠실',
-            '두산': '잠실',
-            '키움': '고척',
-            '한화': '대전',
-            'KT': '수원',
-            'SSG': '인천',
-            '삼성': '대구',
-            'NC': '창원',
-            'KIA': '광주',
-            '롯데': '사직'
-        };
     }
 
     /**
@@ -58,11 +46,7 @@ class HomeAwayAnalyzer {
      * 구장 이름 추출 및 표준화
      */
     getStadium(opponent, isHome) {
-        if (isHome) {
-            return this.homeStadiums[this.currentTeam] || '알 수 없음';
-        } else {
-            return this.homeStadiums[opponent] || '알 수 없음';
-        }
+        return StadiumHelper.getGameStadium(opponent, isHome, this.currentTeam);
     }
 
     /**
