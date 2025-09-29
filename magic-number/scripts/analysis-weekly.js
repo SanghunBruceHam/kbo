@@ -5,6 +5,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const CommonUtils = require('../config/common-utils');
 
 class WeeklyAnalyzer {
     constructor() {
@@ -34,7 +35,7 @@ class WeeklyAnalyzer {
             this.calculateWeekRanges();
             
             console.log('✅ 게임 기록 데이터 로드 완료');
-            console.log(`📅 시즌 기간: ${this.seasonStart.toLocaleDateString('ko-KR')} ~ 현재 ${this.currentWeek}주차`);
+            console.log(`📅 시즌 기간: ${CommonUtils.date.toKoreanShort(this.seasonStart)} ~ 현재 ${this.currentWeek}주차`);
         } catch (error) {
             console.error('❌ 게임 기록 로드 실패:', error.message);
         }
@@ -90,8 +91,8 @@ class WeeklyAnalyzer {
             this.weekRanges[currentWeek] = {
                 start: new Date(weekStart),
                 end: new Date(weekEnd),
-                startStr: weekStart.toLocaleDateString('ko-KR', { month: 'short', day: 'numeric' }),
-                endStr: weekEnd.toLocaleDateString('ko-KR', { month: 'short', day: 'numeric' })
+                startStr: CommonUtils.date.toKoreanShort(weekStart),
+                endStr: CommonUtils.date.toKoreanShort(weekEnd)
             };
             
             // 다음 주차 (다음 화요일)
@@ -354,8 +355,7 @@ class WeeklyAnalyzer {
      */
     saveAnalysis() {
         const result = {
-            lastUpdated: new Date().toISOString(),
-            updateDate: new Date().toLocaleDateString('ko-KR'),
+            ...CommonUtils.result.createUpdateMetadata(),
             seasonStart: this.seasonStart && this.seasonStart instanceof Date && !isNaN(this.seasonStart) 
                 ? this.seasonStart.toISOString() 
                 : new Date('2025-03-22').toISOString(),
@@ -375,7 +375,7 @@ class WeeklyAnalyzer {
         console.log(`\n📅 주차별 성적 분석 요약 (${this.currentWeek}주차까지)`);
         console.log('='.repeat(60));
 
-        console.log(`🏁 시즌 시작일: ${this.seasonStart.toLocaleDateString('ko-KR')}`);
+        console.log(`🏁 시즌 시작일: ${CommonUtils.date.getCurrentKorean()}`);
         console.log(`📊 현재 주차: ${this.currentWeek}주차`);
 
         // 각 팀의 최고/최악 주차 요약

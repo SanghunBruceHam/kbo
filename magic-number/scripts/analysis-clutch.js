@@ -5,6 +5,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const CommonUtils = require('../config/common-utils');
 
 class ClutchAnalyzer {
     constructor() {
@@ -192,8 +193,7 @@ class ClutchAnalyzer {
      */
     saveAnalysis() {
         const result = {
-            lastUpdated: new Date().toISOString(),
-            updateDate: new Date().toLocaleDateString('ko-KR'),
+            ...CommonUtils.result.createUpdateMetadata(),
             clutchAnalysis: this.clutchData
         };
 

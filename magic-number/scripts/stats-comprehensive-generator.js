@@ -1,22 +1,12 @@
 const fs = require('fs');
 const path = require('path');
+const { StadiumHelper } = require('../config/stadium-mapping');
+const CommonUtils = require('../config/common-utils');
 
 class EnhancedDashboardGenerator {
     constructor() {
         this.games = [];
         this.teams = ['KIA', 'LG', '삼성', '두산', 'KT', 'SSG', '롯데', '한화', 'NC', '키움'];
-        this.stadiums = {
-            'KIA': '광주 챔피언스필드',
-            'LG': '서울 잠실야구장 (LG)',
-            '두산': '서울 잠실야구장 (두산)',
-            '삼성': '대구 삼성라이온즈파크',
-            'SSG': '인천 SSG랜더스필드',
-            'KT': '수원 KT위즈파크',
-            'NC': '창원 NC파크',
-            '롯데': '부산 사직야구장',
-            '한화': '대전 한화생명이글스파크',
-            '키움': '서울 고척스카이돔'
-        };
     }
 
     async loadGames() {
@@ -51,7 +41,7 @@ class EnhancedDashboardGenerator {
     }
 
     getStadium(homeTeam) {
-        return this.stadiums[homeTeam] || '미상';
+        return StadiumHelper.getStadium(homeTeam);
     }
 
     async generateComprehensiveDashboard() {
@@ -59,13 +49,7 @@ class EnhancedDashboardGenerator {
         await this.loadGames();
         
         const dashboard = {
-            updateTime: new Date().toISOString(),
-            updateDate: new Date().toLocaleDateString('ko-KR', { 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric',
-                timeZone: 'Asia/Seoul'
-            }),
+            ...CommonUtils.result.createDetailedUpdateMetadata(),
             
             // 1. 종합 순위
             standings: this.getStandings(),

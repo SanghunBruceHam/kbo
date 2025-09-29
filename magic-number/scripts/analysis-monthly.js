@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const CommonUtils = require('../config/common-utils');
 
 function generateMonthlyRecords() {
     console.log('📅 월별 기록 분석 시작...');
@@ -78,13 +79,7 @@ function generateMonthlyRecords() {
         
         // 결과 정리 - DB와 동일한 구조
         const result = {
-            updateTime: new Date().toISOString(),
-            updateDate: new Date().toLocaleDateString('ko-KR', { 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric',
-                timeZone: 'Asia/Seoul'
-            }),
+            ...CommonUtils.result.createDetailedUpdateMetadata(),
             monthlyRecords: {}
         };
         

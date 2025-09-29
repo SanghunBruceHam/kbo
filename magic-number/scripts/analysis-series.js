@@ -5,6 +5,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const CommonUtils = require('../config/common-utils');
 
 class SeriesAnalyzer {
     constructor() {
@@ -461,8 +462,7 @@ class SeriesAnalyzer {
         this.calculateSeriesStats();
 
         const analysisResult = {
-            lastUpdated: new Date().toISOString(),
-            updateDate: new Date().toLocaleDateString('ko-KR'),
+            ...CommonUtils.result.createUpdateMetadata(),
             teamStats: this.seriesData,
             heatmap: this.generateSeriesHeatmap(),
             sweepHighlights: this.generateSweepHighlights()

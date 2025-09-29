@@ -6,6 +6,7 @@
 const fs = require('fs');
 const path = require('path');
 const { StadiumHelper } = require('../config/stadium-mapping');
+const CommonUtils = require('../config/common-utils');
 
 class HomeAwayAnalyzer {
     constructor() {
@@ -163,12 +164,12 @@ class HomeAwayAnalyzer {
                 const decisiveGames = loc.wins + loc.losses;
                 
                 if (decisiveGames > 0) {
-                    loc.winRate = ((loc.wins / decisiveGames) * 100).toFixed(1);
+                    loc.winRate = CommonUtils.number.calculateWinRatePercent(loc.wins, loc.losses, loc.draws);
                 }
-                
+
                 if (loc.games > 0) {
-                    loc.avgRunsScored = (loc.runsScored / loc.games).toFixed(2);
-                    loc.avgRunsAllowed = (loc.runsAllowed / loc.games).toFixed(2);
+                    loc.avgRunsScored = CommonUtils.number.calculateAverage(loc.runsScored, loc.games);
+                    loc.avgRunsAllowed = CommonUtils.number.calculateAverage(loc.runsAllowed, loc.games);
                     loc.runDifferential = loc.runsScored - loc.runsAllowed;
                 }
             });
@@ -195,7 +196,7 @@ class HomeAwayAnalyzer {
                 const record = analysis.stadiumRecords[stadium];
                 const decisiveGames = record.wins + record.losses;
                 if (decisiveGames > 0) {
-                    record.winRate = ((record.wins / decisiveGames) * 100).toFixed(1);
+                    record.winRate = CommonUtils.number.calculateWinRatePercent(record.wins, record.losses);
                 }
             });
             
@@ -205,7 +206,7 @@ class HomeAwayAnalyzer {
                     const record = analysis[key][opponent];
                     const decisiveGames = record.wins + record.losses;
                     if (decisiveGames > 0) {
-                        record.winRate = ((record.wins / decisiveGames) * 100).toFixed(1);
+                        record.winRate = CommonUtils.number.calculateWinRatePercent(record.wins, record.losses);
                     }
                 });
             });
@@ -219,8 +220,7 @@ class HomeAwayAnalyzer {
      */
     saveAnalysis() {
         const result = {
-            lastUpdated: new Date().toISOString(),
-            updateDate: new Date().toLocaleDateString('ko-KR'),
+            ...CommonUtils.result.createUpdateMetadata(),
             homeAwayAnalysis: this.homeAwayData
         };
 
