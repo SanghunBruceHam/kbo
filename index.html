@@ -18901,7 +18901,7 @@ KT 9:1 키움(H)`;
     };
 
     // 중계사별 승률 분석 렌더링 함수
-    function renderBroadcasterStats(sortByName = false, sortByTeam = null, sortOrder = 'desc') {
+    function renderBroadcasterStats(sortByName = false, sortByTeam = null, sortOrder = 'desc', sortBroadcasterAlpha = false) {
         console.log('🔧 renderBroadcasterStats 시작');
 
         const tbody = document.getElementById('broadcasterBody');
@@ -18949,7 +18949,7 @@ KT 9:1 키움(H)`;
         };
 
         // 헤더 생성 (매번 생성하되, 이벤트는 중복 방지)
-        let headerHtml = '<tr><th style="width: 10%;">중계사</th>';
+        let headerHtml = '<tr><th id="broadcaster-header-reset" style="width: 10%; cursor: pointer; user-select: none;" title="클릭하여 알파벳순 정렬">중계사</th>';
         teams.forEach(teamName => {
             const logoPath = teamLogos[teamName] || 'magic-number/images/teams/default.png';
             headerHtml += `
@@ -18962,7 +18962,7 @@ KT 9:1 키움(H)`;
         headerHtml += '</tr>';
         theadElement.innerHTML = headerHtml;
 
-        // 이벤트 리스너 추가 (중복 제거 후 다시 추가)
+        // 팀 헤더 이벤트 리스너 추가 (중복 제거 후 다시 추가)
         document.querySelectorAll('.team-header-sort').forEach(header => {
             header.addEventListener('click', function() {
                 const clickedTeam = this.getAttribute('data-team');
@@ -18981,6 +18981,21 @@ KT 9:1 키움(H)`;
             });
         });
 
+        // 중계사 헤더 (중계사 알파벳순 정렬) 이벤트 리스너 추가
+        const broadcasterHeaderReset = document.getElementById('broadcaster-header-reset');
+        if (broadcasterHeaderReset) {
+            broadcasterHeaderReset.addEventListener('click', function() {
+                console.log('중계사 헤더 클릭 - 중계사 알파벳순 정렬');
+
+                // 정렬 상태 초기화 (팀 순서는 유지)
+                window.broadcasterSortState.team = null;
+                window.broadcasterSortState.order = 'none';
+
+                // 중계사만 알파벳순으로 정렬하여 렌더링 (팀 순서는 현재 상태 유지)
+                renderBroadcasterStats(false, null, 'none', true); // 네 번째 매개변수로 중계사 정렬 플래그 추가
+            });
+        }
+
         // 실제 KBO 경기 데이터에서 중계사별 데이터 계산 (캐시 초기화)
         window.cachedBroadcasterData = {};
         window.debugGradientOnce = true; // 디버깅 플래그 초기화
@@ -18991,8 +19006,8 @@ KT 9:1 키움(H)`;
         });
         const allTeamsData = window.cachedBroadcasterData;
 
-        // 중계사 목록 (알파벳 순, clean.txt 실제 데이터 기준, TVING 제외)
-        const broadcasters = [
+        // 중계사 목록 (기본: 기존 순서, 알파벳순 정렬 옵션)
+        let broadcasters = [
             { key: 'kbs_2tv', name: 'KBS 2TV' },
             { key: 'kbs_n_sports', name: 'KBS N SPORTS' },
             { key: 'mbc_sports_plus', name: 'MBC SPORTS+' },
@@ -19002,6 +19017,12 @@ KT 9:1 키움(H)`;
             { key: 'spotv', name: 'SPOTV' },
             { key: 'spotv2', name: 'SPOTV2' }
         ];
+
+        // 중계사 알파벳순 정렬 옵션
+        if (sortBroadcasterAlpha) {
+            broadcasters = [...broadcasters].sort((a, b) => a.name.localeCompare(b.name));
+            console.log('📺 중계사 알파벳순 정렬 적용');
+        }
 
         // 모든 중계사 포함 (TVING 제거로 필터링 불필요)
         const broadcastersForTotal = broadcasters;
