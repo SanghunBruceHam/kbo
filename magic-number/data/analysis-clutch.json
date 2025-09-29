@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-09-29T12:56:31.297Z",
+  "lastUpdated": "2025-09-29T13:10:08.154Z",
   "updateDate": "2025. 9. 29.",
   "clutchAnalysis": {
     "LG": {
@@ -581,7 +581,7 @@
       "clutchIndex": "57.1"
     },
     "KIA": {
-      "totalGames": 159,
+      "totalGames": 160,
       "oneRunGames": 45,
       "oneRunWins": 21,
       "oneRunLosses": 24,
@@ -759,7 +759,7 @@
           "runs": 8
         }
       ],
-      "blowoutLosses": 9,
+      "blowoutLosses": 10,
       "blowoutAllowed": [
         {
           "date": "2025-03-26",
@@ -814,6 +814,12 @@
           "opponent": "한화",
           "score": "1:11",
           "diff": 10
+        },
+        {
+          "date": "2025-09-29",
+          "opponent": "NC",
+          "score": "4:13",
+          "diff": 9
         }
       ],
       "shutoutWins": 6,
@@ -2237,7 +2243,7 @@
       "clutchIndex": "42.6"
     },
     "NC": {
-      "totalGames": 159,
+      "totalGames": 160,
       "oneRunGames": 32,
       "oneRunWins": 16,
       "oneRunLosses": 16,
@@ -2250,7 +2256,7 @@
       "threeRunWins": 26,
       "threeRunLosses": 15,
       "threeRunWinRate": "63.4",
-      "blowoutWins": 34,
+      "blowoutWins": 35,
       "blowoutScored": [
         {
           "date": "2025-03-26",
@@ -2455,6 +2461,12 @@
           "opponent": "LG",
           "score": "10:5",
           "runs": 10
+        },
+        {
+          "date": "2025-09-29",
+          "opponent": "KIA",
+          "score": "13:4",
+          "runs": 13
         }
       ],
       "blowoutLosses": 16,
@@ -2558,8 +2570,8 @@
       ],
       "shutoutWins": 10,
       "shutoutLosses": 8,
-      "highScoringGames": 14,
-      "highScoringWins": 13,
+      "highScoringGames": 15,
+      "highScoringWins": 14,
       "scorelessGames": 8,
       "comebackPotential": {
         "trailingWins": 0,

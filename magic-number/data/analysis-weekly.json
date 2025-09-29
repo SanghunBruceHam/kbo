@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-09-29T12:56:31.082Z",
+  "lastUpdated": "2025-09-29T13:10:07.925Z",
   "updateDate": "2025. 9. 29.",
   "seasonStart": "2025-03-22T00:00:00.000Z",
   "currentWeek": 28,
@@ -5815,16 +5815,16 @@
             "startStr": "9월 23일",
             "endStr": "9월 29일"
           },
-          "games": 4,
+          "games": 5,
           "wins": 1,
-          "losses": 2,
+          "losses": 3,
           "draws": 0,
-          "winRate": "33.3",
-          "runsScored": 3,
-          "runsAllowed": 7,
-          "runDifferential": -4,
-          "avgRunsScored": "0.75",
-          "avgRunsAllowed": "1.75",
+          "winRate": "25.0",
+          "runsScored": 7,
+          "runsAllowed": 20,
+          "runDifferential": -13,
+          "avgRunsScored": "1.40",
+          "avgRunsAllowed": "4.00",
           "gameDetails": [
             {
               "date": "2025-09-23",
@@ -5852,6 +5852,13 @@
               "opponent": "NC",
               "score": "취소",
               "result": null,
+              "isHome": true
+            },
+            {
+              "date": "2025-09-29",
+              "opponent": "NC",
+              "score": "4:13",
+              "result": "L",
               "isHome": true
             }
           ]
@@ -6207,22 +6214,22 @@
           "runDifferential": -10
         },
         "9월": {
-          "games": 21,
+          "games": 22,
           "wins": 6,
-          "losses": 11,
+          "losses": 12,
           "draws": 0,
-          "runsScored": 51,
-          "runsAllowed": 93,
+          "runsScored": 55,
+          "runsAllowed": 106,
           "weeks": [
             25,
             26,
             27,
             28
           ],
-          "winRate": "35.3",
-          "avgRunsScored": "2.43",
-          "avgRunsAllowed": "4.43",
-          "runDifferential": -42
+          "winRate": "33.3",
+          "avgRunsScored": "2.50",
+          "avgRunsAllowed": "4.82",
+          "runDifferential": -51
         }
       }
     },
@@ -18126,16 +18133,16 @@
             "startStr": "9월 23일",
             "endStr": "9월 29일"
           },
-          "games": 5,
-          "wins": 4,
+          "games": 6,
+          "wins": 5,
           "losses": 0,
           "draws": 0,
           "winRate": "100.0",
-          "runsScored": 19,
-          "runsAllowed": 8,
-          "runDifferential": 11,
-          "avgRunsScored": "3.80",
-          "avgRunsAllowed": "1.60",
+          "runsScored": 32,
+          "runsAllowed": 12,
+          "runDifferential": 20,
+          "avgRunsScored": "5.33",
+          "avgRunsAllowed": "2.00",
           "gameDetails": [
             {
               "date": "2025-09-23",
@@ -18170,6 +18177,13 @@
               "opponent": "KIA",
               "score": "취소",
               "result": null,
+              "isHome": false
+            },
+            {
+              "date": "2025-09-29",
+              "opponent": "KIA",
+              "score": "13:4",
+              "result": "W",
               "isHome": false
             }
           ]
@@ -18532,22 +18546,22 @@
           "runDifferential": -21
         },
         "9월": {
-          "games": 24,
-          "wins": 11,
+          "games": 25,
+          "wins": 12,
           "losses": 9,
           "draws": 0,
-          "runsScored": 88,
-          "runsAllowed": 105,
+          "runsScored": 101,
+          "runsAllowed": 109,
           "weeks": [
             25,
             26,
             27,
             28
           ],
-          "winRate": "55.0",
-          "avgRunsScored": "3.67",
-          "avgRunsAllowed": "4.38",
-          "runDifferential": -17
+          "winRate": "57.1",
+          "avgRunsScored": "4.04",
+          "avgRunsAllowed": "4.36",
+          "runDifferential": -8
         }
       }
     },
