@@ -1,12 +1,12 @@
 {
-  "lastUpdated": "2025-09-28T14:45:04.455Z",
-  "updateDate": "2025. 9. 28.",
+  "lastUpdated": "2025-09-29T07:43:15.199Z",
+  "updateDate": "2025. 9. 29.",
   "teamStats": {
     "LG": {
       "totalSeries": 48,
       "winningSeries": 29,
       "losingSeries": 13,
-      "splitSeries": 5,
+      "splitSeries": 6,
       "sweepWins": 8,
       "sweepLosses": 1,
       "seriesWinRate": "60.4",
@@ -2423,7 +2423,7 @@
           "draws": 0,
           "homeGames": 0,
           "awayGames": 3,
-          "result": "ONGOING",
+          "result": "SPLIT",
           "isSweep": false,
           "isWinningSweep": false,
           "isLosingSweep": false,
@@ -2527,7 +2527,7 @@
       "totalSeries": 51,
       "winningSeries": 26,
       "losingSeries": 18,
-      "splitSeries": 6,
+      "splitSeries": 7,
       "sweepWins": 11,
       "sweepLosses": 4,
       "seriesWinRate": "51.0",
@@ -5064,7 +5064,7 @@
           "draws": 0,
           "homeGames": 3,
           "awayGames": 0,
-          "result": "ONGOING",
+          "result": "SPLIT",
           "isSweep": false,
           "isWinningSweep": false,
           "isLosingSweep": false,
@@ -5167,7 +5167,7 @@
     "KIA": {
       "totalSeries": 52,
       "winningSeries": 22,
-      "losingSeries": 20,
+      "losingSeries": 21,
       "splitSeries": 9,
       "sweepWins": 3,
       "sweepLosses": 6,
@@ -7735,7 +7735,7 @@
           "draws": 0,
           "homeGames": 2,
           "awayGames": 0,
-          "result": "ONGOING",
+          "result": "LOSS",
           "isSweep": false,
           "isWinningSweep": false,
           "isLosingSweep": false,
@@ -7746,9 +7746,9 @@
       ],
       "currentStreak": {
         "type": "LOSS",
-        "count": 1,
+        "count": 2,
         "startDate": "2025-09-16",
-        "endDate": "2025-09-18"
+        "endDate": "2025-09-28"
       },
       "longestWinningStreak": {
         "count": 6,
@@ -7764,8 +7764,8 @@
         "NC": {
           "totalSeries": 8,
           "wins": 2,
-          "losses": 1,
-          "splits": 5,
+          "losses": 2,
+          "splits": 4,
           "sweepWins": 0,
           "sweepLosses": 0
         },
@@ -20622,12 +20622,12 @@
     },
     "NC": {
       "totalSeries": 51,
-      "winningSeries": 19,
+      "winningSeries": 20,
       "losingSeries": 20,
       "splitSeries": 11,
       "sweepWins": 3,
       "sweepLosses": 4,
-      "seriesWinRate": "37.3",
+      "seriesWinRate": "39.2",
       "series": [
         {
           "opponent": "KIA",
@@ -23141,7 +23141,7 @@
           "draws": 0,
           "homeGames": 0,
           "awayGames": 2,
-          "result": "ONGOING",
+          "result": "WIN",
           "isSweep": false,
           "isWinningSweep": false,
           "isLosingSweep": false,
@@ -23152,9 +23152,9 @@
       ],
       "currentStreak": {
         "type": "WIN",
-        "count": 2,
+        "count": 3,
         "startDate": "2025-09-09",
-        "endDate": "2025-09-14"
+        "endDate": "2025-09-28"
       },
       "longestWinningStreak": {
         "count": 3,
@@ -23169,9 +23169,9 @@
       "vsTeams": {
         "KIA": {
           "totalSeries": 8,
-          "wins": 1,
+          "wins": 2,
           "losses": 2,
-          "splits": 5,
+          "splits": 4,
           "sweepWins": 0,
           "sweepLosses": 0
         },
@@ -25913,7 +25913,7 @@
         "totalSeries": 5
       },
       "NC": {
-        "record": "2-1-5",
+        "record": "2-2-4",
         "winRate": "25.0",
         "sweeps": "0-0",
         "totalSeries": 8
@@ -26224,8 +26224,8 @@
         "totalSeries": 5
       },
       "KIA": {
-        "record": "1-2-5",
-        "winRate": "12.5",
+        "record": "2-2-4",
+        "winRate": "25.0",
         "sweeps": "0-0",
         "totalSeries": 8
       },
