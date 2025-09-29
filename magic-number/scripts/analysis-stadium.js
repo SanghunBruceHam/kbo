@@ -25,11 +25,11 @@ function generateStadiumRecords() {
         const teams = Array.from(actualTeams);
         const stadiumStats = {};
 
-        // 경기장 정보 매핑
+        // 경기장 정보 매핑 (LG/두산 구분)
         const stadiums = {
             'KIA': '광주 챔피언스필드',
-            'LG': '서울 잠실야구장',
-            '두산': '서울 잠실야구장',
+            'LG': '서울 잠실야구장 (LG)',
+            '두산': '서울 잠실야구장 (두산)',
             '삼성': '대구 삼성라이온즈파크',
             'SSG': '인천 SSG랜더스필드',
             'KT': '수원 KT위즈파크',

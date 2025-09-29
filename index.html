@@ -10491,26 +10491,45 @@
             let html = '';
             
             stadiumList.forEach(stadium => {
-                // 경기장 이름 단순화
+                // 경기장 이름 처리 (LG/두산 구분 유지)
                 let stadiumName = stadium;
-                if (stadium.includes('서울')) {
-                    stadiumName = stadium.includes('잠실') ? '서울 잠실야구장' : '서울 고척스카이돔';
+                let homeTeam = '';
+
+                if (stadium.includes('광주')) {
+                    stadiumName = '광주 챔피언스필드';
+                    homeTeam = 'KIA';
+                } else if (stadium.includes('잠실') && stadium.includes('LG')) {
+                    stadiumName = '서울 잠실야구장';
+                    homeTeam = 'LG';
+                } else if (stadium.includes('잠실') && stadium.includes('두산')) {
+                    stadiumName = '서울 잠실야구장';
+                    homeTeam = '두산';
+                } else if (stadium.includes('대구')) {
+                    stadiumName = '대구 삼성라이온즈파크';
+                    homeTeam = '삼성';
+                } else if (stadium.includes('인천')) {
+                    stadiumName = '인천 SSG랜더스필드';
+                    homeTeam = 'SSG';
+                } else if (stadium.includes('수원')) {
+                    stadiumName = '수원 KT위즈파크';
+                    homeTeam = 'KT';
+                } else if (stadium.includes('창원')) {
+                    stadiumName = '창원 NC파크';
+                    homeTeam = 'NC';
+                } else if (stadium.includes('부산')) {
+                    stadiumName = '부산 사직야구장';
+                    homeTeam = '롯데';
+                } else if (stadium.includes('대전')) {
+                    stadiumName = '대전 한화생명이글스파크';
+                    homeTeam = '한화';
+                } else if (stadium.includes('고척')) {
+                    stadiumName = '서울 고척스카이돔';
+                    homeTeam = '키움';
                 } else {
+                    // 기본값: stadium 이름 그대로
                     const parts = stadium.split(' ');
-                    stadiumName = parts[0] + ' ' + parts[1];
+                    stadiumName = parts.length > 1 ? parts[0] + ' ' + parts[1] : stadium;
                 }
-                
-                // 홈팀 확인
-                const homeTeam = 
-                    stadium.includes('광주') ? 'KIA' :
-                    stadium.includes('잠실') ? 'LG/두산' :
-                    stadium.includes('대구') ? '삼성' :
-                    stadium.includes('인천') ? 'SSG' :
-                    stadium.includes('수원') ? 'KT' :
-                    stadium.includes('창원') ? 'NC' :
-                    stadium.includes('부산') ? '롯데' :
-                    stadium.includes('대전') ? '한화' :
-                    stadium.includes('고척') ? '키움' : '';
                 
                 html += `<tr>
                     <td style="padding: 6px 2px; min-width: 135px; max-width: 135px; overflow: hidden; text-overflow: ellipsis; cursor: pointer;" onclick="sortStadiumByRate('${stadium}')">
@@ -10530,10 +10549,11 @@
                         const winRate = normalizedWinRate.toFixed(3);
                         const totalGames = teamRecord.wins + teamRecord.losses + (teamRecord.draws || 0);
                         
-                        // 홈팀인지 확인
-                        const isHome = 
+                        // 홈팀인지 확인 (LG/두산 개별 구분)
+                        const isHome =
                             (team === 'KIA' && stadium.includes('광주')) ||
-                            ((team === 'LG' || team === '두산') && stadium.includes('잠실')) ||
+                            (team === 'LG' && stadium.includes('잠실') && stadium.includes('LG')) ||
+                            (team === '두산' && stadium.includes('잠실') && stadium.includes('두산')) ||
                             (team === '삼성' && stadium.includes('대구')) ||
                             (team === 'SSG' && stadium.includes('인천')) ||
                             (team === 'KT' && stadium.includes('수원')) ||
