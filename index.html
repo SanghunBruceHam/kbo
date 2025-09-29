@@ -18983,6 +18983,7 @@ KT 9:1 키움(H)`;
 
         // 실제 KBO 경기 데이터에서 중계사별 데이터 계산 (캐시 초기화)
         window.cachedBroadcasterData = {};
+        window.debugGradientOnce = true; // 디버깅 플래그 초기화
         teams.forEach(teamName => {
             const data = calculateRealBroadcasterData(teamName);
             window.cachedBroadcasterData[teamName] = data;
@@ -19056,6 +19057,16 @@ KT 9:1 키움(H)`;
                     allTeamsData[teamName]?.['spotv']?.winRate || 0,
                     allTeamsData[teamName]?.['spotv2']?.winRate || 0
                 ];
+
+                // 디버깅: 첫 번째 팀에 대해서만 로그 출력
+                if (teamName === teams[0]) {
+                    console.log(`🎨 ${teamName} 그라데이션 데이터:`, {
+                        currentWinRate: teamData.winRate,
+                        teamWinRates: teamWinRates,
+                        broadcasterKey: broadcaster.key
+                    });
+                }
+
                 const cellStyle = getBroadcasterCellStyleByTeam(teamData.winRate, teamWinRates);
 
                 const totalGames = teamData.wins + teamData.losses + teamData.draws;
@@ -19123,51 +19134,68 @@ KT 9:1 키움(H)`;
         }
     }
 
-    // 팀별 중계사 승률 비교를 위한 셀 스타일 반환 (상대적 그라데이션)
+    // 팀별 중계사 승률 비교를 위한 셀 스타일 반환 (연속적 그라데이션)
     function getBroadcasterCellStyleByTeam(winRate, teamWinRates) {
         // 해당 팀의 모든 중계사 승률 중에서 상대적 위치 계산
-        const sortedRates = [...teamWinRates].sort((a, b) => b - a);
-        const maxRate = sortedRates[0];
-        const minRate = sortedRates[sortedRates.length - 1];
+        const validRates = teamWinRates.filter(rate => rate > 0); // 0인 값 제외
+
+        // 디버깅 로그 (첫 번째 호출에서만)
+        if (window.debugGradientOnce) {
+            console.log('🎨 그라데이션 함수 호출:', {
+                winRate,
+                teamWinRates,
+                validRates,
+                validCount: validRates.length
+            });
+            window.debugGradientOnce = false;
+        }
+
+        if (validRates.length === 0) {
+            console.log('⚠️ 유효한 승률 데이터가 없음');
+            return 'background: #f8f9fa; color: #6c757d; text-align: center; border-radius: 4px; padding: 6px;';
+        }
+
+        const maxRate = Math.max(...validRates);
+        const minRate = Math.min(...validRates);
+        const range = maxRate - minRate;
 
         let backgroundColor, textColor, fontWeight = 'var(--font-weight-semibold)';
 
-        // 팀 내에서 상대적 순위 계산
-        const rank = sortedRates.indexOf(winRate) + 1;
-        const totalCount = teamWinRates.length;
-
-        if (rank === 1) {
-            // 팀 내 최고 승률
-            backgroundColor = 'var(--positive-bg-very-strong)';
-            textColor = 'var(--positive-color)';
-            fontWeight = 'var(--font-weight-bold)';
-        } else if (rank === 2) {
-            // 팀 내 2위
-            backgroundColor = 'var(--positive-bg-strong)';
-            textColor = 'var(--positive-color)';
-            fontWeight = 'var(--font-weight-bold)';
-        } else if (rank === 3) {
-            // 팀 내 3위
-            backgroundColor = 'var(--positive-bg-medium)';
-            textColor = 'var(--positive-color)';
-        } else if (rank <= Math.ceil(totalCount / 2)) {
-            // 팀 내 상위권
-            backgroundColor = 'var(--positive-bg-light)';
-            textColor = 'var(--positive-color)';
-        } else if (rank === totalCount) {
-            // 팀 내 최하위
-            backgroundColor = 'var(--negative-bg-very-strong)';
-            textColor = 'var(--negative-color)';
-            fontWeight = 'var(--font-weight-bold)';
-        } else if (rank === totalCount - 1) {
-            // 팀 내 하위 2위
-            backgroundColor = 'var(--negative-bg-strong)';
-            textColor = 'var(--negative-color)';
-            fontWeight = 'var(--font-weight-bold)';
+        if (range === 0) {
+            // 모든 승률이 같은 경우
+            backgroundColor = '#e9ecef';
+            textColor = '#495057';
         } else {
-            // 팀 내 하위권
-            backgroundColor = 'var(--negative-bg-medium)';
-            textColor = 'var(--negative-color)';
+            // 정규화된 위치 계산 (0~1)
+            const normalizedPosition = (winRate - minRate) / range;
+
+            if (normalizedPosition >= 0.8) {
+                // 상위 20% - 진한 초록
+                const intensity = 0.2 + (normalizedPosition - 0.8) * 4; // 0.2~1.0
+                backgroundColor = `rgba(40, 167, 69, ${intensity})`;
+                textColor = normalizedPosition >= 0.9 ? '#ffffff' : '#155724';
+                fontWeight = 'var(--font-weight-bold)';
+            } else if (normalizedPosition >= 0.6) {
+                // 상위 60% - 중간 초록
+                const intensity = 0.15 + (normalizedPosition - 0.6) * 0.25; // 0.15~0.4
+                backgroundColor = `rgba(40, 167, 69, ${intensity})`;
+                textColor = '#155724';
+            } else if (normalizedPosition >= 0.4) {
+                // 중간 40% - 연한 회색
+                backgroundColor = '#f8f9fa';
+                textColor = '#495057';
+            } else if (normalizedPosition >= 0.2) {
+                // 하위 40% - 연한 빨강
+                const intensity = 0.15 + (0.4 - normalizedPosition) * 0.25; // 0.15~0.4
+                backgroundColor = `rgba(220, 53, 69, ${intensity})`;
+                textColor = '#721c24';
+            } else {
+                // 하위 20% - 진한 빨강
+                const intensity = 0.2 + (0.2 - normalizedPosition) * 4; // 0.2~1.0
+                backgroundColor = `rgba(220, 53, 69, ${intensity})`;
+                textColor = normalizedPosition <= 0.1 ? '#ffffff' : '#721c24';
+                fontWeight = 'var(--font-weight-bold)';
+            }
         }
 
         return `background: ${backgroundColor}; color: ${textColor}; font-weight: ${fontWeight}; text-align: center; border-radius: 4px; padding: 6px;`;
