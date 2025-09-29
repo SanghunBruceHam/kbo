@@ -76,8 +76,8 @@ class HomeAwayAnalyzer {
 
             const games = this.gameRecords[team].games;
             const analysis = {
-                // 기본 통계
-                totalGames: games.length,
+                // 기본 통계 (취소된 경기 제외)
+                totalGames: games.filter(game => !game.isCancelled).length,
                 
                 // 홈 성적
                 home: {
@@ -121,10 +121,13 @@ class HomeAwayAnalyzer {
 
             // 각 경기 분석
             games.forEach(game => {
+                // 취소된 경기는 통계에서 제외
+                if (game.isCancelled) return;
+
                 const score = this.parseScore(game.score);
                 const stadium = this.getStadium(game.opponent, game.isHome);
                 const location = game.isHome ? 'home' : 'away';
-                
+
                 // 홈/원정 기본 통계
                 analysis[location].games++;
                 if (game.result === 'W') analysis[location].wins++;
