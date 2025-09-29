@@ -18999,6 +18999,7 @@ KT 9:1 키움(H)`;
         // 실제 KBO 경기 데이터에서 중계사별 데이터 계산 (캐시 초기화)
         window.cachedBroadcasterData = {};
         window.debugGradientOnce = true; // 디버깅 플래그 초기화
+        window.debugHanwhaGradient = true; // 한화 그라데이션 디버깅 플래그
         teams.forEach(teamName => {
             const data = calculateRealBroadcasterData(teamName);
             window.cachedBroadcasterData[teamName] = data;
@@ -19072,12 +19073,20 @@ KT 9:1 키움(H)`;
                     allTeamsData[team]?.[broadcaster.key]?.winRate || 0
                 );
 
-                // 디버깅: 첫 번째 중계사에 대해서만 로그 출력
-                if (broadcaster.key === 'kbs_2tv') {
-                    console.log(`🎨 ${broadcaster.key} 그라데이션 데이터:`, {
-                        currentTeam: teamName,
+                // 디버깅: 한화 팀의 특정 중계사 데이터 확인
+                if (teamName === '한화' && (broadcaster.key === 'mbc_sports_plus' || broadcaster.key === 'sbs_sports')) {
+                    console.log(`🎨 ${teamName} - ${broadcaster.name} 그라데이션 상세:`, {
                         currentWinRate: teamData.winRate,
-                        broadcasterWinRates: broadcasterWinRates
+                        wins: teamData.wins,
+                        losses: teamData.losses,
+                        draws: teamData.draws,
+                        totalGames: teamData.wins + teamData.losses + teamData.draws,
+                        broadcasterWinRates: broadcasterWinRates,
+                        allTeamsInThisBroadcaster: teams.map(team => ({
+                            team: team,
+                            winRate: allTeamsData[team]?.[broadcaster.key]?.winRate || 0,
+                            record: `${allTeamsData[team]?.[broadcaster.key]?.wins || 0}-${allTeamsData[team]?.[broadcaster.key]?.losses || 0}-${allTeamsData[team]?.[broadcaster.key]?.draws || 0}`
+                        }))
                     });
                 }
 
@@ -19208,6 +19217,17 @@ KT 9:1 키움(H)`;
         // 중계사 내에서 상대적 순위 계산
         const rank = sortedRates.indexOf(winRate) + 1;
         const totalCount = broadcasterWinRates.length;
+
+        // 디버깅: 특정 승률에 대한 상세 정보 (한화 관련)
+        if (window.debugHanwhaGradient && (winRate >= 0.5 && winRate <= 0.7)) {
+            console.log(`🔍 그라데이션 계산 상세 (승률 ${winRate.toFixed(3)}):`, {
+                winRate: winRate,
+                sortedRates: sortedRates,
+                rank: rank,
+                totalCount: totalCount,
+                broadcasterWinRates: broadcasterWinRates
+            });
+        }
 
         if (rank === 1) {
             // 중계사 내 최고 승률 팀
