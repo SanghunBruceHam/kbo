@@ -19046,28 +19046,21 @@ KT 9:1 키움(H)`;
                     return;
                 }
 
-                // 팀 기준 그라데이션 (해당 팀의 중계사별 성과 비교) - 알파벳 순
-                const teamWinRates = [
-                    allTeamsData[teamName]?.['kbs_2tv']?.winRate || 0,
-                    allTeamsData[teamName]?.['kbs_n_sports']?.winRate || 0,
-                    allTeamsData[teamName]?.['mbc_sports_plus']?.winRate || 0,
-                    allTeamsData[teamName]?.['mbc_tv']?.winRate || 0,
-                    allTeamsData[teamName]?.['sbs_sports']?.winRate || 0,
-                    allTeamsData[teamName]?.['sbs_tv']?.winRate || 0,
-                    allTeamsData[teamName]?.['spotv']?.winRate || 0,
-                    allTeamsData[teamName]?.['spotv2']?.winRate || 0
-                ];
+                // 중계사 기준 그라데이션 (해당 중계사의 팀별 성과 비교)
+                const broadcasterWinRates = teams.map(team =>
+                    allTeamsData[team]?.[broadcaster.key]?.winRate || 0
+                );
 
-                // 디버깅: 첫 번째 팀에 대해서만 로그 출력
-                if (teamName === teams[0]) {
-                    console.log(`🎨 ${teamName} 그라데이션 데이터:`, {
+                // 디버깅: 첫 번째 중계사에 대해서만 로그 출력
+                if (broadcaster.key === 'kbs_2tv') {
+                    console.log(`🎨 ${broadcaster.key} 그라데이션 데이터:`, {
+                        currentTeam: teamName,
                         currentWinRate: teamData.winRate,
-                        teamWinRates: teamWinRates,
-                        broadcasterKey: broadcaster.key
+                        broadcasterWinRates: broadcasterWinRates
                     });
                 }
 
-                const cellStyle = getBroadcasterCellStyleByTeam(teamData.winRate, teamWinRates);
+                const cellStyle = getBroadcasterCellStyleByBroadcaster(teamData.winRate, broadcasterWinRates);
 
                 const totalGames = teamData.wins + teamData.losses + teamData.draws;
                 html += `
