@@ -5704,7 +5704,9 @@
                 <div style="font-size: var(--font-sm); color: #4b5563; line-height: 1.5;">
                     <div style="margin-bottom: 6px;"><strong>매트릭스 읽는 법:</strong> 세로축 팀이 가로축 팀과의 전적 (예: LG행-KIA열 = LG가 KIA와의 전적)</div>
                     <div style="margin-bottom: 6px;"><strong>표시 형식:</strong> 승-패-무 (승률) + 홈🏠/원정✈️ 성적</div>
-                    <div style="margin-bottom: 6px;"><strong>우위/열세 표시:</strong> <span style="font-weight: 600;">⭐ 9승 이상(우위 확정)</span>, <span style="font-weight: 600;">🔻 9패 이상(열세 확정)</span></div>
+                    <div style="margin-bottom: 6px;"><strong>우위/열세 표시:</strong>
+                        <br>&nbsp;&nbsp;• <span style="font-weight: 600;">⭐ 우위: ① 9승 이상 달성(확정) 또는 ② 16경기 완료 후 승수가 많을 때</span>
+                        <br>&nbsp;&nbsp;• <span style="font-weight: 600;">🔻 열세: ① 9패 이상 달성(확정) 또는 ② 16경기 완료 후 패수가 많을 때</span></div>
                     <div style="margin-bottom: 6px;"><strong>대각선 표시:</strong> 자기 자신과의 경기는 없으므로 "-"로 표시</div>
                     <div style="margin-bottom: 6px;"><strong>시즌 기준:</strong> KBO 정규시즌 팀당 16경기씩 맞대결 (총 144경기)</div>
                     <div><strong>색상 구분:</strong> <span style="color: #16a34a; font-weight: 600;">녹색(0.500 초과, 우위)</span>, <span style="color: #eab308; font-weight: 600;">노란색(정확히 0.500, 동등)</span>, <span style="color: #dc2626; font-weight: 600;">빨간색(0.500 미만, 열세)</span></div>
@@ -9650,27 +9652,40 @@
                 const remainingGames = Math.max(0, 16 - totalGamesPlayed);
                 
                 // 우위/열세 확정 조건 체크
-                if (wins >= 9) {
-                    // 9승 이상 = 상대전적 우위 확정
-                    starIcon = '⭐ ';
-                    fontSize = 'var(--font-sm)';
-                } else if (losses >= 9) {
-                    // 9패 이상 = 상대전적 열세 확정
-                    starIcon = '🔻 ';
-                    fontSize = 'var(--font-sm)';
-                } else if (remainingGames > 0) {
-                    // 남은 경기가 있는 경우: 남은 경기를 모두 이겨도 상대를 넘을 수 없으면 열세 확정
-                    const maxPossibleWins = wins + remainingGames;
-                    const opponentMinLosses = losses; // 상대방 최소 패수 (현재 내가 진 횟수)
-                    
-                    if (maxPossibleWins < opponentMinLosses) {
-                        // 내가 남은 경기를 모두 이겨도 상대방이 나보다 많이 이김 = 열세 확정
-                        starIcon = '🔻 ';
-                        fontSize = 'var(--font-sm)';
-                    } else if (wins > losses + remainingGames) {
-                        // 상대가 남은 경기를 모두 이겨도 내가 더 많이 이김 = 우위 확정
+                if (totalGamesPlayed >= 16) {
+                    // 16경기 완료된 경우 - 더 많이 이긴 팀 표시
+                    if (wins > losses) {
                         starIcon = '⭐ ';
                         fontSize = 'var(--font-sm)';
+                    } else if (wins < losses) {
+                        starIcon = '🔻 ';
+                        fontSize = 'var(--font-sm)';
+                    }
+                    // wins === losses인 경우는 표시 없음 (동률)
+                } else {
+                    // 16경기가 완료되지 않은 경우 - 기존 로직
+                    if (wins >= 9) {
+                        // 9승 이상 = 상대전적 우위 확정
+                        starIcon = '⭐ ';
+                        fontSize = 'var(--font-sm)';
+                    } else if (losses >= 9) {
+                        // 9패 이상 = 상대전적 열세 확정
+                        starIcon = '🔻 ';
+                        fontSize = 'var(--font-sm)';
+                    } else if (remainingGames > 0) {
+                        // 남은 경기가 있는 경우: 남은 경기를 모두 이겨도 상대를 넘을 수 없으면 열세 확정
+                        const maxPossibleWins = wins + remainingGames;
+                        const opponentMinLosses = losses; // 상대방 최소 패수 (현재 내가 진 횟수)
+
+                        if (maxPossibleWins < opponentMinLosses) {
+                            // 내가 남은 경기를 모두 이겨도 상대방이 나보다 많이 이김 = 열세 확정
+                            starIcon = '🔻 ';
+                            fontSize = 'var(--font-sm)';
+                        } else if (wins > losses + remainingGames) {
+                            // 상대가 남은 경기를 모두 이겨도 내가 더 많이 이김 = 우위 확정
+                            starIcon = '⭐ ';
+                            fontSize = 'var(--font-sm)';
+                        }
                     }
                 }
                 
