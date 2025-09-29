@@ -19224,13 +19224,17 @@ KT 9:1 키움(H)`;
     // clean.txt 파일에서 실제 KBO 경기 데이터 로드
     async function loadSeasonGamesData() {
         try {
+            console.log('🔄 clean.txt 파일 로드 시작...');
             const response = await fetch(`magic-number/data/2025-season-data-clean.txt?v=${Date.now()}`);
             if (response.ok) {
                 const cleanText = await response.text();
+                console.log('📄 clean.txt 파일 크기:', cleanText.length, '문자');
+                console.log('📄 clean.txt 첫 5줄:', cleanText.split('\n').slice(0, 5));
                 window.seasonGamesData = parseCleanTextData(cleanText);
                 console.log('✅ clean.txt 경기 데이터 로드 완료:', window.seasonGamesData.length, '게임');
+                console.log('📊 첫 번째 게임 샘플:', window.seasonGamesData[0]);
             } else {
-                console.warn('⚠️ clean.txt 데이터 로드 실패');
+                console.warn('⚠️ clean.txt 데이터 로드 실패. HTTP 상태:', response.status);
                 window.seasonGamesData = [];
             }
         } catch (error) {
@@ -19248,18 +19252,18 @@ KT 9:1 키움(H)`;
         for (const line of lines) {
             const trimmedLine = line.trim();
 
-            // 날짜 라인 감지 (예: "2025-03-22 (금)")
-            if (trimmedLine.match(/^\d{4}-\d{2}-\d{2} \([월화수목금토일]\)$/)) {
+            // 날짜 라인 감지 (예: "2025-03-22" 또는 "2025-03-22 (금)")
+            if (trimmedLine.match(/^\d{4}-\d{2}-\d{2}(\s\([월화수목금토일]\))?$/)) {
                 currentDate = trimmedLine.substring(0, 10); // "2025-03-22"
                 continue;
             }
 
             // 경기 데이터 라인 파싱
-            // 형식: "18:30    종료     잠실     LG   한화   0:4      SBS SPORTS 페넌트레이스"
-            // 스코어 형식: 원정팀점수:홈팀점수
+            // 형식: "14:00    종료     대구     삼성   키움   5:13     KBS N SPORTS 페넌트레이스"
+            // 스코어 형식: 홈팀점수:어웨이팀점수
             const gameMatch = trimmedLine.match(/^(\d{2}:\d{2})\s+종료\s+(\S+)\s+(\S+)\s+(\S+)\s+(\d+):(\d+)\s+(.+)$/);
             if (gameMatch && currentDate) {
-                const [, time, stadium, homeTeam, awayTeam, awayScore, homeScore, broadcastInfo] = gameMatch;
+                const [, time, stadium, homeTeam, awayTeam, homeScore, awayScore, broadcastInfo] = gameMatch;
 
                 const homeScoreInt = parseInt(homeScore);
                 const awayScoreInt = parseInt(awayScore);
@@ -19295,6 +19299,7 @@ KT 9:1 키움(H)`;
     // 실제 KBO 경기 데이터를 기반으로 중계사별 집계 계산
     function calculateRealBroadcasterData(teamName) {
         const seasonGames = window.seasonGamesData || [];
+        console.log(`📊 ${teamName} 중계사 데이터 계산 시작. 전체 경기 수:`, seasonGames.length);
 
         // 중계사별 집계 초기화 (알파벳 순, clean.txt 실제 중계사 기준, TVING 제외)
         const broadcasterStats = {
