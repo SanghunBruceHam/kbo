@@ -78,7 +78,7 @@ class ClutchAnalyzer {
                 blowoutLosses: 0,
                 blowoutAllowed: [], // 대량실점 경기들
                 
-                // 완봉승/완봉패
+                // 영봉승/영봉패
                 shutoutWins: 0,
                 shutoutLosses: 0,
                 
@@ -144,7 +144,7 @@ class ClutchAnalyzer {
                     });
                 }
                 
-                // 완봉승/완봉패
+                // 영봉승/영봉패
                 if (score.allowed === 0 && game.result === 'W') {
                     analysis.shutoutWins++;
                 }
