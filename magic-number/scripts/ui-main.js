@@ -2574,23 +2574,34 @@ const kboTeams = {
                         const remainingGames = Math.max(0, 16 - totalGamesPlayed);
                         
                         // 우위/열세 확정 조건 체크
-                        if (wins >= 9) {
-                            // 9승 이상 = 상대전적 우위 확정
-                            starIcon = '⭐ ';
-                        } else if (losses >= 9) {
-                            // 9패 이상 = 상대전적 열세 확정
-                            starIcon = '🔻 ';
-                        } else if (remainingGames > 0) {
-                            // 남은 경기가 있는 경우: 남은 경기를 모두 이겨도 상대를 넘을 수 없으면 열세 확정
-                            const maxPossibleWins = wins + remainingGames;
-                            const opponentMinLosses = losses; // 상대방 최소 패수 (현재 내가 진 횟수)
-                            
-                            if (maxPossibleWins < opponentMinLosses) {
-                                // 내가 남은 경기를 모두 이겨도 상대방이 나보다 많이 이김 = 열세 확정
-                                starIcon = '🔻 ';
-                            } else if (wins > losses + remainingGames) {
-                                // 상대가 남은 경기를 모두 이겨도 내가 더 많이 이김 = 우위 확정
+                        if (totalGamesPlayed >= 16) {
+                            // 16경기 완료된 경우 - 더 많이 이긴 팀 표시
+                            if (wins > losses) {
                                 starIcon = '⭐ ';
+                            } else if (wins < losses) {
+                                starIcon = '🔻 ';
+                            }
+                            // wins === losses인 경우는 표시 없음 (동률)
+                        } else {
+                            // 16경기가 완료되지 않은 경우 - 기존 로직
+                            if (wins >= 9) {
+                                // 9승 이상 = 상대전적 우위 확정
+                                starIcon = '⭐ ';
+                            } else if (losses >= 9) {
+                                // 9패 이상 = 상대전적 열세 확정
+                                starIcon = '🔻 ';
+                            } else if (remainingGames > 0) {
+                                // 남은 경기가 있는 경우: 남은 경기를 모두 이겨도 상대를 넘을 수 없으면 열세 확정
+                                const maxPossibleWins = wins + remainingGames;
+                                const opponentMinLosses = losses; // 상대방 최소 패수 (현재 내가 진 횟수)
+
+                                if (maxPossibleWins < opponentMinLosses) {
+                                    // 내가 남은 경기를 모두 이겨도 상대방이 나보다 많이 이김 = 열세 확정
+                                    starIcon = '🔻 ';
+                                } else if (wins > losses + remainingGames) {
+                                    // 상대가 남은 경기를 모두 이겨도 내가 더 많이 이김 = 우위 확정
+                                    starIcon = '⭐ ';
+                                }
                             }
                         }
                         
