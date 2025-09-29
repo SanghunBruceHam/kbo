@@ -6311,32 +6311,50 @@
         // 데이터 정보 업데이트 함수 (header + footer)
         function updateDataInfo(data) {
             try {
-                // stats-comprehensive.json에서는 updateTime 필드 사용
+                // 다양한 필드명 지원: lastUpdated, updateTime, updateDate
                 const updateTimeField = data?.lastUpdated || data?.updateTime;
+                const updateDateField = data?.updateDate;
+
+                let updateTimeText = '';
+
                 if (updateTimeField) {
+                    // ISO 날짜 형식이면 파싱
                     const lastUpdated = new Date(updateTimeField);
-                    const updateTimeText = lastUpdated.toLocaleString('ko-KR', { 
+                    updateTimeText = lastUpdated.toLocaleString('ko-KR', {
                         year: 'numeric',
-                        month: 'numeric', 
+                        month: 'numeric',
                         day: 'numeric',
                         hour: '2-digit',
                         minute: '2-digit'
                     }).replace(/\. /g, '. ').replace(/\.$/, '');
-                    
-                    // 헤더 업데이트
-                    const updateInfoElement = document.getElementById('updateInfo');
-                    if (updateInfoElement) {
-                        updateInfoElement.textContent = `📅 ${updateTimeText} 데이터 사용중`;
-                    }
-                    
-                    // Footer 업데이트
-                    const dataInfoElement = document.querySelector('.data-info');
-                    if (dataInfoElement) {
-                        dataInfoElement.textContent = `${updateTimeText} 데이터 사용중`;
-                    }
+                } else if (updateDateField) {
+                    // 한국어 날짜 형식 사용
+                    updateTimeText = updateDateField;
                 } else {
-                    console.warn('⚠️ 데이터 정보 업데이트 실패: updateTime/lastUpdated 데이터 없음', data);
+                    // 현재 시간 사용
+                    const now = new Date();
+                    updateTimeText = now.toLocaleString('ko-KR', {
+                        year: 'numeric',
+                        month: 'numeric',
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    }).replace(/\. /g, '. ').replace(/\.$/, '');
+                    console.warn('⚠️ 데이터에 시간 정보 없음. 현재 시간 사용:', updateTimeText);
                 }
+
+                // 헤더 업데이트
+                const updateInfoElement = document.getElementById('updateInfo');
+                if (updateInfoElement) {
+                    updateInfoElement.textContent = `📅 ${updateTimeText} 데이터 사용중`;
+                }
+
+                // Footer 업데이트
+                const dataInfoElement = document.querySelector('.data-info');
+                if (dataInfoElement) {
+                    dataInfoElement.textContent = `${updateTimeText} 데이터 사용중`;
+                }
+
             } catch (error) {
                 console.error('❌ 데이터 정보 업데이트 실패:', error);
             }
