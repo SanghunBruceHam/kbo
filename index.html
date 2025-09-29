@@ -19169,51 +19169,47 @@ KT 9:1 키움(H)`;
         }
     }
 
-    // 팀별 중계사 승률 비교를 위한 셀 스타일 반환 (상대적 그라데이션)
+    // 팀별 중계사 승률 비교를 위한 셀 스타일 반환 (절대적 승률 기준 그라데이션)
     function getBroadcasterCellStyleByTeam(winRate, teamWinRates) {
-        // 해당 팀의 모든 중계사 승률 중에서 상대적 위치 계산
-        const sortedRates = [...teamWinRates].sort((a, b) => b - a);
-        const maxRate = sortedRates[0];
-        const minRate = sortedRates[sortedRates.length - 1];
-
+        // 절대적 승률 기준으로 그라데이션 적용 (다른 테이블들과 동일한 기준)
         let backgroundColor, textColor, fontWeight = 'var(--font-weight-semibold)';
 
-        // 팀 내에서 상대적 순위 계산
-        const rank = sortedRates.indexOf(winRate) + 1;
-        const totalCount = teamWinRates.length;
-
-        if (rank === 1) {
-            // 팀 내 최고 승률
+        if (winRate >= 0.650) {
+            // 매우 높은 승률 (65% 이상)
             backgroundColor = 'var(--positive-bg-very-strong)';
             textColor = 'var(--positive-color)';
             fontWeight = 'var(--font-weight-bold)';
-        } else if (rank === 2) {
-            // 팀 내 2위
+        } else if (winRate >= 0.600) {
+            // 높은 승률 (60-65%)
             backgroundColor = 'var(--positive-bg-strong)';
             textColor = 'var(--positive-color)';
             fontWeight = 'var(--font-weight-bold)';
-        } else if (rank === 3) {
-            // 팀 내 3위
+        } else if (winRate >= 0.550) {
+            // 중상위 승률 (55-60%)
             backgroundColor = 'var(--positive-bg-medium)';
             textColor = 'var(--positive-color)';
-        } else if (rank <= Math.ceil(totalCount / 2)) {
-            // 팀 내 상위권
+        } else if (winRate >= 0.500) {
+            // 평균 이상 승률 (50-55%)
             backgroundColor = 'var(--positive-bg-light)';
             textColor = 'var(--positive-color)';
-        } else if (rank === totalCount) {
-            // 팀 내 최하위
-            backgroundColor = 'var(--negative-bg-very-strong)';
+        } else if (winRate >= 0.450) {
+            // 평균 이하 승률 (45-50%)
+            backgroundColor = 'var(--negative-bg-light)';
             textColor = 'var(--negative-color)';
-            fontWeight = 'var(--font-weight-bold)';
-        } else if (rank === totalCount - 1) {
-            // 팀 내 하위 2위
+        } else if (winRate >= 0.400) {
+            // 낮은 승률 (40-45%)
+            backgroundColor = 'var(--negative-bg-medium)';
+            textColor = 'var(--negative-color)';
+        } else if (winRate >= 0.350) {
+            // 매우 낮은 승률 (35-40%)
             backgroundColor = 'var(--negative-bg-strong)';
             textColor = 'var(--negative-color)';
             fontWeight = 'var(--font-weight-bold)';
         } else {
-            // 팀 내 하위권
-            backgroundColor = 'var(--negative-bg-medium)';
+            // 극도로 낮은 승률 (35% 미만)
+            backgroundColor = 'var(--negative-bg-very-strong)';
             textColor = 'var(--negative-color)';
+            fontWeight = 'var(--font-weight-bold)';
         }
 
         return `background: ${backgroundColor}; color: ${textColor}; font-weight: ${fontWeight}; text-align: center; border-radius: 4px; padding: 6px;`;
