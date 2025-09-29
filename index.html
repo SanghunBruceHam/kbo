@@ -19068,29 +19068,41 @@ KT 9:1 키움(H)`;
                     return;
                 }
 
-                // 중계사 기준 그라데이션 (해당 중계사의 팀별 성과 비교)
-                const broadcasterWinRates = teams.map(team =>
-                    allTeamsData[team]?.[broadcaster.key]?.winRate || 0
-                );
+                // 팀 기준 그라데이션 (해당 팀의 중계사별 성과 비교)
+                const teamWinRates = [
+                    allTeamsData[teamName]?.['kbs_2tv']?.winRate || 0,
+                    allTeamsData[teamName]?.['kbs_n_sports']?.winRate || 0,
+                    allTeamsData[teamName]?.['mbc_sports_plus']?.winRate || 0,
+                    allTeamsData[teamName]?.['mbc_tv']?.winRate || 0,
+                    allTeamsData[teamName]?.['sbs_sports']?.winRate || 0,
+                    allTeamsData[teamName]?.['sbs_tv']?.winRate || 0,
+                    allTeamsData[teamName]?.['spotv']?.winRate || 0,
+                    allTeamsData[teamName]?.['spotv2']?.winRate || 0
+                ];
 
                 // 디버깅: 한화 팀의 특정 중계사 데이터 확인
                 if (teamName === '한화' && (broadcaster.key === 'mbc_sports_plus' || broadcaster.key === 'sbs_sports')) {
-                    console.log(`🎨 ${teamName} - ${broadcaster.name} 그라데이션 상세:`, {
+                    console.log(`🎨 ${teamName} - ${broadcaster.name} 팀 기준 그라데이션:`, {
                         currentWinRate: teamData.winRate,
                         wins: teamData.wins,
                         losses: teamData.losses,
                         draws: teamData.draws,
                         totalGames: teamData.wins + teamData.losses + teamData.draws,
-                        broadcasterWinRates: broadcasterWinRates,
-                        allTeamsInThisBroadcaster: teams.map(team => ({
-                            team: team,
-                            winRate: allTeamsData[team]?.[broadcaster.key]?.winRate || 0,
-                            record: `${allTeamsData[team]?.[broadcaster.key]?.wins || 0}-${allTeamsData[team]?.[broadcaster.key]?.losses || 0}-${allTeamsData[team]?.[broadcaster.key]?.draws || 0}`
-                        }))
+                        teamWinRates: teamWinRates,
+                        teamAllBroadcasters: [
+                            { broadcaster: 'KBS 2TV', winRate: allTeamsData[teamName]?.['kbs_2tv']?.winRate || 0 },
+                            { broadcaster: 'KBS N SPORTS', winRate: allTeamsData[teamName]?.['kbs_n_sports']?.winRate || 0 },
+                            { broadcaster: 'MBC SPORTS+', winRate: allTeamsData[teamName]?.['mbc_sports_plus']?.winRate || 0 },
+                            { broadcaster: 'MBC TV', winRate: allTeamsData[teamName]?.['mbc_tv']?.winRate || 0 },
+                            { broadcaster: 'SBS SPORTS', winRate: allTeamsData[teamName]?.['sbs_sports']?.winRate || 0 },
+                            { broadcaster: 'SBS TV', winRate: allTeamsData[teamName]?.['sbs_tv']?.winRate || 0 },
+                            { broadcaster: 'SPOTV', winRate: allTeamsData[teamName]?.['spotv']?.winRate || 0 },
+                            { broadcaster: 'SPOTV2', winRate: allTeamsData[teamName]?.['spotv2']?.winRate || 0 }
+                        ]
                     });
                 }
 
-                const cellStyle = getBroadcasterCellStyleByBroadcaster(teamData.winRate, broadcasterWinRates);
+                const cellStyle = getBroadcasterCellStyleByTeam(teamData.winRate, teamWinRates);
 
                 const totalGames = teamData.wins + teamData.losses + teamData.draws;
                 html += `
