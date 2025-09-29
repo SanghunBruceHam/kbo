@@ -10,8 +10,8 @@ const path = require('path');
 const { spawn } = require('child_process');
 
 // PathManager와 Environment 불러오기
-const jsPathManager = require('../config/paths');
-const environment = require('../config/environment');
+const jsPathManager = require('../../config/paths');
+const environment = require('../../config/environment');
 
 console.log('🔍 Cross-Platform 경로 관리 시스템 통합 테스트 시작...\n');
 
@@ -59,7 +59,7 @@ console.log('\n📋 Python PathManager 테스트...');
 function testPythonPathManager() {
     return new Promise((resolve, reject) => {
         const pythonPath = process.platform === 'win32' ? 'python' : 'python3';
-        const testScript = path.join(__dirname, '..', 'config', 'paths.py');
+        const testScript = path.join(__dirname, '..', '..', 'config', 'paths.py');
         
         const pythonProcess = spawn(pythonPath, [testScript], {
             cwd: jsPathManager.projectRoot,
