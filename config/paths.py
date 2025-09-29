@@ -17,7 +17,7 @@ class PathManager:
         self.project_root = self._find_project_root()
         self.magic_number_root = self.project_root / 'magic-number'
         self.data_dir = self.magic_number_root / 'data'
-        self.js_dir = self.magic_number_root / 'js'
+        self.js_dir = self.magic_number_root / 'scripts'
         self.crawlers_dir = self.magic_number_root / 'crawlers'
         self.css_dir = self.magic_number_root / 'css'
         self.images_dir = self.magic_number_root / 'images'
