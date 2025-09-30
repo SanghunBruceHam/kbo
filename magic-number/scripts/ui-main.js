@@ -3874,8 +3874,8 @@ const kboTeams = {
             eligibleTeams.forEach((team, index) => {
                 const isLast = index === eligibleTeams.length - 1;
                 // 팝업(전체 팀)에서는 더 작은 셀 폭 사용
-                const cellWidth = '95px';
-                const finalCellWidth = '110px';
+                const cellWidth = '80px';
+                const finalCellWidth = '100px';
                 html += `
                     <th style="
                         width: ${cellWidth}; 
