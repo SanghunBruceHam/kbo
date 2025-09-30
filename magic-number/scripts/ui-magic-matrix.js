@@ -181,24 +181,14 @@ function evaluateRankOutcomes(row, currentRank) {
             minClinchRank = rank;
         }
 
-        if (!bestFound) {
-            const canReachRank = yTieOK > 0;
-            if (rank < currentRank && canReachRank) {
-                bestPossibleRank = rank;
-                bestFound = true;
-            } else if (rank === currentRank && canReachRank) {
-                bestPossibleRank = currentRank;
-                bestFound = true;
-            }
+        if (!bestFound && rank < currentRank && yTieOK > 0) {
+            bestPossibleRank = rank;
+            bestFound = true;
         }
 
         if (!worstFound && rank >= currentRank && xStrict === 0) {
             worstPossibleRank = rank;
             worstFound = true;
-        }
-
-        if (minClinchRank !== null && bestFound && worstFound) {
-            break;
         }
     }
 
@@ -353,7 +343,17 @@ function renderMatrixTable() {
             continue;
         }
 
-        const precomputedBanner = precomputedLookup?.get(row.team) ?? null;
+        // precomputed 데이터에서 배너 정보 가져오기
+        function getBannerFromPrecomputed(teamName) {
+            if (!window.precomputedMatrixData?.precomputedMatrixResults?.matrixData) {
+                return null;
+            }
+            const teamData = window.precomputedMatrixData.precomputedMatrixResults.matrixData
+                .find(t => t.team === teamName);
+            return teamData?.banner || null;
+        }
+
+        const precomputedBanner = getBannerFromPrecomputed(row.team);
         const bannerText = `${precomputedBanner?.stage || ''} ${precomputedBanner?.sub || ''}`.trim();
         const isPostseasonFailBanner = /포스트시즌\s*진출\s*실패/.test(bannerText);
         const finalRankMatch = bannerText.match(/(\d+)위\s*확정/);
