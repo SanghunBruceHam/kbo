@@ -3972,7 +3972,7 @@ const kboTeams = {
                                 background: ${remainingWinRateBg};
                                 color: ${remainingWinRateTextColor};
                             ">
-                                <div class="cell-main">${teamScenario.wins}-${teamScenario.losses}</div>
+                                <div class="cell-main">${teamScenario.wins}승 ${teamScenario.losses}패</div>
                                 <div class="cell-sub">${remainingWinRate.toFixed(3)}</div>
                             </td>`;
                             
@@ -3986,7 +3986,7 @@ const kboTeams = {
                                 color: ${finalWinRateTextColor};
                                 ${borderStyle}
                             ">
-                                <div class="cell-main">${finalWins}-${finalLosses}-${finalDraws}</div>
+                                <div class="cell-main">${finalWins}승 ${finalLosses}패 ${finalDraws}무</div>
                                 <div class="cell-sub">${teamScenario.finalWinRate.toFixed(3)}</div>
                             </td>`;
                         } else {
