@@ -2353,7 +2353,9 @@ const kboTeams = {
                 }
                 
                 // 팀 컬러 클래스 적용
-                if (poMagicNumber === 0) {
+                if (poTragicNumber === 0) {
+                    row.classList.add(`playoff-eliminated`);
+                } else if (poMagicNumber === 0) {
                     // 한글 팀명을 영문 클래스명으로 매핑
                     const teamClassMap = {
                         'LG': 'lg',
@@ -2369,11 +2371,9 @@ const kboTeams = {
                     };
                     const teamClass = teamClassMap[team.team] || team.team.toLowerCase();
                     row.classList.add(`playoff-confirmed-${teamClass}`);
-                } else if (poTragicNumber === 0) {
-                    row.classList.add(`playoff-eliminated`);
                 }
-                
-                
+
+
                 tbody.appendChild(row);
             });
             
