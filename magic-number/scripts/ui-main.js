@@ -3874,8 +3874,8 @@ const kboTeams = {
             eligibleTeams.forEach((team, index) => {
                 const isLast = index === eligibleTeams.length - 1;
                 // 팝업(전체 팀)에서는 더 작은 셀 폭 사용
-                const cellWidth = '80px';
-                const finalCellWidth = '100px';
+                const cellWidth = '70px';
+                const finalCellWidth = '92px';
                 html += `
                     <th style="
                         width: ${cellWidth}; 
@@ -3965,7 +3965,7 @@ const kboTeams = {
                             const remainingWinRateTextColor = getWinRateTextColor(remainingWinRate);
                             
                             // 잔여경기 컬럼
-                            const cellWidth = '95px';  // 팝업에서는 더 작게
+                            const cellWidth = '60px';  // 팝업에서는 더 작게
                             html += `<td class="wins-cell" style="
                                 width: ${cellWidth};
                                 min-width: ${cellWidth};
@@ -3977,7 +3977,7 @@ const kboTeams = {
                             </td>`;
                             
                             // 최종성적 컬럼 (더 넓게)
-                            const finalCellWidth = '110px';  // 팝업에서는 더 작게
+                            const finalCellWidth = '90px';  // 팝업에서는 더 작게
                             const borderStyle = teamIndex === 4 ? 'border-right: 4px solid #FF6B35;' : (!isLast ? 'border-right: 2px solid #dee2e6;' : '');
                             html += `<td class="final-cell" style="
                                 width: ${finalCellWidth};
@@ -4387,16 +4387,16 @@ const kboTeams = {
                               line-height: 1.1;
                               white-space: nowrap;
                               vertical-align: middle;
-                              max-width: 60px;
-                              width: 60px;
+                              max-width: 70px;
+                              width: 70px;
                             }
                             .scenario-table-compact .final-cell {
                               padding: 2px 2px;
                               line-height: 1.1;
                               white-space: nowrap;
                               vertical-align: middle;
-                              max-width: 65px;
-                              width: 65px;
+                              max-width: 92px;
+                              width: 92px;
                             }
                             .scenario-table-compact .cell-main {
                               font-size: 0.8rem;
@@ -4425,14 +4425,14 @@ const kboTeams = {
                               max-width: 50px !important;
                             }
                             .scenario-table-compact.popup-mode .wins-cell {
-                              min-width: 65px !important;
-                              width: 65px !important;
-                              max-width: 65px !important;
+                              min-width: 60px !important;
+                              width: 60px !important;
+                              max-width: 60px !important;
                             }
                             .scenario-table-compact.popup-mode .final-cell {
-                              min-width: 88.89px !important;
-                              width: 88.89px !important;
-                              max-width: 88.89px !important;
+                              min-width: 90px !important;
+                              width: 90px !important;
+                              max-width: 90px !important;
                             }
                             .scenario-table-compact .header-rank {
                               background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%);
