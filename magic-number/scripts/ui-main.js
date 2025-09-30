@@ -1045,34 +1045,36 @@ const kboTeams = {
             playoff: { column: '', direction: '' }
         };
 
-        // 테이블 정렬 함수
-        function sortTable(tableType, column) {
-            const currentSort = sortState[tableType];
-            
-            // 정렬 방향 결정
-            let direction = 'asc';
-            if (currentSort.column === column) {
-                direction = currentSort.direction === 'asc' ? 'desc' : 'asc';
-            }
-            
-            // 이전 헤더의 정렬 표시 제거
+        function updateSortIndicators(tableType, column, direction) {
             document.querySelectorAll(`#${tableType}-table .sortable-header`).forEach(header => {
                 header.classList.remove('sort-asc', 'sort-desc');
                 const arrow = header.querySelector('.sort-arrow');
                 if (arrow) arrow.textContent = '↕';
             });
-            
-            // 현재 헤더에 정렬 표시 추가
+
             const currentHeader = document.querySelector(`#${tableType}-table .sortable-header[data-sort="${column}"]`);
             if (currentHeader) {
                 currentHeader.classList.add(direction === 'asc' ? 'sort-asc' : 'sort-desc');
                 const arrow = currentHeader.querySelector('.sort-arrow');
                 if (arrow) arrow.textContent = direction === 'asc' ? '↑' : '↓';
             }
-            
+        }
+
+        // 테이블 정렬 함수
+        function sortTable(tableType, column) {
+            const currentSort = sortState[tableType];
+
+            // 정렬 방향 결정
+            let direction = 'asc';
+            if (currentSort.column === column) {
+                direction = currentSort.direction === 'asc' ? 'desc' : 'asc';
+            }
+
+            updateSortIndicators(tableType, column, direction);
+
             // 정렬 상태 업데이트
             sortState[tableType] = { column, direction };
-            
+
             // 테이블 정렬 실행
             if (tableType === 'standings') {
                 sortStandingsTable(column, direction);
@@ -2372,10 +2374,14 @@ const kboTeams = {
                     const teamClass = teamClassMap[team.team] || team.team.toLowerCase();
                     row.classList.add(`playoff-confirmed-${teamClass}`);
                 }
-
+                
 
                 tbody.appendChild(row);
             });
+
+            // 기본 정렬 상태를 순위 오름차순으로 설정
+            sortState.playoff = { column: 'rank', direction: 'asc' };
+            updateSortIndicators('playoff', 'rank', 'asc');
             
             
             } catch (error) {
