@@ -2079,12 +2079,14 @@ const kboTeams = {
                 const teamMatrixData = matrixRawData?.find(r => r.team === team.team);
 
                 if (teamMatrixData) {
-                    // 매직/트래직 매트릭스 데이터 직접 사용
-                    poMagicNumber = teamMatrixData.x5_strict_raw;
-                    poTragicNumber = teamMatrixData.y5_tieOK_raw; // 5위 트래직도 tie okay 사용
+                    // 매직/트래직 매트릭스 데이터 직접 사용 (잔여 경기 수보다 큰 요구 승수는 R로 캡핑)
+                    poMagicNumber = teamMatrixData.x5_strict;
+                    poTragicNumber = teamMatrixData.y5_tieOK;
                         
                         // 표시 형식 지정 - 최대 가능 순위 로직으로 확정 조건 계산
-                        if (poMagicNumber === 0) {
+                        if (poTragicNumber === 0) {
+                            maxWinsMagicDisplay = '<span style="color: #e74c3c;">탈락</span>';
+                        } else if (poMagicNumber === 0) {
                             // PS 매직넘버 0 = 포스트시즌 진출 확정
                             // 전승했을 때 도달 가능한 최고 순위를 계산하여 포스트시즌 조건 결정
                             let conditionText = 'PS 진출 확정'; // 기본값
@@ -2173,18 +2175,16 @@ const kboTeams = {
                             }
                             
                             maxWinsMagicDisplay = `<span style="color: #2ecc71;">${conditionText}</span>`;
-                        } else if (poTragicNumber === 0) {
-                            maxWinsMagicDisplay = '<span style="color: #e74c3c;">탈락</span>';
                         } else if (remainingGames < poMagicNumber) {
                             maxWinsMagicDisplay = `${poMagicNumber} (자력 불가)`;
                         } else {
                             maxWinsMagicDisplay = poMagicNumber;
                         }
                         
-                        if (poMagicNumber === 0) {
-                            poTragicDisplay = '<span style="color: #2ecc71;">진출</span>';
-                        } else if (poTragicNumber === 0) {
+                        if (poTragicNumber === 0) {
                             poTragicDisplay = '<span style="color: #e74c3c;">탈락</span>';
+                        } else if (poMagicNumber === 0) {
+                            poTragicDisplay = '<span style="color: #2ecc71;">진출</span>';
                         } else {
                             poTragicDisplay = poTragicNumber;
                         }
