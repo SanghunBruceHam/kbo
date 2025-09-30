@@ -1665,12 +1665,17 @@ const kboTeams = {
 
             // 우승 가능 최소 승수를 달성하기 위한 필요 승률 계산
             const neededWinsForMinWins = championshipMagic;
-            const requiredWinPct = remainingGames > 0 ? (neededWinsForMinWins / remainingGames) : 0;
+            const requiredWinPct = remainingGames > 0
+                ? (neededWinsForMinWins / remainingGames)
+                : (neededWinsForMinWins > 0 ? Number.POSITIVE_INFINITY : 0);
             
             // 144경기 체제 역대 1위 평균 기준 필요 승률 계산 (2015-2024: 86.9승)
             const historicalFirstPlaceWins = 87; // 2015-2024년 1위팀 평균 승수
             const neededWinsForHistorical = Math.max(0, historicalFirstPlaceWins - firstPlace.wins);
-            const historicalRequiredWinPct = remainingGames > 0 ? (neededWinsForHistorical / remainingGames) : 0;
+            const historicalRequiredWinPct = remainingGames > 0
+                ? (neededWinsForHistorical / remainingGames)
+                : (neededWinsForHistorical > 0 ? Number.POSITIVE_INFINITY : 0);
+            const canReachHistoricalWins = maxPossibleWins >= historicalFirstPlaceWins;
             
             // 예상 우승확정일 계산
             let clinchDateText = '';
@@ -1719,8 +1724,26 @@ const kboTeams = {
             const teamColor = teamData?.color || '#FF6B35';
             championshipMagicElement.style.color = teamColor;
             championshipMagicElement.style.textShadow = `0 2px 8px ${teamColor}40`;
-            document.getElementById('required-winpct').textContent = neededWinsForMinWins > 0 ? `${requiredWinPct.toFixed(3)}` : '달성';
-            document.getElementById('historical-required-winpct').textContent = neededWinsForHistorical > 0 ? `${historicalRequiredWinPct.toFixed(3)}` : '달성';
+            let requiredWinPctText;
+            if (neededWinsForMinWins === 0) {
+                requiredWinPctText = '달성';
+            } else if (!Number.isFinite(requiredWinPct) || requiredWinPct > 1) {
+                requiredWinPctText = '불가능';
+            } else {
+                requiredWinPctText = requiredWinPct.toFixed(3);
+            }
+
+            let historicalRequiredWinPctText;
+            if (neededWinsForHistorical === 0) {
+                historicalRequiredWinPctText = '달성';
+            } else if (!canReachHistoricalWins || !Number.isFinite(historicalRequiredWinPct) || historicalRequiredWinPct > 1) {
+                historicalRequiredWinPctText = '불가능';
+            } else {
+                historicalRequiredWinPctText = historicalRequiredWinPct.toFixed(3);
+            }
+
+            document.getElementById('required-winpct').textContent = requiredWinPctText;
+            document.getElementById('historical-required-winpct').textContent = historicalRequiredWinPctText;
             // 모바일에서 줄바꿈을 위해 개행문자 추가 (한 줄만)
             let formattedClinchDate = clinchDateText;
             
@@ -1890,8 +1913,11 @@ const kboTeams = {
                     
                     // 역대 1위 기준 (87승) 계산
                     const targetWins = 87;
-                    const neededWinsFor87 = Math.max(0, targetWins - team.wins);
-                    const requiredWinRate = team.remainingGames > 0 ? (neededWinsFor87 / team.remainingGames * 100) : 0;
+                    const rawWinsNeeded = targetWins - team.wins;
+                    const neededWinsFor87 = Math.max(0, rawWinsNeeded);
+                    const requiredWinRate = team.remainingGames > 0
+                        ? (neededWinsFor87 / team.remainingGames)
+                        : (neededWinsFor87 > 0 ? Number.POSITIVE_INFINITY : 0);
                     const can87Wins = maxPossibleWins >= targetWins;
                     
                     // 상태는 데이터에서 가져오기
@@ -1933,7 +1959,7 @@ const kboTeams = {
                         }
                         const textStr = String(text);
                         if (textStr === '불가능') return 'text-impossible';
-                        if (textStr === '가능' || textStr === '현재 1위') return 'text-possible';
+                        if (textStr === '가능' || textStr === '현재 1위' || textStr === '달성') return 'text-possible';
                         return '';
                     };
 
@@ -1957,8 +1983,23 @@ const kboTeams = {
                         magicText = championshipMagic;
                     }
                     const tragicText = championshipTragic === 0 ? '불가능' : championshipTragic;
-                    const winRateText = requiredWinRate > 100 ? '불가능' : (requiredWinRate / 100).toFixed(3);
-                    const can87Text = can87Wins ? '가능' : '불가능';
+                    let winRateText;
+                    if (!can87Wins || !Number.isFinite(requiredWinRate) || requiredWinRate > 1) {
+                        winRateText = '불가능';
+                    } else if (neededWinsFor87 === 0) {
+                        winRateText = '달성';
+                    } else {
+                        winRateText = requiredWinRate.toFixed(3);
+                    }
+
+                    let can87Text;
+                    if (!can87Wins) {
+                        can87Text = '불가능';
+                    } else if (neededWinsFor87 === 0) {
+                        can87Text = '달성';
+                    } else {
+                        can87Text = '가능';
+                    }
 
                     const displayGameDiff = team.team === firstPlaceTeam.team ? '-' : formatGamesBehind(gamesBehind);
                     const teamClass = teamClassMap[team.team] || '';
