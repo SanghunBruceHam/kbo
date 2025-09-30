@@ -2177,7 +2177,7 @@ const kboTeams = {
                             }
                             
                             maxWinsMagicDisplay = `<span style="color: #2ecc71;">${conditionText}</span>`;
-                        } else if (remainingGames < poMagicNumber) {
+                        } else if (remainingGames <= poMagicNumber) {
                             maxWinsMagicDisplay = `${poMagicNumber} (자력 불가)`;
                         } else {
                             maxWinsMagicDisplay = poMagicNumber;
@@ -2222,47 +2222,6 @@ const kboTeams = {
                     historicMagicDisplay = historicPlayoffMagic;
                 }
                 
-                // 진출상황을 72승 기준으로 명확하게 정의
-                let displayStatus = '';
-                let statusColor = '';
-                
-                // 72승 기준으로 진출/탈락 확정 여부 판단
-                if (team.wins >= 72) {
-                    // 이미 72승 달성
-                    displayStatus = '진출 확정';
-                    statusColor = '#2ecc71'; // 밝은 녹색
-                } else if (maxPossibleWins < 72) {
-                    // 전승해도 72승 불가능
-                    displayStatus = '탈락 확정';
-                    statusColor = '#95a5a6'; // 회색
-                } else {
-                    // 72승 가능하지만 미달성 - 필요 승률에 따라 구분
-                    const neededWins = 72 - team.wins;
-                    const actualRequiredRate = neededWins / remainingGames;
-                    
-                    if (actualRequiredRate > 0.9) {
-                        displayStatus = '극히 어려움';
-                        statusColor = '#c0392b'; // 진한 빨간색
-                    } else if (actualRequiredRate > 0.75) {
-                        displayStatus = '매우 어려움';
-                        statusColor = '#e74c3c'; // 빨간색
-                    } else if (actualRequiredRate > 0.6) {
-                        displayStatus = '어려움';
-                        statusColor = '#e67e22'; // 진한 주황색
-                    } else if (actualRequiredRate > 0.45) {
-                        displayStatus = '경합중';
-                        statusColor = '#f39c12'; // 주황색
-                    } else if (actualRequiredRate > 0.3) {
-                        displayStatus = '유력';
-                        statusColor = '#f1c40f'; // 노란색
-                    } else {
-                        displayStatus = '매우 유력';
-                        statusColor = '#27ae60'; // 녹색
-                    }
-                }
-                
-                let requiredWinPctColor = '#666';
-
                 const row = document.createElement('tr');
                 
                 // 팀명에 로고 추가
@@ -2288,7 +2247,7 @@ const kboTeams = {
                     poRequiredWinPct = '<span style="color: #2ecc71;">진출</span>';
                 } else if (poTragicNumber === 0) {
                     poRequiredWinPct = '<span style="color: #e74c3c;">탈락</span>';
-                } else if (remainingGames < poMagicNumber) {
+                } else if (remainingGames <= poMagicNumber) {
                     poRequiredWinPct = '자력 불가';
                 } else if (poMagicNumber !== '-' && poMagicNumber > 0 && remainingGames > 0) {
                     const requiredRate = poMagicNumber / remainingGames;
@@ -2380,9 +2339,12 @@ const kboTeams = {
             });
 
             // 기본 정렬 상태를 순위 오름차순으로 설정
+            sortPlayoffTable('rank', 'asc');
             sortState.playoff = { column: 'rank', direction: 'asc' };
             updateSortIndicators('playoff', 'rank', 'asc');
-            
+            const playoffTable = document.getElementById('playoff-table');
+            if (playoffTable) playoffTable.classList.remove('sorting');
+
             
             } catch (error) {
                 logger.error('❌ 포스트시즌 진출 조건 렌더링 실패:', error);
