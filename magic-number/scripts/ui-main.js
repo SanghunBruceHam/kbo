@@ -3874,8 +3874,8 @@ const kboTeams = {
             eligibleTeams.forEach((team, index) => {
                 const isLast = index === eligibleTeams.length - 1;
                 // 팝업(전체 팀)에서는 더 작은 셀 폭 사용
-                const cellWidth = '70px';
-                const finalCellWidth = '92px';
+                const cellWidth = '60px';
+                const finalCellWidth = '90px';
                 html += `
                     <th style="
                         width: ${cellWidth}; 
@@ -4387,16 +4387,16 @@ const kboTeams = {
                               line-height: 1.1;
                               white-space: nowrap;
                               vertical-align: middle;
-                              max-width: 70px;
-                              width: 70px;
+                              max-width: 60px;
+                              width: 60px;
                             }
                             .scenario-table-compact .final-cell {
                               padding: 2px 2px;
                               line-height: 1.1;
                               white-space: nowrap;
                               vertical-align: middle;
-                              max-width: 92px;
-                              width: 92px;
+                              max-width: 90px;
+                              width: 90px;
                             }
                             .scenario-table-compact .cell-main {
                               font-size: 0.8rem;
