@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "lastUpdated": "2025-10-01T08:30:10.720Z",
+    "lastUpdated": "2025-10-01T08:46:59.781Z",
     "version": "1.0.0",
     "description": "루트 index.html의 사전 계산된 UI 데이터"
   },
@@ -92,42 +92,10 @@
       "두산",
       "키움"
     ],
-    "lastCalculated": "2025-10-01T08:30:10.720Z"
+    "lastCalculated": "2025-10-01T08:46:59.781Z"
   },
   "precomputedHalfSeasonStats": {
     "allTeamsHalfStats": {
-      "SSG": {
-        "firstHalf": {
-          "wins": 43,
-          "losses": 55,
-          "draws": 0,
-          "games": 98,
-          "winRate": 0.4387755102040816
-        },
-        "secondHalf": {
-          "wins": 31,
-          "losses": 33,
-          "draws": 0,
-          "games": 64,
-          "winRate": 0.484375
-        }
-      },
-      "두산": {
-        "firstHalf": {
-          "wins": 36,
-          "losses": 62,
-          "draws": 0,
-          "games": 98,
-          "winRate": 0.3673469387755102
-        },
-        "secondHalf": {
-          "wins": 25,
-          "losses": 36,
-          "draws": 0,
-          "games": 61,
-          "winRate": 0.4098360655737705
-        }
-      },
       "LG": {
         "firstHalf": {
           "wins": 48,
@@ -224,6 +192,38 @@
           "winRate": 0.5
         }
       },
+      "SSG": {
+        "firstHalf": {
+          "wins": 43,
+          "losses": 55,
+          "draws": 0,
+          "games": 98,
+          "winRate": 0.4387755102040816
+        },
+        "secondHalf": {
+          "wins": 31,
+          "losses": 33,
+          "draws": 0,
+          "games": 64,
+          "winRate": 0.484375
+        }
+      },
+      "두산": {
+        "firstHalf": {
+          "wins": 36,
+          "losses": 62,
+          "draws": 0,
+          "games": 98,
+          "winRate": 0.3673469387755102
+        },
+        "secondHalf": {
+          "wins": 25,
+          "losses": 36,
+          "draws": 0,
+          "games": 61,
+          "winRate": 0.4098360655737705
+        }
+      },
       "삼성": {
         "firstHalf": {
           "wins": 43,
@@ -289,7 +289,7 @@
         }
       }
     },
-    "lastCalculated": "2025-10-01T08:30:10.720Z"
+    "lastCalculated": "2025-10-01T08:46:59.781Z"
   },
   "scheduleData": {
     "remainingGames": [],
