@@ -2072,6 +2072,8 @@ const kboTeams = {
                 // calc-magic-numbers.json에서 생성된 포스트시즌 데이터 가져오기
                 let poMagicNumber = '-';
                 let poTragicNumber = '-';
+                let poMagicNumberCapped = '-';
+                let poTragicNumberCapped = '-';
                 let maxWinsMagicDisplay = '-';
                 let poTragicDisplay = '-';
 
@@ -2081,116 +2083,129 @@ const kboTeams = {
                 const teamMatrixData = matrixRawData?.find(r => r.team === team.team);
 
                 if (teamMatrixData) {
-                    // 매직/트래직 매트릭스 데이터 직접 사용 (잔여 경기 수보다 큰 요구 승수는 R로 캡핑)
-                    poMagicNumber = teamMatrixData.x5_strict;
-                    poTragicNumber = teamMatrixData.y5_tieOK;
-                        
-                        // 표시 형식 지정 - 최대 가능 순위 로직으로 확정 조건 계산
-                        if (poTragicNumber === 0) {
-                            maxWinsMagicDisplay = '<span style="color: #e74c3c;">탈락</span>';
-                        } else if (poMagicNumber === 0) {
-                            // PS 매직넘버 0 = 포스트시즌 진출 확정
-                            // 전승했을 때 도달 가능한 최고 순위를 계산하여 포스트시즌 조건 결정
-                            let conditionText = 'PS 진출 확정'; // 기본값
-                            
-                            // 최소 가능 순위 계산 (전패했을 때) - index.html 로직과 동일
-                            const remainingGames = team.remainingGames || (144 - team.games);
-                            const minPossibleWins = team.wins; // 전패시 승수는 그대로
-                            let minRank = 1; // 1위부터 시작
-                            const myMinLosses = team.losses + remainingGames; // 내 전패시 패수
-                            const myMinWinRate = minPossibleWins / (minPossibleWins + myMinLosses); // 내 최저 승률
-                            
-                            // 다른 팀들과 비교하여 최소 순위 계산
-                            if (currentStandings) {
-                                currentStandings.forEach(otherTeam => {
-                                    if (otherTeam.team === team.team) return;
-                                    const otherRemainingGames = otherTeam.remainingGames || (144 - otherTeam.games);
-                                    const otherMaxWins = otherTeam.wins + otherRemainingGames; // 상대팀 전승시
-                                    const otherMaxLosses = otherTeam.losses; // 상대팀 전승시 패수는 그대로
-                                    const otherMaxWinRate = otherMaxWins / (otherMaxWins + otherMaxLosses); // 상대팀 최고 승률
-                                    
-                                    // KBO 동률 처리 규칙 적용 (승률 → 승패차)
-                                    if (myMinWinRate < otherMaxWinRate) {
+                    const rawMagic = teamMatrixData.x5_strict_raw ?? teamMatrixData.x5_strict;
+                    const rawTragic = teamMatrixData.y5_tieOK_raw ?? teamMatrixData.y5_tieOK;
+                    poMagicNumberCapped = typeof teamMatrixData.x5_strict === 'number' ? teamMatrixData.x5_strict : '-';
+                    poTragicNumberCapped = typeof teamMatrixData.y5_tieOK === 'number' ? teamMatrixData.y5_tieOK : '-';
+                    poMagicNumber = typeof rawMagic === 'number' ? rawMagic : poMagicNumberCapped;
+                    poTragicNumber = typeof rawTragic === 'number' ? rawTragic : poTragicNumberCapped;
+
+                    const hasMagic = typeof poMagicNumber === 'number' && !Number.isNaN(poMagicNumber);
+                    const hasTragic = typeof poTragicNumber === 'number' && !Number.isNaN(poTragicNumber);
+                    const displayMagicNumber = hasMagic && typeof poMagicNumberCapped === 'number' && !Number.isNaN(poMagicNumberCapped)
+                        ? poMagicNumberCapped
+                        : poMagicNumber;
+                    const displayTragicNumber = hasTragic && typeof poTragicNumberCapped === 'number' && !Number.isNaN(poTragicNumberCapped)
+                        ? poTragicNumberCapped
+                        : poTragicNumber;
+
+                    if (hasMagic && poMagicNumber === 0) {
+                        // PS 매직넘버 0 = 포스트시즌 진출 확정
+                        // 전승했을 때 도달 가능한 최고 순위를 계산하여 포스트시즌 조건 결정
+                        let conditionText = 'PS 진출 확정'; // 기본값
+
+                        // 최소 가능 순위 계산 (전패했을 때) - index.html 로직과 동일
+                        const remainingGames = team.remainingGames || (144 - team.games);
+                        const minPossibleWins = team.wins; // 전패시 승수는 그대로
+                        let minRank = 1; // 1위부터 시작
+                        const myMinLosses = team.losses + remainingGames; // 내 전패시 패수
+                        const myMinWinRate = minPossibleWins / (minPossibleWins + myMinLosses); // 내 최저 승률
+
+                        // 다른 팀들과 비교하여 최소 순위 계산
+                        if (currentStandings) {
+                            currentStandings.forEach(otherTeam => {
+                                if (otherTeam.team === team.team) return;
+                                const otherRemainingGames = otherTeam.remainingGames || (144 - otherTeam.games);
+                                const otherMaxWins = otherTeam.wins + otherRemainingGames; // 상대팀 전승시
+                                const otherMaxLosses = otherTeam.losses; // 상대팀 전승시 패수는 그대로
+                                const otherMaxWinRate = otherMaxWins / (otherMaxWins + otherMaxLosses); // 상대팀 최고 승률
+
+                                // KBO 동률 처리 규칙 적용 (승률 → 승패차)
+                                if (myMinWinRate < otherMaxWinRate) {
+                                    minRank++;
+                                } else if (Math.abs(myMinWinRate - otherMaxWinRate) < 0.0001) {
+                                    // 승률이 같을 때 승패차 비교
+                                    const myMinMargin = minPossibleWins - myMinLosses; // 내 전패시 승패차
+                                    const otherMaxMargin = otherMaxWins - otherMaxLosses; // 상대 전승시 승패차
+
+                                    if (myMinMargin < otherMaxMargin) {
                                         minRank++;
-                                    } else if (Math.abs(myMinWinRate - otherMaxWinRate) < 0.0001) {
-                                        // 승률이 같을 때 승패차 비교
-                                        const myMinMargin = minPossibleWins - myMinLosses; // 내 전패시 승패차
-                                        const otherMaxMargin = otherMaxWins - otherMaxLosses; // 상대 전승시 승패차
-                                        
-                                        if (myMinMargin < otherMaxMargin) {
-                                            minRank++;
-                                        } else if (Math.abs(myMinMargin - otherMaxMargin) < 0.0001) {
-                                            // 승률과 승패차가 모두 같을 경우, 최악의 경우 가정
-                                            minRank++; // 보수적으로 상대방이 위에 있다고 가정 (최소순위는 가장 나쁜 경우)
-                                        }
+                                    } else if (Math.abs(myMinMargin - otherMaxMargin) < 0.0001) {
+                                        // 승률과 승패차가 모두 같을 경우, 최악의 경우 가정
+                                        minRank++; // 보수적으로 상대방이 위에 있다고 가정 (최소순위는 가장 나쁜 경우)
                                     }
-                                });
-                            }
-                            
-                            // 순위는 10위를 넘을 수 없음
-                            minRank = Math.min(minRank, 10);
-                            
-                            
-                            // 최대 가능 순위도 계산해서 확정/확보 구분
-                            const maxPossibleWins = team.wins + remainingGames;
-                            let maxRank = 1; // 1위부터 시작
-                            const myMaxLosses = team.losses;
-                            const myMaxWinRate = maxPossibleWins / (maxPossibleWins + myMaxLosses);
-                            
-                            if (currentStandings) {
-                                currentStandings.forEach(otherTeam => {
-                                    if (otherTeam.team === team.team) return;
-                                    const otherRemainingGames = otherTeam.remainingGames || (144 - otherTeam.games);
-                                    const otherMinWins = otherTeam.wins; // 상대팀 전패시
-                                    const otherMinLosses = otherTeam.losses + otherRemainingGames;
-                                    const otherMinWinRate = otherMinWins / (otherMinWins + otherMinLosses);
-                                    
-                                    if (myMaxWinRate < otherMinWinRate) {
+                                }
+                            });
+                        }
+
+                        // 순위는 10위를 넘을 수 없음
+                        minRank = Math.min(minRank, 10);
+
+
+                        // 최대 가능 순위도 계산해서 확정/확보 구분
+                        const maxPossibleWinsCalc = team.wins + remainingGames;
+                        let maxRank = 1; // 1위부터 시작
+                        const myMaxLosses = team.losses;
+                        const myMaxWinRate = maxPossibleWinsCalc / (maxPossibleWinsCalc + myMaxLosses);
+
+                        if (currentStandings) {
+                            currentStandings.forEach(otherTeam => {
+                                if (otherTeam.team === team.team) return;
+                                const otherRemainingGames = otherTeam.remainingGames || (144 - otherTeam.games);
+                                const otherMinWins = otherTeam.wins; // 상대팀 전패시
+                                const otherMinLosses = otherTeam.losses + otherRemainingGames;
+                                const otherMinWinRate = otherMinWins / (otherMinWins + otherMinLosses);
+
+                                if (myMaxWinRate < otherMinWinRate) {
+                                    maxRank++;
+                                } else if (Math.abs(myMaxWinRate - otherMinWinRate) < 0.0001) {
+                                    const myMaxMargin = maxPossibleWinsCalc - myMaxLosses;
+                                    const otherMinMargin = otherMinWins - otherMinLosses;
+                                    if (myMaxMargin < otherMinMargin) {
                                         maxRank++;
-                                    } else if (Math.abs(myMaxWinRate - otherMinWinRate) < 0.0001) {
-                                        const myMaxMargin = maxPossibleWins - myMaxLosses;
-                                        const otherMinMargin = otherMinWins - otherMinLosses;
-                                        if (myMaxMargin < otherMinMargin) {
-                                            maxRank++;
-                                        } else if (Math.abs(myMaxMargin - otherMinMargin) < 0.0001) {
-                                            maxRank++;
-                                        }
+                                    } else if (Math.abs(myMaxMargin - otherMinMargin) < 0.0001) {
+                                        maxRank++;
                                     }
-                                });
-                            }
-                            maxRank = Math.min(maxRank, 10);
-                            
-                            // 최소=최대 순위가 같으면 확정, 다르면 확보
-                            const isFixed = (minRank === maxRank);
-                            
-                            // 순위에 따른 포스트시즌 조건 설정
-                            if (minRank === 1) {
-                                conditionText = isFixed ? 'KS 확정' : 'KS 확보';
-                            } else if (minRank === 2) {
-                                conditionText = isFixed ? 'PO 확정' : 'PO 확보';
-                            } else if (minRank === 3) {
-                                conditionText = isFixed ? '준 PO 확정' : '준 PO 확보';
-                            } else if (minRank === 4 || minRank === 5) {
-                                conditionText = isFixed ? 'WC 확정' : 'WC 확보';
-                            } else {
-                                conditionText = 'PS 진출 확정';
-                            }
-                            
-                            maxWinsMagicDisplay = `<span style="color: #2ecc71;">${conditionText}</span>`;
-                        } else if (remainingGames <= poMagicNumber) {
-                            maxWinsMagicDisplay = `${poMagicNumber} (자력 불가)`;
-                        } else {
-                            maxWinsMagicDisplay = poMagicNumber;
+                                }
+                            });
                         }
-                        
-                        if (poTragicNumber === 0) {
-                            poTragicDisplay = '<span style="color: #e74c3c;">탈락</span>';
-                        } else if (poMagicNumber === 0) {
-                            poTragicDisplay = '<span style="color: #2ecc71;">진출</span>';
+                        maxRank = Math.min(maxRank, 10);
+
+                        // 최소=최대 순위가 같으면 확정, 다르면 확보
+                        const isFixed = (minRank === maxRank);
+
+                        // 순위에 따른 포스트시즌 조건 설정
+                        if (minRank === 1) {
+                            conditionText = isFixed ? 'KS 확정' : 'KS 확보';
+                        } else if (minRank === 2) {
+                            conditionText = isFixed ? 'PO 확정' : 'PO 확보';
+                        } else if (minRank === 3) {
+                            conditionText = isFixed ? '준 PO 확정' : '준 PO 확보';
+                        } else if (minRank === 4 || minRank === 5) {
+                            conditionText = isFixed ? 'WC 확정' : 'WC 확보';
                         } else {
-                            poTragicDisplay = poTragicNumber;
+                            conditionText = 'PS 진출 확정';
                         }
+
+                        maxWinsMagicDisplay = `<span style="color: #2ecc71;">${conditionText}</span>`;
+                    } else if (hasTragic && poTragicNumber === 0) {
+                        maxWinsMagicDisplay = '<span style="color: #e74c3c;">탈락</span>';
+                    } else if (hasMagic && remainingGames <= poMagicNumber) {
+                        maxWinsMagicDisplay = `${displayMagicNumber} (자력 불가)`;
+                    } else if (hasMagic) {
+                        maxWinsMagicDisplay = displayMagicNumber;
+                    } else {
+                        maxWinsMagicDisplay = displayMagicNumber;
                     }
+
+                    if (hasMagic && poMagicNumber === 0) {
+                        poTragicDisplay = '<span style="color: #2ecc71;">진출</span>';
+                    } else if (hasTragic && poTragicNumber === 0) {
+                        poTragicDisplay = '<span style="color: #e74c3c;">탈락</span>';
+                    } else {
+                        poTragicDisplay = displayTragicNumber;
+                    }
+                }
                 
                 // 역대 기준 매직넘버 계산 (승률 0.491 기준 - 2015-2024년 5위팀 평균)
                 const historicPlayoffWinRate = 0.491; // 2015-2024년 5위팀 평균 승률 (무승부 제외)
