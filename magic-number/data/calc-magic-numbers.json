@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-10-01T13:09:44.974Z",
+  "lastUpdated": "2025-10-01T13:20:50.055Z",
   "updateDate": "2025. 10. 1.",
   "note": "승률 기준 정확한 매직넘버 계산 + 포스트시즌 진출 조건 + 1위 매직/트래직넘버 포함",
   "results": [
@@ -7,9 +7,9 @@
       "rank": 1,
       "team": "LG",
       "wins": 85,
-      "losses": 55,
-      "winRate": 0.6071428571428571,
-      "gamesRemaining": 4,
+      "losses": 56,
+      "winRate": 0.6028368794326241,
+      "gamesRemaining": 3,
       "magicNumber": "-",
       "status": ""
     },
@@ -56,10 +56,10 @@
     {
       "rank": 6,
       "team": "NC",
-      "wins": 69,
+      "wins": 70,
       "losses": 67,
-      "winRate": 0.5073529411764706,
-      "gamesRemaining": 8,
+      "winRate": 0.5109489051094891,
+      "gamesRemaining": 7,
       "magicNumber": "-",
       "status": ""
     },
@@ -108,18 +108,18 @@
     {
       "team": "LG",
       "wins": 85,
-      "losses": 55,
+      "losses": 56,
       "draws": 3,
-      "remainingGames": 1,
+      "remainingGames": 0,
       "K5_max": 0.514,
       "K5_min": 0.507,
       "playoffMagicStrict": 0,
       "playoffMagicTieOK": 0,
-      "playoffTragicStrict": 15,
-      "playoffTragicTieOK": 15,
+      "playoffTragicStrict": 14,
+      "playoffTragicTieOK": 14,
       "playoffStatus": "",
       "championshipMagic": 1,
-      "championshipTragic": 3,
+      "championshipTragic": 2,
       "firstPlaceStatus": "현재 1위"
     },
     {
@@ -135,7 +135,7 @@
       "playoffTragicStrict": 14,
       "playoffTragicTieOK": 14,
       "playoffStatus": "",
-      "championshipMagic": 4,
+      "championshipMagic": 3,
       "championshipTragic": 0,
       "firstPlaceStatus": "불가능"
     },
@@ -150,9 +150,9 @@
       "playoffMagicStrict": 0,
       "playoffMagicTieOK": 0,
       "playoffTragicStrict": 6,
-      "playoffTragicTieOK": 7,
+      "playoffTragicTieOK": 6,
       "playoffStatus": "",
-      "championshipMagic": 12,
+      "championshipMagic": 11,
       "championshipTragic": 0,
       "firstPlaceStatus": "불가능"
     },
@@ -169,7 +169,7 @@
       "playoffTragicStrict": 3,
       "playoffTragicTieOK": 3,
       "playoffStatus": "",
-      "championshipMagic": 13,
+      "championshipMagic": 12,
       "championshipTragic": 0,
       "firstPlaceStatus": "불가능"
     },
@@ -186,24 +186,24 @@
       "playoffTragicStrict": 0,
       "playoffTragicTieOK": 0,
       "playoffStatus": "",
-      "championshipMagic": 15,
+      "championshipMagic": 14,
       "championshipTragic": 0,
       "firstPlaceStatus": "불가능"
     },
     {
       "team": "NC",
-      "wins": 69,
+      "wins": 70,
       "losses": 67,
       "draws": 6,
-      "remainingGames": 2,
+      "remainingGames": 1,
       "K5_max": 0.514,
       "K5_min": 0.521,
-      "playoffMagicStrict": 2,
-      "playoffMagicTieOK": 2,
+      "playoffMagicStrict": 1,
+      "playoffMagicTieOK": 1,
       "playoffTragicStrict": 0,
       "playoffTragicTieOK": 0,
       "playoffStatus": "",
-      "championshipMagic": 16,
+      "championshipMagic": 14,
       "championshipTragic": 0,
       "firstPlaceStatus": "불가능"
     },
@@ -220,7 +220,7 @@
       "playoffTragicStrict": 0,
       "playoffTragicTieOK": 0,
       "playoffStatus": "",
-      "championshipMagic": 19,
+      "championshipMagic": 18,
       "championshipTragic": 0,
       "firstPlaceStatus": "불가능"
     },
@@ -237,7 +237,7 @@
       "playoffTragicStrict": 0,
       "playoffTragicTieOK": 0,
       "playoffStatus": "",
-      "championshipMagic": 23,
+      "championshipMagic": 22,
       "championshipTragic": 0,
       "firstPlaceStatus": "불가능"
     },
@@ -254,7 +254,7 @@
       "playoffTragicStrict": 0,
       "playoffTragicTieOK": 0,
       "playoffStatus": "",
-      "championshipMagic": 24,
+      "championshipMagic": 23,
       "championshipTragic": 0,
       "firstPlaceStatus": "불가능"
     },
@@ -271,7 +271,7 @@
       "playoffTragicStrict": 0,
       "playoffTragicTieOK": 0,
       "playoffStatus": "",
-      "championshipMagic": 39,
+      "championshipMagic": 38,
       "championshipTragic": 0,
       "firstPlaceStatus": "불가능"
     }
@@ -280,8 +280,8 @@
     {
       "team": "LG",
       "currentRank": 1,
-      "championshipMagic": 1,
-      "rank2Magic": 1,
+      "championshipMagic": 0,
+      "rank2Magic": 0,
       "rank3Magic": 0,
       "rank4Magic": 0,
       "rank5Magic": 0,
@@ -349,8 +349,8 @@
       "rank2Magic": 999,
       "rank3Magic": 999,
       "rank4Magic": 999,
-      "rank5Magic": 2,
-      "dropRank6Tragic": 3,
+      "rank5Magic": 1,
+      "dropRank6Tragic": 2,
       "dropRank7Tragic": 0,
       "dropRank8Tragic": 0,
       "dropRank9Tragic": 0
