@@ -160,39 +160,39 @@ function cellLabelAndClass({ rank, currentRank, x, y, xraw, R }) {
 
 // 배너 상태 분석
 function analyzeBannerStatus(row, currentRank) {
-    const x1 = row.x1_strict;
-    const x2 = row.x2_strict;
-    const x3 = row.x3_strict;
-    const x4 = row.x4_strict;
-    const x5 = row.x5_strict;
-    const x6 = row.x6_strict;
-    const x7 = row.x7_strict;
-    const x8 = row.x8_strict;
-    const x9 = row.x9_strict;
+    const x1Raw = row.x1_strict_raw;
+    const x2Raw = row.x2_strict_raw;
+    const x3Raw = row.x3_strict_raw;
+    const x4Raw = row.x4_strict_raw;
+    const x5Raw = row.x5_strict_raw;
+    const x6Raw = row.x6_strict_raw;
+    const x7Raw = row.x7_strict_raw;
+    const x8Raw = row.x8_strict_raw;
+    const x9Raw = row.x9_strict_raw;
 
-    const y1 = row.y1_tieOK;
-    const y2 = row.y2_tieOK;
-    const y3 = row.y3_tieOK;
-    const y4 = row.y4_tieOK;
-    const y5 = row.y5_tieOK;
-    const y6 = row.y6_tieOK;
-    const y7 = row.y7_tieOK;
-    const y8 = row.y8_tieOK;
-    const y9 = row.y9_tieOK;
+    const y1Raw = row.y1_tieOK_raw;
+    const y2Raw = row.y2_tieOK_raw;
+    const y3Raw = row.y3_tieOK_raw;
+    const y4Raw = row.y4_tieOK_raw;
+    const y5Raw = row.y5_tieOK_raw;
+    const y6Raw = row.y6_tieOK_raw;
+    const y7Raw = row.y7_tieOK_raw;
+    const y8Raw = row.y8_tieOK_raw;
+    const y9Raw = row.y9_tieOK_raw;
 
     // 10위 확정 (정확)
-    if (y9 === 0) {
+    if (y9Raw <= 0) {
         return { type: 'banner-low', stage: '포스트시즌 진출 실패', sub: '정규시즌 10위 확정', colspan: 9 };
     }
     
     // 1위 확정 (정확)
-    if (x1 === 0) {
+    if (x1Raw <= 0) {
         return { type: 'banner-top', stage: '한국시리즈 진출 확보', sub: '정규시즌 1위 확정', colspan: 9 };
     }
 
     // 2위 처리
-    if (x2 === 0 && x1 > 0) {
-        if (y1 === 0) {
+    if (x2Raw <= 0 && x1Raw > 0) {
+        if (y1Raw <= 0) {
             return { type: 'banner-top', stage: '플레이오프 직행 확보', sub: '정규시즌 2위 확정', colspan: 9 };
         } else {
             return { type: 'banner-top', stage: '플레이오프 직행 확보', sub: '정규시즌 2위 이상 확보', colspan: 9 };
@@ -200,8 +200,8 @@ function analyzeBannerStatus(row, currentRank) {
     }
 
     // 3위 처리
-    if (x3 === 0 && x2 > 0) {
-        if (y2 === 0) {
+    if (x3Raw <= 0 && x2Raw > 0) {
+        if (y2Raw <= 0) {
             return { type: 'banner-top', stage: '준 플레이오프 진출 확보', sub: '정규시즌 3위 확정', colspan: 9 };
         } else {
             return { type: 'banner-top', stage: '준 플레이오프 진출 확보', sub: '정규시즌 3위 이상 확보', colspan: 9 };
@@ -209,8 +209,8 @@ function analyzeBannerStatus(row, currentRank) {
     }
 
     // 4위 처리
-    if (x4 === 0 && x3 > 0) {
-        if (y3 === 0) {
+    if (x4Raw <= 0 && x3Raw > 0) {
+        if (y3Raw <= 0) {
             return { type: 'banner-mid', stage: '와일드카드 결정전 진출 확보', sub: '정규시즌 4위 확정', colspan: 9 };
         } else {
             return { type: 'banner-mid', stage: '와일드카드 결정전 진출 확보', sub: '정규시즌 4위 이상 확보', colspan: 9 };
@@ -218,8 +218,8 @@ function analyzeBannerStatus(row, currentRank) {
     }
 
     // 5위 처리 - 기존 로직 그대로: 9~5 컬럼만 배너, 1~4는 개별 셀
-    if (x5 === 0) {
-        if (y4 === 0) {
+    if (x5Raw <= 0) {
+        if (y4Raw <= 0) {
             return { type: 'banner-top', stage: '와일드카드 결정전 진출 확보', sub: '정규시즌 5위 확정', colspan: 5, skipRanks: [9,8,7,6,5] };
         } else {
             return { type: 'banner-top', stage: '와일드카드 결정전 진출 확보', sub: '정규시즌 5위 이상 확보', colspan: 5, skipRanks: [9,8,7,6,5] };
@@ -227,16 +227,16 @@ function analyzeBannerStatus(row, currentRank) {
     }
 
     // 하위권 확정
-    if (x6 === 0 && y5 === 0) {
+    if (x6Raw <= 0 && y5Raw <= 0) {
         return { type: 'banner-low', stage: '포스트시즌 진출 실패', sub: '정규시즌 6위 확정', colspan: 9 };
     }
-    if (x7 === 0 && y6 === 0) {
+    if (x7Raw <= 0 && y6Raw <= 0) {
         return { type: 'banner-low', stage: '포스트시즌 진출 실패', sub: '정규시즌 7위 확정', colspan: 9 };
     }
-    if (x8 === 0 && y7 === 0) {
+    if (x8Raw <= 0 && y7Raw <= 0) {
         return { type: 'banner-low', stage: '포스트시즌 진출 실패', sub: '정규시즌 8위 확정', colspan: 9 };
     }
-    if (x9 === 0 && y8 === 0) {
+    if (x9Raw <= 0 && y8Raw <= 0) {
         return { type: 'banner-low', stage: '포스트시즌 진출 실패', sub: '정규시즌 9위 확정', colspan: 9 };
     }
 

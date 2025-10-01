@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "lastUpdated": "2025-10-01T14:49:41.645Z",
+    "lastUpdated": "2025-10-01T15:07:10.869Z",
     "version": "1.0.0",
     "description": "매직넘버 매트릭스 사전 계산된 UI 데이터",
     "source": "ui-magic-matrix.js 로직에서 추출"
@@ -55,9 +55,9 @@
         "remainingGames": 0,
         "winPct": 0.603,
         "banner": {
-          "type": "banner-low",
-          "stage": "포스트시즌 진출 실패",
-          "sub": "정규시즌 10위 확정",
+          "type": "banner-top",
+          "stage": "한국시리즈 진출 확보",
+          "sub": "정규시즌 1위 확정",
           "colspan": 9
         },
         "cells": [
@@ -455,7 +455,7 @@
         "banner": {
           "type": "banner-low",
           "stage": "포스트시즌 진출 실패",
-          "sub": "정규시즌 10위 확정",
+          "sub": "정규시즌 7위 확정",
           "colspan": 9
         },
         "cells": [
@@ -591,7 +591,7 @@
         "banner": {
           "type": "banner-low",
           "stage": "포스트시즌 진출 실패",
-          "sub": "정규시즌 10위 확정",
+          "sub": "정규시즌 9위 확정",
           "colspan": 9
         },
         "cells": [
@@ -1724,7 +1724,7 @@
       "두산": 9,
       "키움": 10
     },
-    "lastCalculated": "2025-10-01T14:49:41.645Z"
+    "lastCalculated": "2025-10-01T15:07:10.869Z"
   },
   "matrixTableStructure": {
     "ranks": [
