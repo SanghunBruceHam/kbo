@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "lastUpdated": "2025-10-01T15:07:10.869Z",
+    "lastUpdated": "2025-10-01T15:27:22.807Z",
     "version": "1.0.0",
     "description": "매직넘버 매트릭스 사전 계산된 UI 데이터",
     "source": "ui-magic-matrix.js 로직에서 추출"
@@ -56,7 +56,7 @@
         "winPct": 0.603,
         "banner": {
           "type": "banner-top",
-          "stage": "한국시리즈 진출 확보",
+          "stage": "한국시리즈 직행",
           "sub": "정규시즌 1위 확정",
           "colspan": 9
         },
@@ -124,7 +124,7 @@
         "winPct": 0.593,
         "banner": {
           "type": "banner-top",
-          "stage": "플레이오프 직행 확보",
+          "stage": "플레이오프 직행",
           "sub": "정규시즌 2위 확정",
           "colspan": 9
         },
@@ -192,7 +192,7 @@
         "winPct": 0.543,
         "banner": {
           "type": "banner-top",
-          "stage": "준 플레이오프 진출 확보",
+          "stage": "준 플레이오프 직행",
           "sub": "정규시즌 3위 확정",
           "colspan": 9
         },
@@ -260,7 +260,7 @@
         "winPct": 0.525,
         "banner": {
           "type": "banner-mid",
-          "stage": "와일드카드 결정전 진출 확보",
+          "stage": "와일드카드 결정전 진출",
           "sub": "정규시즌 4위 확정",
           "colspan": 9
         },
@@ -1724,7 +1724,7 @@
       "두산": 9,
       "키움": 10
     },
-    "lastCalculated": "2025-10-01T15:07:10.869Z"
+    "lastCalculated": "2025-10-01T15:27:22.807Z"
   },
   "matrixTableStructure": {
     "ranks": [

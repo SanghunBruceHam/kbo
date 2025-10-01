@@ -187,13 +187,13 @@ function analyzeBannerStatus(row, currentRank) {
     
     // 1위 확정 (정확)
     if (x1Raw <= 0) {
-        return { type: 'banner-top', stage: '한국시리즈 진출 확보', sub: '정규시즌 1위 확정', colspan: 9 };
+        return { type: 'banner-top', stage: '한국시리즈 직행', sub: '정규시즌 1위 확정', colspan: 9 };
     }
 
     // 2위 처리
     if (x2Raw <= 0 && x1Raw > 0) {
         if (y1Raw <= 0) {
-            return { type: 'banner-top', stage: '플레이오프 직행 확보', sub: '정규시즌 2위 확정', colspan: 9 };
+            return { type: 'banner-top', stage: '플레이오프 직행', sub: '정규시즌 2위 확정', colspan: 9 };
         } else {
             return { type: 'banner-top', stage: '플레이오프 직행 확보', sub: '정규시즌 2위 이상 확보', colspan: 9 };
         }
@@ -202,7 +202,7 @@ function analyzeBannerStatus(row, currentRank) {
     // 3위 처리
     if (x3Raw <= 0 && x2Raw > 0) {
         if (y2Raw <= 0) {
-            return { type: 'banner-top', stage: '준 플레이오프 진출 확보', sub: '정규시즌 3위 확정', colspan: 9 };
+            return { type: 'banner-top', stage: '준 플레이오프 직행', sub: '정규시즌 3위 확정', colspan: 9 };
         } else {
             return { type: 'banner-top', stage: '준 플레이오프 진출 확보', sub: '정규시즌 3위 이상 확보', colspan: 9 };
         }
@@ -211,7 +211,7 @@ function analyzeBannerStatus(row, currentRank) {
     // 4위 처리
     if (x4Raw <= 0 && x3Raw > 0) {
         if (y3Raw <= 0) {
-            return { type: 'banner-mid', stage: '와일드카드 결정전 진출 확보', sub: '정규시즌 4위 확정', colspan: 9 };
+            return { type: 'banner-mid', stage: '와일드카드 결정전 진출', sub: '정규시즌 4위 확정', colspan: 9 };
         } else {
             return { type: 'banner-mid', stage: '와일드카드 결정전 진출 확보', sub: '정규시즌 4위 이상 확보', colspan: 9 };
         }
@@ -220,7 +220,7 @@ function analyzeBannerStatus(row, currentRank) {
     // 5위 처리 - 기존 로직 그대로: 9~5 컬럼만 배너, 1~4는 개별 셀
     if (x5Raw <= 0) {
         if (y4Raw <= 0) {
-            return { type: 'banner-top', stage: '와일드카드 결정전 진출 확보', sub: '정규시즌 5위 확정', colspan: 5, skipRanks: [9,8,7,6,5] };
+            return { type: 'banner-top', stage: '와일드카드 결정전 진출', sub: '정규시즌 5위 확정', colspan: 5, skipRanks: [9,8,7,6,5] };
         } else {
             return { type: 'banner-top', stage: '와일드카드 결정전 진출 확보', sub: '정규시즌 5위 이상 확보', colspan: 5, skipRanks: [9,8,7,6,5] };
         }
