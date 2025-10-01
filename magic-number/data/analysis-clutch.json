@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-10-01T11:37:07.811Z",
+  "lastUpdated": "2025-10-01T12:56:19.455Z",
   "updateDate": "2025. 10. 1.",
   "clutchAnalysis": {
     "LG": {
@@ -581,7 +581,7 @@
       "clutchIndex": "57.8"
     },
     "KIA": {
-      "totalGames": 161,
+      "totalGames": 162,
       "oneRunGames": 45,
       "oneRunWins": 21,
       "oneRunLosses": 24,
@@ -1141,7 +1141,7 @@
       "clutchIndex": "38.0"
     },
     "KT": {
-      "totalGames": 157,
+      "totalGames": 158,
       "oneRunGames": 39,
       "oneRunWins": 18,
       "oneRunLosses": 21,
@@ -1154,7 +1154,7 @@
       "threeRunWins": 22,
       "threeRunLosses": 12,
       "threeRunWinRate": "64.7",
-      "blowoutWins": 31,
+      "blowoutWins": 32,
       "blowoutScored": [
         {
           "date": "2025-03-25",
@@ -1341,6 +1341,12 @@
           "opponent": "SSG",
           "score": "10:1",
           "runs": 10
+        },
+        {
+          "date": "2025-10-01",
+          "opponent": "KIA",
+          "score": "9:3",
+          "runs": 9
         }
       ],
       "blowoutLosses": 12,

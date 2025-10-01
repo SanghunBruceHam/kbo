@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-10-01T11:37:05.396Z",
+  "lastUpdated": "2025-10-01T12:56:17.336Z",
   "updateDate": "2025. 10. 1.",
   "note": "2025-season-data-clean.txt 기반 완전 자동화 처리",
   "rankings": [
@@ -61,6 +61,20 @@
     },
     {
       "rank": 5,
+      "team": "KT",
+      "games": 143,
+      "wins": 71,
+      "losses": 68,
+      "draws": 4,
+      "winRate": 0.511,
+      "gamesBehind": 13.5,
+      "recent10": "5승0무5패",
+      "streak": "1승",
+      "homeRecord": "36-35-1",
+      "awayRecord": "35-33-3"
+    },
+    {
+      "rank": 6,
       "team": "NC",
       "games": 142,
       "wins": 69,
@@ -72,20 +86,6 @@
       "streak": "7승",
       "homeRecord": "35-34-1",
       "awayRecord": "34-33-5"
-    },
-    {
-      "rank": 5,
-      "team": "KT",
-      "games": 142,
-      "wins": 70,
-      "losses": 68,
-      "draws": 4,
-      "winRate": 0.507,
-      "gamesBehind": 14,
-      "recent10": "4승0무6패",
-      "streak": "2패",
-      "homeRecord": "36-35-1",
-      "awayRecord": "34-33-3"
     },
     {
       "rank": 7,
@@ -104,15 +104,15 @@
     {
       "rank": 8,
       "team": "KIA",
-      "games": 141,
+      "games": 142,
       "wins": 63,
-      "losses": 74,
+      "losses": 75,
       "draws": 4,
-      "winRate": 0.46,
-      "gamesBehind": 20.5,
+      "winRate": 0.457,
+      "gamesBehind": 21,
       "recent10": "2승0무8패",
-      "streak": "3패",
-      "homeRecord": "33-33-2",
+      "streak": "4패",
+      "homeRecord": "33-34-2",
       "awayRecord": "30-41-2"
     },
     {
@@ -181,6 +181,15 @@
       "maxPossibleWins": 75,
       "currentRank": 4
     },
+    "KT": {
+      "playoff": "-",
+      "championship": 0,
+      "elimination": 999,
+      "homeAdvantage": 999,
+      "remainingGames": 1,
+      "maxPossibleWins": 72,
+      "currentRank": 5
+    },
     "NC": {
       "playoff": "-",
       "championship": 0,
@@ -188,16 +197,7 @@
       "homeAdvantage": 999,
       "remainingGames": 2,
       "maxPossibleWins": 71,
-      "currentRank": 5
-    },
-    "KT": {
-      "playoff": "-",
-      "championship": 0,
-      "elimination": 1,
-      "homeAdvantage": 999,
-      "remainingGames": 2,
-      "maxPossibleWins": 72,
-      "currentRank": 5
+      "currentRank": 6
     },
     "롯데": {
       "playoff": "-",
@@ -213,8 +213,8 @@
       "championship": 0,
       "elimination": 0,
       "homeAdvantage": 999,
-      "remainingGames": 3,
-      "maxPossibleWins": 66,
+      "remainingGames": 2,
+      "maxPossibleWins": 65,
       "currentRank": 8
     },
     "두산": {
@@ -236,8 +236,8 @@
       "currentRank": 10
     }
   },
-  "lastMagicUpdate": "2025-10-01T11:37:05.396Z",
+  "lastMagicUpdate": "2025-10-01T12:56:17.336Z",
   "totalTeams": 10,
   "source": "CLEAN_TXT_AUTOMATION",
-  "dataDate": "2025-09-30"
+  "dataDate": "2025-10-01"
 }
