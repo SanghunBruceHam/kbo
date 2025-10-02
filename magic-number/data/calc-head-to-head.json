@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-10-02T11:36:49.425Z",
+  "lastUpdated": "2025-10-02T12:52:06.906Z",
   "updateDate": "2025. 10. 2.",
   "note": "2025-season-data-clean.txt 기반 완전 자동화 처리",
   "totalData": {
@@ -353,13 +353,13 @@
       },
       "KIA": {
         "wins": 7,
-        "losses": 7,
+        "losses": 8,
         "draws": 1,
         "homeWins": 4,
         "homeLosses": 4,
         "homeDraws": 1,
         "awayWins": 3,
-        "awayLosses": 3,
+        "awayLosses": 4,
         "awayDraws": 0
       },
       "삼성": {
@@ -543,10 +543,10 @@
         "awayDraws": 0
       },
       "SSG": {
-        "wins": 7,
+        "wins": 8,
         "losses": 7,
         "draws": 1,
-        "homeWins": 3,
+        "homeWins": 4,
         "homeLosses": 3,
         "homeDraws": 0,
         "awayWins": 4,
@@ -1015,5 +1015,5 @@
     }
   },
   "source": "CLEAN_TXT_AUTOMATION",
-  "dataDate": "2025-10-01"
+  "dataDate": "2025-10-02"
 }
