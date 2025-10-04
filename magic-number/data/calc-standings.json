@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-10-04T10:38:34.107Z",
+  "lastUpdated": "2025-10-04T11:18:13.537Z",
   "updateDate": "2025. 10. 4.",
   "note": "2025-season-data-clean.txt 기반 완전 자동화 처리",
   "rankings": [
@@ -34,16 +34,16 @@
     {
       "rank": 3,
       "team": "SSG",
-      "games": 143,
+      "games": 144,
       "wins": 75,
-      "losses": 64,
+      "losses": 65,
       "draws": 4,
-      "winRate": 0.54,
-      "gamesBehind": 9,
-      "recent10": "7승0무3패",
-      "streak": "1패",
+      "winRate": 0.536,
+      "gamesBehind": 9.5,
+      "recent10": "6승0무4패",
+      "streak": "2패",
       "homeRecord": "38-31-4",
-      "awayRecord": "37-33-0"
+      "awayRecord": "37-34-0"
     },
     {
       "rank": 4,
@@ -62,19 +62,19 @@
     {
       "rank": 5,
       "team": "NC",
-      "games": 143,
-      "wins": 70,
+      "games": 144,
+      "wins": 71,
       "losses": 67,
       "draws": 6,
-      "winRate": 0.511,
-      "gamesBehind": 13,
-      "recent10": "8승0무2패",
-      "streak": "8승",
-      "homeRecord": "35-34-1",
+      "winRate": 0.514,
+      "gamesBehind": 12.5,
+      "recent10": "9승0무1패",
+      "streak": "9승",
+      "homeRecord": "36-34-1",
       "awayRecord": "35-33-5"
     },
     {
-      "rank": 5,
+      "rank": 6,
       "team": "KT",
       "games": 144,
       "wins": 71,
@@ -168,8 +168,8 @@
       "championship": 0,
       "elimination": 999,
       "homeAdvantage": 999,
-      "remainingGames": 1,
-      "maxPossibleWins": 76,
+      "remainingGames": 0,
+      "maxPossibleWins": 75,
       "currentRank": 3
     },
     "삼성": {
@@ -184,9 +184,9 @@
     "NC": {
       "playoff": "-",
       "championship": 0,
-      "elimination": 0,
+      "elimination": 999,
       "homeAdvantage": 999,
-      "remainingGames": 1,
+      "remainingGames": 0,
       "maxPossibleWins": 71,
       "currentRank": 5
     },
@@ -197,7 +197,7 @@
       "homeAdvantage": 999,
       "remainingGames": 0,
       "maxPossibleWins": 71,
-      "currentRank": 5
+      "currentRank": 6
     },
     "롯데": {
       "playoff": "-",
@@ -236,8 +236,8 @@
       "currentRank": 10
     }
   },
-  "lastMagicUpdate": "2025-10-04T10:38:34.107Z",
+  "lastMagicUpdate": "2025-10-04T11:18:13.537Z",
   "totalTeams": 10,
   "source": "CLEAN_TXT_AUTOMATION",
-  "dataDate": "2025-10-03"
+  "dataDate": "2025-10-04"
 }
