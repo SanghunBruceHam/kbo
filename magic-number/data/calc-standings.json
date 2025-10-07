@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-10-07T08:29:57.053Z",
+  "lastUpdated": "2025-10-07T08:46:25.383Z",
   "updateDate": "2025. 10. 7.",
   "note": "2025-season-data-clean.txt 기반 완전 자동화 처리",
   "rankings": [
@@ -47,31 +47,31 @@
     },
     {
       "rank": 4,
-      "team": "NC",
-      "games": 145,
-      "wins": 72,
-      "losses": 67,
-      "draws": 6,
-      "winRate": 0.518,
-      "gamesBehind": 12,
-      "recent10": "10승0무0패",
-      "streak": "10승",
-      "homeRecord": "36-34-1",
-      "awayRecord": "36-33-5"
+      "team": "삼성",
+      "games": 146,
+      "wins": 75,
+      "losses": 69,
+      "draws": 2,
+      "winRate": 0.521,
+      "gamesBehind": 11.5,
+      "recent10": "6승0무4패",
+      "streak": "1승",
+      "homeRecord": "42-31-0",
+      "awayRecord": "33-38-2"
     },
     {
       "rank": 5,
-      "team": "삼성",
-      "games": 145,
-      "wins": 74,
-      "losses": 69,
-      "draws": 2,
-      "winRate": 0.517,
-      "gamesBehind": 12,
-      "recent10": "6승0무4패",
-      "streak": "2패",
-      "homeRecord": "41-31-0",
-      "awayRecord": "33-38-2"
+      "team": "NC",
+      "games": 146,
+      "wins": 72,
+      "losses": 68,
+      "draws": 6,
+      "winRate": 0.514,
+      "gamesBehind": 12.5,
+      "recent10": "9승0무1패",
+      "streak": "1패",
+      "homeRecord": "36-34-1",
+      "awayRecord": "36-34-5"
     },
     {
       "rank": 6,
@@ -172,6 +172,15 @@
       "maxPossibleWins": 75,
       "currentRank": 3
     },
+    "삼성": {
+      "playoff": "-",
+      "championship": 0,
+      "elimination": 999,
+      "homeAdvantage": 999,
+      "remainingGames": 0,
+      "maxPossibleWins": 75,
+      "currentRank": 4
+    },
     "NC": {
       "playoff": "-",
       "championship": 0,
@@ -179,15 +188,6 @@
       "homeAdvantage": 999,
       "remainingGames": 0,
       "maxPossibleWins": 72,
-      "currentRank": 4
-    },
-    "삼성": {
-      "playoff": "-",
-      "championship": 0,
-      "elimination": 999,
-      "homeAdvantage": 999,
-      "remainingGames": 0,
-      "maxPossibleWins": 74,
       "currentRank": 5
     },
     "KT": {
@@ -236,8 +236,8 @@
       "currentRank": 10
     }
   },
-  "lastMagicUpdate": "2025-10-07T08:29:57.053Z",
+  "lastMagicUpdate": "2025-10-07T08:46:25.383Z",
   "totalTeams": 10,
   "source": "CLEAN_TXT_AUTOMATION",
-  "dataDate": "2025-10-06"
+  "dataDate": "2025-10-07"
 }
