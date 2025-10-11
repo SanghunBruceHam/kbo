@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2025-10-10T14:47:32.750Z",
-  "updateDate": "2025. 10. 10.",
+  "lastUpdated": "2025-10-11T07:40:26.257Z",
+  "updateDate": "2025. 10. 11.",
   "teamStats": {
     "LG": {
       "totalSeries": 48,
@@ -7907,12 +7907,12 @@
     },
     "삼성": {
       "totalSeries": 53,
-      "winningSeries": 25,
+      "winningSeries": 26,
       "losingSeries": 20,
       "splitSeries": 7,
       "sweepWins": 5,
       "sweepLosses": 7,
-      "seriesWinRate": "47.2",
+      "seriesWinRate": "49.1",
       "series": [
         {
           "opponent": "키움",
@@ -10506,7 +10506,7 @@
           "draws": 0,
           "homeGames": 0,
           "awayGames": 2,
-          "result": "ONGOING",
+          "result": "WIN",
           "isSweep": false,
           "isWinningSweep": false,
           "isLosingSweep": false,
@@ -10516,10 +10516,10 @@
         }
       ],
       "currentStreak": {
-        "type": "LOSS",
+        "type": "WIN",
         "count": 1,
-        "startDate": "2025-10-03",
-        "endDate": "2025-10-04"
+        "startDate": "2025-10-09",
+        "endDate": "2025-10-10"
       },
       "longestWinningStreak": {
         "count": 5,
@@ -10574,9 +10574,9 @@
         },
         "SSG": {
           "totalSeries": 6,
-          "wins": 3,
+          "wins": 4,
           "losses": 1,
-          "splits": 2,
+          "splits": 1,
           "sweepWins": 0,
           "sweepLosses": 0
         },
@@ -13170,7 +13170,7 @@
     "SSG": {
       "totalSeries": 53,
       "winningSeries": 23,
-      "losingSeries": 21,
+      "losingSeries": 22,
       "splitSeries": 8,
       "sweepWins": 0,
       "sweepLosses": 1,
@@ -15798,7 +15798,7 @@
           "draws": 0,
           "homeGames": 2,
           "awayGames": 0,
-          "result": "ONGOING",
+          "result": "LOSS",
           "isSweep": false,
           "isWinningSweep": false,
           "isLosingSweep": false,
@@ -15809,9 +15809,9 @@
       ],
       "currentStreak": {
         "type": "LOSS",
-        "count": 1,
+        "count": 2,
         "startDate": "2025-10-03",
-        "endDate": "2025-10-04"
+        "endDate": "2025-10-10"
       },
       "longestWinningStreak": {
         "count": 4,
@@ -15867,8 +15867,8 @@
         "삼성": {
           "totalSeries": 6,
           "wins": 1,
-          "losses": 3,
-          "splits": 2,
+          "losses": 4,
+          "splits": 1,
           "sweepWins": 0,
           "sweepLosses": 0
         },
@@ -26452,8 +26452,8 @@
         "totalSeries": 6
       },
       "SSG": {
-        "record": "3-1-2",
-        "winRate": "50.0",
+        "record": "4-1-1",
+        "winRate": "66.7",
         "sweeps": "0-0",
         "totalSeries": 6
       },
@@ -26559,7 +26559,7 @@
         "totalSeries": 6
       },
       "삼성": {
-        "record": "1-3-2",
+        "record": "1-4-1",
         "winRate": "16.7",
         "sweeps": "0-0",
         "totalSeries": 6
