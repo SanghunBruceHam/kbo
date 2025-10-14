@@ -1,95 +1,7 @@
 {
-  "updateTime": "2025-10-14T13:10:33.052Z",
+  "updateTime": "2025-10-14T13:22:14.012Z",
   "updateDate": "2025년 10월 14일",
   "weekdayRecords": {
-    "KIA": {
-      "월": {
-        "wins": 1,
-        "losses": 1,
-        "draws": 0,
-        "win_rate": "0.500"
-      },
-      "화": {
-        "wins": 13,
-        "losses": 11,
-        "draws": 0,
-        "win_rate": "0.542"
-      },
-      "수": {
-        "wins": 10,
-        "losses": 16,
-        "draws": 1,
-        "win_rate": "0.385"
-      },
-      "목": {
-        "wins": 11,
-        "losses": 10,
-        "draws": 2,
-        "win_rate": "0.524"
-      },
-      "금": {
-        "wins": 6,
-        "losses": 13,
-        "draws": 0,
-        "win_rate": "0.316"
-      },
-      "토": {
-        "wins": 13,
-        "losses": 9,
-        "draws": 1,
-        "win_rate": "0.591"
-      },
-      "일": {
-        "wins": 11,
-        "losses": 15,
-        "draws": 0,
-        "win_rate": "0.423"
-      }
-    },
-    "NC": {
-      "월": {
-        "wins": 3,
-        "losses": 0,
-        "draws": 0,
-        "win_rate": "1.000"
-      },
-      "화": {
-        "wins": 9,
-        "losses": 13,
-        "draws": 2,
-        "win_rate": "0.409"
-      },
-      "수": {
-        "wins": 15,
-        "losses": 9,
-        "draws": 0,
-        "win_rate": "0.625"
-      },
-      "목": {
-        "wins": 8,
-        "losses": 12,
-        "draws": 1,
-        "win_rate": "0.400"
-      },
-      "금": {
-        "wins": 7,
-        "losses": 13,
-        "draws": 1,
-        "win_rate": "0.350"
-      },
-      "토": {
-        "wins": 14,
-        "losses": 12,
-        "draws": 1,
-        "win_rate": "0.538"
-      },
-      "일": {
-        "wins": 16,
-        "losses": 9,
-        "draws": 1,
-        "win_rate": "0.640"
-      }
-    },
     "삼성": {
       "월": {
         "wins": 1,
@@ -176,94 +88,6 @@
         "losses": 19,
         "draws": 0,
         "win_rate": "0.240"
-      }
-    },
-    "SSG": {
-      "월": {
-        "wins": 2,
-        "losses": 2,
-        "draws": 0,
-        "win_rate": "0.500"
-      },
-      "화": {
-        "wins": 13,
-        "losses": 12,
-        "draws": 1,
-        "win_rate": "0.520"
-      },
-      "수": {
-        "wins": 11,
-        "losses": 10,
-        "draws": 2,
-        "win_rate": "0.524"
-      },
-      "목": {
-        "wins": 11,
-        "losses": 13,
-        "draws": 0,
-        "win_rate": "0.458"
-      },
-      "금": {
-        "wins": 12,
-        "losses": 7,
-        "draws": 0,
-        "win_rate": "0.632"
-      },
-      "토": {
-        "wins": 10,
-        "losses": 15,
-        "draws": 1,
-        "win_rate": "0.400"
-      },
-      "일": {
-        "wins": 17,
-        "losses": 9,
-        "draws": 0,
-        "win_rate": "0.654"
-      }
-    },
-    "두산": {
-      "월": {
-        "wins": 2,
-        "losses": 0,
-        "draws": 0,
-        "win_rate": "1.000"
-      },
-      "화": {
-        "wins": 7,
-        "losses": 17,
-        "draws": 0,
-        "win_rate": "0.292"
-      },
-      "수": {
-        "wins": 10,
-        "losses": 10,
-        "draws": 1,
-        "win_rate": "0.500"
-      },
-      "목": {
-        "wins": 13,
-        "losses": 8,
-        "draws": 2,
-        "win_rate": "0.619"
-      },
-      "금": {
-        "wins": 9,
-        "losses": 10,
-        "draws": 1,
-        "win_rate": "0.474"
-      },
-      "토": {
-        "wins": 8,
-        "losses": 17,
-        "draws": 2,
-        "win_rate": "0.320"
-      },
-      "일": {
-        "wins": 12,
-        "losses": 15,
-        "draws": 0,
-        "win_rate": "0.444"
       }
     },
     "KT": {
@@ -440,6 +264,182 @@
         "losses": 11,
         "draws": 3,
         "win_rate": "0.500"
+      }
+    },
+    "KIA": {
+      "월": {
+        "wins": 1,
+        "losses": 1,
+        "draws": 0,
+        "win_rate": "0.500"
+      },
+      "화": {
+        "wins": 13,
+        "losses": 11,
+        "draws": 0,
+        "win_rate": "0.542"
+      },
+      "수": {
+        "wins": 10,
+        "losses": 16,
+        "draws": 1,
+        "win_rate": "0.385"
+      },
+      "목": {
+        "wins": 11,
+        "losses": 10,
+        "draws": 2,
+        "win_rate": "0.524"
+      },
+      "금": {
+        "wins": 6,
+        "losses": 13,
+        "draws": 0,
+        "win_rate": "0.316"
+      },
+      "토": {
+        "wins": 13,
+        "losses": 9,
+        "draws": 1,
+        "win_rate": "0.591"
+      },
+      "일": {
+        "wins": 11,
+        "losses": 15,
+        "draws": 0,
+        "win_rate": "0.423"
+      }
+    },
+    "NC": {
+      "월": {
+        "wins": 3,
+        "losses": 0,
+        "draws": 0,
+        "win_rate": "1.000"
+      },
+      "화": {
+        "wins": 9,
+        "losses": 13,
+        "draws": 2,
+        "win_rate": "0.409"
+      },
+      "수": {
+        "wins": 15,
+        "losses": 9,
+        "draws": 0,
+        "win_rate": "0.625"
+      },
+      "목": {
+        "wins": 8,
+        "losses": 12,
+        "draws": 1,
+        "win_rate": "0.400"
+      },
+      "금": {
+        "wins": 7,
+        "losses": 13,
+        "draws": 1,
+        "win_rate": "0.350"
+      },
+      "토": {
+        "wins": 14,
+        "losses": 12,
+        "draws": 1,
+        "win_rate": "0.538"
+      },
+      "일": {
+        "wins": 16,
+        "losses": 9,
+        "draws": 1,
+        "win_rate": "0.640"
+      }
+    },
+    "SSG": {
+      "월": {
+        "wins": 2,
+        "losses": 2,
+        "draws": 0,
+        "win_rate": "0.500"
+      },
+      "화": {
+        "wins": 13,
+        "losses": 12,
+        "draws": 1,
+        "win_rate": "0.520"
+      },
+      "수": {
+        "wins": 11,
+        "losses": 10,
+        "draws": 2,
+        "win_rate": "0.524"
+      },
+      "목": {
+        "wins": 11,
+        "losses": 13,
+        "draws": 0,
+        "win_rate": "0.458"
+      },
+      "금": {
+        "wins": 12,
+        "losses": 7,
+        "draws": 0,
+        "win_rate": "0.632"
+      },
+      "토": {
+        "wins": 10,
+        "losses": 15,
+        "draws": 1,
+        "win_rate": "0.400"
+      },
+      "일": {
+        "wins": 17,
+        "losses": 9,
+        "draws": 0,
+        "win_rate": "0.654"
+      }
+    },
+    "두산": {
+      "월": {
+        "wins": 2,
+        "losses": 0,
+        "draws": 0,
+        "win_rate": "1.000"
+      },
+      "화": {
+        "wins": 7,
+        "losses": 17,
+        "draws": 0,
+        "win_rate": "0.292"
+      },
+      "수": {
+        "wins": 10,
+        "losses": 10,
+        "draws": 1,
+        "win_rate": "0.500"
+      },
+      "목": {
+        "wins": 13,
+        "losses": 8,
+        "draws": 2,
+        "win_rate": "0.619"
+      },
+      "금": {
+        "wins": 9,
+        "losses": 10,
+        "draws": 1,
+        "win_rate": "0.474"
+      },
+      "토": {
+        "wins": 8,
+        "losses": 17,
+        "draws": 2,
+        "win_rate": "0.320"
+      },
+      "일": {
+        "wins": 12,
+        "losses": 15,
+        "draws": 0,
+        "win_rate": "0.444"
       }
     },
     "나눔": {},
