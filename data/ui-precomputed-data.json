@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "lastUpdated": "2025-10-14T07:43:10.788Z",
+    "lastUpdated": "2025-10-14T08:28:39.338Z",
     "version": "1.0.0",
     "description": "루트 index.html의 사전 계산된 UI 데이터"
   },
@@ -92,7 +92,7 @@
       "두산",
       "키움"
     ],
-    "lastCalculated": "2025-10-14T07:43:10.788Z"
+    "lastCalculated": "2025-10-14T08:28:39.338Z"
   },
   "precomputedHalfSeasonStats": {
     "allTeamsHalfStats": {
@@ -126,38 +126,6 @@
           "draws": 0,
           "games": 71,
           "winRate": 0.4507042253521127
-        }
-      },
-      "SSG": {
-        "firstHalf": {
-          "wins": 43,
-          "losses": 55,
-          "draws": 0,
-          "games": 98,
-          "winRate": 0.4387755102040816
-        },
-        "secondHalf": {
-          "wins": 33,
-          "losses": 39,
-          "draws": 0,
-          "games": 72,
-          "winRate": 0.4583333333333333
-        }
-      },
-      "두산": {
-        "firstHalf": {
-          "wins": 36,
-          "losses": 62,
-          "draws": 0,
-          "games": 98,
-          "winRate": 0.3673469387755102
-        },
-        "secondHalf": {
-          "wins": 25,
-          "losses": 36,
-          "draws": 0,
-          "games": 61,
-          "winRate": 0.4098360655737705
         }
       },
       "KT": {
@@ -222,6 +190,38 @@
           "draws": 0,
           "games": 59,
           "winRate": 0.3389830508474576
+        }
+      },
+      "SSG": {
+        "firstHalf": {
+          "wins": 43,
+          "losses": 55,
+          "draws": 0,
+          "games": 98,
+          "winRate": 0.4387755102040816
+        },
+        "secondHalf": {
+          "wins": 33,
+          "losses": 39,
+          "draws": 0,
+          "games": 72,
+          "winRate": 0.4583333333333333
+        }
+      },
+      "두산": {
+        "firstHalf": {
+          "wins": 36,
+          "losses": 62,
+          "draws": 0,
+          "games": 98,
+          "winRate": 0.3673469387755102
+        },
+        "secondHalf": {
+          "wins": 25,
+          "losses": 36,
+          "draws": 0,
+          "games": 61,
+          "winRate": 0.4098360655737705
         }
       },
       "LG": {
@@ -289,7 +289,7 @@
         }
       }
     },
-    "lastCalculated": "2025-10-14T07:43:10.788Z"
+    "lastCalculated": "2025-10-14T08:28:39.338Z"
   },
   "scheduleData": {
     "remainingGames": [],
