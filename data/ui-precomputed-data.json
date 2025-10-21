@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "lastUpdated": "2025-10-20T14:49:13.109Z",
+    "lastUpdated": "2025-10-21T07:43:25.159Z",
     "version": "1.0.0",
     "description": "루트 index.html의 사전 계산된 UI 데이터"
   },
@@ -92,10 +92,42 @@
       "두산",
       "키움"
     ],
-    "lastCalculated": "2025-10-20T14:49:13.110Z"
+    "lastCalculated": "2025-10-21T07:43:25.159Z"
   },
   "precomputedHalfSeasonStats": {
     "allTeamsHalfStats": {
+      "SSG": {
+        "firstHalf": {
+          "wins": 43,
+          "losses": 55,
+          "draws": 0,
+          "games": 98,
+          "winRate": 0.4387755102040816
+        },
+        "secondHalf": {
+          "wins": 33,
+          "losses": 40,
+          "draws": 0,
+          "games": 73,
+          "winRate": 0.4520547945205479
+        }
+      },
+      "두산": {
+        "firstHalf": {
+          "wins": 36,
+          "losses": 62,
+          "draws": 0,
+          "games": 98,
+          "winRate": 0.3673469387755102
+        },
+        "secondHalf": {
+          "wins": 25,
+          "losses": 36,
+          "draws": 0,
+          "games": 61,
+          "winRate": 0.4098360655737705
+        }
+      },
       "KT": {
         "firstHalf": {
           "wins": 45,
@@ -126,38 +158,6 @@
           "draws": 0,
           "games": 67,
           "winRate": 0.47761194029850745
-        }
-      },
-      "삼성": {
-        "firstHalf": {
-          "wins": 43,
-          "losses": 54,
-          "draws": 0,
-          "games": 97,
-          "winRate": 0.44329896907216493
-        },
-        "secondHalf": {
-          "wins": 36,
-          "losses": 37,
-          "draws": 0,
-          "games": 73,
-          "winRate": 0.4931506849315068
-        }
-      },
-      "키움": {
-        "firstHalf": {
-          "wins": 27,
-          "losses": 69,
-          "draws": 0,
-          "games": 96,
-          "winRate": 0.28125
-        },
-        "secondHalf": {
-          "wins": 20,
-          "losses": 39,
-          "draws": 0,
-          "games": 59,
-          "winRate": 0.3389830508474576
         }
       },
       "LG": {
@@ -192,6 +192,38 @@
           "winRate": 0.3220338983050847
         }
       },
+      "삼성": {
+        "firstHalf": {
+          "wins": 43,
+          "losses": 54,
+          "draws": 0,
+          "games": 97,
+          "winRate": 0.44329896907216493
+        },
+        "secondHalf": {
+          "wins": 36,
+          "losses": 37,
+          "draws": 0,
+          "games": 73,
+          "winRate": 0.4931506849315068
+        }
+      },
+      "키움": {
+        "firstHalf": {
+          "wins": 27,
+          "losses": 69,
+          "draws": 0,
+          "games": 96,
+          "winRate": 0.28125
+        },
+        "secondHalf": {
+          "wins": 20,
+          "losses": 39,
+          "draws": 0,
+          "games": 59,
+          "winRate": 0.3389830508474576
+        }
+      },
       "KIA": {
         "firstHalf": {
           "wins": 45,
@@ -222,38 +254,6 @@
           "draws": 0,
           "games": 71,
           "winRate": 0.4507042253521127
-        }
-      },
-      "SSG": {
-        "firstHalf": {
-          "wins": 43,
-          "losses": 55,
-          "draws": 0,
-          "games": 98,
-          "winRate": 0.4387755102040816
-        },
-        "secondHalf": {
-          "wins": 33,
-          "losses": 40,
-          "draws": 0,
-          "games": 73,
-          "winRate": 0.4520547945205479
-        }
-      },
-      "두산": {
-        "firstHalf": {
-          "wins": 36,
-          "losses": 62,
-          "draws": 0,
-          "games": 98,
-          "winRate": 0.3673469387755102
-        },
-        "secondHalf": {
-          "wins": 25,
-          "losses": 36,
-          "draws": 0,
-          "games": 61,
-          "winRate": 0.4098360655737705
         }
       },
       "나눔": {
@@ -289,11 +289,11 @@
         }
       }
     },
-    "lastCalculated": "2025-10-20T14:49:13.110Z"
+    "lastCalculated": "2025-10-21T07:43:25.159Z"
   },
   "scheduleData": {
     "remainingGames": [],
-    "currentDate": "2025-10-20",
+    "currentDate": "2025-10-21",
     "filteredFromCurrentDate": true
   }
 }
