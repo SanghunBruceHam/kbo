@@ -1,5 +1,5 @@
 {
-  "updateTime": "2025-10-22T12:58:27.840Z",
+  "updateTime": "2025-10-22T13:19:46.692Z",
   "updateDate": "2025년 10월 22일",
   "standings": [
     {
@@ -10888,13 +10888,13 @@
       }
     },
     "한화": {
-      "totalSeries": 52,
+      "totalSeries": 53,
       "winningSeries": 27,
       "losingSeries": 18,
       "splitSeries": 7,
       "sweepWins": 11,
       "sweepLosses": 4,
-      "seriesWinRate": "51.9",
+      "seriesWinRate": "50.9",
       "series": [
         {
           "opponent": "KT",
@@ -13495,6 +13495,46 @@
           "totalGames": 3,
           "seriesType": "HOME",
           "seriesNumber": 59
+        },
+        {
+          "opponent": "삼성",
+          "isHome": false,
+          "games": [
+            {
+              "date": "2025-10-21",
+              "opponent": "삼성",
+              "isHome": false,
+              "score": "5:4",
+              "result": "W",
+              "runs_scored": 5,
+              "runs_allowed": 4,
+              "gameNumber": 147
+            },
+            {
+              "date": "2025-10-22",
+              "opponent": "삼성",
+              "isHome": false,
+              "score": "4:7",
+              "result": "L",
+              "runs_scored": 4,
+              "runs_allowed": 7,
+              "gameNumber": 148
+            }
+          ],
+          "startDate": "2025-10-21",
+          "lastDate": "2025-10-22",
+          "wins": 1,
+          "losses": 1,
+          "draws": 0,
+          "homeGames": 0,
+          "awayGames": 2,
+          "result": "ONGOING",
+          "isSweep": false,
+          "isWinningSweep": false,
+          "isLosingSweep": false,
+          "totalGames": 2,
+          "seriesType": "AWAY",
+          "seriesNumber": 60
         }
       ],
       "currentStreak": {
@@ -13547,10 +13587,10 @@
           "sweepLosses": 0
         },
         "삼성": {
-          "totalSeries": 7,
+          "totalSeries": 8,
           "wins": 2,
           "losses": 2,
-          "splits": 3,
+          "splits": 4,
           "sweepWins": 1,
           "sweepLosses": 1
         },
@@ -16310,13 +16350,13 @@
       }
     },
     "삼성": {
-      "totalSeries": 55,
+      "totalSeries": 56,
       "winningSeries": 26,
       "losingSeries": 20,
       "splitSeries": 9,
       "sweepWins": 5,
       "sweepLosses": 7,
-      "seriesWinRate": "47.3",
+      "seriesWinRate": "46.4",
       "series": [
         {
           "opponent": "키움",
@@ -19017,6 +19057,46 @@
           "totalGames": 3,
           "seriesType": "AWAY",
           "seriesNumber": 65
+        },
+        {
+          "opponent": "한화",
+          "isHome": true,
+          "games": [
+            {
+              "date": "2025-10-21",
+              "opponent": "한화",
+              "isHome": true,
+              "score": "4:5",
+              "result": "L",
+              "runs_scored": 4,
+              "runs_allowed": 5,
+              "gameNumber": 153
+            },
+            {
+              "date": "2025-10-22",
+              "opponent": "한화",
+              "isHome": true,
+              "score": "7:4",
+              "result": "W",
+              "runs_scored": 7,
+              "runs_allowed": 4,
+              "gameNumber": 154
+            }
+          ],
+          "startDate": "2025-10-21",
+          "lastDate": "2025-10-22",
+          "wins": 1,
+          "losses": 1,
+          "draws": 0,
+          "homeGames": 2,
+          "awayGames": 0,
+          "result": "ONGOING",
+          "isSweep": false,
+          "isWinningSweep": false,
+          "isLosingSweep": false,
+          "totalGames": 2,
+          "seriesType": "HOME",
+          "seriesNumber": 66
         }
       ],
       "currentStreak": {
@@ -19069,10 +19149,10 @@
           "sweepLosses": 1
         },
         "한화": {
-          "totalSeries": 7,
+          "totalSeries": 8,
           "wins": 2,
           "losses": 2,
-          "splits": 3,
+          "splits": 4,
           "sweepWins": 1,
           "sweepLosses": 1
         },
