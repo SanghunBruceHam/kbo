@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-10-22T11:38:27.731Z",
+  "lastUpdated": "2025-10-22T12:58:26.116Z",
   "updateDate": "2025. 10. 22.",
   "note": "2025-season-data-clean.txt 기반 완전 자동화 처리",
   "totalData": {
@@ -61,13 +61,13 @@
       },
       "삼성": {
         "wins": 10,
-        "losses": 9,
+        "losses": 10,
         "draws": 0,
         "homeWins": 6,
         "homeLosses": 5,
         "homeDraws": 0,
         "awayWins": 4,
-        "awayLosses": 4,
+        "awayLosses": 5,
         "awayDraws": 0
       },
       "NC": {
@@ -611,10 +611,10 @@
     },
     "삼성": {
       "한화": {
-        "wins": 9,
+        "wins": 10,
         "losses": 10,
         "draws": 0,
-        "homeWins": 4,
+        "homeWins": 5,
         "homeLosses": 4,
         "homeDraws": 0,
         "awayWins": 5,
@@ -1015,5 +1015,5 @@
     }
   },
   "source": "CLEAN_TXT_AUTOMATION",
-  "dataDate": "2025-10-21"
+  "dataDate": "2025-10-22"
 }
