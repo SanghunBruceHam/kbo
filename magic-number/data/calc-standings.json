@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-10-24T11:37:39.569Z",
+  "lastUpdated": "2025-10-24T12:56:39.624Z",
   "updateDate": "2025. 10. 24.",
   "note": "2025-season-data-clean.txt 기반 완전 자동화 처리",
   "rankings": [
@@ -20,15 +20,15 @@
     {
       "rank": 2,
       "team": "한화",
-      "games": 148,
-      "wins": 85,
+      "games": 149,
+      "wins": 86,
       "losses": 59,
       "draws": 4,
-      "winRate": 0.59,
-      "gamesBehind": 1.5,
+      "winRate": 0.593,
+      "gamesBehind": 1,
       "recent10": "5승1무4패",
-      "streak": "1패",
-      "homeRecord": "45-28-2",
+      "streak": "1승",
+      "homeRecord": "46-28-2",
       "awayRecord": "40-31-2"
     },
     {
@@ -48,16 +48,16 @@
     {
       "rank": 4,
       "team": "삼성",
-      "games": 154,
+      "games": 155,
       "wins": 80,
-      "losses": 72,
+      "losses": 73,
       "draws": 2,
-      "winRate": 0.526,
-      "gamesBehind": 10.5,
+      "winRate": 0.523,
+      "gamesBehind": 11,
       "recent10": "6승0무4패",
-      "streak": "1승",
+      "streak": "1패",
       "homeRecord": "45-32-0",
-      "awayRecord": "35-40-2"
+      "awayRecord": "35-41-2"
     },
     {
       "rank": 5,
@@ -160,7 +160,7 @@
       "elimination": 999,
       "homeAdvantage": 0,
       "remainingGames": 0,
-      "maxPossibleWins": 85,
+      "maxPossibleWins": 86,
       "currentRank": 2
     },
     "SSG": {
@@ -236,8 +236,8 @@
       "currentRank": 10
     }
   },
-  "lastMagicUpdate": "2025-10-24T11:37:39.569Z",
+  "lastMagicUpdate": "2025-10-24T12:56:39.624Z",
   "totalTeams": 10,
   "source": "CLEAN_TXT_AUTOMATION",
-  "dataDate": "2025-10-22"
+  "dataDate": "2025-10-24"
 }

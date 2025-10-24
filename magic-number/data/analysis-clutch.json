@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-10-24T11:37:42.004Z",
+  "lastUpdated": "2025-10-24T12:56:42.113Z",
   "updateDate": "2025. 10. 24.",
   "clutchAnalysis": {
     "LG": {
@@ -286,7 +286,7 @@
       "clutchIndex": "55.8"
     },
     "한화": {
-      "totalGames": 165,
+      "totalGames": 166,
       "oneRunGames": 45,
       "oneRunWins": 27,
       "oneRunLosses": 18,
@@ -299,7 +299,7 @@
       "threeRunWins": 21,
       "threeRunLosses": 19,
       "threeRunWinRate": "52.5",
-      "blowoutWins": 37,
+      "blowoutWins": 38,
       "blowoutScored": [
         {
           "date": "2025-03-28",
@@ -522,6 +522,12 @@
           "opponent": "삼성",
           "score": "9:8",
           "runs": 9
+        },
+        {
+          "date": "2025-10-24",
+          "opponent": "삼성",
+          "score": "11:2",
+          "runs": 11
         }
       ],
       "blowoutLosses": 8,
@@ -577,8 +583,8 @@
       ],
       "shutoutWins": 13,
       "shutoutLosses": 10,
-      "highScoringGames": 15,
-      "highScoringWins": 14,
+      "highScoringGames": 16,
+      "highScoringWins": 15,
       "scorelessGames": 10,
       "comebackPotential": {
         "trailingWins": 0,
@@ -852,7 +858,7 @@
       "clutchIndex": "49.7"
     },
     "삼성": {
-      "totalGames": 172,
+      "totalGames": 173,
       "oneRunGames": 29,
       "oneRunWins": 9,
       "oneRunLosses": 20,
@@ -1114,7 +1120,7 @@
           "runs": 7
         }
       ],
-      "blowoutLosses": 7,
+      "blowoutLosses": 8,
       "blowoutAllowed": [
         {
           "date": "2025-04-16",
@@ -1157,6 +1163,12 @@
           "opponent": "KIA",
           "score": "1:9",
           "diff": 8
+        },
+        {
+          "date": "2025-10-24",
+          "opponent": "한화",
+          "score": "2:11",
+          "diff": 9
         }
       ],
       "shutoutWins": 11,
