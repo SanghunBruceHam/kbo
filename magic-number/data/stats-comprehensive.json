@@ -1,5 +1,5 @@
 {
-  "updateTime": "2025-10-27T12:57:11.360Z",
+  "updateTime": "2025-10-27T13:11:19.254Z",
   "updateDate": "2025년 10월 27일",
   "standings": [
     {
@@ -8381,13 +8381,13 @@
   },
   "seriesRecords": {
     "LG": {
-      "totalSeries": 48,
-      "winningSeries": 29,
+      "totalSeries": 49,
+      "winningSeries": 30,
       "losingSeries": 14,
       "splitSeries": 5,
       "sweepWins": 8,
       "sweepLosses": 1,
-      "seriesWinRate": "60.4",
+      "seriesWinRate": "61.2",
       "series": [
         {
           "opponent": "롯데",
@@ -10818,13 +10818,53 @@
           "totalGames": 4,
           "seriesType": "AWAY",
           "seriesNumber": 59
+        },
+        {
+          "opponent": "한화",
+          "isHome": true,
+          "games": [
+            {
+              "date": "2025-10-26",
+              "opponent": "한화",
+              "isHome": true,
+              "score": "8:2",
+              "result": "W",
+              "runs_scored": 8,
+              "runs_allowed": 2,
+              "gameNumber": 145
+            },
+            {
+              "date": "2025-10-27",
+              "opponent": "한화",
+              "isHome": true,
+              "score": "13:5",
+              "result": "W",
+              "runs_scored": 13,
+              "runs_allowed": 5,
+              "gameNumber": 146
+            }
+          ],
+          "startDate": "2025-10-26",
+          "lastDate": "2025-10-27",
+          "wins": 2,
+          "losses": 0,
+          "draws": 0,
+          "homeGames": 2,
+          "awayGames": 0,
+          "result": "WIN",
+          "isSweep": false,
+          "isWinningSweep": false,
+          "isLosingSweep": false,
+          "totalGames": 2,
+          "seriesType": "HOME",
+          "seriesNumber": 62
         }
       ],
       "currentStreak": {
-        "type": "LOSS",
+        "type": "WIN",
         "count": 1,
-        "startDate": "2025-09-26",
-        "endDate": "2025-09-29"
+        "startDate": "2025-10-26",
+        "endDate": "2025-10-27"
       },
       "longestWinningStreak": {
         "count": 13,
@@ -10846,8 +10886,8 @@
           "sweepLosses": 0
         },
         "한화": {
-          "totalSeries": 6,
-          "wins": 3,
+          "totalSeries": 7,
+          "wins": 4,
           "losses": 3,
           "splits": 0,
           "sweepWins": 1,
@@ -10912,13 +10952,13 @@
       }
     },
     "한화": {
-      "totalSeries": 53,
+      "totalSeries": 54,
       "winningSeries": 27,
-      "losingSeries": 18,
+      "losingSeries": 19,
       "splitSeries": 8,
       "sweepWins": 11,
       "sweepLosses": 4,
-      "seriesWinRate": "50.9",
+      "seriesWinRate": "50.0",
       "series": [
         {
           "opponent": "KT",
@@ -13559,13 +13599,53 @@
           "totalGames": 2,
           "seriesType": "AWAY",
           "seriesNumber": 60
+        },
+        {
+          "opponent": "LG",
+          "isHome": false,
+          "games": [
+            {
+              "date": "2025-10-26",
+              "opponent": "LG",
+              "isHome": false,
+              "score": "2:8",
+              "result": "L",
+              "runs_scored": 2,
+              "runs_allowed": 8,
+              "gameNumber": 150
+            },
+            {
+              "date": "2025-10-27",
+              "opponent": "LG",
+              "isHome": false,
+              "score": "5:13",
+              "result": "L",
+              "runs_scored": 5,
+              "runs_allowed": 13,
+              "gameNumber": 151
+            }
+          ],
+          "startDate": "2025-10-26",
+          "lastDate": "2025-10-27",
+          "wins": 0,
+          "losses": 2,
+          "draws": 0,
+          "homeGames": 0,
+          "awayGames": 2,
+          "result": "LOSS",
+          "isSweep": false,
+          "isWinningSweep": false,
+          "isLosingSweep": false,
+          "totalGames": 2,
+          "seriesType": "AWAY",
+          "seriesNumber": 62
         }
       ],
       "currentStreak": {
-        "type": "WIN",
+        "type": "LOSS",
         "count": 1,
-        "startDate": "2025-09-26",
-        "endDate": "2025-09-29"
+        "startDate": "2025-10-26",
+        "endDate": "2025-10-27"
       },
       "longestWinningStreak": {
         "count": 9,
@@ -13587,9 +13667,9 @@
           "sweepLosses": 0
         },
         "LG": {
-          "totalSeries": 6,
+          "totalSeries": 7,
           "wins": 3,
-          "losses": 3,
+          "losses": 4,
           "splits": 0,
           "sweepWins": 0,
           "sweepLosses": 1
