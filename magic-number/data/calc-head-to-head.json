@@ -1,18 +1,18 @@
 {
-  "lastUpdated": "2025-10-27T11:38:13.202Z",
+  "lastUpdated": "2025-10-27T12:57:09.636Z",
   "updateDate": "2025. 10. 27.",
   "note": "2025-season-data-clean.txt 기반 완전 자동화 처리",
   "totalData": {
     "한화": {
       "LG": {
         "wins": 7,
-        "losses": 9,
+        "losses": 10,
         "draws": 1,
         "homeWins": 5,
         "homeLosses": 1,
         "homeDraws": 1,
         "awayWins": 2,
-        "awayLosses": 8,
+        "awayLosses": 9,
         "awayDraws": 0
       },
       "롯데": {
@@ -106,10 +106,10 @@
     },
     "LG": {
       "한화": {
-        "wins": 9,
+        "wins": 10,
         "losses": 7,
         "draws": 1,
-        "homeWins": 8,
+        "homeWins": 9,
         "homeLosses": 2,
         "homeDraws": 0,
         "awayWins": 1,
@@ -1015,5 +1015,5 @@
     }
   },
   "source": "CLEAN_TXT_AUTOMATION",
-  "dataDate": "2025-10-26"
+  "dataDate": "2025-10-27"
 }
