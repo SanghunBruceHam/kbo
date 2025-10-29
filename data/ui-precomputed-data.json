@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "lastUpdated": "2025-10-29T11:37:30.714Z",
+    "lastUpdated": "2025-10-29T12:57:39.146Z",
     "version": "1.0.0",
     "description": "루트 index.html의 사전 계산된 UI 데이터"
   },
@@ -92,7 +92,7 @@
       "두산",
       "키움"
     ],
-    "lastCalculated": "2025-10-29T11:37:30.714Z"
+    "lastCalculated": "2025-10-29T12:57:39.146Z"
   },
   "precomputedHalfSeasonStats": {
     "allTeamsHalfStats": {
@@ -128,38 +128,6 @@
           "winRate": 0.4507042253521127
         }
       },
-      "LG": {
-        "firstHalf": {
-          "wins": 48,
-          "losses": 49,
-          "draws": 0,
-          "games": 97,
-          "winRate": 0.4948453608247423
-        },
-        "secondHalf": {
-          "wins": 39,
-          "losses": 26,
-          "draws": 0,
-          "games": 65,
-          "winRate": 0.6
-        }
-      },
-      "롯데": {
-        "firstHalf": {
-          "wins": 47,
-          "losses": 51,
-          "draws": 0,
-          "games": 98,
-          "winRate": 0.47959183673469385
-        },
-        "secondHalf": {
-          "wins": 19,
-          "losses": 40,
-          "draws": 0,
-          "games": 59,
-          "winRate": 0.3220338983050847
-        }
-      },
       "KT": {
         "firstHalf": {
           "wins": 45,
@@ -185,11 +153,43 @@
           "winRate": 0.5416666666666666
         },
         "secondHalf": {
-          "wins": 34,
+          "wins": 35,
           "losses": 38,
           "draws": 0,
-          "games": 72,
-          "winRate": 0.4722222222222222
+          "games": 73,
+          "winRate": 0.4794520547945205
+        }
+      },
+      "LG": {
+        "firstHalf": {
+          "wins": 48,
+          "losses": 49,
+          "draws": 0,
+          "games": 97,
+          "winRate": 0.4948453608247423
+        },
+        "secondHalf": {
+          "wins": 39,
+          "losses": 27,
+          "draws": 0,
+          "games": 66,
+          "winRate": 0.5909090909090909
+        }
+      },
+      "롯데": {
+        "firstHalf": {
+          "wins": 47,
+          "losses": 51,
+          "draws": 0,
+          "games": 98,
+          "winRate": 0.47959183673469385
+        },
+        "secondHalf": {
+          "wins": 19,
+          "losses": 40,
+          "draws": 0,
+          "games": 59,
+          "winRate": 0.3220338983050847
         }
       },
       "SSG": {
@@ -289,7 +289,7 @@
         }
       }
     },
-    "lastCalculated": "2025-10-29T11:37:30.714Z"
+    "lastCalculated": "2025-10-29T12:57:39.146Z"
   },
   "scheduleData": {
     "remainingGames": [],
