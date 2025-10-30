@@ -1,15 +1,15 @@
 {
-  "lastUpdated": "2025-10-30T12:55:55.153Z",
+  "lastUpdated": "2025-10-30T13:11:09.936Z",
   "updateDate": "2025. 10. 30.",
   "teamStats": {
     "LG": {
-      "totalSeries": 49,
+      "totalSeries": 50,
       "winningSeries": 30,
       "losingSeries": 14,
       "splitSeries": 5,
       "sweepWins": 8,
       "sweepLosses": 1,
-      "seriesWinRate": "61.2",
+      "seriesWinRate": "60.0",
       "series": [
         {
           "opponent": "롯데",
@@ -2480,6 +2480,46 @@
           "totalGames": 2,
           "seriesType": "HOME",
           "seriesNumber": 62
+        },
+        {
+          "opponent": "한화",
+          "isHome": false,
+          "games": [
+            {
+              "date": "2025-10-29",
+              "opponent": "한화",
+              "isHome": false,
+              "score": "3:7",
+              "result": "L",
+              "runs_scored": 3,
+              "runs_allowed": 7,
+              "gameNumber": 147
+            },
+            {
+              "date": "2025-10-30",
+              "opponent": "한화",
+              "isHome": false,
+              "score": "7:4",
+              "result": "W",
+              "runs_scored": 7,
+              "runs_allowed": 4,
+              "gameNumber": 148
+            }
+          ],
+          "startDate": "2025-10-29",
+          "lastDate": "2025-10-30",
+          "wins": 1,
+          "losses": 1,
+          "draws": 0,
+          "homeGames": 0,
+          "awayGames": 2,
+          "result": "ONGOING",
+          "isSweep": false,
+          "isWinningSweep": false,
+          "isLosingSweep": false,
+          "totalGames": 2,
+          "seriesType": "AWAY",
+          "seriesNumber": 63
         }
       ],
       "currentStreak": {
@@ -2508,10 +2548,10 @@
           "sweepLosses": 0
         },
         "한화": {
-          "totalSeries": 7,
+          "totalSeries": 8,
           "wins": 4,
           "losses": 3,
-          "splits": 0,
+          "splits": 1,
           "sweepWins": 1,
           "sweepLosses": 0
         },
@@ -2574,13 +2614,13 @@
       }
     },
     "한화": {
-      "totalSeries": 54,
+      "totalSeries": 55,
       "winningSeries": 27,
       "losingSeries": 19,
       "splitSeries": 8,
       "sweepWins": 11,
       "sweepLosses": 4,
-      "seriesWinRate": "50.0",
+      "seriesWinRate": "49.1",
       "series": [
         {
           "opponent": "KT",
@@ -5261,6 +5301,46 @@
           "totalGames": 2,
           "seriesType": "AWAY",
           "seriesNumber": 62
+        },
+        {
+          "opponent": "LG",
+          "isHome": true,
+          "games": [
+            {
+              "date": "2025-10-29",
+              "opponent": "LG",
+              "isHome": true,
+              "score": "7:3",
+              "result": "W",
+              "runs_scored": 7,
+              "runs_allowed": 3,
+              "gameNumber": 152
+            },
+            {
+              "date": "2025-10-30",
+              "opponent": "LG",
+              "isHome": true,
+              "score": "4:7",
+              "result": "L",
+              "runs_scored": 4,
+              "runs_allowed": 7,
+              "gameNumber": 153
+            }
+          ],
+          "startDate": "2025-10-29",
+          "lastDate": "2025-10-30",
+          "wins": 1,
+          "losses": 1,
+          "draws": 0,
+          "homeGames": 2,
+          "awayGames": 0,
+          "result": "ONGOING",
+          "isSweep": false,
+          "isWinningSweep": false,
+          "isLosingSweep": false,
+          "totalGames": 2,
+          "seriesType": "HOME",
+          "seriesNumber": 63
         }
       ],
       "currentStreak": {
@@ -5289,10 +5369,10 @@
           "sweepLosses": 0
         },
         "LG": {
-          "totalSeries": 7,
+          "totalSeries": 8,
           "wins": 3,
           "losses": 4,
-          "splits": 0,
+          "splits": 1,
           "sweepWins": 0,
           "sweepLosses": 1
         },
@@ -26617,10 +26697,10 @@
     "LG": {
       "LG": null,
       "한화": {
-        "record": "4-3-0",
-        "winRate": "57.1",
+        "record": "4-3-1",
+        "winRate": "50.0",
         "sweeps": "1-0",
-        "totalSeries": 7
+        "totalSeries": 8
       },
       "KIA": {
         "record": "3-2-1",
@@ -26673,10 +26753,10 @@
     },
     "한화": {
       "LG": {
-        "record": "3-4-0",
-        "winRate": "42.9",
+        "record": "3-4-1",
+        "winRate": "37.5",
         "sweeps": "0-1",
-        "totalSeries": 7
+        "totalSeries": 8
       },
       "한화": null,
       "KIA": {

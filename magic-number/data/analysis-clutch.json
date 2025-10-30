@@ -1,9 +1,9 @@
 {
-  "lastUpdated": "2025-10-30T12:55:54.699Z",
+  "lastUpdated": "2025-10-30T13:11:09.441Z",
   "updateDate": "2025. 10. 30.",
   "clutchAnalysis": {
     "LG": {
-      "totalGames": 163,
+      "totalGames": 164,
       "oneRunGames": 39,
       "oneRunWins": 22,
       "oneRunLosses": 17,
@@ -12,11 +12,11 @@
       "closeWins": 33,
       "closeLosses": 24,
       "closeWinRate": "57.9",
-      "threeRunGames": 39,
-      "threeRunWins": 20,
+      "threeRunGames": 40,
+      "threeRunWins": 21,
       "threeRunLosses": 19,
-      "threeRunWinRate": "51.3",
-      "blowoutWins": 38,
+      "threeRunWinRate": "52.5",
+      "blowoutWins": 39,
       "blowoutScored": [
         {
           "date": "2025-03-22",
@@ -245,6 +245,12 @@
           "opponent": "한화",
           "score": "13:5",
           "runs": 13
+        },
+        {
+          "date": "2025-10-30",
+          "opponent": "한화",
+          "score": "7:4",
+          "runs": 7
         }
       ],
       "blowoutLosses": 6,
@@ -295,10 +301,10 @@
         "trailingWins": 0,
         "leadBlownLosses": 0
       },
-      "clutchIndex": "55.8"
+      "clutchIndex": "56.1"
     },
     "한화": {
-      "totalGames": 169,
+      "totalGames": 170,
       "oneRunGames": 45,
       "oneRunWins": 27,
       "oneRunLosses": 18,
@@ -307,10 +313,10 @@
       "closeWins": 40,
       "closeLosses": 29,
       "closeWinRate": "58.0",
-      "threeRunGames": 40,
+      "threeRunGames": 41,
       "threeRunWins": 21,
-      "threeRunLosses": 19,
-      "threeRunWinRate": "52.5",
+      "threeRunLosses": 20,
+      "threeRunWinRate": "51.2",
       "blowoutWins": 39,
       "blowoutScored": [
         {
@@ -614,7 +620,7 @@
         "trailingWins": 0,
         "leadBlownLosses": 0
       },
-      "clutchIndex": "57.9"
+      "clutchIndex": "57.6"
     },
     "KIA": {
       "totalGames": 165,
