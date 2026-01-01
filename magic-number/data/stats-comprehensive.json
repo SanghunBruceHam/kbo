@@ -1,23 +1,59 @@
 {
-  "updateTime": "2025-12-31T14:43:28.354Z",
-  "updateDate": "2025년 12월 31일",
+  "updateTime": "2026-01-01T07:42:00.774Z",
+  "updateDate": "2026년 1월 1일",
   "standings": [
     {
       "rank": 1,
       "team_name": "LG",
-      "games_played": 149,
-      "wins": 89,
-      "losses": 57,
+      "games_played": 158,
+      "wins": 93,
+      "losses": 62,
       "draws": 3,
-      "runs_scored": 823,
-      "runs_allowed": 603,
-      "homeWins": 43,
+      "runs_scored": 864,
+      "runs_allowed": 644,
+      "homeWins": 44,
       "homeLosses": 29,
       "homeDraws": 1,
-      "awayWins": 46,
-      "awayLosses": 28,
+      "awayWins": 49,
+      "awayLosses": 33,
       "awayDraws": 2,
       "recentGames": [
+        {
+          "date": "2025-03-08",
+          "result": "패"
+        },
+        {
+          "date": "2025-03-09",
+          "result": "패"
+        },
+        {
+          "date": "2025-03-10",
+          "result": "승"
+        },
+        {
+          "date": "2025-03-11",
+          "result": "패"
+        },
+        {
+          "date": "2025-03-13",
+          "result": "승"
+        },
+        {
+          "date": "2025-03-14",
+          "result": "패"
+        },
+        {
+          "date": "2025-03-15",
+          "result": "승"
+        },
+        {
+          "date": "2025-03-16",
+          "result": "패"
+        },
+        {
+          "date": "2025-03-17",
+          "result": "승"
+        },
         {
           "date": "2025-03-22",
           "result": "승"
@@ -615,16 +651,16 @@
           "result": "승"
         }
       ],
-      "win_rate": "0.610",
+      "win_rate": "0.600",
       "run_differential": 220,
       "current_streak": "2W",
-      "homeRecord": "43-29-1",
-      "awayRecord": "46-28-2",
+      "homeRecord": "44-29-1",
+      "awayRecord": "49-33-2",
       "recent10": "5승0무5패",
-      "remainingGames": -5,
+      "remainingGames": -14,
       "team": "LG",
-      "games": 149,
-      "winRate": 0.6095890410958904,
+      "games": 158,
+      "winRate": 0.6,
       "streak": "2W",
       "gamesBehind": 0,
       "games_behind": "-"
@@ -632,19 +668,51 @@
     {
       "rank": 2,
       "team_name": "한화",
-      "games_played": 154,
-      "wins": 87,
-      "losses": 63,
-      "draws": 4,
-      "runs_scored": 740,
-      "runs_allowed": 617,
-      "homeWins": 47,
-      "homeLosses": 30,
+      "games_played": 162,
+      "wins": 92,
+      "losses": 65,
+      "draws": 5,
+      "runs_scored": 770,
+      "runs_allowed": 635,
+      "homeWins": 48,
+      "homeLosses": 32,
       "homeDraws": 2,
-      "awayWins": 40,
+      "awayWins": 44,
       "awayLosses": 33,
-      "awayDraws": 2,
+      "awayDraws": 3,
       "recentGames": [
+        {
+          "date": "2025-03-08",
+          "result": "패"
+        },
+        {
+          "date": "2025-03-09",
+          "result": "패"
+        },
+        {
+          "date": "2025-03-10",
+          "result": "승"
+        },
+        {
+          "date": "2025-03-11",
+          "result": "승"
+        },
+        {
+          "date": "2025-03-13",
+          "result": "무"
+        },
+        {
+          "date": "2025-03-14",
+          "result": "승"
+        },
+        {
+          "date": "2025-03-16",
+          "result": "승"
+        },
+        {
+          "date": "2025-03-17",
+          "result": "승"
+        },
         {
           "date": "2025-03-22",
           "result": "승"
@@ -1262,36 +1330,703 @@
           "result": "패"
         }
       ],
-      "win_rate": "0.580",
-      "run_differential": 123,
+      "win_rate": "0.586",
+      "run_differential": 135,
       "current_streak": "2L",
-      "homeRecord": "47-30-2",
-      "awayRecord": "40-33-2",
+      "homeRecord": "48-32-2",
+      "awayRecord": "44-33-3",
       "recent10": "4승0무6패",
-      "remainingGames": -10,
+      "remainingGames": -18,
       "team": "한화",
-      "games": 154,
-      "winRate": 0.58,
+      "games": 162,
+      "winRate": 0.5859872611464968,
       "streak": "2L",
-      "gamesBehind": 4,
-      "games_behind": 4
+      "gamesBehind": 2,
+      "games_behind": 2
     },
     {
       "rank": 3,
-      "team_name": "SSG",
-      "games_played": 148,
-      "wins": 76,
-      "losses": 68,
-      "draws": 4,
-      "runs_scored": 620,
-      "runs_allowed": 594,
-      "homeWins": 39,
-      "homeLosses": 32,
-      "homeDraws": 4,
+      "team_name": "KT",
+      "games_played": 151,
+      "wins": 77,
+      "losses": 69,
+      "draws": 5,
+      "runs_scored": 694,
+      "runs_allowed": 686,
+      "homeWins": 40,
+      "homeLosses": 36,
+      "homeDraws": 2,
       "awayWins": 37,
-      "awayLosses": 36,
+      "awayLosses": 33,
+      "awayDraws": 3,
+      "recentGames": [
+        {
+          "date": "2025-03-08",
+          "result": "승"
+        },
+        {
+          "date": "2025-03-09",
+          "result": "승"
+        },
+        {
+          "date": "2025-03-10",
+          "result": "승"
+        },
+        {
+          "date": "2025-03-11",
+          "result": "패"
+        },
+        {
+          "date": "2025-03-13",
+          "result": "승"
+        },
+        {
+          "date": "2025-03-14",
+          "result": "승"
+        },
+        {
+          "date": "2025-03-17",
+          "result": "승"
+        },
+        {
+          "date": "2025-03-22",
+          "result": "패"
+        },
+        {
+          "date": "2025-03-23",
+          "result": "승"
+        },
+        {
+          "date": "2025-03-25",
+          "result": "승"
+        },
+        {
+          "date": "2025-03-26",
+          "result": "패"
+        },
+        {
+          "date": "2025-03-27",
+          "result": "승"
+        },
+        {
+          "date": "2025-03-28",
+          "result": "승"
+        },
+        {
+          "date": "2025-03-29",
+          "result": "패"
+        },
+        {
+          "date": "2025-03-30",
+          "result": "무"
+        },
+        {
+          "date": "2025-04-02",
+          "result": "승"
+        },
+        {
+          "date": "2025-04-03",
+          "result": "패"
+        },
+        {
+          "date": "2025-04-04",
+          "result": "패"
+        },
+        {
+          "date": "2025-04-06",
+          "result": "패"
+        },
+        {
+          "date": "2025-04-08",
+          "result": "승"
+        },
+        {
+          "date": "2025-04-09",
+          "result": "승"
+        },
+        {
+          "date": "2025-04-10",
+          "result": "패"
+        },
+        {
+          "date": "2025-04-11",
+          "result": "승"
+        },
+        {
+          "date": "2025-04-13",
+          "result": "승"
+        },
+        {
+          "date": "2025-04-15",
+          "result": "패"
+        },
+        {
+          "date": "2025-04-16",
+          "result": "승"
+        },
+        {
+          "date": "2025-04-17",
+          "result": "패"
+        },
+        {
+          "date": "2025-04-18",
+          "result": "패"
+        },
+        {
+          "date": "2025-04-19",
+          "result": "승"
+        },
+        {
+          "date": "2025-04-20",
+          "result": "승"
+        },
+        {
+          "date": "2025-04-22",
+          "result": "승"
+        },
+        {
+          "date": "2025-04-23",
+          "result": "패"
+        },
+        {
+          "date": "2025-04-24",
+          "result": "패"
+        },
+        {
+          "date": "2025-04-25",
+          "result": "승"
+        },
+        {
+          "date": "2025-04-26",
+          "result": "패"
+        },
+        {
+          "date": "2025-04-27",
+          "result": "패"
+        },
+        {
+          "date": "2025-04-29",
+          "result": "승"
+        },
+        {
+          "date": "2025-04-30",
+          "result": "승"
+        },
+        {
+          "date": "2025-05-01",
+          "result": "무"
+        },
+        {
+          "date": "2025-05-02",
+          "result": "패"
+        },
+        {
+          "date": "2025-05-03",
+          "result": "승"
+        },
+        {
+          "date": "2025-05-04",
+          "result": "승"
+        },
+        {
+          "date": "2025-05-05",
+          "result": "패"
+        },
+        {
+          "date": "2025-05-06",
+          "result": "패"
+        },
+        {
+          "date": "2025-05-07",
+          "result": "패"
+        },
+        {
+          "date": "2025-05-10",
+          "result": "패"
+        },
+        {
+          "date": "2025-05-11",
+          "result": "패"
+        },
+        {
+          "date": "2025-05-11",
+          "result": "무"
+        },
+        {
+          "date": "2025-05-13",
+          "result": "패"
+        },
+        {
+          "date": "2025-05-14",
+          "result": "승"
+        },
+        {
+          "date": "2025-05-15",
+          "result": "패"
+        },
+        {
+          "date": "2025-05-17",
+          "result": "승"
+        },
+        {
+          "date": "2025-05-17",
+          "result": "승"
+        },
+        {
+          "date": "2025-05-18",
+          "result": "패"
+        },
+        {
+          "date": "2025-05-20",
+          "result": "승"
+        },
+        {
+          "date": "2025-05-21",
+          "result": "승"
+        },
+        {
+          "date": "2025-05-22",
+          "result": "패"
+        },
+        {
+          "date": "2025-05-23",
+          "result": "승"
+        },
+        {
+          "date": "2025-05-24",
+          "result": "승"
+        },
+        {
+          "date": "2025-05-25",
+          "result": "승"
+        },
+        {
+          "date": "2025-05-27",
+          "result": "승"
+        },
+        {
+          "date": "2025-05-28",
+          "result": "패"
+        },
+        {
+          "date": "2025-05-29",
+          "result": "승"
+        },
+        {
+          "date": "2025-05-30",
+          "result": "승"
+        },
+        {
+          "date": "2025-05-31",
+          "result": "승"
+        },
+        {
+          "date": "2025-06-01",
+          "result": "패"
+        },
+        {
+          "date": "2025-06-03",
+          "result": "패"
+        },
+        {
+          "date": "2025-06-04",
+          "result": "패"
+        },
+        {
+          "date": "2025-06-05",
+          "result": "승"
+        },
+        {
+          "date": "2025-06-06",
+          "result": "승"
+        },
+        {
+          "date": "2025-06-07",
+          "result": "승"
+        },
+        {
+          "date": "2025-06-08",
+          "result": "패"
+        },
+        {
+          "date": "2025-06-10",
+          "result": "승"
+        },
+        {
+          "date": "2025-06-11",
+          "result": "패"
+        },
+        {
+          "date": "2025-06-12",
+          "result": "패"
+        },
+        {
+          "date": "2025-06-14",
+          "result": "승"
+        },
+        {
+          "date": "2025-06-15",
+          "result": "승"
+        },
+        {
+          "date": "2025-06-17",
+          "result": "패"
+        },
+        {
+          "date": "2025-06-18",
+          "result": "패"
+        },
+        {
+          "date": "2025-06-19",
+          "result": "패"
+        },
+        {
+          "date": "2025-06-21",
+          "result": "승"
+        },
+        {
+          "date": "2025-06-22",
+          "result": "패"
+        },
+        {
+          "date": "2025-06-24",
+          "result": "승"
+        },
+        {
+          "date": "2025-06-26",
+          "result": "패"
+        },
+        {
+          "date": "2025-06-27",
+          "result": "승"
+        },
+        {
+          "date": "2025-06-28",
+          "result": "승"
+        },
+        {
+          "date": "2025-06-29",
+          "result": "패"
+        },
+        {
+          "date": "2025-07-01",
+          "result": "패"
+        },
+        {
+          "date": "2025-07-02",
+          "result": "승"
+        },
+        {
+          "date": "2025-07-03",
+          "result": "승"
+        },
+        {
+          "date": "2025-07-04",
+          "result": "승"
+        },
+        {
+          "date": "2025-07-05",
+          "result": "패"
+        },
+        {
+          "date": "2025-07-06",
+          "result": "패"
+        },
+        {
+          "date": "2025-07-08",
+          "result": "패"
+        },
+        {
+          "date": "2025-07-09",
+          "result": "승"
+        },
+        {
+          "date": "2025-07-10",
+          "result": "승"
+        },
+        {
+          "date": "2025-07-18",
+          "result": "패"
+        },
+        {
+          "date": "2025-07-19",
+          "result": "패"
+        },
+        {
+          "date": "2025-07-20",
+          "result": "패"
+        },
+        {
+          "date": "2025-07-22",
+          "result": "승"
+        },
+        {
+          "date": "2025-07-23",
+          "result": "승"
+        },
+        {
+          "date": "2025-07-24",
+          "result": "승"
+        },
+        {
+          "date": "2025-07-25",
+          "result": "승"
+        },
+        {
+          "date": "2025-07-26",
+          "result": "패"
+        },
+        {
+          "date": "2025-07-27",
+          "result": "승"
+        },
+        {
+          "date": "2025-07-29",
+          "result": "패"
+        },
+        {
+          "date": "2025-07-30",
+          "result": "패"
+        },
+        {
+          "date": "2025-07-31",
+          "result": "패"
+        },
+        {
+          "date": "2025-08-01",
+          "result": "패"
+        },
+        {
+          "date": "2025-08-02",
+          "result": "패"
+        },
+        {
+          "date": "2025-08-03",
+          "result": "무"
+        },
+        {
+          "date": "2025-08-05",
+          "result": "승"
+        },
+        {
+          "date": "2025-08-06",
+          "result": "패"
+        },
+        {
+          "date": "2025-08-07",
+          "result": "승"
+        },
+        {
+          "date": "2025-08-08",
+          "result": "패"
+        },
+        {
+          "date": "2025-08-09",
+          "result": "승"
+        },
+        {
+          "date": "2025-08-10",
+          "result": "승"
+        },
+        {
+          "date": "2025-08-12",
+          "result": "패"
+        },
+        {
+          "date": "2025-08-15",
+          "result": "패"
+        },
+        {
+          "date": "2025-08-16",
+          "result": "패"
+        },
+        {
+          "date": "2025-08-17",
+          "result": "승"
+        },
+        {
+          "date": "2025-08-19",
+          "result": "승"
+        },
+        {
+          "date": "2025-08-20",
+          "result": "패"
+        },
+        {
+          "date": "2025-08-21",
+          "result": "패"
+        },
+        {
+          "date": "2025-08-22",
+          "result": "승"
+        },
+        {
+          "date": "2025-08-23",
+          "result": "승"
+        },
+        {
+          "date": "2025-08-24",
+          "result": "승"
+        },
+        {
+          "date": "2025-08-26",
+          "result": "패"
+        },
+        {
+          "date": "2025-08-27",
+          "result": "승"
+        },
+        {
+          "date": "2025-08-28",
+          "result": "패"
+        },
+        {
+          "date": "2025-08-29",
+          "result": "패"
+        },
+        {
+          "date": "2025-08-30",
+          "result": "승"
+        },
+        {
+          "date": "2025-08-31",
+          "result": "승"
+        },
+        {
+          "date": "2025-09-02",
+          "result": "패"
+        },
+        {
+          "date": "2025-09-03",
+          "result": "승"
+        },
+        {
+          "date": "2025-09-04",
+          "result": "패"
+        },
+        {
+          "date": "2025-09-09",
+          "result": "승"
+        },
+        {
+          "date": "2025-09-11",
+          "result": "승"
+        },
+        {
+          "date": "2025-09-13",
+          "result": "승"
+        },
+        {
+          "date": "2025-09-14",
+          "result": "패"
+        },
+        {
+          "date": "2025-09-16",
+          "result": "패"
+        },
+        {
+          "date": "2025-09-18",
+          "result": "패"
+        },
+        {
+          "date": "2025-09-18",
+          "result": "패"
+        },
+        {
+          "date": "2025-09-20",
+          "result": "승"
+        },
+        {
+          "date": "2025-09-21",
+          "result": "승"
+        },
+        {
+          "date": "2025-09-23",
+          "result": "승"
+        },
+        {
+          "date": "2025-09-25",
+          "result": "승"
+        },
+        {
+          "date": "2025-09-26",
+          "result": "패"
+        },
+        {
+          "date": "2025-09-30",
+          "result": "패"
+        },
+        {
+          "date": "2025-10-01",
+          "result": "승"
+        },
+        {
+          "date": "2025-10-03",
+          "result": "무"
+        }
+      ],
+      "win_rate": "0.527",
+      "run_differential": 8,
+      "current_streak": "1W",
+      "homeRecord": "40-36-2",
+      "awayRecord": "37-33-3",
+      "recent10": "5승1무4패",
+      "remainingGames": -7,
+      "team": "KT",
+      "games": 151,
+      "winRate": 0.5273972602739726,
+      "streak": "1W",
+      "gamesBehind": 11.5,
+      "games_behind": 11.5
+    },
+    {
+      "rank": 4,
+      "team_name": "SSG",
+      "games_played": 156,
+      "wins": 79,
+      "losses": 73,
+      "draws": 4,
+      "runs_scored": 653,
+      "runs_allowed": 635,
+      "homeWins": 41,
+      "homeLosses": 36,
+      "homeDraws": 4,
+      "awayWins": 38,
+      "awayLosses": 37,
       "awayDraws": 0,
       "recentGames": [
+        {
+          "date": "2025-03-08",
+          "result": "승"
+        },
+        {
+          "date": "2025-03-09",
+          "result": "패"
+        },
+        {
+          "date": "2025-03-10",
+          "result": "패"
+        },
+        {
+          "date": "2025-03-11",
+          "result": "패"
+        },
+        {
+          "date": "2025-03-13",
+          "result": "패"
+        },
+        {
+          "date": "2025-03-14",
+          "result": "승"
+        },
+        {
+          "date": "2025-03-15",
+          "result": "패"
+        },
+        {
+          "date": "2025-03-16",
+          "result": "승"
+        },
         {
           "date": "2025-03-22",
           "result": "승"
@@ -1885,36 +2620,72 @@
           "result": "패"
         }
       ],
-      "win_rate": "0.528",
-      "run_differential": 26,
+      "win_rate": "0.520",
+      "run_differential": 18,
       "current_streak": "2L",
-      "homeRecord": "39-32-4",
-      "awayRecord": "37-36-0",
+      "homeRecord": "41-36-4",
+      "awayRecord": "38-37-0",
       "recent10": "5승0무5패",
-      "remainingGames": -4,
+      "remainingGames": -12,
       "team": "SSG",
-      "games": 148,
-      "winRate": 0.5277777777777778,
+      "games": 156,
+      "winRate": 0.5197368421052632,
       "streak": "2L",
-      "gamesBehind": 12,
-      "games_behind": 12
+      "gamesBehind": 12.5,
+      "games_behind": 12.5
     },
     {
-      "rank": 4,
+      "rank": 5,
       "team_name": "삼성",
-      "games_played": 155,
-      "wins": 80,
-      "losses": 73,
+      "games_played": 164,
+      "wins": 83,
+      "losses": 79,
       "draws": 2,
-      "runs_scored": 825,
-      "runs_allowed": 694,
-      "homeWins": 45,
-      "homeLosses": 32,
+      "runs_scored": 868,
+      "runs_allowed": 751,
+      "homeWins": 48,
+      "homeLosses": 35,
       "homeDraws": 0,
       "awayWins": 35,
-      "awayLosses": 41,
+      "awayLosses": 44,
       "awayDraws": 2,
       "recentGames": [
+        {
+          "date": "2025-03-08",
+          "result": "패"
+        },
+        {
+          "date": "2025-03-09",
+          "result": "승"
+        },
+        {
+          "date": "2025-03-10",
+          "result": "패"
+        },
+        {
+          "date": "2025-03-11",
+          "result": "승"
+        },
+        {
+          "date": "2025-03-13",
+          "result": "패"
+        },
+        {
+          "date": "2025-03-14",
+          "result": "승"
+        },
+        {
+          "date": "2025-03-15",
+          "result": "패"
+        },
+        {
+          "date": "2025-03-16",
+          "result": "패"
+        },
+        {
+          "date": "2025-03-17",
+          "result": "패"
+        },
         {
           "date": "2025-03-22",
           "result": "승"
@@ -2536,36 +3307,68 @@
           "result": "패"
         }
       ],
-      "win_rate": "0.523",
-      "run_differential": 131,
+      "win_rate": "0.512",
+      "run_differential": 117,
       "current_streak": "1L",
-      "homeRecord": "45-32-0",
-      "awayRecord": "35-41-2",
+      "homeRecord": "48-35-0",
+      "awayRecord": "35-44-2",
       "recent10": "6승0무4패",
-      "remainingGames": -11,
+      "remainingGames": -20,
       "team": "삼성",
-      "games": 155,
-      "winRate": 0.5228758169934641,
+      "games": 164,
+      "winRate": 0.5123456790123457,
       "streak": "1L",
-      "gamesBehind": 12.5,
-      "games_behind": 12.5
+      "gamesBehind": 13.5,
+      "games_behind": 13.5
     },
     {
-      "rank": 5,
+      "rank": 6,
       "team_name": "NC",
-      "games_played": 146,
-      "wins": 72,
-      "losses": 68,
+      "games_played": 154,
+      "wins": 74,
+      "losses": 74,
       "draws": 6,
-      "runs_scored": 736,
-      "runs_allowed": 770,
-      "homeWins": 36,
-      "homeLosses": 34,
+      "runs_scored": 768,
+      "runs_allowed": 814,
+      "homeWins": 38,
+      "homeLosses": 39,
       "homeDraws": 1,
       "awayWins": 36,
-      "awayLosses": 34,
+      "awayLosses": 35,
       "awayDraws": 5,
       "recentGames": [
+        {
+          "date": "2025-03-08",
+          "result": "패"
+        },
+        {
+          "date": "2025-03-09",
+          "result": "승"
+        },
+        {
+          "date": "2025-03-10",
+          "result": "승"
+        },
+        {
+          "date": "2025-03-11",
+          "result": "패"
+        },
+        {
+          "date": "2025-03-13",
+          "result": "패"
+        },
+        {
+          "date": "2025-03-14",
+          "result": "패"
+        },
+        {
+          "date": "2025-03-16",
+          "result": "패"
+        },
+        {
+          "date": "2025-03-17",
+          "result": "패"
+        },
         {
           "date": "2025-03-22",
           "result": "패"
@@ -3151,1250 +3954,68 @@
           "result": "패"
         }
       ],
-      "win_rate": "0.514",
-      "run_differential": -34,
+      "win_rate": "0.500",
+      "run_differential": -46,
       "current_streak": "1L",
-      "homeRecord": "36-34-1",
-      "awayRecord": "36-34-5",
+      "homeRecord": "38-39-1",
+      "awayRecord": "36-35-5",
       "recent10": "9승0무1패",
-      "remainingGames": -2,
+      "remainingGames": -10,
       "team": "NC",
-      "games": 146,
-      "winRate": 0.5142857142857142,
+      "games": 154,
+      "winRate": 0.5,
       "streak": "1L",
-      "gamesBehind": 14,
-      "games_behind": 14
-    },
-    {
-      "rank": 6,
-      "team_name": "KT",
-      "games_played": 144,
-      "wins": 71,
-      "losses": 68,
-      "draws": 5,
-      "runs_scored": 648,
-      "runs_allowed": 657,
-      "homeWins": 36,
-      "homeLosses": 35,
-      "homeDraws": 2,
-      "awayWins": 35,
-      "awayLosses": 33,
-      "awayDraws": 3,
-      "recentGames": [
-        {
-          "date": "2025-03-22",
-          "result": "패"
-        },
-        {
-          "date": "2025-03-23",
-          "result": "승"
-        },
-        {
-          "date": "2025-03-25",
-          "result": "승"
-        },
-        {
-          "date": "2025-03-26",
-          "result": "패"
-        },
-        {
-          "date": "2025-03-27",
-          "result": "승"
-        },
-        {
-          "date": "2025-03-28",
-          "result": "승"
-        },
-        {
-          "date": "2025-03-29",
-          "result": "패"
-        },
-        {
-          "date": "2025-03-30",
-          "result": "무"
-        },
-        {
-          "date": "2025-04-02",
-          "result": "승"
-        },
-        {
-          "date": "2025-04-03",
-          "result": "패"
-        },
-        {
-          "date": "2025-04-04",
-          "result": "패"
-        },
-        {
-          "date": "2025-04-06",
-          "result": "패"
-        },
-        {
-          "date": "2025-04-08",
-          "result": "승"
-        },
-        {
-          "date": "2025-04-09",
-          "result": "승"
-        },
-        {
-          "date": "2025-04-10",
-          "result": "패"
-        },
-        {
-          "date": "2025-04-11",
-          "result": "승"
-        },
-        {
-          "date": "2025-04-13",
-          "result": "승"
-        },
-        {
-          "date": "2025-04-15",
-          "result": "패"
-        },
-        {
-          "date": "2025-04-16",
-          "result": "승"
-        },
-        {
-          "date": "2025-04-17",
-          "result": "패"
-        },
-        {
-          "date": "2025-04-18",
-          "result": "패"
-        },
-        {
-          "date": "2025-04-19",
-          "result": "승"
-        },
-        {
-          "date": "2025-04-20",
-          "result": "승"
-        },
-        {
-          "date": "2025-04-22",
-          "result": "승"
-        },
-        {
-          "date": "2025-04-23",
-          "result": "패"
-        },
-        {
-          "date": "2025-04-24",
-          "result": "패"
-        },
-        {
-          "date": "2025-04-25",
-          "result": "승"
-        },
-        {
-          "date": "2025-04-26",
-          "result": "패"
-        },
-        {
-          "date": "2025-04-27",
-          "result": "패"
-        },
-        {
-          "date": "2025-04-29",
-          "result": "승"
-        },
-        {
-          "date": "2025-04-30",
-          "result": "승"
-        },
-        {
-          "date": "2025-05-01",
-          "result": "무"
-        },
-        {
-          "date": "2025-05-02",
-          "result": "패"
-        },
-        {
-          "date": "2025-05-03",
-          "result": "승"
-        },
-        {
-          "date": "2025-05-04",
-          "result": "승"
-        },
-        {
-          "date": "2025-05-05",
-          "result": "패"
-        },
-        {
-          "date": "2025-05-06",
-          "result": "패"
-        },
-        {
-          "date": "2025-05-07",
-          "result": "패"
-        },
-        {
-          "date": "2025-05-10",
-          "result": "패"
-        },
-        {
-          "date": "2025-05-11",
-          "result": "패"
-        },
-        {
-          "date": "2025-05-11",
-          "result": "무"
-        },
-        {
-          "date": "2025-05-13",
-          "result": "패"
-        },
-        {
-          "date": "2025-05-14",
-          "result": "승"
-        },
-        {
-          "date": "2025-05-15",
-          "result": "패"
-        },
-        {
-          "date": "2025-05-17",
-          "result": "승"
-        },
-        {
-          "date": "2025-05-17",
-          "result": "승"
-        },
-        {
-          "date": "2025-05-18",
-          "result": "패"
-        },
-        {
-          "date": "2025-05-20",
-          "result": "승"
-        },
-        {
-          "date": "2025-05-21",
-          "result": "승"
-        },
-        {
-          "date": "2025-05-22",
-          "result": "패"
-        },
-        {
-          "date": "2025-05-23",
-          "result": "승"
-        },
-        {
-          "date": "2025-05-24",
-          "result": "승"
-        },
-        {
-          "date": "2025-05-25",
-          "result": "승"
-        },
-        {
-          "date": "2025-05-27",
-          "result": "승"
-        },
-        {
-          "date": "2025-05-28",
-          "result": "패"
-        },
-        {
-          "date": "2025-05-29",
-          "result": "승"
-        },
-        {
-          "date": "2025-05-30",
-          "result": "승"
-        },
-        {
-          "date": "2025-05-31",
-          "result": "승"
-        },
-        {
-          "date": "2025-06-01",
-          "result": "패"
-        },
-        {
-          "date": "2025-06-03",
-          "result": "패"
-        },
-        {
-          "date": "2025-06-04",
-          "result": "패"
-        },
-        {
-          "date": "2025-06-05",
-          "result": "승"
-        },
-        {
-          "date": "2025-06-06",
-          "result": "승"
-        },
-        {
-          "date": "2025-06-07",
-          "result": "승"
-        },
-        {
-          "date": "2025-06-08",
-          "result": "패"
-        },
-        {
-          "date": "2025-06-10",
-          "result": "승"
-        },
-        {
-          "date": "2025-06-11",
-          "result": "패"
-        },
-        {
-          "date": "2025-06-12",
-          "result": "패"
-        },
-        {
-          "date": "2025-06-14",
-          "result": "승"
-        },
-        {
-          "date": "2025-06-15",
-          "result": "승"
-        },
-        {
-          "date": "2025-06-17",
-          "result": "패"
-        },
-        {
-          "date": "2025-06-18",
-          "result": "패"
-        },
-        {
-          "date": "2025-06-19",
-          "result": "패"
-        },
-        {
-          "date": "2025-06-21",
-          "result": "승"
-        },
-        {
-          "date": "2025-06-22",
-          "result": "패"
-        },
-        {
-          "date": "2025-06-24",
-          "result": "승"
-        },
-        {
-          "date": "2025-06-26",
-          "result": "패"
-        },
-        {
-          "date": "2025-06-27",
-          "result": "승"
-        },
-        {
-          "date": "2025-06-28",
-          "result": "승"
-        },
-        {
-          "date": "2025-06-29",
-          "result": "패"
-        },
-        {
-          "date": "2025-07-01",
-          "result": "패"
-        },
-        {
-          "date": "2025-07-02",
-          "result": "승"
-        },
-        {
-          "date": "2025-07-03",
-          "result": "승"
-        },
-        {
-          "date": "2025-07-04",
-          "result": "승"
-        },
-        {
-          "date": "2025-07-05",
-          "result": "패"
-        },
-        {
-          "date": "2025-07-06",
-          "result": "패"
-        },
-        {
-          "date": "2025-07-08",
-          "result": "패"
-        },
-        {
-          "date": "2025-07-09",
-          "result": "승"
-        },
-        {
-          "date": "2025-07-10",
-          "result": "승"
-        },
-        {
-          "date": "2025-07-18",
-          "result": "패"
-        },
-        {
-          "date": "2025-07-19",
-          "result": "패"
-        },
-        {
-          "date": "2025-07-20",
-          "result": "패"
-        },
-        {
-          "date": "2025-07-22",
-          "result": "승"
-        },
-        {
-          "date": "2025-07-23",
-          "result": "승"
-        },
-        {
-          "date": "2025-07-24",
-          "result": "승"
-        },
-        {
-          "date": "2025-07-25",
-          "result": "승"
-        },
-        {
-          "date": "2025-07-26",
-          "result": "패"
-        },
-        {
-          "date": "2025-07-27",
-          "result": "승"
-        },
-        {
-          "date": "2025-07-29",
-          "result": "패"
-        },
-        {
-          "date": "2025-07-30",
-          "result": "패"
-        },
-        {
-          "date": "2025-07-31",
-          "result": "패"
-        },
-        {
-          "date": "2025-08-01",
-          "result": "패"
-        },
-        {
-          "date": "2025-08-02",
-          "result": "패"
-        },
-        {
-          "date": "2025-08-03",
-          "result": "무"
-        },
-        {
-          "date": "2025-08-05",
-          "result": "승"
-        },
-        {
-          "date": "2025-08-06",
-          "result": "패"
-        },
-        {
-          "date": "2025-08-07",
-          "result": "승"
-        },
-        {
-          "date": "2025-08-08",
-          "result": "패"
-        },
-        {
-          "date": "2025-08-09",
-          "result": "승"
-        },
-        {
-          "date": "2025-08-10",
-          "result": "승"
-        },
-        {
-          "date": "2025-08-12",
-          "result": "패"
-        },
-        {
-          "date": "2025-08-15",
-          "result": "패"
-        },
-        {
-          "date": "2025-08-16",
-          "result": "패"
-        },
-        {
-          "date": "2025-08-17",
-          "result": "승"
-        },
-        {
-          "date": "2025-08-19",
-          "result": "승"
-        },
-        {
-          "date": "2025-08-20",
-          "result": "패"
-        },
-        {
-          "date": "2025-08-21",
-          "result": "패"
-        },
-        {
-          "date": "2025-08-22",
-          "result": "승"
-        },
-        {
-          "date": "2025-08-23",
-          "result": "승"
-        },
-        {
-          "date": "2025-08-24",
-          "result": "승"
-        },
-        {
-          "date": "2025-08-26",
-          "result": "패"
-        },
-        {
-          "date": "2025-08-27",
-          "result": "승"
-        },
-        {
-          "date": "2025-08-28",
-          "result": "패"
-        },
-        {
-          "date": "2025-08-29",
-          "result": "패"
-        },
-        {
-          "date": "2025-08-30",
-          "result": "승"
-        },
-        {
-          "date": "2025-08-31",
-          "result": "승"
-        },
-        {
-          "date": "2025-09-02",
-          "result": "패"
-        },
-        {
-          "date": "2025-09-03",
-          "result": "승"
-        },
-        {
-          "date": "2025-09-04",
-          "result": "패"
-        },
-        {
-          "date": "2025-09-09",
-          "result": "승"
-        },
-        {
-          "date": "2025-09-11",
-          "result": "승"
-        },
-        {
-          "date": "2025-09-13",
-          "result": "승"
-        },
-        {
-          "date": "2025-09-14",
-          "result": "패"
-        },
-        {
-          "date": "2025-09-16",
-          "result": "패"
-        },
-        {
-          "date": "2025-09-18",
-          "result": "패"
-        },
-        {
-          "date": "2025-09-18",
-          "result": "패"
-        },
-        {
-          "date": "2025-09-20",
-          "result": "승"
-        },
-        {
-          "date": "2025-09-21",
-          "result": "승"
-        },
-        {
-          "date": "2025-09-23",
-          "result": "승"
-        },
-        {
-          "date": "2025-09-25",
-          "result": "승"
-        },
-        {
-          "date": "2025-09-26",
-          "result": "패"
-        },
-        {
-          "date": "2025-09-30",
-          "result": "패"
-        },
-        {
-          "date": "2025-10-01",
-          "result": "승"
-        },
-        {
-          "date": "2025-10-03",
-          "result": "무"
-        }
-      ],
-      "win_rate": "0.511",
-      "run_differential": -9,
-      "current_streak": "1W",
-      "homeRecord": "36-35-2",
-      "awayRecord": "35-33-3",
-      "recent10": "5승1무4패",
-      "remainingGames": 0,
-      "team": "KT",
-      "games": 144,
-      "winRate": 0.5107913669064749,
-      "streak": "1W",
-      "gamesBehind": 14.5,
-      "games_behind": 14.5
+      "gamesBehind": 15.5,
+      "games_behind": 15.5
     },
     {
       "rank": 7,
-      "team_name": "롯데",
-      "games_played": 144,
-      "wins": 66,
-      "losses": 72,
-      "draws": 6,
-      "runs_scored": 676,
-      "runs_allowed": 749,
-      "homeWins": 35,
-      "homeLosses": 34,
-      "homeDraws": 4,
-      "awayWins": 31,
-      "awayLosses": 38,
-      "awayDraws": 2,
-      "recentGames": [
-        {
-          "date": "2025-03-22",
-          "result": "패"
-        },
-        {
-          "date": "2025-03-23",
-          "result": "패"
-        },
-        {
-          "date": "2025-03-25",
-          "result": "승"
-        },
-        {
-          "date": "2025-03-26",
-          "result": "패"
-        },
-        {
-          "date": "2025-03-27",
-          "result": "패"
-        },
-        {
-          "date": "2025-03-28",
-          "result": "패"
-        },
-        {
-          "date": "2025-03-29",
-          "result": "승"
-        },
-        {
-          "date": "2025-03-30",
-          "result": "무"
-        },
-        {
-          "date": "2025-04-02",
-          "result": "승"
-        },
-        {
-          "date": "2025-04-03",
-          "result": "승"
-        },
-        {
-          "date": "2025-04-04",
-          "result": "패"
-        },
-        {
-          "date": "2025-04-05",
-          "result": "승"
-        },
-        {
-          "date": "2025-04-06",
-          "result": "패"
-        },
-        {
-          "date": "2025-04-08",
-          "result": "패"
-        },
-        {
-          "date": "2025-04-09",
-          "result": "패"
-        },
-        {
-          "date": "2025-04-10",
-          "result": "승"
-        },
-        {
-          "date": "2025-04-11",
-          "result": "승"
-        },
-        {
-          "date": "2025-04-12",
-          "result": "승"
-        },
-        {
-          "date": "2025-04-13",
-          "result": "패"
-        },
-        {
-          "date": "2025-04-15",
-          "result": "승"
-        },
-        {
-          "date": "2025-04-16",
-          "result": "승"
-        },
-        {
-          "date": "2025-04-17",
-          "result": "승"
-        },
-        {
-          "date": "2025-04-18",
-          "result": "승"
-        },
-        {
-          "date": "2025-04-19",
-          "result": "패"
-        },
-        {
-          "date": "2025-04-20",
-          "result": "승"
-        },
-        {
-          "date": "2025-04-23",
-          "result": "패"
-        },
-        {
-          "date": "2025-04-24",
-          "result": "승"
-        },
-        {
-          "date": "2025-04-25",
-          "result": "승"
-        },
-        {
-          "date": "2025-04-26",
-          "result": "승"
-        },
-        {
-          "date": "2025-04-27",
-          "result": "패"
-        },
-        {
-          "date": "2025-04-29",
-          "result": "승"
-        },
-        {
-          "date": "2025-04-30",
-          "result": "승"
-        },
-        {
-          "date": "2025-05-01",
-          "result": "승"
-        },
-        {
-          "date": "2025-05-02",
-          "result": "승"
-        },
-        {
-          "date": "2025-05-03",
-          "result": "패"
-        },
-        {
-          "date": "2025-05-04",
-          "result": "패"
-        },
-        {
-          "date": "2025-05-05",
-          "result": "패"
-        },
-        {
-          "date": "2025-05-06",
-          "result": "승"
-        },
-        {
-          "date": "2025-05-07",
-          "result": "승"
-        },
-        {
-          "date": "2025-05-10",
-          "result": "승"
-        },
-        {
-          "date": "2025-05-11",
-          "result": "승"
-        },
-        {
-          "date": "2025-05-11",
-          "result": "무"
-        },
-        {
-          "date": "2025-05-13",
-          "result": "패"
-        },
-        {
-          "date": "2025-05-14",
-          "result": "승"
-        },
-        {
-          "date": "2025-05-15",
-          "result": "패"
-        },
-        {
-          "date": "2025-05-17",
-          "result": "승"
-        },
-        {
-          "date": "2025-05-17",
-          "result": "승"
-        },
-        {
-          "date": "2025-05-18",
-          "result": "승"
-        },
-        {
-          "date": "2025-05-20",
-          "result": "패"
-        },
-        {
-          "date": "2025-05-21",
-          "result": "무"
-        },
-        {
-          "date": "2025-05-22",
-          "result": "승"
-        },
-        {
-          "date": "2025-05-23",
-          "result": "패"
-        },
-        {
-          "date": "2025-05-24",
-          "result": "승"
-        },
-        {
-          "date": "2025-05-25",
-          "result": "패"
-        },
-        {
-          "date": "2025-05-27",
-          "result": "패"
-        },
-        {
-          "date": "2025-05-29",
-          "result": "패"
-        },
-        {
-          "date": "2025-05-30",
-          "result": "승"
-        },
-        {
-          "date": "2025-05-31",
-          "result": "패"
-        },
-        {
-          "date": "2025-06-01",
-          "result": "패"
-        },
-        {
-          "date": "2025-06-03",
-          "result": "승"
-        },
-        {
-          "date": "2025-06-04",
-          "result": "패"
-        },
-        {
-          "date": "2025-06-05",
-          "result": "패"
-        },
-        {
-          "date": "2025-06-06",
-          "result": "패"
-        },
-        {
-          "date": "2025-06-07",
-          "result": "승"
-        },
-        {
-          "date": "2025-06-08",
-          "result": "승"
-        },
-        {
-          "date": "2025-06-10",
-          "result": "패"
-        },
-        {
-          "date": "2025-06-11",
-          "result": "승"
-        },
-        {
-          "date": "2025-06-12",
-          "result": "승"
-        },
-        {
-          "date": "2025-06-14",
-          "result": "승"
-        },
-        {
-          "date": "2025-06-15",
-          "result": "패"
-        },
-        {
-          "date": "2025-06-17",
-          "result": "패"
-        },
-        {
-          "date": "2025-06-18",
-          "result": "승"
-        },
-        {
-          "date": "2025-06-19",
-          "result": "승"
-        },
-        {
-          "date": "2025-06-20",
-          "result": "승"
-        },
-        {
-          "date": "2025-06-22",
-          "result": "승"
-        },
-        {
-          "date": "2025-06-25",
-          "result": "패"
-        },
-        {
-          "date": "2025-06-26",
-          "result": "승"
-        },
-        {
-          "date": "2025-06-27",
-          "result": "패"
-        },
-        {
-          "date": "2025-06-28",
-          "result": "패"
-        },
-        {
-          "date": "2025-06-29",
-          "result": "승"
-        },
-        {
-          "date": "2025-07-01",
-          "result": "패"
-        },
-        {
-          "date": "2025-07-02",
-          "result": "승"
-        },
-        {
-          "date": "2025-07-03",
-          "result": "승"
-        },
-        {
-          "date": "2025-07-04",
-          "result": "패"
-        },
-        {
-          "date": "2025-07-05",
-          "result": "패"
-        },
-        {
-          "date": "2025-07-06",
-          "result": "승"
-        },
-        {
-          "date": "2025-07-08",
-          "result": "패"
-        },
-        {
-          "date": "2025-07-09",
-          "result": "승"
-        },
-        {
-          "date": "2025-07-10",
-          "result": "패"
-        },
-        {
-          "date": "2025-07-18",
-          "result": "패"
-        },
-        {
-          "date": "2025-07-19",
-          "result": "승"
-        },
-        {
-          "date": "2025-07-20",
-          "result": "패"
-        },
-        {
-          "date": "2025-07-22",
-          "result": "패"
-        },
-        {
-          "date": "2025-07-23",
-          "result": "승"
-        },
-        {
-          "date": "2025-07-24",
-          "result": "승"
-        },
-        {
-          "date": "2025-07-25",
-          "result": "승"
-        },
-        {
-          "date": "2025-07-26",
-          "result": "승"
-        },
-        {
-          "date": "2025-07-27",
-          "result": "승"
-        },
-        {
-          "date": "2025-07-29",
-          "result": "승"
-        },
-        {
-          "date": "2025-07-30",
-          "result": "패"
-        },
-        {
-          "date": "2025-07-31",
-          "result": "승"
-        },
-        {
-          "date": "2025-08-01",
-          "result": "패"
-        },
-        {
-          "date": "2025-08-02",
-          "result": "승"
-        },
-        {
-          "date": "2025-08-03",
-          "result": "승"
-        },
-        {
-          "date": "2025-08-05",
-          "result": "패"
-        },
-        {
-          "date": "2025-08-06",
-          "result": "승"
-        },
-        {
-          "date": "2025-08-07",
-          "result": "패"
-        },
-        {
-          "date": "2025-08-08",
-          "result": "패"
-        },
-        {
-          "date": "2025-08-10",
-          "result": "패"
-        },
-        {
-          "date": "2025-08-12",
-          "result": "패"
-        },
-        {
-          "date": "2025-08-13",
-          "result": "패"
-        },
-        {
-          "date": "2025-08-14",
-          "result": "패"
-        },
-        {
-          "date": "2025-08-15",
-          "result": "패"
-        },
-        {
-          "date": "2025-08-16",
-          "result": "패"
-        },
-        {
-          "date": "2025-08-17",
-          "result": "무"
-        },
-        {
-          "date": "2025-08-19",
-          "result": "패"
-        },
-        {
-          "date": "2025-08-20",
-          "result": "패"
-        },
-        {
-          "date": "2025-08-21",
-          "result": "무"
-        },
-        {
-          "date": "2025-08-22",
-          "result": "패"
-        },
-        {
-          "date": "2025-08-23",
-          "result": "패"
-        },
-        {
-          "date": "2025-08-24",
-          "result": "승"
-        },
-        {
-          "date": "2025-08-26",
-          "result": "승"
-        },
-        {
-          "date": "2025-08-27",
-          "result": "패"
-        },
-        {
-          "date": "2025-08-28",
-          "result": "승"
-        },
-        {
-          "date": "2025-08-29",
-          "result": "패"
-        },
-        {
-          "date": "2025-08-30",
-          "result": "무"
-        },
-        {
-          "date": "2025-08-31",
-          "result": "승"
-        },
-        {
-          "date": "2025-09-02",
-          "result": "패"
-        },
-        {
-          "date": "2025-09-03",
-          "result": "패"
-        },
-        {
-          "date": "2025-09-05",
-          "result": "패"
-        },
-        {
-          "date": "2025-09-09",
-          "result": "패"
-        },
-        {
-          "date": "2025-09-10",
-          "result": "패"
-        },
-        {
-          "date": "2025-09-11",
-          "result": "승"
-        },
-        {
-          "date": "2025-09-13",
-          "result": "승"
-        },
-        {
-          "date": "2025-09-16",
-          "result": "패"
-        },
-        {
-          "date": "2025-09-19",
-          "result": "승"
-        },
-        {
-          "date": "2025-09-20",
-          "result": "패"
-        },
-        {
-          "date": "2025-09-23",
-          "result": "패"
-        },
-        {
-          "date": "2025-09-24",
-          "result": "패"
-        },
-        {
-          "date": "2025-09-25",
-          "result": "패"
-        },
-        {
-          "date": "2025-09-26",
-          "result": "승"
-        },
-        {
-          "date": "2025-09-28",
-          "result": "패"
-        },
-        {
-          "date": "2025-09-29",
-          "result": "패"
-        },
-        {
-          "date": "2025-09-30",
-          "result": "패"
-        }
-      ],
-      "win_rate": "0.478",
-      "run_differential": -73,
-      "current_streak": "3L",
-      "homeRecord": "35-34-4",
-      "awayRecord": "31-38-2",
-      "recent10": "2승0무8패",
-      "remainingGames": 0,
-      "team": "롯데",
-      "games": 144,
-      "winRate": 0.4782608695652174,
-      "streak": "3L",
-      "gamesBehind": 19,
-      "games_behind": 19
-    },
-    {
-      "rank": 8,
       "team_name": "KIA",
-      "games_played": 144,
-      "wins": 65,
-      "losses": 75,
-      "draws": 4,
-      "runs_scored": 668,
-      "runs_allowed": 734,
-      "homeWins": 35,
+      "games_played": 152,
+      "wins": 69,
+      "losses": 77,
+      "draws": 6,
+      "runs_scored": 714,
+      "runs_allowed": 764,
+      "homeWins": 37,
       "homeLosses": 34,
       "homeDraws": 2,
-      "awayWins": 30,
-      "awayLosses": 41,
-      "awayDraws": 2,
+      "awayWins": 32,
+      "awayLosses": 43,
+      "awayDraws": 4,
       "recentGames": [
+        {
+          "date": "2025-03-08",
+          "result": "패"
+        },
+        {
+          "date": "2025-03-09",
+          "result": "무"
+        },
+        {
+          "date": "2025-03-10",
+          "result": "패"
+        },
+        {
+          "date": "2025-03-11",
+          "result": "승"
+        },
+        {
+          "date": "2025-03-13",
+          "result": "승"
+        },
+        {
+          "date": "2025-03-14",
+          "result": "무"
+        },
+        {
+          "date": "2025-03-15",
+          "result": "승"
+        },
+        {
+          "date": "2025-03-16",
+          "result": "승"
+        },
         {
           "date": "2025-03-22",
           "result": "승"
@@ -4972,36 +4593,711 @@
           "result": "승"
         }
       ],
-      "win_rate": "0.464",
-      "run_differential": -66,
+      "win_rate": "0.473",
+      "run_differential": -50,
       "current_streak": "2W",
-      "homeRecord": "35-34-2",
-      "awayRecord": "30-41-2",
+      "homeRecord": "37-34-2",
+      "awayRecord": "32-43-4",
       "recent10": "4승0무6패",
-      "remainingGames": 0,
+      "remainingGames": -8,
       "team": "KIA",
-      "games": 144,
-      "winRate": 0.4642857142857143,
+      "games": 152,
+      "winRate": 0.4726027397260274,
       "streak": "2W",
-      "gamesBehind": 21,
-      "games_behind": 21
+      "gamesBehind": 19.5,
+      "games_behind": 19.5
+    },
+    {
+      "rank": 8,
+      "team_name": "롯데",
+      "games_played": 152,
+      "wins": 68,
+      "losses": 76,
+      "draws": 8,
+      "runs_scored": 693,
+      "runs_allowed": 774,
+      "homeWins": 37,
+      "homeLosses": 36,
+      "homeDraws": 6,
+      "awayWins": 31,
+      "awayLosses": 40,
+      "awayDraws": 2,
+      "recentGames": [
+        {
+          "date": "2025-03-08",
+          "result": "승"
+        },
+        {
+          "date": "2025-03-09",
+          "result": "무"
+        },
+        {
+          "date": "2025-03-10",
+          "result": "패"
+        },
+        {
+          "date": "2025-03-11",
+          "result": "승"
+        },
+        {
+          "date": "2025-03-13",
+          "result": "무"
+        },
+        {
+          "date": "2025-03-14",
+          "result": "패"
+        },
+        {
+          "date": "2025-03-17",
+          "result": "패"
+        },
+        {
+          "date": "2025-03-18",
+          "result": "패"
+        },
+        {
+          "date": "2025-03-22",
+          "result": "패"
+        },
+        {
+          "date": "2025-03-23",
+          "result": "패"
+        },
+        {
+          "date": "2025-03-25",
+          "result": "승"
+        },
+        {
+          "date": "2025-03-26",
+          "result": "패"
+        },
+        {
+          "date": "2025-03-27",
+          "result": "패"
+        },
+        {
+          "date": "2025-03-28",
+          "result": "패"
+        },
+        {
+          "date": "2025-03-29",
+          "result": "승"
+        },
+        {
+          "date": "2025-03-30",
+          "result": "무"
+        },
+        {
+          "date": "2025-04-02",
+          "result": "승"
+        },
+        {
+          "date": "2025-04-03",
+          "result": "승"
+        },
+        {
+          "date": "2025-04-04",
+          "result": "패"
+        },
+        {
+          "date": "2025-04-05",
+          "result": "승"
+        },
+        {
+          "date": "2025-04-06",
+          "result": "패"
+        },
+        {
+          "date": "2025-04-08",
+          "result": "패"
+        },
+        {
+          "date": "2025-04-09",
+          "result": "패"
+        },
+        {
+          "date": "2025-04-10",
+          "result": "승"
+        },
+        {
+          "date": "2025-04-11",
+          "result": "승"
+        },
+        {
+          "date": "2025-04-12",
+          "result": "승"
+        },
+        {
+          "date": "2025-04-13",
+          "result": "패"
+        },
+        {
+          "date": "2025-04-15",
+          "result": "승"
+        },
+        {
+          "date": "2025-04-16",
+          "result": "승"
+        },
+        {
+          "date": "2025-04-17",
+          "result": "승"
+        },
+        {
+          "date": "2025-04-18",
+          "result": "승"
+        },
+        {
+          "date": "2025-04-19",
+          "result": "패"
+        },
+        {
+          "date": "2025-04-20",
+          "result": "승"
+        },
+        {
+          "date": "2025-04-23",
+          "result": "패"
+        },
+        {
+          "date": "2025-04-24",
+          "result": "승"
+        },
+        {
+          "date": "2025-04-25",
+          "result": "승"
+        },
+        {
+          "date": "2025-04-26",
+          "result": "승"
+        },
+        {
+          "date": "2025-04-27",
+          "result": "패"
+        },
+        {
+          "date": "2025-04-29",
+          "result": "승"
+        },
+        {
+          "date": "2025-04-30",
+          "result": "승"
+        },
+        {
+          "date": "2025-05-01",
+          "result": "승"
+        },
+        {
+          "date": "2025-05-02",
+          "result": "승"
+        },
+        {
+          "date": "2025-05-03",
+          "result": "패"
+        },
+        {
+          "date": "2025-05-04",
+          "result": "패"
+        },
+        {
+          "date": "2025-05-05",
+          "result": "패"
+        },
+        {
+          "date": "2025-05-06",
+          "result": "승"
+        },
+        {
+          "date": "2025-05-07",
+          "result": "승"
+        },
+        {
+          "date": "2025-05-10",
+          "result": "승"
+        },
+        {
+          "date": "2025-05-11",
+          "result": "승"
+        },
+        {
+          "date": "2025-05-11",
+          "result": "무"
+        },
+        {
+          "date": "2025-05-13",
+          "result": "패"
+        },
+        {
+          "date": "2025-05-14",
+          "result": "승"
+        },
+        {
+          "date": "2025-05-15",
+          "result": "패"
+        },
+        {
+          "date": "2025-05-17",
+          "result": "승"
+        },
+        {
+          "date": "2025-05-17",
+          "result": "승"
+        },
+        {
+          "date": "2025-05-18",
+          "result": "승"
+        },
+        {
+          "date": "2025-05-20",
+          "result": "패"
+        },
+        {
+          "date": "2025-05-21",
+          "result": "무"
+        },
+        {
+          "date": "2025-05-22",
+          "result": "승"
+        },
+        {
+          "date": "2025-05-23",
+          "result": "패"
+        },
+        {
+          "date": "2025-05-24",
+          "result": "승"
+        },
+        {
+          "date": "2025-05-25",
+          "result": "패"
+        },
+        {
+          "date": "2025-05-27",
+          "result": "패"
+        },
+        {
+          "date": "2025-05-29",
+          "result": "패"
+        },
+        {
+          "date": "2025-05-30",
+          "result": "승"
+        },
+        {
+          "date": "2025-05-31",
+          "result": "패"
+        },
+        {
+          "date": "2025-06-01",
+          "result": "패"
+        },
+        {
+          "date": "2025-06-03",
+          "result": "승"
+        },
+        {
+          "date": "2025-06-04",
+          "result": "패"
+        },
+        {
+          "date": "2025-06-05",
+          "result": "패"
+        },
+        {
+          "date": "2025-06-06",
+          "result": "패"
+        },
+        {
+          "date": "2025-06-07",
+          "result": "승"
+        },
+        {
+          "date": "2025-06-08",
+          "result": "승"
+        },
+        {
+          "date": "2025-06-10",
+          "result": "패"
+        },
+        {
+          "date": "2025-06-11",
+          "result": "승"
+        },
+        {
+          "date": "2025-06-12",
+          "result": "승"
+        },
+        {
+          "date": "2025-06-14",
+          "result": "승"
+        },
+        {
+          "date": "2025-06-15",
+          "result": "패"
+        },
+        {
+          "date": "2025-06-17",
+          "result": "패"
+        },
+        {
+          "date": "2025-06-18",
+          "result": "승"
+        },
+        {
+          "date": "2025-06-19",
+          "result": "승"
+        },
+        {
+          "date": "2025-06-20",
+          "result": "승"
+        },
+        {
+          "date": "2025-06-22",
+          "result": "승"
+        },
+        {
+          "date": "2025-06-25",
+          "result": "패"
+        },
+        {
+          "date": "2025-06-26",
+          "result": "승"
+        },
+        {
+          "date": "2025-06-27",
+          "result": "패"
+        },
+        {
+          "date": "2025-06-28",
+          "result": "패"
+        },
+        {
+          "date": "2025-06-29",
+          "result": "승"
+        },
+        {
+          "date": "2025-07-01",
+          "result": "패"
+        },
+        {
+          "date": "2025-07-02",
+          "result": "승"
+        },
+        {
+          "date": "2025-07-03",
+          "result": "승"
+        },
+        {
+          "date": "2025-07-04",
+          "result": "패"
+        },
+        {
+          "date": "2025-07-05",
+          "result": "패"
+        },
+        {
+          "date": "2025-07-06",
+          "result": "승"
+        },
+        {
+          "date": "2025-07-08",
+          "result": "패"
+        },
+        {
+          "date": "2025-07-09",
+          "result": "승"
+        },
+        {
+          "date": "2025-07-10",
+          "result": "패"
+        },
+        {
+          "date": "2025-07-18",
+          "result": "패"
+        },
+        {
+          "date": "2025-07-19",
+          "result": "승"
+        },
+        {
+          "date": "2025-07-20",
+          "result": "패"
+        },
+        {
+          "date": "2025-07-22",
+          "result": "패"
+        },
+        {
+          "date": "2025-07-23",
+          "result": "승"
+        },
+        {
+          "date": "2025-07-24",
+          "result": "승"
+        },
+        {
+          "date": "2025-07-25",
+          "result": "승"
+        },
+        {
+          "date": "2025-07-26",
+          "result": "승"
+        },
+        {
+          "date": "2025-07-27",
+          "result": "승"
+        },
+        {
+          "date": "2025-07-29",
+          "result": "승"
+        },
+        {
+          "date": "2025-07-30",
+          "result": "패"
+        },
+        {
+          "date": "2025-07-31",
+          "result": "승"
+        },
+        {
+          "date": "2025-08-01",
+          "result": "패"
+        },
+        {
+          "date": "2025-08-02",
+          "result": "승"
+        },
+        {
+          "date": "2025-08-03",
+          "result": "승"
+        },
+        {
+          "date": "2025-08-05",
+          "result": "패"
+        },
+        {
+          "date": "2025-08-06",
+          "result": "승"
+        },
+        {
+          "date": "2025-08-07",
+          "result": "패"
+        },
+        {
+          "date": "2025-08-08",
+          "result": "패"
+        },
+        {
+          "date": "2025-08-10",
+          "result": "패"
+        },
+        {
+          "date": "2025-08-12",
+          "result": "패"
+        },
+        {
+          "date": "2025-08-13",
+          "result": "패"
+        },
+        {
+          "date": "2025-08-14",
+          "result": "패"
+        },
+        {
+          "date": "2025-08-15",
+          "result": "패"
+        },
+        {
+          "date": "2025-08-16",
+          "result": "패"
+        },
+        {
+          "date": "2025-08-17",
+          "result": "무"
+        },
+        {
+          "date": "2025-08-19",
+          "result": "패"
+        },
+        {
+          "date": "2025-08-20",
+          "result": "패"
+        },
+        {
+          "date": "2025-08-21",
+          "result": "무"
+        },
+        {
+          "date": "2025-08-22",
+          "result": "패"
+        },
+        {
+          "date": "2025-08-23",
+          "result": "패"
+        },
+        {
+          "date": "2025-08-24",
+          "result": "승"
+        },
+        {
+          "date": "2025-08-26",
+          "result": "승"
+        },
+        {
+          "date": "2025-08-27",
+          "result": "패"
+        },
+        {
+          "date": "2025-08-28",
+          "result": "승"
+        },
+        {
+          "date": "2025-08-29",
+          "result": "패"
+        },
+        {
+          "date": "2025-08-30",
+          "result": "무"
+        },
+        {
+          "date": "2025-08-31",
+          "result": "승"
+        },
+        {
+          "date": "2025-09-02",
+          "result": "패"
+        },
+        {
+          "date": "2025-09-03",
+          "result": "패"
+        },
+        {
+          "date": "2025-09-05",
+          "result": "패"
+        },
+        {
+          "date": "2025-09-09",
+          "result": "패"
+        },
+        {
+          "date": "2025-09-10",
+          "result": "패"
+        },
+        {
+          "date": "2025-09-11",
+          "result": "승"
+        },
+        {
+          "date": "2025-09-13",
+          "result": "승"
+        },
+        {
+          "date": "2025-09-16",
+          "result": "패"
+        },
+        {
+          "date": "2025-09-19",
+          "result": "승"
+        },
+        {
+          "date": "2025-09-20",
+          "result": "패"
+        },
+        {
+          "date": "2025-09-23",
+          "result": "패"
+        },
+        {
+          "date": "2025-09-24",
+          "result": "패"
+        },
+        {
+          "date": "2025-09-25",
+          "result": "패"
+        },
+        {
+          "date": "2025-09-26",
+          "result": "승"
+        },
+        {
+          "date": "2025-09-28",
+          "result": "패"
+        },
+        {
+          "date": "2025-09-29",
+          "result": "패"
+        },
+        {
+          "date": "2025-09-30",
+          "result": "패"
+        }
+      ],
+      "win_rate": "0.472",
+      "run_differential": -81,
+      "current_streak": "3L",
+      "homeRecord": "37-36-6",
+      "awayRecord": "31-40-2",
+      "recent10": "2승0무8패",
+      "remainingGames": -8,
+      "team": "롯데",
+      "games": 152,
+      "winRate": 0.4722222222222222,
+      "streak": "3L",
+      "gamesBehind": 19.5,
+      "games_behind": 19.5
     },
     {
       "rank": 9,
       "team_name": "두산",
-      "games_played": 144,
-      "wins": 61,
-      "losses": 77,
-      "draws": 6,
-      "runs_scored": 647,
-      "runs_allowed": 686,
+      "games_played": 153,
+      "wins": 64,
+      "losses": 81,
+      "draws": 8,
+      "runs_scored": 687,
+      "runs_allowed": 729,
       "homeWins": 29,
-      "homeLosses": 40,
-      "homeDraws": 4,
-      "awayWins": 32,
-      "awayLosses": 37,
-      "awayDraws": 2,
+      "homeLosses": 41,
+      "homeDraws": 5,
+      "awayWins": 35,
+      "awayLosses": 40,
+      "awayDraws": 3,
       "recentGames": [
+        {
+          "date": "2025-03-08",
+          "result": "승"
+        },
+        {
+          "date": "2025-03-09",
+          "result": "승"
+        },
+        {
+          "date": "2025-03-10",
+          "result": "승"
+        },
+        {
+          "date": "2025-03-11",
+          "result": "패"
+        },
+        {
+          "date": "2025-03-13",
+          "result": "패"
+        },
+        {
+          "date": "2025-03-14",
+          "result": "무"
+        },
+        {
+          "date": "2025-03-15",
+          "result": "패"
+        },
+        {
+          "date": "2025-03-16",
+          "result": "무"
+        },
+        {
+          "date": "2025-03-17",
+          "result": "패"
+        },
         {
           "date": "2025-03-22",
           "result": "패"
@@ -5579,16 +5875,16 @@
           "result": "승"
         }
       ],
-      "win_rate": "0.442",
-      "run_differential": -39,
+      "win_rate": "0.441",
+      "run_differential": -42,
       "current_streak": "2W",
-      "homeRecord": "29-40-4",
-      "awayRecord": "32-37-2",
+      "homeRecord": "29-41-5",
+      "awayRecord": "35-40-3",
       "recent10": "5승0무5패",
-      "remainingGames": 0,
+      "remainingGames": -9,
       "team": "두산",
-      "games": 144,
-      "winRate": 0.4420289855072464,
+      "games": 153,
+      "winRate": 0.4413793103448276,
       "streak": "2W",
       "gamesBehind": 24,
       "games_behind": 24
@@ -5596,19 +5892,59 @@
     {
       "rank": 10,
       "team_name": "키움",
-      "games_played": 144,
-      "wins": 47,
-      "losses": 93,
-      "draws": 4,
-      "runs_scored": 581,
-      "runs_allowed": 860,
-      "homeWins": 23,
+      "games_played": 154,
+      "wins": 53,
+      "losses": 96,
+      "draws": 5,
+      "runs_scored": 621,
+      "runs_allowed": 900,
+      "homeWins": 26,
       "homeLosses": 46,
-      "homeDraws": 2,
-      "awayWins": 24,
-      "awayLosses": 47,
+      "homeDraws": 3,
+      "awayWins": 27,
+      "awayLosses": 50,
       "awayDraws": 2,
       "recentGames": [
+        {
+          "date": "2025-03-08",
+          "result": "승"
+        },
+        {
+          "date": "2025-03-09",
+          "result": "패"
+        },
+        {
+          "date": "2025-03-10",
+          "result": "패"
+        },
+        {
+          "date": "2025-03-11",
+          "result": "승"
+        },
+        {
+          "date": "2025-03-13",
+          "result": "승"
+        },
+        {
+          "date": "2025-03-14",
+          "result": "패"
+        },
+        {
+          "date": "2025-03-15",
+          "result": "승"
+        },
+        {
+          "date": "2025-03-16",
+          "result": "무"
+        },
+        {
+          "date": "2025-03-17",
+          "result": "승"
+        },
+        {
+          "date": "2025-03-18",
+          "result": "승"
+        },
         {
           "date": "2025-03-22",
           "result": "패"
@@ -6186,94 +6522,101 @@
           "result": "패"
         }
       ],
-      "win_rate": "0.336",
+      "win_rate": "0.356",
       "run_differential": -279,
       "current_streak": "5L",
-      "homeRecord": "23-46-2",
-      "awayRecord": "24-47-2",
+      "homeRecord": "26-46-3",
+      "awayRecord": "27-50-2",
       "recent10": "3승0무7패",
-      "remainingGames": 0,
+      "remainingGames": -10,
       "team": "키움",
-      "games": 144,
-      "winRate": 0.3357142857142857,
+      "games": 154,
+      "winRate": 0.35570469798657717,
       "streak": "5L",
-      "gamesBehind": 39,
-      "games_behind": 39
+      "gamesBehind": 37,
+      "games_behind": 37
     }
   ],
   "pythagoreanAnalysis": [
     {
       "team_name": "LG",
-      "actual_win_rate": "0.610",
-      "expected_win_rate": "0.651",
-      "luck_factor": "-0.041",
+      "actual_win_rate": "0.600",
+      "expected_win_rate": "0.643",
+      "luck_factor": "-0.043",
       "luck_status": "평균적"
     },
     {
       "team_name": "한화",
-      "actual_win_rate": "0.580",
-      "expected_win_rate": "0.590",
-      "luck_factor": "-0.010",
-      "luck_status": "평균적"
-    },
-    {
-      "team_name": "SSG",
-      "actual_win_rate": "0.528",
-      "expected_win_rate": "0.521",
-      "luck_factor": "+0.007",
-      "luck_status": "평균적"
-    },
-    {
-      "team_name": "삼성",
-      "actual_win_rate": "0.523",
-      "expected_win_rate": "0.586",
-      "luck_factor": "-0.063",
-      "luck_status": "운이 나쁨"
-    },
-    {
-      "team_name": "NC",
-      "actual_win_rate": "0.514",
-      "expected_win_rate": "0.477",
-      "luck_factor": "+0.037",
+      "actual_win_rate": "0.586",
+      "expected_win_rate": "0.595",
+      "luck_factor": "-0.009",
       "luck_status": "평균적"
     },
     {
       "team_name": "KT",
-      "actual_win_rate": "0.511",
-      "expected_win_rate": "0.493",
-      "luck_factor": "+0.018",
+      "actual_win_rate": "0.527",
+      "expected_win_rate": "0.506",
+      "luck_factor": "+0.021",
       "luck_status": "평균적"
     },
     {
-      "team_name": "롯데",
-      "actual_win_rate": "0.478",
-      "expected_win_rate": "0.449",
+      "team_name": "SSG",
+      "actual_win_rate": "0.520",
+      "expected_win_rate": "0.514",
+      "luck_factor": "+0.006",
+      "luck_status": "평균적"
+    },
+    {
+      "team_name": "삼성",
+      "actual_win_rate": "0.512",
+      "expected_win_rate": "0.572",
+      "luck_factor": "-0.060",
+      "luck_status": "운이 나쁨"
+    },
+    {
+      "team_name": "NC",
+      "actual_win_rate": "0.500",
+      "expected_win_rate": "0.471",
       "luck_factor": "+0.029",
       "luck_status": "평균적"
     },
     {
       "team_name": "KIA",
-      "actual_win_rate": "0.464",
-      "expected_win_rate": "0.453",
-      "luck_factor": "+0.011",
+      "actual_win_rate": "0.473",
+      "expected_win_rate": "0.466",
+      "luck_factor": "+0.007",
+      "luck_status": "평균적"
+    },
+    {
+      "team_name": "롯데",
+      "actual_win_rate": "0.472",
+      "expected_win_rate": "0.445",
+      "luck_factor": "+0.027",
       "luck_status": "평균적"
     },
     {
       "team_name": "두산",
-      "actual_win_rate": "0.442",
-      "expected_win_rate": "0.471",
+      "actual_win_rate": "0.441",
+      "expected_win_rate": "0.470",
       "luck_factor": "-0.029",
       "luck_status": "평균적"
     },
     {
       "team_name": "키움",
-      "actual_win_rate": "0.336",
-      "expected_win_rate": "0.313",
-      "luck_factor": "+0.023",
+      "actual_win_rate": "0.356",
+      "expected_win_rate": "0.323",
+      "luck_factor": "+0.033",
       "luck_status": "평균적"
     }
   ],
   "oneRunGames": [
+    {
+      "team_name": "키움",
+      "wins": 22,
+      "losses": 12,
+      "total_games": 34,
+      "win_rate": "0.647"
+    },
     {
       "team_name": "한화",
       "wins": 27,
@@ -6282,60 +6625,53 @@
       "win_rate": "0.600"
     },
     {
-      "team_name": "키움",
-      "wins": 18,
-      "losses": 12,
-      "total_games": 30,
-      "win_rate": "0.600"
-    },
-    {
       "team_name": "LG",
       "wins": 22,
-      "losses": 17,
-      "total_games": 39,
-      "win_rate": "0.564"
+      "losses": 18,
+      "total_games": 40,
+      "win_rate": "0.550"
     },
     {
       "team_name": "롯데",
-      "wins": 16,
-      "losses": 15,
-      "total_games": 31,
-      "win_rate": "0.516"
+      "wins": 18,
+      "losses": 17,
+      "total_games": 35,
+      "win_rate": "0.514"
     },
     {
       "team_name": "SSG",
       "wins": 20,
-      "losses": 19,
-      "total_games": 39,
-      "win_rate": "0.513"
+      "losses": 20,
+      "total_games": 40,
+      "win_rate": "0.500"
     },
     {
       "team_name": "NC",
       "wins": 16,
-      "losses": 16,
-      "total_games": 32,
-      "win_rate": "0.500"
+      "losses": 17,
+      "total_games": 33,
+      "win_rate": "0.485"
+    },
+    {
+      "team_name": "KT",
+      "wins": 19,
+      "losses": 21,
+      "total_games": 40,
+      "win_rate": "0.475"
     },
     {
       "team_name": "KIA",
       "wins": 22,
-      "losses": 24,
-      "total_games": 46,
-      "win_rate": "0.478"
-    },
-    {
-      "team_name": "KT",
-      "wins": 18,
-      "losses": 21,
-      "total_games": 39,
-      "win_rate": "0.462"
+      "losses": 25,
+      "total_games": 47,
+      "win_rate": "0.468"
     },
     {
       "team_name": "두산",
       "wins": 17,
-      "losses": 23,
-      "total_games": 40,
-      "win_rate": "0.425"
+      "losses": 24,
+      "total_games": 41,
+      "win_rate": "0.415"
     },
     {
       "team_name": "삼성",
@@ -6348,116 +6684,116 @@
   "homeAwayStats": [
     {
       "team_name": "LG",
-      "home_wins": 43,
+      "home_wins": 44,
       "home_losses": 29,
-      "home_win_rate": "0.597",
-      "away_wins": 46,
-      "away_losses": 28,
-      "away_win_rate": "0.622",
-      "home_advantage": "-0.024"
+      "home_win_rate": "0.603",
+      "away_wins": 49,
+      "away_losses": 33,
+      "away_win_rate": "0.598",
+      "home_advantage": "+0.005"
     },
     {
       "team_name": "한화",
-      "home_wins": 47,
-      "home_losses": 30,
-      "home_win_rate": "0.610",
-      "away_wins": 40,
+      "home_wins": 48,
+      "home_losses": 32,
+      "home_win_rate": "0.600",
+      "away_wins": 44,
       "away_losses": 33,
-      "away_win_rate": "0.548",
-      "home_advantage": "+0.062"
-    },
-    {
-      "team_name": "SSG",
-      "home_wins": 39,
-      "home_losses": 32,
-      "home_win_rate": "0.549",
-      "away_wins": 37,
-      "away_losses": 36,
-      "away_win_rate": "0.507",
-      "home_advantage": "+0.042"
-    },
-    {
-      "team_name": "삼성",
-      "home_wins": 45,
-      "home_losses": 32,
-      "home_win_rate": "0.584",
-      "away_wins": 35,
-      "away_losses": 41,
-      "away_win_rate": "0.461",
-      "home_advantage": "+0.124"
-    },
-    {
-      "team_name": "NC",
-      "home_wins": 36,
-      "home_losses": 34,
-      "home_win_rate": "0.514",
-      "away_wins": 36,
-      "away_losses": 34,
-      "away_win_rate": "0.514",
-      "home_advantage": "+0.000"
+      "away_win_rate": "0.571",
+      "home_advantage": "+0.029"
     },
     {
       "team_name": "KT",
-      "home_wins": 36,
-      "home_losses": 35,
-      "home_win_rate": "0.507",
-      "away_wins": 35,
+      "home_wins": 40,
+      "home_losses": 36,
+      "home_win_rate": "0.526",
+      "away_wins": 37,
       "away_losses": 33,
-      "away_win_rate": "0.515",
-      "home_advantage": "-0.008"
+      "away_win_rate": "0.529",
+      "home_advantage": "-0.002"
     },
     {
-      "team_name": "롯데",
-      "home_wins": 35,
-      "home_losses": 34,
-      "home_win_rate": "0.507",
-      "away_wins": 31,
-      "away_losses": 38,
-      "away_win_rate": "0.449",
-      "home_advantage": "+0.058"
+      "team_name": "SSG",
+      "home_wins": 41,
+      "home_losses": 36,
+      "home_win_rate": "0.532",
+      "away_wins": 38,
+      "away_losses": 37,
+      "away_win_rate": "0.507",
+      "home_advantage": "+0.026"
+    },
+    {
+      "team_name": "삼성",
+      "home_wins": 48,
+      "home_losses": 35,
+      "home_win_rate": "0.578",
+      "away_wins": 35,
+      "away_losses": 44,
+      "away_win_rate": "0.443",
+      "home_advantage": "+0.135"
+    },
+    {
+      "team_name": "NC",
+      "home_wins": 38,
+      "home_losses": 39,
+      "home_win_rate": "0.494",
+      "away_wins": 36,
+      "away_losses": 35,
+      "away_win_rate": "0.507",
+      "home_advantage": "-0.014"
     },
     {
       "team_name": "KIA",
-      "home_wins": 35,
+      "home_wins": 37,
       "home_losses": 34,
+      "home_win_rate": "0.521",
+      "away_wins": 32,
+      "away_losses": 43,
+      "away_win_rate": "0.427",
+      "home_advantage": "+0.094"
+    },
+    {
+      "team_name": "롯데",
+      "home_wins": 37,
+      "home_losses": 36,
       "home_win_rate": "0.507",
-      "away_wins": 30,
-      "away_losses": 41,
-      "away_win_rate": "0.423",
-      "home_advantage": "+0.085"
+      "away_wins": 31,
+      "away_losses": 40,
+      "away_win_rate": "0.437",
+      "home_advantage": "+0.070"
     },
     {
       "team_name": "두산",
       "home_wins": 29,
-      "home_losses": 40,
-      "home_win_rate": "0.420",
-      "away_wins": 32,
-      "away_losses": 37,
-      "away_win_rate": "0.464",
-      "home_advantage": "-0.043"
+      "home_losses": 41,
+      "home_win_rate": "0.414",
+      "away_wins": 35,
+      "away_losses": 40,
+      "away_win_rate": "0.467",
+      "home_advantage": "-0.052"
     },
     {
       "team_name": "키움",
-      "home_wins": 23,
+      "home_wins": 26,
       "home_losses": 46,
-      "home_win_rate": "0.333",
-      "away_wins": 24,
-      "away_losses": 47,
-      "away_win_rate": "0.338",
-      "home_advantage": "-0.005"
+      "home_win_rate": "0.361",
+      "away_wins": 27,
+      "away_losses": 50,
+      "away_win_rate": "0.351",
+      "home_advantage": "+0.010"
     }
   ],
   "monthlyPerformance": {
     "KIA": [
       {
         "month": 3,
-        "wins": 3,
-        "losses": 5,
-        "draws": 0,
-        "games": 8,
-        "win_rate": "0.375",
-        "runs_scored": 48,
-        "runs_allowed": 50
+        "wins": 7,
+        "losses": 7,
+        "draws": 2,
+        "games": 16,
+        "win_rate": "0.500",
+        "runs_scored": 94,
+        "runs_allowed": 80
       },
       {
         "month": 4,
@@ -6533,13 +6869,13 @@
     "LG": [
       {
         "month": 3,
-        "wins": 7,
-        "losses": 0,
+        "wins": 11,
+        "losses": 5,
         "draws": 0,
-        "games": 7,
-        "win_rate": "1.000",
-        "runs_scored": 55,
-        "runs_allowed": 13
+        "games": 16,
+        "win_rate": "0.688",
+        "runs_scored": 96,
+        "runs_allowed": 54
       },
       {
         "month": 4,
@@ -6615,13 +6951,13 @@
     "삼성": [
       {
         "month": 3,
-        "wins": 5,
-        "losses": 3,
+        "wins": 8,
+        "losses": 9,
         "draws": 0,
-        "games": 8,
-        "win_rate": "0.625",
-        "runs_scored": 65,
-        "runs_allowed": 42
+        "games": 17,
+        "win_rate": "0.471",
+        "runs_scored": 108,
+        "runs_allowed": 99
       },
       {
         "month": 4,
@@ -6697,13 +7033,13 @@
     "두산": [
       {
         "month": 3,
-        "wins": 2,
-        "losses": 6,
-        "draws": 0,
-        "games": 8,
-        "win_rate": "0.250",
-        "runs_scored": 22,
-        "runs_allowed": 41
+        "wins": 5,
+        "losses": 10,
+        "draws": 2,
+        "games": 17,
+        "win_rate": "0.333",
+        "runs_scored": 62,
+        "runs_allowed": 84
       },
       {
         "month": 4,
@@ -6769,13 +7105,13 @@
     "KT": [
       {
         "month": 3,
-        "wins": 4,
-        "losses": 3,
+        "wins": 10,
+        "losses": 4,
         "draws": 1,
-        "games": 8,
-        "win_rate": "0.571",
-        "runs_scored": 29,
-        "runs_allowed": 24
+        "games": 15,
+        "win_rate": "0.714",
+        "runs_scored": 75,
+        "runs_allowed": 53
       },
       {
         "month": 4,
@@ -6851,13 +7187,13 @@
     "SSG": [
       {
         "month": 3,
-        "wins": 5,
-        "losses": 3,
+        "wins": 8,
+        "losses": 8,
         "draws": 0,
-        "games": 8,
-        "win_rate": "0.625",
-        "runs_scored": 33,
-        "runs_allowed": 27
+        "games": 16,
+        "win_rate": "0.500",
+        "runs_scored": 66,
+        "runs_allowed": 68
       },
       {
         "month": 4,
@@ -6933,13 +7269,13 @@
     "롯데": [
       {
         "month": 3,
-        "wins": 2,
-        "losses": 5,
-        "draws": 1,
-        "games": 8,
-        "win_rate": "0.286",
-        "runs_scored": 17,
-        "runs_allowed": 39
+        "wins": 4,
+        "losses": 9,
+        "draws": 3,
+        "games": 16,
+        "win_rate": "0.308",
+        "runs_scored": 34,
+        "runs_allowed": 64
       },
       {
         "month": 4,
@@ -7005,13 +7341,13 @@
     "한화": [
       {
         "month": 3,
-        "wins": 3,
-        "losses": 5,
-        "draws": 0,
-        "games": 8,
-        "win_rate": "0.375",
-        "runs_scored": 24,
-        "runs_allowed": 30
+        "wins": 8,
+        "losses": 7,
+        "draws": 1,
+        "games": 16,
+        "win_rate": "0.533",
+        "runs_scored": 54,
+        "runs_allowed": 48
       },
       {
         "month": 4,
@@ -7087,13 +7423,13 @@
     "NC": [
       {
         "month": 3,
-        "wins": 3,
-        "losses": 4,
+        "wins": 5,
+        "losses": 10,
         "draws": 0,
-        "games": 7,
-        "win_rate": "0.429",
-        "runs_scored": 39,
-        "runs_allowed": 60
+        "games": 15,
+        "win_rate": "0.333",
+        "runs_scored": 71,
+        "runs_allowed": 104
       },
       {
         "month": 4,
@@ -7169,13 +7505,13 @@
     "키움": [
       {
         "month": 3,
-        "wins": 4,
-        "losses": 4,
-        "draws": 0,
-        "games": 8,
-        "win_rate": "0.500",
-        "runs_scored": 54,
-        "runs_allowed": 60
+        "wins": 10,
+        "losses": 7,
+        "draws": 1,
+        "games": 18,
+        "win_rate": "0.588",
+        "runs_scored": 94,
+        "runs_allowed": 100
       },
       {
         "month": 4,
@@ -7243,15 +7579,15 @@
     "KIA": {
       "월": {
         "wins": 1,
-        "losses": 1,
+        "losses": 2,
         "draws": 0,
-        "win_rate": "0.500"
+        "win_rate": "0.333"
       },
       "화": {
-        "wins": 13,
+        "wins": 14,
         "losses": 11,
         "draws": 0,
-        "win_rate": "0.542"
+        "win_rate": "0.560"
       },
       "수": {
         "wins": 10,
@@ -7260,42 +7596,42 @@
         "win_rate": "0.385"
       },
       "목": {
-        "wins": 11,
+        "wins": 12,
         "losses": 10,
         "draws": 2,
-        "win_rate": "0.524"
+        "win_rate": "0.545"
       },
       "금": {
         "wins": 6,
         "losses": 13,
-        "draws": 0,
+        "draws": 1,
         "win_rate": "0.316"
       },
       "토": {
-        "wins": 13,
-        "losses": 9,
+        "wins": 14,
+        "losses": 10,
         "draws": 1,
-        "win_rate": "0.591"
+        "win_rate": "0.583"
       },
       "일": {
-        "wins": 11,
+        "wins": 12,
         "losses": 15,
-        "draws": 0,
-        "win_rate": "0.423"
+        "draws": 1,
+        "win_rate": "0.444"
       }
     },
     "LG": {
       "월": {
-        "wins": 1,
+        "wins": 3,
         "losses": 2,
         "draws": 0,
-        "win_rate": "0.333"
+        "win_rate": "0.600"
       },
       "화": {
         "wins": 17,
-        "losses": 8,
+        "losses": 9,
         "draws": 0,
-        "win_rate": "0.680"
+        "win_rate": "0.654"
       },
       "수": {
         "wins": 12,
@@ -7304,42 +7640,42 @@
         "win_rate": "0.522"
       },
       "목": {
-        "wins": 17,
+        "wins": 18,
         "losses": 7,
         "draws": 1,
-        "win_rate": "0.708"
+        "win_rate": "0.720"
       },
       "금": {
         "wins": 14,
-        "losses": 6,
+        "losses": 7,
         "draws": 0,
-        "win_rate": "0.700"
+        "win_rate": "0.667"
       },
       "토": {
-        "wins": 13,
-        "losses": 13,
+        "wins": 14,
+        "losses": 14,
         "draws": 1,
         "win_rate": "0.500"
       },
       "일": {
         "wins": 15,
-        "losses": 10,
+        "losses": 12,
         "draws": 0,
-        "win_rate": "0.600"
+        "win_rate": "0.556"
       }
     },
     "삼성": {
       "월": {
         "wins": 1,
-        "losses": 2,
+        "losses": 4,
         "draws": 0,
-        "win_rate": "0.333"
+        "win_rate": "0.200"
       },
       "화": {
-        "wins": 19,
+        "wins": 20,
         "losses": 6,
         "draws": 0,
-        "win_rate": "0.760"
+        "win_rate": "0.769"
       },
       "수": {
         "wins": 10,
@@ -7349,41 +7685,41 @@
       },
       "목": {
         "wins": 13,
-        "losses": 12,
+        "losses": 13,
         "draws": 0,
-        "win_rate": "0.520"
+        "win_rate": "0.500"
       },
       "금": {
-        "wins": 11,
+        "wins": 12,
         "losses": 10,
         "draws": 0,
-        "win_rate": "0.524"
+        "win_rate": "0.545"
       },
       "토": {
         "wins": 12,
-        "losses": 16,
+        "losses": 18,
         "draws": 0,
-        "win_rate": "0.429"
+        "win_rate": "0.400"
       },
       "일": {
-        "wins": 14,
-        "losses": 13,
+        "wins": 15,
+        "losses": 14,
         "draws": 1,
-        "win_rate": "0.519"
+        "win_rate": "0.517"
       }
     },
     "두산": {
       "월": {
-        "wins": 2,
-        "losses": 0,
+        "wins": 3,
+        "losses": 1,
         "draws": 0,
-        "win_rate": "1.000"
+        "win_rate": "0.750"
       },
       "화": {
         "wins": 7,
-        "losses": 17,
+        "losses": 18,
         "draws": 0,
-        "win_rate": "0.292"
+        "win_rate": "0.280"
       },
       "수": {
         "wins": 10,
@@ -7393,41 +7729,41 @@
       },
       "목": {
         "wins": 13,
-        "losses": 8,
+        "losses": 9,
         "draws": 2,
-        "win_rate": "0.619"
+        "win_rate": "0.591"
       },
       "금": {
         "wins": 9,
         "losses": 10,
-        "draws": 1,
+        "draws": 2,
         "win_rate": "0.474"
       },
       "토": {
-        "wins": 8,
-        "losses": 17,
+        "wins": 9,
+        "losses": 18,
         "draws": 2,
-        "win_rate": "0.320"
+        "win_rate": "0.333"
       },
       "일": {
-        "wins": 12,
+        "wins": 13,
         "losses": 15,
-        "draws": 0,
-        "win_rate": "0.444"
+        "draws": 1,
+        "win_rate": "0.464"
       }
     },
     "KT": {
       "월": {
-        "wins": 0,
+        "wins": 2,
         "losses": 1,
         "draws": 0,
-        "win_rate": "0.000"
+        "win_rate": "0.667"
       },
       "화": {
         "wins": 13,
-        "losses": 13,
+        "losses": 14,
         "draws": 0,
-        "win_rate": "0.500"
+        "win_rate": "0.481"
       },
       "수": {
         "wins": 12,
@@ -7436,42 +7772,42 @@
         "win_rate": "0.545"
       },
       "목": {
-        "wins": 9,
+        "wins": 10,
         "losses": 15,
         "draws": 1,
-        "win_rate": "0.375"
+        "win_rate": "0.400"
       },
       "금": {
-        "wins": 10,
+        "wins": 11,
         "losses": 9,
         "draws": 1,
-        "win_rate": "0.526"
+        "win_rate": "0.550"
       },
       "토": {
-        "wins": 15,
+        "wins": 16,
         "losses": 9,
         "draws": 0,
-        "win_rate": "0.625"
+        "win_rate": "0.640"
       },
       "일": {
-        "wins": 12,
+        "wins": 13,
         "losses": 11,
         "draws": 3,
-        "win_rate": "0.522"
+        "win_rate": "0.542"
       }
     },
     "SSG": {
       "월": {
         "wins": 2,
-        "losses": 2,
+        "losses": 3,
         "draws": 0,
-        "win_rate": "0.500"
+        "win_rate": "0.400"
       },
       "화": {
         "wins": 13,
-        "losses": 12,
+        "losses": 13,
         "draws": 1,
-        "win_rate": "0.520"
+        "win_rate": "0.500"
       },
       "수": {
         "wins": 11,
@@ -7481,41 +7817,41 @@
       },
       "목": {
         "wins": 11,
-        "losses": 13,
+        "losses": 14,
         "draws": 0,
-        "win_rate": "0.458"
+        "win_rate": "0.440"
       },
       "금": {
-        "wins": 12,
+        "wins": 13,
         "losses": 7,
         "draws": 0,
-        "win_rate": "0.632"
+        "win_rate": "0.650"
       },
       "토": {
-        "wins": 10,
-        "losses": 15,
+        "wins": 11,
+        "losses": 16,
         "draws": 1,
-        "win_rate": "0.400"
+        "win_rate": "0.407"
       },
       "일": {
-        "wins": 17,
-        "losses": 9,
+        "wins": 18,
+        "losses": 10,
         "draws": 0,
-        "win_rate": "0.654"
+        "win_rate": "0.643"
       }
     },
     "롯데": {
       "월": {
         "wins": 0,
-        "losses": 2,
+        "losses": 4,
         "draws": 0,
         "win_rate": "0.000"
       },
       "화": {
-        "wins": 7,
-        "losses": 17,
+        "wins": 8,
+        "losses": 18,
         "draws": 0,
-        "win_rate": "0.292"
+        "win_rate": "0.308"
       },
       "수": {
         "wins": 11,
@@ -7526,40 +7862,40 @@
       "목": {
         "wins": 14,
         "losses": 8,
-        "draws": 1,
+        "draws": 2,
         "win_rate": "0.636"
       },
       "금": {
         "wins": 9,
-        "losses": 13,
+        "losses": 14,
         "draws": 0,
-        "win_rate": "0.409"
+        "win_rate": "0.391"
       },
       "토": {
-        "wins": 14,
+        "wins": 15,
         "losses": 9,
         "draws": 1,
-        "win_rate": "0.609"
+        "win_rate": "0.625"
       },
       "일": {
         "wins": 11,
         "losses": 11,
-        "draws": 3,
+        "draws": 4,
         "win_rate": "0.500"
       }
     },
     "한화": {
       "월": {
-        "wins": 3,
+        "wins": 5,
         "losses": 1,
         "draws": 0,
-        "win_rate": "0.750"
+        "win_rate": "0.833"
       },
       "화": {
-        "wins": 17,
+        "wins": 18,
         "losses": 7,
         "draws": 0,
-        "win_rate": "0.708"
+        "win_rate": "0.720"
       },
       "수": {
         "wins": 17,
@@ -7570,40 +7906,40 @@
       "목": {
         "wins": 9,
         "losses": 12,
-        "draws": 2,
+        "draws": 3,
         "win_rate": "0.429"
       },
       "금": {
-        "wins": 13,
+        "wins": 14,
         "losses": 9,
         "draws": 1,
-        "win_rate": "0.591"
+        "win_rate": "0.609"
       },
       "토": {
         "wins": 16,
-        "losses": 9,
+        "losses": 10,
         "draws": 1,
-        "win_rate": "0.640"
+        "win_rate": "0.615"
       },
       "일": {
-        "wins": 12,
-        "losses": 14,
+        "wins": 13,
+        "losses": 15,
         "draws": 0,
-        "win_rate": "0.462"
+        "win_rate": "0.464"
       }
     },
     "NC": {
       "월": {
-        "wins": 3,
-        "losses": 0,
+        "wins": 4,
+        "losses": 1,
         "draws": 0,
-        "win_rate": "1.000"
+        "win_rate": "0.800"
       },
       "화": {
         "wins": 9,
-        "losses": 13,
+        "losses": 14,
         "draws": 2,
-        "win_rate": "0.409"
+        "win_rate": "0.391"
       },
       "수": {
         "wins": 15,
@@ -7613,41 +7949,41 @@
       },
       "목": {
         "wins": 8,
-        "losses": 12,
+        "losses": 13,
         "draws": 1,
-        "win_rate": "0.400"
+        "win_rate": "0.381"
       },
       "금": {
         "wins": 7,
-        "losses": 13,
+        "losses": 14,
         "draws": 1,
-        "win_rate": "0.350"
+        "win_rate": "0.333"
       },
       "토": {
         "wins": 14,
-        "losses": 12,
+        "losses": 13,
         "draws": 1,
-        "win_rate": "0.538"
+        "win_rate": "0.519"
       },
       "일": {
-        "wins": 16,
-        "losses": 9,
+        "wins": 17,
+        "losses": 10,
         "draws": 1,
-        "win_rate": "0.640"
+        "win_rate": "0.630"
       }
     },
     "키움": {
       "월": {
-        "wins": 0,
-        "losses": 2,
+        "wins": 1,
+        "losses": 3,
         "draws": 0,
-        "win_rate": "0.000"
+        "win_rate": "0.250"
       },
       "화": {
-        "wins": 7,
+        "wins": 9,
         "losses": 18,
         "draws": 1,
-        "win_rate": "0.280"
+        "win_rate": "0.333"
       },
       "수": {
         "wins": 9,
@@ -7656,105 +7992,47 @@
         "win_rate": "0.391"
       },
       "목": {
-        "wins": 7,
+        "wins": 8,
         "losses": 15,
         "draws": 2,
-        "win_rate": "0.318"
+        "win_rate": "0.348"
       },
       "금": {
         "wins": 9,
-        "losses": 10,
+        "losses": 11,
         "draws": 0,
-        "win_rate": "0.474"
+        "win_rate": "0.450"
       },
       "토": {
-        "wins": 9,
+        "wins": 11,
         "losses": 15,
         "draws": 0,
-        "win_rate": "0.375"
+        "win_rate": "0.423"
       },
       "일": {
         "wins": 6,
-        "losses": 19,
-        "draws": 0,
-        "win_rate": "0.240"
+        "losses": 20,
+        "draws": 1,
+        "win_rate": "0.231"
       }
     }
   },
   "stadiumRecords": {
-    "LG": [
+    "롯데": [
       {
-        "stadium": "서울 잠실야구장 (LG)",
-        "wins": 43,
-        "losses": 29,
-        "draws": 1,
-        "win_rate": "0.597"
-      },
-      {
-        "stadium": "창원 NC파크",
-        "wins": 6,
-        "losses": 3,
-        "draws": 0,
-        "win_rate": "0.667"
-      },
-      {
-        "stadium": "수원 KT위즈파크",
-        "wins": 7,
-        "losses": 2,
-        "draws": 0,
-        "win_rate": "0.778"
+        "stadium": "부산 사직야구장",
+        "wins": 37,
+        "losses": 36,
+        "draws": 6,
+        "win_rate": "0.507"
       },
       {
         "stadium": "서울 고척스카이돔",
-        "wins": 3,
+        "wins": 7,
         "losses": 4,
         "draws": 0,
-        "win_rate": "0.429"
+        "win_rate": "0.636"
       },
-      {
-        "stadium": "인천 SSG랜더스필드",
-        "wins": 6,
-        "losses": 3,
-        "draws": 0,
-        "win_rate": "0.667"
-      },
-      {
-        "stadium": "광주 챔피언스필드",
-        "wins": 7,
-        "losses": 2,
-        "draws": 0,
-        "win_rate": "0.778"
-      },
-      {
-        "stadium": "대전 한화생명이글스파크",
-        "wins": 3,
-        "losses": 6,
-        "draws": 1,
-        "win_rate": "0.333"
-      },
-      {
-        "stadium": "서울 잠실야구장 (두산)",
-        "wins": 4,
-        "losses": 3,
-        "draws": 0,
-        "win_rate": "0.571"
-      },
-      {
-        "stadium": "대구 삼성라이온즈파크",
-        "wins": 7,
-        "losses": 2,
-        "draws": 0,
-        "win_rate": "0.778"
-      },
-      {
-        "stadium": "부산 사직야구장",
-        "wins": 3,
-        "losses": 3,
-        "draws": 1,
-        "win_rate": "0.500"
-      }
-    ],
-    "롯데": [
       {
         "stadium": "서울 잠실야구장 (LG)",
         "wins": 1,
@@ -7768,13 +8046,6 @@
         "losses": 5,
         "draws": 0,
         "win_rate": "0.286"
-      },
-      {
-        "stadium": "부산 사직야구장",
-        "wins": 35,
-        "losses": 34,
-        "draws": 4,
-        "win_rate": "0.507"
       },
       {
         "stadium": "대전 한화생명이글스파크",
@@ -7803,13 +8074,6 @@
         "losses": 3,
         "draws": 0,
         "win_rate": "0.571"
-      },
-      {
-        "stadium": "서울 고척스카이돔",
-        "wins": 7,
-        "losses": 2,
-        "draws": 0,
-        "win_rate": "0.778"
       },
       {
         "stadium": "수원 KT위즈파크",
@@ -7828,11 +8092,32 @@
     ],
     "KIA": [
       {
+        "stadium": "부산 사직야구장",
+        "wins": 4,
+        "losses": 6,
+        "draws": 1,
+        "win_rate": "0.400"
+      },
+      {
+        "stadium": "창원 NC파크",
+        "wins": 4,
+        "losses": 5,
+        "draws": 0,
+        "win_rate": "0.444"
+      },
+      {
+        "stadium": "서울 잠실야구장 (두산)",
+        "wins": 5,
+        "losses": 5,
+        "draws": 1,
+        "win_rate": "0.500"
+      },
+      {
         "stadium": "광주 챔피언스필드",
-        "wins": 35,
+        "wins": 37,
         "losses": 34,
         "draws": 2,
-        "win_rate": "0.507"
+        "win_rate": "0.521"
       },
       {
         "stadium": "대전 한화생명이글스파크",
@@ -7847,20 +8132,6 @@
         "losses": 4,
         "draws": 0,
         "win_rate": "0.429"
-      },
-      {
-        "stadium": "부산 사직야구장",
-        "wins": 4,
-        "losses": 5,
-        "draws": 0,
-        "win_rate": "0.444"
-      },
-      {
-        "stadium": "서울 잠실야구장 (두산)",
-        "wins": 4,
-        "losses": 5,
-        "draws": 0,
-        "win_rate": "0.444"
       },
       {
         "stadium": "대구 삼성라이온즈파크",
@@ -7889,238 +8160,29 @@
         "losses": 6,
         "draws": 0,
         "win_rate": "0.333"
-      },
-      {
-        "stadium": "창원 NC파크",
-        "wins": 3,
-        "losses": 4,
-        "draws": 0,
-        "win_rate": "0.429"
-      }
-    ],
-    "NC": [
-      {
-        "stadium": "광주 챔피언스필드",
-        "wins": 5,
-        "losses": 4,
-        "draws": 0,
-        "win_rate": "0.556"
-      },
-      {
-        "stadium": "대구 삼성라이온즈파크",
-        "wins": 4,
-        "losses": 7,
-        "draws": 0,
-        "win_rate": "0.364"
-      },
-      {
-        "stadium": "창원 NC파크",
-        "wins": 36,
-        "losses": 34,
-        "draws": 1,
-        "win_rate": "0.514"
-      },
-      {
-        "stadium": "서울 고척스카이돔",
-        "wins": 4,
-        "losses": 2,
-        "draws": 1,
-        "win_rate": "0.667"
-      },
-      {
-        "stadium": "수원 KT위즈파크",
-        "wins": 6,
-        "losses": 3,
-        "draws": 0,
-        "win_rate": "0.667"
-      },
-      {
-        "stadium": "대전 한화생명이글스파크",
-        "wins": 1,
-        "losses": 5,
-        "draws": 1,
-        "win_rate": "0.167"
-      },
-      {
-        "stadium": "서울 잠실야구장 (LG)",
-        "wins": 5,
-        "losses": 2,
-        "draws": 0,
-        "win_rate": "0.714"
-      },
-      {
-        "stadium": "부산 사직야구장",
-        "wins": 4,
-        "losses": 3,
-        "draws": 0,
-        "win_rate": "0.571"
-      },
-      {
-        "stadium": "서울 잠실야구장 (두산)",
-        "wins": 5,
-        "losses": 2,
-        "draws": 2,
-        "win_rate": "0.714"
-      },
-      {
-        "stadium": "인천 SSG랜더스필드",
-        "wins": 2,
-        "losses": 6,
-        "draws": 1,
-        "win_rate": "0.250"
-      }
-    ],
-    "KT": [
-      {
-        "stadium": "수원 KT위즈파크",
-        "wins": 36,
-        "losses": 35,
-        "draws": 2,
-        "win_rate": "0.507"
-      },
-      {
-        "stadium": "부산 사직야구장",
-        "wins": 4,
-        "losses": 4,
-        "draws": 1,
-        "win_rate": "0.500"
-      },
-      {
-        "stadium": "인천 SSG랜더스필드",
-        "wins": 3,
-        "losses": 4,
-        "draws": 0,
-        "win_rate": "0.429"
-      },
-      {
-        "stadium": "광주 챔피언스필드",
-        "wins": 2,
-        "losses": 5,
-        "draws": 0,
-        "win_rate": "0.286"
-      },
-      {
-        "stadium": "서울 고척스카이돔",
-        "wins": 6,
-        "losses": 3,
-        "draws": 0,
-        "win_rate": "0.667"
-      },
-      {
-        "stadium": "대전 한화생명이글스파크",
-        "wins": 4,
-        "losses": 5,
-        "draws": 0,
-        "win_rate": "0.444"
-      },
-      {
-        "stadium": "서울 잠실야구장 (두산)",
-        "wins": 6,
-        "losses": 2,
-        "draws": 1,
-        "win_rate": "0.750"
-      },
-      {
-        "stadium": "대구 삼성라이온즈파크",
-        "wins": 4,
-        "losses": 3,
-        "draws": 0,
-        "win_rate": "0.571"
-      },
-      {
-        "stadium": "서울 잠실야구장 (LG)",
-        "wins": 3,
-        "losses": 4,
-        "draws": 0,
-        "win_rate": "0.429"
-      },
-      {
-        "stadium": "창원 NC파크",
-        "wins": 3,
-        "losses": 3,
-        "draws": 1,
-        "win_rate": "0.500"
-      }
-    ],
-    "한화": [
-      {
-        "stadium": "수원 KT위즈파크",
-        "wins": 4,
-        "losses": 2,
-        "draws": 1,
-        "win_rate": "0.667"
-      },
-      {
-        "stadium": "서울 잠실야구장 (LG)",
-        "wins": 2,
-        "losses": 9,
-        "draws": 0,
-        "win_rate": "0.182"
-      },
-      {
-        "stadium": "대전 한화생명이글스파크",
-        "wins": 47,
-        "losses": 30,
-        "draws": 2,
-        "win_rate": "0.610"
-      },
-      {
-        "stadium": "대구 삼성라이온즈파크",
-        "wins": 4,
-        "losses": 5,
-        "draws": 0,
-        "win_rate": "0.444"
-      },
-      {
-        "stadium": "서울 잠실야구장 (두산)",
-        "wins": 3,
-        "losses": 3,
-        "draws": 1,
-        "win_rate": "0.500"
-      },
-      {
-        "stadium": "인천 SSG랜더스필드",
-        "wins": 4,
-        "losses": 3,
-        "draws": 0,
-        "win_rate": "0.571"
-      },
-      {
-        "stadium": "부산 사직야구장",
-        "wins": 4,
-        "losses": 3,
-        "draws": 0,
-        "win_rate": "0.571"
-      },
-      {
-        "stadium": "광주 챔피언스필드",
-        "wins": 6,
-        "losses": 3,
-        "draws": 0,
-        "win_rate": "0.667"
-      },
-      {
-        "stadium": "서울 고척스카이돔",
-        "wins": 9,
-        "losses": 0,
-        "draws": 0,
-        "win_rate": "1.000"
-      },
-      {
-        "stadium": "창원 NC파크",
-        "wins": 4,
-        "losses": 5,
-        "draws": 0,
-        "win_rate": "0.444"
       }
     ],
     "삼성": [
       {
         "stadium": "대구 삼성라이온즈파크",
-        "wins": 45,
-        "losses": 32,
+        "wins": 48,
+        "losses": 35,
         "draws": 0,
-        "win_rate": "0.584"
+        "win_rate": "0.578"
+      },
+      {
+        "stadium": "광주 챔피언스필드",
+        "wins": 3,
+        "losses": 6,
+        "draws": 0,
+        "win_rate": "0.333"
+      },
+      {
+        "stadium": "대전 한화생명이글스파크",
+        "wins": 5,
+        "losses": 8,
+        "draws": 0,
+        "win_rate": "0.385"
       },
       {
         "stadium": "서울 잠실야구장 (두산)",
@@ -8128,13 +8190,6 @@
         "losses": 3,
         "draws": 0,
         "win_rate": "0.667"
-      },
-      {
-        "stadium": "광주 챔피언스필드",
-        "wins": 3,
-        "losses": 4,
-        "draws": 0,
-        "win_rate": "0.429"
       },
       {
         "stadium": "수원 KT위즈파크",
@@ -8158,13 +8213,6 @@
         "win_rate": "0.500"
       },
       {
-        "stadium": "대전 한화생명이글스파크",
-        "wins": 5,
-        "losses": 7,
-        "draws": 0,
-        "win_rate": "0.417"
-      },
-      {
         "stadium": "부산 사직야구장",
         "wins": 2,
         "losses": 6,
@@ -8186,85 +8234,20 @@
         "win_rate": "0.429"
       }
     ],
-    "키움": [
-      {
-        "stadium": "대구 삼성라이온즈파크",
-        "wins": 1,
-        "losses": 8,
-        "draws": 0,
-        "win_rate": "0.111"
-      },
-      {
-        "stadium": "광주 챔피언스필드",
-        "wins": 4,
-        "losses": 4,
-        "draws": 1,
-        "win_rate": "0.500"
-      },
-      {
-        "stadium": "서울 고척스카이돔",
-        "wins": 23,
-        "losses": 46,
-        "draws": 2,
-        "win_rate": "0.333"
-      },
-      {
-        "stadium": "서울 잠실야구장 (두산)",
-        "wins": 2,
-        "losses": 5,
-        "draws": 0,
-        "win_rate": "0.286"
-      },
-      {
-        "stadium": "대전 한화생명이글스파크",
-        "wins": 2,
-        "losses": 5,
-        "draws": 0,
-        "win_rate": "0.286"
-      },
-      {
-        "stadium": "부산 사직야구장",
-        "wins": 3,
-        "losses": 4,
-        "draws": 0,
-        "win_rate": "0.429"
-      },
-      {
-        "stadium": "인천 SSG랜더스필드",
-        "wins": 3,
-        "losses": 5,
-        "draws": 1,
-        "win_rate": "0.375"
-      },
-      {
-        "stadium": "수원 KT위즈파크",
-        "wins": 2,
-        "losses": 5,
-        "draws": 0,
-        "win_rate": "0.286"
-      },
-      {
-        "stadium": "서울 잠실야구장 (LG)",
-        "wins": 3,
-        "losses": 6,
-        "draws": 0,
-        "win_rate": "0.333"
-      },
-      {
-        "stadium": "창원 NC파크",
-        "wins": 4,
-        "losses": 5,
-        "draws": 0,
-        "win_rate": "0.444"
-      }
-    ],
     "SSG": [
       {
+        "stadium": "대구 삼성라이온즈파크",
+        "wins": 4,
+        "losses": 7,
+        "draws": 0,
+        "win_rate": "0.364"
+      },
+      {
         "stadium": "인천 SSG랜더스필드",
-        "wins": 39,
-        "losses": 32,
+        "wins": 41,
+        "losses": 36,
         "draws": 4,
-        "win_rate": "0.549"
+        "win_rate": "0.532"
       },
       {
         "stadium": "서울 고척스카이돔",
@@ -8272,13 +8255,6 @@
         "losses": 3,
         "draws": 0,
         "win_rate": "0.571"
-      },
-      {
-        "stadium": "대구 삼성라이온즈파크",
-        "wins": 3,
-        "losses": 6,
-        "draws": 0,
-        "win_rate": "0.333"
       },
       {
         "stadium": "광주 챔피언스필드",
@@ -8330,27 +8306,120 @@
         "win_rate": "0.429"
       }
     ],
+    "한화": [
+      {
+        "stadium": "대전 한화생명이글스파크",
+        "wins": 48,
+        "losses": 32,
+        "draws": 2,
+        "win_rate": "0.600"
+      },
+      {
+        "stadium": "인천 SSG랜더스필드",
+        "wins": 6,
+        "losses": 3,
+        "draws": 0,
+        "win_rate": "0.667"
+      },
+      {
+        "stadium": "부산 사직야구장",
+        "wins": 5,
+        "losses": 3,
+        "draws": 1,
+        "win_rate": "0.625"
+      },
+      {
+        "stadium": "창원 NC파크",
+        "wins": 5,
+        "losses": 5,
+        "draws": 0,
+        "win_rate": "0.500"
+      },
+      {
+        "stadium": "수원 KT위즈파크",
+        "wins": 4,
+        "losses": 2,
+        "draws": 1,
+        "win_rate": "0.667"
+      },
+      {
+        "stadium": "서울 잠실야구장 (LG)",
+        "wins": 2,
+        "losses": 9,
+        "draws": 0,
+        "win_rate": "0.182"
+      },
+      {
+        "stadium": "대구 삼성라이온즈파크",
+        "wins": 4,
+        "losses": 5,
+        "draws": 0,
+        "win_rate": "0.444"
+      },
+      {
+        "stadium": "서울 잠실야구장 (두산)",
+        "wins": 3,
+        "losses": 3,
+        "draws": 1,
+        "win_rate": "0.500"
+      },
+      {
+        "stadium": "광주 챔피언스필드",
+        "wins": 6,
+        "losses": 3,
+        "draws": 0,
+        "win_rate": "0.667"
+      },
+      {
+        "stadium": "서울 고척스카이돔",
+        "wins": 9,
+        "losses": 0,
+        "draws": 0,
+        "win_rate": "1.000"
+      }
+    ],
     "두산": [
+      {
+        "stadium": "대전 한화생명이글스파크",
+        "wins": 8,
+        "losses": 3,
+        "draws": 0,
+        "win_rate": "0.727"
+      },
+      {
+        "stadium": "대구 삼성라이온즈파크",
+        "wins": 4,
+        "losses": 5,
+        "draws": 0,
+        "win_rate": "0.444"
+      },
+      {
+        "stadium": "서울 잠실야구장 (두산)",
+        "wins": 29,
+        "losses": 41,
+        "draws": 5,
+        "win_rate": "0.414"
+      },
+      {
+        "stadium": "서울 고척스카이돔",
+        "wins": 5,
+        "losses": 5,
+        "draws": 1,
+        "win_rate": "0.500"
+      },
+      {
+        "stadium": "수원 KT위즈파크",
+        "wins": 2,
+        "losses": 6,
+        "draws": 0,
+        "win_rate": "0.250"
+      },
       {
         "stadium": "인천 SSG랜더스필드",
         "wins": 3,
         "losses": 4,
         "draws": 0,
         "win_rate": "0.429"
-      },
-      {
-        "stadium": "수원 KT위즈파크",
-        "wins": 2,
-        "losses": 5,
-        "draws": 0,
-        "win_rate": "0.286"
-      },
-      {
-        "stadium": "서울 잠실야구장 (두산)",
-        "wins": 29,
-        "losses": 40,
-        "draws": 4,
-        "win_rate": "0.420"
       },
       {
         "stadium": "부산 사직야구장",
@@ -8367,27 +8436,6 @@
         "win_rate": "0.444"
       },
       {
-        "stadium": "서울 고척스카이돔",
-        "wins": 5,
-        "losses": 4,
-        "draws": 0,
-        "win_rate": "0.556"
-      },
-      {
-        "stadium": "대구 삼성라이온즈파크",
-        "wins": 3,
-        "losses": 4,
-        "draws": 0,
-        "win_rate": "0.429"
-      },
-      {
-        "stadium": "대전 한화생명이글스파크",
-        "wins": 6,
-        "losses": 3,
-        "draws": 0,
-        "win_rate": "0.667"
-      },
-      {
         "stadium": "광주 챔피언스필드",
         "wins": 1,
         "losses": 5,
@@ -8400,6 +8448,294 @@
         "losses": 4,
         "draws": 0,
         "win_rate": "0.429"
+      }
+    ],
+    "KT": [
+      {
+        "stadium": "수원 KT위즈파크",
+        "wins": 40,
+        "losses": 36,
+        "draws": 2,
+        "win_rate": "0.526"
+      },
+      {
+        "stadium": "창원 NC파크",
+        "wins": 5,
+        "losses": 3,
+        "draws": 1,
+        "win_rate": "0.625"
+      },
+      {
+        "stadium": "부산 사직야구장",
+        "wins": 4,
+        "losses": 4,
+        "draws": 1,
+        "win_rate": "0.500"
+      },
+      {
+        "stadium": "인천 SSG랜더스필드",
+        "wins": 3,
+        "losses": 4,
+        "draws": 0,
+        "win_rate": "0.429"
+      },
+      {
+        "stadium": "광주 챔피언스필드",
+        "wins": 2,
+        "losses": 5,
+        "draws": 0,
+        "win_rate": "0.286"
+      },
+      {
+        "stadium": "서울 고척스카이돔",
+        "wins": 6,
+        "losses": 3,
+        "draws": 0,
+        "win_rate": "0.667"
+      },
+      {
+        "stadium": "대전 한화생명이글스파크",
+        "wins": 4,
+        "losses": 5,
+        "draws": 0,
+        "win_rate": "0.444"
+      },
+      {
+        "stadium": "서울 잠실야구장 (두산)",
+        "wins": 6,
+        "losses": 2,
+        "draws": 1,
+        "win_rate": "0.750"
+      },
+      {
+        "stadium": "대구 삼성라이온즈파크",
+        "wins": 4,
+        "losses": 3,
+        "draws": 0,
+        "win_rate": "0.571"
+      },
+      {
+        "stadium": "서울 잠실야구장 (LG)",
+        "wins": 3,
+        "losses": 4,
+        "draws": 0,
+        "win_rate": "0.429"
+      }
+    ],
+    "LG": [
+      {
+        "stadium": "수원 KT위즈파크",
+        "wins": 7,
+        "losses": 4,
+        "draws": 0,
+        "win_rate": "0.636"
+      },
+      {
+        "stadium": "부산 사직야구장",
+        "wins": 4,
+        "losses": 4,
+        "draws": 1,
+        "win_rate": "0.500"
+      },
+      {
+        "stadium": "대구 삼성라이온즈파크",
+        "wins": 8,
+        "losses": 3,
+        "draws": 0,
+        "win_rate": "0.727"
+      },
+      {
+        "stadium": "인천 SSG랜더스필드",
+        "wins": 7,
+        "losses": 4,
+        "draws": 0,
+        "win_rate": "0.636"
+      },
+      {
+        "stadium": "서울 잠실야구장 (LG)",
+        "wins": 44,
+        "losses": 29,
+        "draws": 1,
+        "win_rate": "0.603"
+      },
+      {
+        "stadium": "창원 NC파크",
+        "wins": 6,
+        "losses": 3,
+        "draws": 0,
+        "win_rate": "0.667"
+      },
+      {
+        "stadium": "서울 고척스카이돔",
+        "wins": 3,
+        "losses": 4,
+        "draws": 0,
+        "win_rate": "0.429"
+      },
+      {
+        "stadium": "광주 챔피언스필드",
+        "wins": 7,
+        "losses": 2,
+        "draws": 0,
+        "win_rate": "0.778"
+      },
+      {
+        "stadium": "대전 한화생명이글스파크",
+        "wins": 3,
+        "losses": 6,
+        "draws": 1,
+        "win_rate": "0.333"
+      },
+      {
+        "stadium": "서울 잠실야구장 (두산)",
+        "wins": 4,
+        "losses": 3,
+        "draws": 0,
+        "win_rate": "0.571"
+      }
+    ],
+    "NC": [
+      {
+        "stadium": "창원 NC파크",
+        "wins": 38,
+        "losses": 39,
+        "draws": 1,
+        "win_rate": "0.494"
+      },
+      {
+        "stadium": "서울 잠실야구장 (LG)",
+        "wins": 5,
+        "losses": 3,
+        "draws": 0,
+        "win_rate": "0.625"
+      },
+      {
+        "stadium": "광주 챔피언스필드",
+        "wins": 5,
+        "losses": 4,
+        "draws": 0,
+        "win_rate": "0.556"
+      },
+      {
+        "stadium": "대구 삼성라이온즈파크",
+        "wins": 4,
+        "losses": 7,
+        "draws": 0,
+        "win_rate": "0.364"
+      },
+      {
+        "stadium": "서울 고척스카이돔",
+        "wins": 4,
+        "losses": 2,
+        "draws": 1,
+        "win_rate": "0.667"
+      },
+      {
+        "stadium": "수원 KT위즈파크",
+        "wins": 6,
+        "losses": 3,
+        "draws": 0,
+        "win_rate": "0.667"
+      },
+      {
+        "stadium": "대전 한화생명이글스파크",
+        "wins": 1,
+        "losses": 5,
+        "draws": 1,
+        "win_rate": "0.167"
+      },
+      {
+        "stadium": "부산 사직야구장",
+        "wins": 4,
+        "losses": 3,
+        "draws": 0,
+        "win_rate": "0.571"
+      },
+      {
+        "stadium": "서울 잠실야구장 (두산)",
+        "wins": 5,
+        "losses": 2,
+        "draws": 2,
+        "win_rate": "0.714"
+      },
+      {
+        "stadium": "인천 SSG랜더스필드",
+        "wins": 2,
+        "losses": 6,
+        "draws": 1,
+        "win_rate": "0.250"
+      }
+    ],
+    "키움": [
+      {
+        "stadium": "창원 NC파크",
+        "wins": 5,
+        "losses": 6,
+        "draws": 0,
+        "win_rate": "0.455"
+      },
+      {
+        "stadium": "수원 KT위즈파크",
+        "wins": 3,
+        "losses": 6,
+        "draws": 0,
+        "win_rate": "0.333"
+      },
+      {
+        "stadium": "인천 SSG랜더스필드",
+        "wins": 4,
+        "losses": 6,
+        "draws": 1,
+        "win_rate": "0.400"
+      },
+      {
+        "stadium": "서울 고척스카이돔",
+        "wins": 26,
+        "losses": 46,
+        "draws": 3,
+        "win_rate": "0.361"
+      },
+      {
+        "stadium": "대구 삼성라이온즈파크",
+        "wins": 1,
+        "losses": 8,
+        "draws": 0,
+        "win_rate": "0.111"
+      },
+      {
+        "stadium": "광주 챔피언스필드",
+        "wins": 4,
+        "losses": 4,
+        "draws": 1,
+        "win_rate": "0.500"
+      },
+      {
+        "stadium": "서울 잠실야구장 (두산)",
+        "wins": 2,
+        "losses": 5,
+        "draws": 0,
+        "win_rate": "0.286"
+      },
+      {
+        "stadium": "대전 한화생명이글스파크",
+        "wins": 2,
+        "losses": 5,
+        "draws": 0,
+        "win_rate": "0.286"
+      },
+      {
+        "stadium": "부산 사직야구장",
+        "wins": 3,
+        "losses": 4,
+        "draws": 0,
+        "win_rate": "0.429"
+      },
+      {
+        "stadium": "서울 잠실야구장 (LG)",
+        "wins": 3,
+        "losses": 6,
+        "draws": 0,
+        "win_rate": "0.333"
       }
     ]
   },
@@ -35123,12 +35459,12 @@
         "win_rate": "0.313"
       },
       "삼성": {
-        "record": "8-8",
-        "win_rate": "0.500"
+        "record": "10-8",
+        "win_rate": "0.556"
       },
       "두산": {
-        "record": "9-6",
-        "win_rate": "0.600"
+        "record": "10-6",
+        "win_rate": "0.625"
       },
       "KT": {
         "record": "8-8",
@@ -35139,16 +35475,16 @@
         "win_rate": "0.533"
       },
       "롯데": {
-        "record": "8-8",
-        "win_rate": "0.500"
+        "record": "8-9",
+        "win_rate": "0.471"
       },
       "한화": {
         "record": "4-12",
         "win_rate": "0.250"
       },
       "NC": {
-        "record": "7-9",
-        "win_rate": "0.438"
+        "record": "8-10",
+        "win_rate": "0.444"
       },
       "키움": {
         "record": "8-6",
@@ -35162,32 +35498,32 @@
       },
       "LG": "-",
       "삼성": {
-        "record": "9-7",
-        "win_rate": "0.563"
+        "record": "10-8",
+        "win_rate": "0.556"
       },
       "두산": {
         "record": "9-7",
         "win_rate": "0.563"
       },
       "KT": {
-        "record": "11-5",
-        "win_rate": "0.688"
+        "record": "11-7",
+        "win_rate": "0.611"
       },
       "SSG": {
-        "record": "10-6",
-        "win_rate": "0.625"
+        "record": "11-7",
+        "win_rate": "0.611"
       },
       "롯데": {
-        "record": "10-4",
-        "win_rate": "0.714"
+        "record": "11-5",
+        "win_rate": "0.688"
       },
       "한화": {
         "record": "12-8",
         "win_rate": "0.600"
       },
       "NC": {
-        "record": "8-8",
-        "win_rate": "0.500"
+        "record": "9-8",
+        "win_rate": "0.529"
       },
       "키움": {
         "record": "9-7",
@@ -35196,33 +35532,33 @@
     },
     "삼성": {
       "KIA": {
-        "record": "8-8",
-        "win_rate": "0.500"
+        "record": "8-10",
+        "win_rate": "0.444"
       },
       "LG": {
-        "record": "7-9",
-        "win_rate": "0.438"
+        "record": "8-10",
+        "win_rate": "0.444"
       },
       "삼성": "-",
       "두산": {
-        "record": "10-6",
-        "win_rate": "0.625"
+        "record": "11-7",
+        "win_rate": "0.611"
       },
       "KT": {
         "record": "5-11",
         "win_rate": "0.313"
       },
       "SSG": {
-        "record": "11-8",
-        "win_rate": "0.579"
+        "record": "12-9",
+        "win_rate": "0.571"
       },
       "롯데": {
         "record": "7-8",
         "win_rate": "0.467"
       },
       "한화": {
-        "record": "10-11",
-        "win_rate": "0.476"
+        "record": "10-12",
+        "win_rate": "0.455"
       },
       "NC": {
         "record": "10-8",
@@ -35235,21 +35571,21 @@
     },
     "두산": {
       "KIA": {
-        "record": "6-9",
-        "win_rate": "0.400"
+        "record": "6-10",
+        "win_rate": "0.375"
       },
       "LG": {
         "record": "7-9",
         "win_rate": "0.438"
       },
       "삼성": {
-        "record": "6-10",
-        "win_rate": "0.375"
+        "record": "7-11",
+        "win_rate": "0.389"
       },
       "두산": "-",
       "KT": {
-        "record": "4-11",
-        "win_rate": "0.267"
+        "record": "4-12",
+        "win_rate": "0.250"
       },
       "SSG": {
         "record": "6-10",
@@ -35260,16 +35596,16 @@
         "win_rate": "0.533"
       },
       "한화": {
-        "record": "9-6",
-        "win_rate": "0.600"
+        "record": "11-6",
+        "win_rate": "0.647"
       },
       "NC": {
         "record": "5-9",
         "win_rate": "0.357"
       },
       "키움": {
-        "record": "10-6",
-        "win_rate": "0.625"
+        "record": "10-7",
+        "win_rate": "0.588"
       }
     },
     "KT": {
@@ -35278,16 +35614,16 @@
         "win_rate": "0.500"
       },
       "LG": {
-        "record": "5-11",
-        "win_rate": "0.313"
+        "record": "7-11",
+        "win_rate": "0.389"
       },
       "삼성": {
         "record": "11-5",
         "win_rate": "0.688"
       },
       "두산": {
-        "record": "11-4",
-        "win_rate": "0.733"
+        "record": "12-4",
+        "win_rate": "0.750"
       },
       "KT": "-",
       "SSG": {
@@ -35303,12 +35639,12 @@
         "win_rate": "0.400"
       },
       "NC": {
-        "record": "6-9",
-        "win_rate": "0.400"
+        "record": "8-9",
+        "win_rate": "0.471"
       },
       "키움": {
-        "record": "11-5",
-        "win_rate": "0.688"
+        "record": "12-6",
+        "win_rate": "0.667"
       }
     },
     "SSG": {
@@ -35317,12 +35653,12 @@
         "win_rate": "0.467"
       },
       "LG": {
-        "record": "6-10",
-        "win_rate": "0.375"
+        "record": "7-11",
+        "win_rate": "0.389"
       },
       "삼성": {
-        "record": "8-11",
-        "win_rate": "0.421"
+        "record": "9-12",
+        "win_rate": "0.429"
       },
       "두산": {
         "record": "10-6",
@@ -35338,26 +35674,26 @@
         "win_rate": "0.625"
       },
       "한화": {
-        "record": "8-8",
-        "win_rate": "0.500"
+        "record": "8-10",
+        "win_rate": "0.444"
       },
       "NC": {
         "record": "9-6",
         "win_rate": "0.600"
       },
       "키움": {
-        "record": "9-6",
-        "win_rate": "0.600"
+        "record": "10-7",
+        "win_rate": "0.588"
       }
     },
     "롯데": {
       "KIA": {
-        "record": "8-8",
-        "win_rate": "0.500"
+        "record": "9-8",
+        "win_rate": "0.529"
       },
       "LG": {
-        "record": "4-10",
-        "win_rate": "0.286"
+        "record": "5-11",
+        "win_rate": "0.313"
       },
       "삼성": {
         "record": "8-7",
@@ -35377,16 +35713,16 @@
       },
       "롯데": "-",
       "한화": {
-        "record": "6-10",
-        "win_rate": "0.375"
+        "record": "6-11",
+        "win_rate": "0.353"
       },
       "NC": {
         "record": "8-8",
         "win_rate": "0.500"
       },
       "키움": {
-        "record": "11-5",
-        "win_rate": "0.688"
+        "record": "11-7",
+        "win_rate": "0.611"
       }
     },
     "한화": {
@@ -35399,29 +35735,29 @@
         "win_rate": "0.400"
       },
       "삼성": {
-        "record": "11-10",
-        "win_rate": "0.524"
+        "record": "12-10",
+        "win_rate": "0.545"
       },
       "두산": {
-        "record": "6-9",
-        "win_rate": "0.400"
+        "record": "6-11",
+        "win_rate": "0.353"
       },
       "KT": {
         "record": "9-6",
         "win_rate": "0.600"
       },
       "SSG": {
-        "record": "8-8",
-        "win_rate": "0.500"
+        "record": "10-8",
+        "win_rate": "0.556"
       },
       "롯데": {
-        "record": "10-6",
-        "win_rate": "0.625"
+        "record": "11-6",
+        "win_rate": "0.647"
       },
       "한화": "-",
       "NC": {
-        "record": "9-6",
-        "win_rate": "0.600"
+        "record": "10-6",
+        "win_rate": "0.625"
       },
       "키움": {
         "record": "14-2",
@@ -35430,12 +35766,12 @@
     },
     "NC": {
       "KIA": {
-        "record": "9-7",
-        "win_rate": "0.563"
+        "record": "10-8",
+        "win_rate": "0.556"
       },
       "LG": {
-        "record": "8-8",
-        "win_rate": "0.500"
+        "record": "8-9",
+        "win_rate": "0.471"
       },
       "삼성": {
         "record": "8-10",
@@ -35446,8 +35782,8 @@
         "win_rate": "0.643"
       },
       "KT": {
-        "record": "9-6",
-        "win_rate": "0.600"
+        "record": "9-8",
+        "win_rate": "0.529"
       },
       "SSG": {
         "record": "6-9",
@@ -35458,13 +35794,13 @@
         "win_rate": "0.500"
       },
       "한화": {
-        "record": "6-9",
-        "win_rate": "0.400"
+        "record": "6-10",
+        "win_rate": "0.375"
       },
       "NC": "-",
       "키움": {
-        "record": "9-6",
-        "win_rate": "0.600"
+        "record": "10-7",
+        "win_rate": "0.588"
       }
     },
     "키움": {
@@ -35481,28 +35817,28 @@
         "win_rate": "0.250"
       },
       "두산": {
-        "record": "6-10",
-        "win_rate": "0.375"
+        "record": "7-10",
+        "win_rate": "0.412"
       },
       "KT": {
-        "record": "5-11",
-        "win_rate": "0.313"
+        "record": "6-12",
+        "win_rate": "0.333"
       },
       "SSG": {
-        "record": "6-9",
-        "win_rate": "0.400"
+        "record": "7-10",
+        "win_rate": "0.412"
       },
       "롯데": {
-        "record": "5-11",
-        "win_rate": "0.313"
+        "record": "7-11",
+        "win_rate": "0.389"
       },
       "한화": {
         "record": "2-14",
         "win_rate": "0.125"
       },
       "NC": {
-        "record": "6-9",
-        "win_rate": "0.400"
+        "record": "7-10",
+        "win_rate": "0.412"
       },
       "키움": "-"
     }
@@ -35518,7 +35854,7 @@
     {
       "team_name": "LG",
       "current_streak": "2W",
-      "max_win_streak": 7,
+      "max_win_streak": 8,
       "max_lose_streak": 5,
       "streak_status": "연승 중"
     },
@@ -35568,7 +35904,7 @@
       "team_name": "NC",
       "current_streak": "1L",
       "max_win_streak": 10,
-      "max_lose_streak": 5,
+      "max_lose_streak": 6,
       "streak_status": "연패 중"
     },
     {
@@ -35581,31 +35917,39 @@
   ],
   "runAnalysis": [
     {
-      "runs_scored": 668,
-      "runs_allowed": 734,
+      "runs_scored": 714,
+      "runs_allowed": 764,
       "run_differential": 0,
       "avg_runs_scored": "0.00",
       "avg_runs_allowed": "0.00",
       "avg_run_diff": "0.00"
     },
     {
-      "runs_scored": 823,
-      "runs_allowed": 603,
+      "runs_scored": 864,
+      "runs_allowed": 644,
       "run_differential": 0,
       "avg_runs_scored": "0.00",
       "avg_runs_allowed": "0.00",
       "avg_run_diff": "0.00"
     },
     {
-      "runs_scored": 825,
-      "runs_allowed": 694,
+      "runs_scored": 868,
+      "runs_allowed": 751,
       "run_differential": 0,
       "avg_runs_scored": "0.00",
       "avg_runs_allowed": "0.00",
       "avg_run_diff": "0.00"
     },
     {
-      "runs_scored": 647,
+      "runs_scored": 687,
+      "runs_allowed": 729,
+      "run_differential": 0,
+      "avg_runs_scored": "0.00",
+      "avg_runs_allowed": "0.00",
+      "avg_run_diff": "0.00"
+    },
+    {
+      "runs_scored": 694,
       "runs_allowed": 686,
       "run_differential": 0,
       "avg_runs_scored": "0.00",
@@ -35613,48 +35957,40 @@
       "avg_run_diff": "0.00"
     },
     {
-      "runs_scored": 648,
-      "runs_allowed": 657,
+      "runs_scored": 653,
+      "runs_allowed": 635,
       "run_differential": 0,
       "avg_runs_scored": "0.00",
       "avg_runs_allowed": "0.00",
       "avg_run_diff": "0.00"
     },
     {
-      "runs_scored": 620,
-      "runs_allowed": 594,
+      "runs_scored": 693,
+      "runs_allowed": 774,
       "run_differential": 0,
       "avg_runs_scored": "0.00",
       "avg_runs_allowed": "0.00",
       "avg_run_diff": "0.00"
     },
     {
-      "runs_scored": 676,
-      "runs_allowed": 749,
+      "runs_scored": 770,
+      "runs_allowed": 635,
       "run_differential": 0,
       "avg_runs_scored": "0.00",
       "avg_runs_allowed": "0.00",
       "avg_run_diff": "0.00"
     },
     {
-      "runs_scored": 740,
-      "runs_allowed": 617,
+      "runs_scored": 768,
+      "runs_allowed": 814,
       "run_differential": 0,
       "avg_runs_scored": "0.00",
       "avg_runs_allowed": "0.00",
       "avg_run_diff": "0.00"
     },
     {
-      "runs_scored": 736,
-      "runs_allowed": 770,
-      "run_differential": 0,
-      "avg_runs_scored": "0.00",
-      "avg_runs_allowed": "0.00",
-      "avg_run_diff": "0.00"
-    },
-    {
-      "runs_scored": 581,
-      "runs_allowed": 860,
+      "runs_scored": 621,
+      "runs_allowed": 900,
       "run_differential": 0,
       "avg_runs_scored": "0.00",
       "avg_runs_allowed": "0.00",
